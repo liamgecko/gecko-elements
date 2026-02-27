@@ -212,20 +212,22 @@ function Badge({
     children: content,
   }
 
-  if (isButton) {
-    return useRender({
-      defaultTagName: "button",
-      props: mergeProps<"button">(
-        { type: "button", ...baseProps },
-        props as React.ButtonHTMLAttributes<HTMLButtonElement>
-      ),
-      state: { slot: "badge", variant, size, bordered, rounded },
-    })
-  }
+  const tagName = (isButton ? "button" : "div") as "button" | "div"
+
+  const renderProps =
+    tagName === "button"
+      ? mergeProps<"button">(
+          { type: "button", ...baseProps },
+          props as React.ButtonHTMLAttributes<HTMLButtonElement>
+        )
+      : mergeProps<"div">(
+          baseProps,
+          props as React.HTMLAttributes<HTMLDivElement>
+        )
 
   return useRender({
-    defaultTagName: "div",
-    props: mergeProps<"div">(baseProps, props as React.HTMLAttributes<HTMLDivElement>),
+    defaultTagName: tagName,
+    props: renderProps as Record<string, unknown>,
     state: { slot: "badge", variant, size, bordered, rounded },
   })
 }
@@ -254,4 +256,4 @@ const NotificationCount = React.forwardRef<
 })
 NotificationCount.displayName = "NotificationCount"
 
-export { Badge, badgeVariants, NotificationCount }
+export { Badge, NotificationCount }
