@@ -11,6 +11,17 @@ const sampleItems = [
   { name: "Grace Hill", fallback: "GH" },
 ]
 
+const sizes = [
+  "3xs",
+  "2xs",
+  "xs",
+  "sm",
+  "md",
+  "lg",
+  "xl",
+  "2xl",
+] as const
+
 export function AvatarGroupPage() {
   return (
     <div className="flex gap-8">
@@ -46,6 +57,28 @@ export function AvatarGroupPage() {
               overflow  
               size="xl"
             />
+          </ComponentExample>
+        </PageSection>
+        <PageSection id="sizes" label="Sizes">
+          <h2 className="text-lg font-semibold">Sizes</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Avatar group supports all avatar sizes. Each example below shows
+            overflow with displayItems 3.
+          </p>
+          <ComponentExample className="mb-6">
+            <div className="flex flex-col gap-6">
+              {sizes.map((size) => (
+                <div key={size} className="flex items-center gap-4">
+                  <span className="w-8 text-xs text-muted-foreground">{size}</span>
+                  <AvatarGroup
+                    items={sampleItems}
+                    displayItems={3}
+                    overflow
+                    size={size}
+                  />
+                </div>
+              ))}
+            </div>
           </ComponentExample>
         </PageSection>
         <PageSection id="with-tooltips" label="With tooltips">

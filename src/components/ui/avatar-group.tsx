@@ -114,12 +114,14 @@ export function AvatarGroup({
     item: AvatarGroupItem
     index: number
   }) => {
+    const hasTooltip = Boolean(tooltips && (item.tooltip ?? item.name))
     const avatar = (
       <Avatar
         size={avatarSize}
         className={cn(
           "ring-2 ring-background relative",
-          "before:absolute before:inset-0 before:rounded-full before:bg-primary/20 before:opacity-0 before:transition-opacity hover:before:opacity-100 before:z-10",
+          hasTooltip &&
+            "before:absolute before:inset-0 before:rounded-full before:bg-primary/20 before:opacity-0 before:transition-opacity hover:before:opacity-100 before:z-0",
           index > 0 && sizeMapSpacing[size]
         )}
       >
@@ -132,7 +134,7 @@ export function AvatarGroup({
       </Avatar>
     )
 
-    if (tooltips && (item.tooltip ?? item.name)) {
+    if (hasTooltip) {
       return (
         <Tooltip>
           <TooltipTrigger>{avatar}</TooltipTrigger>
@@ -156,20 +158,22 @@ export function AvatarGroup({
       ))}
       {hasOverflow && (
         <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button
-              variant="secondary"
-              size="icon"
-              className={cn(
-                sizeMapButton[size],
-                "rounded-full z-10 ring-2 ring-background",
-                sizeMapSpacing[size]
-              )}
-              aria-label={`${overflowItems.length} more items`}
-            >
-              +{overflowItems.length}
-            </Button>
-          </DropdownMenuTrigger>
+          <DropdownMenuTrigger
+            render={
+              <Button
+                variant="secondary"
+                size="icon"
+                className={cn(
+                  sizeMapButton[size],
+                  "relative rounded-full z-10 ring-2 ring-background",
+                  sizeMapSpacing[size]
+                )}
+                aria-label={`${overflowItems.length} more items`}
+              >
+                +{overflowItems.length}
+              </Button>
+            }
+          />
           <DropdownMenuContent align="end" className="w-56">
             {overflowItems.map((item, index) => (
               <DropdownMenuItem key={index} className="gap-2">

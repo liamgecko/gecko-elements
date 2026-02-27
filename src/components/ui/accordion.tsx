@@ -37,7 +37,7 @@ const accordionTriggerVariants = cva(
       variant: {
         default: "rounded-md",
         layout:
-          "rounded-none border-0 px-4 font-semibold text-foreground text-base",
+          "rounded-none border-0 px-4 font-semibold text-foreground text-base", 
       },
     },
     defaultVariants: {
