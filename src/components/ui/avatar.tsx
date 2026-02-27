@@ -70,7 +70,7 @@ function Avatar({
       data-slot="avatar"
       data-size={dataSize}
       className={cn(
-        "rounded-full group/avatar relative flex shrink-0 select-none",
+        "rounded-full group/avatar relative flex shrink-0 select-none ring-2 ring-background",
         "data-[size=xs]:size-4 data-[size=sm]:size-5 data-[size=md]:size-6 data-[size=lg]:size-7 data-[size=xl]:size-8 data-[size=2xl]:size-9 data-[size=3xl]:size-12",
         className
       )}

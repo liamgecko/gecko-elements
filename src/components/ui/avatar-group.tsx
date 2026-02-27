@@ -119,7 +119,7 @@ export function AvatarGroup({
       <Avatar
         size={avatarSize}
         className={cn(
-          "ring-2 ring-background relative",
+          "relative",
           hasTooltip &&
             "before:absolute before:inset-0 before:rounded-full before:bg-primary/20 before:opacity-0 before:transition-opacity hover:before:opacity-100 before:z-0",
           index > 0 && sizeMapSpacing[size]

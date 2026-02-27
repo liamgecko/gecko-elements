@@ -1,4 +1,3 @@
-import { Bell } from "lucide-react"
 import { ComponentExample } from "@/components/layout/component-example"
 import {
   Alert,

@@ -14,12 +14,12 @@ const alertVariants = cva("grid gap-0.5 rounded-lg border px-4 py-3 text-start t
     variant: {
       default: "bg-card text-card-foreground border-border",
       destructive:
-        "border-red-600 bg-red-50 text-red-700 *:data-[slot=alert-description]:text-red-700 *:[svg]:text-red-700",
-      info: "border-blue-600 bg-blue-50 text-blue-700 *:data-[slot=alert-description]:text-blue-700 *:[svg]:text-blue-700",
+        "border-destructive bg-destructive-muted text-destructive *:data-[slot=alert-description]:text-destructive *:[svg]:text-destructive",
+      info: "border-info bg-info-muted text-info *:data-[slot=alert-description]:text-info *:[svg]:text-info",
       success:
-        "border-emerald-600 bg-emerald-50 text-emerald-700 *:data-[slot=alert-description]:text-emerald-700 *:[svg]:text-emerald-700",
+        "border-success bg-success-muted text-success *:data-[slot=alert-description]:text-success *:[svg]:text-success",
       warning:
-        "border-yellow-600 bg-yellow-50 text-yellow-700 *:data-[slot=alert-description]:text-yellow-700 *:[svg]:text-yellow-700",
+        "border-warning bg-warning-muted text-warning *:data-[slot=alert-description]:text-warning *:[svg]:text-warning",
     },
   },
   defaultVariants: {
