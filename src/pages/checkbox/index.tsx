@@ -126,9 +126,6 @@ export function CheckboxPage() {
             darker border and gray-100 background; hover state is applied.
           </p>
           <h3 className="mb-3 text-base font-semibold">Basic</h3>
-          <p className="mb-3 text-sm text-muted-foreground">
-            Checkbox as button with a label only.
-          </p>
           <ComponentExample className="mb-8">
             <div className="flex flex-wrap gap-2">
               <Checkbox asButton id="as-button-basic" label="Checkbox as button" />
@@ -142,13 +139,6 @@ export function CheckboxPage() {
           </ComponentExample>
 
           <h3 className="mb-3 text-base font-semibold">With description</h3>
-          <p className="mb-3 text-sm text-muted-foreground">
-            Add a description below the button using the
-            <code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              description
-            </code>
-            prop.
-          </p>
           <ComponentExample>
             <div className="max-w-sm">
               <Checkbox
