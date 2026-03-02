@@ -9,7 +9,6 @@ import { AvatarGroupPage } from "@/pages/avatar-group"
 import { BadgePage } from "@/pages/badge"
 import { BreadcrumbPage } from "@/pages/breadcrumb"
 import { ButtonPage } from "@/pages/button"
-import { ButtonGroupPage } from "@/pages/button-group"
 import { CalendarPage } from "@/pages/calendar"
 import { CardPage } from "@/pages/card"
 import { CheckboxPage } from "@/pages/checkbox"
@@ -63,10 +62,6 @@ export function App() {
         <Route path="/components/badge" element={<BadgePage />} />
         <Route path="/components/breadcrumb" element={<BreadcrumbPage />} />
         <Route path="/components/button" element={<ButtonPage />} />
-        <Route
-          path="/components/button-group"
-          element={<ButtonGroupPage />}
-        />
         <Route path="/components/calendar" element={<CalendarPage />} />
         <Route path="/components/card" element={<CardPage />} />
         <Route path="/components/checkbox" element={<CheckboxPage />} />
