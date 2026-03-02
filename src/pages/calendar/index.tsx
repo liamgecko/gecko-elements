@@ -33,8 +33,8 @@ export function CalendarPage() {
           </p>
         </PageSection>
 
-        <PageSection id="basic" label="Basic">
-          <h2 className="text-lg font-semibold">Basic</h2>
+        <PageSection id="basic" label="Basic example">
+          <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             A basic calendar with single-date selection. Use{" "}
             <code className="rounded bg-muted px-1.5 py-0.5 text-xs">
