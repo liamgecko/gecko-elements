@@ -15,8 +15,31 @@ import { ChevronDownIcon, XIcon, CheckIcon } from "lucide-react"
 
 const Combobox = ComboboxPrimitive.Root
 
-function ComboboxValue({ ...props }: ComboboxPrimitive.Value.Props) {
-  return <ComboboxPrimitive.Value data-slot="combobox-value" {...props} />
+const ComboboxChipsPlaceholderContext = React.createContext<{
+  selectedCount: number
+} | null>(null)
+
+function ComboboxValue({ children, ...props }: ComboboxPrimitive.Value.Props) {
+  return (
+    <ComboboxPrimitive.Value data-slot="combobox-value" {...props}>
+      {(value: unknown) => {
+        const count = Array.isArray(value)
+          ? value.length
+          : value != null
+            ? 1
+            : 0
+        return (
+          <ComboboxChipsPlaceholderContext.Provider
+            value={{ selectedCount: count }}
+          >
+            {typeof children === "function"
+              ? (children as (value: unknown) => React.ReactNode)(value)
+              : children}
+          </ComboboxChipsPlaceholderContext.Provider>
+        )
+      }}
+    </ComboboxPrimitive.Value>
+  )
 }
 
 function ComboboxTrigger({
@@ -253,15 +276,20 @@ function ComboboxChip({
 
 function ComboboxChipsInput({
   className,
+  placeholder,
   ...props
 }: ComboboxPrimitive.Input.Props) {
+  const ctx = React.useContext(ComboboxChipsPlaceholderContext)
+  const effectivePlaceholder =
+    (ctx?.selectedCount ?? 0) > 0 ? "" : placeholder
   return (
     <ComboboxPrimitive.Input
       data-slot="combobox-chip-input"
       className={cn(
-        "min-w-16 flex-1 outline-none",
+        "min-w-16 flex-1 text-sm outline-none placeholder:text-muted-foreground",
         className
       )}
+      placeholder={effectivePlaceholder}
       {...props}
     />
   )

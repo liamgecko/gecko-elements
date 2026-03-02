@@ -115,7 +115,6 @@ export function ComboboxPage() {
               multiple
               autoHighlight
               items={frameworks}
-              defaultValue={[frameworks[0]]}
             >
               <ComboboxChips ref={multipleAnchor}>
                 <ComboboxValue>
@@ -124,7 +123,7 @@ export function ComboboxPage() {
                       {values.map((value: string) => (
                         <ComboboxChip key={value}>{value}</ComboboxChip>
                       ))}
-                      <ComboboxChipsInput />
+                      <ComboboxChipsInput placeholder="Select a framework" />
                     </>
                   )}
                 </ComboboxValue>
