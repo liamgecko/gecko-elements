@@ -11,7 +11,7 @@ function Card({
     <div
       data-slot="card"
       data-size={size}
-      className={cn("ring-foreground/10 bg-card text-card-foreground gap-0 overflow-hidden rounded-sm text-sm shadow-xs ring-1 has-[>img:first-child]:pt-0 data-[size=sm]:gap-0 *:[img:first-child]:rounded-t-sm *:[img:last-child]:rounded-b-sm group/card flex flex-col", className)}
+      className={cn("ring-foreground/10 bg-card text-card-foreground gap-0 overflow-hidden rounded-sm text-sm ring-1 has-[>img:first-child]:pt-0 data-[size=sm]:gap-0 *:[img:first-child]:rounded-t-sm *:[img:last-child]:rounded-b-sm group/card flex flex-col", className)}
       {...props}
     />
   )
