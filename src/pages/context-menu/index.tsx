@@ -22,11 +22,8 @@ import {
   FolderIcon,
   InboxIcon,
   LifeBuoyIcon,
-  MailIcon,
-  MoreHorizontalIcon,
   PencilIcon,
   ShareIcon,
-  Trash2Icon,
   TrashIcon,
   UserIcon,
 } from "lucide-react"
