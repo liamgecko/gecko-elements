@@ -54,7 +54,7 @@ function ComboboxTrigger({
       {...props}
     >
       {children}
-      <ChevronDownIcon className="text-muted-foreground size-4 pointer-events-none" />
+      <ChevronDownIcon className="text-muted-foreground size-4.5 pointer-events-none" />
     </ComboboxPrimitive.Trigger>
   )
 }
@@ -83,17 +83,17 @@ function ComboboxInput({
         {...props}
       />
       <InputGroupAddon align="inline-end">
+        {showClear && <ComboboxClear disabled={disabled} />}
         {showTrigger && (
           <InputGroupButton
             size="icon-xs"
             variant="ghost"
             render={<ComboboxTrigger />}
             data-slot="input-group-button"
-            className="group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent"
+            className="data-pressed:bg-transparent"
             disabled={disabled}
           />
         )}
-        {showClear && <ComboboxClear disabled={disabled} />}
       </InputGroupAddon>
       {children}
     </InputGroup>
