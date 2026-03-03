@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { XIcon } from "lucide-react"
 
+type DialogSize = "xs" | "sm" | "md" | "lg" | "xl"
+
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />
 }
@@ -38,17 +40,29 @@ function DialogContent({
   className,
   children,
   showCloseButton = true,
+  size = "md",
   ...props
 }: DialogPrimitive.Popup.Props & {
   showCloseButton?: boolean
+  size?: DialogSize
 }) {
+  const sizeClass =
+    size === "xs" ? "sm:max-w-md"
+    : size === "sm" ? "sm:max-w-xl"
+    : size === "md" ? "sm:max-w-2xl"
+    : size === "lg" ? "sm:max-w-4xl"
+    : size === "xl" ? "sm:max-w-6xl"
+    : undefined
+
   return (
     <DialogPortal>
       <DialogOverlay />
       <DialogPrimitive.Popup
         data-slot="dialog-content"
+        data-size={size}
         className={cn(
-          "bg-background data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-xl p-6 text-sm ring-1 duration-100 sm:max-w-md fixed top-1/2 start-1/2 z-50 w-full -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 outline-none",
+          "bg-background data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] gap-6 rounded-xl p-6 text-sm ring-1 duration-100 fixed top-1/2 start-1/2 z-50 w-full -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 outline-none",
+          sizeClass,
           className
         )}
         {...props}
@@ -62,11 +76,11 @@ function DialogContent({
                 variant="ghost"
                 className="absolute top-4 end-4"
                 size="icon-sm"
+                type="button"
               />
             }
           >
-            <XIcon
-            />
+            <XIcon />
             <span className="sr-only">Close</span>
           </DialogPrimitive.Close>
         )}
@@ -79,20 +93,40 @@ function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-header"
-      className={cn("gap-2 flex flex-col", className)}
+      className={cn("flex flex-col gap-1.5 text-center sm:text-start ", className)}
       {...props}
     />
   )
 }
 
+function DialogBody({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="dialog-body"
+      className={cn(className)}
+      {...props}
+    />
+  )
+}
+
+type DialogFooterProps = React.ComponentProps<"div"> & {
+  showCloseButton?: boolean
+  closeButtonText?: string
+  closeButtonIcon?: React.ComponentType<React.ComponentProps<"svg">>
+  closeButtonProps?: React.ComponentProps<typeof Button>
+}
+
 function DialogFooter({
   className,
   showCloseButton = false,
+  closeButtonText = "Close",
+  closeButtonIcon,
+  closeButtonProps,
   children,
   ...props
-}: React.ComponentProps<"div"> & {
-  showCloseButton?: boolean
-}) {
+}: DialogFooterProps) {
+  const CloseIcon = closeButtonIcon
+
   return (
     <div
       data-slot="dialog-footer"
@@ -102,12 +136,21 @@ function DialogFooter({
       )}
       {...props}
     >
-      {children}
       {showCloseButton && (
-        <DialogPrimitive.Close render={<Button variant="outline" />}>
-          Close
-        </DialogPrimitive.Close>
+        <DialogPrimitive.Close
+          render={
+            <Button
+              variant="outline"
+              type="button"
+              {...closeButtonProps}
+            >
+              {CloseIcon && <CloseIcon data-icon="inline-start" />}
+              {closeButtonText}
+            </Button>
+          }
+        />
       )}
+      {children}
     </div>
   )
 }
@@ -116,7 +159,7 @@ function DialogTitle({ className, ...props }: DialogPrimitive.Title.Props) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("leading-none font-medium", className)}
+      className={cn("text-lg font-semibold", className)}
       {...props}
     />
   )
@@ -129,7 +172,7 @@ function DialogDescription({
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
-      className={cn("text-muted-foreground *:[a]:hover:text-foreground text-sm *:[a]:underline *:[a]:underline-offset-3", className)}
+      className={cn("text-muted-foreground *:[a]:hover:text-foreground text-sm text-balance md:text-pretty *:[a]:underline *:[a]:underline-offset-3", className)}
       {...props}
     />
   )
@@ -139,6 +182,7 @@ export {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogBody,
   DialogDescription,
   DialogFooter,
   DialogHeader,
