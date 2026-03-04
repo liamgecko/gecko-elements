@@ -1,15 +1,105 @@
+import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty"
+import { Button } from "@/components/ui/button"
+import { InboxIcon } from "lucide-react"
 
 export function EmptyPage() {
   return (
     <div className="flex gap-8">
-      <div className="flex-1 space-y-2">
+      <div className="flex-1 space-y-10 border-r border-border pr-8">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-semibold text-foreground">Empty</h1>
-        <p className="text-sm text-muted-foreground">
-          Placeholder for Empty component examples.
-        </p>
+          <h1 className="text-2xl font-bold text-foreground">Empty</h1>
+          <p className="text-sm text-muted-foreground">
+            Empty states show when there’s no data or content yet, with optional title, description, media, and actions.
+          </p>
+        </PageSection>
+
+        <PageSection id="basic-example" label="Basic example">
+          <h2 className="text-lg font-semibold">Basic example</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            A minimal empty state with a title and description. Use{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Empty</code>,{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyHeader</code>,{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyTitle</code>, and{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyDescription</code>.
+          </p>
+          <ComponentExample>
+            <Empty>
+              <EmptyHeader>
+                <EmptyTitle>No items yet</EmptyTitle>
+                <EmptyDescription>
+                  Get started by creating your first item. It will show up here once added.
+                </EmptyDescription>
+              </EmptyHeader>
+            </Empty>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="with-icon" label="With icon">
+          <h2 className="text-lg font-semibold">With icon</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Add{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyMedia</code>{" "}
+            with <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">variant=&quot;icon&quot;</code> to show
+            an icon above the title and description.
+          </p>
+          <ComponentExample>
+            <Empty>
+              <EmptyMedia variant="icon">
+                <InboxIcon />
+              </EmptyMedia>
+              <EmptyHeader>
+                <EmptyTitle>No messages</EmptyTitle>
+                <EmptyDescription>
+                  When you receive messages they will appear here.
+                </EmptyDescription>
+              </EmptyHeader>
+            </Empty>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="actions" label="Actions">
+          <h2 className="text-lg font-semibold">Actions</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Use{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyContent</code>{" "}
+            below the header to add buttons or other actions so users can resolve the empty state.
+          </p>
+
+          <h3 className="mb-3 text-base font-semibold">Single action</h3>
+          <ComponentExample className="mb-6">
+            <Empty>
+              <EmptyHeader>
+                <EmptyTitle>No projects yet</EmptyTitle>
+                <EmptyDescription>
+                  Create a project to get started and see it listed here.
+                </EmptyDescription>
+              </EmptyHeader>
+              <EmptyContent>
+                <Button>Create project</Button>
+              </EmptyContent>
+            </Empty>
+          </ComponentExample>
+
+          <h3 className="mb-3 text-base font-semibold">Multi-action</h3>
+          <ComponentExample>
+            <Empty>
+              <EmptyHeader>
+                <EmptyTitle>No results found</EmptyTitle>
+                <EmptyDescription>
+                  We couldn’t find anything matching your filters. Try adjusting them or start fresh.
+                </EmptyDescription>
+              </EmptyHeader>
+              <EmptyContent>
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  <Button variant="outline">Clear filters</Button>
+                  <Button>Reset and search</Button>
+                </div>
+              </EmptyContent>
+            </Empty>
+          </ComponentExample>
         </PageSection>
       </div>
       <PageSectionNav />
