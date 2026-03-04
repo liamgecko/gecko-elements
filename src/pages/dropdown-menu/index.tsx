@@ -1,15 +1,350 @@
+import * as React from "react"
+import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuEmpty,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSearch,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import {
+  CreditCardIcon,
+  PencilIcon,
+  SettingsIcon,
+  ShareIcon,
+  TrashIcon,
+  UserIcon,
+} from "lucide-react"
 
 export function DropdownMenuPage() {
+  const [showStatusBar, setShowStatusBar] = React.useState(true)
+  const [showActivityBar, setShowActivityBar] = React.useState(true)
+  const [showPanel, setShowPanel] = React.useState(true)
+  const [position, setPosition] = React.useState<"top" | "bottom" | "right">("bottom")
+
   return (
     <div className="flex gap-8">
-      <div className="flex-1 space-y-2">
+      <div className="flex-1 space-y-10 border-r border-border pr-8">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-semibold text-foreground">Dropdown Menu</h1>
-        <p className="text-sm text-muted-foreground">
-          Placeholder for Dropdown Menu component examples.
-        </p>
+          <h1 className="text-2xl font-bold text-foreground">Dropdown Menu</h1>
+          <p className="text-sm text-muted-foreground">
+            Shows a list of actions in a compact popover anchored to a trigger button.
+          </p>
+        </PageSection>
+
+        <PageSection id="basic-example" label="Basic example">
+          <h2 className="text-lg font-semibold">Basic example</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Wrap a trigger button with{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenu</code> and{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuTrigger</code> to open{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuContent</code>{" "}
+            containing{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuItem</code>{" "}
+            options.
+          </p>
+          <ComponentExample>
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuContent>
+                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem>Billing</DropdownMenuItem>
+                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>GitHub</DropdownMenuItem>
+                <DropdownMenuItem>Support</DropdownMenuItem>
+                <DropdownMenuItem>API</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="submenu" label="Submenu">
+          <h2 className="text-lg font-semibold">Submenu</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Use{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuSub</code>,{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuSubTrigger</code>{" "}
+            and{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuSubContent</code>{" "}
+            to nest secondary actions inside a parent item.
+          </p>
+          <ComponentExample>
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuContent>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>Team</DropdownMenuItem>
+                  <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
+                    <DropdownMenuPortal>
+                      <DropdownMenuSubContent>
+                        <DropdownMenuItem>Email</DropdownMenuItem>
+                        <DropdownMenuItem>Message</DropdownMenuItem>
+                        <DropdownMenuSub>
+                          <DropdownMenuSubTrigger>More options</DropdownMenuSubTrigger>
+                          <DropdownMenuPortal>
+                            <DropdownMenuSubContent>
+                              <DropdownMenuItem>Calendly</DropdownMenuItem>
+                              <DropdownMenuItem>Slack</DropdownMenuItem>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem>Webhook</DropdownMenuItem>
+                            </DropdownMenuSubContent>
+                          </DropdownMenuPortal>
+                        </DropdownMenuSub>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>Advanced...</DropdownMenuItem>
+                      </DropdownMenuSubContent>
+                    </DropdownMenuPortal>
+                  </DropdownMenuSub>
+                  <DropdownMenuItem>
+                    New Team
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="shortcuts" label="Shortcuts">
+          <h2 className="text-lg font-semibold">Shortcuts</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Add{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuShortcut</code>{" "}
+            to show keyboard hints alongside actions.
+          </p>
+          <ComponentExample>
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuContent>
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuItem>
+                    Profile
+                    <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Billing
+                    <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    Settings
+                    <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="icons" label="Icons">
+          <h2 className="text-lg font-semibold">Icons</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Combine icons and text inside{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuItem</code>{" "}
+            to make actions easier to scan.
+          </p>
+          <ComponentExample>
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <UserIcon />
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <CreditCardIcon />
+                  Billing
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <SettingsIcon />
+                  Settings
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="avatars" label="Avatars">
+          <h2 className="text-lg font-semibold">Avatars</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Use an avatar inside{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuItem</code>{" "}
+            for user switchers or account lists. Pair with <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;md&quot;</code> for a compact row.
+          </p>
+          <ComponentExample>
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuItem>
+                  <Avatar size="md">
+                    <AvatarImage src="https://picsum.photos/seed/avatar/200" alt="" />
+                    <AvatarFallback>JD</AvatarFallback>
+                  </Avatar>
+                  John Doe
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Avatar size="md">
+                    <AvatarImage src="https://picsum.photos/seed/avatar2/200" alt="" />
+                    <AvatarFallback>AB</AvatarFallback>
+                  </Avatar>
+                  Alice Brown
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Avatar size="md">
+                    <AvatarFallback>SK</AvatarFallback>
+                  </Avatar>
+                  Sam King
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="checkbox" label="Checkbox">
+          <h2 className="text-lg font-semibold">Checkbox</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Use{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              DropdownMenuCheckboxItem
+            </code>{" "}
+            for toggles that control independent state.
+          </p>
+          <ComponentExample>
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuContent className="w-40">
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel>Appearance</DropdownMenuLabel>
+                  <DropdownMenuCheckboxItem
+                    checked={showStatusBar ?? false}
+                    onCheckedChange={setShowStatusBar}
+                  >
+                    Status Bar
+                  </DropdownMenuCheckboxItem>
+                  <DropdownMenuCheckboxItem
+                    checked={showActivityBar}
+                    onCheckedChange={setShowActivityBar}
+                    disabled
+                  >
+                    Activity Bar
+                  </DropdownMenuCheckboxItem>
+                  <DropdownMenuCheckboxItem
+                    checked={showPanel}
+                    onCheckedChange={setShowPanel}
+                  >
+                    Panel
+                  </DropdownMenuCheckboxItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="radio-group" label="Radio group">
+          <h2 className="text-lg font-semibold">Radio group</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Use{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              DropdownMenuRadioGroup
+            </code>{" "}
+            when the user must choose a single option from a set.
+          </p>
+          <ComponentExample>
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuContent className="w-32">
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
+                  <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+                    <DropdownMenuRadioItem value="top">Top</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="bottom">Bottom</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="right">Right</DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="destructive" label="Destructive">
+          <h2 className="text-lg font-semibold">Destructive</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Mark dangerous actions with{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              variant=&quot;destructive&quot;
+            </code>{" "}
+            so they stand out from other items.
+          </p>
+          <ComponentExample>
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="outline">Actions</Button>} />
+              <DropdownMenuContent>
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>
+                    <PencilIcon />
+                    Edit
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <ShareIcon />
+                    Share
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem variant="destructive">
+                    <TrashIcon />
+                    Delete
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="search" label="Search">
+          <h2 className="text-lg font-semibold">Search</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Add{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              DropdownMenuSearch
+            </code>{" "}
+            as the first child of{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              DropdownMenuContent
+            </code>{" "}
+            to filter items by their label.
+          </p>
+          <ComponentExample>
+            <DropdownMenu>
+              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuContent className="w-64 p-0">
+                <DropdownMenuSearch placeholder="Search..." />
+                <div className="p-1">
+                  <DropdownMenuItem>Dropdown item one</DropdownMenuItem>
+                  <DropdownMenuItem>Dropdown item two</DropdownMenuItem>
+                  <DropdownMenuItem>Another option</DropdownMenuItem>
+                  <DropdownMenuItem>Final item</DropdownMenuItem>
+                  <DropdownMenuEmpty>No results found.</DropdownMenuEmpty>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </ComponentExample>
         </PageSection>
       </div>
       <PageSectionNav />
