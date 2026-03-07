@@ -225,7 +225,6 @@ export function DatePickerPage() {
                           <InputGroupButton
                             id="date-picker-input"
                             variant="ghost"
-                            size="icon-xs"
                             aria-label="Select date"
                           >
                             <CalendarIcon />
@@ -343,7 +342,6 @@ export function DatePickerPage() {
                         <InputGroupButton
                           id="date-picker-natural"
                           variant="ghost"
-                          size="icon-xs"
                           aria-label="Select date"
                         >
                           <CalendarIcon />
@@ -371,7 +369,7 @@ export function DatePickerPage() {
                   </Popover>
                 </InputGroupAddon>
               </InputGroup>
-              <div className="px-1 text-sm text-muted-foreground">
+              <div className="text-xs text-muted-foreground">
                 Your post will be published on{" "}
                 <span className="font-medium">
                   {formatLongDate(naturalDate)}

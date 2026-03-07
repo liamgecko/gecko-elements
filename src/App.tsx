@@ -22,7 +22,6 @@ import { DropdownMenuPage } from "@/pages/dropdown-menu"
 import { EmptyPage } from "@/pages/empty"
 import { FieldPage } from "@/pages/field"
 import { InputPage } from "@/pages/input"
-import { InputGroupPage } from "@/pages/input-group"
 import { InputOtpPage } from "@/pages/input-otp"
 import { KbdPage } from "@/pages/kbd"
 import { LabelPage } from "@/pages/label"
@@ -84,10 +83,6 @@ export function App() {
         <Route path="/components/empty" element={<EmptyPage />} />
         <Route path="/components/field" element={<FieldPage />} />
         <Route path="/components/input" element={<InputPage />} />
-        <Route
-          path="/components/input-group"
-          element={<InputGroupPage />}
-        />
         <Route path="/components/input-otp" element={<InputOtpPage />} />
         <Route path="/components/kbd" element={<KbdPage />} />
         <Route path="/components/label" element={<LabelPage />} />

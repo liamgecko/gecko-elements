@@ -1,9 +1,16 @@
+import { Copy, Search } from "lucide-react"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Button } from "@/components/ui/button"
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "@/components/ui/input-group"
 
 export function InputPage() {
   return (
@@ -85,6 +92,127 @@ export function InputPage() {
           <h3 className="mb-3 text-base font-semibold">Large</h3>
           <ComponentExample>
             <Input id="input-size-lg" size="lg" type="text" placeholder="Large" />
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="icons" label="Icons">
+          <h2 className="text-lg font-semibold">Icons</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputGroup</code> with{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputGroupAddon</code> to show icons. Set the addon{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">align</code> prop to{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">inline-start</code> or{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">inline-end</code> to position the icon.
+          </p>
+
+          <h3 className="mb-3 text-base font-semibold">Left aligned</h3>
+          <ComponentExample className="mb-6 flex flex-col gap-4">
+            <InputGroup size="sm">
+              <InputGroupAddon align="inline-start">
+                <Search />
+              </InputGroupAddon>
+              <InputGroupInput placeholder="Search..." />
+            </InputGroup>
+            <InputGroup size="md">
+              <InputGroupAddon align="inline-start">
+                <Search />
+              </InputGroupAddon>
+              <InputGroupInput placeholder="Search..." />
+            </InputGroup>
+            <InputGroup size="lg">
+              <InputGroupAddon align="inline-start">
+                <Search />
+              </InputGroupAddon>
+              <InputGroupInput placeholder="Search..." />
+            </InputGroup>
+          </ComponentExample>
+
+          <h3 className="mb-3 text-base font-semibold">Right aligned</h3>
+          <ComponentExample className="mb-6 flex flex-col gap-4">
+            <InputGroup size="sm">
+              <InputGroupInput placeholder="Search..." />
+              <InputGroupAddon align="inline-end">
+                <Search />
+              </InputGroupAddon>
+            </InputGroup>
+            <InputGroup size="md">
+              <InputGroupInput placeholder="Search..." />
+              <InputGroupAddon align="inline-end">
+                <Search />
+              </InputGroupAddon>
+            </InputGroup>
+            <InputGroup size="lg">
+              <InputGroupInput placeholder="Search..." />
+              <InputGroupAddon align="inline-end">
+                <Search />
+              </InputGroupAddon>
+            </InputGroup>
+          </ComponentExample>
+
+          <h3 className="mb-3 text-base font-semibold">Left and right aligned</h3>
+          <ComponentExample className="flex flex-col gap-4">
+            <InputGroup size="sm">
+              <InputGroupAddon align="inline-start">
+                <Search />
+              </InputGroupAddon>
+              <InputGroupInput placeholder="Search..." />
+              <InputGroupAddon align="inline-end">
+                <Search />
+              </InputGroupAddon>
+            </InputGroup>
+            <InputGroup size="md">
+              <InputGroupAddon align="inline-start">
+                <Search />
+              </InputGroupAddon>
+              <InputGroupInput placeholder="Search..." />
+              <InputGroupAddon align="inline-end">
+                <Search />
+              </InputGroupAddon>
+            </InputGroup>
+            <InputGroup size="lg">
+              <InputGroupAddon align="inline-start">
+                <Search />
+              </InputGroupAddon>
+              <InputGroupInput placeholder="Search..." />
+              <InputGroupAddon align="inline-end">
+                <Search />
+              </InputGroupAddon>
+            </InputGroup>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="button" label="Button">
+          <h2 className="text-lg font-semibold">Button</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputGroupButton</code> inside{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputGroupAddon</code> for a clickable button (e.g. search trigger). Buttons are always at the end. Button size follows the group <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size</code> (sm, md, lg).
+          </p>
+
+          <ComponentExample className="flex flex-col gap-4">
+            <InputGroup size="sm">
+              <InputGroupInput placeholder="Copy to clipboard" />
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton>
+                  <Copy />
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
+            <InputGroup size="md">
+              <InputGroupInput placeholder="Copy to clipboard" />
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton>
+                  <Copy />
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
+            <InputGroup size="lg">
+              <InputGroupInput placeholder="Copy to clipboard" />
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton>
+                  <Copy />
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
           </ComponentExample>
         </PageSection>
 

@@ -31,7 +31,6 @@ const navItems = [
   { to: "/components/empty", label: "Empty" },
   { to: "/components/field", label: "Field" },
   { to: "/components/input", label: "Input" },
-  { to: "/components/input-group", label: "Input group" },
   { to: "/components/input-otp", label: "Input OTP" },
   { to: "/components/kbd", label: "Kbd" },
   { to: "/components/label", label: "Label" },

@@ -61,7 +61,7 @@ function ComboboxTrigger({
 
 function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
   return (
-    <ComboboxPrimitive.Clear data-slot="combobox-clear" className={cn(className)} {...props} render={<InputGroupButton variant="ghost" size="icon-xs"><XIcon className="pointer-events-none" /></InputGroupButton>} />
+    <ComboboxPrimitive.Clear data-slot="combobox-clear" className={cn(className)} {...props} render={<InputGroupButton variant="ghost"><XIcon className="pointer-events-none" /></InputGroupButton>} />
   )
 }
 
@@ -86,7 +86,6 @@ function ComboboxInput({
         {showClear && <ComboboxClear disabled={disabled} />}
         {showTrigger && (
           <InputGroupButton
-            size="icon-xs"
             variant="ghost"
             render={<ComboboxTrigger />}
             data-slot="input-group-button"
@@ -238,7 +237,6 @@ const ComboboxChips = React.forwardRef<
       </ComboboxPrimitive.Chips>
       <InputGroupAddon align="inline-end" className="shrink-0 self-center py-1">
         <InputGroupButton
-          size="icon-xs"
           variant="ghost"
           render={<ComboboxTrigger />}
           data-slot="combobox-chips-trigger"

@@ -113,11 +113,6 @@ const components = [
     path: "/components/input",
   },
   {
-    name: "Input Group",
-    description: "Group inputs and adornments as a single control.",
-    path: "/components/input-group",
-  },
-  {
     name: "Input OTP",
     description: "Multi‑field one‑time‑password entry.",
     path: "/components/input-otp",
