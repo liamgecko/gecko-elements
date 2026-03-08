@@ -38,18 +38,19 @@ function PaginationItem({ ...props }: React.ComponentProps<"li">) {
 
 type PaginationLinkProps = {
   isActive?: boolean
-} & Pick<React.ComponentProps<typeof Button>, "size"> &
+} & Pick<React.ComponentProps<typeof Button>, "size" | "variant"> &
   React.ComponentProps<"a">
 
 function PaginationLink({
   className,
   isActive,
   size = "icon",
+  variant,
   ...props
 }: PaginationLinkProps) {
   return (
     <Button
-      variant={isActive ? "outline" : "ghost"}
+      variant={isActive ? "outline" : (variant ?? "ghost")}
       size={size}
       className={cn(className)}
       nativeButton={false}
@@ -68,8 +69,12 @@ function PaginationLink({
 function PaginationPrevious({
   className,
   text = "Previous",
+  iconOnly = false,
   ...props
-}: React.ComponentProps<typeof PaginationLink> & { text?: string }) {
+}: React.ComponentProps<typeof PaginationLink> & {
+  text?: string
+  iconOnly?: boolean
+}) {
   return (
     <PaginationLink
       aria-label="Go to previous page"
@@ -78,9 +83,9 @@ function PaginationPrevious({
       {...props}
     >
       <ChevronLeftIcon data-icon="inline-start" className="rtl:rotate-180" />
-      <span className="hidden sm:block">
-        {text}
-      </span>
+      {!iconOnly ? (
+        <span className="hidden sm:block">{text}</span>
+      ) : null}
     </PaginationLink>
   )
 }
@@ -88,8 +93,12 @@ function PaginationPrevious({
 function PaginationNext({
   className,
   text = "Next",
+  iconOnly = false,
   ...props
-}: React.ComponentProps<typeof PaginationLink> & { text?: string }) {
+}: React.ComponentProps<typeof PaginationLink> & {
+  text?: string
+  iconOnly?: boolean
+}) {
   return (
     <PaginationLink
       aria-label="Go to next page"
@@ -97,7 +106,9 @@ function PaginationNext({
       className={cn("pe-2!", className)}
       {...props}
     >
-      <span className="hidden sm:block">{text}</span>
+      {!iconOnly ? (
+        <span className="hidden sm:block">{text}</span>
+      ) : null}
       <ChevronRightIcon data-icon="inline-end" className="rtl:rotate-180" />
     </PaginationLink>
   )
