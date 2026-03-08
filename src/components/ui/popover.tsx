@@ -59,7 +59,7 @@ function PopoverTitle({ className, ...props }: PopoverPrimitive.Title.Props) {
   return (
     <PopoverPrimitive.Title
       data-slot="popover-title"
-      className={cn("font-medium", className)}
+      className={cn("font-semibold text-base", className)}
       {...props}
     />
   )
@@ -78,10 +78,24 @@ function PopoverDescription({
   )
 }
 
+function PopoverFooter({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="popover-footer"
+      className={cn(
+        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
 export {
   Popover,
   PopoverContent,
   PopoverDescription,
+  PopoverFooter,
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
