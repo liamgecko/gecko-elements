@@ -15,6 +15,7 @@ import { CheckboxPage } from "@/pages/checkbox"
 import { ComboboxPage } from "@/pages/combobox"
 import { CommandPage } from "@/pages/command"
 import { ContextMenuPage } from "@/pages/context-menu"
+import { DateInputPage } from "@/pages/date-input"
 import { DatePickerPage } from "@/pages/date-picker"
 import { DialogPage } from "@/pages/dialog"
 import { DirectionPage } from "@/pages/direction"
@@ -70,6 +71,7 @@ export function App() {
           path="/components/context-menu"
           element={<ContextMenuPage />}
         />
+        <Route path="/components/date-input" element={<DateInputPage />} />
         <Route
           path="/components/date-picker"
           element={<DatePickerPage />}

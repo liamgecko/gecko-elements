@@ -24,6 +24,7 @@ const navItems = [
   { to: "/components/combobox", label: "Combobox" },
   { to: "/components/command", label: "Command" },
   { to: "/components/context-menu", label: "Context menu" },
+  { to: "/components/date-input", label: "Date input" },
   { to: "/components/date-picker", label: "Date picker" },
   { to: "/components/dialog", label: "Dialog" },
   // { to: "/components/direction", label: "Direction" },

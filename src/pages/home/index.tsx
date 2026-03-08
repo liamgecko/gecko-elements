@@ -78,6 +78,11 @@ const components = [
     path: "/components/context-menu",
   },
   {
+    name: "Date Input",
+    description: "Three segment date entry (DD MM YY or MM DD).",
+    path: "/components/date-input",
+  },
+  {
     name: "Date Picker",
     description: "Pick a single date or a date range.",
     path: "/components/date-picker",
