@@ -44,7 +44,6 @@ const navItems = [
   { to: "/components/select", label: "Select" },
   { to: "/components/separator", label: "Separator" },
   { to: "/components/sheet", label: "Sheet" },
-  { to: "/components/skeleton", label: "Skeleton" },
   { to: "/components/sonner", label: "Sonner" },
   { to: "/components/spinner", label: "Spinner" },
   { to: "/components/switch", label: "Switch" },

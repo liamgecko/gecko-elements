@@ -35,7 +35,6 @@ import { ScrollAreaPage } from "@/pages/scroll-area"
 import { SelectPage } from "@/pages/select"
 import { SeparatorPage } from "@/pages/separator"
 import { SheetPage } from "@/pages/sheet"
-import { SkeletonPage } from "@/pages/skeleton"
 import { SonnerPage } from "@/pages/sonner"
 import { SpinnerPage } from "@/pages/spinner"
 import { SwitchPage } from "@/pages/switch"
@@ -106,7 +105,6 @@ export function App() {
         <Route path="/components/select" element={<SelectPage />} />
         <Route path="/components/separator" element={<SeparatorPage />} />
         <Route path="/components/sheet" element={<SheetPage />} />
-        <Route path="/components/skeleton" element={<SkeletonPage />} />
         <Route path="/components/sonner" element={<SonnerPage />} />
         <Route path="/components/spinner" element={<SpinnerPage />} />
         <Route path="/components/switch" element={<SwitchPage />} />
