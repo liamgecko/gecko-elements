@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Dialog as SheetPrimitive } from "@base-ui/react/dialog"
+import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -27,29 +28,64 @@ function SheetOverlay({ className, ...props }: SheetPrimitive.Backdrop.Props) {
   return (
     <SheetPrimitive.Backdrop
       data-slot="sheet-overlay"
-      className={cn("data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-backdrop-filter:backdrop-blur-xs fixed inset-0 z-50", className)}
+      className={cn("data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-primary/50 duration-100 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-backdrop-filter:backdrop-blur-xs fixed inset-0 z-50", className)}
       {...props}
     />
   )
 }
 
+const sheetVariants = cva(
+  "fixed z-50 flex flex-col gap-4 bg-background bg-clip-padding text-sm shadow-lg transition duration-200 ease-in-out data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 w-full pt-4",
+  {
+    variants: {
+      side: {
+        top: "data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:h-auto data-[side=top]:border-b data-[side=top]:data-closed:slide-out-to-top-10 data-[side=top]:data-open:slide-in-from-top-10",
+        bottom:
+          "data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:h-auto data-[side=bottom]:border-t data-[side=bottom]:data-closed:slide-out-to-bottom-10 data-[side=bottom]:data-open:slide-in-from-bottom-10",
+        left:
+          "data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-full data-[side=left]:w-3/4 data-[side=left]:border-e data-[side=left]:data-closed:slide-out-to-left-10 data-[side=left]:data-open:slide-in-from-left-10 data-[side=left]:sm:max-w-sm",
+        right:
+          "data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-full data-[side=right]:w-3/4 data-[side=right]:border-s data-[side=right]:data-closed:slide-out-to-right-10 data-[side=right]:data-open:slide-in-from-right-10 data-[side=right]:sm:max-w-sm",
+      },
+      size: {
+        sm: "data-[side=left]:data-[size=sm]:sm:max-w-sm data-[side=right]:data-[size=sm]:sm:max-w-sm",
+        md: "data-[side=left]:data-[size=md]:md:max-w-md data-[side=right]:data-[size=md]:md:max-w-md",
+        lg: "data-[side=left]:data-[size=lg]:lg:max-w-lg data-[side=right]:data-[size=lg]:lg:max-w-lg",
+        xl: "data-[side=left]:data-[size=xl]:xl:max-w-xl data-[side=right]:data-[size=xl]:xl:max-w-xl",
+        full:
+          "data-[side=left]:data-[size=full]:sm:max-w-[100vw] data-[side=right]:data-[size=full]:sm:max-w-[100vw]",
+      },
+    },
+    defaultVariants: {
+      side: "right",
+      size: "md",
+    },
+  }
+)
+
+type SheetContentProps = SheetPrimitive.Popup.Props &
+  VariantProps<typeof sheetVariants> & {
+    showCloseButton?: boolean
+    hideOverlay?: boolean
+  }
+
 function SheetContent({
   className,
   children,
   side = "right",
+  size = "md",
   showCloseButton = true,
+  hideOverlay = false,
   ...props
-}: SheetPrimitive.Popup.Props & {
-  side?: "top" | "right" | "bottom" | "left"
-  showCloseButton?: boolean
-}) {
+}: SheetContentProps) {
   return (
     <SheetPortal>
-      <SheetOverlay />
+      {!hideOverlay && <SheetOverlay />}
       <SheetPrimitive.Popup
         data-slot="sheet-content"
         data-side={side}
-        className={cn("bg-background data-open:animate-in data-closed:animate-out data-[side=right]:data-closed:slide-out-to-right-10 data-[side=right]:data-open:slide-in-from-right-10 data-[side=left]:data-closed:slide-out-to-left-10 data-[side=left]:data-open:slide-in-from-left-10 data-[side=top]:data-closed:slide-out-to-top-10 data-[side=top]:data-open:slide-in-from-top-10 data-closed:fade-out-0 data-open:fade-in-0 data-[side=bottom]:data-closed:slide-out-to-bottom-10 data-[side=bottom]:data-open:slide-in-from-bottom-10 fixed z-50 flex flex-col gap-4 bg-clip-padding text-sm shadow-lg transition duration-200 ease-in-out data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:h-auto data-[side=bottom]:border-t data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-full data-[side=left]:w-3/4 data-[side=left]:border-e data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-full data-[side=right]:w-3/4 data-[side=right]:border-s data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:h-auto data-[side=top]:border-b data-[side=left]:sm:max-w-sm data-[side=right]:sm:max-w-sm", className)}
+        data-size={size}
+        className={cn(sheetVariants({ side, size }), className)}
         {...props}
       >
         {children}
@@ -59,7 +95,7 @@ function SheetContent({
             render={
               <Button
                 variant="ghost"
-                className="absolute top-4 end-4"
+                className="absolute top-4 inset-e-4"
                 size="icon-sm"
               />
             }
@@ -78,7 +114,17 @@ function SheetHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="sheet-header"
-      className={cn("gap-1.5 p-4 flex flex-col", className)}
+      className={cn("gap-1 px-4 flex flex-col", className)}
+      {...props}
+    />
+  )
+}
+
+function SheetBody({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="sheet-body"
+      className={cn("px-4", className)}
       {...props}
     />
   )
@@ -98,7 +144,7 @@ function SheetTitle({ className, ...props }: SheetPrimitive.Title.Props) {
   return (
     <SheetPrimitive.Title
       data-slot="sheet-title"
-      className={cn("text-foreground font-medium", className)}
+      className={cn("text-foreground font-semibold text-lg", className)}
       {...props}
     />
   )
@@ -123,6 +169,7 @@ export {
   SheetClose,
   SheetContent,
   SheetHeader,
+  SheetBody,
   SheetFooter,
   SheetTitle,
   SheetDescription,
