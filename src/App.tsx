@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 import { AppShell } from "@/components/layout/app-shell"
+import { Toaster } from "@/components/ui/sonner"
 import { HomePage } from "@/pages/home"
 import { AccordionPage } from "@/pages/accordion"
 import { AlertPage } from "@/pages/alert"
@@ -48,14 +49,12 @@ import { TooltipPage } from "@/pages/tooltip"
 export function App() {
   return (
     <AppShell>
+      <Toaster />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/components/accordion" element={<AccordionPage />} />
         <Route path="/components/alert" element={<AlertPage />} />
-        <Route
-          path="/components/alert-dialog"
-          element={<AlertDialogPage />}
-        />
+        <Route path="/components/alert-dialog" element={<AlertDialogPage />} />
         <Route path="/components/avatar" element={<AvatarPage />} />
         <Route path="/components/avatar-group" element={<AvatarGroupPage />} />
         <Route path="/components/badge" element={<BadgePage />} />
@@ -66,42 +65,24 @@ export function App() {
         <Route path="/components/checkbox" element={<CheckboxPage />} />
         <Route path="/components/combobox" element={<ComboboxPage />} />
         <Route path="/components/command" element={<CommandPage />} />
-        <Route
-          path="/components/context-menu"
-          element={<ContextMenuPage />}
-        />
+        <Route path="/components/context-menu" element={<ContextMenuPage />} />
         <Route path="/components/date-input" element={<DateInputPage />} />
-        <Route
-          path="/components/date-picker"
-          element={<DatePickerPage />}
-        />
+        <Route path="/components/date-picker" element={<DatePickerPage />} />
         <Route path="/components/dialog" element={<DialogPage />} />
         <Route path="/components/direction" element={<DirectionPage />} />
-        <Route
-          path="/components/dropdown-menu"
-          element={<DropdownMenuPage />}
-        />
+        <Route path="/components/dropdown-menu" element={<DropdownMenuPage />} />
         <Route path="/components/empty" element={<EmptyPage />} />
         <Route path="/components/field" element={<FieldPage />} />
         <Route path="/components/input" element={<InputPage />} />
         <Route path="/components/input-otp" element={<InputOtpPage />} />
         <Route path="/components/kbd" element={<KbdPage />} />
         <Route path="/components/label" element={<LabelPage />} />
-        <Route
-          path="/components/native-select"
-          element={<NativeSelectPage />}
-        />
+        <Route path="/components/native-select" element={<NativeSelectPage />} />
         <Route path="/components/pagination" element={<PaginationPage />} />
         <Route path="/components/popover" element={<PopoverPage />} />
         <Route path="/components/progress" element={<ProgressPage />} />
-        <Route
-          path="/components/radio-group"
-          element={<RadioGroupPage />}
-        />
-        <Route
-          path="/components/scroll-area"
-          element={<ScrollAreaPage />}
-        />
+        <Route path="/components/radio-group" element={<RadioGroupPage />} />
+        <Route path="/components/scroll-area" element={<ScrollAreaPage />} />
         <Route path="/components/select" element={<SelectPage />} />
         <Route path="/components/separator" element={<SeparatorPage />} />
         <Route path="/components/sheet" element={<SheetPage />} />
@@ -112,10 +93,7 @@ export function App() {
         <Route path="/components/tabs" element={<TabsPage />} />
         <Route path="/components/textarea" element={<TextareaPage />} />
         <Route path="/components/toggle" element={<TogglePage />} />
-        <Route
-          path="/components/toggle-group"
-          element={<ToggleGroupPage />}
-        />
+        <Route path="/components/toggle-group" element={<ToggleGroupPage />} />
         <Route path="/components/tooltip" element={<TooltipPage />} />
       </Routes>
     </AppShell>
