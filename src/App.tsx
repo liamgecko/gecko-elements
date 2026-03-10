@@ -42,8 +42,6 @@ import { SwitchPage } from "@/pages/switch"
 import { TablePage } from "@/pages/table"
 import { TabsPage } from "@/pages/tabs"
 import { TextareaPage } from "@/pages/textarea"
-import { TogglePage } from "@/pages/toggle"
-import { ToggleGroupPage } from "@/pages/toggle-group"
 import { TooltipPage } from "@/pages/tooltip"
 
 export function App() {
@@ -92,8 +90,6 @@ export function App() {
         <Route path="/components/table" element={<TablePage />} />
         <Route path="/components/tabs" element={<TabsPage />} />
         <Route path="/components/textarea" element={<TextareaPage />} />
-        <Route path="/components/toggle" element={<TogglePage />} />
-        <Route path="/components/toggle-group" element={<ToggleGroupPage />} />
         <Route path="/components/tooltip" element={<TooltipPage />} />
       </Routes>
     </AppShell>

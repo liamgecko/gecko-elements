@@ -213,16 +213,6 @@ const components = [
     path: "/components/textarea",
   },
   {
-    name: "Toggle",
-    description: "Single on/off toggle button.",
-    path: "/components/toggle",
-  },
-  {
-    name: "Toggle Group",
-    description: "Grouped toggles for segmented controls.",
-    path: "/components/toggle-group",
-  },
-  {
     name: "Tooltip",
     description: "Small labels that appear on hover or focus.",
     path: "/components/tooltip",

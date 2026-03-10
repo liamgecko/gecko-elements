@@ -50,8 +50,6 @@ const navItems = [
   { to: "/components/table", label: "Table" },
   { to: "/components/tabs", label: "Tabs" },
   { to: "/components/textarea", label: "Textarea" },
-  { to: "/components/toggle", label: "Toggle" },
-  { to: "/components/toggle-group", label: "Toggle group" },
   { to: "/components/tooltip", label: "Tooltip" },
 ] as const
 
