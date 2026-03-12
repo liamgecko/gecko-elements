@@ -105,7 +105,7 @@ export function SelectPage() {
             validation errors.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Disabled</h3>
+          <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
             <Select defaultValue="apple" disabled>
               <SelectTrigger className="w-full max-w-64" disabled>
@@ -123,7 +123,7 @@ export function SelectPage() {
             </Select>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Invalid</h3>
+          <h3 id="states-invalid" className="mb-3 text-base font-semibold">Invalid</h3>
           <ComponentExample>
             <Select>
               <SelectTrigger
@@ -155,7 +155,7 @@ export function SelectPage() {
             prop on <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">SelectTrigger</code>.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Small</h3>
+          <h3 id="sizes-small" className="mb-3 text-base font-semibold">Small</h3>
           <ComponentExample className="mb-6">
             <Select defaultValue="apple">
               <SelectTrigger size="sm" className="w-full max-w-64">
@@ -173,7 +173,7 @@ export function SelectPage() {
             </Select>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Default</h3>
+          <h3 id="sizes-default" className="mb-3 text-base font-semibold">Default</h3>
           <ComponentExample className="mb-6">
             <Select defaultValue="apple">
               <SelectTrigger className="w-full max-w-64">
@@ -191,7 +191,7 @@ export function SelectPage() {
             </Select>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Large</h3>
+          <h3 id="sizes-large" className="mb-3 text-base font-semibold">Large</h3>
           <ComponentExample>
             <Select defaultValue="apple">
               <SelectTrigger size="lg" className="w-full max-w-64">

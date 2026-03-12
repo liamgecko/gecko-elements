@@ -99,7 +99,7 @@ export function TooltipPage() {
             to switch between the default and light styles.
           </p>
 
-          <h3 className="mb-4 text-base font-semibold">Default</h3>
+          <h3 id="styling-default" className="mb-4 text-base font-semibold">Default</h3>
           <p className="mb-4 text-sm text-muted-foreground">
             Dark background with light text.
           </p>
@@ -114,7 +114,7 @@ export function TooltipPage() {
             </Tooltip>
           </ComponentExample>
 
-          <h3 className="mb-4 text-base font-semibold">Light</h3>
+          <h3 id="styling-light" className="mb-4 text-base font-semibold">Light</h3>
           <p className="mb-4 text-sm text-muted-foreground">
             Light background with dark (foreground) text.
           </p>

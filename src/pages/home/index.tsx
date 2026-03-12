@@ -113,6 +113,11 @@ const components = [
     path: "/components/field",
   },
   {
+    name: "Filters",
+    description: "Filter controls for narrowing down results.",
+    path: "/components/filters",
+  },
+  {
     name: "Input",
     description: "Single‑line text inputs.",
     path: "/components/input",
@@ -136,6 +141,11 @@ const components = [
     name: "Native Select",
     description: "System select element with design system styling.",
     path: "/components/native-select",
+  },
+  {
+    name: "Number field",
+    description: "Numeric input with step and constraints.",
+    path: "/components/number-field",
   },
   {
     name: "Pagination",
@@ -183,9 +193,9 @@ const components = [
     path: "/components/skeleton",
   },
   {
-    name: "Sonner",
+    name: "Toast",
     description: "Toast notifications for ephemeral feedback.",
-    path: "/components/sonner",
+    path: "/components/toast",
   },
   {
     name: "Spinner",
@@ -217,9 +227,88 @@ const components = [
     description: "Small labels that appear on hover or focus.",
     path: "/components/tooltip",
   },
+  {
+    name: "Sidebar",
+    description: "Application layout sidebar and navigation.",
+    path: "/components/sidebar",
+  },
+  {
+    name: "Chat bubble",
+    description: "Message bubbles for chat interfaces.",
+    path: "/components/chat-bubble",
+  },
+  {
+    name: "Chat head",
+    description: "Floating chat head entry points for messaging.",
+    path: "/components/chat-head",
+  },
+  {
+    name: "Color picker",
+    description: "Pickers for selecting and previewing colors.",
+    path: "/components/color-picker",
+  },
+  {
+    name: "Data table",
+    description: "Advanced table patterns for rich data grids.",
+    path: "/components/data-table",
+  },
+  {
+    name: "Reply box",
+    description: "Reply composer for chat and comment threads.",
+    path: "/components/reply-box",
+  },
+  {
+    name: "Typing indicator",
+    description: "Indicators that show when someone is typing.",
+    path: "/components/typing-indicator",
+  },
+  {
+    name: "Metric card",
+    description: "KPI and metric cards for dashboards.",
+    path: "/components/metric-card",
+  },
+  {
+    name: "Charts",
+    description: "Chart layouts for data visualisation.",
+    path: "/components/charts",
+  },
+  {
+    name: "Telephone input",
+    description: "Inputs for international phone numbers.",
+    path: "/components/telephone-input",
+  },
+  {
+    name: "Search input",
+    description: "Search fields with affordances and patterns.",
+    path: "/components/search-input",
+  },
+  {
+    name: "File input",
+    description: "File upload fields with states.",
+    path: "/components/file-input",
+  },
+  {
+    name: "Drop zone",
+    description: "Drop areas for drag-and-drop file uploads.",
+    path: "/components/drop-zone",
+  },
+  {
+    name: "Counter",
+    description: "Numeric counters and steppers.",
+    path: "/components/counter",
+  },
+  {
+    name: "Code snippet",
+    description: "Code blocks with copy-to-clipboard.",
+    path: "/components/code-snippet",
+  },
 ] as const
 
 export function HomePage() {
+  const sortedComponents = [...components].sort((a, b) =>
+    a.name.localeCompare(b.name)
+  )
+
   return (
     <div className="space-y-8">
       <div>
@@ -233,9 +322,9 @@ export function HomePage() {
           Available components
         </h2>
         <ul className="grid gap-4 sm:grid-cols-2">
-          {components.map(({ name, description, path }) => (
+          {sortedComponents.map(({ name, description, path }) => (
             <li key={path}>
-              <article className="rounded-lg border border-border bg-card p-4 text-card-foreground shadow-sm transition-shadow hover:shadow-md">
+              <article className="rounded-lg border border-border bg-card p-4 text-card-foreground">
                 <h3 className="font-medium">{name}</h3>
                 <p className="mt-1 text-sm text-muted-foreground">
                   {description}

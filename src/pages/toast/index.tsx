@@ -5,12 +5,12 @@ import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Button } from "@/components/ui/button"
 
-export function SonnerPage() {
+export function ToastPage() {
   return (
     <div className="flex gap-8">
       <div className="flex-1 space-y-10 border-r border-border pr-8">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-semibold text-foreground">Sonner</h1>
+          <h1 className="text-2xl font-semibold text-foreground">Toast</h1>
           <p className="text-sm text-muted-foreground">
             An opinionated toast component for React from the Sonner library.
             Use the{" "}
@@ -121,7 +121,7 @@ export function SonnerPage() {
             success toasts.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Info</h3>
+          <h3 id="variants-info" className="mb-3 text-base font-semibold">Info</h3>
           <ComponentExample className="mb-6">
             <Button
               variant="outline"
@@ -131,7 +131,7 @@ export function SonnerPage() {
             </Button>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Warning</h3>
+          <h3 id="variants-warning" className="mb-3 text-base font-semibold">Warning</h3>
           <ComponentExample className="mb-6">
             <Button
               variant="outline"
@@ -141,7 +141,7 @@ export function SonnerPage() {
             </Button>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Error</h3>
+          <h3 id="variants-error" className="mb-3 text-base font-semibold">Error</h3>
           <ComponentExample className="mb-6">
             <Button
               variant="outline"
@@ -151,7 +151,7 @@ export function SonnerPage() {
             </Button>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Success</h3>
+          <h3 id="variants-success" className="mb-3 text-base font-semibold">Success</h3>
           <ComponentExample>
             <Button
               variant="outline"
@@ -168,7 +168,7 @@ export function SonnerPage() {
             Handle async work and loading states with promise-based and loading toasts.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Promise</h3>
+          <h3 id="states-promise" className="mb-3 text-base font-semibold">Promise</h3>
           <ComponentExample className="mb-6">
             <Button
               variant="outline"
@@ -196,7 +196,7 @@ export function SonnerPage() {
             </Button>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Loading</h3>
+          <h3 id="states-loading" className="mb-3 text-base font-semibold">Loading</h3>
           <ComponentExample>
             <Button
               variant="outline"
@@ -216,3 +216,4 @@ export function SonnerPage() {
     </div>
   )
 }
+

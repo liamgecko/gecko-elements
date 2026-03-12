@@ -14,7 +14,7 @@ export function RadioGroupPage() {
     <div className="flex gap-8">
       <div className="flex-1 space-y-10 border-r border-border pr-8">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Radio Group</h1>
+          <h1 className="text-2xl font-bold text-foreground">Radio group</h1>
           <p className="text-sm text-muted-foreground">
             A control for selecting one option from a set. Use the{" "}
             <code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
@@ -71,21 +71,21 @@ export function RadioGroupPage() {
             Default, checked, disabled, and error states.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Default</h3>
+          <h3 id="states-default" className="mb-3 text-base font-semibold">Default</h3>
           <ComponentExample className="mb-6">
             <RadioGroup value="" onValueChange={() => {}}>
               <RadioGroupItem id="states-default" value="unchecked" label="Unselected" />
             </RadioGroup>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Checked</h3>
+          <h3 id="states-checked" className="mb-3 text-base font-semibold">Checked</h3>
           <ComponentExample className="mb-6">
             <RadioGroup value="checked" onValueChange={() => {}}>
               <RadioGroupItem id="states-checked" value="checked" label="Selected" />
             </RadioGroup>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Disabled</h3>
+          <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
             <RadioGroup defaultValue="" className="w-fit">
               <Field orientation="horizontal" data-disabled>
@@ -97,7 +97,7 @@ export function RadioGroupPage() {
             </RadioGroup>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Error</h3>
+          <h3 id="states-error" className="mb-3 text-base font-semibold">Error</h3>
           <ComponentExample>
             <RadioGroup defaultValue="email">
               <Field orientation="horizontal" data-invalid>
@@ -141,7 +141,7 @@ export function RadioGroupPage() {
             uses a darker border and gray-100 background; hover state is
             applied.
           </p>
-          <h3 className="mb-3 text-base font-semibold">Basic</h3>
+          <h3 id="as-button-basic" className="mb-3 text-base font-semibold">Basic</h3>
           <ComponentExample className="mb-8">
             <RadioGroup value={asButtonValue} onValueChange={setAsButtonValue}>
               <RadioGroupItem
@@ -159,7 +159,7 @@ export function RadioGroupPage() {
             </RadioGroup>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">With description</h3>
+          <h3 id="as-button-with-description" className="mb-3 text-base font-semibold">With description</h3>
           <ComponentExample>
               <RadioGroup value={asButtonDescValue} onValueChange={setAsButtonDescValue}>
                 <RadioGroupItem

@@ -64,17 +64,17 @@ export function CheckboxPage() {
             Default, checked, indeterminate, disabled, and error states.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Default</h3>
+          <h3 id="states-default" className="mb-3 text-base font-semibold">Default</h3>
           <ComponentExample className="mb-6">
             <Checkbox id="states-default" label="Unchecked" />
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Checked</h3>
+          <h3 id="states-checked" className="mb-3 text-base font-semibold">Checked</h3>
           <ComponentExample className="mb-6">
             <Checkbox id="states-checked" defaultChecked label="Checked" />
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Indeterminate</h3>
+          <h3 id="states-indeterminate" className="mb-3 text-base font-semibold">Indeterminate</h3>
           <ComponentExample className="mb-6">
             <Checkbox
               id="states-indeterminate"
@@ -84,12 +84,12 @@ export function CheckboxPage() {
             />
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Disabled</h3>
+          <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
             <Checkbox id="states-disabled" disabled label="Disabled" />
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Error</h3>
+          <h3 id="states-error" className="mb-3 text-base font-semibold">Error</h3>
           <ComponentExample>
             <Checkbox
               id="states-error"
@@ -125,7 +125,7 @@ export function CheckboxPage() {
             render the checkbox as an outline-style button. Checked state uses a
             darker border and gray-100 background; hover state is applied.
           </p>
-          <h3 className="mb-3 text-base font-semibold">Basic</h3>
+          <h3 id="as-button-basic" className="mb-3 text-base font-semibold">Basic</h3>
           <ComponentExample className="mb-8">
             <div className="flex flex-wrap gap-2">
               <Checkbox asButton id="as-button-basic" label="Checkbox as button" />
@@ -138,7 +138,7 @@ export function CheckboxPage() {
             </div>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">With description</h3>
+          <h3 id="as-button-with-description" className="mb-3 text-base font-semibold">With description</h3>
           <ComponentExample>
             <div className="max-w-sm">
               <Checkbox

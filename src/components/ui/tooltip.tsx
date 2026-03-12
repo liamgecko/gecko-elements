@@ -3,13 +3,13 @@ import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip"
 import { cn } from "@/lib/utils"
 
 function TooltipProvider({
-  delay,
+  delay = 150,
   ...props
 }: TooltipPrimitive.Provider.Props) {
   return (
     <TooltipPrimitive.Provider
       data-slot="tooltip-provider"
-      {...(delay !== undefined && { delay })}
+      delay={delay}
       {...props}
     />
   )

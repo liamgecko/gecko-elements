@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom"
 import { AppShell } from "@/components/layout/app-shell"
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/toast"
 import { HomePage } from "@/pages/home"
 import { AccordionPage } from "@/pages/accordion"
 import { AlertPage } from "@/pages/alert"
@@ -28,6 +28,7 @@ import { InputOtpPage } from "@/pages/input-otp"
 import { KbdPage } from "@/pages/kbd"
 import { LabelPage } from "@/pages/label"
 import { NativeSelectPage } from "@/pages/native-select"
+import { NumberFieldPage } from "@/pages/number-field"
 import { PaginationPage } from "@/pages/pagination"
 import { PopoverPage } from "@/pages/popover"
 import { ProgressPage } from "@/pages/progress"
@@ -36,13 +37,29 @@ import { ScrollAreaPage } from "@/pages/scroll-area"
 import { SelectPage } from "@/pages/select"
 import { SeparatorPage } from "@/pages/separator"
 import { SheetPage } from "@/pages/sheet"
-import { SonnerPage } from "@/pages/sonner"
+import { ToastPage } from "@/pages/toast"
 import { SpinnerPage } from "@/pages/spinner"
 import { SwitchPage } from "@/pages/switch"
 import { TablePage } from "@/pages/table"
 import { TabsPage } from "@/pages/tabs"
 import { TextareaPage } from "@/pages/textarea"
 import { TooltipPage } from "@/pages/tooltip"
+import { SidebarPage } from "@/pages/sidebar"
+import { ChatBubblePage } from "@/pages/chat-bubble"
+import { ChatHeadPage } from "@/pages/chat-head"
+import { ColorPickerPage } from "@/pages/color-picker"
+import { DataTablePage } from "@/pages/data-table"
+import { ReplyBoxPage } from "@/pages/reply-box"
+import { TypingIndicatorPage } from "@/pages/typing-indicator"
+import { MetricCardPage } from "@/pages/metric-card"
+import { ChartsPage } from "@/pages/charts"
+import { TelephoneInputPage } from "@/pages/telephone-input"
+import { SearchInputPage } from "@/pages/search-input"
+import { FileInputPage } from "@/pages/file-input"
+import { DropZonePage } from "@/pages/drop-zone"
+import { CounterPage } from "@/pages/counter"
+import { CodeSnippetPage } from "@/pages/code-snippet"
+import { FiltersPage } from "@/pages/filters"
 
 export function App() {
   return (
@@ -76,6 +93,7 @@ export function App() {
         <Route path="/components/kbd" element={<KbdPage />} />
         <Route path="/components/label" element={<LabelPage />} />
         <Route path="/components/native-select" element={<NativeSelectPage />} />
+        <Route path="/components/number-field" element={<NumberFieldPage />} />
         <Route path="/components/pagination" element={<PaginationPage />} />
         <Route path="/components/popover" element={<PopoverPage />} />
         <Route path="/components/progress" element={<ProgressPage />} />
@@ -84,13 +102,29 @@ export function App() {
         <Route path="/components/select" element={<SelectPage />} />
         <Route path="/components/separator" element={<SeparatorPage />} />
         <Route path="/components/sheet" element={<SheetPage />} />
-        <Route path="/components/sonner" element={<SonnerPage />} />
+        <Route path="/components/toast" element={<ToastPage />} />
         <Route path="/components/spinner" element={<SpinnerPage />} />
         <Route path="/components/switch" element={<SwitchPage />} />
         <Route path="/components/table" element={<TablePage />} />
         <Route path="/components/tabs" element={<TabsPage />} />
         <Route path="/components/textarea" element={<TextareaPage />} />
         <Route path="/components/tooltip" element={<TooltipPage />} />
+        <Route path="/components/sidebar" element={<SidebarPage />} />
+        <Route path="/components/chat-bubble" element={<ChatBubblePage />} />
+        <Route path="/components/chat-head" element={<ChatHeadPage />} />
+        <Route path="/components/color-picker" element={<ColorPickerPage />} />
+        <Route path="/components/data-table" element={<DataTablePage />} />
+        <Route path="/components/reply-box" element={<ReplyBoxPage />} />
+        <Route path="/components/typing-indicator" element={<TypingIndicatorPage />} />
+        <Route path="/components/metric-card" element={<MetricCardPage />} />
+        <Route path="/components/charts" element={<ChartsPage />} />
+        <Route path="/components/telephone-input" element={<TelephoneInputPage />} />
+        <Route path="/components/search-input" element={<SearchInputPage />} />
+        <Route path="/components/file-input" element={<FileInputPage />} />
+        <Route path="/components/drop-zone" element={<DropZonePage />} />
+        <Route path="/components/counter" element={<CounterPage />} />
+        <Route path="/components/filters" element={<FiltersPage />} />
+        <Route path="/components/code-snippet" element={<CodeSnippetPage />} />
       </Routes>
     </AppShell>
   )

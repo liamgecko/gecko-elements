@@ -26,7 +26,7 @@ export function AccordionPage() {
           <p className="text-sm text-muted-foreground mb-8">
             The accordion component is used to display content in a way that is easy to understand and use. It is a great way to present information in a way that is easy to understand and use.
           </p>
-          <h3 className="mb-3 text-base font-semibold">Basic</h3>
+          <h3 id="examples-basic" className="mb-3 text-base font-semibold">Basic</h3>
           <ComponentExample className="mb-6">
             <Accordion defaultValue={["shipping"]}>
               <AccordionItem value="shipping">
@@ -52,7 +52,7 @@ export function AccordionPage() {
               </AccordionItem>
             </Accordion>
           </ComponentExample>
-          <h3 className="mb-3 text-base font-semibold">Layout</h3>
+          <h3 id="examples-layout" className="mb-3 text-base font-semibold">Layout</h3>
           <ComponentExample>
             <Accordion defaultValue={["shipping"]} variant="layout">
               <AccordionItem value="shipping">

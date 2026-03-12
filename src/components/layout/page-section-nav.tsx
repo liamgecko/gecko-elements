@@ -1,5 +1,8 @@
+import * as React from "react"
+import { useLocation } from "react-router-dom"
 import { cn } from "@/lib/utils"
-import { usePageSections } from "./page-sections-context"
+import type { Section } from "@/config/component-sections"
+import { componentSections } from "@/config/component-sections"
 
 type PageSectionNavProps = {
   className?: string
@@ -13,11 +16,99 @@ function scrollToSection(id: string) {
   }
 }
 
-export function PageSectionNav({ className }: PageSectionNavProps) {
-  const ctx = usePageSections()
-  const sections = ctx?.sections ?? []
+function getComponentKey(pathname: string): string | null {
+  const match = pathname.match(/^\/components\/(.+)$/)
+  return match ? match[1] : null
+}
 
-  if (sections.length === 0) return null
+function SectionLink({
+  section,
+  currentId,
+  onSelect,
+  isChild,
+}: {
+  section: Section
+  currentId?: string
+  onSelect: (id: string) => void
+  isChild?: boolean
+}) {
+  const hasChildren = section.children && section.children.length > 0
+  const isActive = currentId === section.id
+
+  return (
+    <li
+      className={cn(
+        "relative transition-colors",
+        isActive && !isChild && "text-foreground"
+      )}
+      data-active={isActive ? "true" : undefined}
+    >
+      <a
+        href={`#${section.id}`}
+        className={cn(
+          "block py-0.5 text-sm text-muted-foreground hover:text-foreground",
+          "relative before:absolute before:-left-2.5 before:top-0 before:bottom-0 before:w-px before:bg-primary before:opacity-0 hover:before:opacity-100 hover:before:bg-gray-300 data-[active=true]:before:opacity-100 data-[active=true]:hover:before:bg-primary",
+          "data-[active=true]:text-foreground"
+        )}
+        data-active={isActive ? "true" : undefined}
+        onClick={(e) => {
+          e.preventDefault()
+          scrollToSection(section.id)
+          onSelect(section.id)
+        }}
+      >
+        {section.label}
+      </a>
+      {hasChildren && (
+        <ul
+          className={cn(
+            "mt-1 space-y-1",
+            "relative ml-1 pl-2.5 before:absolute before:inset-y-0 before:left-0 before:w-px before:bg-gray-50"
+          )}
+        >
+          {section.children!.map((child) => (
+            <SectionLink
+              key={child.id}
+              section={child}
+              currentId={currentId}
+              onSelect={onSelect}
+              isChild
+            />
+          ))}
+        </ul>
+      )}
+    </li>
+  )
+}
+
+export function PageSectionNav({ className }: PageSectionNavProps) {
+  const location = useLocation()
+  const key = getComponentKey(location.pathname)
+  const sections = key ? componentSections[key] : undefined
+
+  const [activeId, setActiveId] = React.useState<string | undefined>(() => {
+    if (!sections || sections.length === 0) return undefined
+    if (typeof window !== "undefined" && window.location.hash) {
+      return window.location.hash.replace("#", "") || sections[0].id
+    }
+    return sections[0].id
+  })
+
+  React.useEffect(() => {
+    if (!sections || sections.length === 0) {
+      setActiveId(undefined)
+      return
+    }
+
+    if (typeof window !== "undefined" && window.location.hash) {
+      const fromHash = window.location.hash.replace("#", "")
+      setActiveId(fromHash || sections[0].id)
+    } else {
+      setActiveId(sections[0].id)
+    }
+  }, [sections])
+
+  if (!sections || sections.length === 0) return null
 
   return (
     <aside className="sticky top-8 w-52 shrink-0 self-start">
@@ -25,25 +116,20 @@ export function PageSectionNav({ className }: PageSectionNavProps) {
         aria-label="Page sections"
         className={cn("text-sm text-muted-foreground", className)}
       >
-        <span className="text-xs font-medium text-muted-foreground mb-4 block">On this page</span>
-        <ul className="space-y-2">
+        <span className="text-xs font-medium text-muted-foreground mb-4 block">
+          On this page
+        </span>
+        <ul className="space-y-1">
           {sections.map((section) => (
-            <li key={section.id}>
-              <a
-                href={`#${section.id}`}
-                className="hover:text-foreground"
-                onClick={(e) => {
-                  e.preventDefault()
-                  scrollToSection(section.id)
-                }}
-              >
-                {section.label}
-              </a>
-            </li>
+            <SectionLink
+              key={section.id}
+              section={section}
+              currentId={activeId}
+              onSelect={setActiveId}
+            />
           ))}
         </ul>
       </nav>
     </aside>
   )
 }
-

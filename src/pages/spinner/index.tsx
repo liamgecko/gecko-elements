@@ -73,7 +73,7 @@ export function SpinnerPage() {
             Combine the spinner with other components to indicate loading states in context.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Button</h3>
+          <h3 id="combinations-button" className="mb-3 text-base font-semibold">Button</h3>
           <ComponentExample className="mb-6">
             <div className="flex flex-wrap items-center gap-4">
               <Button disabled>
@@ -87,7 +87,7 @@ export function SpinnerPage() {
             </div>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Badge</h3>
+          <h3 id="combinations-badge" className="mb-3 text-base font-semibold">Badge</h3>
           <ComponentExample className="mb-6">
             <div className="flex flex-wrap items-center gap-4">
               <Badge size="sm" variant="info">
@@ -105,7 +105,7 @@ export function SpinnerPage() {
             </div>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Input</h3>
+          <h3 id="combinations-input" className="mb-3 text-base font-semibold">Input</h3>
           <ComponentExample>
             <InputGroup>
               <InputGroupInput placeholder="Send a message..." />

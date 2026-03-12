@@ -10,7 +10,6 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSearch,
   DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
@@ -42,7 +41,7 @@ export function DropdownMenuPage() {
     <div className="flex gap-8">
       <div className="flex-1 space-y-10 border-r border-border pr-8">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Dropdown Menu</h1>
+          <h1 className="text-2xl font-bold text-foreground">Dropdown menu</h1>
           <p className="text-sm text-muted-foreground">
             Shows a list of actions in a compact popover anchored to a trigger button.
           </p>
@@ -61,7 +60,7 @@ export function DropdownMenuPage() {
           </p>
           <ComponentExample>
             <DropdownMenu>
-              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuTrigger render={<Button variant="outline" dropdown>Open dropdown</Button>} />
               <DropdownMenuContent>
                 <DropdownMenuItem>Profile</DropdownMenuItem>
                 <DropdownMenuItem>Billing</DropdownMenuItem>
@@ -86,7 +85,7 @@ export function DropdownMenuPage() {
           </p>
           <ComponentExample>
             <DropdownMenu>
-              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuTrigger render={<Button variant="outline" dropdown>Open dropdown</Button>} />
               <DropdownMenuContent>
                 <DropdownMenuGroup>
                   <DropdownMenuItem>Team</DropdownMenuItem>
@@ -130,7 +129,7 @@ export function DropdownMenuPage() {
           </p>
           <ComponentExample>
             <DropdownMenu>
-              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuTrigger render={<Button variant="outline" dropdown>Open dropdown</Button>} />
               <DropdownMenuContent>
                 <DropdownMenuGroup>
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -161,7 +160,7 @@ export function DropdownMenuPage() {
           </p>
           <ComponentExample>
             <DropdownMenu>
-              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuTrigger render={<Button variant="outline" dropdown>Open dropdown</Button>} />
               <DropdownMenuContent>
                 <DropdownMenuItem>
                   <UserIcon />
@@ -189,7 +188,7 @@ export function DropdownMenuPage() {
           </p>
           <ComponentExample>
             <DropdownMenu>
-              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuTrigger render={<Button variant="outline" dropdown>Open dropdown</Button>} />
               <DropdownMenuContent className="w-56">
                 <DropdownMenuItem>
                   <Avatar size="md">
@@ -227,7 +226,7 @@ export function DropdownMenuPage() {
           </p>
           <ComponentExample>
             <DropdownMenu>
-              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuTrigger render={<Button variant="outline" dropdown>Open dropdown</Button>} />
               <DropdownMenuContent className="w-40">
                 <DropdownMenuGroup>
                   <DropdownMenuLabel>Appearance</DropdownMenuLabel>
@@ -267,7 +266,7 @@ export function DropdownMenuPage() {
           </p>
           <ComponentExample>
             <DropdownMenu>
-              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
+              <DropdownMenuTrigger render={<Button variant="outline" dropdown>Open dropdown</Button>} />
               <DropdownMenuContent className="w-32">
                 <DropdownMenuGroup>
                   <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
@@ -293,7 +292,7 @@ export function DropdownMenuPage() {
           </p>
           <ComponentExample>
             <DropdownMenu>
-              <DropdownMenuTrigger render={<Button variant="outline">Actions</Button>} />
+              <DropdownMenuTrigger render={<Button variant="outline" dropdown>Open dropdown</Button>} />
               <DropdownMenuContent>
                 <DropdownMenuGroup>
                   <DropdownMenuItem>
@@ -320,28 +319,30 @@ export function DropdownMenuPage() {
         <PageSection id="search" label="Search">
           <h2 className="text-lg font-semibold">Search</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Add{" "}
+            Use the{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              searchable
+            </code>{" "}
+            prop on{" "}
+            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              DropdownMenu
+            </code>{" "}
+            to add a search field and filter items by label. The search bar and item
+            container are added automatically—no need for{" "}
             <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               DropdownMenuSearch
             </code>{" "}
-            as the first child of{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              DropdownMenuContent
-            </code>{" "}
-            to filter items by their label.
+            or utility classes.
           </p>
           <ComponentExample>
-            <DropdownMenu>
-              <DropdownMenuTrigger render={<Button variant="outline">Open</Button>} />
-              <DropdownMenuContent className="w-64 p-0">
-                <DropdownMenuSearch placeholder="Search..." />
-                <div className="p-1">
-                  <DropdownMenuItem>Dropdown item one</DropdownMenuItem>
-                  <DropdownMenuItem>Dropdown item two</DropdownMenuItem>
-                  <DropdownMenuItem>Another option</DropdownMenuItem>
-                  <DropdownMenuItem>Final item</DropdownMenuItem>
-                  <DropdownMenuEmpty>No results found.</DropdownMenuEmpty>
-                </div>
+            <DropdownMenu searchable searchPlaceholder="Search...">
+              <DropdownMenuTrigger render={<Button variant="outline" dropdown>Open dropdown</Button>} />
+              <DropdownMenuContent className="w-64">
+                <DropdownMenuItem>Dropdown item one</DropdownMenuItem>
+                <DropdownMenuItem>Dropdown item two</DropdownMenuItem>
+                <DropdownMenuItem>Another option</DropdownMenuItem>
+                <DropdownMenuItem>Final item</DropdownMenuItem>
+                <DropdownMenuEmpty>No results found.</DropdownMenuEmpty>
               </DropdownMenuContent>
             </DropdownMenu>
           </ComponentExample>

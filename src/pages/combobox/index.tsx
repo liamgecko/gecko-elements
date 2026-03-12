@@ -14,8 +14,8 @@ import {
   ComboboxList,
   ComboboxSeparator,
   ComboboxValue,
-  useComboboxAnchor,
 } from "@/components/ui/combobox"
+import { useComboboxAnchor } from "@/components/ui/use-combobox-anchor"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"

@@ -61,7 +61,16 @@ function ComboboxTrigger({
 
 function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
   return (
-    <ComboboxPrimitive.Clear data-slot="combobox-clear" className={cn(className)} {...props} render={<InputGroupButton variant="ghost"><XIcon className="pointer-events-none" /></InputGroupButton>} />
+    <ComboboxPrimitive.Clear
+      data-slot="combobox-clear"
+      className={cn(className)}
+      {...props}
+      render={
+        <InputGroupButton variant="ghost" size="sm">
+          <XIcon className="pointer-events-none" />
+        </InputGroupButton>
+      }
+    />
   )
 }
 
@@ -83,16 +92,17 @@ function ComboboxInput({
         {...props}
       />
       <InputGroupAddon align="inline-end">
-        {showClear && <ComboboxClear disabled={disabled} />}
         {showTrigger && (
           <InputGroupButton
+            size="sm"
             variant="ghost"
             render={<ComboboxTrigger />}
             data-slot="input-group-button"
-            className="data-pressed:bg-transparent"
+            className="group-has-data-[slot=combobox-clear]/input-group:hidden data-pressed:bg-transparent"
             disabled={disabled}
           />
         )}
+        {showClear && <ComboboxClear disabled={disabled} />}
       </InputGroupAddon>
       {children}
     </InputGroup>
@@ -155,7 +165,7 @@ function ComboboxItem({
     <ComboboxPrimitive.Item
       data-slot="combobox-item"
       className={cn(
-        "data-highlighted:bg-accent data-highlighted:text-accent-foreground not-data-[variant=destructive]:data-highlighted:**:text-accent-foreground gap-2 rounded-md py-1 pr-8 pl-1.5 text-sm [&_svg:not([class*='size-'])]:size-4 relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "data-highlighted:bg-accent data-highlighted:text-accent-foreground not-data-[variant=destructive]:data-highlighted:**:text-accent-foreground gap-2 rounded-md py-1 pr-8 pl-1.5 text-sm [&_svg:not([class*='size-'])]:size-4 relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 cursor-pointer",
         className
       )}
       {...props}
@@ -282,19 +292,15 @@ function ComboboxChipsInput({
     (ctx?.selectedCount ?? 0) > 0 ? "" : placeholder
   return (
     <ComboboxPrimitive.Input
-      data-slot="combobox-chip-input"
+      data-slot="input-group-control"
       className={cn(
-        "min-w-16 flex-1 text-sm outline-none placeholder:text-muted-foreground",
+        "min-w-16 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground",
         className
       )}
       placeholder={effectivePlaceholder}
       {...props}
     />
   )
-}
-
-function useComboboxAnchor() {
-  return React.useRef<HTMLDivElement | null>(null)
 }
 
 export {
@@ -313,5 +319,4 @@ export {
   ComboboxChipsInput,
   ComboboxTrigger,
   ComboboxValue,
-  useComboboxAnchor,
 }

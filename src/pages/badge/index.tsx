@@ -48,7 +48,7 @@ export function BadgePage() {
             Badges come in different variants for different use cases.
           </p>
 
-          <h3 className="text-base font-semibold mt-6">Colours</h3>
+          <h3 id="variants-colours" className="text-base font-semibold mt-6">Colours</h3>
           <p className="mb-4 text-sm text-muted-foreground">
             Semantic variants for status, labels, and emphasis.
           </p>
@@ -64,7 +64,7 @@ export function BadgePage() {
             </div>
           </ComponentExample>
 
-          <h3 className="text-base font-semibold mt-6">Bordered</h3>
+          <h3 id="variants-bordered" className="text-base font-semibold mt-6">Bordered</h3>
           <p className="mb-4 text-sm text-muted-foreground">
             Use bordered for a visible border around the badge.
           </p>
@@ -80,7 +80,7 @@ export function BadgePage() {
             </div>
           </ComponentExample>
 
-          <h3 className="text-base font-semibold mt-6">Rounded</h3>
+          <h3 id="variants-rounded" className="text-base font-semibold mt-6">Rounded</h3>
           <p className="mb-4 text-sm text-muted-foreground">
             Rounded badges are pill-shaped.
           </p>
@@ -130,7 +130,7 @@ export function BadgePage() {
             meaning and visual appeal.
           </p>
 
-          <h3 className="text-base font-semibold mt-6">Left icon</h3>
+          <h3 id="with-icons-left" className="text-base font-semibold mt-6">Left icon</h3>
           <p className="mb-4 text-sm text-muted-foreground">
             Place an icon on the left side of the badge text.
           </p>
@@ -140,7 +140,7 @@ export function BadgePage() {
             </Badge>
           </ComponentExample>
 
-          <h3 className="text-base font-semibold mt-6">Right icon</h3>
+          <h3 id="with-icons-right" className="text-base font-semibold mt-6">Right icon</h3>
           <p className="mb-4 text-sm text-muted-foreground">
             Place an icon on the right to indicate action or direction.
           </p>
@@ -150,7 +150,7 @@ export function BadgePage() {
             </Badge>
           </ComponentExample>
 
-          <h3 className="text-base font-semibold mt-6">Both icons</h3>
+          <h3 id="with-icons-both" className="text-base font-semibold mt-6">Both icons</h3>
           <p className="mb-4 text-sm text-muted-foreground">
             Use icons on both sides for a more complex badge.
           </p>
@@ -164,7 +164,7 @@ export function BadgePage() {
             </Badge>
           </ComponentExample>
 
-          <h3 className="text-base font-semibold mt-6">Icon only</h3>
+          <h3 id="with-icons-only" className="text-base font-semibold mt-6">Icon only</h3>
           <p className="mb-4 text-sm text-muted-foreground">
             A compact badge with just an icon for simple status indicators.
           </p>
@@ -180,7 +180,7 @@ export function BadgePage() {
             badge size.
           </p>
 
-          <h3 className="text-base font-semibold mt-6">Avatar sizes</h3>
+          <h3 id="with-avatar-sizes" className="text-base font-semibold mt-6">Avatar sizes</h3>
           <p className="mb-4 text-sm text-muted-foreground">
             Avatars automatically adjust their size based on the badge size.
           </p>

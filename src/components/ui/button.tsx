@@ -1,5 +1,6 @@
 import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
+import { ChevronDownIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -33,18 +34,33 @@ const buttonVariants = cva(
   }
 )
 
+type ButtonProps = ButtonPrimitive.Props &
+  VariantProps<typeof buttonVariants> & {
+    dropdown?: boolean
+  }
+
 function Button({
   className,
   variant = "default",
   size = "default",
+  dropdown = false,
+  children,
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: ButtonProps) {
   return (
     <ButtonPrimitive
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(buttonVariants({ variant, size }), className)}
       {...props}
-    />
+    >
+      {children}
+      {dropdown && (
+        <ChevronDownIcon
+          data-icon="inline-end"
+          aria-hidden="true"
+        />
+      )}
+    </ButtonPrimitive>
   )
 }
 

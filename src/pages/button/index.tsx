@@ -32,29 +32,40 @@ export function ButtonPage() {
             Use the variant prop for different emphasis levels.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Primary</h3>
+          <h3 id="variants-primary" className="mb-3 text-base font-semibold">Primary</h3>
           <ComponentExample className="mb-6">
             <Button variant="default">Primary</Button>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Secondary</h3>
+          <h3 id="variants-secondary" className="mb-3 text-base font-semibold">Secondary</h3>
           <ComponentExample className="mb-6">
             <Button variant="secondary">Secondary</Button>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Outline</h3>
+          <h3 id="variants-outline" className="mb-3 text-base font-semibold">Outline</h3>
           <ComponentExample className="mb-6">
             <Button variant="outline">Outline</Button>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Destructive</h3>
+          <h3 id="variants-destructive" className="mb-3 text-base font-semibold">Destructive</h3>
           <ComponentExample className="mb-6">
             <Button variant="destructive">Destructive</Button>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Ghost</h3>
+          <h3 id="variants-ghost" className="mb-3 text-base font-semibold">Ghost</h3>
           <ComponentExample className="mb-6">
             <Button variant="ghost">Ghost</Button>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="dropdown" label="Dropdown">
+          <h2 className="text-lg font-semibold">Dropdown</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Use the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">dropdown</code> prop to append a
+            chevron and indicate that the button opens a menu or list of options.
+          </p>
+          <ComponentExample className="mb-6">
+            <Button dropdown>Button</Button>
           </ComponentExample>
         </PageSection>
 
@@ -111,7 +122,7 @@ export function ButtonPage() {
             size consistent and use clear, descriptive text.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Icon left</h3>
+          <h3 id="icons-left" className="mb-3 text-base font-semibold">Icon left</h3>
           <ComponentExample className="mb-6">
             <div className="flex flex-wrap items-center gap-3">
               <Button>
@@ -121,7 +132,7 @@ export function ButtonPage() {
             </div>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Icon right</h3>
+          <h3 id="icons-right" className="mb-3 text-base font-semibold">Icon right</h3>
           <ComponentExample className="mb-6">
             <div className="flex flex-wrap items-center gap-3">
               <Button>
@@ -131,7 +142,7 @@ export function ButtonPage() {
             </div>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Icon only</h3>
+          <h3 id="icons-only" className="mb-3 text-base font-semibold">Icon only</h3>
           <ComponentExample>
             <Button size="icon" aria-label="Open settings">
               <Settings />

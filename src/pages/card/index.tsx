@@ -48,7 +48,7 @@ export function CardPage() {
             patterns.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Card with header</h3>
+          <h3 id="variants-with-header" className="mb-3 text-base font-semibold">Card with header</h3>
           <ComponentExample className="mb-6">
             <Card>
               <CardHeader>
@@ -66,7 +66,7 @@ export function CardPage() {
             </Card>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Card with footer</h3>
+          <h3 id="variants-with-footer" className="mb-3 text-base font-semibold">Card with footer</h3>
           <ComponentExample className="mb-6">
             <Card>
               <CardContent>
@@ -81,7 +81,7 @@ export function CardPage() {
             </Card>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">
+          <h3 id="variants-with-header-and-footer" className="mb-3 text-base font-semibold">
             Card with header and footer
           </h3>
           <ComponentExample>

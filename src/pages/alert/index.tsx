@@ -37,33 +37,45 @@ export function AlertPage() {
           <p className="mb-8 text-sm text-muted-foreground">
             Default and semantic variants for different alert types.
           </p>
+
+          <h3 id="variations-destructive" className="mb-3 text-base font-semibold">Destructive</h3>
+          <ComponentExample className="mb-6">
+            <Alert variant="destructive" icon={true}>
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>
+                Your session has expired. Please log in again.
+              </AlertDescription>
+            </Alert>
+          </ComponentExample>
+
+          <h3 id="variations-info" className="mb-3 text-base font-semibold">Info</h3>
+          <ComponentExample className="mb-6">
+            <Alert variant="info" icon={true}>
+              <AlertTitle>Info</AlertTitle>
+              <AlertDescription>
+                New features are available. Refresh to get the latest.
+              </AlertDescription>
+            </Alert>
+          </ComponentExample>
+
+          <h3 id="variations-success" className="mb-3 text-base font-semibold">Success</h3>
+          <ComponentExample className="mb-6">
+            <Alert variant="success" icon={true}>
+              <AlertTitle>Success</AlertTitle>
+              <AlertDescription>
+                Your changes have been saved successfully.
+              </AlertDescription>
+            </Alert>
+          </ComponentExample>
+
+          <h3 id="variations-warning" className="mb-3 text-base font-semibold">Warning</h3>
           <ComponentExample>
-            <div className="flex flex-col gap-3">
-              <Alert variant="destructive" icon={true}>
-                <AlertTitle>Error</AlertTitle>
-                <AlertDescription>
-                  Your session has expired. Please log in again.
-                </AlertDescription>
-              </Alert>
-              <Alert variant="info" icon={true}>
-                <AlertTitle>Info</AlertTitle>
-                <AlertDescription>
-                  New features are available. Refresh to get the latest.
-                </AlertDescription>
-              </Alert>
-              <Alert variant="success" icon={true}>
-                <AlertTitle>Success</AlertTitle>
-                <AlertDescription>
-                  Your changes have been saved successfully.
-                </AlertDescription>
-              </Alert>
-              <Alert variant="warning" icon={true}>
-                <AlertTitle>Warning</AlertTitle>
-                <AlertDescription>
-                  Your storage is almost full. Free up space to continue.
-                </AlertDescription>
-              </Alert>
-            </div>
+            <Alert variant="warning" icon={true}>
+              <AlertTitle>Warning</AlertTitle>
+              <AlertDescription>
+                Your storage is almost full. Free up space to continue.
+              </AlertDescription>
+            </Alert>
           </ComponentExample>
         </PageSection>
       </div>

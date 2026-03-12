@@ -19,7 +19,7 @@ export function AlertDialogPage() {
     <div className="flex gap-8">
       <div className="flex-1 space-y-10 border-r border-border pr-8">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Alert Dialog</h1>
+          <h1 className="text-2xl font-bold text-foreground">Alert dialog</h1>
           <p className="text-sm text-muted-foreground">
             A modal dialog that interrupts the user for confirmation, typically
             for destructive actions, unsaved changes, or save confirmation.
@@ -57,7 +57,7 @@ export function AlertDialogPage() {
             Use the variant prop to set the default action button style. Override
             button variant, text, and add icons via props and children.
           </p>
-          <h3 className="mb-3 text-base font-semibold">Confirm deletion</h3>
+          <h3 id="examples-confirm-deletion" className="mb-3 text-base font-semibold">Confirm deletion</h3>
           <ComponentExample className="mb-6">
             <AlertDialog variant="destructive">
               <AlertDialogTrigger render={<Button variant="outline" />}>
@@ -78,7 +78,7 @@ export function AlertDialogPage() {
               </AlertDialogContent>
             </AlertDialog>
           </ComponentExample>
-          <h3 className="mb-3 text-base font-semibold">Unsaved changes</h3>
+          <h3 id="examples-unsaved-changes" className="mb-3 text-base font-semibold">Unsaved changes</h3>
           <ComponentExample className="mb-6">
             <AlertDialog variant="unsaved-changes">
               <AlertDialogTrigger render={<Button variant="outline" />}>
@@ -99,7 +99,7 @@ export function AlertDialogPage() {
               </AlertDialogContent>
             </AlertDialog>
           </ComponentExample>
-          <h3 className="mb-3 text-base font-semibold">Confirm save</h3>
+          <h3 id="examples-confirm-save" className="mb-3 text-base font-semibold">Confirm save</h3>
           <ComponentExample>
             <AlertDialog variant="confirm-save">
               <AlertDialogTrigger render={<Button variant="outline" />}>

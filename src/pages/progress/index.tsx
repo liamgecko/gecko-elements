@@ -57,7 +57,7 @@ export function ProgressPage() {
             Use the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size</code> prop to set the bar height: <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">sm</code>, <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">default</code>, or <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">lg</code>.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Small</h3>
+          <h3 id="progress-bar-sizes-small" className="mb-3 text-base font-semibold">Small</h3>
           <ComponentExample className="mb-8">
             <Progress
               value={60}
@@ -67,7 +67,7 @@ export function ProgressPage() {
             />
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Medium</h3>
+          <h3 id="progress-bar-sizes-medium" className="mb-3 text-base font-semibold">Medium</h3>
           <ComponentExample className="mb-8">
             <Progress
               value={60}
@@ -77,7 +77,7 @@ export function ProgressPage() {
             />
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Large</h3>
+          <h3 id="progress-bar-sizes-large" className="mb-3 text-base font-semibold">Large</h3>
           <ComponentExample>
             <Progress
               value={60}
@@ -145,7 +145,7 @@ export function ProgressPage() {
             Use the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size</code> prop with ring type: <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">sm</code>, <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">default</code>, or <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">lg</code>.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Small</h3>
+          <h3 id="progress-ring-sizes-small" className="mb-3 text-base font-semibold">Small</h3>
           <ComponentExample className="mb-8">
             <Progress
               type="ring"
@@ -156,7 +156,7 @@ export function ProgressPage() {
             />
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Medium</h3>
+          <h3 id="progress-ring-sizes-medium" className="mb-3 text-base font-semibold">Medium</h3>
           <ComponentExample className="mb-8">
             <Progress
               type="ring"
@@ -167,7 +167,7 @@ export function ProgressPage() {
             />
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Large</h3>
+          <h3 id="progress-ring-sizes-large" className="mb-3 text-base font-semibold">Large</h3>
           <ComponentExample>
             <Progress
               type="ring"

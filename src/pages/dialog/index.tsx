@@ -3,6 +3,7 @@ import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import {
   Dialog,
+  DialogWrapper,
   DialogBody,
   DialogContent,
   DialogDescription,
@@ -38,11 +39,13 @@ export function DialogPage() {
             <Dialog>
               <DialogTrigger render={<Button variant="outline">Open dialog</Button>} />
               <DialogContent>
-                <DialogBody>
-                  <p className="text-sm text-muted-foreground">
-                    This is a basic dialog without a header or footer. Use it for lightweight messages or confirmations.
-                  </p>
-                </DialogBody>
+                <DialogWrapper>
+                  <DialogBody>
+                    <p className="text-sm text-muted-foreground">
+                      This is a basic dialog without a header or footer. Use it for lightweight messages or confirmations.
+                    </p>
+                  </DialogBody>
+                </DialogWrapper>
               </DialogContent>
             </Dialog>
           </ComponentExample>
@@ -57,31 +60,35 @@ export function DialogPage() {
             <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogContent</code>.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">With header</h3>
+          <h3 id="variants-with-header" className="mb-3 text-base font-semibold">With header</h3>
           <ComponentExample className="mb-6">
             <Dialog>
               <DialogTrigger render={<Button variant="outline">Open dialog</Button>} />
               <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Dialog title</DialogTitle>
-                  <DialogDescription>
-                    Use a header to provide a clear, accessible title and optional description for the dialog.
-                  </DialogDescription>
-                </DialogHeader>
+                <DialogWrapper>
+                  <DialogHeader>
+                    <DialogTitle>Dialog title</DialogTitle>
+                    <DialogDescription>
+                      Use a header to provide a clear, accessible title and optional description for the dialog.
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogWrapper>
               </DialogContent>
             </Dialog>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">With footer</h3>
+          <h3 id="variants-with-footer" className="mb-3 text-base font-semibold">With footer</h3>
           <ComponentExample className="mb-6">
             <Dialog>
               <DialogTrigger render={<Button variant="outline">Open dialog</Button>} />
               <DialogContent>
-                <DialogBody>
-                  <p className="text-sm text-muted-foreground">
-                    Use a footer to lay out primary and secondary actions at the bottom of the dialog.
-                  </p>
-                </DialogBody>
+                <DialogWrapper>
+                  <DialogBody>
+                    <p className="text-sm text-muted-foreground">
+                      Use a footer to lay out primary and secondary actions at the bottom of the dialog.
+                    </p>
+                  </DialogBody>
+                </DialogWrapper>
                 <DialogFooter>
                   <Button variant="outline">Cancel</Button>
                   <Button variant="default">Continue</Button>
@@ -90,17 +97,24 @@ export function DialogPage() {
             </Dialog>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">With header and footer</h3>
+          <h3 id="variants-with-header-and-footer" className="mb-3 text-base font-semibold">With header and footer</h3>
           <ComponentExample>
             <Dialog>
               <DialogTrigger render={<Button variant="outline">Open dialog</Button>} />
               <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Create project</DialogTitle>
-                  <DialogDescription>
-                    Combine a header and footer for more structured dialogs that include titles and actions.
-                  </DialogDescription>
-                </DialogHeader>
+                <DialogWrapper>
+                  <DialogHeader>
+                    <DialogTitle>Create project</DialogTitle>
+                    <DialogDescription>
+                      Combine a header and footer for more structured dialogs that include titles and actions.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogBody>
+                    <p className="text-sm text-muted-foreground">
+                      Use a body to lay out the main content of the dialog.
+                    </p>
+                  </DialogBody>
+                </DialogWrapper>
                 <DialogFooter>
                   <Button variant="default">Create</Button>
                 </DialogFooter>
@@ -120,17 +134,19 @@ export function DialogPage() {
             <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">closeButtonIcon</code>.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Default close button</h3>
+          <h3 id="footer-close-button-default" className="mb-3 text-base font-semibold">Default close button</h3>
           <ComponentExample className="mb-6">
             <Dialog>
               <DialogTrigger render={<Button variant="outline">Open dialog</Button>} />
               <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Leave workspace</DialogTitle>
-                  <DialogDescription>
-                    The default footer close button renders an outline button labelled &quot;Close&quot;.
-                  </DialogDescription>
-                </DialogHeader>
+                <DialogWrapper>
+                  <DialogHeader>
+                    <DialogTitle>Leave workspace</DialogTitle>
+                    <DialogDescription>
+                      The default footer close button renders an outline button labelled &quot;Close&quot;.
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogWrapper>
                 <DialogFooter showCloseButton>
                   <Button variant="default">Leave</Button>
                 </DialogFooter>
@@ -138,17 +154,19 @@ export function DialogPage() {
             </Dialog>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Custom close button</h3>
+          <h3 id="footer-close-button-custom" className="mb-3 text-base font-semibold">Custom close button</h3>
           <ComponentExample>
             <Dialog>
               <DialogTrigger render={<Button variant="outline">Open dialog</Button>} />
               <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Discard changes</DialogTitle>
-                  <DialogDescription>
-                    Customise the footer close button text and icon while keeping layout and styling consistent.
-                  </DialogDescription>
-                </DialogHeader>
+                <DialogWrapper>
+                  <DialogHeader>
+                    <DialogTitle>Discard changes</DialogTitle>
+                    <DialogDescription>
+                      Customise the footer close button text and icon while keeping layout and styling consistent.
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogWrapper>
                 <DialogFooter
                   showCloseButton
                   closeButtonText="Cancel"
@@ -174,67 +192,77 @@ export function DialogPage() {
               <Dialog>
                 <DialogTrigger render={<Button variant="outline">Extra small</Button>} />
                 <DialogContent size="xs">
-                  <DialogHeader>
-                    <DialogTitle>Extra small dialog</DialogTitle>
-                  <DialogDescription>
-                    Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;xs&quot;</code> for
-                    very compact dialogs such as toasts or inline confirmations.
-                  </DialogDescription>
-                </DialogHeader>
+                  <DialogWrapper>
+                    <DialogHeader>
+                      <DialogTitle>Extra small dialog</DialogTitle>
+                      <DialogDescription>
+                        Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;xs&quot;</code> for
+                        very compact dialogs such as toasts or inline confirmations.
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogWrapper>
                 </DialogContent>
               </Dialog>
 
               <Dialog>
                 <DialogTrigger render={<Button variant="outline">Small</Button>} />
                 <DialogContent size="sm">
-                  <DialogHeader>
-                    <DialogTitle>Small dialog</DialogTitle>
-                  <DialogDescription>
-                    <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;sm&quot;</code> is ideal
-                    for short forms and simple confirmation flows.
-                  </DialogDescription>
-                </DialogHeader>
+                  <DialogWrapper>
+                    <DialogHeader>
+                      <DialogTitle>Small dialog</DialogTitle>
+                      <DialogDescription>
+                        <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;sm&quot;</code> is ideal
+                        for short forms and simple confirmation flows.
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogWrapper>
                 </DialogContent>
               </Dialog>
 
               <Dialog>
                 <DialogTrigger render={<Button variant="outline">Medium</Button>} />
                 <DialogContent size="md">
-                  <DialogHeader>
-                    <DialogTitle>Medium dialog</DialogTitle>
-                  <DialogDescription>
-                    The default{" "}
-                    <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;md&quot;</code>{" "}
-                    balances content density and readability.
-                  </DialogDescription>
-                </DialogHeader>
+                  <DialogWrapper>
+                    <DialogHeader>
+                      <DialogTitle>Medium dialog</DialogTitle>
+                      <DialogDescription>
+                        The default{" "}
+                        <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;md&quot;</code>{" "}
+                        balances content density and readability.
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogWrapper>
                 </DialogContent>
               </Dialog>
 
               <Dialog>
                 <DialogTrigger render={<Button variant="outline">Large</Button>} />
                 <DialogContent size="lg">
-                  <DialogHeader>
-                    <DialogTitle>Large dialog</DialogTitle>
-                  <DialogDescription>
-                    Use{" "}
-                    <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;lg&quot;</code> for
-                    content-heavy dialogs such as settings or multi-step flows.
-                  </DialogDescription>
-                </DialogHeader>
+                  <DialogWrapper>
+                    <DialogHeader>
+                      <DialogTitle>Large dialog</DialogTitle>
+                      <DialogDescription>
+                        Use{" "}
+                        <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;lg&quot;</code> for
+                        content-heavy dialogs such as settings or multi-step flows.
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogWrapper>
                 </DialogContent>
               </Dialog>
 
               <Dialog>
                 <DialogTrigger render={<Button variant="outline">Extra large</Button>} />
                 <DialogContent size="xl">
-                  <DialogHeader>
-                    <DialogTitle>Extra large dialog</DialogTitle>
-                  <DialogDescription>
-                    <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;xl&quot;</code> gives
-                    the widest layout for complex editors or previews.
-                  </DialogDescription>
-                </DialogHeader>
+                  <DialogWrapper>
+                    <DialogHeader>
+                      <DialogTitle>Extra large dialog</DialogTitle>
+                      <DialogDescription>
+                        <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;xl&quot;</code> gives
+                        the widest layout for complex editors or previews.
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogWrapper>
                 </DialogContent>
               </Dialog>
             </div>

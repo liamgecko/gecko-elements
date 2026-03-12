@@ -41,7 +41,7 @@ export function FieldPage() {
               <FieldGroup>
                 <Field>
                   <FieldLabel htmlFor="username">Username</FieldLabel>
-                  <Input id="username" type="text" placeholder="Max Leiter" />
+                  <Input id="username" type="text" placeholder="Enter your username" />
                 </Field>
               </FieldGroup>
             </FieldSet>

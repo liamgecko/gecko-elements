@@ -51,12 +51,12 @@ export function TextareaPage() {
             to show disabled and validation states.
           </p>
  
-          <h3 className="mb-3 text-base font-semibold">Disabled</h3>
+          <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
             <Textarea placeholder="Disabled textarea" disabled />
           </ComponentExample>
  
-          <h3 className="mb-3 text-base font-semibold">Invalid</h3>
+          <h3 id="states-invalid" className="mb-3 text-base font-semibold">Invalid</h3>
           <ComponentExample>
             <Textarea placeholder="Invalid textarea" aria-invalid />
           </ComponentExample>
@@ -119,17 +119,17 @@ export function TextareaPage() {
             .
           </p>
  
-          <h3 className="mb-3 text-base font-semibold">Small</h3>
+          <h3 id="sizing-small" className="mb-3 text-base font-semibold">Small</h3>
           <ComponentExample className="mb-6">
             <Textarea size="sm" placeholder="Short note..." />
           </ComponentExample>
  
-          <h3 className="mb-3 text-base font-semibold">Medium</h3>
+          <h3 id="sizing-medium" className="mb-3 text-base font-semibold">Medium</h3>
           <ComponentExample className="mb-6">
             <Textarea size="md" placeholder="Leave a comment..." />
           </ComponentExample>
  
-          <h3 className="mb-3 text-base font-semibold">Large</h3>
+          <h3 id="sizing-large" className="mb-3 text-base font-semibold">Large</h3>
           <ComponentExample>
             <Textarea size="lg" placeholder="Detailed feedback..." />
           </ComponentExample>

@@ -58,7 +58,7 @@ export function PopoverPage() {
             <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverContent</code>.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">With header</h3>
+          <h3 id="variants-with-header" className="mb-3 text-base font-semibold">With header</h3>
           <ComponentExample className="mb-6">
             <Popover>
               <PopoverTrigger
@@ -79,7 +79,7 @@ export function PopoverPage() {
             </Popover>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">With footer</h3>
+          <h3 id="variants-with-footer" className="mb-3 text-base font-semibold">With footer</h3>
           <ComponentExample className="mb-6">
             <Popover>
               <PopoverTrigger
@@ -105,7 +105,7 @@ export function PopoverPage() {
             </Popover>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">With header and footer</h3>
+          <h3 id="variants-with-header-and-footer" className="mb-3 text-base font-semibold">With header and footer</h3>
           <ComponentExample>
             <Popover>
               <PopoverTrigger

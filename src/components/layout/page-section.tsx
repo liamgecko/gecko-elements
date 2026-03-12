@@ -1,6 +1,4 @@
-import * as React from "react"
 import { cn } from "@/lib/utils"
-import { usePageSections } from "./page-sections-context"
 
 type PageSectionProps = {
   id: string
@@ -9,18 +7,11 @@ type PageSectionProps = {
   className?: string
 }
 
-export function PageSection({ id, label, children, className }: PageSectionProps) {
-  const ctx = usePageSections()
-  const ctxRef = React.useRef(ctx)
-  ctxRef.current = ctx
-
-  React.useEffect(() => {
-    const c = ctxRef.current
-    if (!c) return
-    c.registerSection(id, label)
-    return () => c.unregisterSection(id)
-  }, [id, label])
-
+/**
+ * Wraps page content in a section with id for scroll targets.
+ * Section structure for the "On this page" nav is defined in config/component-sections.ts.
+ */
+export function PageSection({ id, children, className }: PageSectionProps) {
   return (
     <section id={id} className={cn(className)}>
       {children}

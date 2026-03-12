@@ -21,7 +21,26 @@ function useDropdownMenuSearch() {
   return React.useContext(DropdownMenuSearchContext)
 }
 
-function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
+type DropdownMenuConfigContextValue = {
+  searchable?: boolean
+  searchPlaceholder?: string
+}
+
+const DropdownMenuConfigContext =
+  React.createContext<DropdownMenuConfigContextValue>({})
+
+function useDropdownMenuConfig() {
+  return React.useContext(DropdownMenuConfigContext)
+}
+
+function DropdownMenu({
+  searchable = false,
+  searchPlaceholder = "Search...",
+  ...props
+}: MenuPrimitive.Root.Props & {
+  searchable?: boolean
+  searchPlaceholder?: string
+}) {
   const [query, setQuery] = React.useState("")
   const visibleCountRef = React.useRef(0)
 
@@ -33,7 +52,7 @@ function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
     visibleCountRef.current += 1
   }, [])
 
-  const value = React.useMemo(
+  const searchValue = React.useMemo(
     () => ({
       query,
       setQuery,
@@ -43,10 +62,17 @@ function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
     [query, addVisible]
   )
 
+  const configValue = React.useMemo(
+    () => ({ searchable, searchPlaceholder }),
+    [searchable, searchPlaceholder]
+  )
+
   return (
-    <DropdownMenuSearchContext.Provider value={value}>
-      <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />
-    </DropdownMenuSearchContext.Provider>
+    <DropdownMenuConfigContext.Provider value={configValue}>
+      <DropdownMenuSearchContext.Provider value={searchValue}>
+        <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />
+      </DropdownMenuSearchContext.Provider>
+    </DropdownMenuConfigContext.Provider>
   )
 }
 
@@ -64,12 +90,25 @@ function DropdownMenuContent({
   side = "bottom",
   sideOffset = 4,
   className,
+  children,
   ...props
 }: MenuPrimitive.Popup.Props &
   Pick<
     MenuPrimitive.Positioner.Props,
     "align" | "alignOffset" | "side" | "sideOffset"
   >) {
+  const config = useDropdownMenuConfig()
+  const searchable = config.searchable ?? false
+
+  const content = searchable ? (
+    <>
+      <DropdownMenuSearch placeholder={config.searchPlaceholder} />
+      <div className="p-1">{children}</div>
+    </>
+  ) : (
+    children
+  )
+
   return (
     <MenuPrimitive.Portal>
       <MenuPrimitive.Positioner
@@ -81,9 +120,15 @@ function DropdownMenuContent({
       >
         <MenuPrimitive.Popup
           data-slot="dropdown-menu-content"
-          className={cn("data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-32 rounded-md p-1 shadow-md ring-1 duration-100 data-[side=inline-start]:slide-in-from-end-2 data-[side=inline-end]:slide-in-from-start-2 z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden", className )}
+          className={cn(
+            "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-32 rounded-md shadow-md ring-1 duration-100 data-[side=inline-start]:slide-in-from-end-2 data-[side=inline-end]:slide-in-from-start-2 z-50 max-h-(--available-height) w-(--anchor-width) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden",
+            searchable ? "p-0" : "p-1",
+            className
+          )}
           {...props}
-        />
+        >
+          {content}
+        </MenuPrimitive.Popup>
       </MenuPrimitive.Positioner>
     </MenuPrimitive.Portal>
   )
@@ -349,7 +394,7 @@ function DropdownMenuShortcut({
 function DropdownMenuSearch({
   className,
   placeholder = "Search...",
-  autoFocus = true,
+  autoFocus = false,
   ...props
 }: React.InputHTMLAttributes<HTMLInputElement>) {
   const search = useDropdownMenuSearch()

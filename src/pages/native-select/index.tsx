@@ -13,7 +13,7 @@ export function NativeSelectPage() {
     <div className="flex gap-8">
       <div className="flex-1 space-y-10 border-r border-border pr-8">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-semibold text-foreground">Native Select</h1>
+          <h1 className="text-2xl font-semibold text-foreground">Native select</h1>
           <p className="text-sm text-muted-foreground">
             Placeholder for Native Select component examples.
           </p>
@@ -103,7 +103,7 @@ export function NativeSelectPage() {
             <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">lg</code>. Default is <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">md</code>.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Small</h3>
+          <h3 id="sizing-small" className="mb-3 text-base font-semibold">Small</h3>
           <ComponentExample className="mb-6">
             <NativeSelect size="sm">
               <NativeSelectOption value="">Select a fruit</NativeSelectOption>
@@ -113,7 +113,7 @@ export function NativeSelectPage() {
             </NativeSelect>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Medium</h3>
+          <h3 id="sizing-medium" className="mb-3 text-base font-semibold">Medium</h3>
           <ComponentExample className="mb-6">
             <NativeSelect size="md">
               <NativeSelectOption value="">Select a fruit</NativeSelectOption>
@@ -123,7 +123,7 @@ export function NativeSelectPage() {
             </NativeSelect>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Large</h3>
+          <h3 id="sizing-large" className="mb-3 text-base font-semibold">Large</h3>
           <ComponentExample>
             <NativeSelect size="lg">
               <NativeSelectOption value="">Select a fruit</NativeSelectOption>
@@ -141,7 +141,7 @@ export function NativeSelectPage() {
             <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">aria-invalid</code> to show disabled and validation states.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Disabled</h3>
+          <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
             <NativeSelect disabled>
               <NativeSelectOption value="">Select a fruit</NativeSelectOption>
@@ -151,7 +151,7 @@ export function NativeSelectPage() {
             </NativeSelect>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Invalid</h3>
+          <h3 id="states-invalid" className="mb-3 text-base font-semibold">Invalid</h3>
           <ComponentExample>
             <NativeSelect aria-invalid>
               <NativeSelectOption value="">Select a fruit</NativeSelectOption>

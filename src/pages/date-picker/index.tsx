@@ -61,7 +61,7 @@ export function DatePickerPage() {
     <div className="flex gap-8">
       <div className="flex-1 space-y-10 border-r border-border pr-8">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Date Picker</h1>
+          <h1 className="text-2xl font-bold text-foreground">Date picker</h1>
           <p className="text-sm text-muted-foreground">
             Choose single dates or ranges using a calendar-based picker.
           </p>
@@ -73,7 +73,7 @@ export function DatePickerPage() {
             A single-date picker with a calendar popup.
           </p>
           <ComponentExample>
-            <Field className="mx-auto w-44">
+            <Field className="w-44">
               <FieldLabel htmlFor="date-picker-basic">Date</FieldLabel>
               <Popover>
                 <PopoverTrigger
@@ -110,7 +110,7 @@ export function DatePickerPage() {
             Select a start and end date for booking windows or reporting periods.
           </p>
           <ComponentExample>
-            <Field className="mx-auto w-60">
+            <Field className="w-60">
               <FieldLabel htmlFor="date-picker-range">Date range</FieldLabel>
               <Popover>
                 <PopoverTrigger
@@ -156,7 +156,7 @@ export function DatePickerPage() {
             A date picker optimised for selecting dates of birth.
           </p>
           <ComponentExample>
-            <Field className="mx-auto w-44">
+            <Field className="w-44">
               <FieldLabel htmlFor="date-of-birth">Date of birth</FieldLabel>
               <Popover open={dobOpen} onOpenChange={setDobOpen}>
                 <PopoverTrigger
@@ -195,7 +195,7 @@ export function DatePickerPage() {
             Combine a date picker with a text input for manual entry and calendar selection.
           </p>
           <ComponentExample>
-            <Field className="mx-auto w-48">
+            <Field className="w-48">
                 <FieldLabel htmlFor="date-required">Subscription date</FieldLabel>
                 <InputGroup>
                   <InputGroupInput
@@ -263,7 +263,7 @@ export function DatePickerPage() {
             Combine a date picker with a time input to capture both parts of a timestamp.
           </p>
           <ComponentExample>
-            <FieldGroup className="mx-auto max-w-xs flex-row">
+            <FieldGroup className="max-w-xs flex-row">
               <Field>
                 <FieldLabel htmlFor="date-picker-time">Date</FieldLabel>
                 <Popover open={timeOpen} onOpenChange={setTimeOpen}>
@@ -313,7 +313,7 @@ export function DatePickerPage() {
             Parse phrases like &quot;next Friday&quot; or &quot;in two weeks&quot; into concrete dates.
           </p>
           <ComponentExample>
-            <Field className="mx-auto max-w-xs">
+            <Field className="max-w-xs">
               <FieldLabel htmlFor="date-optional">Schedule date</FieldLabel>
               <InputGroup>
                 <InputGroupInput

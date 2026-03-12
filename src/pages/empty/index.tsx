@@ -68,7 +68,7 @@ export function EmptyPage() {
             below the header to add buttons or other actions so users can resolve the empty state.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Single action</h3>
+          <h3 id="actions-single" className="mb-3 text-base font-semibold">Single action</h3>
           <ComponentExample className="mb-6">
             <Empty>
               <EmptyHeader>
@@ -83,7 +83,7 @@ export function EmptyPage() {
             </Empty>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Multi-action</h3>
+          <h3 id="actions-multi" className="mb-3 text-base font-semibold">Multi-action</h3>
           <ComponentExample>
             <Empty>
               <EmptyHeader>

@@ -44,7 +44,7 @@ export function SwitchPage() {
             component to pair switches with labels and optional descriptive text.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Label</h3>
+          <h3 id="label-and-description-label" className="mb-3 text-base font-semibold">Label</h3>
           <ComponentExample className="mb-6">
             <Field orientation="horizontal" className="max-w-sm">
               <Switch id="switch-label" />
@@ -54,7 +54,7 @@ export function SwitchPage() {
             </Field>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Label and description</h3>
+          <h3 id="label-and-description-label-desc" className="mb-3 text-base font-semibold">Label and description</h3>
           <ComponentExample>
             <Field orientation="horizontal" className="max-w-sm">
               <Switch id="switch-label-desc" />
@@ -89,7 +89,7 @@ export function SwitchPage() {
             component to communicate disabled and error states.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Disabled</h3>
+          <h3 id="state-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
             <div className="flex flex-col gap-4">
               <Field orientation="horizontal" data-disabled className="w-fit">
@@ -99,7 +99,7 @@ export function SwitchPage() {
             </div>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Invalid</h3>
+          <h3 id="state-invalid" className="mb-3 text-base font-semibold">Invalid</h3>
           <ComponentExample>
             <div className="flex flex-col gap-4">
               <Field orientation="horizontal" data-invalid className="w-fit">

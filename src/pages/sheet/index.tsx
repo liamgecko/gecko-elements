@@ -204,7 +204,7 @@ export function SheetPage() {
             need in the sheet.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">With header</h3>
+          <h3 id="variants-with-header" className="mb-3 text-base font-semibold">With header</h3>
           <ComponentExample className="mb-6">
             <Sheet>
               <SheetTrigger
@@ -221,7 +221,7 @@ export function SheetPage() {
             </Sheet>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">With footer</h3>
+          <h3 id="variants-with-footer" className="mb-3 text-base font-semibold">With footer</h3>
           <ComponentExample className="mb-6">
             <Sheet>
               <SheetTrigger
@@ -241,7 +241,7 @@ export function SheetPage() {
             </Sheet>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">
+          <h3 id="variants-with-header-and-footer" className="mb-3 text-base font-semibold">
             With header and footer
           </h3>
           <ComponentExample>

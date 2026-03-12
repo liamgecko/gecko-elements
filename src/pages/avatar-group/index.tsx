@@ -27,7 +27,7 @@ export function AvatarGroupPage() {
     <div className="flex gap-8">
       <div className="flex-1 space-y-10 border-r border-border pr-8">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Avatar Group</h1>
+          <h1 className="text-2xl font-bold text-foreground">Avatar group</h1>
           <p className="text-sm text-muted-foreground">
             Display multiple avatars in a stacked row from an items array.
             Optionally show overflow as a count button that opens a dropdown

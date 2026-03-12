@@ -49,7 +49,7 @@ export function LabelPage() {
           <ComponentExample>
             <Field>
               <FieldLabel htmlFor="required-email">Your email address</FieldLabel>
-              <Input id="required-email" type="email" required />
+              <Input id="required-email" type="email" required placeholder="you@example.com" />
             </Field>
           </ComponentExample>
         </PageSection>

@@ -42,12 +42,12 @@ export function InputPage() {
             <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">aria-invalid</code> to show disabled and validation states.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Disabled</h3>
+          <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
             <Input type="text" placeholder="Disabled input" disabled />
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Invalid</h3>
+          <h3 id="states-invalid" className="mb-3 text-base font-semibold">Invalid</h3>
           <ComponentExample>
             <Input type="text" placeholder="Invalid input" aria-invalid />
           </ComponentExample>
@@ -79,17 +79,17 @@ export function InputPage() {
             <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">lg</code>. Default is <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">md</code>.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Small</h3>
+          <h3 id="sizing-small" className="mb-3 text-base font-semibold">Small</h3>
           <ComponentExample className="mb-6">
             <Input id="input-size-sm" size="sm" type="text" placeholder="Small" />
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Medium</h3>
+          <h3 id="sizing-medium" className="mb-3 text-base font-semibold">Medium</h3>
           <ComponentExample className="mb-6">
             <Input id="input-size-md" size="md" type="text" placeholder="Medium" />
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Large</h3>
+          <h3 id="sizing-large" className="mb-3 text-base font-semibold">Large</h3>
           <ComponentExample>
             <Input id="input-size-lg" size="lg" type="text" placeholder="Large" />
           </ComponentExample>
@@ -105,7 +105,7 @@ export function InputPage() {
             <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">inline-end</code> to position the icon.
           </p>
 
-          <h3 className="mb-3 text-base font-semibold">Left aligned</h3>
+          <h3 id="icons-left" className="mb-3 text-base font-semibold">Left aligned</h3>
           <ComponentExample className="mb-6 flex flex-col gap-4">
             <InputGroup size="sm">
               <InputGroupAddon align="inline-start">
@@ -127,7 +127,7 @@ export function InputPage() {
             </InputGroup>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Right aligned</h3>
+          <h3 id="icons-right" className="mb-3 text-base font-semibold">Right aligned</h3>
           <ComponentExample className="mb-6 flex flex-col gap-4">
             <InputGroup size="sm">
               <InputGroupInput placeholder="Search..." />
@@ -149,7 +149,7 @@ export function InputPage() {
             </InputGroup>
           </ComponentExample>
 
-          <h3 className="mb-3 text-base font-semibold">Left and right aligned</h3>
+          <h3 id="icons-left-and-right" className="mb-3 text-base font-semibold">Left and right aligned</h3>
           <ComponentExample className="flex flex-col gap-4">
             <InputGroup size="sm">
               <InputGroupAddon align="inline-start">
