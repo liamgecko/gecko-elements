@@ -54,7 +54,7 @@ const navItems: NavItem[] = [
   { to: "/components/label", label: "Label" },
   { to: "/components/metric-card", label: "Metric card", todo: true },
   { to: "/components/native-select", label: "Native select" },
-  { to: "/components/number-field", label: "Number field", todo: true },
+  { to: "/components/number-field", label: "Number field" },
   { to: "/components/pagination", label: "Pagination" },
   { to: "/components/popover", label: "Popover" },
   { to: "/components/progress", label: "Progress" },

@@ -8,7 +8,7 @@ export function SeparatorPage() {
     <div className="flex gap-8">
       <div className="flex-1 space-y-10 border-r border-border pr-8">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-semibold text-foreground">Separator</h1>
+          <h1 className="text-2xl font-bold text-foreground">Separator</h1>
           <p className="text-sm text-muted-foreground">
             Visually divide content groups with a thin line or rule.
           </p>

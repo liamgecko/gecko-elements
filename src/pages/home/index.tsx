@@ -312,7 +312,7 @@ export function HomePage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold text-foreground">Home</h1>
+        <h1 className="text-2xl font-bold text-foreground">Home</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Component gallery
         </p>

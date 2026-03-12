@@ -18,7 +18,7 @@ export function SheetPage() {
     <div className="flex gap-8">
       <div className="flex-1 space-y-10 border-r border-border pr-8">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-semibold text-foreground">Sheet</h1>
+          <h1 className="text-2xl font-bold text-foreground">Sheet</h1>
           <p className="text-sm text-muted-foreground">
             A panel that slides in from the edge of the screen to display
             additional content.

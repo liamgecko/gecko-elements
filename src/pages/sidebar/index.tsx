@@ -6,7 +6,7 @@ export function SidebarPage() {
     <div className="flex gap-8">
       <div className="flex-1 space-y-2">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-semibold text-foreground">
+          <h1 className="text-2xl font-bold text-foreground">
             Sidebar
           </h1>
           <p className="text-sm text-muted-foreground">

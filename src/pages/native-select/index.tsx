@@ -13,7 +13,7 @@ export function NativeSelectPage() {
     <div className="flex gap-8">
       <div className="flex-1 space-y-10 border-r border-border pr-8">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-semibold text-foreground">Native select</h1>
+          <h1 className="text-2xl font-bold text-foreground">Native select</h1>
           <p className="text-sm text-muted-foreground">
             Placeholder for Native Select component examples.
           </p>

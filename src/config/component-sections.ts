@@ -564,7 +564,28 @@ export const componentSections: ComponentSections = {
     { id: "within-form", label: "Within form" },
     { id: "required-field", label: "Required field" },
   ],
-  "number-field": [{ id: "overview", label: "Overview" }],
+  "number-field": [
+    { id: "overview", label: "Overview" },
+    { id: "basic-example", label: "Basic example" },
+    {
+      id: "sizes",
+      label: "Sizes",
+      children: [
+        { id: "sizes-small", label: "Small" },
+        { id: "sizes-medium", label: "Medium" },
+        { id: "sizes-large", label: "Large" },
+      ],
+    },
+    {
+      id: "states",
+      label: "States",
+      children: [
+        { id: "states-disabled", label: "Disabled" },
+        { id: "states-invalid", label: "Invalid" },
+      ],
+    },
+    { id: "within-form", label: "Within form" },
+  ],
   pagination: [
     { id: "overview", label: "Overview" },
     { id: "navigational", label: "Navigational" },

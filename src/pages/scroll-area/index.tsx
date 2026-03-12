@@ -33,7 +33,7 @@ export function ScrollAreaPage() {
     <div className="flex gap-8">
       <div className="flex-1 space-y-10 border-r border-border pr-8">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-semibold text-foreground">Scroll area</h1>
+          <h1 className="text-2xl font-bold text-foreground">Scroll area</h1>
           <p className="text-sm text-muted-foreground">
             Display scrollable content with a custom scrollbar that matches the rest of the design system.
           </p>

@@ -1,4 +1,5 @@
 "use client"
+import * as React from "react"
 import {
   Combobox,
   ComboboxChip,
@@ -15,7 +16,6 @@ import {
   ComboboxSeparator,
   ComboboxValue,
 } from "@/components/ui/combobox"
-import { useComboboxAnchor } from "@/components/ui/use-combobox-anchor"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
@@ -65,7 +65,7 @@ const timezones = [
 ] as const
 
 export function ComboboxPage() {
-  const multipleAnchor = useComboboxAnchor()
+  const multipleAnchor = React.useRef<HTMLDivElement | null>(null)
 
   return (
     <div className="flex gap-8">
