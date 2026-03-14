@@ -621,6 +621,23 @@ export const componentSections: ComponentSections = {
     { id: "basic-example", label: "Basic example" },
     { id: "default-country", label: "Default country" },
     { id: "force-international-format", label: "Force international format" },
+    {
+      id: "sizes",
+      label: "Sizes",
+      children: [
+        { id: "sizes-small", label: "Small" },
+        { id: "sizes-medium", label: "Medium" },
+        { id: "sizes-large", label: "Large" },
+      ],
+    },
+    {
+      id: "states",
+      label: "States",
+      children: [
+        { id: "states-disabled", label: "Disabled" },
+        { id: "states-invalid", label: "Invalid" },
+      ],
+    },
   ],
   "search-input": [{ id: "overview", label: "Overview" }],
   "file-input": [{ id: "overview", label: "Overview" }],

@@ -4,6 +4,7 @@ import * as React from "react"
 import * as RPNInput from "react-phone-number-input"
 import flags from "react-phone-number-input/flags"
 import { ChevronsUpDown, CheckIcon } from "lucide-react"
+import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -16,33 +17,55 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 
-type TelephoneFieldProps = Omit<React.ComponentProps<"input">, "onChange" | "value" | "ref"> &
+const sizeVariants = cva("", {
+  variants: {
+    size: {
+      sm: "h-7.5",
+      md: "h-8.5",
+      lg: "h-9.5",
+    },
+  },
+  defaultVariants: { size: "md" },
+})
+
+type TelephoneFieldSize = VariantProps<typeof sizeVariants>["size"]
+
+const TelephoneFieldSizeContext = React.createContext<TelephoneFieldSize>("md")
+const TelephoneFieldInvalidContext = React.createContext<boolean>(false)
+
+type TelephoneFieldProps = Omit<React.ComponentProps<"input">, "onChange" | "value" | "ref" | "size"> &
   Omit<RPNInput.Props<typeof RPNInput.default>, "onChange"> & {
     onChange?: (value: RPNInput.Value) => void
+    size?: TelephoneFieldSize
   }
 
 type CountryEntry = { label: string; value: RPNInput.Country | undefined }
 
 const TelephoneField: React.ForwardRefExoticComponent<TelephoneFieldProps> =
   React.forwardRef<React.ElementRef<typeof RPNInput.default>, TelephoneFieldProps>(
-    ({ className, onChange, value, ...props }, ref) => {
+    ({ className, onChange, value, size = "md", "aria-invalid": ariaInvalid, ...props }, ref) => {
       return (
-        <RPNInput.default
-          ref={ref}
-          className={cn("flex w-full", className)}
-          flagComponent={FlagComponent}
-          countrySelectComponent={CountrySelect}
-          inputComponent={InputComponent}
-          smartCaret={false}
-          value={value || undefined}
-          /**
-           * react-phone-number-input can call onChange with undefined when the
-           * value is cleared or invalid; coerce to empty string to keep the
-           * value controlled as a string.
-           */
-          onChange={(nextValue) => onChange?.(nextValue || ("" as RPNInput.Value))}
-          {...props}
-        />
+        <TelephoneFieldSizeContext.Provider value={size}>
+          <TelephoneFieldInvalidContext.Provider value={ariaInvalid === true}>
+            <RPNInput.default
+              ref={ref}
+              className={cn("flex w-full", className)}
+              flagComponent={FlagComponent}
+              countrySelectComponent={CountrySelect}
+              inputComponent={InputComponent}
+              smartCaret={false}
+              value={value || undefined}
+              /**
+               * react-phone-number-input can call onChange with undefined when the
+               * value is cleared or invalid; coerce to empty string to keep the
+               * value controlled as a string.
+               */
+              onChange={(nextValue) => onChange?.(nextValue || ("" as RPNInput.Value))}
+              aria-invalid={ariaInvalid}
+              {...props}
+            />
+          </TelephoneFieldInvalidContext.Provider>
+        </TelephoneFieldSizeContext.Provider>
       )
     }
   )
@@ -54,16 +77,21 @@ const InputComponent = React.forwardRef<
   React.ComponentProps<"input">
 >(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- omit size; RPNInput passes numeric size, Input expects sm/md/lg
-  ({ className, size: _inputSize, ...props }, ref) => (
-  <Input
-    ref={ref}
-    className={cn(
-      "rounded-e-sm rounded-s-none",
-      className
-    )}
-    {...props}
-  />
-))
+  ({ className, size: _inputSize, ...props }, ref) => {
+    const size = React.useContext(TelephoneFieldSizeContext)
+    return (
+      <Input
+        ref={ref}
+        size={size}
+        className={cn(
+          "rounded-e-sm rounded-s-none",
+          className
+        )}
+        {...props}
+      />
+    )
+  }
+)
 
 InputComponent.displayName = "TelephoneFieldInput"
 
@@ -80,6 +108,8 @@ const CountrySelect = ({
   options: countryList,
   onChange,
 }: CountrySelectProps) => {
+  const size = React.useContext(TelephoneFieldSizeContext)
+  const invalid = React.useContext(TelephoneFieldInvalidContext)
   const selectedEntry = countryList.find((entry) => entry.value === selectedCountry)
 
   return (
@@ -92,15 +122,18 @@ const CountrySelect = ({
           <Button
             type="button"
             variant="secondary"
-            className="flex gap-1 rounded-e-none rounded-s-sm border border-border border-r-0 px-3 focus:z-10"
+            className={cn(
+              "flex gap-1 rounded-e-none rounded-s-sm border border-r-0 px-2 focus:z-10",
+              "disabled:bg-muted",
+              invalid ? "border-destructive" : "border-border",
+              sizeVariants({ size })
+            )}
             disabled={disabled}
           >
             <FlagComponent country={selectedCountry} countryName={selectedEntry?.label ?? ""} />
             <ChevronsUpDown
-              className={cn(
-                "-mr-1 size-3.5 opacity-50",
-                disabled && "opacity-0"
-              )}
+              className="-mr-1 size-3.5 opacity-50"
+              aria-hidden
             />
           </Button>
         }
