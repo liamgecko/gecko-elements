@@ -74,7 +74,7 @@ const navItems: NavItem[] = [
   { to: "/components/textarea", label: "Textarea" },
   { to: "/components/tooltip", label: "Tooltip" },
   { to: "/components/toast", label: "Toast" },
-  { to: "/components/typing-indicator", label: "Typing indicator", todo: true },
+  { to: "/components/typing-indicator", label: "Typing indicator" },
 ] as const
 
 export function SidebarNav() {
