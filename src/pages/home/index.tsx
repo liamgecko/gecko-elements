@@ -278,7 +278,7 @@ const components = [
     path: "/components/telephone-field",
   },
   {
-    name: "Search input",
+    name: "Search field",
     description: "Search fields with affordances and patterns.",
     path: "/components/search-input",
   },
