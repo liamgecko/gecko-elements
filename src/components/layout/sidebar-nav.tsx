@@ -70,7 +70,7 @@ const navItems: NavItem[] = [
   { to: "/components/switch", label: "Switch" },
   { to: "/components/table", label: "Table" },
   { to: "/components/tabs", label: "Tabs" },
-  { to: "/components/telephone-input", label: "Telephone input", todo: true },
+  { to: "/components/telephone-field", label: "Telephone field" },
   { to: "/components/textarea", label: "Textarea" },
   { to: "/components/tooltip", label: "Tooltip" },
   { to: "/components/toast", label: "Toast" },

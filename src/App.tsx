@@ -53,7 +53,7 @@ import { ReplyBoxPage } from "@/pages/reply-box"
 import { TypingIndicatorPage } from "@/pages/typing-indicator"
 import { MetricCardPage } from "@/pages/metric-card"
 import { ChartsPage } from "@/pages/charts"
-import { TelephoneInputPage } from "@/pages/telephone-input"
+import { TelephoneFieldPage } from "@/pages/telephone-field"
 import { SearchInputPage } from "@/pages/search-input"
 import { FileInputPage } from "@/pages/file-input"
 import { DropZonePage } from "@/pages/drop-zone"
@@ -118,7 +118,7 @@ export function App() {
         <Route path="/components/typing-indicator" element={<TypingIndicatorPage />} />
         <Route path="/components/metric-card" element={<MetricCardPage />} />
         <Route path="/components/charts" element={<ChartsPage />} />
-        <Route path="/components/telephone-input" element={<TelephoneInputPage />} />
+        <Route path="/components/telephone-field" element={<TelephoneFieldPage />} />
         <Route path="/components/search-input" element={<SearchInputPage />} />
         <Route path="/components/file-input" element={<FileInputPage />} />
         <Route path="/components/drop-zone" element={<DropZonePage />} />

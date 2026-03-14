@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import {
   Sidebar,
   SidebarContent,
@@ -28,6 +29,15 @@ type AppShellProps = {
 export function AppShell({ children }: AppShellProps) {
   const location = useLocation()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const viewport = document.querySelector<HTMLElement>(
+      '[data-app-main="true"] [data-slot="scroll-area-viewport"]'
+    )
+    if (viewport) {
+      viewport.scrollTo({ top: 0, left: 0, behavior: "auto" })
+    }
+  }, [location.pathname])
 
   const isHome = location.pathname === "/"
   const isComponentsRoute = location.pathname.startsWith("/components/")
@@ -119,7 +129,7 @@ export function AppShell({ children }: AppShellProps) {
               )}
             </header>
             <div className="flex-1 mx-2 mb-3 p-1 rounded-2xl bg-white overflow-hidden">
-              <ScrollArea className="h-full">
+              <ScrollArea className="h-full" data-app-main="true">
                 <div className="p-5">
                   {children}
                 </div>

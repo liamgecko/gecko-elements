@@ -616,7 +616,12 @@ export const componentSections: ComponentSections = {
   "typing-indicator": [{ id: "overview", label: "Overview" }],
   "metric-card": [{ id: "overview", label: "Overview" }],
   charts: [{ id: "overview", label: "Overview" }],
-  "telephone-input": [{ id: "overview", label: "Overview" }],
+  "telephone-field": [
+    { id: "overview", label: "Overview" },
+    { id: "basic-example", label: "Basic example" },
+    { id: "default-country", label: "Default country" },
+    { id: "force-international-format", label: "Force international format" },
+  ],
   "search-input": [{ id: "overview", label: "Overview" }],
   "file-input": [{ id: "overview", label: "Overview" }],
   "drop-zone": [{ id: "overview", label: "Overview" }],

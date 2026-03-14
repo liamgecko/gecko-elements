@@ -273,9 +273,9 @@ const components = [
     path: "/components/charts",
   },
   {
-    name: "Telephone input",
+    name: "Telephone field",
     description: "Inputs for international phone numbers.",
-    path: "/components/telephone-input",
+    path: "/components/telephone-field",
   },
   {
     name: "Search input",
