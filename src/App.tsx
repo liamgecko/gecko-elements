@@ -60,6 +60,8 @@ import { DropZonePage } from "@/pages/drop-zone"
 import { CounterPage } from "@/pages/counter"
 import { CodeSnippetPage } from "@/pages/code-snippet"
 import { FiltersPage } from "@/pages/filters"
+import { FileTreePage } from "@/pages/file-tree"
+import { ActivityFeedPage } from "@/pages/activity-feed"
 
 export function App() {
   return (
@@ -121,6 +123,8 @@ export function App() {
         <Route path="/components/telephone-field" element={<TelephoneFieldPage />} />
         <Route path="/components/search-input" element={<SearchInputPage />} />
         <Route path="/components/file-input" element={<FileInputPage />} />
+        <Route path="/components/file-tree" element={<FileTreePage />} />
+        <Route path="/components/activity-feed" element={<ActivityFeedPage />} />
         <Route path="/components/drop-zone" element={<DropZonePage />} />
         <Route path="/components/counter" element={<CounterPage />} />
         <Route path="/components/filters" element={<FiltersPage />} />

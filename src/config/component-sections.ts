@@ -13,6 +13,7 @@ export interface ComponentSections {
  * (e.g. /components/button → "button"). Add or edit sections per component.
  */
 export const componentSections: ComponentSections = {
+  "activity-feed": [{ id: "overview", label: "Overview" }],
   button: [
     { id: "overview", label: "Overview" },
     { id: "default", label: "Default button" },
@@ -697,6 +698,7 @@ export const componentSections: ComponentSections = {
     },
     { id: "required", label: "Required" },
   ],
+  "file-tree": [{ id: "overview", label: "Overview" }],
   "drop-zone": [{ id: "overview", label: "Overview" }],
   counter: [
     { id: "overview", label: "Overview" },
