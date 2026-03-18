@@ -16,6 +16,7 @@ type NavItem = {
 }
 
 const navItems: NavItem[] = [
+  { to: "/components/activity-feed", label: "Activity feed", todo: true },
   { to: "/components/accordion", label: "Accordion" },
   { to: "/components/alert", label: "Alert" },
   { to: "/components/alert-dialog", label: "Alert dialog" },
@@ -47,6 +48,7 @@ const navItems: NavItem[] = [
   { to: "/components/empty", label: "Empty" },
   { to: "/components/field", label: "Field" },
   { to: "/components/file-input", label: "File input" },
+  { to: "/components/file-tree", label: "File tree", todo: true },
   { to: "/components/filters", label: "Filters", todo: true },
   { to: "/components/input", label: "Input" },
   { to: "/components/input-otp", label: "Input OTP" },
