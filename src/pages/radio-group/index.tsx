@@ -55,7 +55,6 @@ export function RadioGroupPage() {
               <RadioGroup value="option-a" onValueChange={() => {}}>
                 <RadioGroupItem
                   id="desc-a"
-                  name="desc"
                   value="option-a"
                   label="Option A"
                   description="Choose this for the first option."
@@ -165,7 +164,6 @@ export function RadioGroupPage() {
                 <RadioGroupItem
                   asButton
                   id="as-button-desc"
-                  name="as-button-desc"
                   value="terms"
                   label="Option A"
                   description="This is a description."
@@ -173,7 +171,6 @@ export function RadioGroupPage() {
                 <RadioGroupItem
                   asButton
                   id="as-button-desc-2"
-                  name="as-button-desc"
                   value="decline"
                   label="Option B"
                   description="This is a description."

@@ -613,7 +613,21 @@ export const componentSections: ComponentSections = {
   "color-picker": [{ id: "overview", label: "Overview" }],
   "data-table": [{ id: "overview", label: "Overview" }],
   "reply-box": [{ id: "overview", label: "Overview" }],
-  "typing-indicator": [{ id: "overview", label: "Overview" }],
+  "typing-indicator": [
+    { id: "overview", label: "Overview" },
+    { id: "default", label: "Default typing indicator" },
+    { id: "input-with-indicator", label: "Input with typing indicator" },
+    { id: "text-variant", label: "User typing indicator" },
+    { id: "text-variant-demo", label: "User typing indicator example" },
+    {
+      id: "with-avatar",
+      label: "With avatar",
+      children: [
+        { id: "with-avatar-dots", label: "Dots with avatar" },
+        { id: "with-avatar-text", label: "Name with avatar" },
+      ],
+    },
+  ],
   "metric-card": [{ id: "overview", label: "Overview" }],
   charts: [{ id: "overview", label: "Overview" }],
   "telephone-field": [
@@ -639,8 +653,50 @@ export const componentSections: ComponentSections = {
       ],
     },
   ],
-  "search-input": [{ id: "overview", label: "Overview" }],
-  "file-input": [{ id: "overview", label: "Overview" }],
+  "search-input": [
+    { id: "overview", label: "Overview" },
+    { id: "basic-example", label: "Basic example" },
+    { id: "with-clear", label: "With clear" },
+    {
+      id: "sizing",
+      label: "Sizing",
+      children: [
+        { id: "sizing-small", label: "Small" },
+        { id: "sizing-medium", label: "Medium" },
+        { id: "sizing-large", label: "Large" },
+      ],
+    },
+    {
+      id: "states",
+      label: "States",
+      children: [
+        { id: "states-disabled", label: "Disabled" },
+        { id: "states-invalid", label: "Invalid" },
+      ],
+    },
+  ],
+  "file-input": [
+    { id: "overview", label: "Overview" },
+    { id: "basic-example", label: "Basic example" },
+    {
+      id: "states",
+      label: "States",
+      children: [
+        { id: "states-disabled", label: "Disabled" },
+        { id: "states-invalid", label: "Invalid" },
+      ],
+    },
+    {
+      id: "sizing",
+      label: "Sizing",
+      children: [
+        { id: "sizing-small", label: "Small" },
+        { id: "sizing-medium", label: "Medium" },
+        { id: "sizing-large", label: "Large" },
+      ],
+    },
+    { id: "required", label: "Required" },
+  ],
   "drop-zone": [{ id: "overview", label: "Overview" }],
   counter: [
     { id: "overview", label: "Overview" },

@@ -46,7 +46,7 @@ const navItems: NavItem[] = [
   { to: "/components/dropdown-menu", label: "Dropdown menu" },
   { to: "/components/empty", label: "Empty" },
   { to: "/components/field", label: "Field" },
-  { to: "/components/file-input", label: "File input", todo: true },
+  { to: "/components/file-input", label: "File input" },
   { to: "/components/filters", label: "Filters", todo: true },
   { to: "/components/input", label: "Input" },
   { to: "/components/input-otp", label: "Input OTP" },
@@ -61,7 +61,7 @@ const navItems: NavItem[] = [
   { to: "/components/radio-group", label: "Radio group" },
   { to: "/components/reply-box", label: "Reply box", todo: true },
   { to: "/components/scroll-area", label: "Scroll area" },
-  { to: "/components/search-input", label: "Search input", todo: true },
+  { to: "/components/search-input", label: "Search field" },
   { to: "/components/select", label: "Select" },
   { to: "/components/separator", label: "Separator" },
   { to: "/components/sheet", label: "Sheet" },
@@ -74,7 +74,7 @@ const navItems: NavItem[] = [
   { to: "/components/textarea", label: "Textarea" },
   { to: "/components/tooltip", label: "Tooltip" },
   { to: "/components/toast", label: "Toast" },
-  { to: "/components/typing-indicator", label: "Typing indicator", todo: true },
+  { to: "/components/typing-indicator", label: "Typing indicator" },
 ] as const
 
 export function SidebarNav() {

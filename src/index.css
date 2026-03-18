@@ -111,4 +111,30 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+@layer components {
+  @keyframes typing-dot {
+    0%,
+    100% {
+      opacity: 0.2;
+      transform: scale(0.8);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  .animate-typing-dot {
+    animation: typing-dot 1.4s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-typing-dot {
+      animation: none;
+      opacity: 0.6;
+    }
+  }
 }
