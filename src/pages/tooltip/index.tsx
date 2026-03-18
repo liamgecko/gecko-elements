@@ -2,6 +2,7 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Button } from "@/components/ui/button"
+import { Code } from "@/components/ui/code"
 import {
   Tooltip,
   TooltipContent,
@@ -24,22 +25,18 @@ export function TooltipPage() {
         <PageSection id="basic" label="Basic example">
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Wrap a trigger and content with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              Tooltip
-            </code>
-            . Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            Wrap a trigger and content with <Code>Tooltip</Code>. Use{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               TooltipTrigger
-            </code>{" "}
+            </Code>{" "}
             with the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               render
-            </code>{" "}
+            </Code>{" "}
             prop and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               TooltipContent
-            </code>{" "}
+            </Code>{" "}
             for the popover.
           </p>
           <ComponentExample>
@@ -56,14 +53,11 @@ export function TooltipPage() {
           <h2 className="text-lg font-semibold">Side</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               side
-            </code>{" "}
-            prop on{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              TooltipContent
-            </code>{" "}
-            to control where the tooltip appears relative to the trigger.
+            </Code>{" "}
+            prop on <Code>TooltipContent</Code> to control where the tooltip
+            appears relative to the trigger.
           </p>
           <ComponentExample>
             <div className="flex flex-wrap gap-4">
@@ -89,14 +83,11 @@ export function TooltipPage() {
           <h2 className="text-lg font-semibold">Styling</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               variant
-            </code>{" "}
-            prop on{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              TooltipContent
-            </code>{" "}
-            to switch between the default and light styles.
+            </Code>{" "}
+            prop on <Code>TooltipContent</Code> to switch between the default and
+            light styles.
           </p>
 
           <h3 id="styling-default" className="mb-4 text-base font-semibold">Default</h3>

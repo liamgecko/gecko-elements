@@ -715,5 +715,16 @@ export const componentSections: ComponentSections = {
     { id: "variants", label: "Variants" },
     { id: "overflow", label: "Overflow" },
   ],
-  "code-snippet": [{ id: "overview", label: "Overview" }],
+  "code-snippet": [
+    { id: "overview", label: "Overview" },
+    { id: "inline", label: "Inline" },
+    {
+      id: "block",
+      label: "Block",
+      children: [
+        { id: "block-basic", label: "Basic" },
+        { id: "block-with-copy", label: "With copy button" },
+      ],
+    },
+  ],
 }

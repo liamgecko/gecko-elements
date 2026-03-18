@@ -1,7 +1,8 @@
-import { Button } from "@/components/ui/button"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
+import { Button } from "@/components/ui/button"
+import { Code } from "@/components/ui/code"
 import { Loader2, Settings } from "lucide-react"
 
 export function ButtonPage() {
@@ -29,7 +30,7 @@ export function ButtonPage() {
         <PageSection id="variants" label="Variants">
           <h2 className="text-lg font-semibold">Variants</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the variant prop for different emphasis levels.
+            Use the <Code>variant</Code> prop for different emphasis levels.
           </p>
 
           <h3 id="variants-primary" className="mb-3 text-base font-semibold">Primary</h3>
@@ -61,7 +62,7 @@ export function ButtonPage() {
         <PageSection id="dropdown" label="Dropdown">
           <h2 className="text-lg font-semibold">Dropdown</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">dropdown</code> prop to append a
+            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">dropdown</Code> prop to append a
             chevron and indicate that the button opens a menu or list of options.
           </p>
           <ComponentExample className="mb-6">

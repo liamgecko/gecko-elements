@@ -1,8 +1,9 @@
 import { useState } from "react"
-import { Checkbox, CheckboxGroup } from "@/components/ui/checkbox"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
+import { Checkbox, CheckboxGroup } from "@/components/ui/checkbox"
+import { Code } from "@/components/ui/code"
 
 export function CheckboxPage() {
   const [groupValue, setGroupValue] = useState<string[]>(["fuji"])
@@ -13,14 +14,16 @@ export function CheckboxPage() {
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Checkbox</h1>
           <p className="text-sm text-muted-foreground">
-            A control that toggles between checked and unchecked. Use the
-            <code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            A control that toggles between checked and unchecked. Use the{" "}
+            <Code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               label
-            </code>
+            </Code>
+            {" "}
             and
-            <code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               description
-            </code>
+            </Code>
+            {" "}
             props for accessible labeling and helper text.
           </p>
         </PageSection>
@@ -39,10 +42,11 @@ export function CheckboxPage() {
         <PageSection id="with-description" label="With description">
           <h2 className="text-lg font-semibold">With description</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Add optional helper text below the label with the
-            <code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            Add optional helper text below the label with the{" "}
+            <Code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               description
-            </code>
+            </Code>
+            {" "}
             prop.
           </p>
           <ComponentExample>

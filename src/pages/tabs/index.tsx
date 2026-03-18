@@ -2,6 +2,7 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Badge } from "@/components/ui/badge"
+import { Code } from "@/components/ui/code"
 import {
   Tabs,
   TabsContent,
@@ -23,23 +24,13 @@ export function TabsPage() {
         <PageSection id="basic" label="Basic example">
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              Tabs
-            </code>
-            ,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              TabsList
-            </code>
-            ,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              TabsTrigger
-            </code>
-            , and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              TabsContent
-            </code>{" "}
-            with <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">defaultValue</code> to control the initial tab.
+            Use <Code>Tabs</Code>, <Code>TabsList</Code>, <Code>TabsTrigger</Code>,
+            {" "}
+            and <Code>TabsContent</Code> with{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              defaultValue
+            </Code>{" "}
+            to control the initial tab.
           </p>
           <ComponentExample>
             <Tabs defaultValue="events" className="w-[400px]">
@@ -65,14 +56,11 @@ export function TabsPage() {
           <h2 className="text-lg font-semibold">Line</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               variant="line"
-            </code>{" "}
-            on{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              TabsList
-            </code>{" "}
-            for an underline-style tab list without a pill background.
+            </Code>{" "}
+            on <Code>TabsList</Code> for an underline-style tab list without a pill
+            background.
           </p>
           <ComponentExample>
             <Tabs defaultValue="events" variant="line" className="w-full">
@@ -89,14 +77,10 @@ export function TabsPage() {
           <h2 className="text-lg font-semibold">Vertical</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               orientation="vertical"
-            </code>{" "}
-            on{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              Tabs
-            </code>{" "}
-            to stack the list and content in a column layout.
+            </Code>{" "}
+            on <Code>Tabs</Code> to stack the list and content in a column layout.
           </p>
           <ComponentExample>
             <Tabs defaultValue="events" orientation="vertical">
@@ -113,14 +97,11 @@ export function TabsPage() {
           <h2 className="text-lg font-semibold">Disabled</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Pass{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               disabled
-            </code>{" "}
-            to a{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              TabsTrigger
-            </code>{" "}
-            to prevent selection and show a disabled state.
+            </Code>{" "}
+            to a <Code>TabsTrigger</Code> to prevent selection and show a disabled
+            state.
           </p>
           <ComponentExample>
             <Tabs defaultValue="events">
@@ -137,15 +118,12 @@ export function TabsPage() {
           <h2 className="text-lg font-semibold">Full width</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               fullWidth
-            </code>{" "}
-            prop on{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              TabsList
-            </code>{" "}
-            so the list fills the container and triggers share the space evenly.
-            Works with both default and line variants.
+            </Code>{" "}
+            prop on <Code>TabsList</Code> so the list fills the container and
+            triggers share the space evenly. Works with both default and line
+            variants.
           </p>
 
           <h3 id="full-width-default" className="mb-3 text-base font-semibold">Default tabs</h3>
@@ -174,14 +152,10 @@ export function TabsPage() {
         <PageSection id="badges" label="Badges">
           <h2 className="text-lg font-semibold">Badges</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Add a{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-              Badge
-            </code>{" "}
-            inside each{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            Add a <Code>Badge</Code> inside each{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               TabsTrigger
-            </code>{" "}
+            </Code>{" "}
             to show counts or labels alongside the tab label.
           </p>
 

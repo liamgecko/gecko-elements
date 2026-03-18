@@ -1,7 +1,7 @@
-import { Copy, Search } from "lucide-react"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
+import { Code } from "@/components/ui/code"
 import { Button } from "@/components/ui/button"
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
@@ -11,6 +11,7 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "@/components/ui/input-group"
+import { Copy, Search } from "lucide-react"
 
 export function InputPage() {
   return (
@@ -27,7 +28,9 @@ export function InputPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             A simple text input with a placeholder. Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Input</code>{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              Input
+            </Code>{" "}
             component for single-line text entry.
           </p>
           <ComponentExample>
@@ -38,8 +41,15 @@ export function InputPage() {
         <PageSection id="states" label="States">
           <h2 className="text-lg font-semibold">States</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">disabled</code> prop or{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">aria-invalid</code> to show disabled and validation states.
+            Use the{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              disabled
+            </Code>{" "}
+            prop or{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              aria-invalid
+            </Code>{" "}
+            to show disabled and validation states.
           </p>
 
           <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
@@ -56,7 +66,16 @@ export function InputPage() {
         <PageSection id="required" label="Required">
           <h2 className="text-lg font-semibold">Required</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Add the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">required</code> attribute so the browser enforces the field before form submit. Pair with a <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldLabel</code> for an accessible required field.
+            Add the{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              required
+            </Code>{" "}
+            attribute so the browser enforces the field before form submit. Pair
+            with a{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              FieldLabel
+            </Code>{" "}
+            for an accessible required field.
           </p>
           <ComponentExample>
             <FieldSet>
@@ -73,10 +92,27 @@ export function InputPage() {
         <PageSection id="sizing" label="Sizing">
           <h2 className="text-lg font-semibold">Sizing</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size</code> prop for{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">sm</code>,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">md</code>, or{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">lg</code>. Default is <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">md</code>.
+            Use the{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              size
+            </Code>{" "}
+            prop for{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              sm
+            </Code>
+            ,{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              md
+            </Code>
+            , or{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              lg
+            </Code>
+            . Default is{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              md
+            </Code>
+            .
           </p>
 
           <h3 id="sizing-small" className="mb-3 text-base font-semibold">Small</h3>
@@ -98,11 +134,27 @@ export function InputPage() {
         <PageSection id="icons" label="Icons">
           <h2 className="text-lg font-semibold">Icons</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputGroup</code> with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputGroupAddon</code> to show icons. Set the addon{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">align</code> prop to{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">inline-start</code> or{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">inline-end</code> to position the icon.
+            Use{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              InputGroup
+            </Code>{" "}
+            with{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              InputGroupAddon
+            </Code>{" "}
+            to show icons. Set the addon{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              align
+            </Code>{" "}
+            prop to{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              inline-start
+            </Code>{" "}
+            or{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              inline-end
+            </Code>{" "}
+            to position the icon.
           </p>
 
           <h3 id="icons-left" className="mb-3 text-base font-semibold">Left aligned</h3>
@@ -184,8 +236,20 @@ export function InputPage() {
         <PageSection id="button" label="Button">
           <h2 className="text-lg font-semibold">Button</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputGroupButton</code> inside{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputGroupAddon</code> for a clickable button (e.g. search trigger). Buttons are always at the end. Button size follows the group <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size</code> (sm, md, lg).
+            Use{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              InputGroupButton
+            </Code>{" "}
+            inside{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              InputGroupAddon
+            </Code>{" "}
+            for a clickable button (e.g. search trigger). Buttons are always at
+            the end. Button size follows the group{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              size
+            </Code>{" "}
+            (sm, md, lg).
           </p>
 
           <ComponentExample className="flex flex-col gap-4">
@@ -219,8 +283,15 @@ export function InputPage() {
         <PageSection id="inline" label="Inline">
           <h2 className="text-lg font-semibold">Inline</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Field</code> with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">orientation="horizontal"</code> to place an input and button side by side.
+            Use{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              Field
+            </Code>{" "}
+            with{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              orientation="horizontal"
+            </Code>{" "}
+            to place an input and button side by side.
           </p>
           <ComponentExample>
             <Field orientation="horizontal">
