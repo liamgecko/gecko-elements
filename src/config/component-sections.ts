@@ -675,7 +675,28 @@ export const componentSections: ComponentSections = {
       ],
     },
   ],
-  "file-input": [{ id: "overview", label: "Overview" }],
+  "file-input": [
+    { id: "overview", label: "Overview" },
+    { id: "basic-example", label: "Basic example" },
+    {
+      id: "states",
+      label: "States",
+      children: [
+        { id: "states-disabled", label: "Disabled" },
+        { id: "states-invalid", label: "Invalid" },
+      ],
+    },
+    {
+      id: "sizing",
+      label: "Sizing",
+      children: [
+        { id: "sizing-small", label: "Small" },
+        { id: "sizing-medium", label: "Medium" },
+        { id: "sizing-large", label: "Large" },
+      ],
+    },
+    { id: "required", label: "Required" },
+  ],
   "drop-zone": [{ id: "overview", label: "Overview" }],
   counter: [
     { id: "overview", label: "Overview" },

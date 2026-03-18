@@ -111,6 +111,9 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+  @view-transition {
+    navigation: auto;
+  }
 }
 
 @layer components {

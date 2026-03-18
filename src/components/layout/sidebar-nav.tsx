@@ -46,7 +46,7 @@ const navItems: NavItem[] = [
   { to: "/components/dropdown-menu", label: "Dropdown menu" },
   { to: "/components/empty", label: "Empty" },
   { to: "/components/field", label: "Field" },
-  { to: "/components/file-input", label: "File input", todo: true },
+  { to: "/components/file-input", label: "File input" },
   { to: "/components/filters", label: "Filters", todo: true },
   { to: "/components/input", label: "Input" },
   { to: "/components/input-otp", label: "Input OTP" },
