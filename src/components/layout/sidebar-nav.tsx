@@ -43,7 +43,7 @@ const navItems: NavItem[] = [
   { to: "/components/date-picker", label: "Date picker" },
   { to: "/components/dialog", label: "Dialog" },
   // { to: "/components/direction", label: "Direction" },
-  { to: "/components/drop-zone", label: "Drop zone", todo: true },
+  { to: "/components/drop-zone", label: "Drop zone" },
   { to: "/components/dropdown-menu", label: "Dropdown menu" },
   { to: "/components/empty", label: "Empty" },
   { to: "/components/field", label: "Field" },
