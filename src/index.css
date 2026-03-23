@@ -116,6 +116,12 @@
   @view-transition {
     navigation: auto;
   }
+  .react-colorful__saturation {
+    @apply !rounded-t-sm;
+  }
+  .react-colorful__last-control {
+    @apply !rounded-b-sm;
+  }
 }
 
 @layer components {

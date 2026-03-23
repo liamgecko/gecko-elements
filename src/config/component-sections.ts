@@ -611,7 +611,22 @@ export const componentSections: ComponentSections = {
   sidebar: [{ id: "overview", label: "Overview" }],
   "chat-bubble": [{ id: "overview", label: "Overview" }],
   "chat-head": [{ id: "overview", label: "Overview" }],
-  "color-picker": [{ id: "overview", label: "Overview" }],
+  "color-picker": [
+    { id: "overview", label: "Overview" },
+    { id: "basic-example", label: "Basic example" },
+    {
+      id: "sizing",
+      label: "Sizing",
+      children: [
+        { id: "sizing-small", label: "Small" },
+        { id: "sizing-medium", label: "Medium" },
+        { id: "sizing-large", label: "Large" },
+      ],
+    },
+    { id: "with-default-value", label: "With default value" },
+    { id: "direct-hex-input", label: "Direct HEX input" },
+    { id: "disabled", label: "Disabled" },
+  ],
   "data-table": [{ id: "overview", label: "Overview" }],
   "reply-box": [{ id: "overview", label: "Overview" }],
   "typing-indicator": [

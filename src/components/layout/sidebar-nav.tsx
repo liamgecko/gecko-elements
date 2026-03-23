@@ -33,7 +33,7 @@ const navItems: NavItem[] = [
   { to: "/components/chat-head", label: "Chat head", todo: true },
   { to: "/components/checkbox", label: "Checkbox" },
   { to: "/components/code-snippet", label: "Code snippet" },
-  { to: "/components/color-picker", label: "Color picker", todo: true },
+  { to: "/components/color-picker", label: "Color picker" },
   { to: "/components/combobox", label: "Combobox" },
   { to: "/components/command", label: "Command" },
   { to: "/components/context-menu", label: "Context menu" },
