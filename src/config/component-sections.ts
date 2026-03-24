@@ -609,7 +609,30 @@ export const componentSections: ComponentSections = {
     { id: "hoverable", label: "Hoverable rows" },
   ],
   sidebar: [{ id: "overview", label: "Overview" }],
-  "chat-bubble": [{ id: "overview", label: "Overview" }],
+  "chat-bubble": [
+    { id: "overview", label: "Overview" },
+    { id: "basic-example", label: "Basic example" },
+    { id: "agent", label: "Agent" },
+    {
+      id: "status",
+      label: "Status",
+      children: [
+        { id: "status-sent", label: "Sent" },
+        { id: "status-delivered", label: "Delivered" },
+        { id: "status-read", label: "Read" },
+        { id: "status-failed", label: "Failed" },
+      ],
+    },
+    { id: "note", label: "Note" },
+    {
+      id: "info-popover",
+      label: "Info popover",
+      children: [
+        { id: "info-popover-user-message", label: "User message" },
+        { id: "info-popover-agent-message", label: "Agent message" },
+      ],
+    },
+  ],
   "chat-head": [{ id: "overview", label: "Overview" }],
   "color-picker": [
     { id: "overview", label: "Overview" },
