@@ -633,7 +633,13 @@ export const componentSections: ComponentSections = {
       ],
     },
   ],
-  "chat-head": [{ id: "overview", label: "Overview" }],
+  "chat-head": [
+    { id: "overview", label: "Overview" },
+    { id: "default", label: "Default" },
+    { id: "closed", label: "Closed" },
+    { id: "unread-notification", label: "Unread notification" },
+    { id: "active-state", label: "Active state" },
+  ],
   "color-picker": [
     { id: "overview", label: "Overview" },
     { id: "basic-example", label: "Basic example" },
