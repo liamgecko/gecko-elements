@@ -550,7 +550,21 @@ export const componentSections: ComponentSections = {
     { id: "help-text", label: "Help text" },
     { id: "validation", label: "Validation" },
   ],
-  filters: [{ id: "overview", label: "Overview" }],
+  filters: [
+    { id: "overview", label: "Overview" },
+    { id: "basic-example", label: "Basic example" },
+    { id: "sort", label: "Sort" },
+    { id: "condensed", label: "Condensed" },
+    {
+      id: "trigger",
+      label: "Trigger",
+      children: [
+        { id: "trigger-label", label: "Trigger label" },
+        { id: "trigger-icon", label: "Trigger icon" },
+        { id: "trigger-icon-only", label: "Icon only trigger" },
+      ],
+    },
+  ],
   "input-otp": [
     { id: "overview", label: "Overview" },
     { id: "basic-example", label: "Basic example" },

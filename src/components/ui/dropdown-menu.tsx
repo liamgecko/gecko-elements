@@ -247,18 +247,59 @@ function DropdownMenuSubContent({
   side = "inline-end",
   sideOffset = 0,
   className,
+  searchable = false,
+  searchPlaceholder = "Search...",
+  children,
   ...props
-}: React.ComponentProps<typeof DropdownMenuContent>) {
+}: React.ComponentProps<typeof DropdownMenuContent> & {
+  searchable?: boolean
+  searchPlaceholder?: string
+}) {
+  const [query, setQuery] = React.useState("")
+  const visibleCountRef = React.useRef(0)
+
+  // eslint-disable-next-line -- intentional: sync visible count so empty state shows in same frame (no flicker)
+  visibleCountRef.current = 0
+
+  const addVisible = React.useCallback(() => {
+    visibleCountRef.current += 1
+  }, [])
+
+  const submenuSearchValue = React.useMemo(
+    () => ({
+      query,
+      setQuery,
+      visibleCountRef,
+      addVisible,
+    }),
+    [query, addVisible]
+  )
+
+  const inner = searchable ? (
+    <DropdownMenuSearchContext.Provider value={submenuSearchValue}>
+      <DropdownMenuSearch placeholder={searchPlaceholder} />
+      <div className="p-1">{children}</div>
+    </DropdownMenuSearchContext.Provider>
+  ) : (
+    children
+  )
+
   return (
     <DropdownMenuContent
       data-slot="dropdown-menu-sub-content"
-      className={cn("data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-[96px] rounded-md p-1 shadow-lg ring-1 duration-100 w-auto", className)}
+      className={cn(
+        "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-[96px] rounded-md shadow-lg ring-1 duration-100 w-auto",
+        searchable ? "p-0" : "p-1",
+        className
+      )}
       align={align}
       alignOffset={alignOffset}
       side={side}
       sideOffset={sideOffset}
       {...props}
-    />
+    >
+      {inner}
+    </DropdownMenuContent>
   )
 }
 
