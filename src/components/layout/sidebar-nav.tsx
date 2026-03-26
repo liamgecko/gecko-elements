@@ -50,6 +50,7 @@ const navItems: NavItem[] = [
   { to: "/components/file-input", label: "File input" },
   { to: "/components/file-tree", label: "File tree", todo: true },
   { to: "/components/filters", label: "Filters" },
+  { to: "/components/inline-edit", label: "Inline edit", todo: true },
   { to: "/components/input", label: "Input" },
   { to: "/components/input-otp", label: "Input OTP" },
   // { to: "/components/kbd", label: "Kbd" },

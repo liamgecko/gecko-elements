@@ -61,6 +61,7 @@ import { CounterPage } from "@/pages/counter"
 import { CodeSnippetPage } from "@/pages/code-snippet"
 import { FiltersPage } from "@/pages/filters"
 import { FileTreePage } from "@/pages/file-tree"
+import { InlineEditPage } from "@/pages/inline-edit"
 import { ActivityFeedPage } from "@/pages/activity-feed"
 
 export function App() {
@@ -124,6 +125,7 @@ export function App() {
         <Route path="/components/search-input" element={<SearchInputPage />} />
         <Route path="/components/file-input" element={<FileInputPage />} />
         <Route path="/components/file-tree" element={<FileTreePage />} />
+        <Route path="/components/inline-edit" element={<InlineEditPage />} />
         <Route path="/components/activity-feed" element={<ActivityFeedPage />} />
         <Route path="/components/drop-zone" element={<DropZonePage />} />
         <Route path="/components/counter" element={<CounterPage />} />
