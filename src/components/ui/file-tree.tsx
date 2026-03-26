@@ -95,15 +95,15 @@ function FileTreeList({
                       )}
                     >
                       <ChevronRight
-                        className="size-4 shrink-0 text-muted-foreground transition-transform group-data-[state=open]:rotate-90"
+                        className="size-4 shrink-0 text-muted-foreground transition-transform group-aria-expanded:rotate-90"
                         aria-hidden="true"
                       />
                       <Folder
-                        className="size-4 shrink-0 text-muted-foreground group-data-[state=open]:hidden"
+                        className="size-4 shrink-0 text-muted-foreground group-aria-expanded:hidden"
                         aria-hidden="true"
                       />
                       <FolderOpen
-                        className="hidden size-4 shrink-0 text-muted-foreground group-data-[state=open]:inline"
+                        className="hidden size-4 shrink-0 text-muted-foreground group-aria-expanded:inline"
                         aria-hidden="true"
                       />
                       <span className="truncate">{node.label}</span>
