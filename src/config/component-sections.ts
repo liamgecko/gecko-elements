@@ -756,7 +756,10 @@ export const componentSections: ComponentSections = {
     },
     { id: "required", label: "Required" },
   ],
-  "file-tree": [{ id: "overview", label: "Overview" }],
+  "file-tree": [
+    { id: "overview", label: "Overview" },
+    { id: "basic-example", label: "Basic example" },
+  ],
   "drop-zone": [
     { id: "overview", label: "Overview" },
     { id: "basic-example", label: "Basic example" },
