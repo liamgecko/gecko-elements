@@ -99,6 +99,12 @@
 }
 
 @layer base {
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
+  ::-moz-selection {
+    @apply bg-primary text-primary-foreground;
+  }
   * {
     @apply border-border outline-ring/50;
   }

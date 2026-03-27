@@ -14,7 +14,19 @@ export interface ComponentSections {
  */
 export const componentSections: ComponentSections = {
   "activity-feed": [{ id: "overview", label: "Overview" }],
-  "inline-edit": [{ id: "overview", label: "Overview" }],
+  "inline-edit": [
+    { id: "overview", label: "Overview" },
+    { id: "basic-example", label: "Basic example" },
+    {
+      id: "sizing",
+      label: "Sizing",
+      children: [
+        { id: "sizing-small", label: "Small" },
+        { id: "sizing-medium", label: "Medium" },
+        { id: "sizing-large", label: "Large" },
+      ],
+    },
+  ],
   button: [
     { id: "overview", label: "Overview" },
     { id: "default", label: "Default button" },
