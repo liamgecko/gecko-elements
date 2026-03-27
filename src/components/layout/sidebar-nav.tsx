@@ -16,7 +16,7 @@ type NavItem = {
 }
 
 const navItems: NavItem[] = [
-  { to: "/components/activity-feed", label: "Activity feed", todo: true },
+  { to: "/components/activity-feed", label: "Activity feed" },
   { to: "/components/accordion", label: "Accordion" },
   { to: "/components/alert", label: "Alert" },
   { to: "/components/alert-dialog", label: "Alert dialog" },
