@@ -38,7 +38,7 @@ const navItems: NavItem[] = [
   { to: "/components/command", label: "Command" },
   { to: "/components/context-menu", label: "Context menu" },
   { to: "/components/counter", label: "Counter" },
-  { to: "/components/data-table", label: "Data table", todo: true },
+  { to: "/components/data-table", label: "Data table", todo: false },
   { to: "/components/date-input", label: "Date input" },
   { to: "/components/date-picker", label: "Date picker" },
   { to: "/components/dialog", label: "Dialog" },

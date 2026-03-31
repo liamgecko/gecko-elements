@@ -687,7 +687,32 @@ export const componentSections: ComponentSections = {
     { id: "direct-hex-input", label: "Direct HEX input" },
     { id: "disabled", label: "Disabled" },
   ],
-  "data-table": [{ id: "overview", label: "Overview" }],
+  "data-table": [
+    { id: "overview", label: "Overview" },
+    { id: "basic-example", label: "Basic example" },
+    {
+      id: "table-headers",
+      label: "Table headers",
+      children: [
+        { id: "sorting", label: "Sorting" },
+        { id: "help-text", label: "Help text" },
+      ],
+    },
+    { id: "pagination", label: "Pagination" },
+    { id: "mass-actions", label: "Mass actions" },
+    { id: "row-actions", label: "Row actions" },
+    {
+      id: "table-toolbar",
+      label: "Table toolbar",
+      children: [
+        { id: "search", label: "Search" },
+        { id: "filters", label: "Filters" },
+        { id: "column-toggle", label: "Column toggle" },
+      ],
+    },
+    { id: "multi-line-cells", label: "Multi-line cells" },
+    { id: "full-example", label: "Full example" },
+  ],
   "reply-box": [{ id: "overview", label: "Overview" }],
   "typing-indicator": [
     { id: "overview", label: "Overview" },
