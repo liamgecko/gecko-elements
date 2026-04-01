@@ -308,6 +308,7 @@ function DropdownMenuCheckboxItem({
   children,
   checked,
   inset,
+  searchValue,
   ...props
 }: MenuPrimitive.CheckboxItem.Props & {
   inset?: boolean
@@ -316,8 +317,8 @@ function DropdownMenuCheckboxItem({
   const search = useDropdownMenuSearch()
   const query = search?.query.toLowerCase().trim()
   const text = React.useMemo(
-    () => (props.searchValue ?? getItemText(children)).toLowerCase(),
-    [props.searchValue, children]
+    () => (searchValue ?? getItemText(children)).toLowerCase(),
+    [searchValue, children]
   )
   const isHidden = query ? !text.includes(query) : false
 

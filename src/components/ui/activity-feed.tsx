@@ -173,7 +173,10 @@ function ActivityFeedList({
   variant = "default",
   ...props
 }: ActivityFeedListProps) {
-  const value = React.useMemo(() => ({ variant }), [variant])
+  const value = React.useMemo(
+    () => ({ variant: (variant ?? "default") as ActivityFeedVariant }),
+    [variant]
+  )
 
   return (
     <ActivityFeedContext.Provider value={value}>

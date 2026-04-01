@@ -58,7 +58,9 @@ export type SortProps = React.ComponentProps<"div"> & {
   triggerIcon?: string | LucideIcon
 }
 
-export type FilterProps = React.ComponentProps<"div"> & {
+export type FilterOperator = "is" | "is not" | "is any of"
+
+export type FilterProps = Omit<React.ComponentProps<"div">, "onChange"> & {
   categories: FilterCategory[]
   /** Button label. Also used as the aria-label when `trigger=\"icon\"`. */
   triggerLabel?: string
@@ -66,12 +68,17 @@ export type FilterProps = React.ComponentProps<"div"> & {
   trigger?: "default" | "icon"
   /** Any lucide icon name (e.g. \"funnel\", \"Funnel\", \"FunnelPlus\"). */
   triggerIcon?: string | LucideIcon
-  onChange?: (values: Record<string, string[]>) => void
+  /**
+   * Called when selected values or per-category operators change.
+   * Second argument is required for negated filters (`is not`).
+   */
+  onChange?: (
+    values: Record<string, string[]>,
+    operators: Record<string, FilterOperator>
+  ) => void
   /** Default shows active filter chips; condensed shows a counter on the trigger. */
   variant?: "default" | "condensed"
 }
-
-type FilterOperator = "is" | "is not" | "is any of"
 
 function pluralize(label: string) {
   const text = label.toLowerCase().trim()
@@ -128,6 +135,10 @@ export function Filter({
   )
   const [selectionOrder, setSelectionOrder] = React.useState<string[]>([])
 
+  React.useEffect(() => {
+    onChange?.(values, operators)
+  }, [values, operators, onChange])
+
   const categoriesById = React.useMemo(() => {
     const map = new Map<string, FilterCategory>()
     for (const category of categories) map.set(category.id, category)
@@ -140,7 +151,6 @@ export function Filter({
         const current = prev[categoryId] ?? []
         const next = updater(current)
         const nextValues = { ...prev, [categoryId]: next }
-        onChange?.(nextValues)
 
         const wasEmpty = current.length === 0
         const isEmpty = next.length === 0
@@ -174,7 +184,7 @@ export function Filter({
         return nextValues
       })
     },
-    [onChange]
+    []
   )
 
   const setOperator = React.useCallback((categoryId: string, next: FilterOperator) => {
@@ -185,7 +195,6 @@ export function Filter({
     (categoryId: string) => {
       setValues((prev) => {
         const nextValues = { ...prev, [categoryId]: [] }
-        onChange?.(nextValues)
         return nextValues
       })
       setOperators((prev) => {
@@ -195,7 +204,7 @@ export function Filter({
       })
       setSelectionOrder((prev) => prev.filter((id) => id !== categoryId))
     },
-    [onChange]
+    []
   )
 
   const activeCategoryIds = React.useMemo(() => {
@@ -226,13 +235,14 @@ export function Filter({
   const triggerIconNode = React.useMemo(() => {
     const Icon = resolveLucideIcon(triggerIcon)
     // eslint-disable-next-line -- icon component selected from a stable map; no local state
-    return <Icon className="size-4" />
+    return <Icon />
   }, [triggerIcon])
 
   return (
     <div className={cn("flex items-center gap-2 flex-wrap", className)} {...props}>
       <DropdownMenu>
         <DropdownMenuTrigger
+          nativeButton={false}
           render={
             <span className="relative inline-flex">
               {trigger === "icon" ? (
@@ -448,7 +458,7 @@ export function Sort({
   const triggerIconNode = React.useMemo(() => {
     const Icon = resolveLucideIcon(triggerIcon)
     // eslint-disable-next-line -- icon component selected from a stable map; no local state
-    return <Icon className="size-4" />
+    return <Icon />
   }, [triggerIcon])
 
   return (
