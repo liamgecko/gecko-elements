@@ -55,7 +55,7 @@ const navItems: NavItem[] = [
   { to: "/components/input-otp", label: "Input OTP" },
   // { to: "/components/kbd", label: "Kbd" },
   { to: "/components/label", label: "Label" },
-  { to: "/components/metric-card", label: "Metric card", todo: true },
+  { to: "/components/metric-card", label: "Metric card" },
   { to: "/components/native-select", label: "Native select" },
   { to: "/components/number-field", label: "Number field" },
   { to: "/components/pagination", label: "Pagination" },
