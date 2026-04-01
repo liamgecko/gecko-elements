@@ -62,7 +62,7 @@ const navItems: NavItem[] = [
   { to: "/components/popover", label: "Popover" },
   { to: "/components/progress", label: "Progress" },
   { to: "/components/radio-group", label: "Radio group" },
-  { to: "/components/reply-box", label: "Reply box", todo: true },
+  { to: "/components/reply-box", label: "Reply box" },
   { to: "/components/scroll-area", label: "Scroll area" },
   { to: "/components/search-input", label: "Search field" },
   { to: "/components/select", label: "Select" },

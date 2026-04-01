@@ -713,7 +713,15 @@ export const componentSections: ComponentSections = {
     { id: "multi-line-cells", label: "Multi-line cells" },
     { id: "full-example", label: "Full example" },
   ],
-  "reply-box": [{ id: "overview", label: "Overview" }],
+  "reply-box": [
+    { id: "overview", label: "Overview" },
+    { id: "default", label: "Default" },
+    { id: "footer-only", label: "Footer only" },
+    { id: "textarea", label: "Textarea" },
+    { id: "basic", label: "Basic" },
+    { id: "basic-actions", label: "Basic with actions" },
+    { id: "note-mode", label: "Note mode" },
+  ],
   "typing-indicator": [
     { id: "overview", label: "Overview" },
     { id: "default", label: "Default typing indicator" },
