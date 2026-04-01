@@ -737,7 +737,15 @@ export const componentSections: ComponentSections = {
       ],
     },
   ],
-  "metric-card": [{ id: "overview", label: "Overview" }],
+  "metric-card": [
+    { id: "overview", label: "Overview" },
+    { id: "basic", label: "Basic" },
+    { id: "trend", label: "Trend" },
+    { id: "sparkline", label: "Sparkline" },
+    { id: "menu", label: "Options menu" },
+    { id: "help", label: "Help tooltip" },
+    { id: "description", label: "Description" },
+  ],
   charts: [{ id: "overview", label: "Overview" }],
   "telephone-field": [
     { id: "overview", label: "Overview" },
