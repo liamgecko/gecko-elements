@@ -28,7 +28,7 @@ const navItems: NavItem[] = [
   // { to: "/components/button-group", label: "Button group" },
   { to: "/components/calendar", label: "Calendar" },
   { to: "/components/card", label: "Card" },
-  { to: "/components/charts", label: "Charts", todo: true },
+  { to: "/components/charts", label: "Charts" },
   { to: "/components/chat-bubble", label: "Chat bubble" },
   { to: "/components/chat-head", label: "Chat head" },
   { to: "/components/checkbox", label: "Checkbox" },
