@@ -113,7 +113,7 @@ export function PageSectionNav({ className }: PageSectionNavProps) {
   return (
     <aside
       className={cn(
-        "sticky top-8 w-52 shrink-0 self-start",
+        "hidden lg:block sticky top-8 w-52 shrink-0 self-start",
         className
       )}
     >

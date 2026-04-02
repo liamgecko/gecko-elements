@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button"
 export function CardPage() {
   return (
     <div className="flex gap-8">
-      <div className="flex-1 space-y-10 border-r border-border pr-8">
+      <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Card</h1>
           <p className="text-sm text-muted-foreground">
