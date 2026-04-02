@@ -136,6 +136,7 @@ export const componentSections: ComponentSections = {
       label: "Variants",
       children: [
         { id: "variants-with-header", label: "Card with header" },
+        { id: "variants-with-header-tooltip", label: "Card with header tooltip" },
         { id: "variants-with-footer", label: "Card with footer" },
         { id: "variants-with-header-and-footer", label: "Card with header and footer" },
       ],
@@ -746,7 +747,105 @@ export const componentSections: ComponentSections = {
     { id: "help", label: "Help tooltip" },
     { id: "description", label: "Description" },
   ],
-  charts: [{ id: "overview", label: "Overview" }],
+  charts: [
+    { id: "overview", label: "Overview" },
+    {
+      id: "chart-bar",
+      label: "Bar",
+      children: [
+        { id: "chart-bar-single", label: "Single bar" },
+        { id: "chart-bar-multiple", label: "Multiple bar" },
+        { id: "chart-bar-stacked", label: "Stacked bar" },
+        {
+          id: "chart-bar-horizontal-single",
+          label: "Horizontal single bar",
+        },
+        {
+          id: "chart-bar-horizontal-multiple",
+          label: "Horizontal multiple bar",
+        },
+      ],
+    },
+    {
+      id: "chart-line",
+      label: "Line",
+      children: [
+        { id: "chart-line-single", label: "Single line" },
+        { id: "chart-line-multiple", label: "Multiple lines" },
+        { id: "chart-line-dots", label: "Line with dots" },
+      ],
+    },
+    {
+      id: "chart-area",
+      label: "Area",
+      children: [
+        { id: "chart-area-single", label: "Area single" },
+        { id: "chart-area-multiple", label: "Area multiple" },
+        { id: "chart-area-stacked", label: "Area stacked" },
+        { id: "chart-area-gradient", label: "Area gradient" },
+      ],
+    },
+    {
+      id: "chart-pie",
+      label: "Pie",
+      children: [
+        { id: "chart-pie-default", label: "Default" },
+        { id: "chart-pie-labels", label: "With labels" },
+        { id: "chart-pie-donut", label: "Donut" },
+        { id: "chart-pie-donut-text", label: "Donut with text" },
+      ],
+    },
+    {
+      id: "chart-radar",
+      label: "Radar",
+      children: [
+        { id: "chart-radar-default", label: "Default" },
+        { id: "chart-radar-dots", label: "With dots" },
+        { id: "chart-radar-lines", label: "Lines" },
+        { id: "chart-radar-multiple", label: "Multiple" },
+      ],
+    },
+    {
+      id: "chart-radial",
+      label: "Radial",
+      children: [
+        { id: "chart-radial-default", label: "Default" },
+        { id: "chart-radial-text", label: "With text" },
+        { id: "chart-radial-stacked", label: "Stacked" },
+      ],
+    },
+    { id: "chart-tooltip", label: "Tooltip" },
+    { id: "chart-legend", label: "Legend" },
+    {
+      id: "chart-axis",
+      label: "Axis",
+      children: [
+        { id: "chart-axis-x", label: "X axis" },
+        { id: "chart-axis-y", label: "Y axis" },
+      ],
+    },
+    {
+      id: "chart-grid",
+      label: "Grid",
+      children: [
+        { id: "chart-grid-x", label: "X axis grid" },
+        { id: "chart-grid-y", label: "Y axis grid" },
+        { id: "chart-grid-none", label: "No grid" },
+      ],
+    },
+    {
+      id: "chart-layout",
+      label: "Layout",
+      children: [
+        { id: "chart-with-header", label: "With header" },
+        { id: "chart-with-metric", label: "With metric" },
+        {
+          id: "chart-with-header-and-metric",
+          label: "With header and metric",
+        },
+      ],
+    },
+  ],
   "telephone-field": [
     { id: "overview", label: "Overview" },
     { id: "basic-example", label: "Basic example" },

@@ -111,25 +111,34 @@ export function PageSectionNav({ className }: PageSectionNavProps) {
   if (!sections || sections.length === 0) return null
 
   return (
-    <aside className="sticky top-8 w-52 shrink-0 self-start">
-      <nav
-        aria-label="Page sections"
-        className={cn("text-sm text-muted-foreground", className)}
+    <aside
+      className={cn(
+        "sticky top-8 w-52 shrink-0 self-start",
+        className
+      )}
+    >
+      <div
+        className={cn(
+          "min-h-0 max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain",
+          "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        )}
       >
-        <span className="text-xs font-medium text-muted-foreground mb-4 block">
-          On this page
-        </span>
-        <ul className="space-y-1">
-          {sections.map((section) => (
-            <SectionLink
-              key={section.id}
-              section={section}
-              currentId={activeId}
-              onSelect={setActiveId}
-            />
-          ))}
-        </ul>
-      </nav>
+        <nav aria-label="Page sections" className="text-sm text-muted-foreground">
+          <span className="text-xs font-medium text-muted-foreground mb-4 block">
+            On this page
+          </span>
+          <ul className="space-y-1">
+            {sections.map((section) => (
+              <SectionLink
+                key={section.id}
+                section={section}
+                currentId={activeId}
+                onSelect={setActiveId}
+              />
+            ))}
+          </ul>
+        </nav>
+      </div>
     </aside>
   )
 }

@@ -66,6 +66,31 @@ export function CardPage() {
             </Card>
           </ComponentExample>
 
+          <h3 id="variants-with-header-tooltip" className="mb-3 text-base font-semibold">
+            Card with header tooltip
+          </h3>
+          <p className="mb-4 text-sm text-muted-foreground">
+            Set tooltip on CardHeader to show CardDescription in the help tooltip instead of
+            under the title. You can still pass custom tooltip content instead of using
+            CardDescription.
+          </p>
+          <ComponentExample className="mb-6">
+            <Card>
+              <CardHeader tooltip>
+                <CardTitle>Card title</CardTitle>
+                <CardDescription>
+                  Optional longer explanation that appears on hover.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm">
+                  Main content goes here. The header shows only the title; use the help
+                  icon for the description.
+                </p>
+              </CardContent>
+            </Card>
+          </ComponentExample>
+
           <h3 id="variants-with-footer" className="mb-3 text-base font-semibold">Card with footer</h3>
           <ComponentExample className="mb-6">
             <Card>

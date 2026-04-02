@@ -1,6 +1,14 @@
+"use client"
+
 import * as React from "react"
+import { CircleHelp } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 function Card({
   className,
@@ -12,19 +20,6 @@ function Card({
       data-slot="card"
       data-size={size}
       className={cn("ring-foreground/10 bg-card text-card-foreground gap-0 overflow-hidden rounded-sm text-sm ring-1 has-[>img:first-child]:pt-0 data-[size=sm]:gap-0 *:[img:first-child]:rounded-t-sm *:[img:last-child]:rounded-b-sm group/card flex flex-col", className)}
-      {...props}
-    />
-  )
-}
-
-function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-header"
-      className={cn(
-        "gap-0.5 rounded-t-sm border-b p-4 group-data-[size=sm]/card:p-4 group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]",
-        className
-      )}
       {...props}
     />
   )
@@ -49,6 +44,7 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
     />
   )
 }
+CardDescription.displayName = "CardDescription"
 
 function CardAction({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -60,6 +56,156 @@ function CardAction({ className, ...props }: React.ComponentProps<"div">) {
       )}
       {...props}
     />
+  )
+}
+CardAction.displayName = "CardAction"
+
+/** Matches after Fast Refresh when `child.type` is a stale reference from the previous module. */
+type CardHeaderSlotComponent = typeof CardAction | typeof CardDescription
+
+function isElementOfType(
+  child: React.ReactElement,
+  Component: CardHeaderSlotComponent
+): boolean {
+  if (child.type === Component) return true
+  const a = child.type as { displayName?: string; name?: string }
+  const b = Component as { displayName?: string; name?: string }
+  const aName = a.displayName ?? a.name
+  const bName = b.displayName ?? b.name
+  return Boolean(aName && bName && aName === bName)
+}
+
+function partitionCardHeaderChildren(children: React.ReactNode) {
+  const actions: React.ReactNode[] = []
+  const descriptions: React.ReactElement[] = []
+  const main: React.ReactNode[] = []
+  for (const child of React.Children.toArray(children)) {
+    if (React.isValidElement(child) && isElementOfType(child, CardAction)) {
+      actions.push(child)
+    } else if (React.isValidElement(child) && isElementOfType(child, CardDescription)) {
+      descriptions.push(child)
+    } else {
+      main.push(child)
+    }
+  }
+  return { actions, descriptions, main }
+}
+
+function CardHeader({
+  className,
+  children,
+  tooltip,
+  ...props
+}: React.ComponentProps<"div"> & {
+  /**
+   * `true`: show `CardDescription` content in the help tooltip instead of under the title.
+   * Or pass custom content to show in the tooltip (CardDescription is still omitted from
+   * the header layout when tooltip is set).
+   */
+  tooltip?: boolean | React.ReactNode
+}) {
+  const useDescriptionInTooltip = tooltip === true
+
+  const explicitTooltipContent =
+    tooltip !== true &&
+    tooltip !== undefined &&
+    tooltip !== null &&
+    tooltip !== false &&
+    !(typeof tooltip === "string" && tooltip.trim() === "")
+      ? tooltip
+      : null
+
+  const { actions, descriptions, main } = partitionCardHeaderChildren(children)
+
+  const descriptionTooltipBody =
+    descriptions.length > 0 ? (
+      <div className="space-y-1">
+        {descriptions.map((d, i) => (
+          <React.Fragment key={i}>
+            {(d.props as { children?: React.ReactNode }).children}
+          </React.Fragment>
+        ))}
+      </div>
+    ) : null
+
+  let tooltipPopupContent: React.ReactNode = null
+  if (explicitTooltipContent != null && descriptionTooltipBody != null) {
+    tooltipPopupContent = (
+      <div className="space-y-1">
+        <div>{explicitTooltipContent}</div>
+        {descriptionTooltipBody}
+      </div>
+    )
+  } else if (explicitTooltipContent != null) {
+    tooltipPopupContent = explicitTooltipContent
+  } else if (useDescriptionInTooltip && descriptionTooltipBody != null) {
+    tooltipPopupContent = descriptionTooltipBody
+  }
+
+  const showTooltipHelp =
+    explicitTooltipContent != null ||
+    (useDescriptionInTooltip && descriptionTooltipBody != null)
+
+  if (!showTooltipHelp) {
+    return (
+      <div
+        data-slot="card-header"
+        className={cn(
+          "gap-0.5 rounded-t-sm border-b p-4 group-data-[size=sm]/card:p-4 group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    )
+  }
+
+  return (
+    <div
+      data-slot="card-header"
+      className={cn(
+        "rounded-t-sm border-b p-4 group-data-[size=sm]/card:p-4 group/card-header @container/card-header",
+        actions.length > 0
+          ? "grid grid-cols-[1fr_auto] items-start gap-x-2 gap-y-1"
+          : "flex flex-col gap-1",
+        className
+      )}
+      {...props}
+    >
+      <div
+        className={cn(
+          "inline-flex max-w-full min-w-0 items-center gap-2 **:data-[slot=card-title]:inline-block **:data-[slot=card-title]:min-w-0 **:data-[slot=card-title]:max-w-full **:data-[slot=card-title]:truncate",
+          actions.length > 0 && "col-start-1 row-start-1"
+        )}
+      >
+        {main}
+        <Tooltip>
+          <TooltipTrigger
+            aria-label="More information"
+          >
+            <CircleHelp className="size-3.5" aria-hidden />
+          </TooltipTrigger>
+          <TooltipContent side="top" className="max-w-xs text-pretty">
+            {tooltipPopupContent}
+          </TooltipContent>
+        </Tooltip>
+      </div>
+      {actions.map((action, index) =>
+        React.isValidElement(action) && isElementOfType(action, CardAction)
+          ? React.cloneElement(
+              action as React.ReactElement<{ className?: string }>,
+              {
+                key: action.key ?? index,
+                className: cn(
+                  (action.props as { className?: string }).className,
+                  "row-span-1"
+                ),
+              }
+            )
+          : action
+      )}
+    </div>
   )
 }
 
