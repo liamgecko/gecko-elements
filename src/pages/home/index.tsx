@@ -228,11 +228,6 @@ const components = [
     path: "/components/tooltip",
   },
   {
-    name: "Sidebar",
-    description: "Application layout sidebar and navigation.",
-    path: "/components/sidebar",
-  },
-  {
     name: "Chat bubble",
     description: "Message bubbles for chat interfaces.",
     path: "/components/chat-bubble",

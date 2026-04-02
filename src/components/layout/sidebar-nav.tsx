@@ -68,7 +68,6 @@ const navItems: NavItem[] = [
   { to: "/components/select", label: "Select" },
   { to: "/components/separator", label: "Separator" },
   { to: "/components/sheet", label: "Sheet" },
-  { to: "/components/sidebar", label: "Sidebar", todo: true },
   { to: "/components/spinner", label: "Spinner" },
   { to: "/components/switch", label: "Switch" },
   { to: "/components/table", label: "Table" },

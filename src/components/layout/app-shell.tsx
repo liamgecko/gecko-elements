@@ -22,6 +22,15 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 
+const APP_TITLE = "Gecko Elements"
+
+function slugToPageTitle(slug: string): string {
+  return slug
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ")
+}
+
 type AppShellProps = {
   children: React.ReactNode
 }
@@ -37,6 +46,18 @@ export function AppShell({ children }: AppShellProps) {
     if (viewport) {
       viewport.scrollTo({ top: 0, left: 0, behavior: "auto" })
     }
+
+    const { pathname } = location
+    if (pathname === "/") {
+      document.title = `Home | ${APP_TITLE}`
+    } else if (pathname.startsWith("/components/")) {
+      const slug = pathname.replace("/components/", "").replace(/\/$/, "")
+      document.title = slug
+        ? `${slugToPageTitle(slug)} | ${APP_TITLE}`
+        : APP_TITLE
+    } else {
+      document.title = APP_TITLE
+    }
   }, [location.pathname])
 
   const isHome = location.pathname === "/"
@@ -47,10 +68,7 @@ export function AppShell({ children }: AppShellProps) {
 
   const componentName =
     componentSlug && componentSlug.length > 0
-      ? componentSlug
-          .split("-")
-          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-          .join(" ")
+      ? slugToPageTitle(componentSlug)
       : null
 
   return (

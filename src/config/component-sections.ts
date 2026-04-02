@@ -640,7 +640,6 @@ export const componentSections: ComponentSections = {
     { id: "footer", label: "Footer" },
     { id: "hoverable", label: "Hoverable rows" },
   ],
-  sidebar: [{ id: "overview", label: "Overview" }],
   "chat-bubble": [
     { id: "overview", label: "Overview" },
     { id: "basic-example", label: "Basic example" },

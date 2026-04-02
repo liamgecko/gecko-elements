@@ -44,7 +44,6 @@ import { TablePage } from "@/pages/table"
 import { TabsPage } from "@/pages/tabs"
 import { TextareaPage } from "@/pages/textarea"
 import { TooltipPage } from "@/pages/tooltip"
-import { SidebarPage } from "@/pages/sidebar"
 import { ChatBubblePage } from "@/pages/chat-bubble"
 import { ChatHeadPage } from "@/pages/chat-head"
 import { ColorPickerPage } from "@/pages/color-picker"
@@ -112,7 +111,6 @@ export function App() {
         <Route path="/components/tabs" element={<TabsPage />} />
         <Route path="/components/textarea" element={<TextareaPage />} />
         <Route path="/components/tooltip" element={<TooltipPage />} />
-        <Route path="/components/sidebar" element={<SidebarPage />} />
         <Route path="/components/chat-bubble" element={<ChatBubblePage />} />
         <Route path="/components/chat-head" element={<ChatHeadPage />} />
         <Route path="/components/color-picker" element={<ColorPickerPage />} />
