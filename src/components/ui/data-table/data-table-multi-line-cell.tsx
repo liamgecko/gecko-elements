@@ -21,7 +21,7 @@ export function DataTableMultiLineCell({
 }: DataTableMultiLineCellProps) {
   return (
     <div className={cn("grid min-w-0 gap-0.5 whitespace-normal", className)}>
-      <div className={cn("min-w-0 leading-snug", primaryClassName)}>
+      <div className={cn("leading-snug", primaryClassName)}>
         {primary}
       </div>
       {secondary != null && secondary !== "" ? (
