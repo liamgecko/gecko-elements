@@ -200,7 +200,6 @@ export function DropZone({
         <Button
           type="button"
           variant="outline"
-          size="sm"
           className="mt-2 w-fit"
           disabled={disabled}
           onClick={(e) => {
