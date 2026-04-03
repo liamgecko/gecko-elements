@@ -236,9 +236,13 @@ export function ReplyBoxButtonTray({ items, className }: ReplyBoxButtonTrayProps
         </DropdownMenu>
       ) : null}
 
-      {/* Hidden measurement row for candidate buttons (same classes) */}
-      <div className="absolute -z-10 h-0 w-0 overflow-hidden opacity-0 pointer-events-none">
-        <Button ref={overflowMeasureRef} type="button" variant="ghost" size="icon-sm">
+      {/* Hidden measurement row for candidate buttons (same classes) — inert keeps it out of the a11y tree and tab order */}
+      <div
+        className="absolute -z-10 h-0 w-0 overflow-hidden opacity-0 pointer-events-none"
+        aria-hidden
+        inert
+      >
+        <Button ref={overflowMeasureRef} type="button" variant="ghost" size="icon-sm" tabIndex={-1}>
           <Ellipsis className="size-4" aria-hidden />
         </Button>
         {candidates.map((id) => {
@@ -251,6 +255,7 @@ export function ReplyBoxButtonTray({ items, className }: ReplyBoxButtonTrayProps
               type="button"
               variant="ghost"
               size="icon-sm"
+              tabIndex={-1}
             >
               <Icon {...replyBoxActionIconProps} />
               <span className="sr-only">{action.label}</span>
