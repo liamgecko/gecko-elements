@@ -130,10 +130,10 @@ export const ChatHeadItem = React.forwardRef<HTMLDivElement, ChatHeadItemProps>(
         </div>
 
         <div className="relative flex shrink-0 items-center">
-          <p className="whitespace-nowrap text-xs font-medium text-muted-foreground transition-opacity duration-200 group-hover:opacity-0">
+          <p className="whitespace-nowrap text-xs font-medium text-muted-foreground transition-opacity duration-200 group-hover:opacity-0 group-focus-within:opacity-0">
             {relativeTime}
           </p>
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center gap-1.5 opacity-0 transition-opacity duration-200 group-hover:pointer-events-auto group-hover:opacity-100">
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center gap-1.5 opacity-0 transition-opacity duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
             {closed ? (
               <>
                 <TooltipProvider>
