@@ -4,10 +4,11 @@ import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Code } from "@/components/ui/code"
 
 export function LabelPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Label</h1>
@@ -19,8 +20,8 @@ export function LabelPage() {
         <PageSection id="basic-example" label="Basic example">
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Label</code> with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">htmlFor</code> to associate the label with a form control.
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Label</Code> with{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">htmlFor</Code> to associate the label with a form control.
           </p>
           <ComponentExample>
             <Label htmlFor="email">Your email address</Label>
@@ -30,8 +31,8 @@ export function LabelPage() {
         <PageSection id="within-form" label="Within form">
           <h2 className="text-lg font-semibold">Within form</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldLabel</code> inside{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Field</code> to pair a label with an input.
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldLabel</Code> inside{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Field</Code> to pair a label with an input.
           </p>
           <ComponentExample>
             <Field>
@@ -44,7 +45,7 @@ export function LabelPage() {
         <PageSection id="required-field" label="Required field">
           <h2 className="text-lg font-semibold">Required field</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Add the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">required</code> attribute to the input so the browser enforces the field before submit. Pair with <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldLabel</code> for an accessible required field.
+            Add the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">required</Code> attribute to the input so the browser enforces the field before submit. Pair with <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldLabel</Code> for an accessible required field.
           </p>
           <ComponentExample>
             <Field>

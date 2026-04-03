@@ -4,6 +4,7 @@ import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Field, FieldLabel } from "@/components/ui/field"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Code } from "@/components/ui/code"
 
 export function RadioGroupPage() {
   const [groupValue, setGroupValue] = useState<string>("fuji")
@@ -11,19 +12,19 @@ export function RadioGroupPage() {
   const [asButtonDescValue, setAsButtonDescValue] = useState<string>("terms")
 
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Radio group</h1>
           <p className="text-sm text-muted-foreground">
             A control for selecting one option from a set. Use the{" "}
-            <code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               label
-            </code>
+            </Code>
             and{" "}
-            <code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               description
-            </code>
+            </Code>
             props for accessible labeling and helper text.
           </p>
         </PageSection>
@@ -45,9 +46,9 @@ export function RadioGroupPage() {
           <h2 className="text-lg font-semibold">With description</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Add optional helper text below the label with the{" "}
-            <code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               description
-            </code>{" "}
+            </Code>{" "}
             prop.
           </p>
           <ComponentExample>
@@ -133,9 +134,9 @@ export function RadioGroupPage() {
           <h2 className="text-lg font-semibold">As button</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               asButton
-            </code>{" "}
+            </Code>{" "}
             prop to render the radio as an outline-style button. Checked state
             uses a darker border and gray-100 background; hover state is
             applied.

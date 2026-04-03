@@ -3,6 +3,7 @@ import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
+import { Code } from "@/components/ui/code"
 
 const tags = Array.from({ length: 50 }).map(
   (_, i, a) => `v1.2.0-beta.${a.length - i}`
@@ -30,7 +31,7 @@ const works: Artwork[] = [
 
 export function ScrollAreaPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Scroll area</h1>
@@ -42,7 +43,7 @@ export function ScrollAreaPage() {
         <PageSection id="basic" label="Basic">
           <h2 className="text-lg font-semibold">Basic</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ScrollArea</code> to render a scrollable region with a styled scrollbar.
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ScrollArea</Code> to render a scrollable region with a styled scrollbar.
           </p>
           <ComponentExample>
             <ScrollArea className="h-72 w-48 rounded-md border">
@@ -63,7 +64,7 @@ export function ScrollAreaPage() {
           <h2 className="text-lg font-semibold">Horizontal</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             For horizontal content add a{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ScrollBar</code>{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ScrollBar</Code>{" "}
             with <span className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">orientation=&quot;horizontal&quot;</span>.
           </p>
           <ComponentExample>

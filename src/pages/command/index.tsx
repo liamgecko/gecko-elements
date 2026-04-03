@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Code } from "@/components/ui/code"
 
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
@@ -28,7 +29,7 @@ export function CommandPage() {
   const [open, setOpen] = React.useState(false)
 
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Command</h1>
@@ -40,10 +41,10 @@ export function CommandPage() {
         <PageSection id="example" label="Example">
           <h2 className="text-lg font-semibold">Example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Command</code> with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">CommandInput</code>,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">CommandList</code>, and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">CommandItem</code> to build a searchable command surface.
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Command</Code> with{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">CommandInput</Code>,{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">CommandList</Code>, and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">CommandItem</Code> to build a searchable command surface.
           </p>
           <ComponentExample>
             <Command className="max-w-sm rounded-lg border">
@@ -90,8 +91,8 @@ export function CommandPage() {
         <PageSection id="trigger" label="Trigger">
           <h2 className="text-lg font-semibold">Trigger</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">CommandDialog</code> with a{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Button</code> to open a command palette
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">CommandDialog</Code> with a{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Button</Code> to open a command palette
             from anywhere in your app.
           </p>
           <ComponentExample>

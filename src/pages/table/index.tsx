@@ -1,4 +1,6 @@
 import { ComponentExample } from "@/components/layout/component-example"
+
+import { Code } from "@/components/ui/code"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import {
@@ -13,7 +15,7 @@ import {
 
 export function TablePage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Table</h1>
@@ -26,9 +28,9 @@ export function TablePage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               Table
-            </code>{" "}
+            </Code>{" "}
             with header, body, and footer primitives to render structured tabular
             data.
           </p>
@@ -70,9 +72,9 @@ export function TablePage() {
           <h2 className="text-lg font-semibold">Footer</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               TableFooter
-            </code>{" "}
+            </Code>{" "}
             to summarize totals or other aggregate information at the bottom of
             the table.
           </p>
@@ -120,17 +122,17 @@ export function TablePage() {
           <h2 className="text-lg font-semibold">Hoverable rows</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Rows do not highlight on hover by default. Pass the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               hoverable
-            </code>{" "}
+            </Code>{" "}
             prop to{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               Table
-            </code>{" "}
+            </Code>{" "}
             (or individual{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               TableRow
-            </code>
+            </Code>
             ) to enable hover styles.
           </p>
           <ComponentExample>

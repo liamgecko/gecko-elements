@@ -62,6 +62,14 @@ import { FiltersPage } from "@/pages/filters"
 import { FileTreePage } from "@/pages/file-tree"
 import { InlineEditPage } from "@/pages/inline-edit"
 import { ActivityFeedPage } from "@/pages/activity-feed"
+import { ColorPage } from "@/pages/core/color"
+import { IconsPage } from "@/pages/core/icons"
+import { RadiusPage } from "@/pages/core/radius"
+import { ShadowsPage } from "@/pages/core/shadows"
+import { SpacingPage } from "@/pages/core/spacing"
+import { TypographyPage } from "@/pages/core/typography"
+import { CoreIndexPage } from "@/pages/core/index"
+import { ComponentsIndexPage } from "@/pages/components/index"
 
 export function App() {
   return (
@@ -69,6 +77,14 @@ export function App() {
       <Toaster />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/core" element={<CoreIndexPage />} />
+        <Route path="/components" element={<ComponentsIndexPage />} />
+        <Route path="/core/color" element={<ColorPage />} />
+        <Route path="/core/typography" element={<TypographyPage />} />
+        <Route path="/core/spacing" element={<SpacingPage />} />
+        <Route path="/core/radius" element={<RadiusPage />} />
+        <Route path="/core/shadows" element={<ShadowsPage />} />
+        <Route path="/core/icons" element={<IconsPage />} />
         <Route path="/components/accordion" element={<AccordionPage />} />
         <Route path="/components/alert" element={<AlertPage />} />
         <Route path="/components/alert-dialog" element={<AlertDialogPage />} />

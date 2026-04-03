@@ -1,4 +1,6 @@
 import { ComponentExample } from "@/components/layout/component-example"
+
+import { Code } from "@/components/ui/code"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Switch } from "@/components/ui/switch"
@@ -11,7 +13,7 @@ import {
 
 export function SwitchPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Switch</h1>
@@ -24,9 +26,9 @@ export function SwitchPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               {"<Switch />"}
-            </code>{" "}
+            </Code>{" "}
             component to render a standalone toggle.
           </p>
           <ComponentExample>
@@ -38,9 +40,9 @@ export function SwitchPage() {
           <h2 className="text-lg font-semibold">Label and description</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               Field
-            </code>{" "}
+            </Code>{" "}
             component to pair switches with labels and optional descriptive text.
           </p>
 
@@ -75,17 +77,17 @@ export function SwitchPage() {
           <h2 className="text-lg font-semibold">State</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               disabled
-            </code>{" "}
+            </Code>{" "}
             and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               aria-invalid
-            </code>{" "}
+            </Code>{" "}
             props together with the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               Field
-            </code>{" "}
+            </Code>{" "}
             component to communicate disabled and error states.
           </p>
 

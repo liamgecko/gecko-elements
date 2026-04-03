@@ -1,4 +1,5 @@
 import { toast } from "sonner"
+import { Code } from "@/components/ui/code"
 
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
@@ -7,16 +8,16 @@ import { Button } from "@/components/ui/button"
 
 export function ToastPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Toast</h1>
           <p className="text-sm text-muted-foreground">
             An opinionated toast component for React from the Sonner library.
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               toast
-            </code>{" "}
+            </Code>{" "}
             function to trigger notifications.
           </p>
         </PageSection>
@@ -25,9 +26,9 @@ export function ToastPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Trigger a default toast with a single call to{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               toast
-            </code>
+            </Code>
             .
           </p>
           <ComponentExample>
@@ -63,9 +64,9 @@ export function ToastPage() {
           <h2 className="text-lg font-semibold">Position</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               position
-            </code>{" "}
+            </Code>{" "}
             option to control where toasts appear on screen.
           </p>
           <ComponentExample>

@@ -5,6 +5,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
+import { Code } from "@/components/ui/code"
 
 export function CalendarPage() {
   const [date, setDate] = useState<Date | undefined>(new Date())
@@ -23,7 +24,7 @@ export function CalendarPage() {
   )
 
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Calendar</h1>
@@ -37,11 +38,11 @@ export function CalendarPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             A basic calendar with single-date selection. Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">
               mode="single"
-            </code>{" "}
-            with <code className="rounded bg-muted px-1.5 py-0.5 text-xs">selected</code> and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 text-xs">onSelect</code>.
+            </Code>{" "}
+            with <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">selected</Code> and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">onSelect</Code>.
           </p>
           <ComponentExample>
             <Calendar
@@ -56,7 +57,7 @@ export function CalendarPage() {
         <PageSection id="date-range" label="Date range">
           <h2 className="text-lg font-semibold">Date range</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 text-xs">mode="range"</code> to
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">mode="range"</Code> to
             let users select a range of dates. Shown here with two months.
           </p>
           <ComponentExample>
@@ -74,7 +75,7 @@ export function CalendarPage() {
         <PageSection id="month-year" label="Month and year selector">
           <h2 className="text-lg font-semibold">Month and year selector</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 text-xs">captionLayout="dropdown"</code> to
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">captionLayout="dropdown"</Code> to
             show month and year dropdowns for quick navigation.
           </p>
           <ComponentExample>
@@ -91,9 +92,9 @@ export function CalendarPage() {
         <PageSection id="booked-dates" label="Booked dates">
           <h2 className="text-lg font-semibold">Booked dates</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Disable specific dates with the <code className="rounded bg-muted px-1.5 py-0.5 text-xs">disabled</code> prop
-            and use <code className="rounded bg-muted px-1.5 py-0.5 text-xs">modifiers</code> and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 text-xs">modifiersClassNames</code> to
+            Disable specific dates with the <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">disabled</Code> prop
+            and use <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">modifiers</Code> and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">modifiersClassNames</Code> to
             style them (e.g. booked or unavailable).
           </p>
           <ComponentExample>

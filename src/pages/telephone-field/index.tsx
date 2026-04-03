@@ -3,12 +3,13 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { TelephoneField } from "@/components/ui/telephone-field"
+import { Code } from "@/components/ui/code"
 
 export function TelephoneFieldPage() {
   const [value, setValue] = useState<string>("")
 
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">
@@ -16,9 +17,9 @@ export function TelephoneFieldPage() {
           </h1>
           <p className="text-sm text-muted-foreground">
             Phone number input with an international country selector. Built with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               react-phone-number-input
-            </code>{" "}
+            </Code>{" "}
             and the design system&apos;s input and popover components.
           </p>
         </PageSection>
@@ -27,9 +28,9 @@ export function TelephoneFieldPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               TelephoneField
-            </code>{" "}
+            </Code>{" "}
             component for collecting phone numbers with a country selector in a popover.
           </p>
           <ComponentExample>
@@ -45,9 +46,9 @@ export function TelephoneFieldPage() {
           <h2 className="text-lg font-semibold">Default country</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               defaultCountry
-            </code>{" "}
+            </Code>{" "}
             prop to preselect the country (e.g. United Kingdom).
           </p>
           <ComponentExample>
@@ -64,11 +65,11 @@ export function TelephoneFieldPage() {
           <h2 className="text-lg font-semibold">Force international format</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               international
-            </code>{" "}
+            </Code>{" "}
             prop to always show the number with the country calling code in the input (e.g.{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">+44 7911 123456</code>).
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">+44 7911 123456</Code>).
           </p>
           <ComponentExample>
             <TelephoneField
@@ -85,25 +86,25 @@ export function TelephoneFieldPage() {
           <h2 className="text-lg font-semibold">Sizes</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               size
-            </code>{" "}
+            </Code>{" "}
             prop for{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               sm
-            </code>
+            </Code>
             ,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               md
-            </code>
+            </Code>
             , or{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               lg
-            </code>
+            </Code>
             . Default is{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               md
-            </code>
+            </Code>
             . Matches the Input component sizing.
           </p>
 
@@ -151,13 +152,13 @@ export function TelephoneFieldPage() {
           <h2 className="text-lg font-semibold">States</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               disabled
-            </code>{" "}
+            </Code>{" "}
             prop or{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               aria-invalid
-            </code>{" "}
+            </Code>{" "}
             to show disabled and validation states.
           </p>
 

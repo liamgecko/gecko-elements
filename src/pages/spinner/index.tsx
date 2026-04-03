@@ -1,4 +1,6 @@
 import { ComponentExample } from "@/components/layout/component-example"
+
+import { Code } from "@/components/ui/code"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Button } from "@/components/ui/button"
@@ -12,7 +14,7 @@ import { Spinner } from "@/components/ui/spinner"
 
 export function SpinnerPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Spinner</h1>
@@ -25,9 +27,9 @@ export function SpinnerPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               {"<Spinner />"}
-            </code>{" "}
+            </Code>{" "}
             component to show a loading indicator.
           </p>
           <ComponentExample>
@@ -41,9 +43,9 @@ export function SpinnerPage() {
           <h2 className="text-lg font-semibold">Sizing</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Control the spinner size with the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               size
-            </code>{" "}
+            </Code>{" "}
             prop instead of raw utility classes.
           </p>
           <ComponentExample>

@@ -1,5 +1,7 @@
 import * as React from "react"
 import { ComponentExample } from "@/components/layout/component-example"
+
+import { Code } from "@/components/ui/code"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import {
@@ -17,7 +19,7 @@ export function FieldPage() {
   const [showValidationErrors, setShowValidationErrors] = React.useState(false)
 
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Field</h1>
@@ -30,11 +32,11 @@ export function FieldPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Wrap inputs with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldSet</code>,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldGroup</code>, and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Field</code>. Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldLabel</code> with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">htmlFor</code> to associate the label with the input.
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldSet</Code>,{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldGroup</Code>, and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Field</Code>. Use{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldLabel</Code> with{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">htmlFor</Code> to associate the label with the input.
           </p>
           <ComponentExample>
             <FieldSet>
@@ -52,7 +54,7 @@ export function FieldPage() {
           <h2 className="text-lg font-semibold">Help text</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Add{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldDescription</code>{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldDescription</Code>{" "}
             below the input to show hint or help text. It uses muted styling and supports links.
           </p>
           <ComponentExample>
@@ -74,9 +76,9 @@ export function FieldPage() {
           <h2 className="text-lg font-semibold">Validation</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldError</code>{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldError</Code>{" "}
             below a field to show validation messages. It renders with destructive styling and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">role=&quot;alert&quot;</code> for accessibility.
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">role=&quot;alert&quot;</Code> for accessibility.
           </p>
           <ComponentExample>
             <form

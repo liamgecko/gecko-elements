@@ -5,6 +5,7 @@ import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { ComponentExample } from "@/components/layout/component-example"
 import { InlineEdit } from "@/components/ui/inline-edit"
 import * as React from "react"
+import { Code } from "@/components/ui/code"
 
 export function InlineEditPage() {
   const [sm, setSm] = React.useState("Click to edit")
@@ -13,7 +14,7 @@ export function InlineEditPage() {
   const [basic, setBasic] = React.useState("Click to edit")
 
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="min-w-0 flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Inline edit</h1>
@@ -39,7 +40,11 @@ export function InlineEditPage() {
         <PageSection id="sizing" label="Sizing">
           <h2 className="text-lg font-semibold">Sizes</h2>
           <p className="mb-6 text-sm text-muted-foreground">
-            Use <code>size</code> to control control height and typography.
+            Use{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              size
+            </Code>{" "}
+            to control control height and typography.
           </p>
 
           <h3 id="sizing-small" className="mb-3 text-base font-semibold">

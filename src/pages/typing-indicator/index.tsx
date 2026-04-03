@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
+import { Code } from "@/components/ui/code"
 
 const placeholderAvatar =
   "https://picsum.photos/seed/avatar/200"
@@ -30,7 +31,7 @@ export function TypingIndicatorPage() {
   }, [])
 
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">
@@ -47,9 +48,9 @@ export function TypingIndicatorPage() {
           <h2 className="text-lg font-semibold">Default typing indicator</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             The default typing indicator with three animated dots. Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               animate
-            </code>{" "}
+            </Code>{" "}
             prop to animate the component in and out.
           </p>
           <ComponentExample>
@@ -80,13 +81,13 @@ export function TypingIndicatorPage() {
           <h2 className="text-lg font-semibold">User typing indicator</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               variant="text"
-            </code>{" "}
+            </Code>{" "}
             prop with a{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               name
-            </code>{" "}
+            </Code>{" "}
             to show who is typing.
           </p>
           <ComponentExample>
@@ -122,9 +123,9 @@ export function TypingIndicatorPage() {
           <h2 className="text-lg font-semibold">With avatar</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Pass an{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               avatar
-            </code>{" "}
+            </Code>{" "}
             image URL (or a custom React node) to show an avatar next to the
             dots or text.
           </p>

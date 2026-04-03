@@ -3,7 +3,7 @@ import { PageSectionNav } from "@/components/layout/page-section-nav"
 
 export function KbdPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-2">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Kbd</h1>

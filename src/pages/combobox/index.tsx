@@ -16,6 +16,8 @@ import {
   ComboboxSeparator,
   ComboboxValue,
 } from "@/components/ui/combobox"
+
+import { Code } from "@/components/ui/code"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
@@ -68,7 +70,7 @@ export function ComboboxPage() {
   const multipleAnchor = React.useRef<HTMLDivElement | null>(null)
 
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Combobox</h1>
@@ -80,9 +82,9 @@ export function ComboboxPage() {
         <PageSection id="basic" label="Basic">
           <h2 className="text-lg font-semibold">Basic</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Combobox</code> with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxInput</code> and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxList</code> for a searchable
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Combobox</Code> with{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxInput</Code> and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxList</Code> for a searchable
             list of options.
           </p>
           <ComponentExample>
@@ -105,10 +107,10 @@ export function ComboboxPage() {
         <PageSection id="multiple" label="Multiple">
           <h2 className="text-lg font-semibold">Multiple</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxChips</code>,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxValue</code>,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxChip</code>, and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxChipsInput</code> to display and manage multiple selected values.
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxChips</Code>,{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxValue</Code>,{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxChip</Code>, and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxChipsInput</Code> to display and manage multiple selected values.
           </p>
           <ComponentExample>
             <Combobox
@@ -145,8 +147,8 @@ export function ComboboxPage() {
         <PageSection id="with-clear" label="With clear">
           <h2 className="text-lg font-semibold">With clear</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">showClear</code> prop on{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxInput</code> to show a clear button when a value is selected.
+            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">showClear</Code> prop on{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxInput</Code> to show a clear button when a value is selected.
           </p>
           <ComponentExample>
             <Combobox items={frameworks} defaultValue={frameworks[0]}>
@@ -168,10 +170,10 @@ export function ComboboxPage() {
         <PageSection id="groups" label="Groups">
           <h2 className="text-lg font-semibold">Groups</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxGroup</code>,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxLabel</code>,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxCollection</code>, and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxSeparator</code> to organize options into labeled groups.
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxGroup</Code>,{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxLabel</Code>,{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxCollection</Code>, and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxSeparator</Code> to organize options into labeled groups.
           </p>
           <ComponentExample>
             <Combobox items={timezones}>

@@ -17,8 +17,10 @@ function scrollToSection(id: string) {
 }
 
 function getComponentKey(pathname: string): string | null {
-  const match = pathname.match(/^\/components\/(.+)$/)
-  return match ? match[1] : null
+  const components = pathname.match(/^\/components\/(.+)$/)
+  if (components) return components[1]
+  const core = pathname.match(/^\/core\/(.+)$/)
+  return core ? core[1] : null
 }
 
 function SectionLink({
@@ -119,7 +121,7 @@ export function PageSectionNav({ className }: PageSectionNavProps) {
     >
       <div
         className={cn(
-          "min-h-0 max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain",
+          "min-h-0 max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain pl-2.5",
           "[scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         )}
       >

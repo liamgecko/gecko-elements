@@ -4,10 +4,11 @@ import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty"
 import { Button } from "@/components/ui/button"
 import { InboxIcon } from "lucide-react"
+import { Code } from "@/components/ui/code"
 
 export function EmptyPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Empty</h1>
@@ -20,10 +21,10 @@ export function EmptyPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             A minimal empty state with a title and description. Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Empty</code>,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyHeader</code>,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyTitle</code>, and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyDescription</code>.
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Empty</Code>,{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyHeader</Code>,{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyTitle</Code>, and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyDescription</Code>.
           </p>
           <ComponentExample>
             <Empty>
@@ -41,8 +42,8 @@ export function EmptyPage() {
           <h2 className="text-lg font-semibold">With icon</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Add{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyMedia</code>{" "}
-            with <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">variant=&quot;icon&quot;</code> to show
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyMedia</Code>{" "}
+            with <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">variant=&quot;icon&quot;</Code> to show
             an icon above the title and description.
           </p>
           <ComponentExample>
@@ -64,7 +65,7 @@ export function EmptyPage() {
           <h2 className="text-lg font-semibold">Actions</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyContent</code>{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyContent</Code>{" "}
             below the header to add buttons or other actions so users can resolve the empty state.
           </p>
 

@@ -3,10 +3,11 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "@/components/ui/input-otp"
+import { Code } from "@/components/ui/code"
 
 export function InputOtpPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">One time password input</h1>
@@ -18,9 +19,9 @@ export function InputOtpPage() {
         <PageSection id="basic-example" label="Basic example">
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            A 6-digit OTP input using <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTP</code>,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTPGroup</code>, and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTPSlot</code>.
+            A 6-digit OTP input using <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTP</Code>,{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTPGroup</Code>, and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTPSlot</Code>.
           </p>
           <ComponentExample>
             <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
@@ -39,7 +40,7 @@ export function InputOtpPage() {
         <PageSection id="separator" label="Separator">
           <h2 className="text-lg font-semibold">Separator</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTPSeparator</code> between slots to visually group digits (e.g. 3-3).
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTPSeparator</Code> between slots to visually group digits (e.g. 3-3).
           </p>
           <ComponentExample>
             <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
@@ -59,9 +60,9 @@ export function InputOtpPage() {
         <PageSection id="alphanumeric" label="Alphanumeric">
           <h2 className="text-lg font-semibold">Alphanumeric</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">pattern</code> prop with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">REGEXP_ONLY_DIGITS_AND_CHARS</code> from{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">input-otp</code> to allow letters and numbers.
+            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">pattern</Code> prop with{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">REGEXP_ONLY_DIGITS_AND_CHARS</Code> from{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">input-otp</Code> to allow letters and numbers.
           </p>
           <ComponentExample>
             <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
@@ -80,7 +81,7 @@ export function InputOtpPage() {
         <PageSection id="custom" label="Custom">
           <h2 className="text-lg font-semibold">Custom</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Control how many inputs make up the OTP by setting <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">maxLength</code> and rendering the same number of <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTPSlot</code> components (each with <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">index</code> 0 to maxLength − 1).
+            Control how many inputs make up the OTP by setting <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">maxLength</Code> and rendering the same number of <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTPSlot</Code> components (each with <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">index</Code> 0 to maxLength − 1).
           </p>
           <ComponentExample>
             <InputOTP maxLength={4} pattern={REGEXP_ONLY_DIGITS}>

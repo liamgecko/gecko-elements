@@ -1,3 +1,4 @@
+import * as React from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -14,6 +15,15 @@ type NavItem = {
   label: string
   todo?: boolean
 }
+
+const coreNavItems: NavItem[] = [
+  { to: "/core/color", label: "Color" },
+  { to: "/core/typography", label: "Typography" },
+  { to: "/core/spacing", label: "Spacing" },
+  { to: "/core/radius", label: "Radius" },
+  { to: "/core/shadows", label: "Shadows" },
+  { to: "/core/icons", label: "Icons" },
+] as const
 
 const navItems: NavItem[] = [
   { to: "/components/activity-feed", label: "Activity feed" },
@@ -83,37 +93,46 @@ export function SidebarNav() {
   const location = useLocation()
   const navigate = useNavigate()
 
+  const renderNavItems = (items: readonly NavItem[]) =>
+    items.map(({ to, label, todo }) => (
+      <SidebarMenuItem key={to}>
+        <SidebarMenuButton
+          isActive={location.pathname === to}
+          tooltip={label}
+          aria-current={location.pathname === to ? "page" : undefined}
+          onClick={() => navigate(to)}
+          className="font-medium text-sm text-muted-foreground hover:text-foreground data-active:text-foreground"
+        >
+          <span className="flex items-center gap-1.5">
+            <span>{label}</span>
+            {todo && (
+              <Badge variant="info" size="xs" rounded>
+                To do
+              </Badge>
+            )}
+          </span>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    ))
+
   return (
-    <SidebarGroup>
-      <SidebarGroupLabel>Components</SidebarGroupLabel>
-      <SidebarGroupContent>
-        <SidebarMenu className="gap-px">
-          {navItems.map(({ to, label, todo }) => (
-            <SidebarMenuItem key={to}>
-              <SidebarMenuButton
-                isActive={location.pathname === to}
-                tooltip={label}
-                aria-current={location.pathname === to ? "page" : undefined}
-                onClick={() => navigate(to)}
-                className="font-medium text-sm text-muted-foreground hover:text-foreground data-active:text-foreground"
-              >
-                <span className="flex items-center gap-1.5">
-                  <span>{label}</span>
-                  {todo && (
-                    <Badge
-                      variant="info"
-                      size="xs"
-                      rounded
-                    >
-                      To do
-                    </Badge>
-                  )}
-                </span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
-        </SidebarMenu>
-      </SidebarGroupContent>
-    </SidebarGroup>
+    <React.Fragment>
+      <SidebarGroup>
+        <SidebarGroupLabel>Core</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu className="gap-px">
+            {renderNavItems(coreNavItems)}
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel>Components</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu className="gap-px">
+            {renderNavItems(navItems)}
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </React.Fragment>
   )
 }

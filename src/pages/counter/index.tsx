@@ -2,10 +2,11 @@ import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { ComponentExample } from "@/components/layout/component-example"
 import { Counter } from "@/components/ui/counter"
+import { Code } from "@/components/ui/code"
 
 export function CounterPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Counter</h1>
@@ -92,8 +93,16 @@ export function CounterPage() {
         <PageSection id="overflow" label="Overflow">
           <h2 className="text-lg font-semibold">Overflow</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <code>max</code> prop to cap the displayed value and show an
-            overflow indicator such as <code>9+</code> when the underlying count
+            Use the{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              max
+            </Code>{" "}
+            prop to cap the displayed value and show an overflow indicator such
+            as{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              9+
+            </Code>{" "}
+            when the underlying count
             is higher.
           </p>
           <ComponentExample>

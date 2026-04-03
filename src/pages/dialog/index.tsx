@@ -1,4 +1,6 @@
 import { ComponentExample } from "@/components/layout/component-example"
+
+import { Code } from "@/components/ui/code"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import {
@@ -17,7 +19,7 @@ import { XIcon } from "lucide-react"
 
 export function DialogPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Dialog</h1>
@@ -30,9 +32,9 @@ export function DialogPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             A minimal dialog without a header or footer. Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Dialog</code>,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogTrigger</code>, and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogContent</code> to show simple
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Dialog</Code>,{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogTrigger</Code>, and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogContent</Code> to show simple
             content.
           </p>
           <ComponentExample>
@@ -55,9 +57,9 @@ export function DialogPage() {
           <h2 className="text-lg font-semibold">Variants</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Compose dialogs by adding{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogHeader</code> and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogFooter</code> inside{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogContent</code>.
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogHeader</Code> and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogFooter</Code> inside{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogContent</Code>.
           </p>
 
           <h3 id="variants-with-header" className="mb-3 text-base font-semibold">With header</h3>
@@ -127,11 +129,11 @@ export function DialogPage() {
           <h2 className="text-lg font-semibold">Footer close button</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">showCloseButton</code> prop on{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogFooter</code> to render a footer
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">showCloseButton</Code> prop on{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogFooter</Code> to render a footer
             close action, and customise its label and icon with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">closeButtonText</code> and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">closeButtonIcon</code>.
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">closeButtonText</Code> and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">closeButtonIcon</Code>.
           </p>
 
           <h3 id="footer-close-button-default" className="mb-3 text-base font-semibold">Default close button</h3>
@@ -183,8 +185,8 @@ export function DialogPage() {
           <h2 className="text-lg font-semibold">Sizing</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Control the maximum width of the dialog content with the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size</code> prop on{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogContent</code>. Sizes map to
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size</Code> prop on{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogContent</Code>. Sizes map to
             responsive max-widths on larger screens.
           </p>
           <ComponentExample>
@@ -196,7 +198,7 @@ export function DialogPage() {
                     <DialogHeader>
                       <DialogTitle>Extra small dialog</DialogTitle>
                       <DialogDescription>
-                        Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;xs&quot;</code> for
+                        Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;xs&quot;</Code> for
                         very compact dialogs such as toasts or inline confirmations.
                       </DialogDescription>
                     </DialogHeader>
@@ -211,7 +213,7 @@ export function DialogPage() {
                     <DialogHeader>
                       <DialogTitle>Small dialog</DialogTitle>
                       <DialogDescription>
-                        <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;sm&quot;</code> is ideal
+                        <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;sm&quot;</Code> is ideal
                         for short forms and simple confirmation flows.
                       </DialogDescription>
                     </DialogHeader>
@@ -227,7 +229,7 @@ export function DialogPage() {
                       <DialogTitle>Medium dialog</DialogTitle>
                       <DialogDescription>
                         The default{" "}
-                        <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;md&quot;</code>{" "}
+                        <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;md&quot;</Code>{" "}
                         balances content density and readability.
                       </DialogDescription>
                     </DialogHeader>
@@ -243,7 +245,7 @@ export function DialogPage() {
                       <DialogTitle>Large dialog</DialogTitle>
                       <DialogDescription>
                         Use{" "}
-                        <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;lg&quot;</code> for
+                        <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;lg&quot;</Code> for
                         content-heavy dialogs such as settings or multi-step flows.
                       </DialogDescription>
                     </DialogHeader>
@@ -258,7 +260,7 @@ export function DialogPage() {
                     <DialogHeader>
                       <DialogTitle>Extra large dialog</DialogTitle>
                       <DialogDescription>
-                        <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;xl&quot;</code> gives
+                        <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;xl&quot;</Code> gives
                         the widest layout for complex editors or previews.
                       </DialogDescription>
                     </DialogHeader>

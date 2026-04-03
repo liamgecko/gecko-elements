@@ -2,6 +2,7 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Code } from "@/components/ui/code"
 
 const items = [
   { label: "Apple", value: "apple" },
@@ -61,7 +62,7 @@ const southAmerica = [
 
 export function SelectPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Select</h1>
@@ -75,9 +76,9 @@ export function SelectPage() {
           <h2 className="text-lg font-semibold">Basic</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               Select
-            </code>{" "}
+            </Code>{" "}
             with a trigger and content to render a simple dropdown.
           </p>
           <ComponentExample>
@@ -149,10 +150,10 @@ export function SelectPage() {
           <h2 className="text-lg font-semibold">Sizes</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Adjust the trigger height to match other controls using the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               size
-            </code>{" "}
-            prop on <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">SelectTrigger</code>.
+            </Code>{" "}
+            prop on <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">SelectTrigger</Code>.
           </p>
 
           <h3 id="sizes-small" className="mb-3 text-base font-semibold">Small</h3>
@@ -214,17 +215,17 @@ export function SelectPage() {
           <h2 className="text-lg font-semibold">Groups</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               SelectGroup
-            </code>{" "}
+            </Code>{" "}
             and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               SelectLabel
-            </code>{" "}
+            </Code>{" "}
             to visually group related options, separated with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               SelectSeparator
-            </code>
+            </Code>
             .
           </p>
           <ComponentExample>
@@ -308,13 +309,13 @@ export function SelectPage() {
           <p className="mb-8 text-sm text-muted-foreground">
             Control whether the popup aligns to the trigger or to its content
             using the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               alignItemWithTrigger
-            </code>{" "}
+            </Code>{" "}
             prop on{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               SelectContent
-            </code>
+            </Code>
             .
           </p>
           <ComponentExample>

@@ -4,6 +4,7 @@ import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { DateInput } from "@/components/ui/date-input"
 import { Field, FieldLabel } from "@/components/ui/field"
+import { Code } from "@/components/ui/code"
 
 export function DateInputPage() {
   const [basicDate, setBasicDate] = React.useState<Date | undefined>(undefined)
@@ -11,7 +12,7 @@ export function DateInputPage() {
   const [americanDate, setAmericanDate] = React.useState<Date | undefined>(undefined)
 
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Date input</h1>
@@ -23,8 +24,8 @@ export function DateInputPage() {
         <PageSection id="basic-example" label="Basic example">
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Default order is day, month, then 2‑digit year (DD MM YY). Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">value</code> and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">onChange</code> for controlled usage.
+            Default order is day, month, then 2‑digit year (DD MM YY). Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">value</Code> and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">onChange</Code> for controlled usage.
           </p>
           <ComponentExample>
             <Field>
@@ -42,7 +43,7 @@ export function DateInputPage() {
         <PageSection id="four-digit-year" label="4-digit year">
           <h2 className="text-lg font-semibold">4-digit year</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Set <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">yearDigits=4</code> for a full year (DD MM YYYY).
+            Set <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">yearDigits=4</Code> for a full year (DD MM YYYY).
           </p>
           <ComponentExample>
             <Field>
@@ -61,7 +62,7 @@ export function DateInputPage() {
         <PageSection id="american-format" label="American format">
           <h2 className="text-lg font-semibold">American format</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Set <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">monthFirst</code> to true for MM DD order.
+            Set <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">monthFirst</Code> to true for MM DD order.
           </p>
           <ComponentExample>
             <Field>

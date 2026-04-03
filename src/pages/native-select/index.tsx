@@ -1,4 +1,6 @@
 import { ComponentExample } from "@/components/layout/component-example"
+
+import { Code } from "@/components/ui/code"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Field, FieldLabel } from "@/components/ui/field"
@@ -10,7 +12,7 @@ import {
 
 export function NativeSelectPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Native select</h1>
@@ -22,8 +24,8 @@ export function NativeSelectPage() {
         <PageSection id="basic-example" label="Basic example">
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">NativeSelect</code> with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">NativeSelectOption</code> for a native select dropdown.
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">NativeSelect</Code> with{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">NativeSelectOption</Code> for a native select dropdown.
           </p>
           <ComponentExample>
             <NativeSelect>
@@ -39,8 +41,8 @@ export function NativeSelectPage() {
         <PageSection id="groups" label="Groups">
           <h2 className="text-lg font-semibold">Groups</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">NativeSelectOptGroup</code> with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">label</code> to group options.
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">NativeSelectOptGroup</Code> with{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">label</Code> to group options.
           </p>
           <ComponentExample>
             <NativeSelect>
@@ -77,8 +79,8 @@ export function NativeSelectPage() {
         <PageSection id="within-form" label="Within form">
           <h2 className="text-lg font-semibold">Within form</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldLabel</code> inside{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Field</code> to pair a label with the select.
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldLabel</Code> inside{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Field</Code> to pair a label with the select.
           </p>
           <ComponentExample>
             <Field>
@@ -97,10 +99,10 @@ export function NativeSelectPage() {
         <PageSection id="sizing" label="Sizing">
           <h2 className="text-lg font-semibold">Sizing</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size</code> prop to match the Input component:{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">sm</code>,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">md</code>, or{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">lg</code>. Default is <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">md</code>.
+            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size</Code> prop to match the Input component:{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">sm</Code>,{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">md</Code>, or{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">lg</Code>. Default is <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">md</Code>.
           </p>
 
           <h3 id="sizing-small" className="mb-3 text-base font-semibold">Small</h3>
@@ -137,8 +139,8 @@ export function NativeSelectPage() {
         <PageSection id="states" label="States">
           <h2 className="text-lg font-semibold">States</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">disabled</code> prop or{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">aria-invalid</code> to show disabled and validation states.
+            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">disabled</Code> prop or{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">aria-invalid</Code> to show disabled and validation states.
           </p>
 
           <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>

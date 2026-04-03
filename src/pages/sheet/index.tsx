@@ -1,4 +1,6 @@
 import { ComponentExample } from "@/components/layout/component-example"
+
+import { Code } from "@/components/ui/code"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import {
@@ -15,7 +17,7 @@ import { Button } from "@/components/ui/button"
 
 export function SheetPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Sheet</h1>
@@ -29,13 +31,13 @@ export function SheetPage() {
           <h2 className="text-lg font-semibold">Basic</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Wrap your content in{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               Sheet
-            </code>{" "}
+            </Code>{" "}
             and use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               SheetTrigger
-            </code>{" "}
+            </Code>{" "}
             to open it.
           </p>
           <ComponentExample>
@@ -57,13 +59,13 @@ export function SheetPage() {
           <h2 className="text-lg font-semibold">Sides</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               side
-            </code>{" "}
+            </Code>{" "}
             prop on{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               SheetContent
-            </code>{" "}
+            </Code>{" "}
             to control which edge of the screen the sheet slides in from.
           </p>
           <ComponentExample>
@@ -123,13 +125,13 @@ export function SheetPage() {
           <h2 className="text-lg font-semibold">Sizes</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Control the width of side sheets with the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               size
-            </code>{" "}
+            </Code>{" "}
             prop on{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               SheetContent
-            </code>
+            </Code>
             .
           </p>
           <ComponentExample>
@@ -280,13 +282,13 @@ export function SheetPage() {
           <h2 className="text-lg font-semibold">Overlay</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               hideOverlay
-            </code>{" "}
+            </Code>{" "}
             prop on{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               SheetContent
-            </code>{" "}
+            </Code>{" "}
             to disable the backdrop while keeping the sheet visible.
           </p>
           <ComponentExample>

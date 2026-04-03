@@ -1,5 +1,7 @@
 import * as React from "react"
 import { ComponentExample } from "@/components/layout/component-example"
+
+import { Code } from "@/components/ui/code"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import {
@@ -34,7 +36,7 @@ export function ContextMenuPage() {
   const [theme, setTheme] = React.useState("light")
 
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Context menu</h1>
@@ -47,21 +49,21 @@ export function ContextMenuPage() {
           <h2 className="text-lg font-semibold">Basic</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Wrap content with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               ContextMenu
-            </code>{" "}
+            </Code>{" "}
             and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               ContextMenuTrigger
-            </code>{" "}
+            </Code>{" "}
             to open a{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               ContextMenuContent
-            </code>{" "}
+            </Code>{" "}
             with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               ContextMenuItem
-            </code>{" "}
+            </Code>{" "}
             options.
           </p>
           <ComponentExample>
@@ -83,17 +85,17 @@ export function ContextMenuPage() {
           <h2 className="text-lg font-semibold">Submenu</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               ContextMenuSub
-            </code>
+            </Code>
             ,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               ContextMenuSubTrigger
-            </code>{" "}
+            </Code>{" "}
             and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               ContextMenuSubContent
-            </code>{" "}
+            </Code>{" "}
             to nest secondary actions inside a parent item.
           </p>
           <ComponentExample>
@@ -139,9 +141,9 @@ export function ContextMenuPage() {
           <h2 className="text-lg font-semibold">Shortcuts</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Add{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               ContextMenuShortcut
-            </code>{" "}
+            </Code>{" "}
             to show keyboard hints alongside actions.
           </p>
           <ComponentExample>
@@ -184,17 +186,17 @@ export function ContextMenuPage() {
           <h2 className="text-lg font-semibold">Groups</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Group related actions with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               ContextMenuGroup
-            </code>{" "}
+            </Code>{" "}
             and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               ContextMenuLabel
-            </code>
+            </Code>
             , and separate them with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               ContextMenuSeparator
-            </code>
+            </Code>
             .
           </p>
           <ComponentExample>
@@ -293,9 +295,9 @@ export function ContextMenuPage() {
           <h2 className="text-lg font-semibold">Checkbox</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               ContextMenuCheckboxItem
-            </code>{" "}
+            </Code>{" "}
             for toggles such as visibility and notifications.
           </p>
           <ComponentExample>
@@ -322,13 +324,13 @@ export function ContextMenuPage() {
           <h2 className="text-lg font-semibold">Radio</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               ContextMenuRadioGroup
-            </code>{" "}
+            </Code>{" "}
             and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               ContextMenuRadioItem
-            </code>{" "}
+            </Code>{" "}
             for mutually exclusive choices.
           </p>
           <ComponentExample>
@@ -364,9 +366,9 @@ export function ContextMenuPage() {
           <h2 className="text-lg font-semibold">Destructive</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Mark dangerous actions with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               variant=&quot;destructive&quot;
-            </code>{" "}
+            </Code>{" "}
             to draw attention.
           </p>
           <ComponentExample>

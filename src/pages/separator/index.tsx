@@ -2,10 +2,11 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Separator } from "@/components/ui/separator"
+import { Code } from "@/components/ui/code"
 
 export function SeparatorPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Separator</h1>
@@ -18,9 +19,9 @@ export function SeparatorPage() {
           <h2 className="text-lg font-semibold">Vertical</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               orientation=&quot;vertical&quot;
-            </code>{" "}
+            </Code>{" "}
             prop to separate items in a horizontal row.
           </p>
           <ComponentExample>

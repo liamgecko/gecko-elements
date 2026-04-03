@@ -10,7 +10,8 @@ export interface ComponentSections {
 
 /**
  * Section config for the "On this page" nav. Keys match the route segment
- * (e.g. /components/button → "button"). Add or edit sections per component.
+ * (e.g. /components/button → "button", /core/color → "color"). Add or edit
+ * sections per page.
  */
 export const componentSections: ComponentSections = {
   "activity-feed": [
@@ -953,4 +954,10 @@ export const componentSections: ComponentSections = {
       ],
     },
   ],
+  color: [{ id: "overview", label: "Overview" }],
+  typography: [{ id: "overview", label: "Overview" }],
+  spacing: [{ id: "overview", label: "Overview" }],
+  radius: [{ id: "overview", label: "Overview" }],
+  shadows: [{ id: "overview", label: "Overview" }],
+  icons: [{ id: "overview", label: "Overview" }],
 }

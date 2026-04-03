@@ -1,4 +1,6 @@
 import { ComponentExample } from "@/components/layout/component-example"
+
+import { Code } from "@/components/ui/code"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Button } from "@/components/ui/button"
@@ -13,7 +15,7 @@ import { Textarea } from "@/components/ui/textarea"
  
 export function TextareaPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Textarea</h1>
@@ -27,9 +29,9 @@ export function TextareaPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               Textarea
-            </code>{" "}
+            </Code>{" "}
             component for multi-line text entry.
           </p>
           <ComponentExample>
@@ -41,13 +43,13 @@ export function TextareaPage() {
           <h2 className="text-lg font-semibold">States</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               disabled
-            </code>{" "}
+            </Code>{" "}
             prop or{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               aria-invalid
-            </code>{" "}
+            </Code>{" "}
             to show disabled and validation states.
           </p>
  
@@ -66,13 +68,13 @@ export function TextareaPage() {
           <h2 className="text-lg font-semibold">Required</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Add the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               required
-            </code>{" "}
+            </Code>{" "}
             attribute and pair the textarea with a{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               FieldLabel
-            </code>{" "}
+            </Code>{" "}
             so the field is enforced before submit and announced correctly to
             assistive technologies.
           </p>
@@ -97,25 +99,25 @@ export function TextareaPage() {
           <h2 className="text-lg font-semibold">Sizes</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               size
-            </code>{" "}
+            </Code>{" "}
             prop for{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               sm
-            </code>
+            </Code>
             ,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               md
-            </code>{" "}
+            </Code>{" "}
             or{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               lg
-            </code>
+            </Code>
             . Default is{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               md
-            </code>
+            </Code>
             .
           </p>
  
@@ -139,13 +141,13 @@ export function TextareaPage() {
           <h2 className="text-lg font-semibold">Within form</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Combine{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               Field
-            </code>{" "}
+            </Code>{" "}
             components with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
               Textarea
-            </code>{" "}
+            </Code>{" "}
             to build accessible forms with labels and helper text.
           </p>
           <ComponentExample>

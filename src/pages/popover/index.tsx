@@ -1,4 +1,6 @@
 import { ComponentExample } from "@/components/layout/component-example"
+
+import { Code } from "@/components/ui/code"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Button } from "@/components/ui/button"
@@ -14,7 +16,7 @@ import {
 
 export function PopoverPage() {
   return (
-    <div className="flex gap-8">
+    <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Popover</h1>
@@ -26,12 +28,12 @@ export function PopoverPage() {
         <PageSection id="basic-example" label="Basic example">
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverTrigger</code> with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">render</code> for a custom trigger and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverContent</code> with{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverHeader</code>,{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverTitle</code>, and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverDescription</code> for the panel.
+            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverTrigger</Code> with{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">render</Code> for a custom trigger and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverContent</Code> with{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverHeader</Code>,{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverTitle</Code>, and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverDescription</Code> for the panel.
           </p>
           <ComponentExample>
             <Popover>
@@ -53,9 +55,9 @@ export function PopoverPage() {
           <h2 className="text-lg font-semibold">Variants</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Compose popovers by adding{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverHeader</code> and{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverFooter</code> inside{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverContent</code>.
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverHeader</Code> and{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverFooter</Code> inside{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverContent</Code>.
           </p>
 
           <h3 id="variants-with-header" className="mb-3 text-base font-semibold">With header</h3>
@@ -138,8 +140,8 @@ export function PopoverPage() {
         <PageSection id="alignment" label="Alignment">
           <h2 className="text-lg font-semibold">Alignment</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">align</code> prop on{" "}
-            <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverContent</code> to align the
+            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">align</Code> prop on{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverContent</Code> to align the
             popover to the start, center, or end of the trigger.
           </p>
           <ComponentExample className="flex flex-wrap gap-4">
