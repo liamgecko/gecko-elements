@@ -73,10 +73,15 @@ const TypingIndicator = React.forwardRef<HTMLDivElement, TypingIndicatorProps>(
       return avatar
     }, [avatar, name, variant])
 
+    const statusText = name ? `${name} is typing` : "Someone is typing"
+
     const renderContent = () => {
       if (variant === "text") {
         return (
           <span
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
             className={cn(
               "inline-flex items-center gap-2 text-xs text-muted-foreground",
               className
@@ -92,12 +97,19 @@ const TypingIndicator = React.forwardRef<HTMLDivElement, TypingIndicatorProps>(
 
       return (
         <div
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
           className={cn("inline-flex items-center gap-2", className)}
           ref={ref}
           {...props}
         >
           {avatarNode}
-          <div className="inline-flex items-center gap-1 p-2.5 bg-muted rounded-lg rounded-bl-none relative">
+          <span className="sr-only">{statusText}</span>
+          <div
+            aria-hidden
+            className="inline-flex items-center gap-1 p-2.5 bg-muted rounded-lg rounded-bl-none relative"
+          >
             {Array.from({ length: dots }).map((_, index) => (
               <span
                 key={index}
@@ -122,7 +134,7 @@ const TypingIndicator = React.forwardRef<HTMLDivElement, TypingIndicatorProps>(
 
     return (
       <div
-        className="animate-in fade-in-0 slide-in-from-bottom-2 duration-200"
+        className="animate-in fade-in-0 slide-in-from-bottom-2 duration-200 motion-reduce:animate-none motion-reduce:opacity-100"
         style={
           animationDuration !== 0.2
             ? ({ animationDuration: `${animationDuration}s` } as React.CSSProperties)

@@ -147,6 +147,10 @@ export function DropZone({
     [disabled, files, setFiles]
   )
 
+  const labelId = React.useId()
+  const descriptionId = React.useId()
+  const labelledBy = `${labelId} ${descriptionId}`
+
   return (
     <div className={cn("w-full", className)}>
       <Input
@@ -161,19 +165,13 @@ export function DropZone({
         disabled={disabled}
         onChange={handleInputChange}
         className="sr-only"
+        aria-labelledby={labelledBy}
       />
 
       <div
-        role="button"
-        tabIndex={disabled ? -1 : 0}
+        role="region"
+        aria-labelledby={labelledBy}
         aria-disabled={disabled ? "true" : undefined}
-        onKeyDown={(e) => {
-          if (disabled) return
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault()
-            openPicker()
-          }
-        }}
         onClick={openPicker}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
@@ -192,8 +190,12 @@ export function DropZone({
             <CloudUpload className="size-6" aria-hidden />
           </div>
           <div className="flex flex-col items-center gap-1">
-            <p className="text-sm font-medium text-foreground">{label}</p>
-            <p className="text-xs text-muted-foreground">{description}</p>
+            <p id={labelId} className="text-sm font-medium text-foreground">
+              {label}
+            </p>
+            <p id={descriptionId} className="text-xs text-muted-foreground">
+              {description}
+            </p>
           </div>
         </div>
 
