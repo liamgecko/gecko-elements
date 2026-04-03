@@ -276,7 +276,20 @@ function ComboboxChip({
     >
       {children}
       {showRemove && (
-        <ComboboxPrimitive.ChipRemove className="opacity-50 hover:opacity-100 size-5" data-slot="combobox-chip-remove" render={<Button variant="ghost" size="icon-xs"><XIcon className="pointer-events-none" /></Button>} />
+        <ComboboxPrimitive.ChipRemove
+          className="opacity-50 hover:opacity-100 size-5"
+          data-slot="combobox-chip-remove"
+          render={
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-xs"
+              aria-label="Remove"
+            >
+              <XIcon className="pointer-events-none" aria-hidden />
+            </Button>
+          }
+        />
       )}
     </ComboboxPrimitive.Chip>
   )
