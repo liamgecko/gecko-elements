@@ -6,6 +6,10 @@
 export type DataTableColumnMeta = {
   /** Label in the column visibility menu; falls back to a formatted column id. */
   label?: string
+  /** Merged onto `TableHead` for this column (e.g. `w-10` for the expand control column). */
+  headerClassName?: string
+  /** Merged onto `TableCell` for this column. */
+  cellClassName?: string
 }
 
 function formatColumnIdFallback(id: string): string {

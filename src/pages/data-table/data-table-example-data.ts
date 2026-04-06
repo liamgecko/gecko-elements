@@ -151,3 +151,27 @@ export const eventFilterCategories = [
   },
 ]
 
+/** Sample child rows for expandable / nested table demos. */
+export type DemoEventSession = {
+  id: string
+  sessionDate: string
+  sessionTime: string
+  attendees: number
+  waitlisted: number
+}
+
+export function demoSessionsForEvent(eventId: string): DemoEventSession[] {
+  const n = Number.parseInt(eventId.replace(/\D/g, ""), 10) || 1
+  const count = 2 + (n % 3)
+  return Array.from({ length: count }, (_, i) => {
+    const day = 12 + i + (n % 4)
+    return {
+      id: `${eventId}-s${i}`,
+      sessionDate: `May ${day}, 2026`,
+      sessionTime: `${9 + (i % 4)}:${i % 2 === 0 ? "00" : "30"}${i % 2 === 0 ? "am" : "pm"}`,
+      attendees: 20 + ((n * 3 + i * 7) % 80),
+      waitlisted: (i * n) % 12,
+    }
+  })
+}
+

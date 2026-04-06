@@ -25,6 +25,7 @@ import {
   TableCell,
   TableHead,
   TableHeader,
+  TableExpandableRow,
   TableRow,
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
@@ -38,10 +39,21 @@ import {
 } from "@/components/ui/empty"
 
 import type { DataTableColumnMeta } from "./data-table-column-meta"
+
+function dataTableColumnMeta(
+  meta: unknown
+): DataTableColumnMeta | undefined {
+  return meta as DataTableColumnMeta | undefined
+}
 import type { DataTableColumnToggleProps } from "./data-table-column-toggle"
-import { DataTableContext, useDataTableContext } from "./data-table-context"
+import {
+  DataTableContext,
+  useDataTableContext,
+  type DataTableExpandableConfig,
+} from "./data-table-context"
 import {
   createActionsColumn,
+  createExpandColumn,
   createSelectionColumn,
   DataTableMultiSelectFilter,
 } from "./data-table-columns"
@@ -60,6 +72,7 @@ import {
 } from "./data-table-toolbar"
 
 export type { DataTableColumnMeta }
+export type { DataTableExpandableConfig } from "./data-table-context"
 
 export type DataTableRowAction = {
   id: string
@@ -113,6 +126,11 @@ export type DataTableProviderProps<TData> = {
     actionId: string,
     context: DataTableSelectActionContext<TData>
   ) => void
+  /**
+   * When set, prepends an expand column and renders each body row with
+   * `TableExpandableRow`; use `renderDetail` for nested content (e.g. a nested `Table`).
+   */
+  expandable?: DataTableExpandableConfig<TData>
 }
 
 export type DataTableToolbarConfig = {
@@ -146,6 +164,7 @@ function DataTableProvider<TData>({
   getRowId,
   initialState,
   pageSize = 10,
+  expandable,
 }: DataTableProviderProps<TData>) {
   const selectActions = enableSelectActionsProp ?? []
 
@@ -177,11 +196,14 @@ function DataTableProvider<TData>({
     if (enableRowSelection) {
       cols = [createSelectionColumn<TData>(), ...cols]
     }
+    if (expandable) {
+      cols = [createExpandColumn<TData>(), ...cols]
+    }
     if (showRowActionsColumn) {
       cols = [...cols, createActionsColumn<TData>()]
     }
     return cols
-  }, [columns, enableRowSelection, showRowActionsColumn])
+  }, [columns, enableRowSelection, expandable, showRowActionsColumn])
 
   const [sorting, setSorting] = React.useState<SortingState>(
     () => initialState?.sorting ?? []
@@ -251,6 +273,7 @@ function DataTableProvider<TData>({
     <DataTableContext.Provider
       value={{
         table: table as import("@tanstack/react-table").Table<unknown>,
+        expandable: expandable as DataTableExpandableConfig<unknown> | undefined,
         selectActions,
         onSelectAction: onSelectAction as
           | ((
@@ -278,7 +301,7 @@ function DataTableRoot({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function DataTableContent<TData>({ className }: { className?: string }) {
-  const { table, resetFilterUi } = useDataTableContext<TData>()
+  const { table, expandable, resetFilterUi } = useDataTableContext<TData>()
 
   const visibleLeafCount = table.getVisibleLeafColumns().length
   const state = table.getState()
@@ -315,21 +338,46 @@ function DataTableContent<TData>({ className }: { className?: string }) {
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() ? "selected" : undefined}
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(
-                      cell.column.columnDef.cell,
-                      cell.getContext()
-                    )}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
+            table.getRowModel().rows.map((row) => {
+              const cells = row.getVisibleCells().map((cell) => (
+                <TableCell
+                  key={cell.id}
+                  className={cn(
+                    dataTableColumnMeta(cell.column.columnDef.meta)?.cellClassName
+                  )}
+                >
+                  {flexRender(
+                    cell.column.columnDef.cell,
+                    cell.getContext()
+                  )}
+                </TableCell>
+              ))
+
+              if (expandable) {
+                return (
+                  <TableExpandableRow
+                    key={row.id}
+                    colSpan={visibleLeafCount}
+                    data-state={row.getIsSelected() ? "selected" : undefined}
+                    detail={expandable.renderDetail({
+                      row,
+                      original: row.original,
+                    })}
+                  >
+                    {cells}
+                  </TableExpandableRow>
+                )
+              }
+
+              return (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() ? "selected" : undefined}
+                >
+                  {cells}
+                </TableRow>
+              )
+            })
           ) : (
             <TableRow>
               <TableCell

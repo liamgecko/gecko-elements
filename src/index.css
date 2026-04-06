@@ -128,9 +128,11 @@
   .react-colorful__last-control {
     @apply !rounded-b-sm;
   }
-  /* .data-table {
-    @apply tabular-nums;
-  } */
+  .table-expandable-row {
+    &:nth-last-child(2) {
+      @apply !border-b-0;
+    }
+  }
 }
 
 @layer components {

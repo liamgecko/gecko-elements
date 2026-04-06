@@ -14,9 +14,18 @@ import { DataTableMultiSelectFilter } from "@/components/ui/data-table/data-tabl
 import { DataTableMultiLineCell } from "@/components/ui/data-table/data-table-multi-line-cell"
 import { Badge } from "@/components/ui/badge"
 import { Code } from "@/components/ui/code"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 
 import {
   demoEvents,
+  demoSessionsForEvent,
   eventFilterCategories,
   demoSelectedActions,
   demoRowActions,
@@ -384,6 +393,51 @@ export function DataTablePage() {
     []
   )
 
+  const nestedRowsColumns = React.useMemo<ColumnDef<DemoEvent>[]>(
+    () => [
+      {
+        accessorKey: "eventName",
+        id: "eventName",
+        meta: { label: "Event name" } satisfies DataTableColumnMeta,
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="Event name" />
+        ),
+      },
+      {
+        accessorKey: "startsAt",
+        id: "startsAt",
+        meta: { label: "Start date" } satisfies DataTableColumnMeta,
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="Start date" />
+        ),
+        cell: ({ row }) => (
+          <span className="whitespace-nowrap">
+            {formatEventStart(row.original.startsAt)}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "attendees",
+        id: "attendees",
+        meta: { label: "Attendees" } satisfies DataTableColumnMeta,
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="Attendees" />
+        ),
+        cell: ({ row }) => <span>{row.original.attendees}</span>,
+      },
+      {
+        accessorKey: "waitlisted",
+        id: "waitlisted",
+        meta: { label: "Waitlisted" } satisfies DataTableColumnMeta,
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="Waitlisted" />
+        ),
+        cell: ({ row }) => <span>{row.original.waitlisted}</span>,
+      },
+    ],
+    []
+  )
+
   return (
     <div className="flex gap-5.5">
       <div className="min-w-0 flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
@@ -649,6 +703,62 @@ export function DataTablePage() {
                   chronology: false,
                   category: false,
                 },
+              }}
+            />
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="nested-rows" label="Nested rows">
+          <h2 className="text-lg font-semibold">Nested rows</h2>
+          <p className="mb-8 text-sm text-muted-foreground text-pretty">
+            Pass <Code>expandable</Code> with <Code>renderDetail</Code> to show a
+            chevron column and render each row as{" "}
+            <Code>TableExpandableRow</Code>. Put a nested{" "}
+            <Code>Table nested</Code> in the detail (optionally with{" "}
+            <Code>title</Code> / <Code>description</Code>) the same way as on the{" "}
+            <a
+              className="text-primary underline underline-offset-2"
+              href="/components/table#nested-rows"
+            >
+              Table
+            </a>{" "}
+            page.
+          </p>
+
+          <ComponentExample className="overflow-x-auto">
+            <DataTable
+              columns={nestedRowsColumns}
+              data={demoEvents.slice(0, 5)}
+              rowActions={demoRowActions}
+              expandable={{
+                renderDetail: ({ original }) => (
+                  <Table
+                    nested
+                    hoverable
+                    title="Sessions"
+                    description={`Session times for ${original.eventName}`}
+                    aria-label={`Sessions for ${original.eventName}`}
+                  >
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Session time</TableHead>
+                        <TableHead>Session date</TableHead>
+                        <TableHead>Attendees</TableHead>
+                        <TableHead>Waitlisted</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {demoSessionsForEvent(original.id).map((s) => (
+                        <TableRow key={s.id}>
+                          <TableCell>{s.sessionTime}</TableCell>
+                          <TableCell>{s.sessionDate}</TableCell>
+                          <TableCell>{s.attendees}</TableCell>
+                          <TableCell>{s.waitlisted}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                ),
               }}
             />
           </ComponentExample>

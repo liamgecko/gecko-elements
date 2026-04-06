@@ -715,6 +715,7 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "multi-line-cells", label: "Multi-line cells" },
+    { id: "nested-rows", label: "Nested rows" },
     { id: "full-example", label: "Full example" },
   ],
   "reply-box": [

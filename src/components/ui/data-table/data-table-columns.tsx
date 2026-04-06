@@ -5,7 +5,9 @@
 import type { ColumnDef, FilterFn } from "@tanstack/react-table"
 
 import { Checkbox } from "@/components/ui/checkbox"
+import { TableExpandableRowTrigger } from "@/components/ui/table"
 
+import type { DataTableColumnMeta } from "./data-table-column-meta"
 import { DataTableRowActionsMenu } from "./data-table-row-actions"
 
 /** Value shape when using `DataTableFilters` (operators + selected option values). */
@@ -39,6 +41,22 @@ export const DataTableMultiSelectFilter: FilterFn<
 
   if (op === "is not") return !inList
   return inList
+}
+
+export function createExpandColumn<TData>(): ColumnDef<TData> {
+  return {
+    id: "expand",
+    meta: {
+      headerClassName: "w-10",
+      cellClassName: "w-10",
+    } satisfies DataTableColumnMeta,
+    header: () => <span className="sr-only">Expand</span>,
+    cell: () => <TableExpandableRowTrigger />,
+    enableSorting: false,
+    enableHiding: false,
+    size: 40,
+    minSize: 40,
+  }
 }
 
 export function createSelectionColumn<TData>(): ColumnDef<TData> {

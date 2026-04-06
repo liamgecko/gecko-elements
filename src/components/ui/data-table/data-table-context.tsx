@@ -5,8 +5,18 @@ import type { Table } from "@tanstack/react-table"
 
 import type { DataTableRowAction, DataTableSelectActionContext } from "./data-table"
 
+/** Optional expandable detail row for `DataTable` (see `expandable` on `DataTableProvider`). */
+export type DataTableExpandableConfig<TData> = {
+  renderDetail: (context: {
+    row: import("@tanstack/react-table").Row<TData>
+    original: TData
+  }) => React.ReactNode
+}
+
 export type DataTableContextValue = {
   table: Table<unknown>
+  /** When set, body rows render as expandable with `TableExpandableRow`. */
+  expandable?: DataTableExpandableConfig<unknown>
   /** Bulk toolbar actions from `DataTableProvider` `selectActions`. */
   selectActions: DataTableRowAction[]
   onSelectAction?: (
@@ -35,6 +45,7 @@ export function useDataTableContext<TData>() {
   }
   return {
     table: ctx.table as Table<TData>,
+    expandable: ctx.expandable as DataTableExpandableConfig<TData> | undefined,
     selectActions: ctx.selectActions as DataTableRowAction[],
     onSelectAction: ctx.onSelectAction as
       | ((
