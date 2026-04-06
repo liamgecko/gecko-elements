@@ -63,7 +63,25 @@ export function TextareaPage() {
             <Textarea placeholder="Invalid textarea" aria-invalid />
           </ComponentExample>
         </PageSection>
- 
+
+        <PageSection id="read-only" label="Read-only">
+          <h2 className="text-lg font-semibold">Read-only</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Set{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              readOnly
+            </Code>{" "}
+            for display-only content: no hover or focus ring and the control is not focusable.
+          </p>
+          <ComponentExample>
+            <Textarea
+              readOnly
+              defaultValue="This text is read-only and cannot be focused."
+              rows={4}
+            />
+          </ComponentExample>
+        </PageSection>
+
         <PageSection id="required" label="Required">
           <h2 className="text-lg font-semibold">Required</h2>
           <p className="mb-8 text-sm text-muted-foreground">

@@ -13,9 +13,14 @@ const inputVariants = cva(
         md: "h-8.5 px-2.5 text-sm file:h-8.5",
         lg: "h-9.5 px-3 text-base file:h-9.5",
       },
+      readOnly: {
+        true: "pointer-events-none hover:border-input group-hover/field:border-input focus-visible:ring-0 focus-visible:border-input",
+        false: "",
+      },
     },
     defaultVariants: {
       size: "md",
+      readOnly: false,
     },
   }
 )
@@ -23,12 +28,31 @@ const inputVariants = cva(
 type InputProps = Omit<React.ComponentProps<"input">, "size"> &
   VariantProps<typeof inputVariants>
 
-function Input({ className, type, size, ...props }: InputProps) {
+function Input({
+  className,
+  type,
+  size,
+  readOnly,
+  tabIndex,
+  onFocus,
+  ...props
+}: InputProps) {
   return (
     <InputPrimitive
       type={type}
       data-slot="input"
-      className={cn(inputVariants({ size, className }))}
+      readOnly={readOnly}
+      tabIndex={readOnly ? (tabIndex ?? -1) : tabIndex}
+      onFocus={
+        readOnly
+          ? (e) => {
+              e.currentTarget.blur()
+            }
+          : onFocus
+      }
+      className={cn(
+        inputVariants({ size, readOnly: Boolean(readOnly), className })
+      )}
       {...props}
     />
   )

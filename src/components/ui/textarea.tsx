@@ -12,24 +12,47 @@ const textareaVariants = cva(
         md: "px-2.5 py-2 text-sm",
         lg: "px-3 py-2.5 text-base",
       },
+      readOnly: {
+        true: "pointer-events-none hover:border-input group-hover/field:border-input focus-visible:ring-0 focus-visible:border-input resize-none",
+        false: "",
+      },
     },
     defaultVariants: {
       size: "md",
+      readOnly: false,
     },
   }
 )
- 
+
 type TextareaProps = React.ComponentProps<"textarea"> &
   VariantProps<typeof textareaVariants>
- 
-function Textarea({ className, size, ...props }: TextareaProps) {
+
+function Textarea({
+  className,
+  size,
+  readOnly,
+  tabIndex,
+  onFocus,
+  ...props
+}: TextareaProps) {
   return (
     <textarea
       data-slot="textarea"
-      className={cn(textareaVariants({ size, className }))}
+      readOnly={readOnly}
+      tabIndex={readOnly ? (tabIndex ?? -1) : tabIndex}
+      onFocus={
+        readOnly
+          ? (e) => {
+              e.currentTarget.blur()
+            }
+          : onFocus
+      }
+      className={cn(
+        textareaVariants({ size, readOnly: Boolean(readOnly), className })
+      )}
       {...props}
     />
   )
 }
  
-export { Textarea, textareaVariants }
+export { Textarea }

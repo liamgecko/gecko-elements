@@ -214,6 +214,7 @@ export const componentSections: ComponentSections = {
         { id: "states-invalid", label: "Invalid" },
       ],
     },
+    { id: "read-only", label: "Read-only" },
     { id: "required", label: "Required" },
     {
       id: "sizing",
@@ -457,6 +458,7 @@ export const componentSections: ComponentSections = {
         { id: "states-invalid", label: "Invalid" },
       ],
     },
+    { id: "read-only", label: "Read-only" },
     { id: "required", label: "Required" },
     {
       id: "sizes",
