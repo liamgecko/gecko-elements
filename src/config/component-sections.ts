@@ -572,6 +572,7 @@ export const componentSections: ComponentSections = {
   filters: [
     { id: "overview", label: "Overview" },
     { id: "basic-example", label: "Basic example" },
+    { id: "search", label: "Search" },
     { id: "sort", label: "Sort" },
     { id: "condensed", label: "Condensed" },
     {

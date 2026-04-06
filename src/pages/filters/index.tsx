@@ -50,6 +50,30 @@ function toOptions(items: string[]) {
   return items.map((item) => ({ value: item, label: item }))
 }
 
+/** Short lists: disable search so submenus stay compact. */
+const filterCategoriesWithoutSearch: FilterCategory[] = [
+  {
+    id: "priority",
+    label: "Priority",
+    searchable: false,
+    options: [
+      { value: "low", label: "Low" },
+      { value: "medium", label: "Medium" },
+      { value: "high", label: "High" },
+    ],
+  },
+  {
+    id: "status",
+    label: "Status",
+    searchable: false,
+    options: [
+      { value: "open", label: "Open" },
+      { value: "pending", label: "Pending" },
+      { value: "closed", label: "Closed" },
+    ],
+  },
+]
+
 const filterCategories: FilterCategory[] = [
   {
     id: "actionType",
@@ -117,6 +141,22 @@ export function FiltersPage() {
           </p>
           <ComponentExample>
             <Filter categories={filterCategories} />
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="search" label="Search">
+          <h2 className="text-lg font-semibold">Search</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Each category is searchable by default: the submenu and the value
+            picker on active chips include a search field. For short static lists,
+            set{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+              searchable: false
+            </Code>{" "}
+            on the category to hide those search boxes.
+          </p>
+          <ComponentExample>
+            <Filter categories={filterCategoriesWithoutSearch} />
           </ComponentExample>
         </PageSection>
 
