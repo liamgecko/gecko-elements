@@ -76,6 +76,7 @@ const navItems: NavItem[] = [
   { to: "/components/reply-box", label: "Reply box" },
   { to: "/components/scroll-area", label: "Scroll area" },
   { to: "/components/search-input", label: "Search field" },
+  { to: "/components/sensitive-field", label: "Sensitive field" },
   { to: "/components/select", label: "Select" },
   { to: "/components/separator", label: "Separator" },
   { to: "/components/sheet", label: "Sheet" },

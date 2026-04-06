@@ -314,6 +314,11 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/search-input",
   },
   {
+    name: "Sensitive field",
+    description: "Masked inputs with read-only and edit modes.",
+    path: "/components/sensitive-field",
+  },
+  {
     name: "File input",
     description: "File upload fields with states.",
     path: "/components/file-input",

@@ -54,6 +54,7 @@ import { MetricCardPage } from "@/pages/metric-card"
 import { ChartsPage } from "@/pages/charts"
 import { TelephoneFieldPage } from "@/pages/telephone-field"
 import { SearchInputPage } from "@/pages/search-input"
+import { SensitiveFieldPage } from "@/pages/sensitive-field"
 import { FileInputPage } from "@/pages/file-input"
 import { DropZonePage } from "@/pages/drop-zone"
 import { DragAndDropPage } from "@/pages/drag-and-drop"
@@ -138,6 +139,7 @@ export function App() {
         <Route path="/components/charts" element={<ChartsPage />} />
         <Route path="/components/telephone-field" element={<TelephoneFieldPage />} />
         <Route path="/components/search-input" element={<SearchInputPage />} />
+        <Route path="/components/sensitive-field" element={<SensitiveFieldPage />} />
         <Route path="/components/file-input" element={<FileInputPage />} />
         <Route path="/components/file-tree" element={<FileTreePage />} />
         <Route path="/components/inline-edit" element={<InlineEditPage />} />
