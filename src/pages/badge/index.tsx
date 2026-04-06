@@ -254,6 +254,9 @@ export function BadgePage() {
           </p>
           <ComponentExample className="mb-6">
             <div className="flex flex-wrap gap-2">
+              <Badge variant="primary" asButton onClick={() => {}}>
+                Primary
+              </Badge>
               <Badge variant="secondary" asButton onClick={() => {}}>
                 Secondary
               </Badge>

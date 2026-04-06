@@ -103,13 +103,13 @@ const hoverClassByVariant: Record<
   NonNullable<VariantProps<typeof badgeVariants>["variant"]>,
   string
 > = {
-  primary: "hover:bg-primary/80",
-  secondary: "hover:bg-secondary/80",
-  info: "hover:bg-info-muted/80 dark:hover:bg-info-muted/60",
-  warning: "hover:bg-warning-muted/80 dark:hover:bg-warning-muted/60",
-  destructive: "hover:bg-destructive/20 dark:hover:bg-destructive/30",
-  success: "hover:bg-success-muted/80 dark:hover:bg-success-muted/60",
-  light: "hover:bg-gray-100 dark:hover:bg-gray-100",
+  primary: "hover:bg-gray-700",
+  secondary: "hover:bg-gray-200",
+  info: "hover:bg-blue-100",
+  warning: "hover:bg-yellow-100",
+  destructive: "hover:bg-red-100",
+  success: "hover:bg-emerald-100",
+  light: "hover:bg-gray-50",
 }
 
 function renderIcon(icon: React.ReactNode, size: BadgeSize) {
