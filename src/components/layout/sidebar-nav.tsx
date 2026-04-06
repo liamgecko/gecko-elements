@@ -48,12 +48,13 @@ const navItems: NavItem[] = [
   { to: "/components/command", label: "Command" },
   { to: "/components/context-menu", label: "Context menu" },
   { to: "/components/counter", label: "Counter" },
-  { to: "/components/data-table", label: "Data table", todo: false },
+  { to: "/components/data-table", label: "Data table" },
   { to: "/components/date-input", label: "Date input" },
   { to: "/components/date-picker", label: "Date picker" },
   { to: "/components/dialog", label: "Dialog" },
-  // { to: "/components/direction", label: "Direction" },
+  { to: "/components/direction", label: "Direction", todo: true },
   { to: "/components/drop-zone", label: "Drop zone" },
+  { to: "/components/drag-and-drop", label: "Drag and drop" },
   { to: "/components/dropdown-menu", label: "Dropdown menu" },
   { to: "/components/empty", label: "Empty" },
   { to: "/components/field", label: "Field" },
@@ -63,7 +64,7 @@ const navItems: NavItem[] = [
   { to: "/components/inline-edit", label: "Inline edit" },
   { to: "/components/input", label: "Input" },
   { to: "/components/input-otp", label: "Input OTP" },
-  // { to: "/components/kbd", label: "Kbd" },
+  { to: "/components/kbd", label: "Kbd", todo: true },
   { to: "/components/label", label: "Label" },
   { to: "/components/metric-card", label: "Metric card" },
   { to: "/components/native-select", label: "Native select" },
@@ -87,7 +88,7 @@ const navItems: NavItem[] = [
   { to: "/components/tooltip", label: "Tooltip" },
   { to: "/components/toast", label: "Toast" },
   { to: "/components/typing-indicator", label: "Typing indicator" },
-] as const
+]
 
 export function SidebarNav() {
   const location = useLocation()

@@ -324,6 +324,11 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/drop-zone",
   },
   {
+    name: "Drag and drop",
+    description: "Sortable lists and draggable UI patterns.",
+    path: "/components/drag-and-drop",
+  },
+  {
     name: "Counter",
     description: "Numeric counters and steppers.",
     path: "/components/counter",

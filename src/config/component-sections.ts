@@ -927,6 +927,12 @@ export const componentSections: ComponentSections = {
       children: [{ id: "states-disabled", label: "Disabled" }],
     },
   ],
+  "drag-and-drop": [
+    { id: "overview", label: "Overview" },
+    { id: "basic-example", label: "Basic example" },
+    { id: "row-actions", label: "Row actions" },
+    { id: "nested-example", label: "Nested lists" },
+  ],
   counter: [
     { id: "overview", label: "Overview" },
     { id: "basic", label: "Basic example" },

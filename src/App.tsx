@@ -56,6 +56,7 @@ import { TelephoneFieldPage } from "@/pages/telephone-field"
 import { SearchInputPage } from "@/pages/search-input"
 import { FileInputPage } from "@/pages/file-input"
 import { DropZonePage } from "@/pages/drop-zone"
+import { DragAndDropPage } from "@/pages/drag-and-drop"
 import { CounterPage } from "@/pages/counter"
 import { CodeSnippetPage } from "@/pages/code-snippet"
 import { FiltersPage } from "@/pages/filters"
@@ -142,6 +143,7 @@ export function App() {
         <Route path="/components/inline-edit" element={<InlineEditPage />} />
         <Route path="/components/activity-feed" element={<ActivityFeedPage />} />
         <Route path="/components/drop-zone" element={<DropZonePage />} />
+        <Route path="/components/drag-and-drop" element={<DragAndDropPage />} />
         <Route path="/components/counter" element={<CounterPage />} />
         <Route path="/components/filters" element={<FiltersPage />} />
         <Route path="/components/code-snippet" element={<CodeSnippetPage />} />
