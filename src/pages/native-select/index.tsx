@@ -12,10 +12,7 @@ import {
 } from "@/components/ui/native-select"
 
 export function NativeSelectPage() {
-  const [selectedFruits, setSelectedFruits] = React.useState<string[]>([
-    "apple",
-    "blueberry",
-  ])
+  const [selectedFruits, setSelectedFruits] = React.useState<string[]>([])
 
   return (
     <div className="flex gap-5.5">
@@ -90,32 +87,23 @@ export function NativeSelectPage() {
             <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">selectedOptions</Code>.
           </p>
           <ComponentExample>
-            <div className="space-y-3">
-              <NativeSelect
-                multiple
-                value={selectedFruits}
-                onChange={(e) => {
-                  const values = Array.from(
-                    e.currentTarget.selectedOptions,
-                    (o) => o.value
-                  )
-                  setSelectedFruits(values)
-                }}
-                className="w-full"
-              >
-                <NativeSelectOption value="apple">Apple</NativeSelectOption>
-                <NativeSelectOption value="banana">Banana</NativeSelectOption>
-                <NativeSelectOption value="blueberry">Blueberry</NativeSelectOption>
-                <NativeSelectOption value="pineapple">Pineapple</NativeSelectOption>
-              </NativeSelect>
-
-              <div className="text-sm text-muted-foreground">
-                Selected:{" "}
-                <span className="font-mono text-foreground">
-                  {selectedFruits.length ? selectedFruits.join(", ") : "—"}
-                </span>
-              </div>
-            </div>
+            <NativeSelect
+              multiple
+              value={selectedFruits}
+              onChange={(e) => {
+                const values = Array.from(
+                  e.currentTarget.selectedOptions,
+                  (o) => o.value
+                )
+                setSelectedFruits(values)
+              }}
+              className="w-full"
+            >
+              <NativeSelectOption value="apple">Apple</NativeSelectOption>
+              <NativeSelectOption value="banana">Banana</NativeSelectOption>
+              <NativeSelectOption value="blueberry">Blueberry</NativeSelectOption>
+              <NativeSelectOption value="pineapple">Pineapple</NativeSelectOption>
+            </NativeSelect>
           </ComponentExample>
         </PageSection>
 
