@@ -1,5 +1,4 @@
 import { ComponentExample } from "@/components/layout/component-example"
-import * as React from "react"
 
 import { Code } from "@/components/ui/code"
 import { PageSection } from "@/components/layout/page-section"
@@ -12,8 +11,6 @@ import {
 } from "@/components/ui/native-select"
 
 export function NativeSelectPage() {
-  const [selectedFruits, setSelectedFruits] = React.useState<string[]>([])
-
   return (
     <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
@@ -89,16 +86,9 @@ export function NativeSelectPage() {
           <ComponentExample>
             <NativeSelect
               multiple
-              value={selectedFruits}
-              onChange={(e) => {
-                const values = Array.from(
-                  e.currentTarget.selectedOptions,
-                  (o) => o.value
-                )
-                setSelectedFruits(values)
-              }}
               className="w-full"
             >
+              <NativeSelectOption value="">Select a fruit</NativeSelectOption>
               <NativeSelectOption value="apple">Apple</NativeSelectOption>
               <NativeSelectOption value="banana">Banana</NativeSelectOption>
               <NativeSelectOption value="blueberry">Blueberry</NativeSelectOption>
