@@ -1,4 +1,5 @@
 import { ComponentExample } from "@/components/layout/component-example"
+import * as React from "react"
 
 import { Code } from "@/components/ui/code"
 import { PageSection } from "@/components/layout/page-section"
@@ -11,6 +12,11 @@ import {
 } from "@/components/ui/native-select"
 
 export function NativeSelectPage() {
+  const [selectedFruits, setSelectedFruits] = React.useState<string[]>([
+    "apple",
+    "blueberry",
+  ])
+
   return (
     <div className="flex gap-5.5">
       <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
@@ -73,6 +79,43 @@ export function NativeSelectPage() {
                 </NativeSelectOption>
               </NativeSelectOptGroup>
             </NativeSelect>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="multiple" label="Multiple select">
+          <h2 className="text-lg font-semibold">Multiple select</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Pass the native <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">multiple</Code>{" "}
+            attribute to enable selecting more than one option. In a controlled example, read values from{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">selectedOptions</Code>.
+          </p>
+          <ComponentExample>
+            <div className="space-y-3">
+              <NativeSelect
+                multiple
+                value={selectedFruits}
+                onChange={(e) => {
+                  const values = Array.from(
+                    e.currentTarget.selectedOptions,
+                    (o) => o.value
+                  )
+                  setSelectedFruits(values)
+                }}
+                className="w-full"
+              >
+                <NativeSelectOption value="apple">Apple</NativeSelectOption>
+                <NativeSelectOption value="banana">Banana</NativeSelectOption>
+                <NativeSelectOption value="blueberry">Blueberry</NativeSelectOption>
+                <NativeSelectOption value="pineapple">Pineapple</NativeSelectOption>
+              </NativeSelect>
+
+              <div className="text-sm text-muted-foreground">
+                Selected:{" "}
+                <span className="font-mono text-foreground">
+                  {selectedFruits.length ? selectedFruits.join(", ") : "—"}
+                </span>
+              </div>
+            </div>
           </ComponentExample>
         </PageSection>
 
