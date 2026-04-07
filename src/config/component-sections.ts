@@ -986,7 +986,30 @@ export const componentSections: ComponentSections = {
       ],
     },
   ],
-  color: [{ id: "overview", label: "Overview" }],
+  color: [
+    { id: "overview", label: "Overview" },
+    { id: "base-color", label: "Base colors" },
+    {
+      id: "primary-colors",
+      label: "Primary colors",
+      children: [
+        { id: "color-gray", label: "Gray" }
+      ],
+    },
+    {
+      id: "secondary-colors",
+      label: "Secondary colors",
+      children: [
+        { id: "color-red", label: "Red" },
+        { id: "color-orange", label: "Orange" },
+        { id: "color-yellow", label: "Yellow" },
+        { id: "color-emerald", label: "Emerald" },
+        { id: "color-blue", label: "Blue" },
+        { id: "color-violet", label: "Violet" },
+      ],
+    },
+    { id: "accessibility", label: "Accessibility" },
+  ],
   typography: [{ id: "overview", label: "Overview" }],
   spacing: [{ id: "overview", label: "Overview" }],
   radius: [{ id: "overview", label: "Overview" }],
