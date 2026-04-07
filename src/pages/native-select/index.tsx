@@ -76,6 +76,27 @@ export function NativeSelectPage() {
           </ComponentExample>
         </PageSection>
 
+        <PageSection id="multiple" label="Multiple select">
+          <h2 className="text-lg font-semibold">Multiple select</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Pass the native <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">multiple</Code>{" "}
+            attribute to enable selecting more than one option. In a controlled example, read values from{" "}
+            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">selectedOptions</Code>.
+          </p>
+          <ComponentExample>
+            <NativeSelect
+              multiple
+              className="w-full"
+            >
+              <NativeSelectOption value="">Select a fruit</NativeSelectOption>
+              <NativeSelectOption value="apple">Apple</NativeSelectOption>
+              <NativeSelectOption value="banana">Banana</NativeSelectOption>
+              <NativeSelectOption value="blueberry">Blueberry</NativeSelectOption>
+              <NativeSelectOption value="pineapple">Pineapple</NativeSelectOption>
+            </NativeSelect>
+          </ComponentExample>
+        </PageSection>
+
         <PageSection id="within-form" label="Within form">
           <h2 className="text-lg font-semibold">Within form</h2>
           <p className="mb-8 text-sm text-muted-foreground">

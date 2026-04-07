@@ -239,6 +239,7 @@ export const componentSections: ComponentSections = {
     { id: "overview", label: "Overview" },
     { id: "basic-example", label: "Basic example" },
     { id: "groups", label: "Groups" },
+    { id: "multiple", label: "Multiple select" },
     { id: "within-form", label: "Within form" },
     {
       id: "sizing",
