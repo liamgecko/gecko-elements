@@ -1025,7 +1025,11 @@ export const componentSections: ComponentSections = {
     { id: "type-scale", label: "Type scale" },
     { id: "text-elements", label: "Text elements" },
   ],
-  spacing: [{ id: "overview", label: "Overview" }],
+  spacing: [
+    { id: "overview", label: "Overview" },
+    { id: "spacing-scale", label: "Spacing scale" },
+    { id: "spacing-usage", label: "Spacing usage" },
+  ],
   radius: [{ id: "overview", label: "Overview" }],
   shadows: [{ id: "overview", label: "Overview" }],
   icons: [{ id: "overview", label: "Overview" }],
