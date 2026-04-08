@@ -1011,7 +1011,20 @@ export const componentSections: ComponentSections = {
     },
     { id: "accessibility", label: "Accessibility" },
   ],
-  typography: [{ id: "overview", label: "Overview" }],
+  typography: [
+    { id: "overview", label: "Overview" },
+    { 
+      id: "font-families", 
+      label: "Font families",
+      children: [
+        { id: "satoshi", label: "Satoshi" },
+        { id: "geist-mono", label: "Geist Mono" },
+      ],
+    },
+    { id: "weights", label: "Weights" },
+    { id: "type-scale", label: "Type scale" },
+    { id: "text-elements", label: "Text elements" },
+  ],
   spacing: [{ id: "overview", label: "Overview" }],
   radius: [{ id: "overview", label: "Overview" }],
   shadows: [{ id: "overview", label: "Overview" }],
