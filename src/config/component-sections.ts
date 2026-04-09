@@ -1032,5 +1032,13 @@ export const componentSections: ComponentSections = {
   ],
   radius: [{ id: "overview", label: "Overview" }],
   shadows: [{ id: "overview", label: "Overview" }],
-  icons: [{ id: "overview", label: "Overview" }],
+  icons: [
+    { id: "overview", label: "Overview" },
+    { id: "usage", label: "Usage" },
+    { id: "sizing", label: "Sizing" },
+    { id: "stroke-width", label: "Stroke width" },
+    { id: "colour", label: "Colour" },
+    { id: "fill", label: "Fill" },
+    { id: "accessibility", label: "Accessibility" },
+  ],
 }
