@@ -2,6 +2,7 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Code } from "@/components/ui/code"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export function SpacingPage() {
   return (
@@ -21,194 +22,236 @@ export function SpacingPage() {
             The spacing scale maps Tailwind spacing tokens (like <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">p-4</Code> or <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">gap-6</Code>) to a consistent set of rem/px values. Use these steps to keep layout rhythm consistent across components, avoid one-off spacing values, and make UI density predictable.
           </p>
           <ComponentExample>
-            <div className="grid gap-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">Spacing</div>
-                <div className="flex items-center min-h-12 text-xs font-semibold">Size (rem)</div>
-                <div className="flex items-center min-h-12 text-xs font-semibold">Size (px)</div>
-                <div className="flex items-center min-h-12 text-xs font-semibold">Token</div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-0 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">0rem</div>
-                <div className="flex items-center min-h-12 text-sm">0px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>0</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-0.5 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">0.125rem</div>
-                <div className="flex items-center min-h-12 text-sm">2px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>0.5</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-1 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">0.25rem</div>
-                <div className="flex items-center min-h-12 text-sm">4px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>1</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-1.5 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">0.375rem</div>
-                <div className="flex items-center min-h-12 text-sm">6px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>1.5</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-2 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">0.5rem</div>
-                <div className="flex items-center min-h-12 text-sm">8px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>2</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-2.5 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">0.625rem</div>
-                <div className="flex items-center min-h-12 text-sm">10px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>2.5</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-3 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">0.75rem</div>
-                <div className="flex items-center min-h-12 text-sm">12px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>3</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-3.5 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">0.875rem</div>
-                <div className="flex items-center min-h-12 text-sm">14px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>3.5</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-4 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">1rem</div>
-                <div className="flex items-center min-h-12 text-sm">16px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>4</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-5 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">1.25rem</div>
-                <div className="flex items-center min-h-12 text-sm">20px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>5</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-6 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">1.5rem</div>
-                <div className="flex items-center min-h-12 text-sm">24px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>6</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-7 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">1.75rem</div>
-                <div className="flex items-center min-h-12 text-sm">28px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>7</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-8 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">2rem</div>
-                <div className="flex items-center min-h-12 text-sm">32px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>8</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-9 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">2.25rem</div>
-                <div className="flex items-center min-h-12 text-sm">36px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>9</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-10 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">2.5rem</div>
-                <div className="flex items-center min-h-12 text-sm">40px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>10</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-12 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">3rem</div>
-                <div className="flex items-center min-h-12 text-sm">48px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>12</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-16 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">4rem</div>
-                <div className="flex items-center min-h-12 text-sm">64px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>16</Code></div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <div className="flex items-center min-h-12 text-xs font-semibold">
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                  <div className="h-4 w-20 bg-blue-200"></div>
-                  <div className="h-4 w-0.5 bg-blue-600"></div>
-                </div>
-                <div className="flex items-center min-h-12 text-sm">5rem</div>
-                <div className="flex items-center min-h-12 text-sm">80px</div>
-                <div className="flex items-center min-h-12 text-sm"><Code>20</Code></div>
-              </div>
-            </div>
+          <div className="border border-border rounded-lg overflow-hidden">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Spacing</TableHead>
+                    <TableHead>Size (rem)</TableHead>
+                    <TableHead>Size (px)</TableHead>
+                    <TableHead>Token</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-0 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                      </TableCell>
+                    <TableCell>0rem</TableCell>
+                    <TableCell>0px</TableCell>
+                    <TableCell><Code>0</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-0.5 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>0.125rem</TableCell>
+                    <TableCell>2px</TableCell>
+                    <TableCell><Code>0.5</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-1 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>0.25rem</TableCell>
+                    <TableCell>4px</TableCell>
+                    <TableCell><Code>1</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-1.5 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>0.375rem</TableCell>
+                    <TableCell>6px</TableCell>
+                    <TableCell><Code>1.5</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-2 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>0.5rem</TableCell>
+                    <TableCell>8px</TableCell>
+                    <TableCell><Code>2</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-2.5 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>0.625rem</TableCell>
+                    <TableCell>10px</TableCell>
+                    <TableCell><Code>2.5</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-3 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>0.75rem</TableCell>
+                    <TableCell>12px</TableCell>
+                    <TableCell><Code>3</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-3.5 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>0.875rem</TableCell>
+                    <TableCell>14px</TableCell>
+                    <TableCell><Code>3.5</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-4 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>1rem</TableCell>
+                    <TableCell>16px</TableCell>
+                    <TableCell><Code>4</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-5 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>1.25rem</TableCell>
+                    <TableCell>20px</TableCell>
+                    <TableCell><Code>5</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-6 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>1.5rem</TableCell>
+                    <TableCell>24px</TableCell>
+                    <TableCell><Code>6</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-7 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>1.75rem</TableCell>
+                    <TableCell>28px</TableCell>
+                    <TableCell><Code>7</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-8 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>2rem</TableCell>
+                    <TableCell>32px</TableCell>
+                    <TableCell><Code>8</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-9 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>2.25rem</TableCell>
+                    <TableCell>36px</TableCell>
+                    <TableCell><Code>9</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-10 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>2.5rem</TableCell>
+                    <TableCell>40px</TableCell>
+                    <TableCell><Code>10</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-12 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>3rem</TableCell>
+                    <TableCell>48px</TableCell>
+                    <TableCell><Code>12</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-16 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>4rem</TableCell>
+                    <TableCell>64px</TableCell>
+                    <TableCell><Code>16</Code></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <div className="flex items-center">
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                        <div className="h-4 w-20 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-600"></div>
+                      </div>
+                    </TableCell>
+                    <TableCell>5rem</TableCell>
+                    <TableCell>80px</TableCell>
+                    <TableCell><Code>20</Code></TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </div>  
           </ComponentExample>
         </PageSection>
 
