@@ -1,6 +1,5 @@
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
-import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { ChatHead, ChatHeadItem } from "@/components/ui/chat-head"
 import { Code } from "@/components/ui/code"
 
@@ -17,8 +16,7 @@ const timestampActive = new Date("2026-03-24T10:45:00")
 
 export function ChatHeadPage() {
   return (
-    <div className="flex gap-5.5">
-      <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
+    <div className="space-y-12">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Chat head</h1>
           <p className="text-sm text-muted-foreground">
@@ -104,8 +102,6 @@ export function ChatHeadPage() {
             </ChatHead>
           </ComponentExample>
         </PageSection>
-      </div>
-      <PageSectionNav />
     </div>
   )
 }

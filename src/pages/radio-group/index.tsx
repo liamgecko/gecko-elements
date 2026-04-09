@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
-import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Field, FieldLabel } from "@/components/ui/field"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Code } from "@/components/ui/code"
@@ -12,8 +11,7 @@ export function RadioGroupPage() {
   const [asButtonDescValue, setAsButtonDescValue] = useState<string>("terms")
 
   return (
-    <div className="flex gap-5.5">
-      <div className="flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
+    <div className="space-y-12">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Radio group</h1>
           <p className="text-sm text-muted-foreground">
@@ -179,8 +177,6 @@ export function RadioGroupPage() {
               </RadioGroup>
           </ComponentExample>
         </PageSection>
-      </div>
-      <PageSectionNav />
     </div>
   )
 }

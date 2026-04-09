@@ -1,7 +1,6 @@
 "use client"
 
 import { PageSection } from "@/components/layout/page-section"
-import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { ComponentExample } from "@/components/layout/component-example"
 import { InlineEdit } from "@/components/ui/inline-edit"
 import * as React from "react"
@@ -14,8 +13,7 @@ export function InlineEditPage() {
   const [basic, setBasic] = React.useState("Click to edit")
 
   return (
-    <div className="flex gap-5.5">
-      <div className="min-w-0 flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
+    <div className="space-y-12">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Inline edit</h1>
           <p className="text-sm text-muted-foreground">
@@ -74,8 +72,6 @@ export function InlineEditPage() {
             </div>
           </ComponentExample>
         </PageSection>
-      </div>
-      <PageSectionNav />
     </div>
   )
 }

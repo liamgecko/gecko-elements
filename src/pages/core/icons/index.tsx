@@ -1,16 +1,14 @@
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
-import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Star, Trash2 } from "lucide-react"
 import { Code } from "@/components/ui/code"
 
 
 export function IconsPage() {
   return (
-    <div className="flex gap-5.5">
-      <div className="min-w-0 flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
+    <div className="space-y-12">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Icons</h1>
+          <h1 className="text-2xl font-bold text-foreground mb-2">Icons</h1>
           <p className="text-sm text-muted-foreground">
             A consistent, lightweight icon system designed to support clarity, usability, and visual hierarchy across the product.
           </p>
@@ -47,7 +45,7 @@ export function IconsPage() {
           <p className="mb-4 text-sm text-muted-foreground">
             Icon sizing is standardised using the <Code>size</Code> utility to ensure consistency across the interface. This approach keeps icons aligned with our spacing system and avoids the need for custom sizing values.
           </p>
-          <p className="mb-8 text-sm text-muted-foreground">
+          <p className="mb-4 text-sm text-muted-foreground">
             In most cases, icon size is not set manually. Instead, it is handled at the component level using predefined utility classes. This ensures icons scale consistently across different UI elements and reduces variation in implementation.
           </p>
           <ComponentExample>
@@ -71,7 +69,7 @@ export function IconsPage() {
           <p className="mb-4 text-sm text-muted-foreground">
             Icons use a consistent stroke style to maintain visual clarity and cohesion across the interface. Stroke is controlled at the component level and should not be adjusted on a per-instance basis.
           </p>
-          <p className="mb-8 text-sm text-muted-foreground">
+          <p className="mb-4 text-sm text-muted-foreground">
             By default, icons use a lighter stroke for better legibility and alignment with our overall UI aesthetic. In cases where a darker stroke is required, it can be overridden using the <Code>strokeWidth=&#123;&#125;</Code> prop.
           </p>
           <ComponentExample>
@@ -90,10 +88,10 @@ export function IconsPage() {
           <p className="mb-4 text-sm text-muted-foreground">
             Icons inherit colour using <Code>currentColor</Code> by default. This ensures they align automatically with surrounding text and UI elements without requiring additional styling.
           </p>
-          <p className="mb-8 text-sm text-muted-foreground">
+          <p className="mb-4 text-sm text-muted-foreground">
             Colour can be controlled using Tailwind's <Code>text-*</Code> colour utilities, allowing icons to adapt consistently across different contexts and states. This approach keeps icon colour aligned with our design tokens and avoids hardcoded values.
           </p>
-          <ComponentExample className="mb-8">
+          <ComponentExample className="mb-4">
             <div className="flex flex-wrap gap-2 items-center">
               <Trash2 className="size-8 text-blue-500" />
               <Trash2 className="size-8 text-emerald-500" />
@@ -103,7 +101,7 @@ export function IconsPage() {
             <Code variant="block" language="tsx" showCopyButton copyLabel="Copy code" code={`<Trash2 className="text-*" />`} className="mt-8" />
           </ComponentExample>
           <h3 className="text-sm font-semibold mb-2">
-          Guidelines for icon colour:
+          Guidelines:
           </h3>
           <ul className="list-disc list-inside text-sm text-muted-foreground pl-4 mb-8">
             <li className="text-sm">Icons should inherit colour from their parent where possible</li>
@@ -118,10 +116,10 @@ export function IconsPage() {
           <p className="mb-4 text-sm text-muted-foreground">
             Lucide icons are stroke-based by default and are designed to be used without fill. This ensures a consistent, lightweight visual style across the interface.
           </p>
-          <p className="mb-8 text-sm text-muted-foreground">
+          <p className="mb-4 text-sm text-muted-foreground">
           In some cases, fill can be applied using the <Code>fill-*</Code> utility, but this is not supported consistently across all icons and should be used selectively.
           </p>
-          <ComponentExample className="mb-8">
+          <ComponentExample className="mb-4">
             <div className="flex flex-wrap gap-2 items-center">
               <Star className="size-8 fill-blue-500 stroke-blue-500" />
               <Star className="size-8 fill-emerald-500 stroke-emerald-500" />
@@ -131,7 +129,7 @@ export function IconsPage() {
             <Code variant="block" language="tsx" showCopyButton copyLabel="Copy code" code={`<Star className="fill-* stroke-*" />`} className="mt-8" />
           </ComponentExample>
           <h3 className="text-sm font-semibold mb-2">
-          Guidelines for icon fill:
+          Guidelines:
           </h3>
           <ul className="list-disc list-inside text-sm text-muted-foreground pl-4 mb-8">
             <li className="text-sm">Prefer stroke-only icons as the default approach</li>
@@ -161,9 +159,9 @@ export function IconsPage() {
           </p>
           <Code variant="block" language="tsx" showCopyButton copyLabel="Copy code" code={`<button aria-label="Open settings">
   <Cog />
-</button>`} className="mb-8" />
+</button>`} className="mb-4" />
           <h3 className="text-sm font-semibold mb-2">
-          Guidelines for icon accessibility:
+          Guidelines:
           </h3>
           <ul className="list-disc list-inside text-sm text-muted-foreground pl-4 mb-4">
             <li className="text-sm">Treat icons as decorative by default</li>
@@ -176,8 +174,6 @@ export function IconsPage() {
           </p>
         </PageSection>
 
-      </div>
-      <PageSectionNav />
     </div>
   )
 }

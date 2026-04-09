@@ -65,7 +65,7 @@ function SectionLink({
         <ul
           className={cn(
             "mt-1 space-y-1",
-            "relative ml-1 pl-2.5 before:absolute before:inset-y-0 before:left-0 before:w-px before:bg-gray-50"
+            "relative ml-1 pl-2.5 before:absolute before:inset-y-0 before:left-0 before:w-px before:bg-gray-100"
           )}
         >
           {section.children!.map((child) => (

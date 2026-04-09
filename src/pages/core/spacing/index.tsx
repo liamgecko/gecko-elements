@@ -1,28 +1,43 @@
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
-import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Code } from "@/components/ui/code"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export function SpacingPage() {
   return (
-    <div className="flex gap-5.5">
-      <div className="min-w-0 flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
+    <div className="space-y-12">
 
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Spacing</h1>
+          <h1 className="text-2xl font-bold text-foreground mb-2">Spacing</h1>
           <p className="text-sm text-muted-foreground">
-            Gecko’s modular spacing scale ensures flexibility, alignment, and balance across our platform. It includes both small increments for small components or detailed designs, and large increments for patterns or layouts.
+          Spacing defines layout, structure, and visual rhythm across the interface. Our system uses a consistent, token-based scale to ensure alignment, predictability, and balance across components.
           </p>
+        </PageSection>
+
+        <PageSection id="usage" label="Usage">
+          <h2 className="text-lg font-semibold">Usage</h2>
+          <p className="mb-4 text-sm text-muted-foreground">
+          Spacing should be applied consistently using predefined tokens. These guidelines help maintain alignment, create clear structure, and ensure predictable layouts across the interface.
+          </p>
+          <h3 className="text-sm font-semibold mb-2">
+          Guidelines:
+          </h3>
+          <ul className="list-disc list-inside text-sm text-muted-foreground pl-4 mb-4">
+            <li className="text-sm">Use spacing tokens consistently across layouts and components</li>
+            <li className="text-sm">Avoid arbitrary or one-off spacing values</li>
+            <li className="text-sm">Use smaller spacing for dense UI and larger spacing for layout separation</li>
+            <li className="text-sm">Maintain consistent spacing patterns within components</li>
+            <li className="text-sm">Use spacing to create clear hierarchy and grouping</li>
+          </ul>
         </PageSection>
 
         <PageSection id="spacing-scale" label="Spacing scale">
           <h2 className="text-lg font-semibold">Spacing scale</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            The spacing scale maps Tailwind spacing tokens (like <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">p-4</Code> or <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">gap-6</Code>) to a consistent set of rem/px values. Use these steps to keep layout rhythm consistent across components, avoid one-off spacing values, and make UI density predictable.
+          <p className="mb-4 text-sm text-muted-foreground">
+          Spacing is based on tokens (e.g. <Code>p-4</Code>, <Code>gap-6</Code>) mapped to a consistent rem/px scale. This ensures predictable layouts and avoids one-off spacing values.
           </p>
           <ComponentExample>
-          <div className="border border-border rounded-lg overflow-hidden">
+            <div className="border border-border rounded-lg overflow-hidden">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -255,34 +270,57 @@ export function SpacingPage() {
           </ComponentExample>
         </PageSection>
 
-        <PageSection id="spacing-usage" label="Spacing usage">
-          <h2 className="text-lg font-semibold">Spacing usage</h2>
+        <PageSection id="spacing-patterns" label="Spacing patterns">
+          <h2 className="text-lg font-semibold">Spacing patterns</h2>
           <p className="mb-4 text-sm text-muted-foreground">
-            This spacing scale is used consistently across the UI via Tailwind utilities. Use it for{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">padding</Code> and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">margin</Code> (e.g.{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">p-4</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">px-6</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">mt-2.5</Code>), and for layout spacing between elements with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">gap</Code> /{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">space-x</Code> /{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">space-y</Code>.
+          Spacing patterns define how spacing utilities are applied across layouts and components. Using consistent patterns ensures predictable structure, improves readability, and reduces the need for one-off spacing decisions.
           </p>
-          <p className="mb-4 text-sm text-muted-foreground">
-            The same tokens also apply to sizing utilities such as{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">w-*</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">h-*</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">min-w-*</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">min-h-*</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">max-w-*</Code>, and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">max-h-*</Code> so components feel proportionate without inventing one-off values.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            As a guideline, prefer using these scale values over arbitrary pixel/rem values. It keeps rhythm consistent, makes designs easier to scan, and reduces “almost the same” spacing throughout the codebase.
-          </p>
+          <ComponentExample>
+            <div className="border border-border rounded-lg overflow-hidden">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Pattern</TableHead>
+                  <TableHead>Utilities</TableHead>
+                  <TableHead>Usage</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Padding</TableCell>
+                  <TableCell><Code>p-*, px-*, py-*, pt-*, pr-*, pb-*, pl-*</Code></TableCell>
+                  <TableCell>Internal spacing within components</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Margin</TableCell>
+                  <TableCell><Code>m-*, mx-*, my-*, mt-*, mr-*, mb-*, ml-*</Code></TableCell>
+                  <TableCell>External spacing between elements</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Gap</TableCell>
+                  <TableCell><Code>gap-*, gap-x-*, gap-y-*</Code></TableCell>
+                  <TableCell>Spacing between items in flex and grid layouts</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Space between</TableCell>
+                  <TableCell><Code>space-x-*, space-y-*</Code></TableCell>
+                  <TableCell>Consistent spacing between sibling elements</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Inset</TableCell>
+                  <TableCell><Code>top-*, right-*, bottom-*, left-*, inset-*</Code></TableCell>
+                  <TableCell>Positioning offsets for absolutely positioned elements</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Negative spacing</TableCell>
+                  <TableCell><Code>-m-*, -mt-*, -space-x-*</Code></TableCell>
+                  <TableCell>Used sparingly for overlapping or offset layouts</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+            </div>
+          </ComponentExample>
         </PageSection>
-      </div>
-      <PageSectionNav />
     </div>
   )
 }

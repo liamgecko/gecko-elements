@@ -1027,11 +1027,20 @@ export const componentSections: ComponentSections = {
   ],
   spacing: [
     { id: "overview", label: "Overview" },
+    { id: "usage", label: "Usage" },
     { id: "spacing-scale", label: "Spacing scale" },
-    { id: "spacing-usage", label: "Spacing usage" },
+    { id: "spacing-patterns", label: "Spacing patterns" },
   ],
-  radius: [{ id: "overview", label: "Overview" }],
-  shadows: [{ id: "overview", label: "Overview" }],
+  radius: [
+    { id: "overview", label: "Overview" },
+    { id: "usage", label: "Usage" },
+    { id: "radius-scale", label: "Radius scale" },
+  ],
+  shadows: [
+    { id: "overview", label: "Overview" },
+    { id: "usage", label: "Usage" },
+    { id: "elevation-scale", label: "Elevation scale" },
+  ],
   icons: [
     { id: "overview", label: "Overview" },
     { id: "usage", label: "Usage" },

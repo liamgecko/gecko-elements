@@ -21,6 +21,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import { PageSectionNav } from "./page-section-nav"
 
 const APP_TITLE = "Gecko Elements"
 
@@ -199,8 +200,11 @@ export function AppShell({ children }: AppShellProps) {
             </header>
             <div className="flex-1 mx-2 mb-3 p-1 rounded-2xl bg-white overflow-hidden">
               <ScrollArea className="h-full" data-app-main="true">
-                <div className="p-5">
-                  {children}
+                <div className="p-8 md:px-16 py-8">
+                  <div className="flex gap-8">
+                    <div className="min-w-0 flex-1 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-12">{children}</div>
+                    <PageSectionNav />
+                  </div>
                 </div>
               </ScrollArea>
             </div>

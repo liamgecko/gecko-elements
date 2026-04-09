@@ -1,18 +1,14 @@
 import { PageSection } from "@/components/layout/page-section"
-import { PageSectionNav } from "@/components/layout/page-section-nav"
 
 export function DirectionPage() {
   return (
-    <div className="flex gap-5.5">
-      <div className="flex-1 space-y-2">
+    <div className="space-y-12">
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Direction</h1>
         <p className="text-sm text-muted-foreground">
           Placeholder for Direction component examples.
         </p>
         </PageSection>
-      </div>
-      <PageSectionNav />
     </div>
   )
 }

@@ -8,7 +8,7 @@ export function HomePage() {
   )
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
       <div>
         <h1 className="text-2xl font-bold text-foreground">Home</h1>
         <p className="mt-1 text-sm text-muted-foreground">

@@ -1,25 +1,23 @@
 import { PageSection } from "@/components/layout/page-section"
-import { PageSectionNav } from "@/components/layout/page-section-nav"
 import { Code } from "@/components/ui/code"
 import { ComponentExample } from "@/components/layout/component-example"
 import { Table, TableRow, TableCell, TableBody, TableHeader, TableHead } from "@/components/ui/table"
 
 export function ShadowsPage() {
   return (
-    <div className="flex gap-5.5">
-      <div className="min-w-0 flex-1 space-y-10 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-8">
+    <div className="space-y-12">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Shadows</h1>
+          <h1 className="text-2xl font-bold text-foreground mb-2">Shadows</h1>
           <p className="text-sm text-muted-foreground">
-          Shadows express the level of elevation between surfaces, they must be used consistently throughout your product. Use shadow to explain interactions. Items with the same shadow cannot occupy the same space.
+          Shadows communicate elevation, layering, and interaction across the interface. A consistent shadow system helps define hierarchy, separate surfaces, and make interactive elements feel predictable and cohesive.
           </p>
         </PageSection>
         <PageSection id="usage" label="Usage">
-        <h2 className="text-lg font-semibold">Usage</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use utilities like <Code>shadow-sm</Code> and <Code>shadow-lg</Code> to apply different sized outer box shadows to an element.
+          <h2 className="text-lg font-semibold">Usage</h2>
+          <p className="mb-4 text-sm text-muted-foreground">
+          Shadows should be used intentionally to represent elevation and interaction. They should reinforce structure and hierarchy across the interface, rather than act as purely decorative styling.
           </p>
-          <ComponentExample className="mb-8">
+          <ComponentExample className="mb-4">
             <div className="grid gap-8">
               <div className="grid grid-cols-4 items-center gap-8">
                 <div className="flex items-center h-24 text-xs justify-center bg-white shadow-none rounded-lg border border-gray-100">shadow-none</div>
@@ -30,22 +28,22 @@ export function ShadowsPage() {
                 <div className="flex items-center h-24 text-xs justify-center bg-white shadow-xl rounded-lg border border-gray-100">shadow-xl</div>
               </div>
             </div>
-            <Code variant="block" language="tsx" showCopyButton copyLabel="Copy code" code={`<div className="shadow-*">...</div>`} className="mt-8" />
           </ComponentExample>
           <h3 className="text-sm font-semibold mb-2">
-          Usage guidelines:
+            Guidelines:
           </h3>
           <ul className="list-disc list-inside text-sm text-muted-foreground pl-4 mb-4">
             <li className="text-sm">Use shadows to indicate elevation and layering, not decoration</li>
-            <li className="text-sm">Elements with higher elevation should appear above others</li>
-            <li className="text-sm">Avoid using multiple shadow levels within the same component</li>
+            <li className="text-sm">Elements with higher elevation should appear above lower surfaces</li>
+            <li className="text-sm">Use consistent shadow levels across similar components</li>
+            <li className="text-sm">Avoid mixing multiple shadow levels within the same component</li>
             <li className="text-sm">Do not use shadows purely for visual styling without meaning</li>
           </ul>
         </PageSection>
 
         <PageSection id="elevation-scale" label="Elevation scale">
-        <h2 className="text-lg font-semibold">Elevation scale</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
+          <h2 className="text-lg font-semibold">Elevation scale</h2>
+          <p className="mb-4 text-sm text-muted-foreground">
             Shadows represent the relative elevation of surfaces. Higher elevation indicates greater prominence and separation from the background.
           </p>
           <ComponentExample>
@@ -84,8 +82,6 @@ export function ShadowsPage() {
           </ComponentExample>
         </PageSection>
 
-      </div>
-      <PageSectionNav />
     </div>
   )
 }
