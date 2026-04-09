@@ -143,15 +143,25 @@ export function IconsPage() {
 
         <PageSection id="accessibility" label="Accessibility">
           <h2 className="text-lg font-semibold">Accessibility</h2>
-          <p className="mb-4 text-sm text-muted-foreground">
+          <p className="mb-8 text-sm text-muted-foreground">
             Icons are decorative by default and ship with <Code>aria-hidden="true"</Code>. In most cases, this is the correct behaviour, as icons are typically used to support visual scanning or reinforce meaning rather than communicate essential information on their own.
           </p>
+          <h3 className="text-sm font-semibold mb-2">
+            Making icons accessible
+          </h3>
           <p className="mb-4 text-sm text-muted-foreground">
             Icons should only be made accessible when they convey important meaning independently. In those cases, provide an accessible name using either a <Code>title</Code> element or an <Code>aria-label</Code> attribute. Doing this removes the default <Code>aria-hidden</Code> behaviour and exposes the icon to assistive technologies.
           </p>
+          <Code variant="block" language="tsx" showCopyButton copyLabel="Copy code" code={`<House aria-label="This is my house" />`} className="mb-8" />
+          <h3 className="text-sm font-semibold mb-2">
+            Icon button accessibility
+          </h3>
           <p className="mb-4 text-sm text-muted-foreground">
             When an icon is used inside an interactive control such as a button, the accessible label should usually be applied to the parent control, not the icon itself. This ensures assistive technologies announce the action of the control rather than the decorative graphic inside it. 
           </p>
+          <Code variant="block" language="tsx" showCopyButton copyLabel="Copy code" code={`<button aria-label="Open settings">
+  <Cog />
+</button>`} className="mb-8" />
           <h3 className="text-sm font-semibold mb-2">
           Guidelines for icon accessibility:
           </h3>
