@@ -565,7 +565,7 @@ export const componentSections: ComponentSections = {
     { id: "basic", label: "Basic" },
     { id: "range", label: "Range picker" },
     { id: "dob", label: "Date of birth" },
-    { id: "input", label: "Input" },
+    { id: "button-trigger", label: "Button trigger" },
     { id: "time-picker", label: "Time picker" },
     { id: "natural-language", label: "Natural language" },
     {

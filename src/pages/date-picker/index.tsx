@@ -1,23 +1,13 @@
 import { useState } from "react"
-import { addDays, format } from "date-fns"
+import { addDays } from "date-fns"
 import type { DateRange } from "react-day-picker"
 import { parseDate } from "chrono-node"
-import { CalendarIcon, ChevronDownIcon } from "lucide-react"
 
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
-import { Button } from "@/components/ui/button"
 import { Code } from "@/components/ui/code"
-import { Calendar } from "@/components/ui/calendar"
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from "@/components/ui/input-group"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { DatePicker } from "@/components/ui/date-picker"
+import { Field, FieldLabel } from "@/components/ui/field"
 
 function formatLongDate(date: Date | undefined) {
   if (!date) return ""
@@ -28,30 +18,17 @@ function formatLongDate(date: Date | undefined) {
   })
 }
 
-function isValidDate(value: Date | undefined) {
-  if (!value) return false
-  return !isNaN(value.getTime())
-}
-
 export function DatePickerPage() {
   const [basicDate, setBasicDate] = useState<Date | undefined>()
   const [rangeDate, setRangeDate] = useState<DateRange | undefined>({
     from: new Date(new Date().getFullYear(), 0, 20),
     to: addDays(new Date(new Date().getFullYear(), 0, 20), 20),
   })
-  const [dobOpen, setDobOpen] = useState(false)
   const [dobDate, setDobDate] = useState<Date | undefined>(undefined)
-  const [inputOpen, setInputOpen] = useState(false)
-  const [inputDate, setInputDate] = useState<Date | undefined>(
+  const [subscriptionDate, setSubscriptionDate] = useState<Date | undefined>(
     new Date("2025-06-01")
   )
-  const [inputMonth, setInputMonth] = useState<Date | undefined>(inputDate)
-  const [inputValue, setInputValue] = useState<string>(
-    formatLongDate(inputDate)
-  )
-  const [timeOpen, setTimeOpen] = useState(false)
   const [timeDate, setTimeDate] = useState<Date | undefined>(undefined)
-  const [naturalOpen, setNaturalOpen] = useState(false)
   const [naturalValue, setNaturalValue] = useState("In 2 days")
   const [naturalDate, setNaturalDate] = useState<Date | undefined>(
     parseDate("In 2 days") || undefined
@@ -59,390 +36,172 @@ export function DatePickerPage() {
 
   return (
     <div className="space-y-12">
-        <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Date picker</h1>
-          <p className="text-sm text-muted-foreground">
-            Choose single dates or ranges using a calendar-based picker.
-          </p>
-        </PageSection>
+      <PageSection id="overview" label="Overview">
+        <h1 className="text-2xl font-bold text-foreground">Date picker</h1>
+        <p className="text-sm text-muted-foreground">
+          Choose single dates or ranges using a calendar-based picker.
+        </p>
+      </PageSection>
 
-        <PageSection id="basic" label="Basic">
-          <h2 className="text-lg font-semibold">Basic</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            A single-date picker with a calendar popup.
-          </p>
-          <ComponentExample>
-            <Field className="w-44">
-              <FieldLabel htmlFor="date-picker-basic">Date</FieldLabel>
-              <Popover>
-                <PopoverTrigger
-                  render={
-                    <Button
-                      variant="outline"
-                      id="date-picker-basic"
-                      className="justify-start font-normal"
-                    >
-                      {basicDate ? (
-                        format(basicDate, "PPP")
-                      ) : (
-                        <span>Select a date</span>
-                      )}
-                    </Button>
-                  }
-                />
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={basicDate}
-                    onSelect={setBasicDate}
-                    defaultMonth={basicDate}
-                  />
-                </PopoverContent>
-              </Popover>
-            </Field>
-          </ComponentExample>
-        </PageSection>
+      <PageSection id="basic" label="Basic">
+        <h2 className="text-lg font-semibold">Basic</h2>
+        <p className="mb-8 text-sm text-muted-foreground">
+          Single-date pickers default to a native <Code>type=&quot;date&quot;</Code> field plus calendar (
+          <Code>trigger=&quot;input&quot;</Code>, or omit <Code>trigger</Code>). Use <Code>ArrowDown</Code> on the field to open the calendar.{" "}
+          <Code>variant=&quot;default&quot;</Code> is implied when you omit <Code>variant</Code>.
+        </p>
+        <ComponentExample>
+          <Field className="w-44">
+            <FieldLabel htmlFor="date-picker-basic">Date</FieldLabel>
+            <DatePicker
+              id="date-picker-basic"
+              value={basicDate}
+              onChange={setBasicDate}
+              placeholder="Select a date"
+            />
+          </Field>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="range" label="Range picker">
-          <h2 className="text-lg font-semibold">Range picker</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Select a start and end date for booking windows or reporting periods.
-          </p>
-          <ComponentExample>
-            <Field className="w-60">
-              <FieldLabel htmlFor="date-picker-range">Date range</FieldLabel>
-              <Popover>
-                <PopoverTrigger
-                  render={
-                    <Button
-                      variant="outline"
-                      id="date-picker-range"
-                      className="justify-start px-2.5 font-normal"
-                    >
-                      <CalendarIcon data-icon="inline-start" />
-                      {rangeDate?.from ? (
-                        rangeDate.to ? (
-                          <>
-                            {format(rangeDate.from, "LLL dd, y")} -{" "}
-                            {format(rangeDate.to, "LLL dd, y")}
-                          </>
-                        ) : (
-                          format(rangeDate.from, "LLL dd, y")
-                        )
-                      ) : (
-                        <span>Select a date</span>
-                      )}
-                    </Button>
-                  }
-                />
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="range"
-                    defaultMonth={rangeDate?.from}
-                    selected={rangeDate}
-                    onSelect={setRangeDate}
-                    numberOfMonths={2}
-                  />
-                </PopoverContent>
-              </Popover>
-            </Field>
-          </ComponentExample>
-        </PageSection>
+      <PageSection id="range" label="Range picker">
+        <h2 className="text-lg font-semibold">Range picker</h2>
+        <p className="mb-8 text-sm text-muted-foreground">
+          Select a start and end date for booking windows or reporting periods. Range mode always uses an outline button trigger (native date inputs do not apply to a range).
+        </p>
+        <ComponentExample>
+          <Field className="w-60">
+            <FieldLabel htmlFor="date-picker-range">Date range</FieldLabel>
+            <DatePicker
+              id="date-picker-range"
+              mode="range"
+              value={rangeDate}
+              onChange={setRangeDate}
+              numberOfMonths={2}
+              placeholder="Select a date"
+            />
+          </Field>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="dob" label="Date of birth">
-          <h2 className="text-lg font-semibold">Date of birth</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            A date picker optimised for selecting dates of birth.
-          </p>
-          <ComponentExample>
-            <Field className="w-44">
-              <FieldLabel htmlFor="date-of-birth">Date of birth</FieldLabel>
-              <Popover open={dobOpen} onOpenChange={setDobOpen}>
-                <PopoverTrigger
-                  render={
-                    <Button
-                      variant="outline"
-                      id="date-of-birth"
-                      className="justify-start font-normal"
-                    >
-                      {dobDate
-                        ? dobDate.toLocaleDateString()
-                        : "Select a date"}
-                    </Button>
-                  }
-                />
-                <PopoverContent className="w-auto overflow-hidden p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={dobDate}
-                    defaultMonth={dobDate}
-                    captionLayout="dropdown"
-                    onSelect={(value) => {
-                      setDobDate(value)
-                      setDobOpen(false)
-                    }}
-                  />
-                </PopoverContent>
-              </Popover>
-            </Field>
-          </ComponentExample>
-        </PageSection>
+      <PageSection id="dob" label="Date of birth">
+        <h2 className="text-lg font-semibold">Date of birth</h2>
+        <p className="mb-8 text-sm text-muted-foreground">
+          Use <Code>variant=&quot;dob&quot;</Code> for month/year dropdowns in the calendar. With the default native date field (
+          <Code>trigger=&quot;input&quot;</Code>), the input shows the browser&apos;s date format; use{" "}
+          <Code>trigger=&quot;button&quot;</Code> if you want a locale-style date label on the trigger instead.
+        </p>
+        <ComponentExample>
+          <Field className="w-44">
+            <FieldLabel htmlFor="date-of-birth">Date of birth</FieldLabel>
+            <DatePicker
+              id="date-of-birth"
+              variant="dob"
+              value={dobDate}
+              onChange={setDobDate}
+              placeholder="Select a date"
+            />
+          </Field>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="input" label="Input">
-          <h2 className="text-lg font-semibold">Input</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Combine a date picker with a text input for manual entry and calendar selection.
-          </p>
-          <ComponentExample>
-            <Field className="w-48">
-                <FieldLabel htmlFor="date-required">Subscription date</FieldLabel>
-                <InputGroup>
-                  <InputGroupInput
-                    id="date-required"
-                    value={inputValue}
-                    placeholder="June 01, 2025"
-                    onChange={(e) => {
-                      const raw = e.target.value
-                      setInputValue(raw)
-                      const parsed = new Date(raw)
-                      if (isValidDate(parsed)) {
-                        setInputDate(parsed)
-                        setInputMonth(parsed)
-                      }
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "ArrowDown") {
-                        e.preventDefault()
-                        setInputOpen(true)
-                      }
-                    }}
-                  />
-                  <InputGroupAddon align="inline-end">
-                    <Popover open={inputOpen} onOpenChange={setInputOpen}>
-                      <PopoverTrigger
-                        render={
-                          <InputGroupButton
-                            id="date-picker-input"
-                            variant="ghost"
-                            aria-label="Select a date"
-                          >
-                            <CalendarIcon />
-                            <span className="sr-only">Select a date</span>
-                          </InputGroupButton>
-                        }
-                      />
-                      <PopoverContent
-                        className="w-auto overflow-hidden p-0"
-                        align="end"
-                        alignOffset={-8}
-                        sideOffset={10}
-                      >
-                        <Calendar
-                          mode="single"
-                          selected={inputDate}
-                          month={inputMonth}
-                          onMonthChange={setInputMonth}
-                          onSelect={(value) => {
-                            setInputDate(value)
-                            setInputValue(formatLongDate(value))
-                            setInputOpen(false)
-                          }}
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </InputGroupAddon>
-                </InputGroup>
-              </Field>
-          </ComponentExample>
-        </PageSection>
+      <PageSection id="button-trigger" label="Button trigger">
+        <h2 className="text-lg font-semibold">Button trigger</h2>
+        <p className="mb-8 text-sm text-muted-foreground">
+          Set <Code>trigger=&quot;button&quot;</Code> on a single <Code>variant=&quot;default&quot;</Code> or{" "}
+          <Code>variant=&quot;dob&quot;</Code> picker to use the outline button instead of the native date field.
+        </p>
+        <ComponentExample>
+          <Field className="w-56">
+            <FieldLabel htmlFor="date-required">Subscription date</FieldLabel>
+            <DatePicker
+              id="date-required"
+              trigger="button"
+              value={subscriptionDate}
+              onChange={setSubscriptionDate}
+              placeholder="Select a date"
+            />
+          </Field>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="time-picker" label="Time picker">
-          <h2 className="text-lg font-semibold">Time picker</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Combine a date picker with a time input to capture both parts of a timestamp.
-          </p>
-          <ComponentExample>
-            <FieldGroup className="max-w-xs flex-row">
-              <Field>
-                <FieldLabel htmlFor="date-picker-time">Date</FieldLabel>
-                <Popover open={timeOpen} onOpenChange={setTimeOpen}>
-                  <PopoverTrigger
-                    render={
-                      <Button
-                        variant="outline"
-                        id="date-picker-time"
-                        className="w-32 justify-between font-normal"
-                      >
-                        {timeDate ? format(timeDate, "PPP") : "Select a date"}
-                        <ChevronDownIcon data-icon="inline-end" />
-                      </Button>
-                    }
-                  />
-                  <PopoverContent className="w-auto overflow-hidden p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={timeDate}
-                      captionLayout="dropdown"
-                      defaultMonth={timeDate}
-                      onSelect={(value) => {
-                        setTimeDate(value)
-                        setTimeOpen(false)
-                      }}
-                    />
-                  </PopoverContent>
-                </Popover>
-              </Field>
-              <Field className="w-32">
-                <FieldLabel htmlFor="time-picker-optional">Time</FieldLabel>
-                <Input
-                  type="time"
-                  id="time-picker-optional"
-                  step="1"
-                  defaultValue="10:30:00"
-                  className="appearance-none bg-background [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
-                />
-              </Field>
-            </FieldGroup>
-          </ComponentExample>
-        </PageSection>
+      <PageSection id="time-picker" label="Time picker">
+        <h2 className="text-lg font-semibold">Time picker</h2>
+        <p className="mb-8 text-sm text-muted-foreground">
+          Use <Code>variant=&quot;time&quot;</Code> for a date button with calendar plus a native time field in one control.
+        </p>
+        <ComponentExample>
+          <DatePicker
+            variant="time"
+            id="date-picker-time"
+            value={timeDate}
+            onChange={setTimeDate}
+            placeholder="Select a date"
+            className="w-full max-w-48"
+          />
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="natural-language" label="Natural language">
-          <h2 className="text-lg font-semibold">Natural language</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Parse phrases like &quot;next Friday&quot; or &quot;in two weeks&quot; into concrete dates.
-          </p>
-          <ComponentExample>
-            <Field className="max-w-xs">
-              <FieldLabel htmlFor="date-optional">Schedule date</FieldLabel>
-              <InputGroup>
-                <InputGroupInput
-                  id="date-optional"
-                  value={naturalValue}
-                  placeholder="Tomorrow or next week"
-                  onChange={(e) => {
-                    const raw = e.target.value
-                    setNaturalValue(raw)
-                    const parsed = parseDate(raw)
-                    if (parsed) {
-                      setNaturalDate(parsed)
-                    }
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "ArrowDown") {
-                      e.preventDefault()
-                      setNaturalOpen(true)
-                    }
-                  }}
-                />
-                <InputGroupAddon align="inline-end">
-                  <Popover open={naturalOpen} onOpenChange={setNaturalOpen}>
-                    <PopoverTrigger
-                      render={
-                        <InputGroupButton
-                          id="date-picker-natural"
-                          variant="ghost"
-                          aria-label="Select a date"
-                        >
-                          <CalendarIcon />
-                          <span className="sr-only">Select a date</span>
-                        </InputGroupButton>
-                      }
-                    />
-                    <PopoverContent
-                      className="w-auto overflow-hidden p-0"
-                      align="end"
-                      sideOffset={8}
-                    >
-                      <Calendar
-                        mode="single"
-                        selected={naturalDate}
-                        captionLayout="dropdown"
-                        defaultMonth={naturalDate}
-                        onSelect={(value) => {
-                          setNaturalDate(value)
-                          setNaturalValue(formatLongDate(value))
-                          setNaturalOpen(false)
-                        }}
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </InputGroupAddon>
-              </InputGroup>
-              <div className="text-xs text-muted-foreground">
-                Your post will be published on{" "}
-                <span className="font-medium">
-                  {formatLongDate(naturalDate)}
-                </span>
-                .
-              </div>
-            </Field>
-          </ComponentExample>
-        </PageSection>
+      <PageSection id="natural-language" label="Natural language">
+        <h2 className="text-lg font-semibold">Natural language</h2>
+        <p className="mb-8 text-sm text-muted-foreground">
+          Use <Code>variant=&quot;natural&quot;</Code> with <Code>textValue</Code> / <Code>onTextChange</Code> and optional{" "}
+          <Code>parseText</Code> for phrases like &quot;next Friday&quot;.
+        </p>
+        <ComponentExample>
+          <Field className="max-w-xs">
+            <FieldLabel htmlFor="date-optional">Schedule date</FieldLabel>
+            <DatePicker
+              id="date-optional"
+              variant="natural"
+              value={naturalDate}
+              onChange={setNaturalDate}
+              textValue={naturalValue}
+              onTextChange={setNaturalValue}
+              textPlaceholder="Tomorrow or next week"
+              parseText={(raw) => parseDate(raw) || undefined}
+              formatTextFromDate={formatLongDate}
+            />
+            <div className="text-xs text-muted-foreground">
+              Your post will be published on{" "}
+              <span className="font-medium">
+                {formatLongDate(naturalDate)}
+              </span>
+              .
+            </div>
+          </Field>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="states" label="States">
-          <h2 className="text-lg font-semibold">States</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            For the input + calendar pattern, use <Code>disabled</Code> on{" "}
-            <Code>InputGroupInput</Code> and the trigger
-            button, or <Code>aria-invalid</Code> on the
-            text field for validation styling.
-          </p>
+      <PageSection id="states" label="States">
+        <h2 className="text-lg font-semibold">States</h2>
+        <p className="mb-8 text-sm text-muted-foreground">
+          Pass <Code>disabled</Code> on <Code>DatePicker</Code>, or <Code>aria-invalid</Code> on the native date field (
+          default <Code>trigger=&quot;input&quot;</Code> for <Code>default</Code> / <Code>dob</Code>) and on{" "}
+          <Code>variant=&quot;natural&quot;</Code> for validation styling.
+        </p>
 
-          <h3 id="states-disabled" className="mb-3 text-base font-semibold">
-            Disabled
-          </h3>
-          <ComponentExample className="mb-6">
-            <InputGroup className="w-48">
-              <InputGroupInput
-                disabled
-                placeholder="Select a date"
-                aria-label="Date (disabled)"
-              />
-              <InputGroupAddon align="inline-end">
-                <InputGroupButton
-                  variant="ghost"
-                  disabled
-                  aria-label="Select a date"
-                >
-                  <CalendarIcon />
-                  <span className="sr-only">Select a date</span>
-                </InputGroupButton>
-              </InputGroupAddon>
-            </InputGroup>
-          </ComponentExample>
+        <h3 id="states-disabled" className="mb-3 text-base font-semibold">
+          Disabled
+        </h3>
+        <ComponentExample className="mb-6">
+          <DatePicker
+            disabled
+            className="w-48"
+            aria-label="Date (disabled)"
+          />
+        </ComponentExample>
 
-          <h3 id="states-error" className="mb-3 text-base font-semibold">
-            Error
-          </h3>
-          <ComponentExample>
-            <InputGroup className="w-48">
-              <InputGroupInput
-                aria-invalid
-                defaultValue="Select a date"
-                aria-label="Date (invalid)"
-              />
-              <InputGroupAddon align="inline-end">
-                <Popover>
-                  <PopoverTrigger
-                    render={
-                      <InputGroupButton variant="ghost" aria-label="Select date">
-                        <CalendarIcon />
-                        <span className="sr-only">Select date</span>
-                      </InputGroupButton>
-                    }
-                  />
-                  <PopoverContent
-                    className="w-auto overflow-hidden p-0"
-                    align="end"
-                    sideOffset={8}
-                  >
-                    <Calendar mode="single" />
-                  </PopoverContent>
-                </Popover>
-              </InputGroupAddon>
-            </InputGroup>
-          </ComponentExample>
-        </PageSection>
+        <h3 id="states-error" className="mb-3 text-base font-semibold">
+          Error
+        </h3>
+        <ComponentExample>
+          <DatePicker
+            className="w-48"
+            aria-invalid
+            aria-label="Date (invalid)"
+          />
+        </ComponentExample>
+      </PageSection>
     </div>
   )
 }
