@@ -25,7 +25,7 @@ export function SpinnerPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               {"<Spinner />"}
             </Code>{" "}
             component to show a loading indicator.
@@ -41,7 +41,7 @@ export function SpinnerPage() {
           <h2 className="text-lg font-semibold">Sizing</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Control the spinner size with the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               size
             </Code>{" "}
             prop instead of raw utility classes.

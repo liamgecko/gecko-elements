@@ -51,7 +51,7 @@ function Table({
       data-slot="table"
       data-nested={nested ? "" : undefined}
       className={cn(
-        "w-full caption-bottom text-sm bg-white",
+        "w-full caption-bottom text-sm bg-background",
         nested && !hasNestedIntro && "rounded-md border border-border",
         nested && hasNestedIntro && "rounded-none border-0",
         className
@@ -66,7 +66,7 @@ function Table({
         <TableHoverContext.Provider value={hoverable}>
           <div
             data-slot="table-nested-panel"
-            className="overflow-hidden rounded-md border border-border bg-white"
+            className="overflow-hidden rounded-md border border-border bg-background"
           >
             <div className="border-b border-border px-4 py-3">
               {title != null ? (
@@ -102,7 +102,7 @@ function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
   return (
     <thead
       data-slot="table-header"
-      className={cn("[&_tr]:border-b bg-gray-50", className)}
+      className={cn("[&_tr]:border-b bg-muted", className)}
       {...props}
     />
   )
@@ -115,7 +115,7 @@ function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
       data-slot="table-body"
       className={cn(
         "[&>tr:last-child]:border-b-0",
-        hoverable && "[&>tr]:transition-colors [&>tr:hover]:bg-gray-50/50",
+        hoverable && "[&>tr]:transition-colors [&>tr:hover]:bg-muted/50",
         className
       )}
       {...props}
@@ -127,7 +127,7 @@ function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
   return (
     <tfoot
       data-slot="table-footer"
-      className={cn("bg-gray-50 border-t font-medium", className)}
+      className={cn("bg-muted border-t font-medium", className)}
       {...props}
     />
   )
@@ -139,7 +139,7 @@ function TableRow({ className, ...props }: TableRowProps) {
   return (
     <tr
       data-slot="table-row"
-      className={cn("data-[state=selected]:bg-gray-50/50 border-b data-[state=open]:border-b-0", className)}
+      className={cn("data-[state=selected]:bg-muted/50 border-b data-[state=open]:border-b-0", className)}
       {...props}
     />
   )
@@ -176,7 +176,7 @@ function TableDetailRow({
           )}
         >
           <div className="min-h-0 overflow-hidden" inert={open ? undefined : true}>
-            <div className="nested-wrapper bg-gray-50/50 border-b border-t border-border p-6">{children}</div>
+            <div className="nested-wrapper bg-muted/50 border-b border-t border-border p-6">{children}</div>
           </div>
         </div>
       </td>

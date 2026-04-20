@@ -125,7 +125,7 @@ const CountrySelect = ({
             className={cn(
               "flex gap-1 rounded-e-none rounded-s-sm border border-r-0 px-2 focus:z-10",
               "disabled:bg-muted",
-              invalid ? "border-destructive" : "border-border",
+              invalid ? "border-input-destructive" : "border-border",
               sizeVariants({ size })
             )}
             disabled={disabled}

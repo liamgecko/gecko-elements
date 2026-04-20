@@ -211,7 +211,7 @@ export const componentSections: ComponentSections = {
       label: "States",
       children: [
         { id: "states-disabled", label: "Disabled" },
-        { id: "states-invalid", label: "Invalid" },
+        { id: "states-error", label: "Error" },
       ],
     },
     { id: "read-only", label: "Read-only" },
@@ -255,7 +255,7 @@ export const componentSections: ComponentSections = {
       label: "States",
       children: [
         { id: "states-disabled", label: "Disabled" },
-        { id: "states-invalid", label: "Invalid" },
+        { id: "states-error", label: "Error" },
       ],
     },
   ],
@@ -334,7 +334,7 @@ export const componentSections: ComponentSections = {
       label: "States",
       children: [
         { id: "states-disabled", label: "Disabled" },
-        { id: "states-invalid", label: "Invalid" },
+        { id: "states-error", label: "Error" },
       ],
     },
     {
@@ -420,7 +420,7 @@ export const componentSections: ComponentSections = {
       label: "State",
       children: [
         { id: "state-disabled", label: "Disabled" },
-        { id: "state-invalid", label: "Invalid" },
+        { id: "state-error", label: "Error" },
       ],
     },
   ],
@@ -456,7 +456,7 @@ export const componentSections: ComponentSections = {
       label: "States",
       children: [
         { id: "states-disabled", label: "Disabled" },
-        { id: "states-invalid", label: "Invalid" },
+        { id: "states-error", label: "Error" },
       ],
     },
     { id: "read-only", label: "Read-only" },
@@ -521,6 +521,14 @@ export const componentSections: ComponentSections = {
     { id: "multiple", label: "Multiple" },
     { id: "with-clear", label: "With clear" },
     { id: "groups", label: "Groups" },
+    {
+      id: "states",
+      label: "States",
+      children: [
+        { id: "states-disabled", label: "Disabled" },
+        { id: "states-error", label: "Error" },
+      ],
+    },
   ],
   command: [
     { id: "overview", label: "Overview" },
@@ -543,6 +551,14 @@ export const componentSections: ComponentSections = {
     { id: "basic-example", label: "Basic example" },
     { id: "four-digit-year", label: "4-digit year" },
     { id: "american-format", label: "American format" },
+    {
+      id: "states",
+      label: "States",
+      children: [
+        { id: "states-disabled", label: "Disabled" },
+        { id: "states-error", label: "Error" },
+      ],
+    },
   ],
   "date-picker": [
     { id: "overview", label: "Overview" },
@@ -552,6 +568,14 @@ export const componentSections: ComponentSections = {
     { id: "input", label: "Input" },
     { id: "time-picker", label: "Time picker" },
     { id: "natural-language", label: "Natural language" },
+    {
+      id: "states",
+      label: "States",
+      children: [
+        { id: "states-disabled", label: "Disabled" },
+        { id: "states-error", label: "Error" },
+      ],
+    },
   ],
   direction: [{ id: "overview", label: "Overview" }],
   "dropdown-menu": [
@@ -594,6 +618,14 @@ export const componentSections: ComponentSections = {
     { id: "separator", label: "Separator" },
     { id: "alphanumeric", label: "Alphanumeric" },
     { id: "custom", label: "Custom" },
+    {
+      id: "states",
+      label: "States",
+      children: [
+        { id: "states-disabled", label: "Disabled" },
+        { id: "states-error", label: "Error" },
+      ],
+    },
   ],
   kbd: [{ id: "overview", label: "Overview" }],
   label: [
@@ -619,7 +651,7 @@ export const componentSections: ComponentSections = {
       label: "States",
       children: [
         { id: "states-disabled", label: "Disabled" },
-        { id: "states-invalid", label: "Invalid" },
+        { id: "states-error", label: "Error" },
       ],
     },
     { id: "within-form", label: "Within form" },
@@ -690,7 +722,14 @@ export const componentSections: ComponentSections = {
     },
     { id: "with-default-value", label: "With default value" },
     { id: "direct-hex-input", label: "Direct HEX input" },
-    { id: "disabled", label: "Disabled" },
+    {
+      id: "states",
+      label: "States",
+      children: [
+        { id: "states-disabled", label: "Disabled" },
+        { id: "states-error", label: "Error" },
+      ],
+    },
   ],
   "data-table": [
     { id: "overview", label: "Overview" },
@@ -870,7 +909,7 @@ export const componentSections: ComponentSections = {
       label: "States",
       children: [
         { id: "states-disabled", label: "Disabled" },
-        { id: "states-invalid", label: "Invalid" },
+        { id: "states-error", label: "Error" },
       ],
     },
   ],
@@ -892,7 +931,7 @@ export const componentSections: ComponentSections = {
       label: "States",
       children: [
         { id: "states-disabled", label: "Disabled" },
-        { id: "states-invalid", label: "Invalid" },
+        { id: "states-error", label: "Error" },
       ],
     },
   ],
@@ -914,7 +953,7 @@ export const componentSections: ComponentSections = {
       label: "States",
       children: [
         { id: "states-disabled", label: "Disabled" },
-        { id: "states-invalid", label: "Invalid" },
+        { id: "states-error", label: "Error" },
       ],
     },
   ],
@@ -926,7 +965,7 @@ export const componentSections: ComponentSections = {
       label: "States",
       children: [
         { id: "states-disabled", label: "Disabled" },
-        { id: "states-invalid", label: "Invalid" },
+        { id: "states-error", label: "Error" },
       ],
     },
     {

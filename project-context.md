@@ -81,7 +81,7 @@ Routing
 react-router-dom
 
 Styling
-Tailwind CSS v4
+Tailwind CSS v4. Semantic tokens and usage rules: see `.standards/design-tokens.md`.
 
 UI Architecture
 Base UI primitives with Shadcn-style component patterns

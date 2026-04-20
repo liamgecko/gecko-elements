@@ -23,7 +23,7 @@ export function SearchInputPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               SearchField
             </Code>{" "}
             component for search inputs with a search icon on the left.
@@ -37,7 +37,7 @@ export function SearchInputPage() {
           <h2 className="text-lg font-semibold">With clear</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               showClear
             </Code>{" "}
             prop to show a clear button when the input has content.
@@ -56,23 +56,23 @@ export function SearchInputPage() {
           <h2 className="text-lg font-semibold">Sizing</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               size
             </Code>{" "}
             prop for{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               sm
             </Code>
             ,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               md
             </Code>
             , or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               lg
             </Code>
             . Default is{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               md
             </Code>
             .
@@ -104,11 +104,11 @@ export function SearchInputPage() {
           <h2 className="text-lg font-semibold">States</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               disabled
             </Code>{" "}
             prop or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               aria-invalid
             </Code>{" "}
             to show disabled and validation states.
@@ -121,8 +121,8 @@ export function SearchInputPage() {
             <SearchField placeholder="Search…" disabled />
           </ComponentExample>
 
-          <h3 id="states-invalid" className="mb-3 text-base font-semibold">
-            Invalid
+          <h3 id="states-error" className="mb-3 text-base font-semibold">
+            Error
           </h3>
           <ComponentExample>
             <SearchField placeholder="Search…" aria-invalid />

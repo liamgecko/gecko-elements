@@ -105,8 +105,8 @@ export function ReplyBox({
 
   const containerClassName = cn(
     "border border-border flex flex-col",
-    useWrappedLayout ? "bg-gray-50 rounded-xl shadow-lg" : "bg-white rounded-md",
-    variant === "textarea" && "bg-white",
+    useWrappedLayout ? "bg-muted rounded-xl shadow-lg" : "bg-background rounded-md",
+    variant === "textarea" && "bg-background",
     variant === "basic" && "shadow-md",
     expanded && "h-full",
     className
@@ -149,7 +149,7 @@ export function ReplyBox({
               data-slot="reply-box-panel"
               className={cn(
                 "border border-border -mt-px -mx-px rounded-xl",
-                noteMode ? "bg-yellow-50" : "bg-white"
+                noteMode ? "bg-yellow-50 dark:bg-background" : "bg-background"
               )}
             >
               {wrappedMain}

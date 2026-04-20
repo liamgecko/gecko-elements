@@ -30,9 +30,9 @@ export function DialogPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             A minimal dialog without a header or footer. Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Dialog</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogTrigger</Code>, and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogContent</Code> to show simple
+            <Code>Dialog</Code>,{" "}
+            <Code>DialogTrigger</Code>, and{" "}
+            <Code>DialogContent</Code> to show simple
             content.
           </p>
           <ComponentExample>
@@ -55,9 +55,9 @@ export function DialogPage() {
           <h2 className="text-lg font-semibold">Variants</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Compose dialogs by adding{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogHeader</Code> and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogFooter</Code> inside{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogContent</Code>.
+            <Code>DialogHeader</Code> and{" "}
+            <Code>DialogFooter</Code> inside{" "}
+            <Code>DialogContent</Code>.
           </p>
 
           <h3 id="variants-with-header" className="mb-3 text-base font-semibold">With header</h3>
@@ -127,11 +127,11 @@ export function DialogPage() {
           <h2 className="text-lg font-semibold">Footer close button</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">showCloseButton</Code> prop on{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogFooter</Code> to render a footer
+            <Code>showCloseButton</Code> prop on{" "}
+            <Code>DialogFooter</Code> to render a footer
             close action, and customise its label and icon with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">closeButtonText</Code> and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">closeButtonIcon</Code>.
+            <Code>closeButtonText</Code> and{" "}
+            <Code>closeButtonIcon</Code>.
           </p>
 
           <h3 id="footer-close-button-default" className="mb-3 text-base font-semibold">Default close button</h3>
@@ -183,8 +183,8 @@ export function DialogPage() {
           <h2 className="text-lg font-semibold">Sizing</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Control the maximum width of the dialog content with the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size</Code> prop on{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DialogContent</Code>. Sizes map to
+            <Code>size</Code> prop on{" "}
+            <Code>DialogContent</Code>. Sizes map to
             responsive max-widths on larger screens.
           </p>
           <ComponentExample>
@@ -196,7 +196,7 @@ export function DialogPage() {
                     <DialogHeader>
                       <DialogTitle>Extra small dialog</DialogTitle>
                       <DialogDescription>
-                        Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;xs&quot;</Code> for
+                        Use <Code>size=&quot;xs&quot;</Code> for
                         very compact dialogs such as toasts or inline confirmations.
                       </DialogDescription>
                     </DialogHeader>
@@ -211,7 +211,7 @@ export function DialogPage() {
                     <DialogHeader>
                       <DialogTitle>Small dialog</DialogTitle>
                       <DialogDescription>
-                        <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;sm&quot;</Code> is ideal
+                        <Code>size=&quot;sm&quot;</Code> is ideal
                         for short forms and simple confirmation flows.
                       </DialogDescription>
                     </DialogHeader>
@@ -227,7 +227,7 @@ export function DialogPage() {
                       <DialogTitle>Medium dialog</DialogTitle>
                       <DialogDescription>
                         The default{" "}
-                        <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;md&quot;</Code>{" "}
+                        <Code>size=&quot;md&quot;</Code>{" "}
                         balances content density and readability.
                       </DialogDescription>
                     </DialogHeader>
@@ -243,7 +243,7 @@ export function DialogPage() {
                       <DialogTitle>Large dialog</DialogTitle>
                       <DialogDescription>
                         Use{" "}
-                        <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;lg&quot;</Code> for
+                        <Code>size=&quot;lg&quot;</Code> for
                         content-heavy dialogs such as settings or multi-step flows.
                       </DialogDescription>
                     </DialogHeader>
@@ -258,7 +258,7 @@ export function DialogPage() {
                     <DialogHeader>
                       <DialogTitle>Extra large dialog</DialogTitle>
                       <DialogDescription>
-                        <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;xl&quot;</Code> gives
+                        <Code>size=&quot;xl&quot;</Code> gives
                         the widest layout for complex editors or previews.
                       </DialogDescription>
                     </DialogHeader>

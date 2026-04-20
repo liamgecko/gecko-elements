@@ -109,8 +109,8 @@ export const ChatHeadItem = React.forwardRef<HTMLDivElement, ChatHeadItemProps>(
         data-slot="chat-head-item"
         data-active={isActive ? "true" : undefined}
         className={cn(
-          "group flex cursor-pointer items-center gap-3 rounded py-3 pl-2 pr-3 transition-colors hover:bg-gray-100",
-          isActive && "bg-gray-50 hover:bg-gray-100",
+          "group flex cursor-pointer items-center gap-3 rounded py-3 pl-2 pr-3 transition-colors hover:bg-gray-100 dark:hover:bg-gray-900",
+          isActive && "bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900",
           className
         )}
         {...props}

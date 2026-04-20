@@ -30,11 +30,11 @@ export function FieldPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Wrap inputs with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldSet</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldGroup</Code>, and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Field</Code>. Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldLabel</Code> with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">htmlFor</Code> to associate the label with the input.
+            <Code>FieldSet</Code>,{" "}
+            <Code>FieldGroup</Code>, and{" "}
+            <Code>Field</Code>. Use{" "}
+            <Code>FieldLabel</Code> with{" "}
+            <Code>htmlFor</Code> to associate the label with the input.
           </p>
           <ComponentExample>
             <FieldSet>
@@ -52,7 +52,7 @@ export function FieldPage() {
           <h2 className="text-lg font-semibold">Help text</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Add{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldDescription</Code>{" "}
+            <Code>FieldDescription</Code>{" "}
             below the input to show hint or help text. It uses muted styling and supports links.
           </p>
           <ComponentExample>
@@ -74,9 +74,9 @@ export function FieldPage() {
           <h2 className="text-lg font-semibold">Validation</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldError</Code>{" "}
+            <Code>FieldError</Code>{" "}
             below a field to show validation messages. It renders with destructive styling and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">role=&quot;alert&quot;</Code> for accessibility.
+            <Code>role=&quot;alert&quot;</Code> for accessibility.
           </p>
           <ComponentExample>
             <form

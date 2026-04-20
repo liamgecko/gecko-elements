@@ -29,9 +29,9 @@ const sizeMap = {
 export type AvatarStatus = "online" | "unavailable" | "offline"
 
 const statusClass: Record<AvatarStatus, string> = {
-  online: "bg-emerald-500",
+  online: "bg-emerald-500 dark:bg-teal-500",
   unavailable: "bg-orange-500",
-  offline: "bg-gray-500",
+  offline: "bg-gray-500 dark:bg-gray-400",
 }
 
 const statusSizeClass =
@@ -42,7 +42,7 @@ const statusSizeClass =
   "group-data-[size=xl]/avatar:size-2.5 group-data-[size=2xl]/avatar:size-3 group-data-[size=3xl]/avatar:size-3"
 
 const notificationSizeClass =
-  "absolute top-0 start-0 z-10 rounded-full bg-red-600 ring-2 ring-background " +
+  "absolute top-0 start-0 z-10 rounded-full bg-red-600 dark:bg-rose-600 ring-2 ring-background " +
   "group-data-[size=xs]/avatar:ring-1 group-data-[size=sm]/avatar:ring-1 " +
   "group-data-[size=xs]/avatar:size-1.5 group-data-[size=sm]/avatar:size-1.5 " +
   "group-data-[size=md]/avatar:size-2 group-data-[size=lg]/avatar:size-2 " +
@@ -168,7 +168,7 @@ function AvatarFallback({
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
       className={cn(
-        "bg-gray-200 text-foreground rounded-full flex size-full items-center justify-center font-medium uppercase",
+        "bg-muted text-foreground rounded-full flex size-full items-center justify-center font-medium uppercase",
         "group-data-[size=xs]/avatar:text-[8px] group-data-[size=sm]/avatar:text-[9px] group-data-[size=md]/avatar:text-2xs group-data-[size=lg]/avatar:text-xs group-data-[size=xl]/avatar:text-sm group-data-[size=2xl]/avatar:text-base group-data-[size=3xl]/avatar:text-lg",
         className
       )}

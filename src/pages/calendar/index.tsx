@@ -36,11 +36,11 @@ export function CalendarPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             A basic calendar with single-date selection. Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">
+            <Code>
               mode="single"
             </Code>{" "}
-            with <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">selected</Code> and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">onSelect</Code>.
+            with <Code>selected</Code> and{" "}
+            <Code>onSelect</Code>.
           </p>
           <ComponentExample>
             <Calendar
@@ -55,7 +55,7 @@ export function CalendarPage() {
         <PageSection id="date-range" label="Date range">
           <h2 className="text-lg font-semibold">Date range</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">mode="range"</Code> to
+            Use <Code>mode="range"</Code> to
             let users select a range of dates. Shown here with two months.
           </p>
           <ComponentExample>
@@ -73,7 +73,7 @@ export function CalendarPage() {
         <PageSection id="month-year" label="Month and year selector">
           <h2 className="text-lg font-semibold">Month and year selector</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">captionLayout="dropdown"</Code> to
+            Use <Code>captionLayout="dropdown"</Code> to
             show month and year dropdowns for quick navigation.
           </p>
           <ComponentExample>
@@ -90,9 +90,9 @@ export function CalendarPage() {
         <PageSection id="booked-dates" label="Booked dates">
           <h2 className="text-lg font-semibold">Booked dates</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Disable specific dates with the <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">disabled</Code> prop
-            and use <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">modifiers</Code> and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 text-xs">modifiersClassNames</Code> to
+            Disable specific dates with the <Code>disabled</Code> prop
+            and use <Code>modifiers</Code> and{" "}
+            <Code>modifiersClassNames</Code> to
             style them (e.g. booked or unavailable).
           </p>
           <ComponentExample>

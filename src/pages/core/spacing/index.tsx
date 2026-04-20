@@ -52,7 +52,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-0 bg-blue-200"></div>
+                        <div className="h-4 w-0 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                       </TableCell>
@@ -64,7 +64,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-0.5 bg-blue-200"></div>
+                        <div className="h-4 w-0.5 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -76,7 +76,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-1 bg-blue-200"></div>
+                        <div className="h-4 w-1 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -88,7 +88,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-1.5 bg-blue-200"></div>
+                        <div className="h-4 w-1.5 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -100,7 +100,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-2 bg-blue-200"></div>
+                        <div className="h-4 w-2 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -112,7 +112,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-2.5 bg-blue-200"></div>
+                        <div className="h-4 w-2.5 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -124,7 +124,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-3 bg-blue-200"></div>
+                        <div className="h-4 w-3 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -136,7 +136,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-3.5 bg-blue-200"></div>
+                        <div className="h-4 w-3.5 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -148,7 +148,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-4 bg-blue-200"></div>
+                        <div className="h-4 w-4 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -160,7 +160,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-5 bg-blue-200"></div>
+                        <div className="h-4 w-5 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -172,7 +172,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-6 bg-blue-200"></div>
+                        <div className="h-4 w-6 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -184,7 +184,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-7 bg-blue-200"></div>
+                        <div className="h-4 w-7 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -196,7 +196,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-8 bg-blue-200"></div>
+                        <div className="h-4 w-8 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -208,7 +208,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-9 bg-blue-200"></div>
+                        <div className="h-4 w-9 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -220,7 +220,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-10 bg-blue-200"></div>
+                        <div className="h-4 w-10 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -232,7 +232,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-12 bg-blue-200"></div>
+                        <div className="h-4 w-12 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -244,7 +244,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-16 bg-blue-200"></div>
+                        <div className="h-4 w-16 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>
@@ -256,7 +256,7 @@ export function SpacingPage() {
                     <TableCell>
                       <div className="flex items-center">
                         <div className="h-4 w-0.5 bg-blue-600"></div>
-                        <div className="h-4 w-20 bg-blue-200"></div>
+                        <div className="h-4 w-20 bg-blue-200 dark:bg-blue-950"></div>
                         <div className="h-4 w-0.5 bg-blue-600"></div>
                       </div>
                     </TableCell>

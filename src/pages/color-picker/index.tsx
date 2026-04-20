@@ -2,7 +2,6 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { Code } from "@/components/ui/code"
 import { ColorPicker } from "@/components/ui/color-picker"
-import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field"
 
 export function ColorPickerPage() {
   return (
@@ -72,25 +71,26 @@ export function ColorPickerPage() {
           </ComponentExample>
         </PageSection>
 
-        <PageSection id="disabled" label="Disabled">
-          <h2 className="text-lg font-semibold">Disabled</h2>
+        <PageSection id="states" label="States">
+          <h2 className="text-lg font-semibold">States</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code>disabled</Code> to disable direct input and popover
-            interactions.
+            Use <Code>disabled</Code> to block input and the picker trigger, or{" "}
+            <Code>aria-invalid</Code> on the control to show validation styling
+            (border and focus ring).
           </p>
+
+          <h3 id="states-disabled" className="mb-3 text-base font-semibold">
+            Disabled
+          </h3>
+          <ComponentExample className="mb-6">
+            <ColorPicker defaultValue="#6366F1" disabled />
+          </ComponentExample>
+
+          <h3 id="states-error" className="mb-3 text-base font-semibold">
+            Error
+          </h3>
           <ComponentExample>
-            <FieldSet>
-              <FieldGroup>
-                <Field>
-                  <FieldLabel htmlFor="color-picker-disabled">Brand color</FieldLabel>
-                  <ColorPicker
-                    id="color-picker-disabled"
-                    defaultValue="#6366F1"
-                    disabled
-                  />
-                </Field>
-              </FieldGroup>
-            </FieldSet>
+            <ColorPicker defaultValue="#GGGGGG" aria-invalid />
           </ComponentExample>
         </PageSection>
     </div>

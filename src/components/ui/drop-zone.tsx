@@ -180,13 +180,13 @@ export function DropZone({
         className={cn(
           "rounded-sm border border-dashed border-border bg-transparent transition-colors",
           "flex flex-col items-center justify-center gap-2 p-6 text-center",
-          isDragging && !disabled && "border-blue-500 bg-blue-50",
+          isDragging && !disabled && "border-blue-500 bg-blue-50 dark:border-blue-700 dark:bg-blue-950",
           disabled && "cursor-not-allowed opacity-80"
         )}
       >
         <div className="flex flex-col items-center gap-2">
           <div
-            className="bg-white border border-border shadow-md text-foreground flex size-10 shrink-0 items-center justify-center rounded-lg transition-colors">
+            className="bg-background border border-border shadow-md text-foreground flex size-10 shrink-0 items-center justify-center rounded-lg transition-colors">
             <CloudUpload className="size-6" aria-hidden />
           </div>
           <div className="flex flex-col items-center gap-1">

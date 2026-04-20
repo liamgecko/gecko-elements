@@ -7,6 +7,7 @@ import { CalendarIcon, ChevronDownIcon } from "lucide-react"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { Button } from "@/components/ui/button"
+import { Code } from "@/components/ui/code"
 import { Calendar } from "@/components/ui/calendar"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
@@ -84,7 +85,7 @@ export function DatePickerPage() {
                       {basicDate ? (
                         format(basicDate, "PPP")
                       ) : (
-                        <span>Pick a date</span>
+                        <span>Select a date</span>
                       )}
                     </Button>
                   }
@@ -129,7 +130,7 @@ export function DatePickerPage() {
                           format(rangeDate.from, "LLL dd, y")
                         )
                       ) : (
-                        <span>Pick a date</span>
+                        <span>Select a date</span>
                       )}
                     </Button>
                   }
@@ -166,7 +167,7 @@ export function DatePickerPage() {
                     >
                       {dobDate
                         ? dobDate.toLocaleDateString()
-                        : "Select date"}
+                        : "Select a date"}
                     </Button>
                   }
                 />
@@ -223,10 +224,10 @@ export function DatePickerPage() {
                           <InputGroupButton
                             id="date-picker-input"
                             variant="ghost"
-                            aria-label="Select date"
+                            aria-label="Select a date"
                           >
                             <CalendarIcon />
-                            <span className="sr-only">Select date</span>
+                            <span className="sr-only">Select a date</span>
                           </InputGroupButton>
                         }
                       />
@@ -272,7 +273,7 @@ export function DatePickerPage() {
                         id="date-picker-time"
                         className="w-32 justify-between font-normal"
                       >
-                        {timeDate ? format(timeDate, "PPP") : "Select date"}
+                        {timeDate ? format(timeDate, "PPP") : "Select a date"}
                         <ChevronDownIcon data-icon="inline-end" />
                       </Button>
                     }
@@ -340,10 +341,10 @@ export function DatePickerPage() {
                         <InputGroupButton
                           id="date-picker-natural"
                           variant="ghost"
-                          aria-label="Select date"
+                          aria-label="Select a date"
                         >
                           <CalendarIcon />
-                          <span className="sr-only">Select date</span>
+                          <span className="sr-only">Select a date</span>
                         </InputGroupButton>
                       }
                     />
@@ -375,6 +376,71 @@ export function DatePickerPage() {
                 .
               </div>
             </Field>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="states" label="States">
+          <h2 className="text-lg font-semibold">States</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            For the input + calendar pattern, use <Code>disabled</Code> on{" "}
+            <Code>InputGroupInput</Code> and the trigger
+            button, or <Code>aria-invalid</Code> on the
+            text field for validation styling.
+          </p>
+
+          <h3 id="states-disabled" className="mb-3 text-base font-semibold">
+            Disabled
+          </h3>
+          <ComponentExample className="mb-6">
+            <InputGroup className="w-48">
+              <InputGroupInput
+                disabled
+                placeholder="Select a date"
+                aria-label="Date (disabled)"
+              />
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton
+                  variant="ghost"
+                  disabled
+                  aria-label="Select a date"
+                >
+                  <CalendarIcon />
+                  <span className="sr-only">Select a date</span>
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
+          </ComponentExample>
+
+          <h3 id="states-error" className="mb-3 text-base font-semibold">
+            Error
+          </h3>
+          <ComponentExample>
+            <InputGroup className="w-48">
+              <InputGroupInput
+                aria-invalid
+                defaultValue="Select a date"
+                aria-label="Date (invalid)"
+              />
+              <InputGroupAddon align="inline-end">
+                <Popover>
+                  <PopoverTrigger
+                    render={
+                      <InputGroupButton variant="ghost" aria-label="Select date">
+                        <CalendarIcon />
+                        <span className="sr-only">Select date</span>
+                      </InputGroupButton>
+                    }
+                  />
+                  <PopoverContent
+                    className="w-auto overflow-hidden p-0"
+                    align="end"
+                    sideOffset={8}
+                  >
+                    <Calendar mode="single" />
+                  </PopoverContent>
+                </Popover>
+              </InputGroupAddon>
+            </InputGroup>
           </ComponentExample>
         </PageSection>
     </div>

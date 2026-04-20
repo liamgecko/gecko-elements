@@ -14,12 +14,12 @@ const alertVariants = cva("grid gap-0.5 rounded-lg border px-4 py-3 text-start t
     variant: {
       default: "bg-card text-card-foreground border-border",
       destructive:
-        "border-destructive bg-destructive-muted text-destructive *:data-[slot=alert-description]:text-destructive *:[svg]:text-destructive",
-      info: "border-info bg-info-muted text-info *:data-[slot=alert-description]:text-info *:[svg]:text-info",
+        "border-destructive dark:border-destructive-muted-border bg-destructive-muted text-destructive dark:text-destructive-muted-foreground *:data-[slot=alert-description]:text-destructive *:[svg]:text-destructive dark:*:data-[slot=alert-description]:text-destructive-muted-foreground dark:*:[svg]:text-destructive-muted-foreground",
+      info: "border-info dark:border-info-muted-border bg-info-muted text-info dark:text-info-muted-foreground *:data-[slot=alert-description]:text-info *:[svg]:text-info dark:*:data-[slot=alert-description]:text-info-muted-foreground dark:*:[svg]:text-info-muted-foreground",
       success:
-        "border-success bg-success-muted text-success *:data-[slot=alert-description]:text-success *:[svg]:text-success",
+        "border-success dark:border-success-muted-border bg-success-muted text-success dark:text-success-muted-foreground *:data-[slot=alert-description]:text-success *:[svg]:text-success dark:*:data-[slot=alert-description]:text-success-muted-foreground dark:*:[svg]:text-success-muted-foreground",
       warning:
-        "border-warning bg-warning-muted text-warning *:data-[slot=alert-description]:text-warning *:[svg]:text-warning",
+        "border-warning dark:border-warning-muted-border bg-warning-muted text-warning dark:text-warning-muted-foreground *:data-[slot=alert-description]:text-warning *:[svg]:text-warning dark:*:data-[slot=alert-description]:text-warning-muted-foreground dark:*:[svg]:text-warning-muted-foreground",
     },
   },
   defaultVariants: {

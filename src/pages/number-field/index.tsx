@@ -21,7 +21,7 @@ export function NumberFieldPage() {
           </h1>
           <p className="text-sm text-muted-foreground">
             Numeric input with increment and decrement controls. Built on Base
-            UI&apos;s <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">NumberField</Code>{" "}
+            UI&apos;s <Code>NumberField</Code>{" "}
             primitive.
           </p>
         </PageSection>
@@ -30,7 +30,7 @@ export function NumberFieldPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               NumberField
             </Code>{" "}
             component for numeric inputs that need simple up and down controls.
@@ -44,23 +44,23 @@ export function NumberFieldPage() {
           <h2 className="text-lg font-semibold">Sizes</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               size
             </Code>{" "}
             prop for{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               sm
             </Code>
             ,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               md
             </Code>
             , or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               lg
             </Code>
             . Default is{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               md
             </Code>
             .
@@ -92,11 +92,11 @@ export function NumberFieldPage() {
           <h2 className="text-lg font-semibold">States</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               disabled
             </Code>{" "}
             prop or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               aria-invalid
             </Code>{" "}
             to show disabled and validation states.
@@ -109,8 +109,8 @@ export function NumberFieldPage() {
             <NumberField defaultValue={10} disabled />
           </ComponentExample>
 
-          <h3 id="states-invalid" className="mb-3 text-base font-semibold">
-            Invalid
+          <h3 id="states-error" className="mb-3 text-base font-semibold">
+            Error
           </h3>
           <ComponentExample>
             <NumberField defaultValue={10} aria-invalid />
@@ -120,7 +120,7 @@ export function NumberFieldPage() {
         <PageSection id="within-form" label="Within form">
           <h2 className="text-lg font-semibold">Within form</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Field</Code> to pair a number
+            Use <Code>Field</Code> to pair a number
             field with a label and help text inside a form.
           </p>
           <ComponentExample>

@@ -26,8 +26,8 @@ const coreNavItems: NavItem[] = [
 ] as const
 
 const navItems: NavItem[] = [
-  { to: "/components/activity-feed", label: "Activity feed" },
   { to: "/components/accordion", label: "Accordion" },
+  { to: "/components/activity-feed", label: "Activity feed" },
   { to: "/components/alert", label: "Alert" },
   { to: "/components/alert-dialog", label: "Alert dialog" },
   { to: "/components/avatar", label: "Avatar" },
@@ -52,10 +52,10 @@ const navItems: NavItem[] = [
   { to: "/components/date-input", label: "Date input" },
   { to: "/components/date-picker", label: "Date picker" },
   { to: "/components/dialog", label: "Dialog" },
-  { to: "/components/direction", label: "Direction", todo: true },
-  { to: "/components/drop-zone", label: "Drop zone" },
+  // { to: "/components/direction", label: "Direction", todo: true },
   { to: "/components/drag-and-drop", label: "Drag and drop" },
   { to: "/components/dropdown-menu", label: "Dropdown menu" },
+  { to: "/components/drop-zone", label: "Drop zone" },
   { to: "/components/empty", label: "Empty" },
   { to: "/components/field", label: "Field" },
   { to: "/components/file-input", label: "File input" },
@@ -64,7 +64,7 @@ const navItems: NavItem[] = [
   { to: "/components/inline-edit", label: "Inline edit" },
   { to: "/components/input", label: "Input" },
   { to: "/components/input-otp", label: "Input OTP" },
-  { to: "/components/kbd", label: "Kbd", todo: true },
+  // { to: "/components/kbd", label: "Kbd", todo: true },
   { to: "/components/label", label: "Label" },
   { to: "/components/metric-card", label: "Metric card" },
   { to: "/components/native-select", label: "Native select" },
@@ -103,7 +103,6 @@ export function SidebarNav() {
           tooltip={label}
           aria-current={location.pathname === to ? "page" : undefined}
           onClick={() => navigate(to)}
-          className="font-medium text-sm text-muted-foreground hover:text-foreground data-active:text-foreground"
         >
           <span className="flex items-center gap-1.5">
             <span>{label}</span>

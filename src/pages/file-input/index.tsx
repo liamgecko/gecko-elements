@@ -20,7 +20,7 @@ export function FileInputPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             A simple file input with a placeholder. Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Input</Code>{" "}
+            <Code>Input</Code>{" "}
             component for file input.
           </p>
           <ComponentExample>
@@ -31,8 +31,8 @@ export function FileInputPage() {
         <PageSection id="states" label="States">
           <h2 className="text-lg font-semibold">States</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">disabled</Code> prop or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">aria-invalid</Code> to show disabled and validation states.
+            Use the <Code>disabled</Code> prop or{" "}
+            <Code>aria-invalid</Code> to show disabled and validation states.
           </p>
 
           <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
@@ -40,7 +40,7 @@ export function FileInputPage() {
             <FileInput disabled />
           </ComponentExample>
 
-          <h3 id="states-invalid" className="mb-3 text-base font-semibold">Invalid</h3>
+          <h3 id="states-error" className="mb-3 text-base font-semibold">Error</h3>
           <ComponentExample>
             <FileInput aria-invalid />
           </ComponentExample>
@@ -49,10 +49,10 @@ export function FileInputPage() {
         <PageSection id="sizing" label="Sizing">
           <h2 className="text-lg font-semibold">Sizing</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size</Code> prop for{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">sm</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">md</Code>, or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">lg</Code>. Default is <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">md</Code>.
+            Use the <Code>size</Code> prop for{" "}
+            <Code>sm</Code>,{" "}
+            <Code>md</Code>, or{" "}
+            <Code>lg</Code>. Default is <Code>md</Code>.
           </p>
 
           <h3 id="sizing-small" className="mb-3 text-base font-semibold">Small</h3>
@@ -74,7 +74,7 @@ export function FileInputPage() {
         <PageSection id="required" label="Required">
           <h2 className="text-lg font-semibold">Required</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Add the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">required</Code> attribute so the browser enforces the field before form submit. Pair with a <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldLabel</Code> for an accessible required field.
+            Add the <Code>required</Code> attribute so the browser enforces the field before form submit. Pair with a <Code>FieldLabel</Code> for an accessible required field.
           </p>
           <ComponentExample>
             <FieldSet>

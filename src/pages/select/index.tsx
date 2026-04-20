@@ -1,6 +1,15 @@
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Code } from "@/components/ui/code"
 
 const items = [
@@ -9,12 +18,6 @@ const items = [
   { label: "Blueberry", value: "blueberry" },
   { label: "Grapes", value: "grapes" },
   { label: "Pineapple", value: "pineapple" },
-]
-
-const fruits = [
-  { label: "Apple", value: "apple" },
-  { label: "Banana", value: "banana" },
-  { label: "Blueberry", value: "blueberry" },
 ]
 
 const northAmerica = [
@@ -74,7 +77,7 @@ export function SelectPage() {
           <h2 className="text-lg font-semibold">Basic</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               Select
             </Code>{" "}
             with a trigger and content to render a simple dropdown.
@@ -122,7 +125,7 @@ export function SelectPage() {
             </Select>
           </ComponentExample>
 
-          <h3 id="states-invalid" className="mb-3 text-base font-semibold">Invalid</h3>
+          <h3 id="states-error" className="mb-3 text-base font-semibold">Error</h3>
           <ComponentExample>
             <Select>
               <SelectTrigger
@@ -148,10 +151,10 @@ export function SelectPage() {
           <h2 className="text-lg font-semibold">Sizes</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Adjust the trigger height to match other controls using the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               size
             </Code>{" "}
-            prop on <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">SelectTrigger</Code>.
+            prop on <Code>SelectTrigger</Code>.
           </p>
 
           <h3 id="sizes-small" className="mb-3 text-base font-semibold">Small</h3>
@@ -213,31 +216,40 @@ export function SelectPage() {
           <h2 className="text-lg font-semibold">Groups</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               SelectGroup
             </Code>{" "}
             and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               SelectLabel
             </Code>{" "}
             to visually group related options, separated with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               SelectSeparator
             </Code>
             .
           </p>
           <ComponentExample>
-            <Select>
+            <Select defaultValue="apple">
               <SelectTrigger className="w-full max-w-64">
-                <SelectValue placeholder="Select an item" />
+                <SelectValue placeholder="Pick a fruit" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  {fruits.map((item) => (
-                    <SelectItem key={item.value} value={item.value}>
-                      {item.label}
-                    </SelectItem>
-                  ))}
+                  <SelectLabel>Tree fruit</SelectLabel>
+                  <SelectItem value="apple">Apple</SelectItem>
+                  <SelectItem value="banana">Banana</SelectItem>
+                </SelectGroup>
+                <SelectSeparator />
+                <SelectGroup>
+                  <SelectLabel>Berries</SelectLabel>
+                  <SelectItem value="blueberry">Blueberry</SelectItem>
+                </SelectGroup>
+                <SelectSeparator />
+                <SelectGroup>
+                  <SelectLabel>Other</SelectLabel>
+                  <SelectItem value="grapes">Grapes</SelectItem>
+                  <SelectItem value="pineapple">Pineapple</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
@@ -307,11 +319,11 @@ export function SelectPage() {
           <p className="mb-8 text-sm text-muted-foreground">
             Control whether the popup aligns to the trigger or to its content
             using the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               alignItemWithTrigger
             </Code>{" "}
             prop on{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               SelectContent
             </Code>
             .

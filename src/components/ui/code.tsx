@@ -106,7 +106,7 @@ export function Code(props: CodeProps) {
     return (
       <code
         className={cn(
-          "rounded bg-gray-100 text-destructive px-1.5 py-0.5 font-mono text-xs",
+          "rounded bg-muted text-destructive dark:text-rose-400 px-1.5 py-0.5 font-mono text-xs",
           className
         )}
       >

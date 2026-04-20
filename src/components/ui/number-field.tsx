@@ -31,14 +31,22 @@ export function NumberField({
   return (
     <NumberFieldPrimitive.Root
       data-slot="number-field"
-      className={cn("inline-flex flex-col gap-1", className)}
+      className={cn(
+        "group/number-field inline-flex flex-col gap-1 data-disabled:cursor-not-allowed",
+        className
+      )}
       {...props}
     >
       <NumberFieldPrimitive.Group
         data-slot="number-field-group"
         className={cn(
-          "inline-flex items-stretch rounded-sm border border-input bg-gray-200 text-foreground transition-[color,box-shadow,border] focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50 outline-none",
-          "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-80 disabled:bg-muted",
+          "inline-flex items-stretch rounded-sm border border-input bg-muted text-foreground transition-[color,box-shadow,border] outline-none",
+          "hover:border-input-hover focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50",
+          "data-disabled:cursor-not-allowed data-disabled:opacity-80 data-disabled:hover:border-input",
+          "data-disabled:focus-within:border-input data-disabled:focus-within:ring-0",
+          "group-aria-invalid/number-field:border-input-destructive group-aria-invalid/number-field:hover:border-input-destructive",
+          "group-aria-invalid/number-field:focus-within:border-input-destructive group-aria-invalid/number-field:focus-within:ring-input-destructive/40",
+          "group-aria-invalid/number-field:data-disabled:border-input group-aria-invalid/number-field:data-disabled:hover:border-input",
           groupSizeClasses[size]
         )}
       >
@@ -46,8 +54,9 @@ export function NumberField({
           data-slot="number-field-decrement"
           className={cn(
             "flex items-center justify-center w-7 border-e rounded-l-sm border-input bg-secondary text-secondary-foreground",
-            "hover:bg-gray-200 focus-visible:outline-none",
-            "disabled:pointer-events-none disabled:bg-muted disabled:hover:bg-muted"
+            "group-aria-invalid/number-field:border-input-destructive",
+            "hover:bg-gray-200 dark:hover:bg-gray-900 focus-visible:outline-none",
+            "disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-muted disabled:hover:bg-muted"
           )}
         >
           <Minus className="size-3.5" aria-hidden="true" />
@@ -57,7 +66,7 @@ export function NumberField({
         <NumberFieldPrimitive.Input
           data-slot="number-field-input"
           className={cn(
-            "min-w-12 flex-1 border-none bg-white outline-none placeholder:text-muted-foreground text-center",
+            "min-w-12 flex-1 border-none bg-background outline-none placeholder:text-muted-foreground text-center",
             "disabled:bg-muted disabled:opacity-80 disabled:cursor-not-allowed disabled:pointer-events-none",
             inputPaddingClasses[size]
           )}
@@ -67,8 +76,9 @@ export function NumberField({
           data-slot="number-field-increment"
           className={cn(
             "flex items-center justify-center w-7 border-s rounded-r-sm border-input bg-secondary text-secondary-foreground",
-            "hover:bg-gray-200 focus-visible:outline-none",
-            "disabled:pointer-events-none disabled:bg-muted disabled:hover:bg-muted"
+            "group-aria-invalid/number-field:border-input-destructive",
+            "hover:bg-gray-200 dark:hover:bg-gray-900 focus-visible:outline-none",
+            "disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-muted disabled:hover:bg-muted"
           )}
         >
           <Plus className="size-3.5" aria-hidden="true" />

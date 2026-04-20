@@ -13,12 +13,12 @@ export function CheckboxPage() {
           <h1 className="text-2xl font-bold text-foreground">Checkbox</h1>
           <p className="text-sm text-muted-foreground">
             A control that toggles between checked and unchecked. Use the{" "}
-            <Code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               label
             </Code>
             {" "}
             and
-            <Code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               description
             </Code>
             {" "}
@@ -41,7 +41,7 @@ export function CheckboxPage() {
           <h2 className="text-lg font-semibold">With description</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Add optional helper text below the label with the{" "}
-            <Code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               description
             </Code>
             {" "}
@@ -123,7 +123,7 @@ export function CheckboxPage() {
         <PageSection id="as-button" label="As button">
           <h2 className="text-lg font-semibold">As button</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">asButton</Code> prop to
+            Use the <Code>asButton</Code> prop to
             render the checkbox as an outline-style button. Checked state uses a
             darker border and gray-100 background; hover state is applied.
           </p>

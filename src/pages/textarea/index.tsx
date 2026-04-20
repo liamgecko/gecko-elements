@@ -27,7 +27,7 @@ export function TextareaPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               Textarea
             </Code>{" "}
             component for multi-line text entry.
@@ -41,11 +41,11 @@ export function TextareaPage() {
           <h2 className="text-lg font-semibold">States</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               disabled
             </Code>{" "}
             prop or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               aria-invalid
             </Code>{" "}
             to show disabled and validation states.
@@ -66,7 +66,7 @@ export function TextareaPage() {
           <h2 className="text-lg font-semibold">Read-only</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Set{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               readOnly
             </Code>{" "}
             for display-only content: no hover or focus ring and the control is not focusable.
@@ -84,11 +84,11 @@ export function TextareaPage() {
           <h2 className="text-lg font-semibold">Required</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Add the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               required
             </Code>{" "}
             attribute and pair the textarea with a{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               FieldLabel
             </Code>{" "}
             so the field is enforced before submit and announced correctly to
@@ -115,23 +115,23 @@ export function TextareaPage() {
           <h2 className="text-lg font-semibold">Sizes</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               size
             </Code>{" "}
             prop for{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               sm
             </Code>
             ,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               md
             </Code>{" "}
             or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               lg
             </Code>
             . Default is{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               md
             </Code>
             .
@@ -157,11 +157,11 @@ export function TextareaPage() {
           <h2 className="text-lg font-semibold">Within form</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Combine{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               Field
             </Code>{" "}
             components with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               Textarea
             </Code>{" "}
             to build accessible forms with labels and helper text.

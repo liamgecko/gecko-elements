@@ -13,7 +13,7 @@ export function ToastPage() {
           <p className="text-sm text-muted-foreground">
             An opinionated toast component for React from the Sonner library.
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               toast
             </Code>{" "}
             function to trigger notifications.
@@ -24,7 +24,7 @@ export function ToastPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Trigger a default toast with a single call to{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               toast
             </Code>
             .
@@ -62,7 +62,7 @@ export function ToastPage() {
           <h2 className="text-lg font-semibold">Position</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               position
             </Code>{" "}
             option to control where toasts appear on screen.

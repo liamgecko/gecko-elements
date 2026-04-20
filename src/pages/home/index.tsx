@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { buttonVariants } from "@/components/ui/button"
 import { componentPages, corePages } from "@/pages/gallery-data"
+import { PageSection } from "@/components/layout/page-section"
 
 export function HomePage() {
   const sortedComponents = [...componentPages].sort((a, b) =>
@@ -9,20 +10,18 @@ export function HomePage() {
 
   return (
     <div className="space-y-12">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">Home</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Foundations and component gallery
+      <PageSection id="overview" label="Overview">
+        <h1 className="text-2xl font-bold text-foreground">Elements</h1>
+        <p className="text-sm text-muted-foreground">
+          Elements is Gecko's design system, a collection of guidelines, components and tools for creating intuitive experiences
         </p>
-      </div>
+      </PageSection>
 
-      <section aria-labelledby="core-heading">
-        <h2
-          id="core-heading"
-          className="mb-4 text-lg font-semibold text-foreground"
-        >
-          Core
-        </h2>
+      <PageSection id="basic-example" label="Basic example">
+        <h2 className="text-lg font-semibold">Foundations</h2>
+        <p className="mb-4 text-sm text-muted-foreground">
+          Foundations create engaging user experiences. These include our tokens, guidelines, and visual styles: color, spacing, typography, and more.
+        </p>
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {corePages.map(({ name, description, path }) => (
             <li key={path}>
@@ -46,16 +45,14 @@ export function HomePage() {
             </li>
           ))}
         </ul>
-      </section>
+      </PageSection>
 
-      <section aria-labelledby="components-heading">
-        <h2
-          id="components-heading"
-          className="mb-4 text-lg font-semibold text-foreground"
-        >
-          Components
-        </h2>
-        <ul className="grid gap-4 sm:grid-cols-2">
+      <PageSection id="components" label="Components">
+        <h2 className="text-lg font-semibold">Components</h2>
+        <p className="mb-4 text-sm text-muted-foreground">
+          Components are reusable building blocks that meet specific interaction needs. They combine to create intuitive user experiences.
+        </p>
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {sortedComponents.map(({ name, description, path }) => (
             <li key={path}>
               <article className="rounded-lg border border-border bg-card p-4 text-card-foreground">
@@ -75,7 +72,7 @@ export function HomePage() {
             </li>
           ))}
         </ul>
-      </section>
+      </PageSection>
     </div>
   )
 }

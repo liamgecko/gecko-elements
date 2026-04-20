@@ -19,10 +19,10 @@ export function EmptyPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             A minimal empty state with a title and description. Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Empty</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyHeader</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyTitle</Code>, and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyDescription</Code>.
+            <Code>Empty</Code>,{" "}
+            <Code>EmptyHeader</Code>,{" "}
+            <Code>EmptyTitle</Code>, and{" "}
+            <Code>EmptyDescription</Code>.
           </p>
           <ComponentExample>
             <Empty>
@@ -40,8 +40,8 @@ export function EmptyPage() {
           <h2 className="text-lg font-semibold">With icon</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Add{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyMedia</Code>{" "}
-            with <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">variant=&quot;icon&quot;</Code> to show
+            <Code>EmptyMedia</Code>{" "}
+            with <Code>variant=&quot;icon&quot;</Code> to show
             an icon above the title and description.
           </p>
           <ComponentExample>
@@ -63,7 +63,7 @@ export function EmptyPage() {
           <h2 className="text-lg font-semibold">Actions</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">EmptyContent</Code>{" "}
+            <Code>EmptyContent</Code>{" "}
             below the header to add buttons or other actions so users can resolve the empty state.
           </p>
 

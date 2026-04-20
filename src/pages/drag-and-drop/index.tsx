@@ -48,7 +48,7 @@ export function DragAndDropPage() {
               @dnd-kit/react
             </a>
             , wrapped by{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               SortableList
             </Code>
             .
@@ -60,10 +60,10 @@ export function DragAndDropPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-pretty text-sm text-muted-foreground">
             Flat list: controlled{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">items</Code> and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">onItemsChange</Code>{" "}
+            <Code>items</Code> and{" "}
+            <Code>onItemsChange</Code>{" "}
             (default{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               {`variant="flat"`}
             </Code>
             ).
@@ -80,9 +80,9 @@ export function DragAndDropPage() {
         <PageSection id="row-actions" label="Row actions">
           <h2 className="text-lg font-semibold">Row actions</h2>
           <p className="mb-8 text-pretty text-sm text-muted-foreground">
-            Enable <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">rowActions</Code>{" "}
+            Enable <Code>rowActions</Code>{" "}
             to show the same kebab menu pattern as data tables, aligned to the right of the label. Optionally wire{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">onRowAction</Code> for selection handling.
+            <Code>onRowAction</Code> for selection handling.
           </p>
           <ComponentExample>
             <SortableList
@@ -98,14 +98,14 @@ export function DragAndDropPage() {
           <h2 className="text-lg font-semibold">Nested lists</h2>
           <p className="mb-8 text-pretty text-sm text-muted-foreground">
             Set{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               {`variant="nested"`}
             </Code>{" "}
-            with <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">sections</Code> and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">onSectionsChange</Code>.
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">rowActions</Code> adds kebab menus on
+            with <Code>sections</Code> and{" "}
+            <Code>onSectionsChange</Code>.
+            <Code>rowActions</Code> adds kebab menus on
             section headers and item rows; optionally pass{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">onRowAction</Code>. Section order follows
+            <Code>onRowAction</Code>. Section order follows
             the array; item ids must be unique across sections.
             Dragging is cancelled
             restores state from a snapshot (see{" "}

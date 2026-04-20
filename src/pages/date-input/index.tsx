@@ -22,8 +22,8 @@ export function DateInputPage() {
         <PageSection id="basic-example" label="Basic example">
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Default order is day, month, then 2‑digit year (DD MM YY). Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">value</Code> and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">onChange</Code> for controlled usage.
+            Default order is day, month, then 2‑digit year (DD MM YY). Use <Code>value</Code> and{" "}
+            <Code>onChange</Code> for controlled usage.
           </p>
           <ComponentExample>
             <Field>
@@ -41,7 +41,7 @@ export function DateInputPage() {
         <PageSection id="four-digit-year" label="4-digit year">
           <h2 className="text-lg font-semibold">4-digit year</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Set <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">yearDigits=4</Code> for a full year (DD MM YYYY).
+            Set <Code>yearDigits=4</Code> for a full year (DD MM YYYY).
           </p>
           <ComponentExample>
             <Field>
@@ -60,7 +60,7 @@ export function DateInputPage() {
         <PageSection id="american-format" label="American format">
           <h2 className="text-lg font-semibold">American format</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Set <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">monthFirst</Code> to true for MM DD order.
+            Set <Code>monthFirst</Code> to true for MM DD order.
           </p>
           <ComponentExample>
             <Field>
@@ -73,6 +73,29 @@ export function DateInputPage() {
                 aria-label="Date (month day year)"
               />
             </Field>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="states" label="States">
+          <h2 className="text-lg font-semibold">States</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Use <Code>disabled</Code> to lock all
+            segments, or <Code>aria-invalid</Code> on
+            the root so each segment shows validation styling.
+          </p>
+
+          <h3 id="states-disabled" className="mb-3 text-base font-semibold">
+            Disabled
+          </h3>
+          <ComponentExample className="mb-6">
+            <DateInput disabled aria-label="Date (disabled)" />
+          </ComponentExample>
+
+          <h3 id="states-error" className="mb-3 text-base font-semibold">
+            Error
+          </h3>
+          <ComponentExample>
+            <DateInput aria-invalid aria-label="Date (invalid)" />
           </ComponentExample>
         </PageSection>
     </div>

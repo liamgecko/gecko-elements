@@ -335,7 +335,7 @@ export function Filter({
               return (
                 <div
                   key={categoryId}
-                  className="bg-white border border-border rounded h-7.5 flex items-center overflow-hidden"
+                  className="bg-background border border-border rounded h-7.5 flex items-center overflow-hidden"
                 >
                   <span className="text-xs text-muted-foreground border-r border-border px-2 h-full flex items-center">
                     {category.label}
@@ -346,7 +346,7 @@ export function Filter({
                       render={
                         <button
                           type="button"
-                          className="text-xs text-foreground px-2 h-full flex items-center border-r border-border font-medium transition-colors cursor-pointer hover:bg-gray-50"
+                          className="text-xs text-foreground px-2 h-full flex items-center border-r border-border font-medium transition-colors cursor-pointer hover:bg-muted"
                         >
                           {op}
                         </button>
@@ -387,7 +387,7 @@ export function Filter({
                       render={
                         <button
                           type="button"
-                          className="text-xs text-foreground px-2 h-full flex items-center border-r border-border font-medium transition-colors cursor-pointer hover:bg-gray-50"
+                          className="text-xs text-foreground px-2 h-full flex items-center border-r border-border font-medium transition-colors cursor-pointer hover:bg-muted"
                         >
                           {termText}
                         </button>
@@ -427,7 +427,7 @@ export function Filter({
                     variant="ghost"
                     size="icon-xs"
                     onClick={() => clearCategory(categoryId)}
-                    className="h-full rounded-none hover:bg-gray-50"
+                    className="h-full rounded-none hover:bg-muted"
                     aria-label={`Remove ${category.label} filter`}
                   >
                     <X className="size-3" />

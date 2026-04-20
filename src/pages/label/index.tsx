@@ -18,8 +18,8 @@ export function LabelPage() {
         <PageSection id="basic-example" label="Basic example">
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Label</Code> with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">htmlFor</Code> to associate the label with a form control.
+            Use <Code>Label</Code> with{" "}
+            <Code>htmlFor</Code> to associate the label with a form control.
           </p>
           <ComponentExample>
             <Label htmlFor="email">Your email address</Label>
@@ -29,8 +29,8 @@ export function LabelPage() {
         <PageSection id="within-form" label="Within form">
           <h2 className="text-lg font-semibold">Within form</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldLabel</Code> inside{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Field</Code> to pair a label with an input.
+            Use <Code>FieldLabel</Code> inside{" "}
+            <Code>Field</Code> to pair a label with an input.
           </p>
           <ComponentExample>
             <Field>
@@ -43,7 +43,7 @@ export function LabelPage() {
         <PageSection id="required-field" label="Required field">
           <h2 className="text-lg font-semibold">Required field</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Add the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">required</Code> attribute to the input so the browser enforces the field before submit. Pair with <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldLabel</Code> for an accessible required field.
+            Add the <Code>required</Code> attribute to the input so the browser enforces the field before submit. Pair with <Code>FieldLabel</Code> for an accessible required field.
           </p>
           <ComponentExample>
             <Field>

@@ -92,12 +92,12 @@ export function CounterPage() {
           <h2 className="text-lg font-semibold">Overflow</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               max
             </Code>{" "}
             prop to cap the displayed value and show an overflow indicator such
             as{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               9+
             </Code>{" "}
             when the underlying count

@@ -16,11 +16,11 @@ export function RadioGroupPage() {
           <h1 className="text-2xl font-bold text-foreground">Radio group</h1>
           <p className="text-sm text-muted-foreground">
             A control for selecting one option from a set. Use the{" "}
-            <Code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               label
             </Code>
             and{" "}
-            <Code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               description
             </Code>
             props for accessible labeling and helper text.
@@ -44,7 +44,7 @@ export function RadioGroupPage() {
           <h2 className="text-lg font-semibold">With description</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Add optional helper text below the label with the{" "}
-            <Code className="mx-1 rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               description
             </Code>{" "}
             prop.
@@ -132,7 +132,7 @@ export function RadioGroupPage() {
           <h2 className="text-lg font-semibold">As button</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               asButton
             </Code>{" "}
             prop to render the radio as an outline-style button. Checked state

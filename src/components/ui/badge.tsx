@@ -7,6 +7,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { X } from "lucide-react"
 
 import { Avatar } from "@/components/ui/avatar"
+import { Counter } from "@/components/ui/counter"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
@@ -16,15 +17,15 @@ const badgeVariants = cva(
       variant: {
         primary: "bg-primary text-primary-foreground",
         secondary: "bg-secondary text-secondary-foreground",
-        info: "bg-info-muted text-info dark:bg-info-muted/80 dark:text-info",
+        info: "bg-info-muted text-info-muted-foreground",
         warning:
-          "bg-warning-muted text-warning dark:bg-warning-muted/80 dark:text-warning",
+          "bg-warning-muted text-warning-muted-foreground",
         destructive:
-          "bg-destructive-muted text-destructive dark:bg-destructive-muted/80 dark:text-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
+          "bg-destructive-muted text-destructive-muted-foreground",
         success:
-          "bg-success-muted text-success dark:bg-success-muted/80 dark:text-success",
+          "bg-success-muted text-success-muted-foreground",
         light:
-          "bg-white text-foreground dark:bg-white dark:text-gray-800 border-border",
+          "bg-white text-foreground border-border dark:bg-gray-950",
       },
       size: {
         xs: "px-1.5 py-0.5 text-2xs leading-3 gap-1",
@@ -44,11 +45,11 @@ const badgeVariants = cva(
     },
     compoundVariants: [
       { bordered: true, variant: "primary", className: "border-primary" },
-      { bordered: true, variant: "secondary", className: "border-gray-300" },
-      { bordered: true, variant: "info", className: "border-blue-300" },
-      { bordered: true, variant: "warning", className: "border-yellow-400" },
-      { bordered: true, variant: "destructive", className: "border-red-300" },
-      { bordered: true, variant: "success", className: "border-emerald-300" },
+      { bordered: true, variant: "secondary", className: "border-secondary-border" },
+      { bordered: true, variant: "info", className: "border-info-muted-border" },
+      { bordered: true, variant: "warning", className: "border-warning-muted-border" },
+      { bordered: true, variant: "destructive", className: "border-destructive-muted-border" },
+      { bordered: true, variant: "success", className: "border-success-muted-border" },
       { bordered: true, variant: "light", className: "border-border" },
     ],
     defaultVariants: {
@@ -103,13 +104,13 @@ const hoverClassByVariant: Record<
   NonNullable<VariantProps<typeof badgeVariants>["variant"]>,
   string
 > = {
-  primary: "hover:bg-gray-700",
-  secondary: "hover:bg-gray-200",
-  info: "hover:bg-blue-100",
-  warning: "hover:bg-yellow-100",
-  destructive: "hover:bg-red-100",
-  success: "hover:bg-emerald-100",
-  light: "hover:bg-gray-50",
+  primary: "hover:bg-primary/85",
+  secondary: "hover:bg-secondary/85",
+  info: "hover:bg-info-muted/85",
+  warning: "hover:bg-warning-muted/85",
+  destructive: "hover:bg-destructive-muted/85",
+  success: "hover:bg-success-muted/85",
+  light: "hover:bg-muted/85",
 }
 
 function renderIcon(icon: React.ReactNode, size: BadgeSize) {
@@ -239,21 +240,21 @@ interface NotificationCountProps extends React.HTMLAttributes<HTMLDivElement> {
 const NotificationCount = React.forwardRef<
   HTMLDivElement,
   NotificationCountProps
->(({ className, count, ...props }, ref) => {
-  const displayCount = count >= 10 ? "9+" : count
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full border-0 bg-red-600 text-[10px] font-medium tracking-tighter text-white",
-        className
-      )}
-      {...props}
-    >
-      {displayCount}
-    </div>
-  )
-})
+>(({ className, count, ...props }, ref) => (
+  <div
+    ref={ref}
+    className="absolute -right-2 -top-2"
+    {...props}
+  >
+    <Counter
+      value={count}
+      max={9}
+      size="sm"
+      variant="destructive"
+      className={className}
+    />
+  </div>
+))
 NotificationCount.displayName = "NotificationCount"
 
 export { Badge, NotificationCount }

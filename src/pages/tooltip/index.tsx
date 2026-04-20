@@ -24,15 +24,15 @@ export function TooltipPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Wrap a trigger and content with <Code>Tooltip</Code>. Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               TooltipTrigger
             </Code>{" "}
             with the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               render
             </Code>{" "}
             prop and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               TooltipContent
             </Code>{" "}
             for the popover.
@@ -51,7 +51,7 @@ export function TooltipPage() {
           <h2 className="text-lg font-semibold">Side</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               side
             </Code>{" "}
             prop on <Code>TooltipContent</Code> to control where the tooltip
@@ -81,7 +81,7 @@ export function TooltipPage() {
           <h2 className="text-lg font-semibold">Styling</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               variant
             </Code>{" "}
             prop on <Code>TooltipContent</Code> to switch between the default and

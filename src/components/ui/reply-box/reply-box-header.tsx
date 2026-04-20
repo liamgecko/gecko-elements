@@ -36,8 +36,13 @@ export function ReplyBoxHeader({
   const channel = channelProp ?? ctx.channel
   const expanded = ctx.expanded
   const toggleExpanded = ctx.toggleExpanded
+  const noteMode = ctx.noteMode
 
   const [open, setOpen] = React.useState(false)
+
+  React.useEffect(() => {
+    if (noteMode) setOpen(false)
+  }, [noteMode])
 
   const options = React.useMemo(
     () =>
@@ -67,12 +72,25 @@ export function ReplyBoxHeader({
         <DropdownMenu
           searchable
           searchPlaceholder="Search channels..."
-          open={open}
-          onOpenChange={setOpen}
+          open={noteMode ? false : open}
+          onOpenChange={(next) => {
+            if (noteMode) return
+            setOpen(next)
+          }}
         >
           <DropdownMenuTrigger
             render={
-              <Button type="button" variant="ghost" size="sm" dropdown className="px-1.5">
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                dropdown
+                className="px-1.5"
+                disabled={noteMode}
+                title={
+                  noteMode ? "Channel switching is disabled in note mode" : undefined
+                }
+              >
                 <span className="truncate">{channel.label || "Select a channel"}</span>
               </Button>
             }

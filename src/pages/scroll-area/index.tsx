@@ -41,7 +41,7 @@ export function ScrollAreaPage() {
         <PageSection id="basic" label="Basic">
           <h2 className="text-lg font-semibold">Basic</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ScrollArea</Code> to render a scrollable region with a styled scrollbar.
+            Use <Code>ScrollArea</Code> to render a scrollable region with a styled scrollbar.
           </p>
           <ComponentExample>
             <ScrollArea className="h-72 w-48 rounded-md border">
@@ -62,7 +62,7 @@ export function ScrollAreaPage() {
           <h2 className="text-lg font-semibold">Horizontal</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             For horizontal content add a{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ScrollBar</Code>{" "}
+            <Code>ScrollBar</Code>{" "}
             with <span className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">orientation=&quot;horizontal&quot;</span>.
           </p>
           <ComponentExample>
