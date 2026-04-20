@@ -39,10 +39,10 @@ export function CommandPage() {
         <PageSection id="example" label="Example">
           <h2 className="text-lg font-semibold">Example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Command</Code> with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">CommandInput</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">CommandList</Code>, and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">CommandItem</Code> to build a searchable command surface.
+            Use <Code>Command</Code> with{" "}
+            <Code>CommandInput</Code>,{" "}
+            <Code>CommandList</Code>, and{" "}
+            <Code>CommandItem</Code> to build a searchable command surface.
           </p>
           <ComponentExample>
             <Command className="max-w-sm rounded-lg border">
@@ -89,8 +89,8 @@ export function CommandPage() {
         <PageSection id="trigger" label="Trigger">
           <h2 className="text-lg font-semibold">Trigger</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">CommandDialog</Code> with a{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Button</Code> to open a command palette
+            Use <Code>CommandDialog</Code> with a{" "}
+            <Code>Button</Code> to open a command palette
             from anywhere in your app.
           </p>
           <ComponentExample>

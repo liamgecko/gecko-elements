@@ -25,7 +25,7 @@ export function TabsPage() {
             Use <Code>Tabs</Code>, <Code>TabsList</Code>, <Code>TabsTrigger</Code>,
             {" "}
             and <Code>TabsContent</Code> with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               defaultValue
             </Code>{" "}
             to control the initial tab.
@@ -54,7 +54,7 @@ export function TabsPage() {
           <h2 className="text-lg font-semibold">Line</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               variant="line"
             </Code>{" "}
             on <Code>TabsList</Code> for an underline-style tab list without a pill
@@ -75,7 +75,7 @@ export function TabsPage() {
           <h2 className="text-lg font-semibold">Vertical</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               orientation="vertical"
             </Code>{" "}
             on <Code>Tabs</Code> to stack the list and content in a column layout.
@@ -95,7 +95,7 @@ export function TabsPage() {
           <h2 className="text-lg font-semibold">Disabled</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Pass{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               disabled
             </Code>{" "}
             to a <Code>TabsTrigger</Code> to prevent selection and show a disabled
@@ -116,7 +116,7 @@ export function TabsPage() {
           <h2 className="text-lg font-semibold">Full width</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               fullWidth
             </Code>{" "}
             prop on <Code>TabsList</Code> so the list fills the container and
@@ -151,7 +151,7 @@ export function TabsPage() {
           <h2 className="text-lg font-semibold">Badges</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Add a <Code>Badge</Code> inside each{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               TabsTrigger
             </Code>{" "}
             to show counts or labels alongside the tab label.

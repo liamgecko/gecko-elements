@@ -25,13 +25,13 @@ export function PaginationPage() {
         <PageSection id="navigational" label="Navigational">
           <h2 className="text-lg font-semibold">Navigational</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Pagination</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PaginationContent</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PaginationItem</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PaginationLink</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PaginationPrevious</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PaginationNext</Code>, and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PaginationEllipsis</Code> for link-based navigation.
+            Use <Code>Pagination</Code>,{" "}
+            <Code>PaginationContent</Code>,{" "}
+            <Code>PaginationItem</Code>,{" "}
+            <Code>PaginationLink</Code>,{" "}
+            <Code>PaginationPrevious</Code>,{" "}
+            <Code>PaginationNext</Code>, and{" "}
+            <Code>PaginationEllipsis</Code> for link-based navigation.
           </p>
           <ComponentExample>
             <Pagination>
@@ -64,8 +64,8 @@ export function PaginationPage() {
         <PageSection id="table-pagination" label="Icon only">
           <h2 className="text-lg font-semibold">Icon only</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use only <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PaginationPrevious</Code> and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PaginationNext</Code> for minimal table-style pagination.
+            Use only <Code>PaginationPrevious</Code> and{" "}
+            <Code>PaginationNext</Code> for minimal table-style pagination.
           </p>
           <ComponentExample>
             <Pagination>

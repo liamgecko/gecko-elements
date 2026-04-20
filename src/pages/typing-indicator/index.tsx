@@ -46,7 +46,7 @@ export function TypingIndicatorPage() {
           <h2 className="text-lg font-semibold">Default typing indicator</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             The default typing indicator with three animated dots. Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               animate
             </Code>{" "}
             prop to animate the component in and out.
@@ -79,11 +79,11 @@ export function TypingIndicatorPage() {
           <h2 className="text-lg font-semibold">User typing indicator</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               variant="text"
             </Code>{" "}
             prop with a{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               name
             </Code>{" "}
             to show who is typing.
@@ -121,7 +121,7 @@ export function TypingIndicatorPage() {
           <h2 className="text-lg font-semibold">With avatar</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Pass an{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               avatar
             </Code>{" "}
             image URL (or a custom React node) to show an avatar next to the

@@ -80,9 +80,9 @@ export function ComboboxPage() {
         <PageSection id="basic" label="Basic">
           <h2 className="text-lg font-semibold">Basic</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Combobox</Code> with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxInput</Code> and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxList</Code> for a searchable
+            Use <Code>Combobox</Code> with{" "}
+            <Code>ComboboxInput</Code> and{" "}
+            <Code>ComboboxList</Code> for a searchable
             list of options.
           </p>
           <ComponentExample>
@@ -105,10 +105,10 @@ export function ComboboxPage() {
         <PageSection id="multiple" label="Multiple">
           <h2 className="text-lg font-semibold">Multiple</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxChips</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxValue</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxChip</Code>, and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxChipsInput</Code> to display and manage multiple selected values.
+            Use <Code>ComboboxChips</Code>,{" "}
+            <Code>ComboboxValue</Code>,{" "}
+            <Code>ComboboxChip</Code>, and{" "}
+            <Code>ComboboxChipsInput</Code> to display and manage multiple selected values.
           </p>
           <ComponentExample>
             <Combobox
@@ -145,8 +145,8 @@ export function ComboboxPage() {
         <PageSection id="with-clear" label="With clear">
           <h2 className="text-lg font-semibold">With clear</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">showClear</Code> prop on{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxInput</Code> to show a clear button when a value is selected.
+            Use the <Code>showClear</Code> prop on{" "}
+            <Code>ComboboxInput</Code> to show a clear button when a value is selected.
           </p>
           <ComponentExample>
             <Combobox items={frameworks} defaultValue={frameworks[0]}>
@@ -168,10 +168,10 @@ export function ComboboxPage() {
         <PageSection id="groups" label="Groups">
           <h2 className="text-lg font-semibold">Groups</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxGroup</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxLabel</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxCollection</Code>, and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">ComboboxSeparator</Code> to organize options into labeled groups.
+            Use <Code>ComboboxGroup</Code>,{" "}
+            <Code>ComboboxLabel</Code>,{" "}
+            <Code>ComboboxCollection</Code>, and{" "}
+            <Code>ComboboxSeparator</Code> to organize options into labeled groups.
           </p>
           <ComponentExample>
             <Combobox items={timezones}>
@@ -191,6 +191,55 @@ export function ComboboxPage() {
                       </ComboboxCollection>
                       {index < timezones.length - 1 && <ComboboxSeparator />}
                     </ComboboxGroup>
+                  )}
+                </ComboboxList>
+              </ComboboxContent>
+            </Combobox>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="states" label="States">
+          <h2 className="text-lg font-semibold">States</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Use <Code>disabled</Code> on{" "}
+            <Code>ComboboxInput</Code> to block
+            typing and the chevron trigger, or{" "}
+            <Code>aria-invalid</Code> for
+            validation styling on the input group.
+          </p>
+
+          <h3 id="states-disabled" className="mb-3 text-base font-semibold">
+            Disabled
+          </h3>
+          <ComponentExample className="mb-6">
+            <Combobox items={frameworks}>
+              <ComboboxInput placeholder="Select a framework" disabled />
+              <ComboboxContent>
+                <ComboboxEmpty>No items found.</ComboboxEmpty>
+                <ComboboxList>
+                  {(item) => (
+                    <ComboboxItem key={item} value={item}>
+                      {item}
+                    </ComboboxItem>
+                  )}
+                </ComboboxList>
+              </ComboboxContent>
+            </Combobox>
+          </ComponentExample>
+
+          <h3 id="states-error" className="mb-3 text-base font-semibold">
+            Error
+          </h3>
+          <ComponentExample>
+            <Combobox items={frameworks}>
+              <ComboboxInput placeholder="Select a framework" aria-invalid />
+              <ComboboxContent>
+                <ComboboxEmpty>No items found.</ComboboxEmpty>
+                <ComboboxList>
+                  {(item) => (
+                    <ComboboxItem key={item} value={item}>
+                      {item}
+                    </ComboboxItem>
                   )}
                 </ComboboxList>
               </ComboboxContent>

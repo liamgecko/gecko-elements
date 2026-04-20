@@ -24,7 +24,7 @@ export function SwitchPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               {"<Switch />"}
             </Code>{" "}
             component to render a standalone toggle.
@@ -38,7 +38,7 @@ export function SwitchPage() {
           <h2 className="text-lg font-semibold">Label and description</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               Field
             </Code>{" "}
             component to pair switches with labels and optional descriptive text.
@@ -75,15 +75,15 @@ export function SwitchPage() {
           <h2 className="text-lg font-semibold">State</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               disabled
             </Code>{" "}
             and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               aria-invalid
             </Code>{" "}
             props together with the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               Field
             </Code>{" "}
             component to communicate disabled and error states.
@@ -99,7 +99,7 @@ export function SwitchPage() {
             </div>
           </ComponentExample>
 
-          <h3 id="state-invalid" className="mb-3 text-base font-semibold">Invalid</h3>
+          <h3 id="state-error" className="mb-3 text-base font-semibold">Error</h3>
           <ComponentExample>
             <div className="flex flex-col gap-4">
               <Field orientation="horizontal" data-invalid className="w-fit">

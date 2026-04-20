@@ -26,7 +26,7 @@ export function InputPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             A simple text input with a placeholder. Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               Input
             </Code>{" "}
             component for single-line text entry.
@@ -40,11 +40,11 @@ export function InputPage() {
           <h2 className="text-lg font-semibold">States</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               disabled
             </Code>{" "}
             prop or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               aria-invalid
             </Code>{" "}
             to show disabled and validation states.
@@ -65,7 +65,7 @@ export function InputPage() {
           <h2 className="text-lg font-semibold">Read-only</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Set{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               readOnly
             </Code>{" "}
             for display-only content: no hover or focus ring and the control is not focusable.
@@ -83,12 +83,12 @@ export function InputPage() {
           <h2 className="text-lg font-semibold">Required</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Add the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               required
             </Code>{" "}
             attribute so the browser enforces the field before form submit. Pair
             with a{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               FieldLabel
             </Code>{" "}
             for an accessible required field.
@@ -109,23 +109,23 @@ export function InputPage() {
           <h2 className="text-lg font-semibold">Sizing</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               size
             </Code>{" "}
             prop for{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               sm
             </Code>
             ,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               md
             </Code>
             , or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               lg
             </Code>
             . Default is{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               md
             </Code>
             .
@@ -151,23 +151,23 @@ export function InputPage() {
           <h2 className="text-lg font-semibold">Icons</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               InputGroup
             </Code>{" "}
             with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               InputGroupAddon
             </Code>{" "}
             to show icons. Set the addon{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               align
             </Code>{" "}
             prop to{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               inline-start
             </Code>{" "}
             or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               inline-end
             </Code>{" "}
             to position the icon.
@@ -253,16 +253,16 @@ export function InputPage() {
           <h2 className="text-lg font-semibold">Button</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               InputGroupButton
             </Code>{" "}
             inside{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               InputGroupAddon
             </Code>{" "}
             for a clickable button (e.g. search trigger). Buttons are always at
             the end. Button size follows the group{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               size
             </Code>{" "}
             (sm, md, lg).
@@ -300,11 +300,11 @@ export function InputPage() {
           <h2 className="text-lg font-semibold">Inline</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               Field
             </Code>{" "}
             with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               orientation="horizontal"
             </Code>{" "}
             to place an input and button side by side.

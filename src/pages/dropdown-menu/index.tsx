@@ -51,11 +51,11 @@ export function DropdownMenuPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Wrap a trigger button with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenu</Code> and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuTrigger</Code> to open{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuContent</Code>{" "}
+            <Code>DropdownMenu</Code> and{" "}
+            <Code>DropdownMenuTrigger</Code> to open{" "}
+            <Code>DropdownMenuContent</Code>{" "}
             containing{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuItem</Code>{" "}
+            <Code>DropdownMenuItem</Code>{" "}
             options.
           </p>
           <ComponentExample>
@@ -77,10 +77,10 @@ export function DropdownMenuPage() {
           <h2 className="text-lg font-semibold">Submenu</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuSub</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuSubTrigger</Code>{" "}
+            <Code>DropdownMenuSub</Code>,{" "}
+            <Code>DropdownMenuSubTrigger</Code>{" "}
             and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuSubContent</Code>{" "}
+            <Code>DropdownMenuSubContent</Code>{" "}
             to nest secondary actions inside a parent item.
           </p>
           <ComponentExample>
@@ -124,7 +124,7 @@ export function DropdownMenuPage() {
           <h2 className="text-lg font-semibold">Shortcuts</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Add{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuShortcut</Code>{" "}
+            <Code>DropdownMenuShortcut</Code>{" "}
             to show keyboard hints alongside actions.
           </p>
           <ComponentExample>
@@ -155,7 +155,7 @@ export function DropdownMenuPage() {
           <h2 className="text-lg font-semibold">Icons</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Combine icons and text inside{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuItem</Code>{" "}
+            <Code>DropdownMenuItem</Code>{" "}
             to make actions easier to scan.
           </p>
           <ComponentExample>
@@ -183,8 +183,8 @@ export function DropdownMenuPage() {
           <h2 className="text-lg font-semibold">Avatars</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use an avatar inside{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">DropdownMenuItem</Code>{" "}
-            for user switchers or account lists. Pair with <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size=&quot;md&quot;</Code> for a compact row.
+            <Code>DropdownMenuItem</Code>{" "}
+            for user switchers or account lists. Pair with <Code>size=&quot;md&quot;</Code> for a compact row.
           </p>
           <ComponentExample>
             <DropdownMenu>
@@ -219,7 +219,7 @@ export function DropdownMenuPage() {
           <h2 className="text-lg font-semibold">Checkbox</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               DropdownMenuCheckboxItem
             </Code>{" "}
             for toggles that control independent state.
@@ -259,7 +259,7 @@ export function DropdownMenuPage() {
           <h2 className="text-lg font-semibold">Radio group</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               DropdownMenuRadioGroup
             </Code>{" "}
             when the user must choose a single option from a set.
@@ -285,7 +285,7 @@ export function DropdownMenuPage() {
           <h2 className="text-lg font-semibold">Destructive</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Mark dangerous actions with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               variant=&quot;destructive&quot;
             </Code>{" "}
             so they stand out from other items.
@@ -320,16 +320,16 @@ export function DropdownMenuPage() {
           <h2 className="text-lg font-semibold">Search</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               searchable
             </Code>{" "}
             prop on{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               DropdownMenu
             </Code>{" "}
             to add a search field and filter items by label. The search bar and item
             container are added automatically—no need for{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               DropdownMenuSearch
             </Code>{" "}
             or utility classes.

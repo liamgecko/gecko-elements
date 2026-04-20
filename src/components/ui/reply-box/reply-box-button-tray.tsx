@@ -166,6 +166,7 @@ export function ReplyBoxButtonTray({ items, className }: ReplyBoxButtonTrayProps
                   variant="ghost"
                   size="icon-sm"
                   onClick={onClick}
+                  className="dark:hover:bg-gray-800"
                 >
                   <Icon {...replyBoxActionIconProps} />
                   <span className="sr-only">{noteLabel}</span>

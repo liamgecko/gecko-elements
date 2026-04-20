@@ -78,7 +78,7 @@ const activityFeedItemVariants = cva("flex first:pt-0 last:pb-0", {
 })
 
 const activityFeedIconVariants = cva(
-  "relative z-10 flex shrink-0 items-center justify-center rounded-full border border-border bg-background text-foreground ring-white",
+  "relative z-10 flex shrink-0 items-center justify-center rounded-full border border-border bg-background text-foreground ring-background",
   {
     variants: {
       variant: {

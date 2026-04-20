@@ -49,8 +49,8 @@ function SectionLink({
         href={`#${section.id}`}
         className={cn(
           "block py-0.5 text-sm text-muted-foreground hover:text-foreground",
-          "relative before:absolute before:-left-2.5 before:top-0 before:bottom-0 before:w-px before:bg-primary before:opacity-0 hover:before:opacity-100 hover:before:bg-gray-300 data-[active=true]:before:opacity-100 data-[active=true]:hover:before:bg-primary",
-          "data-[active=true]:text-foreground"
+          "relative before:absolute before:-left-2.5 before:top-0 before:bottom-0 before:w-px before:bg-primary before:opacity-0 hover:before:opacity-100 hover:before:bg-gray-300 data-[active=true]:before:opacity-100 data-[active=true]:hover:before:bg-primary before:transition-[opacity,background-color] before:duration-200",
+          "data-[active=true]:text-foreground transition-colors"
         )}
         data-active={isActive ? "true" : undefined}
         onClick={(e) => {
@@ -65,7 +65,7 @@ function SectionLink({
         <ul
           className={cn(
             "mt-1 space-y-1",
-            "relative ml-1 pl-2.5 before:absolute before:inset-y-0 before:left-0 before:w-px before:bg-gray-100"
+            "relative ml-1 pl-2.5 before:absolute before:inset-y-0 before:left-0 before:w-px before:bg-gray-100 dark:before:bg-gray-800"
           )}
         >
           {section.children!.map((child) => (
@@ -126,7 +126,7 @@ export function PageSectionNav({ className }: PageSectionNavProps) {
         )}
       >
         <nav aria-label="Page sections" className="text-sm text-muted-foreground">
-          <span className="text-xs font-medium text-muted-foreground mb-4 block">
+          <span className="text-xs font-medium text-muted-foreground dark:text-gray-400 mb-4 block">
             On this page
           </span>
           <ul className="space-y-1">

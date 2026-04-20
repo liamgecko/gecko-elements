@@ -148,7 +148,7 @@ export function FiltersPage() {
             Each category is searchable by default: the submenu and the value
             picker on active chips include a search field. For short static lists,
             set{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               searchable: false
             </Code>{" "}
             on the category to hide those search boxes.

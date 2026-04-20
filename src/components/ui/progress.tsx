@@ -27,18 +27,18 @@ const progressTrackSizeVariants = cva("", {
 
 function getValueColorBar(value: number | null | undefined): string {
   if (value === undefined || value === null) return "bg-primary"
-  if (value <= 25) return "bg-red-500"
+  if (value <= 25) return "bg-red-500 dark:bg-rose-500"
   if (value <= 50) return "bg-orange-500"
   if (value <= 75) return "bg-yellow-500"
-  return "bg-emerald-500"
+  return "bg-emerald-500 dark:bg-teal-500"
 }
 
 function getValueColorRing(value: number | null | undefined): string {
   if (value === undefined || value === null) return "stroke-primary"
-  if (value <= 25) return "stroke-red-500"
+  if (value <= 25) return "stroke-red-500 dark:stroke-rose-500"
   if (value <= 50) return "stroke-orange-500"
   if (value <= 75) return "stroke-yellow-500"
-  return "stroke-emerald-500"
+  return "stroke-emerald-500 dark:stroke-teal-500"
 }
 
 type ProgressSize = "sm" | "default" | "lg"

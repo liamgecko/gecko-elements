@@ -226,7 +226,7 @@ const DateInput = React.forwardRef<HTMLDivElement, DateInputProps>(function Date
       tabIndex: 0,
       onFocus: handleRootFocus,
       className: cn(
-        "has-[[data-slot=date-input-day][aria-invalid=true]]:has-[input]:border-destructive has-[[data-slot=date-input-month][aria-invalid=true]]:has-[input]:border-destructive has-[[data-slot=date-input-year][aria-invalid=true]]:has-[input]:border-destructive flex items-center gap-2",
+        "has-[[data-slot=date-input-day][aria-invalid=true]]:has-[input]:border-input-destructive has-[[data-slot=date-input-month][aria-invalid=true]]:has-[input]:border-input-destructive has-[[data-slot=date-input-year][aria-invalid=true]]:has-[input]:border-input-destructive flex items-center gap-2",
         className
       ),
     },

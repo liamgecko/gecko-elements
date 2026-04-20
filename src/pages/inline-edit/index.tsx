@@ -39,7 +39,7 @@ export function InlineEditPage() {
           <h2 className="text-lg font-semibold">Sizes</h2>
           <p className="mb-6 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               size
             </Code>{" "}
             to control control height and typography.

@@ -22,8 +22,8 @@ export function NativeSelectPage() {
         <PageSection id="basic-example" label="Basic example">
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">NativeSelect</Code> with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">NativeSelectOption</Code> for a native select dropdown.
+            Use <Code>NativeSelect</Code> with{" "}
+            <Code>NativeSelectOption</Code> for a native select dropdown.
           </p>
           <ComponentExample>
             <NativeSelect>
@@ -39,8 +39,8 @@ export function NativeSelectPage() {
         <PageSection id="groups" label="Groups">
           <h2 className="text-lg font-semibold">Groups</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">NativeSelectOptGroup</Code> with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">label</Code> to group options.
+            Use <Code>NativeSelectOptGroup</Code> with{" "}
+            <Code>label</Code> to group options.
           </p>
           <ComponentExample>
             <NativeSelect>
@@ -77,9 +77,9 @@ export function NativeSelectPage() {
         <PageSection id="multiple" label="Multiple select">
           <h2 className="text-lg font-semibold">Multiple select</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Pass the native <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">multiple</Code>{" "}
+            Pass the native <Code>multiple</Code>{" "}
             attribute to enable selecting more than one option. In a controlled example, read values from{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">selectedOptions</Code>.
+            <Code>selectedOptions</Code>.
           </p>
           <ComponentExample>
             <NativeSelect
@@ -98,8 +98,8 @@ export function NativeSelectPage() {
         <PageSection id="within-form" label="Within form">
           <h2 className="text-lg font-semibold">Within form</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">FieldLabel</Code> inside{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">Field</Code> to pair a label with the select.
+            Use <Code>FieldLabel</Code> inside{" "}
+            <Code>Field</Code> to pair a label with the select.
           </p>
           <ComponentExample>
             <Field>
@@ -118,10 +118,10 @@ export function NativeSelectPage() {
         <PageSection id="sizing" label="Sizing">
           <h2 className="text-lg font-semibold">Sizing</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">size</Code> prop to match the Input component:{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">sm</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">md</Code>, or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">lg</Code>. Default is <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">md</Code>.
+            Use the <Code>size</Code> prop to match the Input component:{" "}
+            <Code>sm</Code>,{" "}
+            <Code>md</Code>, or{" "}
+            <Code>lg</Code>. Default is <Code>md</Code>.
           </p>
 
           <h3 id="sizing-small" className="mb-3 text-base font-semibold">Small</h3>
@@ -158,8 +158,8 @@ export function NativeSelectPage() {
         <PageSection id="states" label="States">
           <h2 className="text-lg font-semibold">States</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">disabled</Code> prop or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">aria-invalid</Code> to show disabled and validation states.
+            Use the <Code>disabled</Code> prop or{" "}
+            <Code>aria-invalid</Code> to show disabled and validation states.
           </p>
 
           <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>

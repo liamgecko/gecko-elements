@@ -49,7 +49,7 @@ export function RadiusPage() {
                   <TableRow>
                     <TableCell>
                       <div className="flex items-center">
-                        <div className="radius flex items-center border-t border-r rounded-0 border-blue-500 w-48 h-8 bg-blue-50"></div>
+                        <div className="radius flex items-center border-t border-r rounded-0 border-blue-500 w-48 h-8 bg-blue-50 dark:bg-blue-950"></div>
                       </div>
                       </TableCell>
                     <TableCell>0rem</TableCell>
@@ -59,7 +59,7 @@ export function RadiusPage() {
                   <TableRow>
                     <TableCell>
                       <div className="flex items-center">
-                        <div className="radius flex items-center border-t border-r rounded-xs rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50"></div>
+                        <div className="radius flex items-center border-t border-r rounded-xs rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50 dark:bg-blue-950"></div>
                       </div>
                       </TableCell>
                     <TableCell>0.125rem</TableCell>
@@ -69,7 +69,7 @@ export function RadiusPage() {
                   <TableRow>
                     <TableCell>
                       <div className="flex items-center">
-                        <div className="radius flex items-center border-t border-r rounded-sm rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50"></div>
+                        <div className="radius flex items-center border-t border-r rounded-sm rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50 dark:bg-blue-950"></div>
                       </div>
                       </TableCell>
                     <TableCell>0.25rem</TableCell>
@@ -79,7 +79,7 @@ export function RadiusPage() {
                   <TableRow>
                     <TableCell>
                       <div className="flex items-center">
-                        <div className="radius flex items-center border-t border-r rounded-md rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50"></div>
+                        <div className="radius flex items-center border-t border-r rounded-md rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50 dark:bg-blue-950"></div>
                       </div>
                       </TableCell>
                     <TableCell>0.5rem</TableCell>
@@ -89,7 +89,7 @@ export function RadiusPage() {
                   <TableRow>
                     <TableCell>
                       <div className="flex items-center">
-                        <div className="radius flex items-center border-t border-r rounded-lg rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50"></div>
+                        <div className="radius flex items-center border-t border-r rounded-lg rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50 dark:bg-blue-950"></div>
                       </div>
                       </TableCell>
                     <TableCell>1rem</TableCell>
@@ -99,7 +99,7 @@ export function RadiusPage() {
                   <TableRow>
                     <TableCell>
                       <div className="flex items-center">
-                        <div className="radius flex items-center border-t border-r rounded-xl rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50"></div>
+                        <div className="radius flex items-center border-t border-r rounded-xl rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50 dark:bg-blue-950"></div>
                       </div>
                     </TableCell>
                     <TableCell>1.25rem</TableCell>
@@ -109,7 +109,7 @@ export function RadiusPage() {
                   <TableRow>
                     <TableCell>
                       <div className="flex items-center">
-                        <div className="radius flex items-center border-t border-r rounded-2xl rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50"></div>
+                        <div className="radius flex items-center border-t border-r rounded-2xl rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50 dark:bg-blue-950"></div>
                       </div>
                     </TableCell>
                     <TableCell>1.5rem</TableCell>
@@ -119,7 +119,7 @@ export function RadiusPage() {
                   <TableRow>
                     <TableCell>
                       <div className="flex items-center">
-                      <div className="radius flex items-center border-t border-r rounded-3xl rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50"></div>
+                      <div className="radius flex items-center border-t border-r rounded-3xl rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50 dark:bg-blue-950"></div>
                       </div>
                       </TableCell>
                     <TableCell>1.75rem</TableCell>
@@ -129,7 +129,7 @@ export function RadiusPage() {
                   <TableRow>
                     <TableCell>
                       <div className="flex items-center">
-                        <div className="radius flex items-center border-t border-r rounded-4xl rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50"></div>
+                        <div className="radius flex items-center border-t border-r rounded-4xl rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50 dark:bg-blue-950"></div>
                       </div>
                       </TableCell>
                     <TableCell>2rem</TableCell>
@@ -139,7 +139,7 @@ export function RadiusPage() {
                   <TableRow>
                     <TableCell>
                       <div className="flex items-center">
-                        <div className="radius flex items-center border-t border-r rounded-full rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50"></div>
+                        <div className="radius flex items-center border-t border-r rounded-full rounded-s-none rounded-br-none border-blue-500 w-48 h-8 bg-blue-50 dark:bg-blue-950"></div>
                       </div>
                       </TableCell>
                     <TableCell>2rem</TableCell>

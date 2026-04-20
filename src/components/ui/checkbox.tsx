@@ -1,18 +1,28 @@
 import * as React from "react"
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox"
 import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox-group"
+import { cva } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 import { CheckIcon, Minus } from "lucide-react"
 
 const defaultCheckboxStyles =
-  "border-input bg-white data-checked:bg-primary data-checked:text-primary-foreground data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/0 focus-visible:aria-invalid:ring-destructive/20 flex size-4 items-center justify-center rounded-sm cursor-pointer border transition-shadow focus-visible:ring-3 aria-invalid:ring-3 peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50 -mt-[1px]"
+  "border-input bg-background data-checked:bg-primary data-checked:text-primary-foreground data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-input-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-input-destructive/0 focus-visible:aria-invalid:ring-input-destructive/20 flex size-4 items-center justify-center rounded-sm cursor-pointer border transition-shadow focus-visible:ring-3 aria-invalid:ring-3 peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50 -mt-[1px]"
 
-const buttonCheckboxStyles =
-  "border-border bg-white rounded-md border text-sm font-medium cursor-pointer inline-flex items-center justify-center p-3 gap-2 transition-all focus-visible:ring-3 focus-visible:border-ring focus-visible:ring-ring/50 outline-none disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted hover:border-gray-300 hover:text-foreground data-checked:border-gray-400 data-checked:bg-gray-100 data-checked:text-foreground"
-
-const buttonWithDescriptionStyles =
-  "border-border bg-white rounded-md border text-sm cursor-pointer flex flex-col items-start gap-0.5 p-3 w-fit text-left transition-all focus-visible:ring-3 focus-visible:border-ring focus-visible:ring-ring/50 outline-none disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted hover:border-gray-300 hover:text-foreground data-checked:border-gray-400 data-checked:bg-gray-100 data-checked:text-foreground"
+const asButtonCheckboxVariants = cva(
+  "border-border bg-background rounded-md border text-sm cursor-pointer p-3 transition-all focus-visible:ring-3 focus-visible:border-ring focus-visible:ring-ring/50 outline-none disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted hover:border-gray-300 dark:hover:border-gray-700 hover:text-foreground data-checked:border-gray-300 dark:data-checked:border-gray-700 data-checked:bg-muted data-checked:text-foreground",
+  {
+    variants: {
+      layout: {
+        inline: "font-medium inline-flex items-center justify-center gap-2",
+        description: "flex flex-col items-start gap-0.5 w-fit text-left",
+      },
+    },
+    defaultVariants: {
+      layout: "inline",
+    },
+  }
+)
 
 type CheckboxProps = CheckboxPrimitive.Root.Props & {
   asButton?: boolean
@@ -38,7 +48,11 @@ function Checkbox({
   const inputId = idProp ?? generatedId
 
   const baseClasses = cn(
-    asButton ? buttonCheckboxStyles : defaultCheckboxStyles,
+    asButton
+      ? asButtonCheckboxVariants({
+          layout: description ? "description" : "inline",
+        })
+      : defaultCheckboxStyles,
     className
   )
 
@@ -49,7 +63,7 @@ function Checkbox({
           data-slot="checkbox"
           data-as-button
           id={inputId}
-          className={cn(buttonWithDescriptionStyles, className)}
+          className={baseClasses}
           {...props}
         >
           {label && (

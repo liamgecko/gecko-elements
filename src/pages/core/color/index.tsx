@@ -22,9 +22,8 @@ export function ColorPage() {
           <ColorRow>
             <ColorChip
               swatchClassName="bg-white"
-              showSwatchDivider
               contrastLabel="AAA 17.74"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="White"
               value="oklch(1 0 0)"
               value2="#FFFFFF"
@@ -32,7 +31,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-foreground"
               contrastLabel="AAA 17.74"
-              contrastClassName="text-white"
+              contrastClassName="text-white dark:text-gray-900"
               name="Primary"
               value="oklch(0.21 0.034 264.665)"
               value2="#101828"
@@ -40,7 +39,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-muted-foreground"
               contrastLabel="AAA 7.56"
-              contrastClassName="text-white"
+              contrastClassName="text-white dark:text-gray-900"
               name="Secondary"
               value="oklch(0.446 0.03 256.802)"
               value2="#4A5565"
@@ -60,9 +59,8 @@ export function ColorPage() {
           <ColorRow>
             <ColorChip
               swatchClassName="bg-gray-50"
-              showSwatchDivider
               contrastLabel="AAA 17"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="50"
               value="oklch(98.5% .002 247.839)"
               value2="#F9FAFB"
@@ -70,7 +68,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-gray-100"
               contrastLabel="AAA 16.12"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="100"
               value="oklch(96.7% .003 264.542)"
               value2="#F3F4F6"
@@ -78,16 +76,15 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-gray-200"
               contrastLabel="AAA 14.35"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="200"
               value="oklch(92.8% .006 264.531)"
               value2="#E5E7EB"
             />
             <ColorChip
               swatchClassName="bg-gray-300"
-              showSwatchDivider
               contrastLabel="AAA 12.05"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="300"
               value="oklch(87.2% .01 258.338)"
               value2="#D1D5DC"
@@ -95,7 +92,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-gray-400"
               contrastLabel="AA 6.81"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="400"
               value="oklch(70.7% .022 261.325)"
               value2="#99A1AF"
@@ -109,8 +106,7 @@ export function ColorPage() {
               value2="#6A7282"
             />
             <ColorChip
-              swatchClassName="bg-gray-600"
-              showSwatchDivider
+              swatchClassName="bg-gray-600"       
               contrastLabel="AAA 7.56"
               contrastClassName="text-white"
               name="600"
@@ -135,7 +131,6 @@ export function ColorPage() {
             />
             <ColorChip
               swatchClassName="bg-gray-900"
-              showSwatchDivider
               contrastLabel="AAA 17.74"
               contrastClassName="text-white"
               name="900"
@@ -144,6 +139,7 @@ export function ColorPage() {
             />
             <ColorChip
               swatchClassName="bg-gray-950"
+              showSwatchDivider
               contrastLabel="AAA 20.12"
               contrastClassName="text-white"
               name="950"
@@ -171,12 +167,11 @@ export function ColorPage() {
 
         <h3 id="color-red" className="mb-3 text-base font-semibold">Red</h3>
         <ComponentExample className="mb-4">
-          <ColorRow>
+          <ColorRow className="dark:hidden">
             <ColorChip
               swatchClassName="bg-red-50"
-              showSwatchDivider
               contrastLabel="AAA 16.24"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="50"
               value="oklch(97.1% .013 17.38)"
               value2="#FEF2F2"
@@ -184,7 +179,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-red-100"
               contrastLabel="AAA 14.53"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="100"
               value="oklch(93.6% .032 17.717)"
               value2="#FFE2E2"
@@ -192,16 +187,15 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-red-200"
               contrastLabel="AAA 12.27"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="200"
               value="oklch(88.5% .062 18.334)"
               value2="#FFC9C9"
             />
             <ColorChip
               swatchClassName="bg-red-300"
-              showSwatchDivider
               contrastLabel="AAA 9.31"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="300"
               value="oklch(80.8% .114 19.571)"
               value2="#FFA2A2"
@@ -209,7 +203,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-red-400"
               contrastLabel="AA 6.18"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="400"
               value="oklch(70.4% .191 22.216)"
               value2="#FF6467"
@@ -217,14 +211,13 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-red-500"
               contrastLabel="AA 4.64"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="500"
               value="oklch(63.7% .237 25.331)"
               value2="#FB2C36"
             />
             <ColorChip
               swatchClassName="bg-red-600"
-              showSwatchDivider
               contrastLabel="AA 4.88"
               contrastClassName="text-white"
               name="600"
@@ -249,7 +242,6 @@ export function ColorPage() {
             />
             <ColorChip
               swatchClassName="bg-red-900"
-              showSwatchDivider
               contrastLabel="AAA 10.05"
               contrastClassName="text-white"
               name="900"
@@ -263,6 +255,96 @@ export function ColorPage() {
               name="950"
               value="oklch(25.8% .092 26.042)"
               value2="#460809"
+            />
+          </ColorRow>
+          <ColorRow className="hidden dark:grid">
+            <ColorChip
+              swatchClassName="bg-rose-50"
+              contrastLabel="AAA 16.13"
+              contrastClassName="text-gray-900"
+              name="50"
+              value="oklch(96.9% .015 12.422)"
+              value2="#FFF1F2"
+            />
+            <ColorChip
+              swatchClassName="bg-rose-100"
+              contrastLabel="AAA 14.76"
+              contrastClassName="text-gray-900"
+              name="100"
+              value="oklch(94.1% .03 12.58)"
+              value2="#FFE4E6"
+            />
+            <ColorChip
+              swatchClassName="bg-rose-200"
+              contrastLabel="AAA 12.55"
+              contrastClassName="text-gray-900"
+              name="200"
+              value="oklch(89.2% .058 10.001)"
+              value2="#FFCCD3"
+            />
+            <ColorChip
+              swatchClassName="bg-rose-300"
+              contrastLabel="AAA 9.35"
+              contrastClassName="text-gray-900"
+              name="300"
+              value="oklch(81% .117 11.638)"
+              value2="#FFA1AD"
+            />
+            <ColorChip
+              swatchClassName="bg-rose-400"
+              contrastLabel="AA 6.33"
+              contrastClassName="text-gray-900"
+              name="400"
+              value="oklch(71.2% .194 13.428)"
+              value2="#FF637E"
+            />
+            <ColorChip
+              swatchClassName="bg-rose-500"
+              contrastLabel="AA 4.75"
+              contrastClassName="text-gray-900"
+              name="500"
+              value="oklch(64.5% .246 16.439)"
+              value2="#FF2056"
+            />
+            <ColorChip
+              swatchClassName="bg-rose-600" 
+              contrastLabel="AA 4.67"
+              contrastClassName="text-white"
+              name="600"
+              value="oklch(58.6% .253 17.585)"
+              value2="#EC003F"
+            />
+            <ColorChip
+              swatchClassName="bg-rose-700"
+              contrastLabel="AA 6.28"
+              contrastClassName="text-white"
+              name="700"
+              value="oklch(51.4% .222 16.935)"
+              value2="#C70036"
+            />
+            <ColorChip
+              swatchClassName="bg-rose-800"
+              contrastLabel="AAA 8.07"
+              contrastClassName="text-white"
+              name="800"
+              value="oklch(45.5% .188 13.697)"
+              value2="#A50036"
+            />
+            <ColorChip
+              swatchClassName="bg-rose-900"
+              contrastLabel="AAA 9.62"
+              contrastClassName="text-white"
+              name="900"
+              value="oklch(41% .159 10.272)"
+              value2="#8B0836"
+            />
+            <ColorChip
+              swatchClassName="bg-rose-950"
+              contrastLabel="AAA 115.65"
+              contrastClassName="text-white"
+              name="950"
+              value="oklch(27.1% .105 12.094)"
+              value2="#4D0218"
             />
           </ColorRow>
         </ComponentExample>
@@ -281,9 +363,8 @@ export function ColorPage() {
           <ColorRow>
             <ColorChip
               swatchClassName="bg-orange-50"
-              showSwatchDivider
               contrastLabel="AAA 16.73"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="50"
               value="oklch(98% .016 73.684)"
               value2="#FFF7ED"
@@ -291,7 +372,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-orange-100"
               contrastLabel="AAA 15.47"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="100"
               value="oklch(95.4% .038 75.164)"
               value2="#FFEDD4"
@@ -299,16 +380,15 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-orange-200"
               contrastLabel="AAA 13.08"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="200"
               value="oklch(90.1% .076 70.697)"
               value2="#FFD6A7"
             />
             <ColorChip
               swatchClassName="bg-orange-300"
-              showSwatchDivider
               contrastLabel="AAA 10.51"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="300"
               value="oklch(83.7% .128 66.29)"
               value2="#FFB86A"
@@ -316,7 +396,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-orange-400"
               contrastLabel="AAA 7.56"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="400"
               value="oklch(75% .183 55.934)"
               value2="#FF8904"
@@ -324,16 +404,15 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-orange-500"
               contrastLabel="AA 6.27"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="500"
               value="oklch(70.5% .213 47.604)"
               value2="#FF6900"
             />
             <ColorChip
               swatchClassName="bg-orange-600"
-              showSwatchDivider
               contrastLabel="AA 4.92"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="600"
               value="oklch(64.6% .222 41.116)"
               value2="#F54900"
@@ -356,7 +435,6 @@ export function ColorPage() {
             />
             <ColorChip
               swatchClassName="bg-orange-900"
-              showSwatchDivider
               contrastLabel="AAA 9.41"
               contrastClassName="text-white"
               name="900"
@@ -388,9 +466,8 @@ export function ColorPage() {
           <ColorRow>
             <ColorChip
               swatchClassName="bg-yellow-50"
-              showSwatchDivider
               contrastLabel="AAA 17.14"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="50"
               value="oklch(98.7% .026 102.212)"
               value2="#FEFCE8"
@@ -398,7 +475,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-yellow-100"
               contrastLabel="AAA 16.52"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="100"
               value="oklch(97.3% .071 103.193)"
               value2="#FEF9C2"
@@ -406,16 +483,15 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-yellow-200"
               contrastLabel="AAA 15.24"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="200"
               value="oklch(94.5% .129 101.54)"
               value2="#FFF085"
             />
             <ColorChip
               swatchClassName="bg-yellow-300"
-              showSwatchDivider
               contrastLabel="AAA 13.44"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="300"
               value="oklch(90.5% .182 98.111)"
               value2="#FFDF20"
@@ -423,7 +499,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-yellow-400"
               contrastLabel="AAA 11.29"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="400"
               value="oklch(85.2% .199 91.936)"
               value2="#FDC700"
@@ -431,16 +507,15 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-yellow-500"
               contrastLabel="AAA 9.24"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="500"
               value="oklch(79.5% .184 86.047)"
               value2="#F0B100"
             />
             <ColorChip
               swatchClassName="bg-yellow-600"
-              showSwatchDivider
               contrastLabel="AA 6.03"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="600"
               value="oklch(68.1% .162 75.834)"
               value2="#D08700"
@@ -463,7 +538,6 @@ export function ColorPage() {
             />
             <ColorChip
               swatchClassName="bg-yellow-900"
-              showSwatchDivider
               contrastLabel="AAA 8.68"
               contrastClassName="text-white"
               name="900"
@@ -490,14 +564,13 @@ export function ColorPage() {
           <li className="text-sm">Ensure sufficient contrast when used with text</li>
         </ul>
 
-        <h3 id="color-emerald" className="mb-3 text-base font-semibold">Emerald</h3>
+        <h3 id="color-emerald" className="mb-3 text-base font-semibold">Green</h3>
         <ComponentExample className="mb-4">
-          <ColorRow>
+          <ColorRow className="dark:hidden">
             <ColorChip
               swatchClassName="bg-emerald-50"
-              showSwatchDivider
               contrastLabel="AAA 16.83"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="50"
               value="oklch(97.9% .021 166.113)"
               value2="#ECFDF5"
@@ -505,7 +578,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-emerald-100"
               contrastLabel="AAA 15.63"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="100"
               value="oklch(95% .052 163.051)"
               value2="#D0FAE5"
@@ -513,16 +586,15 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-emerald-200"
               contrastLabel="AAA 13.85"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="200"
               value="oklch(90.5% .093 164.15)"
               value2="#A4F4CF"
             />
             <ColorChip
-              swatchClassName="bg-emerald-300"
-              showSwatchDivider
+              swatchClassName="bg-emerald-300"              
               contrastLabel="AAA 11.69"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="300"
               value="oklch(84.5% .143 164.978)"
               value2="#5EE9B5"
@@ -530,7 +602,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-emerald-400"
               contrastLabel="AAA 9.12"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="400"
               value="oklch(76.5% .177 163.223)"
               value2="#00D492"
@@ -538,16 +610,15 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-emerald-500"
               contrastLabel="AAA 7.14"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="500"
               value="oklch(69.6% .17 162.48)"
               value2="#00BC7D"
             />
             <ColorChip
               swatchClassName="bg-emerald-600"
-              showSwatchDivider
               contrastLabel="AA 4.79"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="600"
               value="oklch(59.6% .145 163.225)"
               value2="#009966"
@@ -570,7 +641,6 @@ export function ColorPage() {
             />
             <ColorChip
               swatchClassName="bg-emerald-900"
-              showSwatchDivider
               contrastLabel="AAA 9.7"
               contrastClassName="text-white"
               name="900"
@@ -584,6 +654,96 @@ export function ColorPage() {
               name="950"
               value="oklch(26.2% .051 172.552)"
               value2="#002C22"
+            />
+          </ColorRow>
+          <ColorRow className="hidden dark:grid">
+            <ColorChip
+              swatchClassName="bg-teal-50"
+              contrastLabel="AAA 17.03"
+              contrastClassName="text-gray-900"
+              name="50"
+              value="oklch(98.4% .014 180.72)"
+              value2="#F0FDFA"
+            />
+            <ColorChip
+              swatchClassName="bg-teal-100"
+              contrastLabel="AAA 15.77"
+              contrastClassName="text-gray-900"
+              name="100"
+              value="oklch(95.3% .051 180.801)"
+              value2="#CBFBF1"
+            />
+            <ColorChip
+              swatchClassName="bg-teal-200"
+              contrastLabel="AAA 14.09"
+              contrastClassName="text-gray-900"
+              name="200"
+              value="oklch(91% .096 180.426)"
+              value2="#96F7E4"
+            />
+            <ColorChip
+              swatchClassName="bg-teal-300"
+              contrastLabel="AAA 12.06"
+              contrastClassName="text-gray-900"
+              name="300"
+              value="oklch(85.5% .138 181.071)"
+              value2="#46ECD5"
+            />
+            <ColorChip
+              swatchClassName="bg-teal-400"
+              contrastLabel="AAA 9.45"
+              contrastClassName="text-gray-900"
+              name="400"
+              value="oklch(77.7% .152 181.912)"
+              value2="#00D5BE"
+            />
+            <ColorChip
+              swatchClassName="bg-teal-500"
+              contrastLabel="AAA 7.26"
+              contrastClassName="text-gray-900"
+              name="500"
+              value="oklch(70.4% .14 182.503)"
+              value2="#00BBA7"
+            />
+            <ColorChip
+              swatchClassName="bg-teal-600"
+              contrastLabel="AA 4.8"
+              contrastClassName="text-gray-900"
+              name="600"
+              value="oklch(60% .118 184.704)"
+              value2="#009689"
+            />
+            <ColorChip
+              swatchClassName="bg-teal-700"
+              contrastLabel="AA 5.43"
+              contrastClassName="text-white"
+              name="700"
+              value="oklch(51.1% .096 186.391)"
+              value2="#00786F"
+            />
+            <ColorChip
+              swatchClassName="bg-teal-800"
+              contrastLabel="AAA 7.55"
+              contrastClassName="text-white"
+              name="800"
+              value="oklch(43.7% .078 188.216)"
+              value2="#005F5A"
+            />
+            <ColorChip
+              swatchClassName="bg-teal-900"
+              contrastLabel="AAA 9.45"
+              contrastClassName="text-white"
+              name="900"
+              value="oklch(38.6% .063 188.416)"
+              value2="#0B4F4A"
+            />
+            <ColorChip
+              swatchClassName="bg-teal-950"
+              contrastLabel="AAA 14.47"
+              contrastClassName="text-white"
+              name="950"
+              value="oklch(27.7% .046 192.524)"
+              value2="#022F2E"
             />
           </ColorRow>
         </ComponentExample>
@@ -602,9 +762,8 @@ export function ColorPage() {
           <ColorRow>
             <ColorChip
               swatchClassName="bg-blue-50"
-              showSwatchDivider
               contrastLabel="AAA 16.28"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="50"
               value="oklch(97% .014 254.604)"
               value2="#EFF6FF"
@@ -612,7 +771,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-blue-100"
               contrastLabel="AAA 14.55"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="100"
               value="oklch(93.2% .032 255.585)"
               value2="#DBEAFE"
@@ -620,16 +779,15 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-blue-200"
               contrastLabel="AAA 12.47"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="200"
               value="oklch(88.2% .059 254.128)"
               value2="#BEDBFF"
             />
             <ColorChip
               swatchClassName="bg-blue-300"
-              showSwatchDivider
               contrastLabel="AAA 9.83"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="300"
               value="oklch(80.9% .105 251.813)"
               value2="#8EC5FF"
@@ -637,7 +795,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-blue-400"
               contrastLabel="AA 6.78"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="400"
               value="oklch(70.7% .165 254.624)"
               value2="#51A2FF"
@@ -645,14 +803,13 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-blue-500"
               contrastLabel="AA 4.78"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="500"
               value="oklch(62.3% .214 259.815)"
               value2="#2B7FFF"
             />
             <ColorChip
               swatchClassName="bg-blue-600"
-              showSwatchDivider
               contrastLabel="AA 5.25"
               contrastClassName="text-white"
               name="600"
@@ -677,7 +834,6 @@ export function ColorPage() {
             />
             <ColorChip
               swatchClassName="bg-blue-900"
-              showSwatchDivider
               contrastLabel="AAA 10.4"
               contrastClassName="text-white"
               name="900"
@@ -709,9 +865,8 @@ export function ColorPage() {
           <ColorRow>
             <ColorChip
               swatchClassName="bg-violet-50"
-              showSwatchDivider
               contrastLabel="AAA 16.17"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="50"
               value="oklch(96.9% .016 293.756)"
               value2="#F5F3FF"
@@ -719,7 +874,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-violet-100"
               contrastLabel="AAA 14.93"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="100"
               value="oklch(94.3% .029 294.588)"
               value2="#EDE9FE"
@@ -727,16 +882,15 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-violet-200"
               contrastLabel="AAA 12.76"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="200"
               value="oklch(89.4% .057 293.283)"
               value2="#DDD6FF"
             />
             <ColorChip
               swatchClassName="bg-violet-300"
-              showSwatchDivider
               contrastLabel="AAA 9.57"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="300"
               value="oklch(81.1% .111 293.571)"
               value2="#C4B4FF"
@@ -744,7 +898,7 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-violet-400"
               contrastLabel="AA 6.28"
-              contrastClassName="text-foreground"
+              contrastClassName="text-gray-900"
               name="400"
               value="oklch(70.2% .183 293.541)"
               value2="#A684FF"
@@ -752,14 +906,13 @@ export function ColorPage() {
             <ColorChip
               swatchClassName="bg-violet-500"
               contrastLabel="AA 4.86"
-              contrastClassName="text-black"
+              contrastClassName="text-gray-900"
               name="500"
               value="oklch(60.6% .25 292.717)"
               value2="#8E51FF"
             />
             <ColorChip
               swatchClassName="bg-violet-600"
-              showSwatchDivider
               contrastLabel="AA 6.88"
               contrastClassName="text-white"
               name="600"
@@ -784,7 +937,6 @@ export function ColorPage() {
             />
             <ColorChip
               swatchClassName="bg-violet-900"
-              showSwatchDivider
               contrastLabel="AAA 11.03"
               contrastClassName="text-white"
               name="900"

@@ -30,7 +30,7 @@ const treeRowVariants = cva(
     variants: {
       kind: {
         folder:
-          "border border-transparent hover:bg-gray-50 focus-visible:bg-gray-50 focus-visible:outline-none focus-visible:ring-0 focus-visible:border-ring",
+          "border border-transparent hover:bg-muted focus-visible:bg-muted focus-visible:outline-none focus-visible:ring-0 focus-visible:border-ring",
         file: "",
       },
     },
@@ -91,7 +91,7 @@ function FileTreeList({
                       size="sm"
                       className={cn(
                         treeRowVariants({ kind: "folder" }),
-                        "group w-full justify-start transition-colors duration-150 hover:bg-gray-50 aria-expanded:bg-transparent aria-expanded:hover:bg-gray-50"
+                        "group w-full justify-start transition-colors duration-150 hover:bg-muted aria-expanded:bg-transparent aria-expanded:hover:bg-muted"
                       )}
                     >
                       <ChevronRight

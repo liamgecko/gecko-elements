@@ -24,7 +24,7 @@ export function SensitiveFieldPage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               SensitiveField
             </Code>{" "}
             for API keys, secrets, and other values that stay hidden until the
@@ -39,23 +39,23 @@ export function SensitiveFieldPage() {
           <h2 className="text-lg font-semibold">Sizing</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               size
             </Code>{" "}
             prop for{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               sm
             </Code>
             ,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               md
             </Code>
             , or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               lg
             </Code>
             . Default is{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               md
             </Code>
             .
@@ -87,11 +87,11 @@ export function SensitiveFieldPage() {
           <h2 className="text-lg font-semibold">States</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               disabled
             </Code>{" "}
             prop or{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               aria-invalid
             </Code>{" "}
             to show disabled and validation states.
@@ -104,8 +104,8 @@ export function SensitiveFieldPage() {
             <SensitiveField defaultValue="secret" disabled />
           </ComponentExample>
 
-          <h3 id="states-invalid" className="mb-3 text-base font-semibold">
-            Invalid
+          <h3 id="states-error" className="mb-3 text-base font-semibold">
+            Error
           </h3>
           <ComponentExample>
             <SensitiveField defaultValue="secret" aria-invalid />

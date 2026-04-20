@@ -27,7 +27,7 @@ export function TablePage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               Table
             </Code>{" "}
             with header, body, and footer primitives to render structured tabular
@@ -71,7 +71,7 @@ export function TablePage() {
           <h2 className="text-lg font-semibold">Footer</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               TableFooter
             </Code>{" "}
             to summarize totals or other aggregate information at the bottom of
@@ -121,15 +121,15 @@ export function TablePage() {
           <h2 className="text-lg font-semibold">Hoverable rows</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Rows do not highlight on hover by default. Pass the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               hoverable
             </Code>{" "}
             prop to{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               Table
             </Code>{" "}
             (or individual{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               TableRow
             </Code>
             ) to enable hover styles.

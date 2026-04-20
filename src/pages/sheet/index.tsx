@@ -29,11 +29,11 @@ export function SheetPage() {
           <h2 className="text-lg font-semibold">Basic</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Wrap your content in{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               Sheet
             </Code>{" "}
             and use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               SheetTrigger
             </Code>{" "}
             to open it.
@@ -57,11 +57,11 @@ export function SheetPage() {
           <h2 className="text-lg font-semibold">Sides</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               side
             </Code>{" "}
             prop on{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               SheetContent
             </Code>{" "}
             to control which edge of the screen the sheet slides in from.
@@ -123,11 +123,11 @@ export function SheetPage() {
           <h2 className="text-lg font-semibold">Sizes</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Control the width of side sheets with the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               size
             </Code>{" "}
             prop on{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               SheetContent
             </Code>
             .
@@ -280,11 +280,11 @@ export function SheetPage() {
           <h2 className="text-lg font-semibold">Overlay</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               hideOverlay
             </Code>{" "}
             prop on{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               SheetContent
             </Code>{" "}
             to disable the backdrop while keeping the sheet visible.

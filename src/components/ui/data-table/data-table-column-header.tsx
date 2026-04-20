@@ -46,7 +46,7 @@ export function DataTableColumnHeader<TData, TValue>({
             type="button"
             variant="ghost"
             size="xs"
-            className="h-6 w-6 p-0"
+            className="h-6 w-6 p-0 hover:bg-gray-200 dark:hover:bg-gray-800"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
             aria-label={`Sort by ${title}`}
           >

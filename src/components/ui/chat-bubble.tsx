@@ -125,6 +125,8 @@ export type ChatBubbleMessageProps = React.ComponentProps<"div"> & {
   timestamp: Date
   status?: ChatBubbleMessageStatus
   info?: React.ReactNode
+  /** Overrides default meta (timestamp) text color; merged after variant/status styles. */
+  metaClassName?: string
 }
 
 export function ChatBubbleMessage({
@@ -133,6 +135,7 @@ export function ChatBubbleMessage({
   timestamp,
   status,
   info,
+  metaClassName,
   ...props
 }: ChatBubbleMessageProps) {
   const context = React.useContext(ChatBubbleContext)
@@ -142,6 +145,16 @@ export function ChatBubbleMessage({
   }
 
   const relativeTime = React.useMemo(() => formatRelativeTime(timestamp), [timestamp])
+
+  const metaTimeClassName = cn(
+    "text-xs",
+    context.variant === "note"
+      ? "text-muted-foreground dark:text-yellow-100"
+      : status === "failed"
+        ? "text-muted-foreground dark:text-rose-200"
+        : "text-muted-foreground",
+    metaClassName
+  )
 
   const statusIndicator = React.useMemo(() => {
     if (!context.agent || !status || context.variant === "note") return null
@@ -156,11 +169,11 @@ export function ChatBubbleMessage({
         label: "This message has been delivered",
       },
       read: {
-        icon: <CheckCheck className="text-blue-600 size-3" aria-hidden strokeWidth={2.2} />,
+        icon: <CheckCheck className="text-blue-600 dark:text-teal-500 size-3" aria-hidden strokeWidth={2.2} />,
         label: "This message has been read",
       },
       failed: {
-        icon: <CircleAlert className="text-red-700 size-3" aria-hidden strokeWidth={2.2} />,
+        icon: <CircleAlert className="text-red-700 dark:text-rose-200 size-3" aria-hidden strokeWidth={2.2} />,
         label: "This message failed to send because 'X'",
       },
     } as const
@@ -191,9 +204,9 @@ export function ChatBubbleMessage({
       <div
         className={cn(
           "bg-muted rounded px-4 py-2 text-sm wrap-break-word",
-          context.agent && "bg-blue-50",
-          context.variant === "note" && "bg-yellow-100 text-yellow-950",
-          status === "failed" && "bg-red-50 text-red-700"
+          context.agent && "bg-blue-50 dark:bg-gray-800",
+          context.variant === "note" && "bg-yellow-100 dark:bg-yellow-950 text-yellow-950 dark:text-yellow-100",
+          status === "failed" && "bg-red-50 dark:bg-rose-950 text-red-700 dark:text-rose-200"
         )}
       >
         <div className="flex flex-col gap-1">
@@ -207,22 +220,22 @@ export function ChatBubbleMessage({
             {context.agent ? (
               <>
                 {statusIndicator}
-                <p className="text-muted-foreground text-xs">{relativeTime}</p>
+                <p className={metaTimeClassName}>{relativeTime}</p>
                 {info}
               </>
             ) : (
               <>
                 {info}
-                <p className="text-muted-foreground text-xs">{relativeTime}</p>
+                <p className={metaTimeClassName}>{relativeTime}</p>
               </>
             )}
           </div>
         </div>
       </div>
       {context.agent && status === "failed" && context.variant !== "note" ? (
-        <p className="text-red-700 text-xs">
+        <p className="text-red-700 dark:text-rose-200 text-xs">
           This message failed to send -{" "}
-          <a href="#" className="underline hover:text-red-800">
+          <a href="#" className="underline hover:text-red-800 dark:hover:text-rose-300">
             Resend message
           </a>
         </p>
@@ -290,7 +303,7 @@ function renderEmailList(value: string | string[] | undefined) {
         <a
           key={email}
           href={`mailto:${email}`}
-          className="text-blue-700 hover:underline"
+          className="text-blue-700 dark:text-blue-500 hover:underline"
         >
           {email}
         </a>
@@ -309,7 +322,7 @@ function renderSourceInfo(source: ChatBubbleSourceInfo | undefined) {
         <a
           key={ref.url}
           href={ref.url}
-          className="text-blue-700 hover:underline"
+          className="text-blue-700 dark:text-blue-500 hover:underline"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -386,7 +399,7 @@ export function ChatBubbleInfo({
                 {userInfo?.page ? (
                   <a
                     href={userInfo.page.url}
-                    className="text-blue-700 hover:underline"
+                    className="text-blue-700 dark:text-blue-500 hover:underline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

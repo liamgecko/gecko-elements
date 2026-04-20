@@ -50,6 +50,8 @@ Avoid:
 - Removing focus styles
 - Converting Radix primitives to custom div-based interactions
 
+Full design token policy: [design-tokens.md](./design-tokens.md).
+
 ---
 
 ## Rules for custom components

@@ -28,14 +28,14 @@ function SheetOverlay({ className, ...props }: SheetPrimitive.Backdrop.Props) {
   return (
     <SheetPrimitive.Backdrop
       data-slot="sheet-overlay"
-      className={cn("data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-primary/50 duration-100 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-backdrop-filter:backdrop-blur-xs fixed inset-0 z-50", className)}
+      className={cn("data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-backdrop duration-100 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-backdrop-filter:backdrop-blur-xs fixed inset-0 z-50", className)}
       {...props}
     />
   )
 }
 
 const sheetVariants = cva(
-  "fixed z-50 flex flex-col gap-4 overflow-hidden rounded-lg bg-background bg-clip-padding text-sm shadow-lg transition duration-200 ease-in-out data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 pt-4",
+  "fixed z-50 flex flex-col gap-4 overflow-hidden rounded-lg bg-background border border-border text-sm shadow-lg transition duration-200 ease-in-out data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 pt-4",
   {
     variants: {
       side: {

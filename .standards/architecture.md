@@ -48,9 +48,9 @@ Rules are grouped by scope:
 - Do not introduce CSS-in-JS libraries.
 
 ### Styling approach
-- Tailwind is the primary styling method.
-- Use shadcn conventions (cn helper, cva where variants exist).
-- Light mode only.
+- Tailwind CSS v4 is the primary styling method; semantic design tokens and rules are documented in [design-tokens.md](./design-tokens.md).
+- The app supports **light and dark** themes (`next-themes`, `.dark` class, and token overrides in `src/index.css`).
+- Use shadcn conventions (`cn` helper, cva where variants exist).
 
 ---
 
@@ -67,9 +67,7 @@ Rules are grouped by scope:
 - Ensure keyboard navigation, correct semantics, and appropriate aria attributes.
 
 ### Styling conventions for reusable components
-- Prefer shadcn semantic classes (bg-background, text-foreground, border-border, ring-ring).
-- Avoid hardcoding palette values (bg-slate-900, text-zinc-500) in reusable components.
-- Raw palette classes are acceptable for one-off gallery demo layouts, not for components intended for extraction later.
+- Follow [design-tokens.md](./design-tokens.md): semantic tokens in `src/components/ui/` and layout; path-based exceptions for docs/gallery pages.
 
 ### Variants and APIs
 - If a component has variants, use class-variance-authority (cva).

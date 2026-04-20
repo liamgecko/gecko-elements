@@ -37,11 +37,11 @@ export function DropZonePage() {
           <h2 className="text-lg font-semibold">Custom label and description</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Override the default text with the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               label
             </Code>{" "}
             and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               description
             </Code>{" "}
             props.

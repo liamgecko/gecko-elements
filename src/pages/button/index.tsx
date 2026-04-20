@@ -60,7 +60,7 @@ export function ButtonPage() {
         <PageSection id="dropdown" label="Dropdown">
           <h2 className="text-lg font-semibold">Dropdown</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">dropdown</Code> prop to append a
+            Use the <Code>dropdown</Code> prop to append a
             chevron and indicate that the button opens a menu or list of options.
           </p>
           <ComponentExample className="mb-6">

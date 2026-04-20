@@ -108,7 +108,7 @@ export function ColorPicker({
               disabled={disabled}
               aria-label="Pick color"
               className={cn(
-                "absolute left-2 rounded-full bg-white p-0 shadow-[inset_0_0_0_1px_rgb(0_0_0/0.1)]",
+                "absolute left-2 rounded-full bg-red p-0 shadow-[inset_0_0_0_1px_rgb(0_0_0/0.1)]",
                 "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring/50",
                 "disabled:pointer-events-none disabled:opacity-80",
                 buttonSize
@@ -130,7 +130,8 @@ export function ColorPicker({
           disabled={disabled}
           size={inputSize}
           className={cn(
-            "group-hover/color-picker:border-gray-400 w-full max-w-[126px]",
+            "w-full max-w-[126px]",
+            !disabled && "group-hover/color-picker:border-input-hover",
             className,
             inputPaddingLeft
           )}

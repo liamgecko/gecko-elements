@@ -17,7 +17,7 @@ export function SeparatorPage() {
           <h2 className="text-lg font-semibold">Vertical</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               orientation=&quot;vertical&quot;
             </Code>{" "}
             prop to separate items in a horizontal row.

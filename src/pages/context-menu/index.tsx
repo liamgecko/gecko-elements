@@ -47,19 +47,19 @@ export function ContextMenuPage() {
           <h2 className="text-lg font-semibold">Basic</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Wrap content with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               ContextMenu
             </Code>{" "}
             and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               ContextMenuTrigger
             </Code>{" "}
             to open a{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               ContextMenuContent
             </Code>{" "}
             with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               ContextMenuItem
             </Code>{" "}
             options.
@@ -83,15 +83,15 @@ export function ContextMenuPage() {
           <h2 className="text-lg font-semibold">Submenu</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               ContextMenuSub
             </Code>
             ,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               ContextMenuSubTrigger
             </Code>{" "}
             and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               ContextMenuSubContent
             </Code>{" "}
             to nest secondary actions inside a parent item.
@@ -139,7 +139,7 @@ export function ContextMenuPage() {
           <h2 className="text-lg font-semibold">Shortcuts</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Add{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               ContextMenuShortcut
             </Code>{" "}
             to show keyboard hints alongside actions.
@@ -184,15 +184,15 @@ export function ContextMenuPage() {
           <h2 className="text-lg font-semibold">Groups</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Group related actions with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               ContextMenuGroup
             </Code>{" "}
             and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               ContextMenuLabel
             </Code>
             , and separate them with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               ContextMenuSeparator
             </Code>
             .
@@ -293,7 +293,7 @@ export function ContextMenuPage() {
           <h2 className="text-lg font-semibold">Checkbox</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               ContextMenuCheckboxItem
             </Code>{" "}
             for toggles such as visibility and notifications.
@@ -322,11 +322,11 @@ export function ContextMenuPage() {
           <h2 className="text-lg font-semibold">Radio</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               ContextMenuRadioGroup
             </Code>{" "}
             and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               ContextMenuRadioItem
             </Code>{" "}
             for mutually exclusive choices.
@@ -364,7 +364,7 @@ export function ContextMenuPage() {
           <h2 className="text-lg font-semibold">Destructive</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Mark dangerous actions with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+            <Code>
               variant=&quot;destructive&quot;
             </Code>{" "}
             to draw attention.

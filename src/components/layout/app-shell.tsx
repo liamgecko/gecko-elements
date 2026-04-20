@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import {
   Sidebar,
   SidebarContent,
@@ -6,12 +6,18 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { TooltipProvider } from "@/components/ui/tooltip"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import geckoLogo from "@/assets/gecko-logo.svg"
 import { SidebarNav } from "./sidebar-nav"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useLocation, useNavigate } from "react-router-dom"
-import { Home } from "lucide-react"
+import { useTheme } from "next-themes"
+import { Home, Moon, Sun } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import {
   Breadcrumb,
@@ -22,6 +28,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { PageSectionNav } from "./page-section-nav"
+import { Button } from "@/components/ui/button"
 
 const APP_TITLE = "Gecko Elements"
 
@@ -39,6 +46,12 @@ type AppShellProps = {
 export function AppShell({ children }: AppShellProps) {
   const location = useLocation()
   const navigate = useNavigate()
+  const { theme, setTheme } = useTheme()
+  const [themeReady, setThemeReady] = useState(false)
+
+  useEffect(() => {
+    setThemeReady(true)
+  }, [])
 
   useEffect(() => {
     const viewport = document.querySelector<HTMLElement>(
@@ -99,7 +112,7 @@ export function AppShell({ children }: AppShellProps) {
                 <img
                   src={geckoLogo}
                   alt="Gecko Elements"
-                  className="shrink-0"
+                  className="shrink-0 dark:invert"
                   width={100}
                 />
               </div>
@@ -111,12 +124,13 @@ export function AppShell({ children }: AppShellProps) {
             </SidebarContent>
           </Sidebar>
           <main className="flex-1 flex flex-col bg-sidebar overflow-hidden">
-            <header className="flex items-center w-full pl-4 pr-6 py-2 gap-4">
-              <SidebarTrigger className="-ml-1" />
-              {!isHome && (
-                <>
-                  <Separator orientation="vertical" />
-                  <Breadcrumb className="ml-1">
+            <header className="flex w-full items-center justify-between gap-4 py-2 pl-4 pr-6">
+              <div className="flex min-w-0 flex-1 items-center gap-4">
+                <SidebarTrigger className="-ml-1 shrink-0" />
+                {!isHome && (
+                  <>
+                    <Separator orientation="vertical" className="shrink-0" />
+                    <Breadcrumb className="min-w-0">
                     <BreadcrumbList>
                       <BreadcrumbItem>
                         <BreadcrumbLink
@@ -195,14 +209,70 @@ export function AppShell({ children }: AppShellProps) {
                       )}
                     </BreadcrumbList>
                   </Breadcrumb>
-                </>
+                  </>
+                )}
+              </div>
+              {themeReady ? (
+                <Tooltip>
+                  <TooltipTrigger
+                    render={
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon-sm"
+                        className="shrink-0 transition-none"
+                        onClick={() =>
+                          setTheme(theme === "dark" ? "light" : "dark")
+                        }
+                        aria-label={
+                          theme === "dark"
+                            ? "Switch to light mode"
+                            : "Switch to dark mode"
+                        }
+                      >
+                        {theme === "dark" ? (
+                          <Sun className="size-4" aria-hidden />
+                        ) : (
+                          <Moon className="size-4" aria-hidden />
+                        )}
+                      </Button>
+                    }
+                  />
+                  <TooltipContent side="bottom" align="end">
+                    <p>
+                      {theme === "dark"
+                        ? "Switch to light mode"
+                        : "Switch to dark mode"}
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              ) : (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  className="shrink-0 transition-none"
+                  aria-hidden
+                  disabled
+                >
+                  <Moon className="size-4 opacity-0" aria-hidden />
+                </Button>
               )}
             </header>
-            <div className="flex-1 mx-2 mb-3 p-1 rounded-2xl bg-white overflow-hidden">
+            <div className="flex-1 mx-2 mb-3 p-1 rounded-2xl bg-background overflow-hidden">
               <ScrollArea className="h-full" data-app-main="true">
                 <div className="p-8 md:px-16 py-8">
                   <div className="flex gap-8">
-                    <div className="min-w-0 flex-1 border-r-0 pr-0 lg:border-r lg:border-border lg:pr-12">{children}</div>
+                    <div
+                      className={[
+                        "min-w-0 flex-1 border-r-0 pr-0",
+                        !isHome && "lg:border-r lg:border-border lg:pr-12",
+                      ]
+                        .filter(Boolean)
+                        .join(" ")}
+                    >
+                      {children}
+                    </div>
                     <PageSectionNav />
                   </div>
                 </div>

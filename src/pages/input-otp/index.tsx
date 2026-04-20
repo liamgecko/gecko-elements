@@ -17,9 +17,9 @@ export function InputOtpPage() {
         <PageSection id="basic-example" label="Basic example">
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            A 6-digit OTP input using <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTP</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTPGroup</Code>, and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTPSlot</Code>.
+            A 6-digit OTP input using <Code>InputOTP</Code>,{" "}
+            <Code>InputOTPGroup</Code>, and{" "}
+            <Code>InputOTPSlot</Code>.
           </p>
           <ComponentExample>
             <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
@@ -38,7 +38,7 @@ export function InputOtpPage() {
         <PageSection id="separator" label="Separator">
           <h2 className="text-lg font-semibold">Separator</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTPSeparator</Code> between slots to visually group digits (e.g. 3-3).
+            Use <Code>InputOTPSeparator</Code> between slots to visually group digits (e.g. 3-3).
           </p>
           <ComponentExample>
             <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
@@ -58,9 +58,9 @@ export function InputOtpPage() {
         <PageSection id="alphanumeric" label="Alphanumeric">
           <h2 className="text-lg font-semibold">Alphanumeric</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">pattern</Code> prop with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">REGEXP_ONLY_DIGITS_AND_CHARS</Code> from{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">input-otp</Code> to allow letters and numbers.
+            Use the <Code>pattern</Code> prop with{" "}
+            <Code>REGEXP_ONLY_DIGITS_AND_CHARS</Code> from{" "}
+            <Code>input-otp</Code> to allow letters and numbers.
           </p>
           <ComponentExample>
             <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
@@ -79,7 +79,7 @@ export function InputOtpPage() {
         <PageSection id="custom" label="Custom">
           <h2 className="text-lg font-semibold">Custom</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Control how many inputs make up the OTP by setting <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">maxLength</Code> and rendering the same number of <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">InputOTPSlot</Code> components (each with <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">index</Code> 0 to maxLength − 1).
+            Control how many inputs make up the OTP by setting <Code>maxLength</Code> and rendering the same number of <Code>InputOTPSlot</Code> components (each with <Code>index</Code> 0 to maxLength − 1).
           </p>
           <ComponentExample>
             <InputOTP maxLength={4} pattern={REGEXP_ONLY_DIGITS}>
@@ -88,6 +88,54 @@ export function InputOtpPage() {
                 <InputOTPSlot index={1} />
                 <InputOTPSlot index={2} />
                 <InputOTPSlot index={3} />
+              </InputOTPGroup>
+            </InputOTP>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="states" label="States">
+          <h2 className="text-lg font-semibold">States</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Use <Code>disabled</Code> on{" "}
+            <Code>InputOTP</Code> to lock the field. For
+            validation styling, set <Code>aria-invalid</Code>{" "}
+            on each <Code>InputOTPSlot</Code> (and on{" "}
+            <Code>InputOTP</Code> so the hidden control matches
+            your form state).
+          </p>
+
+          <h3 id="states-disabled" className="mb-3 text-base font-semibold">
+            Disabled
+          </h3>
+          <ComponentExample className="mb-6">
+            <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS} disabled aria-label="One-time code (disabled)">
+              <InputOTPGroup>
+                <InputOTPSlot index={0} />
+                <InputOTPSlot index={1} />
+                <InputOTPSlot index={2} />
+                <InputOTPSlot index={3} />
+                <InputOTPSlot index={4} />
+                <InputOTPSlot index={5} />
+              </InputOTPGroup>
+            </InputOTP>
+          </ComponentExample>
+
+          <h3 id="states-error" className="mb-3 text-base font-semibold">
+            Error
+          </h3>
+          <ComponentExample>
+            <InputOTP
+              maxLength={6}
+              pattern={REGEXP_ONLY_DIGITS}
+              aria-label="One-time code (invalid)"
+            >
+              <InputOTPGroup>
+                <InputOTPSlot index={0} aria-invalid />
+                <InputOTPSlot index={1} aria-invalid />
+                <InputOTPSlot index={2} aria-invalid />
+                <InputOTPSlot index={3} aria-invalid />
+                <InputOTPSlot index={4} aria-invalid />
+                <InputOTPSlot index={5} aria-invalid />
               </InputOTPGroup>
             </InputOTP>
           </ComponentExample>

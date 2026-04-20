@@ -26,12 +26,12 @@ export function PopoverPage() {
         <PageSection id="basic-example" label="Basic example">
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverTrigger</Code> with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">render</Code> for a custom trigger and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverContent</Code> with{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverHeader</Code>,{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverTitle</Code>, and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverDescription</Code> for the panel.
+            Use <Code>PopoverTrigger</Code> with{" "}
+            <Code>render</Code> for a custom trigger and{" "}
+            <Code>PopoverContent</Code> with{" "}
+            <Code>PopoverHeader</Code>,{" "}
+            <Code>PopoverTitle</Code>, and{" "}
+            <Code>PopoverDescription</Code> for the panel.
           </p>
           <ComponentExample>
             <Popover>
@@ -53,9 +53,9 @@ export function PopoverPage() {
           <h2 className="text-lg font-semibold">Variants</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Compose popovers by adding{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverHeader</Code> and{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverFooter</Code> inside{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverContent</Code>.
+            <Code>PopoverHeader</Code> and{" "}
+            <Code>PopoverFooter</Code> inside{" "}
+            <Code>PopoverContent</Code>.
           </p>
 
           <h3 id="variants-with-header" className="mb-3 text-base font-semibold">With header</h3>
@@ -138,8 +138,8 @@ export function PopoverPage() {
         <PageSection id="alignment" label="Alignment">
           <h2 className="text-lg font-semibold">Alignment</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">align</Code> prop on{" "}
-            <Code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">PopoverContent</Code> to align the
+            Use the <Code>align</Code> prop on{" "}
+            <Code>PopoverContent</Code> to align the
             popover to the start, center, or end of the trigger.
           </p>
           <ComponentExample className="flex flex-wrap gap-4">
