@@ -46,21 +46,24 @@ function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
-const fieldVariants = cva("data-[invalid=true]:text-destructive gap-1 group/field flex w-full", {
-  variants: {
-    orientation: {
-      vertical:
-        "flex-col *:w-full [&>.sr-only]:w-auto",
-      horizontal:
-        "flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
-      responsive:
-        "flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
+const fieldVariants = cva(
+  "data-[invalid=true]:text-destructive gap-1 has-[>[data-slot=checkbox]]:gap-2 has-[>[data-slot=radio-group-item]]:gap-2 group/field flex w-full",
+  {
+    variants: {
+      orientation: {
+        vertical:
+          "flex-col *:w-full [&>.sr-only]:w-auto",
+        horizontal:
+          "flex-row items-center has-[>[data-slot=field-content]]:items-start *:data-[slot=field-label]:flex-auto",
+        responsive:
+          "flex-col *:w-full @md/field-group:flex-row @md/field-group:items-center @md/field-group:*:w-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:*:data-[slot=field-label]:flex-auto [&>.sr-only]:w-auto",
+      },
     },
-  },
-  defaultVariants: {
-    orientation: "vertical",
-  },
-})
+    defaultVariants: {
+      orientation: "vertical",
+    },
+  }
+)
 
 function Field({
   className,
@@ -84,6 +87,12 @@ function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="field-content"
       className={cn(
         "gap-0.5 group/field-content flex flex-1 flex-col leading-snug",
+        "has-data-[slot=field-error]:has-data-[slot=checkbox]:gap-1.5",
+        "has-data-[slot=field-error]:has-data-[slot=radio-group-item]:gap-1.5",
+        "has-data-[slot=field-error]:has-data-[slot=switch]:gap-1.5",
+        "has-data-[slot=switch]:has-data-[slot=field-label]:flex-row has-data-[slot=switch]:has-data-[slot=field-label]:flex-wrap",
+        "has-data-[slot=switch]:has-data-[slot=field-label]:items-center has-data-[slot=switch]:has-data-[slot=field-label]:gap-x-1 has-data-[slot=switch]:has-data-[slot=field-label]:gap-y-1.5",
+        "has-data-[slot=switch]:has-data-[slot=field-error]:*:data-[slot=field-error]:w-full has-data-[slot=switch]:has-data-[slot=field-error]:*:data-[slot=field-error]:basis-full",
         className
       )}
       {...props}
@@ -99,7 +108,7 @@ function FieldLabel({
     <Label
       data-slot="field-label"
       className={cn(
-        "has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-1 group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-lg has-[>[data-slot=field]]:border *:data-[slot=field]:p-2.5 group/field-label peer/field-label flex w-fit leading-snug",
+        "has-data-checked:bg-primary/5 has-data-checked:border-primary/30 dark:has-data-checked:border-primary/20 dark:has-data-checked:bg-primary/10 gap-1 group-data-[disabled=true]/field:opacity-75 has-[>[data-slot=field]]:rounded-lg has-[>[data-slot=field]]:border *:data-[slot=field]:p-2.5 group/field-label peer/field-label flex w-fit leading-snug",
         "has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col",
         className
       )}
@@ -113,7 +122,7 @@ function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="field-label"
       className={cn(
-        "gap-1 text-sm font-medium group-data-[disabled=true]/field:opacity-50 flex w-fit items-center leading-snug",
+        "gap-1 text-sm font-medium group-data-[disabled=true]/field:opacity-75 flex w-fit items-center leading-snug",
         className
       )}
       {...props}

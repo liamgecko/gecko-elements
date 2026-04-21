@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react"
 
 import { ComponentExample } from "@/components/layout/component-example"
@@ -57,14 +59,29 @@ export function DropZonePage() {
         <PageSection id="states" label="States">
           <h2 className="text-lg font-semibold">States</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Disabled state blocks both drag-and-drop and manual selection.
+            Use <Code>disabled</Code> to block interaction. With{" "}
+            <Code>aria-invalid</Code>, the drop area shows built-in error copy
+            in <Code>text-destructive</Code>; override with{" "}
+            <Code>invalidLabel</Code> and <Code>invalidDescription</Code> if
+            needed.
           </p>
 
           <h3 id="states-disabled" className="mb-3 text-base font-semibold">
             Disabled
           </h3>
-          <ComponentExample>
+          <ComponentExample className="mb-6">
             <DropZone disabled />
+          </ComponentExample>
+
+          <h3 id="states-error" className="mb-3 text-base font-semibold">
+            Error
+          </h3>
+          <ComponentExample>
+            <DropZone
+              id="drop-zone-states-error"
+              name="drop-zone-states-error"
+              aria-invalid
+            />
           </ComponentExample>
         </PageSection>
     </div>

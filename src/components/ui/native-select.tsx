@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 import { ChevronDownIcon } from "lucide-react"
 
 const nativeSelectVariants = cva(
-  "border-input hover:border-input-hover placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-input-destructive/20 aria-invalid:border-input-destructive w-full min-w-0 appearance-none rounded-sm border bg-transparent py-1 pe-8 transition-[color] select-none focus-visible:ring-3 aria-invalid:ring-3 outline-none disabled:pointer-events-none disabled:cursor-not-allowed cursor-pointer",
+  "border-input hover:border-input-hover placeholder:text-muted-foreground aria-invalid:placeholder:text-destructive selection:bg-primary selection:text-primary-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:focus-visible:ring-input-destructive/20 dark:aria-invalid:focus-visible:ring-input-destructive/40 aria-invalid:border-input-destructive w-full min-w-0 appearance-none rounded-sm border bg-transparent py-1 pe-8 transition-[color] select-none focus-visible:ring-3 aria-invalid:focus-visible:ring-3 outline-none disabled:pointer-events-none disabled:cursor-not-allowed cursor-pointer",
   {
     variants: {
       size: {
@@ -31,7 +31,7 @@ function NativeSelect({
   return (
     <div
       className={cn(
-        "group/native-select relative w-fit has-[select:disabled]:opacity-50",
+        "group/native-select relative w-fit has-[select:disabled]:opacity-75",
         className
       )}
       data-slot="native-select-wrapper"

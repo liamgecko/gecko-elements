@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldSet,
@@ -53,12 +54,32 @@ export function TextareaPage() {
  
           <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
-            <Textarea placeholder="Disabled textarea" disabled />
+            <Field data-disabled>
+              <FieldLabel htmlFor="textarea-states-disabled">Message</FieldLabel>
+              <Textarea
+                id="textarea-states-disabled"
+                name="textarea-states-disabled"
+                placeholder="Disabled textarea"
+                disabled
+              />
+            </Field>
           </ComponentExample>
  
           <h3 id="states-invalid" className="mb-3 text-base font-semibold">Invalid</h3>
           <ComponentExample>
-            <Textarea placeholder="Invalid textarea" aria-invalid />
+            <Field data-invalid>
+              <FieldLabel htmlFor="textarea-states-invalid">Message</FieldLabel>
+              <Textarea
+                id="textarea-states-invalid"
+                name="textarea-states-invalid"
+                placeholder="Invalid textarea"
+                aria-invalid
+                aria-describedby="textarea-states-invalid-error"
+              />
+              <FieldError id="textarea-states-invalid-error">
+                This message does not meet the requirements. Please revise and try again.
+              </FieldError>
+            </Field>
           </ComponentExample>
         </PageSection>
 

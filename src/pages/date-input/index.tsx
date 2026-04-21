@@ -2,7 +2,7 @@ import * as React from "react"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { DateInput } from "@/components/ui/date-input"
-import { Field, FieldLabel } from "@/components/ui/field"
+import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 import { Code } from "@/components/ui/code"
 
 export function DateInputPage() {
@@ -88,14 +88,32 @@ export function DateInputPage() {
             Disabled
           </h3>
           <ComponentExample className="mb-6">
-            <DateInput disabled aria-label="Date (disabled)" />
+            <Field data-disabled>
+              <FieldLabel htmlFor="date-input-states-disabled">Date</FieldLabel>
+              <DateInput
+                id="date-input-states-disabled"
+                disabled
+                aria-label="Date (disabled)"
+              />
+            </Field>
           </ComponentExample>
 
           <h3 id="states-error" className="mb-3 text-base font-semibold">
             Error
           </h3>
           <ComponentExample>
-            <DateInput aria-invalid aria-label="Date (invalid)" />
+            <Field data-invalid>
+              <FieldLabel htmlFor="date-input-states-error">Date</FieldLabel>
+              <DateInput
+                id="date-input-states-error"
+                aria-invalid
+                aria-label="Date (invalid)"
+                aria-describedby="date-input-states-error-msg"
+              />
+              <FieldError id="date-input-states-error-msg">
+                Enter a complete valid date using the day, month, and year fields.
+              </FieldError>
+            </Field>
           </ComponentExample>
         </PageSection>
     </div>

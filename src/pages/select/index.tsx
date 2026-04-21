@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Code } from "@/components/ui/code"
+import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 
 const items = [
   { label: "Apple", value: "apple" },
@@ -109,41 +110,51 @@ export function SelectPage() {
 
           <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
-            <Select defaultValue="apple" disabled>
-              <SelectTrigger className="w-full max-w-64" disabled>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {items.map((item) => (
-                    <SelectItem key={item.value} value={item.value}>
-                      {item.label}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <Field data-disabled>
+              <FieldLabel htmlFor="select-states-disabled">Fruit</FieldLabel>
+              <Select defaultValue="apple" disabled>
+                <SelectTrigger id="select-states-disabled" disabled>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {items.map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </Field>
           </ComponentExample>
 
           <h3 id="states-error" className="mb-3 text-base font-semibold">Error</h3>
           <ComponentExample>
-            <Select>
-              <SelectTrigger
-                className="w-full max-w-64"
-                aria-invalid="true"
-              >
-                <SelectValue placeholder="Select a fruit" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {items.map((item) => (
-                    <SelectItem key={item.value} value={item.value}>
-                      {item.label}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <Field data-invalid>
+              <FieldLabel htmlFor="select-states-error">Fruit</FieldLabel>
+              <Select>
+                <SelectTrigger
+                  id="select-states-error"
+                  aria-invalid="true"
+                  aria-describedby="select-states-error-msg"
+                >
+                  <SelectValue placeholder="Select a fruit" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {items.map((item) => (
+                      <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              <FieldError id="select-states-error-msg">
+                Please select a valid fruit to continue.
+              </FieldError>
+            </Field>
           </ComponentExample>
         </PageSection>
 

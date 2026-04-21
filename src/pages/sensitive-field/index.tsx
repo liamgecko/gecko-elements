@@ -4,6 +4,7 @@ import { SensitiveField } from "@/components/ui/sensitive-field"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { Code } from "@/components/ui/code"
+import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 
 export function SensitiveFieldPage() {
 
@@ -101,14 +102,34 @@ export function SensitiveFieldPage() {
             Disabled
           </h3>
           <ComponentExample className="mb-6">
-            <SensitiveField defaultValue="secret" disabled />
+            <Field data-disabled>
+              <FieldLabel htmlFor="sensitive-field-states-disabled">API key</FieldLabel>
+              <SensitiveField
+                id="sensitive-field-states-disabled"
+                name="sensitive-field-states-disabled"
+                defaultValue="secret"
+                disabled
+              />
+            </Field>
           </ComponentExample>
 
           <h3 id="states-error" className="mb-3 text-base font-semibold">
             Error
           </h3>
           <ComponentExample>
-            <SensitiveField defaultValue="secret" aria-invalid />
+            <Field data-invalid>
+              <FieldLabel htmlFor="sensitive-field-states-error">API key</FieldLabel>
+              <SensitiveField
+                id="sensitive-field-states-error"
+                name="sensitive-field-states-error"
+                defaultValue="secret"
+                aria-invalid
+                aria-describedby="sensitive-field-states-error-msg"
+              />
+              <FieldError id="sensitive-field-states-error-msg">
+                This API key format is not valid. Check the value and try again.
+              </FieldError>
+            </Field>
           </ComponentExample>
         </PageSection>
     </div>

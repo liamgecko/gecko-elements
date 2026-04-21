@@ -2,7 +2,7 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { Code } from "@/components/ui/code"
 import { Button } from "@/components/ui/button"
-import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field"
+import { Field, FieldError, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import {
   InputGroup,
@@ -52,12 +52,34 @@ export function InputPage() {
 
           <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
-            <Input type="text" placeholder="Disabled input" disabled />
+            <Field data-disabled>
+              <FieldLabel htmlFor="input-states-disabled">Label</FieldLabel>
+              <Input
+                id="input-states-disabled"
+                name="input-states-disabled"
+                type="text"
+                placeholder="Disabled input"
+                disabled
+              />
+            </Field>
           </ComponentExample>
 
-          <h3 id="states-invalid" className="mb-3 text-base font-semibold">Invalid</h3>
+          <h3 id="states-error" className="mb-3 text-base font-semibold">Error</h3>
           <ComponentExample>
-            <Input type="text" placeholder="Invalid input" aria-invalid />
+            <Field data-invalid>
+              <FieldLabel htmlFor="input-states-invalid">Label</FieldLabel>
+              <Input
+                id="input-states-invalid"
+                name="input-states-invalid"
+                type="text"
+                placeholder="Invalid input"
+                aria-invalid
+                aria-describedby="input-states-invalid-error"
+              />
+              <FieldError id="input-states-invalid-error">
+                This value is not valid. Try again with a different entry.
+              </FieldError>
+            </Field>
           </ComponentExample>
         </PageSection>
 

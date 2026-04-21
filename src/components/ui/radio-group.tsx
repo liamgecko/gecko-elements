@@ -4,12 +4,13 @@ import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group"
 import { cva } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+import { Label } from "@/components/ui/label"
 
 const defaultRadioItemStyles =
-  "border-input bg-background data-checked:bg-primary data-checked:text-primary-foreground data-checked:border-primary aria-invalid:aria-checked:border-input-destructive aria-invalid:aria-checked:bg-input-destructive aria-invalid:border-input-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-input-destructive/20 flex size-4 rounded-full focus-visible:ring-3 aria-invalid:ring-3 group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50 -mt-[1px] cursor-pointer"
+  "border-input bg-background data-checked:bg-primary data-checked:text-primary-foreground data-checked:border-primary aria-invalid:aria-checked:border-input-destructive aria-invalid:aria-checked:bg-input-destructive aria-invalid:border-input-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:focus-visible:ring-input-destructive/20 dark:aria-invalid:focus-visible:ring-input-destructive/40 flex size-4 rounded-full focus-visible:ring-3 aria-invalid:focus-visible:ring-3 group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-75 -mt-px cursor-pointer"
 
 const asButtonRadioItemVariants = cva(
-  "border-border bg-background rounded-md border text-sm cursor-pointer p-3 transition-all focus-visible:ring-3 focus-visible:border-ring focus-visible:ring-ring/50 outline-none disabled:cursor-not-allowed disabled:opacity-50 hover:bg-muted hover:border-gray-300 dark:hover:border-gray-700 hover:text-foreground data-checked:border-gray-300 dark:data-checked:border-gray-700 data-checked:bg-muted data-checked:text-foreground",
+  "border-border bg-background rounded-md border text-sm cursor-pointer p-3 transition-all focus-visible:ring-3 focus-visible:border-ring focus-visible:ring-ring/50 outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-75 data-disabled:cursor-not-allowed data-disabled:pointer-events-none data-disabled:opacity-75 hover:bg-muted hover:border-gray-300 dark:hover:border-gray-700 hover:text-foreground disabled:hover:bg-background disabled:hover:border-border disabled:hover:text-foreground data-disabled:hover:bg-background data-disabled:hover:border-border data-disabled:hover:text-foreground data-checked:border-gray-300 dark:data-checked:border-gray-700 data-checked:bg-muted data-checked:text-foreground disabled:data-checked:hover:bg-muted disabled:data-checked:hover:border-gray-300 dark:disabled:data-checked:hover:border-gray-700 disabled:data-checked:hover:text-foreground data-disabled:data-checked:hover:bg-muted data-disabled:data-checked:hover:border-gray-300 dark:data-disabled:data-checked:hover:border-gray-700 data-disabled:data-checked:hover:text-foreground aria-invalid:border-input-destructive aria-invalid:hover:border-input-destructive aria-invalid:hover:text-destructive aria-invalid:hover:bg-destructive-muted aria-invalid:focus-visible:border-input-destructive focus-visible:aria-invalid:ring-input-destructive/20 dark:focus-visible:aria-invalid:ring-input-destructive/40 aria-invalid:data-checked:border-input-destructive dark:aria-invalid:data-checked:border-input-destructive aria-invalid:data-checked:bg-destructive-muted aria-invalid:data-checked:text-destructive-muted-foreground",
   {
     variants: {
       layout: {
@@ -32,6 +33,8 @@ type RadioGroupItemProps = RadioPrimitive.Root.Props & {
 type RadioGroupProps = RadioGroupPrimitive.Props & {
   label?: React.ReactNode
   description?: React.ReactNode
+  /** Lay out options in a row (wraps on narrow widths). */
+  horizontal?: boolean
 }
 
 function RadioGroup({
@@ -39,6 +42,7 @@ function RadioGroup({
   label,
   description,
   children,
+  horizontal = false,
   ...props
 }: RadioGroupProps) {
   const hasAsButton = React.Children.toArray(children).some(
@@ -46,7 +50,8 @@ function RadioGroup({
       React.isValidElement(child) &&
       (child.props as { asButton?: boolean }).asButton === true
   )
-  const content = hasAsButton ? (
+  const effectiveHorizontal = horizontal || hasAsButton
+  const content = effectiveHorizontal ? (
     <div className="flex flex-wrap gap-2">{children}</div>
   ) : (
     children
@@ -55,7 +60,7 @@ function RadioGroup({
   return (
     <fieldset className="flex flex-col gap-3 border-0 p-0 m-0 min-w-0">
       {label != null && (
-        <legend className="mb-3 text-sm font-medium leading-none">
+        <legend className="mb-2 text-sm font-medium leading-none">
           {label}
         </legend>
       )}
@@ -66,7 +71,11 @@ function RadioGroup({
       )}
       <RadioGroupPrimitive
         data-slot="radio-group"
-        className={cn("grid gap-3 w-full", className)}
+        data-orientation={effectiveHorizontal ? "horizontal" : "vertical"}
+        className={cn(
+          effectiveHorizontal ? "flex flex-row flex-wrap gap-2" : "grid gap-3 w-full",
+          className
+        )}
         {...props}
       >
         {content}
@@ -141,7 +150,7 @@ function RadioGroupItem({
         data-slot="radio-group-indicator"
         className="flex size-4 items-center justify-center"
       >
-        <span className="bg-primary-foreground absolute top-1/2 start-1/2 size-2 -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 rounded-full" />
+        <span className="bg-primary-foreground absolute top-1/2 inset-s-1/2 size-2 -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 rounded-full" />
       </RadioPrimitive.Indicator>
     </RadioPrimitive.Root>
   )
@@ -151,16 +160,19 @@ function RadioGroupItem({
   }
 
   return (
-    <div className="flex items-start gap-2">
+    <div
+      data-disabled={props.disabled ? "true" : undefined}
+      className="group/radio-group-item-row flex items-start gap-2 data-[disabled=true]:pointer-events-none data-[disabled=true]:cursor-not-allowed"
+    >
       {control}
       <div className="flex flex-col gap-0.5 leading-snug">
         {label != null && (
-          <label
+          <Label
             htmlFor={inputId}
-            className="text-sm font-medium leading-none cursor-pointer select-none"
+            className="cursor-pointer select-none group-data-[disabled=true]/radio-group-item-row:cursor-not-allowed group-data-[disabled=true]/radio-group-item-row:opacity-75"
           >
             {label}
-          </label>
+          </Label>
         )}
         {description != null && (
           <p className="text-muted-foreground text-xs leading-normal">

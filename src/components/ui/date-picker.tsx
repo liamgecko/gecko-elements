@@ -97,6 +97,8 @@ type DatePickerSharedProps = {
   inputClassName?: string
   /** Validation styling on date/text inputs (`trigger="input"` and `variant="natural"`). */
   "aria-invalid"?: boolean | "true" | "false"
+  /** Linked to a visible error message (e.g. `FieldError` with a matching `id`). */
+  "aria-describedby"?: string
 }
 
 type DatePickerSingleDefaultProps = DatePickerSharedProps & {
@@ -286,6 +288,8 @@ function DatePicker(props: DatePickerProps) {
     buttonStartIcon,
     buttonEndIcon,
   } = props
+
+  const ariaDescribedBy = (props as DatePickerSharedProps)["aria-describedby"]
 
   const mode: DatePickerMode = props.mode ?? "single"
   const variant = props.variant ?? "default"
@@ -577,6 +581,7 @@ function DatePicker(props: DatePickerProps) {
                 }}
                 disabled={disabled}
                 aria-invalid={timeProps["aria-invalid"]}
+                aria-describedby={ariaDescribedBy}
                 aria-label={ariaLabel}
                 className={cn(
                   "min-w-0 flex-1 [color-scheme:inherit]",
@@ -612,6 +617,7 @@ function DatePicker(props: DatePickerProps) {
                   variant="outline"
                   id={dateId}
                   aria-label={ariaLabel}
+                  aria-describedby={ariaDescribedBy}
                   data-slot="date-picker-trigger"
                   className={cn(
                     "w-full min-w-0 justify-start gap-2 font-normal",
@@ -658,6 +664,7 @@ function DatePicker(props: DatePickerProps) {
             disabled={disabled}
             value={singleValue ? formatTimeHmForInput(singleValue) : ""}
             onChange={onTimeInputChange}
+            aria-describedby={ariaDescribedBy}
             className={cn(
               "w-full tabular-nums",
               NATIVE_DATE_OR_TIME_INPUT_CLASSES
@@ -701,6 +708,7 @@ function DatePicker(props: DatePickerProps) {
               }}
               disabled={disabled}
               aria-invalid={seg["aria-invalid"]}
+              aria-describedby={ariaDescribedBy}
               aria-label={ariaLabel}
               className={cn(
                 "min-w-0 flex-1 [color-scheme:inherit]",
@@ -750,6 +758,7 @@ function DatePicker(props: DatePickerProps) {
               disabled={disabled}
               aria-label={ariaLabel}
               aria-invalid={textProps["aria-invalid"]}
+              aria-describedby={ariaDescribedBy}
               onChange={(e) => {
                 const raw = e.target.value
                 textProps.onTextChange(raw)
@@ -802,6 +811,7 @@ function DatePicker(props: DatePickerProps) {
             variant="outline"
             id={id}
             aria-label={ariaLabel}
+            aria-describedby={ariaDescribedBy}
             data-slot="date-picker"
             className={cn(
               datePickerTriggerVariants({

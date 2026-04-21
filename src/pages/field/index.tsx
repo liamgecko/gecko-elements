@@ -70,13 +70,74 @@ export function FieldPage() {
           </ComponentExample>
         </PageSection>
 
+        <PageSection id="states" label="States">
+          <h2 className="text-lg font-semibold">States</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Set <Code>data-disabled</Code> on <Code>Field</Code> together with{" "}
+            <Code>disabled</Code> on the control. For errors, set{" "}
+            <Code>data-invalid</Code> on <Code>Field</Code>,{" "}
+            <Code>aria-invalid</Code> on the control, and wire{" "}
+            <Code>FieldError</Code> with <Code>aria-describedby</Code>.
+          </p>
+
+          <h3 id="states-disabled" className="mb-3 text-base font-semibold">
+            Disabled
+          </h3>
+          <ComponentExample className="mb-6">
+            <FieldSet>
+              <FieldGroup>
+                <Field data-disabled>
+                  <FieldLabel htmlFor="field-states-disabled">
+                    Company name
+                  </FieldLabel>
+                  <Input
+                    id="field-states-disabled"
+                    name="field-states-disabled"
+                    type="text"
+                    placeholder="Acme Inc."
+                    disabled
+                  />
+                </Field>
+              </FieldGroup>
+            </FieldSet>
+          </ComponentExample>
+
+          <h3 id="states-error" className="mb-3 text-base font-semibold">
+            Error
+          </h3>
+          <ComponentExample>
+            <FieldSet>
+              <FieldGroup>
+                <Field data-invalid>
+                  <FieldLabel htmlFor="field-states-error">Tax ID</FieldLabel>
+                  <Input
+                    id="field-states-error"
+                    name="field-states-error"
+                    type="text"
+                    placeholder="00-0000000"
+                    aria-invalid
+                    aria-describedby="field-states-error-msg"
+                  />
+                  <FieldError id="field-states-error-msg">
+                    Enter a valid tax ID format.
+                  </FieldError>
+                </Field>
+              </FieldGroup>
+            </FieldSet>
+          </ComponentExample>
+        </PageSection>
+
         <PageSection id="validation" label="Validation">
           <h2 className="text-lg font-semibold">Validation</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             Use{" "}
             <Code>FieldError</Code>{" "}
             below a field to show validation messages. It renders with destructive styling and{" "}
-            <Code>role=&quot;alert&quot;</Code> for accessibility.
+            <Code>role=&quot;alert&quot;</Code> for accessibility. Also set{" "}
+            <Code>aria-invalid</Code> and <Code>aria-describedby</Code> on the control:{" "}
+            <Code>Input</Code> uses those for destructive placeholder and value text, while{" "}
+            <Code>Field</Code> <Code>data-invalid</Code> mainly affects group-level styling
+            (such as the label).
           </p>
           <ComponentExample>
             <form
@@ -89,16 +150,40 @@ export function FieldPage() {
                 <FieldGroup>
                   <Field data-invalid={showValidationErrors || undefined}>
                     <FieldLabel htmlFor="validation-email">Email</FieldLabel>
-                    <Input id="validation-email" type="email" placeholder="you@example.com" />
+                    <Input
+                      id="validation-email"
+                      type="email"
+                      placeholder="you@example.com"
+                      aria-invalid={showValidationErrors}
+                      aria-describedby={
+                        showValidationErrors
+                          ? "validation-email-error"
+                          : undefined
+                      }
+                    />
                     {showValidationErrors && (
-                      <FieldError>Please enter a valid email address.</FieldError>
+                      <FieldError id="validation-email-error">
+                        Please enter a valid email address.
+                      </FieldError>
                     )}
                   </Field>
                   <Field data-invalid={showValidationErrors || undefined}>
                     <FieldLabel htmlFor="validation-password">Password</FieldLabel>
-                    <Input id="validation-password" type="password" placeholder="••••••••" />
+                    <Input
+                      id="validation-password"
+                      type="password"
+                      placeholder="••••••••"
+                      aria-invalid={showValidationErrors}
+                      aria-describedby={
+                        showValidationErrors
+                          ? "validation-password-error"
+                          : undefined
+                      }
+                    />
                     {showValidationErrors && (
-                      <FieldError>Password must be at least 8 characters.</FieldError>
+                      <FieldError id="validation-password-error">
+                        Password must be at least 8 characters.
+                      </FieldError>
                     )}
                   </Field>
                   <div className="flex w-fit">

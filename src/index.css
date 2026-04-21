@@ -20,11 +20,12 @@
 
     /* Primary colors */
     --primary: oklch(21% 0.034 264.665); /* gray-900 */
-    --primary-foreground: oklch(98.5% 0.002 247.839); /* gray-50 */
+    --primary-foreground: oklch(1 0 0); /* white */
 
     /* Secondary colors */
     --secondary: oklch(96.7% 0.003 264.542); /* gray-100 */
     --secondary-foreground: oklch(21% 0.034 264.665); /* gray-900 */
+    --secondary-border: oklch(70.7% 0.022 261.325); /* gray-100 */
 
     /* Muted colors */
     --muted: oklch(96.7% 0.003 264.542); /* gray-100 */

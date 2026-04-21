@@ -7,7 +7,7 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { Code } from "@/components/ui/code"
 import { DatePicker } from "@/components/ui/date-picker"
-import { Field, FieldLabel } from "@/components/ui/field"
+import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 
 function formatLongDate(date: Date | undefined) {
   if (!date) return ""
@@ -184,22 +184,34 @@ export function DatePickerPage() {
           Disabled
         </h3>
         <ComponentExample className="mb-6">
-          <DatePicker
-            disabled
-            className="w-48"
-            aria-label="Date (disabled)"
-          />
+          <Field data-disabled>
+            <FieldLabel htmlFor="date-picker-states-disabled">Date</FieldLabel>
+            <DatePicker
+              id="date-picker-states-disabled"
+              disabled
+              aria-label="Date (disabled)"
+              className="w-full max-w-48"
+            />
+          </Field>
         </ComponentExample>
 
         <h3 id="states-error" className="mb-3 text-base font-semibold">
           Error
         </h3>
         <ComponentExample>
-          <DatePicker
-            className="w-48"
-            aria-invalid
-            aria-label="Date (invalid)"
-          />
+          <Field data-invalid>
+            <FieldLabel htmlFor="date-picker-states-error">Date</FieldLabel>
+            <DatePicker
+              id="date-picker-states-error"
+              aria-invalid
+              aria-label="Date (invalid)"
+              className="w-full max-w-48"
+              aria-describedby="date-picker-states-error-msg"
+            />
+            <FieldError id="date-picker-states-error-msg">
+              Choose a valid date using the calendar or type a correct value.
+            </FieldError>
+          </Field>
         </ComponentExample>
       </PageSection>
     </div>

@@ -5,6 +5,7 @@ import { SearchField } from "@/components/ui/search-field"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { Code } from "@/components/ui/code"
+import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 
 export function SearchInputPage() {
   const [value, setValue] = useState("")
@@ -118,14 +119,34 @@ export function SearchInputPage() {
             Disabled
           </h3>
           <ComponentExample className="mb-6">
-            <SearchField placeholder="Search…" disabled />
+            <Field data-disabled>
+              <FieldLabel htmlFor="search-field-states-disabled">Search</FieldLabel>
+              <SearchField
+                id="search-field-states-disabled"
+                name="search-field-states-disabled"
+                placeholder="Search…"
+                disabled
+              />
+            </Field>
           </ComponentExample>
 
           <h3 id="states-error" className="mb-3 text-base font-semibold">
             Error
           </h3>
           <ComponentExample>
-            <SearchField placeholder="Search…" aria-invalid />
+            <Field data-invalid>
+              <FieldLabel htmlFor="search-field-states-error">Search</FieldLabel>
+              <SearchField
+                id="search-field-states-error"
+                name="search-field-states-error"
+                placeholder="Search…"
+                aria-invalid
+                aria-describedby="search-field-states-error-msg"
+              />
+              <FieldError id="search-field-states-error-msg">
+                Your search could not be run. Adjust your query and try again.
+              </FieldError>
+            </Field>
           </ComponentExample>
         </PageSection>
     </div>

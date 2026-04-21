@@ -20,6 +20,7 @@ import {
 import { Code } from "@/components/ui/code"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
+import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 
 const frameworks = [
   "Next.js",
@@ -212,38 +213,62 @@ export function ComboboxPage() {
             Disabled
           </h3>
           <ComponentExample className="mb-6">
-            <Combobox items={frameworks}>
-              <ComboboxInput placeholder="Select a framework" disabled />
-              <ComboboxContent>
-                <ComboboxEmpty>No items found.</ComboboxEmpty>
-                <ComboboxList>
-                  {(item) => (
-                    <ComboboxItem key={item} value={item}>
-                      {item}
-                    </ComboboxItem>
-                  )}
-                </ComboboxList>
-              </ComboboxContent>
-            </Combobox>
+            <Field data-disabled>
+              <FieldLabel htmlFor="combobox-states-disabled">
+                Framework
+              </FieldLabel>
+              <Combobox items={frameworks}>
+                <ComboboxInput
+                  id="combobox-states-disabled"
+                  name="combobox-states-disabled"
+                  placeholder="Select a framework"
+                  disabled
+                />
+                <ComboboxContent>
+                  <ComboboxEmpty>No items found.</ComboboxEmpty>
+                  <ComboboxList>
+                    {(item) => (
+                      <ComboboxItem key={item} value={item}>
+                        {item}
+                      </ComboboxItem>
+                    )}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
+            </Field>
           </ComponentExample>
 
           <h3 id="states-error" className="mb-3 text-base font-semibold">
             Error
           </h3>
           <ComponentExample>
-            <Combobox items={frameworks}>
-              <ComboboxInput placeholder="Select a framework" aria-invalid />
-              <ComboboxContent>
-                <ComboboxEmpty>No items found.</ComboboxEmpty>
-                <ComboboxList>
-                  {(item) => (
-                    <ComboboxItem key={item} value={item}>
-                      {item}
-                    </ComboboxItem>
-                  )}
-                </ComboboxList>
-              </ComboboxContent>
-            </Combobox>
+            <Field data-invalid>
+              <FieldLabel htmlFor="combobox-states-error">
+                Framework
+              </FieldLabel>
+              <Combobox items={frameworks}>
+                <ComboboxInput
+                  id="combobox-states-error"
+                  name="combobox-states-error"
+                  placeholder="Select a framework"
+                  aria-invalid
+                  aria-describedby="combobox-states-error-msg"
+                />
+                <ComboboxContent>
+                  <ComboboxEmpty>No items found.</ComboboxEmpty>
+                  <ComboboxList>
+                    {(item) => (
+                      <ComboboxItem key={item} value={item}>
+                        {item}
+                      </ComboboxItem>
+                    )}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
+              <FieldError id="combobox-states-error-msg">
+                Please choose a framework from the list.
+              </FieldError>
+            </Field>
           </ComponentExample>
         </PageSection>
     </div>

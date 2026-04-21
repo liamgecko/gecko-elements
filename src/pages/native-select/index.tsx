@@ -2,7 +2,7 @@ import { ComponentExample } from "@/components/layout/component-example"
 
 import { Code } from "@/components/ui/code"
 import { PageSection } from "@/components/layout/page-section"
-import { Field, FieldLabel } from "@/components/ui/field"
+import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 import {
   NativeSelect,
   NativeSelectOptGroup,
@@ -164,22 +164,36 @@ export function NativeSelectPage() {
 
           <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
-            <NativeSelect disabled>
-              <NativeSelectOption value="">Select a fruit</NativeSelectOption>
-              <NativeSelectOption value="apple">Apple</NativeSelectOption>
-              <NativeSelectOption value="banana">Banana</NativeSelectOption>
-              <NativeSelectOption value="pineapple">Pineapple</NativeSelectOption>
-            </NativeSelect>
+            <Field data-disabled>
+              <FieldLabel htmlFor="native-select-states-disabled">Fruit</FieldLabel>
+              <NativeSelect id="native-select-states-disabled" name="native-select-states-disabled" disabled>
+                <NativeSelectOption value="">Select a fruit</NativeSelectOption>
+                <NativeSelectOption value="apple">Apple</NativeSelectOption>
+                <NativeSelectOption value="banana">Banana</NativeSelectOption>
+                <NativeSelectOption value="pineapple">Pineapple</NativeSelectOption>
+              </NativeSelect>
+            </Field>
           </ComponentExample>
 
           <h3 id="states-invalid" className="mb-3 text-base font-semibold">Invalid</h3>
           <ComponentExample>
-            <NativeSelect aria-invalid>
-              <NativeSelectOption value="">Select a fruit</NativeSelectOption>
-              <NativeSelectOption value="apple">Apple</NativeSelectOption>
-              <NativeSelectOption value="banana">Banana</NativeSelectOption>
-              <NativeSelectOption value="pineapple">Pineapple</NativeSelectOption>
-            </NativeSelect>
+            <Field data-invalid>
+              <FieldLabel htmlFor="native-select-states-invalid">Fruit</FieldLabel>
+              <NativeSelect
+                id="native-select-states-invalid"
+                name="native-select-states-invalid"
+                aria-invalid
+                aria-describedby="native-select-states-invalid-error"
+              >
+                <NativeSelectOption value="">Select a fruit</NativeSelectOption>
+                <NativeSelectOption value="apple">Apple</NativeSelectOption>
+                <NativeSelectOption value="banana">Banana</NativeSelectOption>
+                <NativeSelectOption value="pineapple">Pineapple</NativeSelectOption>
+              </NativeSelect>
+              <FieldError id="native-select-states-invalid-error">
+                Please choose a fruit from the list.
+              </FieldError>
+            </Field>
           </ComponentExample>
         </PageSection>
     </div>

@@ -57,6 +57,36 @@ export function ButtonPage() {
           </ComponentExample>
         </PageSection>
 
+        <PageSection id="disabled" label="Disabled">
+          <h2 className="text-lg font-semibold">Disabled</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Set the <Code>disabled</Code> prop to prevent interaction and show the
+            disabled visual treatment.
+          </p>
+          <ComponentExample>
+            <div className="flex flex-wrap items-center gap-3">
+              <Button variant="default" disabled>
+                Primary
+              </Button>
+              <Button variant="secondary" disabled>
+                Secondary
+              </Button>
+              <Button variant="outline" disabled>
+                Outline
+              </Button>
+              <Button variant="destructive" disabled>
+                Destructive
+              </Button>
+              <Button variant="ghost" disabled>
+                Ghost
+              </Button>
+              <Button variant="link" disabled>
+                Link
+              </Button>
+            </div>
+          </ComponentExample>
+        </PageSection>
+
         <PageSection id="dropdown" label="Dropdown">
           <h2 className="text-lg font-semibold">Dropdown</h2>
           <p className="mb-8 text-sm text-muted-foreground">

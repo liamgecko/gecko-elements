@@ -7,6 +7,7 @@ import {
   Field,
   FieldContent,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldSet,
@@ -106,14 +107,34 @@ export function NumberFieldPage() {
             Disabled
           </h3>
           <ComponentExample className="mb-6">
-            <NumberField defaultValue={10} disabled />
+            <Field data-disabled>
+              <FieldLabel htmlFor="number-field-states-disabled">Amount</FieldLabel>
+              <NumberField
+                id="number-field-states-disabled"
+                name="number-field-states-disabled"
+                defaultValue={10}
+                disabled
+              />
+            </Field>
           </ComponentExample>
 
           <h3 id="states-error" className="mb-3 text-base font-semibold">
             Error
           </h3>
           <ComponentExample>
-            <NumberField defaultValue={10} aria-invalid />
+            <Field data-invalid>
+              <FieldLabel htmlFor="number-field-states-error">Amount</FieldLabel>
+              <NumberField
+                id="number-field-states-error"
+                name="number-field-states-error"
+                defaultValue={10}
+                aria-invalid
+                aria-describedby="number-field-states-error-msg"
+              />
+              <FieldError id="number-field-states-error-msg">
+                Enter a valid amount within the allowed range.
+              </FieldError>
+            </Field>
           </ComponentExample>
         </PageSection>
 

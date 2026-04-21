@@ -2,6 +2,7 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { Code } from "@/components/ui/code"
 import { ColorPicker } from "@/components/ui/color-picker"
+import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 
 export function ColorPickerPage() {
   return (
@@ -83,14 +84,38 @@ export function ColorPickerPage() {
             Disabled
           </h3>
           <ComponentExample className="mb-6">
-            <ColorPicker defaultValue="#6366F1" disabled />
+            <Field data-disabled>
+              <FieldLabel htmlFor="color-picker-states-disabled">
+                Accent color
+              </FieldLabel>
+              <ColorPicker
+                id="color-picker-states-disabled"
+                name="color-picker-states-disabled"
+                defaultValue="#6366F1"
+                disabled
+              />
+            </Field>
           </ComponentExample>
 
           <h3 id="states-error" className="mb-3 text-base font-semibold">
             Error
           </h3>
           <ComponentExample>
-            <ColorPicker defaultValue="#GGGGGG" aria-invalid />
+            <Field data-invalid>
+              <FieldLabel htmlFor="color-picker-states-error">
+                Accent color
+              </FieldLabel>
+              <ColorPicker
+                id="color-picker-states-error"
+                name="color-picker-states-error"
+                defaultValue="#GGGGGG"
+                aria-invalid
+                aria-describedby="color-picker-states-error-msg"
+              />
+              <FieldError id="color-picker-states-error-msg">
+                Use a valid six-character HEX color (for example #6366F1).
+              </FieldError>
+            </Field>
           </ComponentExample>
         </PageSection>
     </div>

@@ -242,7 +242,7 @@ function SortableNestedSectionRow({
         >
           <GripVertical className="size-4 shrink-0" aria-hidden />
         </Button>
-        <span className="min-w-0 flex-1 text-sm font-semibold text-foreground">
+        <span className="min-w-0 flex-1 text-sm font-medium text-foreground">
           {section.title}
         </span>
         {rowActions ? (

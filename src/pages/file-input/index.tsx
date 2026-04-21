@@ -2,7 +2,14 @@
 
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
-import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field"
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldSet,
+} from "@/components/ui/field"
 import { FileInput } from "@/components/ui/file-input"
 import { Code } from "@/components/ui/code"
 
@@ -37,12 +44,26 @@ export function FileInputPage() {
 
           <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
-            <FileInput disabled />
+            <Field data-disabled>
+              <FieldLabel htmlFor="file-input-states-disabled">File</FieldLabel>
+              <FileInput id="file-input-states-disabled" name="file-input-states-disabled" disabled />
+            </Field>
           </ComponentExample>
 
           <h3 id="states-error" className="mb-3 text-base font-semibold">Error</h3>
           <ComponentExample>
-            <FileInput aria-invalid />
+            <Field data-invalid>
+              <FieldLabel htmlFor="file-input-states-error">File</FieldLabel>
+              <FileInput
+                id="file-input-states-error"
+                name="file-input-states-error"
+                aria-invalid
+                aria-describedby="file-input-states-error-msg"
+              />
+              <FieldError id="file-input-states-error-msg">
+                This file type or size is not allowed. Choose a different file.
+              </FieldError>
+            </Field>
           </ComponentExample>
         </PageSection>
 

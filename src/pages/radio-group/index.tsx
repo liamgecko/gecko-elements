@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
-import { Field, FieldLabel } from "@/components/ui/field"
+import { Field, FieldContent, FieldError } from "@/components/ui/field"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Code } from "@/components/ui/code"
 
@@ -71,40 +71,46 @@ export function RadioGroupPage() {
 
           <h3 id="states-default" className="mb-3 text-base font-semibold">Default</h3>
           <ComponentExample className="mb-6">
-            <RadioGroup value="" onValueChange={() => {}}>
-              <RadioGroupItem id="states-default" value="unchecked" label="Unselected" />
-            </RadioGroup>
+            <Field orientation="horizontal">
+              <FieldContent>
+                <RadioGroup value="" onValueChange={() => {}}>
+                  <RadioGroupItem id="states-default" value="unchecked" label="Unselected" />
+                </RadioGroup>
+              </FieldContent>
+            </Field>
           </ComponentExample>
 
           <h3 id="states-checked" className="mb-3 text-base font-semibold">Checked</h3>
           <ComponentExample className="mb-6">
-            <RadioGroup value="checked" onValueChange={() => {}}>
-              <RadioGroupItem id="states-checked" value="checked" label="Selected" />
-            </RadioGroup>
+            <Field orientation="horizontal">
+              <FieldContent>
+                <RadioGroup value="checked" onValueChange={() => {}}>
+                  <RadioGroupItem id="states-checked" value="checked" label="Selected" />
+                </RadioGroup>
+              </FieldContent>
+            </Field>
           </ComponentExample>
 
           <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
-            <RadioGroup defaultValue="" className="w-fit">
-              <Field orientation="horizontal" data-disabled>
-                <RadioGroupItem value="option1" id="disabled-1" disabled />
-                <FieldLabel htmlFor="disabled-1">
-                  Disabled
-                </FieldLabel>
-              </Field>
-            </RadioGroup>
+            <Field orientation="horizontal" data-disabled>
+              <FieldContent>
+                <RadioGroup defaultValue="">
+                  <RadioGroupItem value="option1" id="disabled-1" disabled label="Disabled" />
+                </RadioGroup>
+              </FieldContent>
+            </Field>
           </ComponentExample>
 
           <h3 id="states-error" className="mb-3 text-base font-semibold">Error</h3>
           <ComponentExample>
-            <RadioGroup defaultValue="email">
-              <Field orientation="horizontal" data-invalid>
-                <RadioGroupItem value="email" id="invalid-email" aria-invalid />
-                <FieldLabel htmlFor="invalid-email">
-                  Email only
-                </FieldLabel>
-              </Field>
-            </RadioGroup>
+            <Field orientation="horizontal" data-invalid className="max-w-md">
+              <FieldContent>
+                <RadioGroup defaultValue="email">
+                  <RadioGroupItem value="email" id="invalid-email" aria-invalid aria-describedby="invalid-email-error" label="Email only" />
+                </RadioGroup>
+              </FieldContent>
+            </Field>
           </ComponentExample>
         </PageSection>
 
@@ -158,7 +164,7 @@ export function RadioGroupPage() {
           </ComponentExample>
 
           <h3 id="as-button-with-description" className="mb-3 text-base font-semibold">With description</h3>
-          <ComponentExample>
+          <ComponentExample className="mb-8">
               <RadioGroup value={asButtonDescValue} onValueChange={setAsButtonDescValue}>
                 <RadioGroupItem
                   asButton
@@ -175,6 +181,43 @@ export function RadioGroupPage() {
                   description="This is a description."
                 />
               </RadioGroup>
+          </ComponentExample>
+
+          <h3 id="as-button-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
+          <ComponentExample className="mb-8">
+            <RadioGroup value="b" onValueChange={() => {}} disabled>
+              <RadioGroupItem asButton id="as-button-disabled-a" value="a" label="Option A" />
+              <RadioGroupItem asButton id="as-button-disabled-b" value="b" label="Option B" />
+            </RadioGroup>
+          </ComponentExample>
+
+          <h3 id="as-button-error" className="mb-3 text-base font-semibold">Error</h3>
+          <ComponentExample>
+            <Field data-invalid className="w-fit max-w-full">
+              <FieldContent>
+                <RadioGroup value="" onValueChange={() => {}} label="Select an option">
+                  <RadioGroupItem
+                    asButton
+                    id="as-button-error-a"
+                    value="a"
+                    label="Option A"
+                    aria-invalid
+                    aria-describedby="as-button-error-msg"
+                  />
+                  <RadioGroupItem
+                    asButton
+                    id="as-button-error-b"
+                    value="b"
+                    label="Option B"
+                    aria-invalid
+                    aria-describedby="as-button-error-msg"
+                  />
+                </RadioGroup>
+                <FieldError id="as-button-error-msg">
+                  This field is required—select an option before continuing.
+                </FieldError>
+              </FieldContent>
+            </Field>
           </ComponentExample>
         </PageSection>
     </div>

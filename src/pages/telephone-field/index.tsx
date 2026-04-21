@@ -3,6 +3,7 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { TelephoneField } from "@/components/ui/telephone-field"
 import { Code } from "@/components/ui/code"
+import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 
 export function TelephoneFieldPage() {
   const [value, setValue] = useState<string>("")
@@ -164,22 +165,36 @@ export function TelephoneFieldPage() {
             Disabled
           </h3>
           <ComponentExample className="mb-6">
-            <TelephoneField
-              defaultCountry="GB"
-              placeholder="Enter a phone number"
-              disabled
-            />
+            <Field data-disabled>
+              <FieldLabel htmlFor="telephone-field-states-disabled">Phone</FieldLabel>
+              <TelephoneField
+                id="telephone-field-states-disabled"
+                name="telephone-field-states-disabled"
+                defaultCountry="GB"
+                placeholder="Enter a phone number"
+                disabled
+              />
+            </Field>
           </ComponentExample>
 
           <h3 id="states-error" className="mb-3 text-base font-semibold">
             Error
           </h3>
           <ComponentExample>
-            <TelephoneField
-              defaultCountry="GB"
-              placeholder="Enter a phone number"
-              aria-invalid
-            />
+            <Field data-invalid>
+              <FieldLabel htmlFor="telephone-field-states-error">Phone</FieldLabel>
+              <TelephoneField
+                id="telephone-field-states-error"
+                name="telephone-field-states-error"
+                defaultCountry="GB"
+                placeholder="Enter a phone number"
+                aria-invalid
+                aria-describedby="telephone-field-states-error-msg"
+              />
+              <FieldError id="telephone-field-states-error-msg">
+                Enter a valid phone number for the selected country.
+              </FieldError>
+            </Field>
           </ComponentExample>
         </PageSection>
     </div>

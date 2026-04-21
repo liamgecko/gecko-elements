@@ -7,6 +7,7 @@ import {
   Field,
   FieldContent,
   FieldDescription,
+  FieldError,
   FieldLabel,
 } from "@/components/ui/field"
 
@@ -91,22 +92,27 @@ export function SwitchPage() {
 
           <h3 id="state-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
-            <div className="flex flex-col gap-4">
-              <Field orientation="horizontal" data-disabled className="w-fit">
-                <Switch id="switch-disabled-unchecked" disabled />
-                <FieldLabel htmlFor="switch-disabled-unchecked">Disabled</FieldLabel>
-              </Field>
-            </div>
+            <Field orientation="horizontal" data-disabled>
+              <Switch id="switch-disabled-unchecked" disabled />
+              <FieldLabel htmlFor="switch-disabled-unchecked">Disabled</FieldLabel>
+            </Field>
           </ComponentExample>
 
           <h3 id="state-error" className="mb-3 text-base font-semibold">Error</h3>
           <ComponentExample>
-            <div className="flex flex-col gap-4">
-              <Field orientation="horizontal" data-invalid className="w-fit">
-                <Switch id="switch-invalid-unchecked" aria-invalid="true" />
+            <Field orientation="horizontal" data-invalid className="max-w-md">
+              <FieldContent>
+                <Switch
+                  id="switch-invalid-unchecked"
+                  aria-invalid="true"
+                  aria-describedby="switch-invalid-unchecked-error"
+                />
                 <FieldLabel htmlFor="switch-invalid-unchecked">Invalid</FieldLabel>
-              </Field>
-            </div>
+                <FieldError id="switch-invalid-unchecked-error">
+                  This setting must be corrected before you can continue.
+                </FieldError>
+              </FieldContent>
+            </Field>
           </ComponentExample>
         </PageSection>
     </div>

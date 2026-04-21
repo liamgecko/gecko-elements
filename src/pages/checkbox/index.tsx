@@ -3,6 +3,7 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { Checkbox, CheckboxGroup } from "@/components/ui/checkbox"
 import { Code } from "@/components/ui/code"
+import { Field, FieldContent, FieldError, FieldGroup } from "@/components/ui/field"
 
 export function CheckboxPage() {
   const [groupValue, setGroupValue] = useState<string[]>(["fuji"])
@@ -88,16 +89,36 @@ export function CheckboxPage() {
 
           <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
-            <Checkbox id="states-disabled" disabled label="Disabled" />
+            <FieldGroup>
+              <Field orientation="horizontal" data-disabled>
+                <Checkbox
+                  id="terms-checkbox-disabled"
+                  name="terms-checkbox-disabled"
+                  disabled
+                  label="Accept terms and conditions"
+                />
+              </Field>
+            </FieldGroup>
           </ComponentExample>
 
           <h3 id="states-error" className="mb-3 text-base font-semibold">Error</h3>
           <ComponentExample>
-            <Checkbox
-              id="states-error"
-              aria-invalid
-              label="Accept terms and conditions"
-            />
+            <FieldGroup>
+              <Field orientation="horizontal" data-invalid className="max-w-md">
+                <FieldContent>
+                  <Checkbox
+                    id="terms-checkbox-invalid"
+                    name="terms-checkbox-invalid"
+                    aria-invalid
+                    aria-describedby="terms-checkbox-invalid-error"
+                    label="Accept terms and conditions"
+                  />
+                  <FieldError id="terms-checkbox-invalid-error">
+                    You must accept the terms and conditions to continue.
+                  </FieldError>
+                </FieldContent>
+              </Field>
+            </FieldGroup>
           </ComponentExample>
         </PageSection>
 
@@ -129,19 +150,14 @@ export function CheckboxPage() {
           </p>
           <h3 id="as-button-basic" className="mb-3 text-base font-semibold">Basic</h3>
           <ComponentExample className="mb-8">
-            <div className="flex flex-wrap gap-2">
-              <Checkbox asButton id="as-button-basic" label="Checkbox as button" />
-              <Checkbox
-                asButton
-                id="as-button-checked"
-                defaultChecked
-                label="Checked button"
-              />
-            </div>
+            <CheckboxGroup horizontal defaultValue={["checked"]}>
+              <Checkbox asButton id="as-button-basic" value="basic" label="Checkbox as button" />
+              <Checkbox asButton id="as-button-checked" value="checked" label="Checked button" />
+            </CheckboxGroup>
           </ComponentExample>
 
           <h3 id="as-button-with-description" className="mb-3 text-base font-semibold">With description</h3>
-          <ComponentExample>
+          <ComponentExample className="mb-8">
             <div className="max-w-sm">
               <Checkbox
                 asButton
@@ -151,6 +167,55 @@ export function CheckboxPage() {
                 description="By clicking this checkbox, you agree to the terms and conditions."
               />
             </div>
+          </ComponentExample>
+
+          <h3 id="as-button-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
+          <ComponentExample className="mb-8">
+            <CheckboxGroup horizontal defaultValue={["checked"]}>
+              <Checkbox
+                asButton
+                id="as-button-disabled-unchecked"
+                value="basic"
+                label="Checkbox as button"
+                disabled
+              />
+              <Checkbox
+                asButton
+                id="as-button-disabled-checked"
+                value="checked"
+                label="Checked button"
+                disabled
+              />
+            </CheckboxGroup>
+          </ComponentExample>
+
+          <h3 id="as-button-error" className="mb-3 text-base font-semibold">Error</h3>
+          <ComponentExample className="mb-8">
+            <Field data-invalid className="w-fit max-w-full">
+              <FieldContent>
+                <CheckboxGroup horizontal aria-invalid aria-describedby="as-button-error-group-msg" label="Select an option">
+                  <Checkbox
+                    asButton
+                    id="as-button-error-basic"
+                    value="basic"
+                    label="Checkbox as button"
+                    aria-invalid
+                    aria-describedby="as-button-error-group-msg"
+                  />
+                  <Checkbox
+                    asButton
+                    id="as-button-error-checked"
+                    value="checked"
+                    label="Checked button"
+                    aria-invalid
+                    aria-describedby="as-button-error-group-msg"
+                  />
+                </CheckboxGroup>
+                <FieldError id="as-button-error-group-msg">
+                  This field is required—select at least one option before continuing.
+                </FieldError>
+              </FieldContent>
+            </Field>
           </ComponentExample>
         </PageSection>
     </div>

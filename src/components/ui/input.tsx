@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const inputVariants = cva(
-  "border-input hover:border-input-hover group-hover/field:border-input-hover focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-input-destructive rounded-sm border bg-background transition-[color,box-shadow,border] file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:focus-visible:ring-input-destructive/40 file:text-foreground placeholder:text-muted-foreground w-full min-w-0 outline-none file:inline-flex file:border-0 file:pr-2 file:bg-transparent disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-80 disabled:bg-muted disabled:hover:border-input disabled:group-hover/field:border-input",
+  "border-input hover:border-input-hover group-hover/field:border-input-hover focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-input-destructive rounded-sm border bg-background text-foreground transition-[color,box-shadow,border] file:text-sm file:font-medium focus-visible:ring-3 aria-invalid:focus-visible:ring-input-destructive/20 dark:aria-invalid:focus-visible:ring-input-destructive/40 file:text-foreground placeholder:text-muted-foreground aria-invalid:text-destructive aria-invalid:placeholder:text-destructive w-full min-w-0 outline-none file:inline-flex file:border-0 file:pr-2 file:bg-transparent disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-75 disabled:bg-muted disabled:hover:border-input disabled:group-hover/field:border-input",
   {
     variants: {
       size: {

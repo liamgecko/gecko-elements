@@ -3,6 +3,7 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "@/components/ui/input-otp"
 import { Code } from "@/components/ui/code"
+import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 
 export function InputOtpPage() {
   return (
@@ -108,36 +109,53 @@ export function InputOtpPage() {
             Disabled
           </h3>
           <ComponentExample className="mb-6">
-            <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS} disabled aria-label="One-time code (disabled)">
-              <InputOTPGroup>
-                <InputOTPSlot index={0} />
-                <InputOTPSlot index={1} />
-                <InputOTPSlot index={2} />
-                <InputOTPSlot index={3} />
-                <InputOTPSlot index={4} />
-                <InputOTPSlot index={5} />
-              </InputOTPGroup>
-            </InputOTP>
+            <Field data-disabled>
+              <FieldLabel htmlFor="input-otp-states-disabled">One-time code</FieldLabel>
+              <InputOTP
+                id="input-otp-states-disabled"
+                maxLength={6}
+                pattern={REGEXP_ONLY_DIGITS}
+                disabled
+                aria-label="One-time code (disabled)"
+              >
+                <InputOTPGroup>
+                  <InputOTPSlot index={0} />
+                  <InputOTPSlot index={1} />
+                  <InputOTPSlot index={2} />
+                  <InputOTPSlot index={3} />
+                  <InputOTPSlot index={4} />
+                  <InputOTPSlot index={5} />
+                </InputOTPGroup>
+              </InputOTP>
+            </Field>
           </ComponentExample>
 
           <h3 id="states-error" className="mb-3 text-base font-semibold">
             Error
           </h3>
           <ComponentExample>
-            <InputOTP
-              maxLength={6}
-              pattern={REGEXP_ONLY_DIGITS}
-              aria-label="One-time code (invalid)"
-            >
-              <InputOTPGroup>
-                <InputOTPSlot index={0} aria-invalid />
-                <InputOTPSlot index={1} aria-invalid />
-                <InputOTPSlot index={2} aria-invalid />
-                <InputOTPSlot index={3} aria-invalid />
-                <InputOTPSlot index={4} aria-invalid />
-                <InputOTPSlot index={5} aria-invalid />
-              </InputOTPGroup>
-            </InputOTP>
+            <Field data-invalid>
+              <FieldLabel htmlFor="input-otp-states-error">One-time code</FieldLabel>
+              <InputOTP
+                id="input-otp-states-error"
+                maxLength={6}
+                pattern={REGEXP_ONLY_DIGITS}
+                aria-label="One-time code (invalid)"
+                aria-describedby="input-otp-states-error-msg"
+              >
+                <InputOTPGroup>
+                  <InputOTPSlot index={0} aria-invalid />
+                  <InputOTPSlot index={1} aria-invalid />
+                  <InputOTPSlot index={2} aria-invalid />
+                  <InputOTPSlot index={3} aria-invalid />
+                  <InputOTPSlot index={4} aria-invalid />
+                  <InputOTPSlot index={5} aria-invalid />
+                </InputOTPGroup>
+              </InputOTP>
+              <FieldError id="input-otp-states-error-msg">
+                Enter the six-digit code exactly as it appears in your message.
+              </FieldError>
+            </Field>
           </ComponentExample>
         </PageSection>
     </div>

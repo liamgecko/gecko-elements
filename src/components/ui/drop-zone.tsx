@@ -11,6 +11,10 @@ const DEFAULT_BROWSE_LABEL = "Browse files"
 const DEFAULT_LABEL = "Drag & drop files here"
 const DEFAULT_DESCRIPTION = "Or click to browse"
 
+const DEFAULT_INVALID_LABEL = "This file couldn't be added."
+const DEFAULT_INVALID_DESCRIPTION =
+  "Check the file type and size, then try again."
+
 function formatBytes(bytes: number) {
   if (!Number.isFinite(bytes) || bytes <= 0) return "0 B"
   const units = ["B", "KB", "MB", "GB", "TB"]
@@ -37,6 +41,14 @@ export type DropZoneProps = {
   browseLabel?: string
   label?: string
   description?: string
+
+  /** Overrides built-in error copy when `aria-invalid` is true. */
+  invalidLabel?: string
+  invalidDescription?: string
+
+  /** Passed to the hidden file input. When true, built-in error label/description and styling apply. */
+  "aria-invalid"?: boolean | "true" | "false"
+  "aria-describedby"?: string
 }
 
 export function DropZone({
@@ -52,7 +64,21 @@ export function DropZone({
   browseLabel = DEFAULT_BROWSE_LABEL,
   label = DEFAULT_LABEL,
   description = DEFAULT_DESCRIPTION,
+  invalidLabel,
+  invalidDescription,
+  "aria-invalid": ariaInvalid,
+  "aria-describedby": ariaDescribedBy,
 }: DropZoneProps) {
+  const invalid =
+    ariaInvalid === true || ariaInvalid === "true"
+
+  const displayLabel = invalid
+    ? (invalidLabel ?? DEFAULT_INVALID_LABEL)
+    : label
+  const displayDescription = invalid
+    ? (invalidDescription ?? DEFAULT_INVALID_DESCRIPTION)
+    : description
+
   const isControlled = value !== undefined
   const [internalFiles, setInternalFiles] = React.useState<File[]>(
     defaultValue ?? []
@@ -166,6 +192,8 @@ export function DropZone({
         onChange={handleInputChange}
         className="sr-only"
         aria-labelledby={labelledBy}
+        aria-invalid={ariaInvalid}
+        aria-describedby={ariaDescribedBy}
       />
 
       <div
@@ -180,8 +208,13 @@ export function DropZone({
         className={cn(
           "rounded-sm border border-dashed border-border bg-transparent transition-colors",
           "flex flex-col items-center justify-center gap-2 p-6 text-center",
-          isDragging && !disabled && "border-blue-500 bg-blue-50 dark:border-blue-700 dark:bg-blue-950",
-          disabled && "cursor-not-allowed opacity-80"
+          invalid &&
+            "border-input-destructive bg-destructive/5 dark:bg-destructive/10",
+          isDragging &&
+            !disabled &&
+            !invalid &&
+            "border-blue-500 bg-blue-50 dark:border-blue-700 dark:bg-blue-950",
+          disabled && "pointer-events-none cursor-not-allowed opacity-75"
         )}
       >
         <div className="flex flex-col items-center gap-2">
@@ -190,11 +223,23 @@ export function DropZone({
             <CloudUpload className="size-6" aria-hidden />
           </div>
           <div className="flex flex-col items-center gap-1">
-            <p id={labelId} className="text-sm font-medium text-foreground">
-              {label}
+            <p
+              id={labelId}
+              className={cn(
+                "text-sm font-medium",
+                invalid ? "text-destructive" : "text-foreground"
+              )}
+            >
+              {displayLabel}
             </p>
-            <p id={descriptionId} className="text-xs text-muted-foreground">
-              {description}
+            <p
+              id={descriptionId}
+              className={cn(
+                "text-xs",
+                invalid ? "text-destructive" : "text-muted-foreground"
+              )}
+            >
+              {displayDescription}
             </p>
           </div>
         </div>

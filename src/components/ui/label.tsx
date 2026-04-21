@@ -23,7 +23,7 @@ function Label({
     <label
       data-slot="label"
       className={cn(
-        "gap-1 text-sm leading-none font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50 flex items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:cursor-not-allowed",
+        "gap-1 text-sm leading-none font-medium group-data-[disabled=true]:opacity-75 peer-disabled:opacity-75 flex items-center select-none group-data-[disabled=true]:pointer-events-none peer-disabled:pointer-events-none peer-disabled:cursor-not-allowed",
         className
       )}
       htmlFor={htmlFor}

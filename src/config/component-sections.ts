@@ -46,6 +46,7 @@ export const componentSections: ComponentSections = {
         { id: "variants-ghost", label: "Ghost" },
       ],
     },
+    { id: "disabled", label: "Disabled" },
     { id: "dropdown", label: "Dropdown" },
     { id: "link-button", label: "Link button" },
     { id: "sizes", label: "Sizes" },
@@ -165,6 +166,8 @@ export const componentSections: ComponentSections = {
       children: [
         { id: "as-button-basic", label: "Basic" },
         { id: "as-button-with-description", label: "With description" },
+        { id: "as-button-disabled", label: "Disabled" },
+        { id: "as-button-error", label: "Error" },
       ],
     },
   ],
@@ -323,6 +326,8 @@ export const componentSections: ComponentSections = {
       children: [
         { id: "as-button-basic", label: "Basic" },
         { id: "as-button-with-description", label: "With description" },
+        { id: "as-button-disabled", label: "Disabled" },
+        { id: "as-button-error", label: "Error" },
       ],
     },
   ],
@@ -594,6 +599,14 @@ export const componentSections: ComponentSections = {
     { id: "overview", label: "Overview" },
     { id: "basic-example", label: "Basic example" },
     { id: "help-text", label: "Help text" },
+    {
+      id: "states",
+      label: "States",
+      children: [
+        { id: "states-disabled", label: "Disabled" },
+        { id: "states-error", label: "Error" },
+      ],
+    },
     { id: "validation", label: "Validation" },
   ],
   filters: [
@@ -990,7 +1003,10 @@ export const componentSections: ComponentSections = {
     {
       id: "states",
       label: "States",
-      children: [{ id: "states-disabled", label: "Disabled" }],
+      children: [
+        { id: "states-disabled", label: "Disabled" },
+        { id: "states-error", label: "Error" },
+      ],
     },
   ],
   "drag-and-drop": [

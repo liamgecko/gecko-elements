@@ -26,6 +26,7 @@ export interface NumberFieldProps
 export function NumberField({
   size = "md",
   className,
+  id,
   ...props
 }: NumberFieldProps) {
   return (
@@ -42,10 +43,10 @@ export function NumberField({
         className={cn(
           "inline-flex items-stretch rounded-sm border border-input bg-muted text-foreground transition-[color,box-shadow,border] outline-none",
           "hover:border-input-hover focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50",
-          "data-disabled:cursor-not-allowed data-disabled:opacity-80 data-disabled:hover:border-input",
+          "data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-75 data-disabled:hover:border-input",
           "data-disabled:focus-within:border-input data-disabled:focus-within:ring-0",
           "group-aria-invalid/number-field:border-input-destructive group-aria-invalid/number-field:hover:border-input-destructive",
-          "group-aria-invalid/number-field:focus-within:border-input-destructive group-aria-invalid/number-field:focus-within:ring-input-destructive/40",
+          "group-aria-invalid/number-field:focus-within:border-input-destructive group-aria-invalid/number-field:focus-within:ring-input-destructive/20 dark:group-aria-invalid/number-field:focus-within:ring-input-destructive/40",
           "group-aria-invalid/number-field:data-disabled:border-input group-aria-invalid/number-field:data-disabled:hover:border-input",
           groupSizeClasses[size]
         )}
@@ -64,10 +65,11 @@ export function NumberField({
         </NumberFieldPrimitive.Decrement>
 
         <NumberFieldPrimitive.Input
+          id={id}
           data-slot="number-field-input"
           className={cn(
-            "min-w-12 flex-1 border-none bg-background outline-none placeholder:text-muted-foreground text-center",
-            "disabled:bg-muted disabled:opacity-80 disabled:cursor-not-allowed disabled:pointer-events-none",
+            "min-w-12 flex-1 border-none bg-background outline-none placeholder:text-muted-foreground group-aria-invalid/number-field:placeholder:text-destructive text-center",
+            "disabled:bg-muted disabled:opacity-75 disabled:cursor-not-allowed disabled:pointer-events-none",
             inputPaddingClasses[size]
           )}
         />

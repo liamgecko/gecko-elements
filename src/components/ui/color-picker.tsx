@@ -110,7 +110,7 @@ export function ColorPicker({
               className={cn(
                 "absolute left-2 rounded-full bg-red p-0 shadow-[inset_0_0_0_1px_rgb(0_0_0/0.1)]",
                 "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring/50",
-                "disabled:pointer-events-none disabled:opacity-80",
+                "disabled:pointer-events-none disabled:opacity-75",
                 buttonSize
               )}
               style={{
