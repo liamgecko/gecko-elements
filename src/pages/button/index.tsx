@@ -55,6 +55,18 @@ export function ButtonPage() {
           <ComponentExample className="mb-6">
             <Button variant="ghost">Ghost</Button>
           </ComponentExample>
+
+          <h3 id="variants-ghost-destructive" className="mb-3 text-base font-semibold">
+            Ghost destructive
+          </h3>
+          <p className="mb-3 text-sm text-muted-foreground">
+            Matches ghost at rest; hover, focus-visible, and expanded states use
+            destructive surface, ring, and text instead of the default ghost
+            treatment.
+          </p>
+          <ComponentExample className="mb-6">
+            <Button variant="ghost-destructive">Remove</Button>
+          </ComponentExample>
         </PageSection>
 
         <PageSection id="disabled" label="Disabled">
@@ -79,6 +91,9 @@ export function ButtonPage() {
               </Button>
               <Button variant="ghost" disabled>
                 Ghost
+              </Button>
+              <Button variant="ghost-destructive" disabled>
+                Ghost destructive
               </Button>
               <Button variant="link" disabled>
                 Link
