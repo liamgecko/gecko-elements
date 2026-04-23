@@ -44,6 +44,7 @@ export const componentSections: ComponentSections = {
         { id: "variants-outline", label: "Outline" },
         { id: "variants-destructive", label: "Destructive" },
         { id: "variants-ghost", label: "Ghost" },
+        { id: "variants-ghost-destructive", label: "Ghost destructive" },
       ],
     },
     { id: "disabled", label: "Disabled" },
