@@ -556,8 +556,15 @@ export function DataTablePage() {
           <h2 className="text-lg font-semibold">Mass actions</h2>
           <p className="mb-8 text-sm text-muted-foreground text-pretty">
             Enable row selection via <Code>rowSelection</Code> and provide bulk
-            actions via <Code>selectActions</Code>. The “Actions on selected”
-            button only appears when rows are selected.
+            actions via <Code>selectActions</Code>. With{" "}
+            <Code>toolbar.selectionActionsBar</Code>, a fixed bar appears at the
+            bottom of the viewport when rows are selected (replacing the old
+            toolbar “Actions on selected” menu). It shows how many rows are
+            selected, a ghost “Select all <em>N</em>” control where <em>N</em> is
+            the number of rows on the current page (pagination enabled here),
+            then your actions as inline buttons. Use{" "}
+            <Code>toolbar.selectionBarRowLabel</Code> for the noun in the count
+            line (defaults to “rows”).
           </p>
 
           <ComponentExample className="overflow-x-auto">
@@ -565,10 +572,12 @@ export function DataTablePage() {
               columns={baseColumns}
               data={demoEvents}
               rowSelection
+              pagination
               selectActions={demoSelectedActions}
               toolbar={{
-                selectActions: true,
                 columnToggle: true,
+                selectionActionsBar: true,
+                selectionBarRowLabel: "events",
               }}
               initialState={{
                 columnVisibility: {
@@ -766,7 +775,7 @@ export function DataTablePage() {
           <h2 className="text-lg font-semibold">Full example</h2>
           <p className="mb-8 text-sm text-muted-foreground text-pretty">
             Sorting, pagination, search, filters, column toggle, row selection with
-            bulk actions, and per-row actions — all enabled together.
+            the fixed bulk-actions bar, and per-row actions — all enabled together.
           </p>
 
           <ComponentExample className="overflow-x-auto">
@@ -786,7 +795,8 @@ export function DataTablePage() {
                   triggerLabel: "Filter",
                 },
                 columnToggle: true,
-                selectActions: true,
+                selectionActionsBar: true,
+                selectionBarRowLabel: "events",
               }}
               initialState={{
                 columnVisibility: {

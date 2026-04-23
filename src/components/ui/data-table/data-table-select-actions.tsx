@@ -75,6 +75,7 @@ export function DataTableSelectActions({
                         onSelectAction?.(action.id, { selectedRows })
                       }
                     >
+                      {action.icon}
                       {action.label}
                     </DropdownMenuItem>
                   </React.Fragment>

@@ -65,6 +65,7 @@ import { DataTableFilters } from "./data-table-filters"
 import { DataTablePagination } from "./data-table-pagination"
 import { DataTableSearch } from "./data-table-search"
 import { DataTableSelectActions } from "./data-table-select-actions"
+import { DataTableSelectionActionsBar } from "./data-table-actions-bar"
 import {
   DataTableToolbar,
   DataTableToolbarGroup,
@@ -77,6 +78,8 @@ export type { DataTableExpandableConfig } from "./data-table-context"
 export type DataTableRowAction = {
   id: string
   label: string
+  /** Optional leading icon (e.g. Lucide) for selection/menus. */
+  icon?: React.ReactNode
   /** Renders a separator above this item (e.g. after the first group). */
   separatorBefore?: boolean
   /** @default "default" */
@@ -139,6 +142,13 @@ export type DataTableToolbarConfig = {
   columnToggle?: boolean | DataTableColumnToggleProps
   /** When true, renders `DataTableSelectActions` (still only shows when rows are selected). */
   selectActions?: boolean
+  /**
+   * When true, shows the fixed bottom selection actions bar (portal) when rows are selected.
+   * Hides the toolbar `DataTableSelectActions` dropdown; use `selectActions` for actions.
+   */
+  selectionActionsBar?: boolean
+  /** Noun for “3 rows selected” copy on the selection bar. @default "rows" */
+  selectionBarRowLabel?: string
 }
 
 export type DataTableProps<TData> = Omit<DataTableProviderProps<TData>, "children"> & {
@@ -446,7 +456,11 @@ export function DataTable<TData>({
     toolbarConfig?.filters !== false && toolbarConfig?.filters != null
   const filtersProps = showFilters && toolbarConfig ? toolbarConfig.filters : undefined
 
-  const showSelectActions = toolbarConfig?.selectActions === true
+  const showSelectionActionsBar = toolbarConfig?.selectionActionsBar === true
+  const selectionBarRowLabel = toolbarConfig?.selectionBarRowLabel
+
+  const showSelectActions =
+    toolbarConfig?.selectActions === true && !showSelectionActionsBar
 
   const showColumnToggle = Boolean(toolbarConfig?.columnToggle)
   const columnToggleProps =
@@ -480,6 +494,9 @@ export function DataTable<TData>({
           </DataTableToolbar>
         ) : null}
         <DataTableContent className={contentClassName} />
+        {showSelectionActionsBar ? (
+          <DataTableSelectionActionsBar rowLabel={selectionBarRowLabel} />
+        ) : null}
         {showPagination ? (
           <DataTablePagination {...(paginationProps as DataTablePaginationProps)} />
         ) : null}

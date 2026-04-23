@@ -1,5 +1,8 @@
 "use client"
 
+import * as React from "react"
+import { Download, Trash2 } from "lucide-react"
+
 import type { DataTableRowAction } from "@/components/ui/data-table/data-table"
 
 export type DemoEventSyncStatus = "synced" | "failed" | "syncing" | "none"
@@ -112,8 +115,23 @@ export const demoRowActions: DataTableRowAction[] = [
 ]
 
 export const demoSelectedActions: DataTableRowAction[] = [
-  { id: "export", label: "Export selected" },
-  { id: "remove", label: "Remove selected", variant: "destructive" },
+  {
+    id: "export",
+    label: "Export selected",
+    icon: React.createElement(Download, {
+      "aria-hidden": true,
+      className: "size-3.5 shrink-0 opacity-90",
+    }),
+  },
+  {
+    id: "remove",
+    label: "Remove selected",
+    variant: "destructive",
+    icon: React.createElement(Trash2, {
+      "aria-hidden": true,
+      className: "size-3.5 shrink-0 opacity-90",
+    }),
+  },
 ]
 
 export const eventFilterCategories = [
