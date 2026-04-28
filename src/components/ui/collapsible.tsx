@@ -1,5 +1,6 @@
 "use client"
 
+import type { CSSProperties } from "react"
 import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible"
 
 import { cn } from "@/lib/utils"
@@ -30,13 +31,21 @@ function CollapsibleTrigger({
 function CollapsibleContent({
   className,
   children,
+  style,
   ...props
 }: CollapsiblePrimitive.Panel.Props) {
   return (
     <CollapsiblePrimitive.Panel
       data-slot="collapsible-content"
+      style={
+        {
+          // tw-animate collapsible keyframes read --kb-*; Base UI sets --collapsible-panel-height
+          ["--kb-collapsible-content-height" as string]: "var(--collapsible-panel-height)",
+          ...style,
+        } as CSSProperties
+      }
       className={cn(
-        "overflow-hidden data-open:animate-accordion-down data-closed:animate-accordion-up",
+        "overflow-hidden data-open:animate-collapsible-down data-closed:animate-collapsible-up motion-reduce:data-open:animate-none motion-reduce:data-closed:animate-none",
         className
       )}
       {...props}

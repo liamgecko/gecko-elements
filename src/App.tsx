@@ -72,6 +72,7 @@ import { SpacingPage } from "@/pages/core/spacing"
 import { TypographyPage } from "@/pages/core/typography"
 import { CoreIndexPage } from "@/pages/core/index"
 import { ComponentsIndexPage } from "@/pages/components/index"
+import { SidebarPage } from "@/pages/sidebar"
 
 export function App() {
   return (
@@ -149,6 +150,7 @@ export function App() {
         <Route path="/components/counter" element={<CounterPage />} />
         <Route path="/components/filters" element={<FiltersPage />} />
         <Route path="/components/code-snippet" element={<CodeSnippetPage />} />
+        <Route path="/components/sidebar" element={<SidebarPage />} />
       </Routes>
     </AppShell>
   )

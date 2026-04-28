@@ -1106,4 +1106,12 @@ export const componentSections: ComponentSections = {
     { id: "fill", label: "Fill" },
     { id: "accessibility", label: "Accessibility" },
   ],
+  sidebar: [
+    { id: "overview", label: "Overview" },
+    { id: "basic-example", label: "Basic example" },
+    { id: "collapsed-by-default", label: "Collapsed by default" },
+    { id: "sidebar-group", label: "Sidebar group" },
+    { id: "sub-menu", label: "Sub-menu" },
+    { id: "collapsible-sub-menu", label: "Collapsible sub-menu" },
+  ],
 }

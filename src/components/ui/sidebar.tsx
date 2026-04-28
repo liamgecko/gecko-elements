@@ -21,6 +21,14 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { Kbd } from "@/components/ui/kbd"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { PanelLeftIcon } from "lucide-react"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
@@ -254,8 +262,11 @@ function SidebarTrigger({
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar } = useSidebar()
+  const isMac =
+    typeof navigator !== "undefined" &&
+    /Mac|iPhone|iPad|iPod/i.test(navigator.platform)
 
-  return (
+  const button = (
     <Button
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
@@ -271,6 +282,18 @@ function SidebarTrigger({
       <PanelLeftIcon className="rtl:rotate-180" />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
+  )
+
+  return (
+    <Tooltip>
+      <TooltipTrigger render={button} />
+      <TooltipContent side="bottom" align="center">
+        <span className="flex items-center gap-2">
+          <span>Toggle sidebar</span>
+          <Kbd>{isMac ? "⌘ B" : "Ctrl B"}</Kbd>
+        </span>
+      </TooltipContent>
+    </Tooltip>
   )
 }
 
@@ -463,14 +486,233 @@ function SidebarMenu({ className, ...props }: React.ComponentProps<"ul">) {
   )
 }
 
-function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
+function SidebarMenuItem({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"li">) {
+  const { isMobile, state } = useSidebar()
+
+  if (!isMobile && state === "collapsed") {
+    const menuButton = findFirstElementOfType(
+      children,
+      SidebarMenuButton
+    ) as React.ReactElement<React.ComponentProps<typeof SidebarMenuButton>> | null
+    const subMenu = findFirstElementOfType(
+      children,
+      SidebarMenuSub
+    ) as React.ReactElement<React.ComponentProps<typeof SidebarMenuSub>> | null
+
+    if (menuButton && subMenu) {
+      return (
+        <SidebarCollapsedSubMenuItem
+          className={className}
+          menuButton={menuButton}
+          subMenu={subMenu}
+          {...props}
+        />
+      )
+    }
+  }
+
   return (
     <li
       data-slot="sidebar-menu-item"
       data-sidebar="menu-item"
       className={cn("group/menu-item relative", className)}
       {...props}
-    />
+    >
+      {children}
+    </li>
+  )
+}
+
+function findFirstElementOfType(
+  node: React.ReactNode,
+  type: React.ElementType
+): React.ReactElement | null {
+  let found: React.ReactElement | null = null
+  const visit = (value: React.ReactNode) => {
+    if (found) return
+    React.Children.forEach(value, (child) => {
+      if (found) return
+      if (!React.isValidElement(child)) return
+      if (child.type === type) {
+        found = child
+        return
+      }
+      const props = child.props as unknown as {
+        children?: React.ReactNode
+        render?: React.ReactNode
+      }
+      if (props?.children) visit(props.children)
+      if (props?.render) visit(props.render)
+    })
+  }
+
+  visit(node)
+  return found
+}
+
+function getNodeText(node: React.ReactNode): string {
+  return React.Children.toArray(node)
+    .map((child) => {
+      if (typeof child === "string" || typeof child === "number") {
+        return String(child)
+      }
+      if (React.isValidElement(child)) {
+        const props = child.props as unknown as { children?: React.ReactNode }
+        return getNodeText(props.children)
+      }
+      return ""
+    })
+    .join(" ")
+    .trim()
+}
+
+function getSidebarMenuButtonIcon(children: React.ReactNode): React.ReactNode {
+  const parts = React.Children.toArray(children)
+  for (const part of parts) {
+    if (!React.isValidElement(part)) continue
+    // Most sidebar buttons are: <Icon /> <span>Label</span>
+    if (typeof part.type === "string" && part.type === "span") continue
+    return part
+  }
+  return null
+}
+
+function SidebarCollapsedSubMenuItem({
+  className,
+  menuButton,
+  subMenu,
+  ...props
+}: React.ComponentProps<"li"> & {
+  menuButton: React.ReactElement<React.ComponentProps<typeof SidebarMenuButton>>
+  subMenu: React.ReactElement<React.ComponentProps<typeof SidebarMenuSub>>
+}) {
+  const [open, setOpen] = React.useState(false)
+  const triggerNodeRef = React.useRef<HTMLElement | null>(null)
+  const contentNodeRef = React.useRef<HTMLDivElement | null>(null)
+
+  const shouldKeepOpen = React.useCallback((relatedTarget: EventTarget | null) => {
+    if (!(relatedTarget instanceof Node)) return false
+    if (triggerNodeRef.current?.contains(relatedTarget)) return true
+    if (contentNodeRef.current?.contains(relatedTarget)) return true
+    return false
+  }, [])
+
+  const heading = (() => {
+    const tooltip = menuButton.props.tooltip
+    if (typeof tooltip === "string") return tooltip
+    if (tooltip && typeof tooltip === "object" && "children" in tooltip) {
+      return getNodeText((tooltip as { children?: React.ReactNode }).children)
+    }
+    return getNodeText(menuButton.props.children)
+  })()
+  const headingIconRaw = getSidebarMenuButtonIcon(menuButton.props.children)
+  const headingIcon = React.useMemo(() => {
+    if (!React.isValidElement(headingIconRaw)) return headingIconRaw
+    const el = headingIconRaw as React.ReactElement<{ className?: string }>
+    return React.cloneElement(
+      el,
+      {
+        className: cn("size-3.75", el.props.className),
+        "aria-hidden": true,
+      } as unknown as Record<string, unknown>
+    )
+  }, [headingIconRaw])
+
+  const subButtons = React.useMemo(() => {
+    const collected: React.ReactElement<
+      React.ComponentProps<typeof SidebarMenuSubButton>
+    >[] = []
+
+    const walk = (value: React.ReactNode) => {
+      React.Children.forEach(value, (child) => {
+        if (!React.isValidElement(child)) return
+        if (child.type === SidebarMenuSubButton) {
+          collected.push(
+            child as React.ReactElement<
+              React.ComponentProps<typeof SidebarMenuSubButton>
+            >
+          )
+          return
+        }
+        const props = child.props as unknown as { children?: React.ReactNode }
+        if (props?.children) walk(props.children)
+      })
+    }
+
+    walk(subMenu.props.children)
+    return collected
+  }, [subMenu.props.children])
+
+  const triggerButton = React.cloneElement(menuButton, {
+    tooltip: undefined,
+  })
+
+  return (
+    <li
+      data-slot="sidebar-menu-item"
+      data-sidebar="menu-item"
+      className={cn("group/menu-item relative", className)}
+      {...props}
+    >
+      <DropdownMenu open={open} onOpenChange={setOpen}>
+        <DropdownMenuTrigger
+          render={triggerButton}
+          onMouseEnter={(event) => {
+            triggerNodeRef.current = event.currentTarget as unknown as HTMLElement
+            setOpen(true)
+          }}
+          onMouseLeave={(event) => {
+            if (shouldKeepOpen(event.relatedTarget)) return
+            setOpen(false)
+          }}
+        />
+        <DropdownMenuContent
+          side="right"
+          align="start"
+          sideOffset={0.25}
+          className="data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0 data-[side=right]:slide-in-from-left-4 duration-250 ease-out ring-gray-100 p-0 min-w-48"
+          ref={contentNodeRef}
+          onMouseEnter={() => setOpen(true)}
+          onMouseLeave={(event) => {
+            if (shouldKeepOpen(event.relatedTarget)) return
+            setOpen(false)
+          }}
+        >
+          <div className="border-b border-gray-100 px-3 py-2.5">
+            <span className="flex items-center gap-2 text-muted-foreground">
+              {headingIcon}
+              <span className="text-2xs uppercase tracking-widest font-semibold">{heading}</span>
+            </span>
+          </div>
+          <DropdownMenuGroup className="p-1">
+            {subButtons.map((button, index) => {
+              const label = getNodeText(button.props.children)
+              const href = button.props.href
+              const onClick = button.props.onClick
+
+              return (
+                <DropdownMenuItem
+                  key={`${label}-${index}`}
+                  onClick={(event) => {
+                    onClick?.(
+                      event as unknown as React.MouseEvent<HTMLAnchorElement>
+                    )
+                    if (href) window.location.assign(href)
+                    setOpen(false)
+                  }}
+                >
+                  {label}
+                </DropdownMenuItem>
+              )
+            })}
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </li>
   )
 }
 
