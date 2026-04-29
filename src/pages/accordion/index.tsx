@@ -57,7 +57,7 @@ export function AccordionPage() {
             title="Accordion"
             description={
               <>
-                The accordion component is a dynamic user interface element that allows users to expand and collapse content sections. It improves the user experience by providing an organised and interactive way to present information in a space-efficient manner.
+                The Accordion component allows users to expand and collapse sections of content, helping manage dense or secondary information without overwhelming the page. It groups related content into discrete sections, revealing details only when needed while keeping the interface easy to scan.
               </>
             }
           />
@@ -68,14 +68,10 @@ export function AccordionPage() {
             title="Usage"
             description={
               <>
-                Use an <Code>Accordion</Code> when you need to present multiple
-                related sections of content but want to keep the page scannable by
-                showing only the most important information up front. It works best
-                for content that is not critical and can be hidden until needed.
+                Use an Accordion when presenting multiple related sections of content where only one or a few need to be visible at a time. It is well suited to FAQs, grouped settings, or any interface where progressive disclosure improves readability.
                 <br />
                 <br />
-                Avoid accordions for critical content that must be visible at all
-                times.
+                Avoid using accordions for critical content that must always be visible, or where hiding information would interrupt user flow or decision-making.
               </>
             }
           />
@@ -84,7 +80,7 @@ export function AccordionPage() {
             title="Import"
             description={
               <>
-                Copy the import below to get started.
+                Import the Accordion and its subcomponents to compose expandable sections. The component follows a compound pattern, where each part controls a specific piece of behaviour and structure.
               </>
             }
           />
@@ -103,7 +99,7 @@ export function AccordionPage() {
             title="Composition"
             description={
               <>
-                Use the following composition to build an <Code>Accordion</Code>.
+                The Accordion is built using a structured set of subcomponents. Each section is defined by an <Code>AccordionItem</Code>, with <Code>AccordionTrigger</Code> controlling the interactive header and <Code>AccordionContent</Code> containing the expandable content. This pattern allows multiple sections to be composed consistently while keeping behaviour predictable.
               </>
             }
           />
@@ -119,7 +115,7 @@ export function AccordionPage() {
         </PageSection>
 
         <PageSection id="default" label="Default">
-          <PageSectionHeader title="Default accordion" description="A basic accordion that shows one item at a time. By default, all items are closed." />
+          <PageSectionHeader title="Default accordion" description="Demonstrates the baseline Accordion behaviour, where a single item can be expanded at a time and all items are collapsed by default. Use this pattern when content sections are mutually exclusive or when you want to guide users to focus on one section at a time." />
           <ComponentExample className="mb-6">
             <div className="space-y-6">
               <Accordion>
@@ -150,11 +146,11 @@ export function AccordionPage() {
         </PageSection>
 
         <PageSection id="variants" label="Variants">
-          <PageSectionHeader title="Variants" description="The accordion component supports two variants: default and sectional." />
+          <PageSectionHeader title="Variants" description="The Accordion supports layout variations to adapt to different interface contexts. Variants affect visual structure and separation rather than behaviour." />
           <PageSubsectionHeader
             id="variants-sectional"
             title="Sectional"
-            description="The sectional variant displays the accordion items in a vertical list, with each item separated by a horizontal line and used for compartmentalised content to reduce visual noise."
+            description="Displays accordion items as clearly separated sections with additional visual boundaries between each item. Use this variant when content groups need stronger distinction or when the accordion is presented as a standalone list rather than embedded within surrounding content."
           />
           <ComponentExample>
             <div className="space-y-6">
@@ -195,12 +191,12 @@ export function AccordionPage() {
         <PageSection id="controls" label="Controls">
           <PageSectionHeader
             title="Controls"
-            description="Control which items are open by default and whether multiple items can stay open. Use the following controls to customise the accordion behavior."
+            description="Control which items are open by default and whether multiple items can be expanded at the same time. These props define the Accordion’s behaviour rather than its layout, allowing you to tailor how users interact with the content."
           />
           <PageSubsectionHeader
             id="controls-closed"
             title="Closed"
-            description="All items are closed by default."
+            description="All items are collapsed by default. Use this when you want users to explicitly choose what to expand, or when no section should be prioritised on initial load."
           />
           <ComponentExample className="mb-6">
             <div className="space-y-6">
@@ -242,8 +238,7 @@ export function AccordionPage() {
             title="First open"
             description={
               <>
-                The first item is open by default. Use the <Code>defaultValue</Code>{" "}
-                prop to set the default open item.
+                Opens a single item by default using the <Code>defaultValue</Code> prop. Use this when one section should be prioritised or when you want to guide users toward a recommended starting point.
               </>
             }
           />
@@ -287,8 +282,7 @@ export function AccordionPage() {
             title="All open"
             description={
               <>
-                All items are open by default. Use the <Code>defaultValue</Code>{" "}
-                prop while stipulating all of the item values.
+                Opens multiple items by default by passing an array of values to <Code>defaultValue</Code> while enabling <Code>multiple</Code>. Use this when all content should be immediately visible but still collapsible if needed.
               </>
             }
           />
@@ -334,9 +328,7 @@ export function AccordionPage() {
             title="Multiple"
             description={
               <>
-                Keep the first item open by default and allow additional items to
-                remain open. Use the <Code>multiple</Code> prop to allow multiple
-                items to be open at the same time.
+                Allows more than one item to remain open at the same time using the <Code>multiple</Code> prop. Use this when sections are not mutually exclusive and users may need to compare or reference multiple pieces of content simultaneously.
               </>
             }
           />

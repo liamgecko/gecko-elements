@@ -14,6 +14,13 @@ import {
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
 
 export type ActivityFeedType =
   | "conversation-started"
@@ -49,14 +56,16 @@ const ACTIVITY_FEED_ICONS: Record<ActivityFeedType, LucideIcon> = {
 const activityFeedVariants = cva(
   [
     "relative m-0 list-none p-0",
-    "before:pointer-events-none before:absolute before:top-0 before:bottom-0 before:z-0 before:w-0",
+    "before:pointer-events-none before:absolute before:z-0 before:w-0",
     "before:-translate-x-1/2 before:border-l before:border-border before:content-['']",
   ].join(" "),
   {
     variants: {
       variant: {
-        default: "before:left-[calc(2.25rem/2)]",
-        condensed: "before:left-[calc(2rem/2)]",
+        default:
+          "before:left-[calc(2.25rem/2)] before:top-[calc(2.25rem/2)] before:bottom-[calc(2.25rem/2)]",
+        condensed:
+          "before:left-[calc(2rem/2)] before:top-[calc(2rem/2)] before:bottom-[calc(2rem/2)]",
       },
     },
     defaultVariants: {
@@ -159,20 +168,20 @@ function useActivityFeed() {
   const ctx = React.useContext(ActivityFeedContext)
   if (ctx == null) {
     throw new Error(
-      "Activity feed components must be used within ActivityFeedList."
+      "Activity feed components must be used within ActivityFeed."
     )
   }
   return ctx
 }
 
-type ActivityFeedListProps = React.ComponentProps<"ul"> &
+export type ActivityFeedRootProps = React.ComponentProps<"ul"> &
   VariantProps<typeof activityFeedVariants>
 
-function ActivityFeedList({
+function ActivityFeedRoot({
   className,
   variant = "default",
   ...props
-}: ActivityFeedListProps) {
+}: ActivityFeedRootProps) {
   const value = React.useMemo(
     () => ({ variant: (variant ?? "default") as ActivityFeedVariant }),
     [variant]
@@ -277,40 +286,179 @@ function ActivityFeedMeta({ className, ...props }: React.ComponentProps<"div">) 
 
 export type ActivityFeedProps = Omit<
   React.ComponentProps<"ul">,
-  "children"
+  never
 > &
   VariantProps<typeof activityFeedVariants> & {
-    items: ActivityFeedEntry[]
+    pagination?: boolean | { perPage?: number }
   }
 
-function ActivityFeed({
+function ActivityFeed({ children, pagination, ...props }: ActivityFeedProps) {
+  const perPage =
+    typeof pagination === "object" && pagination?.perPage != null
+      ? pagination.perPage
+      : 5
+  const shouldPaginate = Boolean(pagination)
+
+  const allChildren = React.useMemo(() => React.Children.toArray(children), [children])
+  const [page, setPage] = React.useState(0)
+  const totalPages = shouldPaginate
+    ? Math.max(1, Math.ceil(allChildren.length / perPage))
+    : 1
+
+  React.useEffect(() => {
+    if (!shouldPaginate) return
+    setPage((prev) => Math.min(prev, totalPages - 1))
+  }, [shouldPaginate, totalPages])
+
+  const visibleChildren = React.useMemo(() => {
+    if (!shouldPaginate) return allChildren
+    const start = page * perPage
+    return allChildren.slice(start, start + perPage)
+  }, [allChildren, page, perPage, shouldPaginate])
+
+  return (
+    <div className="space-y-4">
+      <ActivityFeedRoot {...props}>{visibleChildren}</ActivityFeedRoot>
+
+      {shouldPaginate && totalPages > 1 ? (
+        <Pagination className="mt-6">
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                href="#"
+                iconOnly
+                variant="outline"
+                aria-disabled={page === 0}
+                tabIndex={page === 0 ? -1 : 0}
+                className={cn(page === 0 && "pointer-events-none opacity-50")}
+                onClick={(event) => {
+                  event.preventDefault()
+                  setPage((p) => Math.max(0, p - 1))
+                }}
+              />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext
+                href="#"
+                iconOnly
+                variant="outline"
+                aria-disabled={page >= totalPages - 1}
+                tabIndex={page >= totalPages - 1 ? -1 : 0}
+                className={cn(
+                  page >= totalPages - 1 && "pointer-events-none opacity-50"
+                )}
+                onClick={(event) => {
+                  event.preventDefault()
+                  setPage((p) => Math.min(totalPages - 1, p + 1))
+                }}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      ) : null}
+    </div>
+  )
+}
+
+export type ActivityFeedItemsProps = Omit<ActivityFeedRootProps, "children"> & {
+  items: ActivityFeedEntry[]
+  pagination?: boolean | { perPage?: number }
+}
+
+function ActivityFeedItems({
   className,
   items,
   variant = "default",
+  pagination,
   ...props
-}: ActivityFeedProps) {
+}: ActivityFeedItemsProps) {
+  const perPage =
+    typeof pagination === "object" && pagination?.perPage != null
+      ? pagination.perPage
+      : 5
+  const shouldPaginate = Boolean(pagination)
+
+  const [page, setPage] = React.useState(0)
+  const totalPages = shouldPaginate
+    ? Math.max(1, Math.ceil(items.length / perPage))
+    : 1
+
+  React.useEffect(() => {
+    if (!shouldPaginate) return
+    setPage((prev) => Math.min(prev, totalPages - 1))
+  }, [shouldPaginate, totalPages])
+
+  const visibleItems = React.useMemo(() => {
+    if (!shouldPaginate) return items
+    const start = page * perPage
+    return items.slice(start, start + perPage)
+  }, [items, page, perPage, shouldPaginate])
+
   return (
-    <ActivityFeedList className={className} variant={variant} {...props}>
-      {items.map((item) => (
-        <ActivityFeedItem key={item.id} data-activity-type={item.type}>
-          <ActivityFeedIcon type={item.type} />
-          <ActivityFeedContent>
-            <ActivityFeedLabel>{item.label}</ActivityFeedLabel>
-            <ActivityFeedMeta>{item.meta}</ActivityFeedMeta>
-          </ActivityFeedContent>
-        </ActivityFeedItem>
-      ))}
-    </ActivityFeedList>
+    <div className="space-y-4">
+      <ActivityFeedRoot
+        className={className}
+        variant={variant}
+        {...props}
+      >
+        {visibleItems.map((item) => (
+          <ActivityFeedItem key={item.id} data-activity-type={item.type}>
+            <ActivityFeedIcon type={item.type} />
+            <ActivityFeedContent>
+              <ActivityFeedLabel>{item.label}</ActivityFeedLabel>
+              <ActivityFeedMeta>{item.meta}</ActivityFeedMeta>
+            </ActivityFeedContent>
+          </ActivityFeedItem>
+        ))}
+      </ActivityFeedRoot>
+
+      {shouldPaginate && totalPages > 1 ? (
+        <Pagination className="mt-4">
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                href="#"
+                iconOnly
+                variant="outline"
+                aria-disabled={page === 0}
+                tabIndex={page === 0 ? -1 : 0}
+                className={cn(page === 0 && "pointer-events-none opacity-50")}
+                onClick={(event) => {
+                  event.preventDefault()
+                  setPage((p) => Math.max(0, p - 1))
+                }}
+              />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext
+                href="#"
+                iconOnly
+                variant="outline"
+                aria-disabled={page >= totalPages - 1}
+                tabIndex={page >= totalPages - 1 ? -1 : 0}
+                className={cn(
+                  page >= totalPages - 1 && "pointer-events-none opacity-50"
+                )}
+                onClick={(event) => {
+                  event.preventDefault()
+                  setPage((p) => Math.min(totalPages - 1, p + 1))
+                }}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      ) : null}
+    </div>
   )
 }
 
 export {
   ActivityFeed,
+  ActivityFeedItems,
   ActivityFeedContent,
   ActivityFeedIcon,
   ActivityFeedItem,
   ActivityFeedLabel,
-  ActivityFeedList,
   ActivityFeedMeta,
   ACTIVITY_FEED_ICONS,
 }
