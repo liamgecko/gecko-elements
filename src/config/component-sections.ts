@@ -11,8 +11,17 @@ export interface ComponentSections {
 export const componentSections: ComponentSections = {
   "activity-feed": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic-example", label: "Basic example" },
     { id: "condensed", label: "Condensed" },
+    { id: "pagination", label: "Pagination" },
   ],
   "inline-edit": [
     { id: "overview", label: "Overview" },
