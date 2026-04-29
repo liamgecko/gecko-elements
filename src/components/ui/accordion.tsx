@@ -9,7 +9,7 @@ const accordionVariants = cva("flex w-full flex-col", {
   variants: {
     variant: {
       default: "",
-      layout: "gap-2",
+      sectional: "gap-2",
     },
   },
   defaultVariants: {
@@ -21,7 +21,7 @@ const accordionItemVariants = cva("", {
   variants: {
     variant: {
       default: "not-last:border-b",
-      layout:
+      sectional:
         "rounded-md border border-border bg-background overflow-hidden",
     },
   },
@@ -36,7 +36,7 @@ const accordionTriggerVariants = cva(
     variants: {
       variant: {
         default: "rounded-md",
-        layout:
+        sectional:
           "rounded-none border-0 px-4 font-semibold text-foreground text-base", 
       },
     },
@@ -52,7 +52,7 @@ const accordionContentVariants = cva(
     variants: {
       variant: {
         default: "",
-        layout: "bg-background",
+        sectional: "bg-background",
       },
     },
     defaultVariants: {
@@ -67,7 +67,7 @@ const accordionContentInnerVariants = cva(
     variants: {
       variant: {
         default: "",
-        layout: "px-4 pt-4 pb-4 border-t border-border",
+        sectional: "px-4 pt-4 pb-4 border-t border-border",
       },
     },
     defaultVariants: {

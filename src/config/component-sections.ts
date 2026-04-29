@@ -8,11 +8,6 @@ export interface ComponentSections {
   [key: string]: Section[]
 }
 
-/**
- * Section config for the "On this page" nav. Keys match the route segment
- * (e.g. /components/button → "button", /core/color → "color"). Add or edit
- * sections per page.
- */
 export const componentSections: ComponentSections = {
   "activity-feed": [
     { id: "overview", label: "Overview" },
@@ -78,11 +73,29 @@ export const componentSections: ComponentSections = {
   accordion: [
     { id: "overview", label: "Overview" },
     {
-      id: "examples",
-      label: "Examples",
+      id: "usage",
+      label: "Usage",
       children: [
-        { id: "examples-basic", label: "Basic" },
-        { id: "examples-layout", label: "Layout" },
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
+    { id: "default", label: "Default" },
+    {
+      id: "variants",
+      label: "Variants",
+      children: [
+        { id: "variants-sectional", label: "Sectional" },
+      ],
+    },
+    {
+      id: "controls",
+      label: "Controls",
+      children: [
+        { id: "controls-closed", label: "Closed" },
+        { id: "controls-first-open", label: "First open" },
+        { id: "controls-all-open", label: "All open" },
+        { id: "controls-multiple", label: "Multiple" },
       ],
     },
   ],
