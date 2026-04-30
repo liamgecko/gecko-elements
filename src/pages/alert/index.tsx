@@ -353,12 +353,16 @@ export function AlertPage() {
         />
         <ComponentExample className="mb-6">
           <div className="space-y-6">
-            <Alert icon>
-              <AlertTitle>Heads up</AlertTitle>
-              <AlertDescription>
-                This alert uses the default icon for its variant.
-              </AlertDescription>
-            </Alert>
+            <div className="space-y-3">
+              {dismissibleVariants.map(({ key, title, description, variant }) => {
+                return (
+                  <Alert key={key} variant={variant} icon>
+                    <AlertTitle>{title}</AlertTitle>
+                    <AlertDescription>{description}</AlertDescription>
+                  </Alert>
+                )
+              })}
+            </div>
             <Code
               variant="block"
               language="tsx"
