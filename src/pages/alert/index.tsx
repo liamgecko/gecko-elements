@@ -354,7 +354,9 @@ export function AlertPage() {
         <ComponentExample className="mb-6">
           <div className="space-y-6">
             <div className="space-y-3">
-              {dismissibleVariants.map(({ key, title, description, variant }) => {
+              {dismissibleVariants
+                .filter(({ variant }) => variant !== undefined)
+                .map(({ key, title, description, variant }) => {
                 return (
                   <Alert key={key} variant={variant} icon>
                     <AlertTitle>{title}</AlertTitle>
