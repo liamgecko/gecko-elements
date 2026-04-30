@@ -502,6 +502,14 @@ export const componentSections: ComponentSections = {
   ],
   alert: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic-example", label: "Basic example" },
     {
       id: "variations",
@@ -513,6 +521,16 @@ export const componentSections: ComponentSections = {
         { id: "variations-warning", label: "Warning" },
       ],
     },
+    {
+      id: "icon",
+      label: "Icon",
+      children: [
+        { id: "icon-default", label: "Default icons" },
+        { id: "icon-custom", label: "Custom icons" },
+      ],
+    },
+    { id: "action", label: "Action" },
+    { id: "dismissible", label: "Dismissible" },
   ],
   avatar: [
     { id: "overview", label: "Overview" },
