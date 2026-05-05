@@ -315,7 +315,7 @@ export function Filter({
 
       {variant === "default" && activeCategoryIds.length > 0 && (
         <>
-          <Separator orientation="vertical" className="h-7.5!" />
+          <Separator orientation="vertical" className="h-7!" />
           <div className="flex items-center flex-wrap gap-1">
             {activeCategoryIds.map((categoryId) => {
               const category = categoriesById.get(categoryId)
@@ -335,7 +335,7 @@ export function Filter({
               return (
                 <div
                   key={categoryId}
-                  className="bg-background border border-border rounded h-7.5 flex items-center overflow-hidden"
+                  className="bg-background border border-border rounded h-7 flex items-center overflow-hidden"
                 >
                   <span className="text-xs text-muted-foreground border-r border-border px-2 h-full flex items-center">
                     {category.label}

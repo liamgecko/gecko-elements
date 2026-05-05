@@ -9,6 +9,7 @@
 
     /* Surface colors */
     --background: oklch(1 0 0); /* white */
+    --muted-background: oklch(98.5% 0.002 247.839); /* gray-50 */
     --foreground: oklch(21% 0.034 264.665); /* gray-900 */
     --card: var(--background); /* white */
     --card-foreground: var(--foreground); /* gray-950 */
@@ -89,6 +90,7 @@
 
     /* Surface colors */
     --background: oklch(13% 0.028 261.692); /* gray-950 */
+    --muted-background: oklch(21% 0.034 264.665); /* gray-900 */
     --foreground: oklch(96.7% .003 264.542); /* gray-100 */
     --card: var(--background); /* gray-950 */
     --card-foreground: var(--foreground); /* gray-50 */
@@ -233,6 +235,7 @@
     --color-card: var(--card);
     --color-foreground: var(--foreground);
     --color-background: var(--background);
+    --color-muted-background: var(--muted-background);
     --color-backdrop: var(--backdrop);
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);

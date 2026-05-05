@@ -88,11 +88,16 @@ export function AppShell({ children }: AppShellProps) {
   const isComponentsRoute =
     pathname === "/components" || pathname.startsWith("/components/")
   const isCoreRoute = pathname === "/core" || pathname.startsWith("/core/")
+  const isStructureRoute =
+    pathname === "/structure" || pathname.startsWith("/structure/")
   const componentSlug = isComponentsRoute
     ? pathname.replace(/^\/components\/?/, "").replace(/\/$/, "")
     : null
   const coreSlug = isCoreRoute
     ? pathname.replace(/^\/core\/?/, "").replace(/\/$/, "")
+    : null
+  const structureSlug = isStructureRoute
+    ? pathname.replace(/^\/structure\/?/, "").replace(/\/$/, "")
     : null
 
   const componentName =
@@ -101,6 +106,10 @@ export function AppShell({ children }: AppShellProps) {
       : null
   const corePageName =
     coreSlug && coreSlug.length > 0 ? slugToPageTitle(coreSlug) : null
+  const structurePageName =
+    structureSlug && structureSlug.length > 0
+      ? slugToPageTitle(structureSlug)
+      : null
 
   return (
     <TooltipProvider>
@@ -202,6 +211,38 @@ export function AppShell({ children }: AppShellProps) {
                               <BreadcrumbSeparator />
                               <BreadcrumbItem>
                                 <BreadcrumbPage>{componentName}</BreadcrumbPage>
+                              </BreadcrumbItem>
+                            </>
+                          ) : null}
+                        </>
+                      )}
+                      {isStructureRoute && (
+                        <>
+                          <BreadcrumbSeparator />
+                          <BreadcrumbItem>
+                            {pathname === "/structure" ? (
+                              <BreadcrumbPage>Structure</BreadcrumbPage>
+                            ) : (
+                              <BreadcrumbLink
+                                render={
+                                  <button
+                                    type="button"
+                                    onClick={() => navigate("/structure")}
+                                    className="text-left"
+                                  />
+                                }
+                              >
+                                Structure
+                              </BreadcrumbLink>
+                            )}
+                          </BreadcrumbItem>
+                          {structurePageName ? (
+                            <>
+                              <BreadcrumbSeparator />
+                              <BreadcrumbItem>
+                                <BreadcrumbPage>
+                                  {structurePageName}
+                                </BreadcrumbPage>
                               </BreadcrumbItem>
                             </>
                           ) : null}

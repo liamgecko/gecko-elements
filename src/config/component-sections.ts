@@ -432,6 +432,42 @@ export const componentSections: ComponentSections = {
       ],
     },
   ],
+  "structure-header": [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
+    { id: "example", label: "Example" },
+    {
+      id: "variants",
+      label: "Variants",
+      children: [
+        { id: "examples-breadcrumbs-only", label: "Breadcrumbs only" },
+        { id: "examples-actions", label: "Actions" },
+        { id: "examples-actions-multiple", label: "Multiple actions" },
+        { id: "examples-heading", label: "Heading" },
+        { id: "examples-sub-heading", label: "Sub-heading" },
+        { id: "examples-tabs", label: "Tabs" },
+      ],
+    },
+  ],
+  "structure-container": [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
+    { id: "example", label: "Example" },
+  ],
   switch: [
     { id: "overview", label: "Overview" },
     { id: "basic", label: "Basic example" },

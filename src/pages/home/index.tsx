@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { buttonVariants } from "@/components/ui/button"
-import { componentPages, corePages } from "@/pages/gallery-data"
+import { componentPages, corePages, structurePages } from "@/pages/gallery-data"
 import { PageSection } from "@/components/layout/page-section"
 
 export function HomePage() {
@@ -37,6 +37,33 @@ export function HomePage() {
                       variant: "secondary",
                       size: "sm",
                     })}
+                  >
+                    View
+                  </Link>
+                </p>
+              </article>
+            </li>
+          ))}
+        </ul>
+      </PageSection>
+
+      <PageSection id="structure" label="Structure">
+        <h2 className="text-lg font-semibold">Structure</h2>
+        <p className="mb-4 text-sm text-muted-foreground">
+          Layout and composition building blocks — containers, headers, and menus.
+        </p>
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {structurePages.map(({ name, description, path }) => (
+            <li key={path}>
+              <article className="rounded-lg border border-border bg-card p-4 text-card-foreground">
+                <h3 className="font-medium">{name}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {description}
+                </p>
+                <p className="mt-3">
+                  <Link
+                    to={path}
+                    className={buttonVariants({ variant: "secondary", size: "sm" })}
                   >
                     View
                   </Link>

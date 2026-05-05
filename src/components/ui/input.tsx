@@ -9,9 +9,9 @@ const inputVariants = cva(
   {
     variants: {
       size: {
-        sm: "h-7.5 px-2 text-[13px] file:h-7.5",
-        md: "h-8.5 px-2.5 text-sm file:h-8.5",
-        lg: "h-9.5 px-3 text-base file:h-9.5",
+        sm: "h-7 px-2 text-[13px] file:h-7",
+        md: "h-8 px-2.5 text-sm file:h-8",
+        lg: "h-9 px-3 text-base file:h-9",
       },
       readOnly: {
         true: "pointer-events-none hover:border-input group-hover/field:border-input focus-visible:ring-0 focus-visible:border-input",

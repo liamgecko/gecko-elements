@@ -25,6 +25,12 @@ const coreNavItems: NavItem[] = [
   { to: "/core/icons", label: "Icons" },
 ] as const
 
+const structureNavItems: NavItem[] = [
+  { to: "/structure/container", label: "Container" },
+  { to: "/structure/menu", label: "Menu" },
+  { to: "/structure/header", label: "Header" },
+] as const
+
 const navItems: NavItem[] = [
   { to: "/components/accordion", label: "Accordion" },
   { to: "/components/activity-feed", label: "Activity feed" },
@@ -124,6 +130,14 @@ export function SidebarNav() {
         <SidebarGroupContent>
           <SidebarMenu className="gap-px">
             {renderNavItems(coreNavItems)}
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel>Structure</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu className="gap-px">
+            {renderNavItems(structureNavItems)}
           </SidebarMenu>
         </SidebarGroupContent>
       </SidebarGroup>

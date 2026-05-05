@@ -20,9 +20,9 @@ import { Input } from "@/components/ui/input"
 const sizeVariants = cva("", {
   variants: {
     size: {
-      sm: "h-7.5",
-      md: "h-8.5",
-      lg: "h-9.5",
+      sm: "h-7",
+      md: "h-8",
+      lg: "h-9",
     },
   },
   defaultVariants: { size: "md" },

@@ -37,11 +37,34 @@ export const corePages: readonly GalleryItem[] = [
   },
 ] as const
 
+export const structurePages: readonly GalleryItem[] = [
+  {
+    name: "Container",
+    description: "Page and content containers for consistent layout.",
+    path: "/structure/container",
+  },
+  {
+    name: "Menu",
+    description: "Navigation menus and composition patterns.",
+    path: "/structure/menu",
+  },
+  {
+    name: "Header",
+    description: "Page headers, titles, and supporting actions.",
+    path: "/structure/header",
+  },
+] as const
+
 export const componentPages: readonly GalleryItem[] = [
   {
     name: "Accordion",
     description: "Show and hide sections of related content.",
     path: "/components/accordion",
+  },
+  {
+    name: "Activity feed",
+    description: "Timeline-based feed for activity and events.",
+    path: "/components/activity-feed",
   },
   {
     name: "Alert",
@@ -77,11 +100,6 @@ export const componentPages: readonly GalleryItem[] = [
     name: "Button",
     description: "Actions, submit, and triggers.",
     path: "/components/button",
-  },
-  {
-    name: "Button Group",
-    description: "Arrange related buttons together with shared styling.",
-    path: "/components/button-group",
   },
   {
     name: "Calendar",
@@ -154,6 +172,11 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/filters",
   },
   {
+    name: "Inline edit",
+    description: "Edit-in-place patterns for small content updates.",
+    path: "/components/inline-edit",
+  },
+  {
     name: "Input",
     description: "Single‑line text inputs.",
     path: "/components/input",
@@ -224,9 +247,9 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/sheet",
   },
   {
-    name: "Skeleton",
-    description: "Loading placeholders that mimic content layout.",
-    path: "/components/skeleton",
+    name: "Sidebar",
+    description: "App navigation sidebar with collapsed and expanded modes.",
+    path: "/components/sidebar",
   },
   {
     name: "Toast",
@@ -322,6 +345,11 @@ export const componentPages: readonly GalleryItem[] = [
     name: "File input",
     description: "File upload fields with states.",
     path: "/components/file-input",
+  },
+  {
+    name: "File tree",
+    description: "File/folder navigation with nesting and icons.",
+    path: "/components/file-tree",
   },
   {
     name: "Drop zone",

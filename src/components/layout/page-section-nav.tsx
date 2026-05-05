@@ -20,7 +20,9 @@ function getComponentKey(pathname: string): string | null {
   const components = pathname.match(/^\/components\/(.+)$/)
   if (components) return components[1]
   const core = pathname.match(/^\/core\/(.+)$/)
-  return core ? core[1] : null
+  if (core) return core[1]
+  const structure = pathname.match(/^\/structure\/(.+)$/)
+  return structure ? `structure-${structure[1]}` : null
 }
 
 function SectionLink({

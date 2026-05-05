@@ -13,9 +13,9 @@ const inlineEditViewRootVariants = cva(
   {
     variants: {
       size: {
-        sm: "h-7.5 text-xs",
-        md: "h-8.5 text-sm",
-        lg: "h-9.5 text-base",
+        sm: "h-7 text-xs",
+        md: "h-8 text-sm",
+        lg: "h-9 text-base",
       },
     },
     defaultVariants: {
@@ -29,9 +29,9 @@ const inlineEditEditShellVariants = cva(
   {
     variants: {
       size: {
-        sm: "h-7.5",
-        md: "h-8.5",
-        lg: "h-9.5",
+        sm: "h-7",
+        md: "h-8",
+        lg: "h-9",
       },
     },
     defaultVariants: {
@@ -69,9 +69,9 @@ const inlineEditGlyphIconVariants = cva("shrink-0", {
 const inlineEditActionSlotVariants = cva("flex items-center justify-center", {
   variants: {
     size: {
-      sm: "size-7.5",
-      md: "size-8.5",
-      lg: "size-9.5",
+      sm: "size-7",
+      md: "size-8",
+      lg: "size-9",
     },
     interactive: {
       false: "",

@@ -73,6 +73,10 @@ import { TypographyPage } from "@/pages/core/typography"
 import { CoreIndexPage } from "@/pages/core/index"
 import { ComponentsIndexPage } from "@/pages/components/index"
 import { SidebarPage } from "@/pages/sidebar"
+import { StructureIndexPage } from "@/pages/structure"
+import { StructureContainerPage } from "@/pages/structure/container"
+import { StructureHeaderPage } from "@/pages/structure/header"
+import { StructureMenuPage } from "@/pages/structure/menu"
 
 export function App() {
   return (
@@ -82,12 +86,16 @@ export function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/core" element={<CoreIndexPage />} />
         <Route path="/components" element={<ComponentsIndexPage />} />
+        <Route path="/structure" element={<StructureIndexPage />} />
         <Route path="/core/color" element={<ColorPage />} />
         <Route path="/core/typography" element={<TypographyPage />} />
         <Route path="/core/spacing" element={<SpacingPage />} />
         <Route path="/core/radius" element={<RadiusPage />} />
         <Route path="/core/shadows" element={<ShadowsPage />} />
         <Route path="/core/icons" element={<IconsPage />} />
+        <Route path="/structure/container" element={<StructureContainerPage />} />
+        <Route path="/structure/menu" element={<StructureMenuPage />} />
+        <Route path="/structure/header" element={<StructureHeaderPage />} />
         <Route path="/components/accordion" element={<AccordionPage />} />
         <Route path="/components/alert" element={<AlertPage />} />
         <Route path="/components/alert-dialog" element={<AlertDialogPage />} />

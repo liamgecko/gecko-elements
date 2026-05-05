@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils"
 type Size = "sm" | "md" | "lg"
 
 const groupSizeClasses: Record<Size, string> = {
-  sm: "h-7.5 text-[13px] w-32",
-  md: "h-8.5 text-sm w-38",
-  lg: "h-9.5 text-base w-44",
+  sm: "h-7 text-[13px] w-32",
+  md: "h-8 text-sm w-38",
+  lg: "h-9 text-base w-44",
 }
 
 const inputPaddingClasses: Record<Size, string> = {
