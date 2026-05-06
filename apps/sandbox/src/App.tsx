@@ -3,7 +3,7 @@ import "@gecko/ui/globals.css"
 
 export default function App() {
   return (
-    <div style={{ padding: 24 }}>
+    <div className="p-4">
       <Button>Sandbox button</Button>
     </div>
   )
