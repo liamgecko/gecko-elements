@@ -28,7 +28,12 @@ const navItems = [
 
 export function SidebarNav() {
   return (
-    <Sidebar variant="sidebar" collapsible="icon">
+    <Sidebar
+      variant="sidebar"
+      collapsible="icon"
+      // Sandbox layout override: keep sidebar below the fixed-height top bar (h-14).
+      className="top-14"
+    >
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
