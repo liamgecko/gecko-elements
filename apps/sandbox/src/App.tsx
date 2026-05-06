@@ -1,11 +1,8 @@
-import { Button } from "@gecko/ui/components/button"
 import "@gecko/ui/globals.css"
 
+import { AppShell } from "./components/layout/app-shell"
+
 export default function App() {
-  return (
-    <div className="p-4">
-      <Button>Sandbox button</Button>
-    </div>
-  )
+  return <AppShell />
 }
 
