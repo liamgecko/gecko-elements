@@ -3,10 +3,9 @@ import tailwindcss from "@tailwindcss/vite"
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 
-// https://vite.dev/config/
 export default defineConfig(({ command }) => ({
-  // Dev server should be rooted at "/", but the production build is hosted at /<repo>/docs/ on GitHub Pages.
-  base: command === "build" ? "/gecko-elements/docs/" : "/",
+  // Dev server should be rooted at "/", but the production build is hosted at /<repo>/sandbox/ on GitHub Pages.
+  base: command === "build" ? "/gecko-elements/sandbox/" : "/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
@@ -16,3 +15,4 @@ export default defineConfig(({ command }) => ({
     },
   },
 }))
+

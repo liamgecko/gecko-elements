@@ -33,11 +33,70 @@ jobs:
       - name: Build docs app
         run: npm run build --workspace=apps/docs
 
+      - name: Build sandbox app
+        run: npm run build --workspace=apps/sandbox
+
       - name: Prepare Pages artifact
         run: |
           rm -rf dist
           mkdir -p dist/docs
           cp -R apps/docs/dist/. dist/docs/
+          mkdir -p dist/sandbox
+          cp -R apps/sandbox/dist/. dist/sandbox/
+
+          # GitHub Pages SPA fallback:
+          # Redirect unknown routes (e.g. /docs/components/...) into the right app entry via ?p=/...
+          cat > dist/404.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
+              <title>Redirecting…</title>
+              <meta http-equiv="refresh" content="0;url=./" />
+              <script>
+                (function () {
+                  var repoBase = "/gecko-elements";
+                  var path = window.location.pathname || "/";
+                  if (path.indexOf(repoBase) !== 0) {
+                    window.location.replace(repoBase + "/");
+                    return;
+                  }
+                  var rel = path.slice(repoBase.length) || "/";
+                  var targetApp = null;
+                  if (rel === "/docs" || rel.indexOf("/docs/") === 0) targetApp = "docs";
+                  if (rel === "/sandbox" || rel.indexOf("/sandbox/") === 0) targetApp = "sandbox";
+
+                  if (!targetApp) {
+                    window.location.replace(repoBase + "/");
+                    return;
+                  }
+
+                  // Ensure folder root loads with trailing slash.
+                  if (rel === "/" + targetApp) {
+                    window.location.replace(repoBase + "/" + targetApp + "/");
+                    return;
+                  }
+
+                  var withinApp = rel.slice(("/" + targetApp).length) || "/";
+                  var search = window.location.search || "";
+                  var hash = window.location.hash || "";
+                  var next =
+                    repoBase +
+                    "/" +
+                    targetApp +
+                    "/?p=" +
+                    encodeURIComponent(withinApp) +
+                    (search ? "&" + search.slice(1) : "") +
+                    hash;
+
+                  window.location.replace(next);
+                })();
+              </script>
+            </head>
+            <body></body>
+          </html>
+          EOF
 
           cat > dist/index.html <<'EOF'
           <!doctype html>
@@ -61,6 +120,7 @@ jobs:
                 <p class="muted">Monorepo GitHub Pages site.</p>
                 <div class="card">
                   <p><a href="./docs/">Open Docs</a></p>
+                  <p><a href="./sandbox/">Open Sandbox</a></p>
                 </div>
               </main>
             </body>
