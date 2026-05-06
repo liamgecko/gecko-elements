@@ -29,7 +29,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@gecko/ui/components/dropdown-menu"
-import { PanelLeftIcon } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -261,7 +261,7 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar } = useSidebar()
+  const { toggleSidebar, state } = useSidebar()
   const isMac =
     typeof navigator !== "undefined" &&
     /Mac|iPhone|iPad|iPod/i.test(navigator.platform)
@@ -279,7 +279,7 @@ function SidebarTrigger({
       }}
       {...props}
     >
-      <PanelLeftIcon className="rtl:rotate-180" />
+      {state === "collapsed" ? <ChevronRight /> : <ChevronLeft />}
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )
@@ -365,7 +365,7 @@ function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="sidebar-footer"
       data-sidebar="footer"
-      className={cn("gap-2 p-2 flex flex-col", className)}
+      className={cn("gap-2 p-2 flex flex-col border-t border-sidebar-border", className)}
       {...props}
     />
   )
@@ -674,7 +674,7 @@ function SidebarCollapsedSubMenuItem({
           side="right"
           align="start"
           sideOffset={0.25}
-          className="data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0 data-[side=right]:slide-in-from-left-4 duration-250 ease-out ring-gray-100 p-0 min-w-48"
+          className="data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0 data-[side=right]:slide-in-from-left-4 duration-250 ease-out ring-gray-100 p-0 min-w-48 w-max max-w-[calc(100vw-1rem)]"
           ref={contentNodeRef}
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={(event) => {
@@ -697,6 +697,7 @@ function SidebarCollapsedSubMenuItem({
               return (
                 <DropdownMenuItem
                   key={`${label}-${index}`}
+                  className="whitespace-nowrap"
                   onClick={(event) => {
                     onClick?.(
                       event as unknown as React.MouseEvent<HTMLAnchorElement>
@@ -744,18 +745,44 @@ function SidebarMenuButton({
   size = "default",
   tooltip,
   className,
+  chevron,
+  children,
   ...props
 }: useRender.ComponentProps<"button"> &
   React.ComponentProps<"button"> & {
     isActive?: boolean
     tooltip?: string | React.ComponentProps<typeof TooltipContent>
+    /**
+     * When `true`, always show a trailing chevron.
+     * When `false`, never show it.
+     * When omitted, it is shown automatically when `aria-expanded` is present (e.g. Collapsible triggers).
+     */
+    chevron?: boolean
   } & VariantProps<typeof sidebarMenuButtonVariants>) {
   const { isMobile, state } = useSidebar()
+  const shouldShowChevron =
+    chevron ?? (typeof props["aria-expanded"] !== "undefined")
+
   const comp = useRender({
     defaultTagName: "button",
     props: mergeProps<"button">(
       {
         className: cn(sidebarMenuButtonVariants({ variant, size }), className),
+        children: shouldShowChevron ? (
+          <>
+            {children}
+            <ChevronRight
+              aria-hidden
+              className={cn(
+                "ml-auto size-4 shrink-0 text-muted-foreground transition-transform",
+                "group-aria-expanded/menu-button:rotate-90",
+                "group-data-[collapsible=icon]/sidebar-wrapper:hidden"
+              )}
+            />
+          </>
+        ) : (
+          children
+        ),
       },
       props
     ),
@@ -917,7 +944,7 @@ function SidebarMenuSubButton({
     props: mergeProps<"a">(
       {
         className: cn(
-          "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-sm data-[size=sm]:text-xs [&>svg]:size-4 flex min-w-0 -translate-x-px rtl:translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-75 aria-disabled:pointer-events-none aria-disabled:opacity-75 [&>span:last-child]:truncate [&>svg]:shrink-0",
+          "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-[13px] data-[size=sm]:text-xs [&>svg]:size-4 flex min-w-0 -translate-x-px rtl:translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-75 aria-disabled:pointer-events-none aria-disabled:opacity-75 [&>span:last-child]:truncate [&>svg]:shrink-0",
           className
         ),
       },

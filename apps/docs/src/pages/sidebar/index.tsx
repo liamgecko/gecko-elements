@@ -25,7 +25,6 @@ import {
 import {
   BookOpen,
   Box,
-  ChevronRight,
   Home,
   Layers,
   LifeBuoy,
@@ -249,7 +248,6 @@ function SidebarCollapsibleSubMenuDemo() {
                     <SidebarMenuButton className="group w-full">
                       <Package />
                       <span>Products</span>
-                      <ChevronRight className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform group-aria-expanded:rotate-90" />
                     </SidebarMenuButton>
                   }
                 />
@@ -281,7 +279,6 @@ function SidebarCollapsibleSubMenuDemo() {
                     <SidebarMenuButton className="group w-full">
                       <LifeBuoy />
                       <span>Support</span>
-                      <ChevronRight className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform group-aria-expanded:rotate-90" />
                     </SidebarMenuButton>
                   }
                 />
