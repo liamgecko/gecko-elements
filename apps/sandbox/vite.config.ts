@@ -2,7 +2,9 @@ import path from "path"
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  // Dev server should be rooted at "/", but the production build is hosted at /<repo>/sandbox/ on GitHub Pages.
+  base: command === "build" ? "/gecko-elements/sandbox/" : "/",
   plugins: [react()],
   resolve: {
     alias: {
@@ -11,5 +13,5 @@ export default defineConfig({
       "@gecko/ui": path.resolve(__dirname, "../../packages/ui/src"),
     },
   },
-})
+}))
 

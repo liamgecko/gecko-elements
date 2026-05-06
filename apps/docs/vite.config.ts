@@ -4,9 +4,9 @@ import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 
 // https://vite.dev/config/
-export default defineConfig({
-  // GitHub Pages project site: /<repo>/docs/
-  base: "/gecko-elements/docs/",
+export default defineConfig(({ command }) => ({
+  // Dev server should be rooted at "/", but the production build is hosted at /<repo>/docs/ on GitHub Pages.
+  base: command === "build" ? "/gecko-elements/docs/" : "/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
@@ -15,4 +15,4 @@ export default defineConfig({
       "@gecko/ui": path.resolve(__dirname, "../../packages/ui/src"),
     },
   },
-})
+}))
