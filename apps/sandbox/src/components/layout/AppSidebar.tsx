@@ -27,14 +27,12 @@ const navItems = [
   "Dashboards",
 ] as const
 
-export function SidebarNav() {
+export function AppSidebar() {
   return (
     <Sidebar
       variant="sidebar"
-      // Use non-fixed layout so the sidebar participates in the app shell flex row
-      // and scrolling matches the docs app (ScrollArea inside SidebarContent).
       collapsible="none"
-      className="h-full bg-white"
+      className="h-full"
     >
       <SidebarContent>
         <ScrollArea className="h-full">
