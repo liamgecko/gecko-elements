@@ -1,0 +1,98 @@
+import { AvatarGroup } from "@gecko/ui/components/avatar-group"
+import { ComponentExample } from "@/components/layout/component-example"
+import { PageSection } from "@/components/layout/page-section"
+
+const sampleItems = [
+  { name: "Gecko Engage", fallback: "GE" },
+  { name: "Alice Brown", fallback: "AB" },
+  { name: "Charlie Davis", fallback: "CD" },
+  { name: "Eve Foster", fallback: "EF" },
+  { name: "Grace Hill", fallback: "GH" },
+]
+
+const sizes = [
+  "3xs",
+  "2xs",
+  "xs",
+  "sm",
+  "md",
+  "lg",
+  "xl",
+  "2xl",
+] as const
+
+export function AvatarGroupPage() {
+  return (
+    <div className="space-y-12">
+        <PageSection id="overview" label="Overview">
+          <h1 className="text-2xl font-bold text-foreground">Avatar group</h1>
+          <p className="text-sm text-muted-foreground">
+            Display multiple avatars in a stacked row from an items array.
+            Optionally show overflow as a count button that opens a dropdown
+            with the remaining items, and enable tooltips on hover.
+          </p>
+        </PageSection>
+        <PageSection id="basic" label="Basic example">
+          <h2 className="text-lg font-semibold">Basic example</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Pass an array of items (name, fallback, src, etc.). Avatars are
+            stacked with negative margin and ring so each remains visible.
+          </p>
+          <ComponentExample className="mb-6">
+            <AvatarGroup items={sampleItems.slice(0, 4)} size="xl" />
+          </ComponentExample>
+        </PageSection>
+        <PageSection id="with-overflow" label="With overflow">
+          <h2 className="text-lg font-semibold">With overflow</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Set overflow and displayItems to show a count button for remaining
+            items. Clicking it opens a dropdown listing the rest.
+          </p>
+          <ComponentExample className="mb-6">
+            <AvatarGroup
+              items={sampleItems}
+              displayItems={3}
+              overflow  
+              size="xl"
+            />
+          </ComponentExample>
+        </PageSection>
+        <PageSection id="sizes" label="Sizes">
+          <h2 className="text-lg font-semibold">Sizes</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Avatar group supports all avatar sizes. Each example below shows
+            overflow with displayItems 3.
+          </p>
+          <ComponentExample className="mb-6">
+            <div className="flex flex-col gap-6">
+              {sizes.map((size) => (
+                <div key={size} className="flex items-center gap-4">
+                  <span className="w-8 text-xs text-muted-foreground">{size}</span>
+                  <AvatarGroup
+                    items={sampleItems}
+                    displayItems={3}
+                    overflow
+                    size={size}
+                  />
+                </div>
+              ))}
+            </div>
+          </ComponentExample>
+        </PageSection>
+        <PageSection id="with-tooltips" label="With tooltips">
+          <h2 className="text-lg font-semibold">With tooltips</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Enable tooltips to show each item’s name (or custom tooltip) on
+            hover.
+          </p>
+          <ComponentExample>
+            <AvatarGroup
+              items={sampleItems.slice(0, 4)}
+              tooltips  
+              size="xl"
+            />
+          </ComponentExample>
+        </PageSection>
+    </div>
+  )
+}
