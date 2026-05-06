@@ -6,32 +6,58 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@gecko/ui/components/sidebar"
 import { ScrollArea } from "@gecko/ui/components/scroll-area"
+import type { LucideIcon } from "lucide-react"
+import {
+  Bot,
+  Building2,
+  LayoutDashboard,
+  ListChecks,
+  Mail,
+  Megaphone,
+  MessageSquare,
+  MessagesSquare,
+  Phone,
+  ScrollText,
+  Settings,
+  Shapes,
+  Users,
+  Waypoints,
+} from "lucide-react"
 
-const navItems = [
-  "Overview",
-  "Forms",
-  "Events",
-  "Calls",
-  "Conversations",
-  "AI agents",
-  "Broadcasts",
-  "Landing pages",
-  "Organisations",
-  "Contacts",
-  "Responses",
-  "Messages",
-  "Applications",
-  "Settings",
-  "Dashboards",
+type NavItem = {
+  label: string
+  icon: LucideIcon
+}
+
+const navItems: readonly NavItem[] = [
+  { label: "Overview", icon: LayoutDashboard },
+  { label: "Forms", icon: ListChecks },
+  { label: "Events", icon: Waypoints },
+  { label: "Calls", icon: Phone },
+  { label: "Conversations", icon: MessagesSquare },
+  { label: "AI agents", icon: Bot },
+  { label: "Broadcasts", icon: Megaphone },
+  { label: "Landing pages", icon: ScrollText },
+  { label: "Organisations", icon: Building2 },
+  { label: "Contacts", icon: Users },
+  { label: "Responses", icon: Mail },
+  { label: "Messages", icon: MessageSquare },
+  { label: "Applications", icon: Shapes },
+  { label: "Settings", icon: Settings },
+  { label: "Dashboards", icon: LayoutDashboard },
 ] as const
 
 export function AppSidebar() {
+  const { state } = useSidebar()
+  const collapsed = state === "collapsed"
+
   return (
     <Sidebar
       variant="sidebar"
-      collapsible="none"
+      collapsible="icon"
       className="h-full"
     >
       <SidebarContent>
@@ -39,10 +65,11 @@ export function AppSidebar() {
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu>
-                {navItems.map((label) => (
+                {navItems.map(({ label, icon: Icon }) => (
                   <SidebarMenuItem key={label}>
                     <SidebarMenuButton tooltip={label}>
-                      <span>{label}</span>
+                      <Icon aria-hidden className="size-4" />
+                      {!collapsed ? <span>{label}</span> : null}
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
