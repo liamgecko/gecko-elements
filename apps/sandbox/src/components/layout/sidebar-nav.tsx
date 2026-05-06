@@ -7,6 +7,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@gecko/ui/components/sidebar"
+import { ScrollArea } from "@gecko/ui/components/scroll-area"
 
 const navItems = [
   "Overview",
@@ -30,24 +31,27 @@ export function SidebarNav() {
   return (
     <Sidebar
       variant="sidebar"
-      collapsible="icon"
-      // Sandbox layout override: keep sidebar below the fixed-height top bar (h-14).
-      className="top-14"
+      // Use non-fixed layout so the sidebar participates in the app shell flex row
+      // and scrolling matches the docs app (ScrollArea inside SidebarContent).
+      collapsible="none"
+      className="h-full bg-white"
     >
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {navItems.map((label) => (
-                <SidebarMenuItem key={label}>
-                  <SidebarMenuButton tooltip={label}>
-                    <span>{label}</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        <ScrollArea className="h-full">
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {navItems.map((label) => (
+                  <SidebarMenuItem key={label}>
+                    <SidebarMenuButton tooltip={label}>
+                      <span>{label}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </ScrollArea>
       </SidebarContent>
     </Sidebar>
   )
