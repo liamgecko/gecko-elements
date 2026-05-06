@@ -5,8 +5,8 @@ import { defineConfig } from "vite"
 
 // https://vite.dev/config/
 export default defineConfig({
-  // Deploy the docs app under /docs (so routes are /docs/...).
-  base: "/docs/",
+  // GitHub Pages project site: /<repo>/docs/
+  base: "/gecko-elements/docs/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {

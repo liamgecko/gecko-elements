@@ -1,0 +1,88 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build docs app
+        run: npm run build --workspace=apps/docs
+
+      - name: Prepare Pages artifact
+        run: |
+          rm -rf dist
+          mkdir -p dist/docs
+          cp -R apps/docs/dist/. dist/docs/
+
+          cat > dist/index.html <<'EOF'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
+              <title>Gecko Elements</title>
+              <style>
+                :root { color-scheme: light dark; }
+                body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; }
+                main { max-width: 760px; margin: 0 auto; padding: 48px 20px; }
+                a { color: inherit; }
+                .card { border: 1px solid rgba(127,127,127,.35); border-radius: 12px; padding: 16px; }
+                .muted { opacity: .75; }
+              </style>
+            </head>
+            <body>
+              <main>
+                <h1>Gecko Elements</h1>
+                <p class="muted">Monorepo GitHub Pages site.</p>
+                <div class="card">
+                  <p><a href="./docs/">Open Docs</a></p>
+                </div>
+              </main>
+            </body>
+          </html>
+          EOF
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
+
