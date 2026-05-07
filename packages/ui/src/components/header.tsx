@@ -188,7 +188,8 @@ function Actions({
               aria-label={ariaLabel ?? tooltipLabel}
               className={cn(
                 // Header-specific: keep background identical when pressed.
-                "aria-pressed:bg-background",
+                // But still allow hover feedback when pressed.
+                "aria-pressed:bg-background aria-pressed:hover:bg-muted",
                 className
               )}
               {...toggleProps}
@@ -266,7 +267,11 @@ function Header({
   return (
     <div
       data-slot="header"
-      className={cn("space-y-6", className)}
+      className={cn(
+        "space-y-6 px-4 pt-2 bg-background",
+        resolvedTabs ? "pb-0" : "pb-2 border-b border-border",
+        className
+      )}
       {...props}
     >
       {(resolvedBreadcrumbs || (!hasHeading && actions)) && (

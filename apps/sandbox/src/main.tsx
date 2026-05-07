@@ -1,5 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
+import { BrowserRouter } from "react-router-dom"
 import App from "./App"
 
 // GitHub Pages SPA routing:
@@ -10,15 +11,18 @@ const p = url.searchParams.get("p")
 if (p) {
   url.searchParams.delete("p")
   const cleanedSearch = url.searchParams.toString()
-  const base = import.meta.env.BASE_URL.replace(/\/$/, "")
-  const nextUrl =
-    base + p + (cleanedSearch ? "?" + cleanedSearch : "") + url.hash
+  const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, "") || undefined
+  const nextUrl = `${routerBasename ?? ""}${p}${cleanedSearch ? `?${cleanedSearch}` : ""}${url.hash}`
   window.history.replaceState(null, "", nextUrl)
 }
 
+const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, "") || undefined
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter basename={routerBasename}>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>,
 )
 

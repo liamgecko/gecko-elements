@@ -22,6 +22,7 @@ import {
   TooltipTrigger,
 } from "@gecko/ui/components/tooltip"
 import { Circle, Headset, MessageSquareText } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 function Slashed({ icon: Icon }: { icon: typeof Headset }) {
   return (
@@ -48,6 +49,8 @@ export function AppHeader() {
   React.useEffect(() => {
     applyTheme(darkMode)
   }, [darkMode, applyTheme])
+
+  const navigate = useNavigate()
 
   return (
     <header className="sticky top-0 z-20 flex w-full items-center border-b bg-gray-900">
@@ -178,17 +181,19 @@ export function AppHeader() {
                 Switch to {darkMode ? "light" : "dark"} mode
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Release notes</DropdownMenuItem>
-              <DropdownMenuItem>Service status</DropdownMenuItem>
-              <DropdownMenuItem>Gecko academy</DropdownMenuItem>
-              <DropdownMenuItem>Contact support</DropdownMenuItem>
-              <DropdownMenuItem>Product feedback</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/user-settings")}>
+                User settings
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/security-preferences")}>
+                Security preferences
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/my-accounts")}>
+                My accounts
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>User settings</DropdownMenuItem>
-              <DropdownMenuItem>Security preferences</DropdownMenuItem>
-              <DropdownMenuItem>My accounts</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem variant="destructive">Logout</DropdownMenuItem>
+              <DropdownMenuItem variant="destructive" onClick={() => navigate("/logout")}>
+                Logout
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
