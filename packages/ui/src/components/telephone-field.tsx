@@ -55,11 +55,6 @@ const TelephoneField: React.ForwardRefExoticComponent<TelephoneFieldProps> =
               inputComponent={InputComponent}
               smartCaret={false}
               value={value || undefined}
-              /**
-               * react-phone-number-input can call onChange with undefined when the
-               * value is cleared or invalid; coerce to empty string to keep the
-               * value controlled as a string.
-               */
               onChange={(nextValue) => onChange?.(nextValue || ("" as RPNInput.Value))}
               aria-invalid={ariaInvalid}
               {...props}

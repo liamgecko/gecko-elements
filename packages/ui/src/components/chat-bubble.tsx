@@ -49,7 +49,7 @@ export type ChatBubbleProps = React.ComponentProps<"div"> & {
   variant?: ChatBubbleVariant
 }
 
-export type ChatBubbleVariant = "default" | "note"
+export type ChatBubbleVariant = "default" | "note" | "ai-agent"
 
 export function ChatBubble({
   className,
@@ -60,6 +60,14 @@ export function ChatBubble({
 }: ChatBubbleProps) {
   const resolvedAgent = agent ?? (variant === "note")
 
+  // Notes stay end-aligned (reverse). User messages use reverse (right). Agent/assistant uses row (left).
+  const flexDirection =
+    variant === "note"
+      ? "flex-row-reverse"
+      : resolvedAgent
+        ? "flex-row"
+        : "flex-row-reverse"
+
   return (
     <ChatBubbleContext.Provider value={{ agent: resolvedAgent, variant }}>
       <div
@@ -68,7 +76,7 @@ export function ChatBubble({
         data-variant={variant}
         className={cn(
           "group/chat-bubble flex items-end gap-2 mb-4",
-          resolvedAgent ? "flex-row-reverse" : "flex-row",
+          flexDirection,
           className
         )}
         {...props}
@@ -98,6 +106,11 @@ export function ChatBubbleAvatar({
   fallback,
   className,
 }: ChatBubbleAvatarProps) {
+  const context = React.useContext(ChatBubbleContext)
+  if (context?.variant === "ai-agent") {
+    return null
+  }
+
   const resolvedSrc = src ?? avatarSrc
   const resolvedAlt = alt ?? avatarAlt
   const resolvedFallback = fallback ?? avatarFallback ?? "U"
@@ -150,14 +163,16 @@ export function ChatBubbleMessage({
     "text-xs",
     context.variant === "note"
       ? "text-muted-foreground dark:text-yellow-100"
-      : status === "failed"
-        ? "text-muted-foreground dark:text-rose-200"
-        : "text-muted-foreground",
+      : context.variant === "ai-agent"
+        ? "text-muted-foreground"
+        : status === "failed"
+          ? "text-muted-foreground dark:text-rose-200"
+          : "text-muted-foreground",
     metaClassName
   )
 
   const statusIndicator = React.useMemo(() => {
-    if (!context.agent || !status || context.variant === "note") return null
+    if (!context.agent || !status || context.variant === "note" || context.variant === "ai-agent") return null
 
     const config = {
       sent: {
@@ -194,6 +209,8 @@ export function ChatBubbleMessage({
     )
   }, [context.agent, context.variant, status])
 
+  const isAiAgent = context.variant === "ai-agent"
+
   return (
     <div
       data-slot="chat-bubble-message"
@@ -203,18 +220,28 @@ export function ChatBubbleMessage({
     >
       <div
         className={cn(
-          "bg-muted rounded px-4 py-2 text-sm wrap-break-word",
-          context.agent && "bg-blue-50 dark:bg-gray-800",
-          context.variant === "note" && "bg-yellow-100 dark:bg-yellow-950 text-yellow-950 dark:text-yellow-100",
-          status === "failed" && "bg-red-50 dark:bg-rose-950 text-red-700 dark:text-rose-200"
+          "text-sm wrap-break-word",
+          isAiAgent && "bg-transparent p-0 rounded-none shadow-none ring-0",
+          !isAiAgent && "rounded px-4 py-2",
+          !isAiAgent && context.variant === "note" && "bg-yellow-100 dark:bg-yellow-950 text-yellow-950 dark:text-yellow-100",
+          !isAiAgent &&
+            context.variant !== "note" &&
+            context.agent &&
+            "bg-blue-50 dark:bg-gray-800",
+          !isAiAgent && context.variant !== "note" && !context.agent && "bg-muted",
+          !isAiAgent && status === "failed" && "bg-red-50 dark:bg-rose-950 text-red-700 dark:text-rose-200"
         )}
       >
         <div className="flex flex-col gap-1">
-          <p>{children}</p>
+          {isAiAgent ? (
+            <div>{children}</div>
+          ) : (
+            <p>{children}</p>
+          )}
           <div
             className={cn(
               "flex items-center gap-2",
-              context.agent ? "justify-end" : "justify-start"
+              context.agent ? "justify-start" : "justify-end"
             )}
           >
             {context.agent ? (
@@ -232,7 +259,7 @@ export function ChatBubbleMessage({
           </div>
         </div>
       </div>
-      {context.agent && status === "failed" && context.variant !== "note" ? (
+      {context.agent && status === "failed" && context.variant !== "note" && context.variant !== "ai-agent" ? (
         <p className="text-red-700 dark:text-rose-200 text-xs">
           This message failed to send -{" "}
           <a href="#" className="underline hover:text-red-800 dark:hover:text-rose-300">

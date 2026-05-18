@@ -1,8 +1,9 @@
 "use client"
 
+import type { LucideIcon } from "lucide-react"
 import * as React from "react"
 
-import type { ReplyBoxActionId, ReplyBoxChannel } from "./reply-box-actions"
+import type { ReplyBoxChannel, ReplyBoxTrayItem } from "./reply-box-actions"
 import type { ReplyBoxVariant } from "./reply-box"
 
 export const ReplyBoxContext = React.createContext<{
@@ -11,9 +12,14 @@ export const ReplyBoxContext = React.createContext<{
   setChannel: (channel: ReplyBoxChannel) => void
   expanded: boolean
   toggleExpanded: () => void
-  itemsOverride?: ReplyBoxActionId[]
+  itemsOverride?: ReplyBoxTrayItem[]
   noteMode: boolean
   toggleNoteMode: () => void
+  onSend?: () => void
+  sendIcon?: LucideIcon
+  /** When true with `onStop`, the footer send control shows a stop affordance instead of send. */
+  stopEnabled?: boolean
+  onStop?: () => void
 } | null>(null)
 
 export function useReplyBox() {

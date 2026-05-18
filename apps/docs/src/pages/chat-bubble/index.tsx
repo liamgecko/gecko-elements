@@ -78,8 +78,8 @@ export function ChatBubblePage() {
           <h2 className="text-lg font-semibold">Basic example</h2>
           <p className="mb-8 text-sm text-muted-foreground">
             The base <Code>ChatBubble</Code> includes an avatar, message body,
-            and a relative timestamp rendered from a required date on the root
-            component.
+            and a relative timestamp. User messages use a muted bubble aligned
+            to the end (right).
           </p>
           <ComponentExample>
             <ChatBubble>
@@ -94,14 +94,33 @@ export function ChatBubblePage() {
         <PageSection id="agent" label="Agent">
           <h2 className="text-lg font-semibold">Agent</h2>
           <p className="mb-8 text-sm text-muted-foreground">
-            Set <Code>agent</Code> on <Code>ChatBubble</Code> to align agent
-            messages to the right.
+            Set <Code>agent</Code> on <Code>ChatBubble</Code> for operator or
+            assistant messages: they align to the start (left) and use the tinted
+            background by default.
           </p>
           <ComponentExample>
             <ChatBubble agent>
               <ChatBubbleAvatar {...agentAvatar} />
               <ChatBubbleMessage timestamp={exampleTimestamp}>
                 Hello, I'm an agent. How can I help you today?
+              </ChatBubbleMessage>
+            </ChatBubble>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="ai-agent" label="AI agent">
+          <h2 className="text-lg font-semibold">AI agent</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Use <Code>variant="ai-agent"</Code> with <Code>agent</Code> for
+            generative assistant replies: no bubble background or padding, no
+            avatar (even if <Code>ChatBubbleAvatar</Code> is present—it renders
+            nothing), still start-aligned with metadata.
+          </p>
+          <ComponentExample>
+            <ChatBubble agent variant="ai-agent">
+              <ChatBubbleMessage timestamp={exampleTimestamp}>
+                Here is a concise answer based on your question—no padded bubble
+                chrome.
               </ChatBubbleMessage>
             </ChatBubble>
           </ComponentExample>

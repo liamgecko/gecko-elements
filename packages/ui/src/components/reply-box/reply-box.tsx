@@ -1,9 +1,16 @@
 "use client"
 
+import type { LucideIcon } from "lucide-react"
 import * as React from "react"
 
 import { cn } from "@gecko/ui/lib/utils"
-import type { ReplyBoxActionId, ReplyBoxChannel, ReplyBoxChannelType } from "./reply-box-actions"
+import type {
+  ReplyBoxActionId,
+  ReplyBoxChannel,
+  ReplyBoxChannelType,
+  ReplyBoxTrayCustomAction,
+  ReplyBoxTrayItem,
+} from "./reply-box-actions"
 import { ReplyBoxContext } from "./reply-box-context"
 
 export type ReplyBoxVariant = "chat" | "textarea" | "basic"
@@ -37,13 +44,17 @@ function useControllableState<T>({
 export type ReplyBoxProps = React.ComponentProps<"div"> & {
   variant?: ReplyBoxVariant
   channel?: ReplyBoxChannel
-  items?: ReplyBoxActionId[]
+  items?: ReplyBoxTrayItem[]
   defaultExpanded?: boolean
   expanded?: boolean
   onExpandedChange?: (expanded: boolean) => void
   defaultNoteMode?: boolean
   noteMode?: boolean
   onNoteModeChange?: (noteMode: boolean) => void
+  onSend?: () => void
+  sendIcon?: LucideIcon
+  stopEnabled?: boolean
+  onStop?: () => void
 }
 
 export type ReplyBoxHeaderProps = {
@@ -55,7 +66,7 @@ export type ReplyBoxHeaderProps = {
 export type ReplyBoxFooterProps = {
   channelType?: ReplyBoxChannelType
   showTray?: boolean
-  items?: ReplyBoxActionId[]
+  items?: ReplyBoxTrayItem[]
   showSend?: boolean
 }
 
@@ -70,6 +81,10 @@ export function ReplyBox({
   defaultNoteMode = false,
   noteMode: noteModeProp,
   onNoteModeChange,
+  onSend,
+  sendIcon,
+  stopEnabled,
+  onStop,
   children,
   ...props
 }: ReplyBoxProps) {
@@ -133,6 +148,10 @@ export function ReplyBox({
         itemsOverride: items,
         noteMode,
         toggleNoteMode,
+        onSend,
+        sendIcon,
+        stopEnabled,
+        onStop,
       }}
     >
       <div
@@ -164,5 +183,11 @@ export function ReplyBox({
   )
 }
 
-export type { ReplyBoxActionId, ReplyBoxChannel, ReplyBoxChannelType }
+export type {
+  ReplyBoxActionId,
+  ReplyBoxChannel,
+  ReplyBoxChannelType,
+  ReplyBoxTrayCustomAction,
+  ReplyBoxTrayItem,
+}
 

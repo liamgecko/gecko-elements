@@ -1,5 +1,16 @@
 export * from "./reply-box"
-export * from "./reply-box-actions"
+export {
+  getDefaultReplyBoxItems,
+  getReplyBoxAction,
+  getReplyBoxTrayItemKey,
+  isReplyBoxTrayBuiltin,
+  replyBoxActionIconProps,
+  type ReplyBoxActionId,
+  type ReplyBoxChannel,
+  type ReplyBoxChannelType,
+  type ReplyBoxTrayCustomAction,
+  type ReplyBoxTrayItem,
+} from "./reply-box-actions"
 export { ReplyBoxHeader } from "./reply-box-header"
 export type { ReplyBoxHeaderProps } from "./reply-box-header"
 export { ReplyBoxFooter } from "./reply-box-footer"

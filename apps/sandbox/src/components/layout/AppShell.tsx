@@ -15,7 +15,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <AppSidebar />
             <SidebarInset className="min-h-0 flex-1">
               <ScrollArea className="h-full">
-                <div className="min-h-full">{children}</div>
+                <div className="h-full min-h-0">{children}</div>
               </ScrollArea>
             </SidebarInset>
           </div>

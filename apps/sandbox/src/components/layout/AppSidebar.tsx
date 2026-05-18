@@ -86,7 +86,7 @@ function toSlug(label: string) {
 }
 
 const navItems: readonly NavItem[] = [
-  { label: "Overview", icon: House },
+  { label: "Home", icon: House },
   { label: "Contacts", icon: Users },
   {
     label: "Responses",
@@ -169,7 +169,7 @@ const navItems: readonly NavItem[] = [
     items: [{ label: "Student portals" }, { label: "Tasks and objectives" }] as const,
   },
   { label: "Integrations", icon: Route },
-  { label: "Dashboards", icon: ChartLine },
+  { label: "Data and reporting", icon: ChartLine },
   {
     label: "Settings",
     icon: Settings,
@@ -203,6 +203,10 @@ export function AppSidebar() {
   const favouritesLabelForPath = (path: string) => {
     const segments = path.split("?")[0].split("#")[0].split("/").filter(Boolean)
     const last = segments.at(-1) ?? ""
+    if (last === "overview" || last === "home") return "Home"
+    if (last === "dashboards" || last === "data-and-reporting") {
+      return "Data and reporting"
+    }
     const spaced = last.replace(/-/g, " ")
     const titleCased = spaced.replace(/\b\w/g, (c) => c.toUpperCase())
     if (last === "mcp-servers") return "MCP servers"
@@ -217,7 +221,6 @@ export function AppSidebar() {
       collapsible="icon"
       className={cn(
         "top-(--header-height) bottom-0 h-[calc(100dvh-var(--header-height))] border-r border-sidebar-border",
-        "[&_[data-slot=sidebar-inner]]:bg-background"
       )}
     >
       <SidebarContent className="group-data-[collapsible=icon]:overflow-auto">

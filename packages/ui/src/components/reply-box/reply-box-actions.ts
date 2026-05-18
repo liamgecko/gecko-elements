@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react"
+import type * as React from "react"
 import {
   Forward,
   Image,
@@ -59,6 +60,27 @@ const actions: Record<ReplyBoxActionId, ReplyBoxActionConfig> = {
 
 export function getReplyBoxAction(id: ReplyBoxActionId): ReplyBoxActionConfig {
   return actions[id]
+}
+
+/** Custom tray action: icon button by default; pass `render` for inline controls such as dropdowns. */
+export type ReplyBoxTrayCustomAction = {
+  id: string
+  label: string
+  icon: LucideIcon
+  onClick?: () => void
+  /** Replaces the default icon button when shown inline in the tray. */
+  render?: React.ReactNode
+}
+
+/** Built-in action id or a custom tray action. */
+export type ReplyBoxTrayItem = ReplyBoxActionId | ReplyBoxTrayCustomAction
+
+export function isReplyBoxTrayBuiltin(item: ReplyBoxTrayItem): item is ReplyBoxActionId {
+  return typeof item === "string"
+}
+
+export function getReplyBoxTrayItemKey(item: ReplyBoxTrayItem): string {
+  return typeof item === "string" ? item : item.id
 }
 
 export function getDefaultReplyBoxItems(channelType: ReplyBoxChannelType): ReplyBoxActionId[] {

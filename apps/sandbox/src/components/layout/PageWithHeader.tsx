@@ -1,7 +1,7 @@
 import * as React from "react"
 
 import { Header } from "@gecko/ui/components/header"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { Home } from "lucide-react"
 import { Container } from "@gecko/ui/components/container"
 import { useFavourites } from "../../state/favourites"
@@ -12,6 +12,10 @@ function titleCaseFromSlug(slug: string) {
 }
 
 function labelForSegment(segment: string) {
+  if (segment === "home" || segment === "overview") return "Home"
+  if (segment === "data-and-reporting" || segment === "dashboards") {
+    return "Data and reporting"
+  }
   if (segment === "ai-and-automation") return "AI and automation"
   if (segment === "mcp-servers") return "MCP servers"
   if (segment === "voip-numbers") return "VoIP numbers"
@@ -22,7 +26,7 @@ function labelForSegment(segment: string) {
 function labelForPath(pathname: string) {
   const segments = pathname.split("?")[0].split("#")[0].split("/").filter(Boolean)
   const last = segments.at(-1)
-  if (!last) return "Overview"
+  if (!last) return "Home"
 
   // Favourites should show the current page title (leaf), not "Parent / Child".
   return labelForSegment(last)
@@ -30,6 +34,7 @@ function labelForPath(pathname: string) {
 
 export function PageWithHeader({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation()
+  const navigate = useNavigate()
   const { isFavourited, setFavourite } = useFavourites()
 
   const segments = React.useMemo(
@@ -42,7 +47,8 @@ export function PageWithHeader({ children }: { children: React.ReactNode }) {
       label: React.ReactNode
       current?: boolean
       href?: string
-    }[] = [{ label: "Overview", href: "/overview" }]
+      onSelect?: () => void
+    }[] = [{ label: "Home", href: "/home" }]
 
     let runningPath = ""
     for (let i = 0; i < segments.length; i++) {
@@ -52,7 +58,11 @@ export function PageWithHeader({ children }: { children: React.ReactNode }) {
       if (isLast) {
         items.push({ label: labelForSegment(segment), current: true })
       } else {
-        items.push({ label: labelForSegment(segment), href: runningPath })
+        items.push({
+          label: labelForSegment(segment),
+          href: runningPath,
+          onSelect: () => navigate(runningPath),
+        })
       }
     }
 
@@ -60,14 +70,15 @@ export function PageWithHeader({ children }: { children: React.ReactNode }) {
       label: (
         <>
           <Home className="size-3.5" />
-          <span className="sr-only">Overview</span>
+          <span className="sr-only">Home</span>
         </>
       ),
-      href: "/overview",
+      href: "/home",
+      onSelect: () => navigate("/home"),
     }
 
     return { items } as const
-  }, [segments])
+  }, [navigate, segments])
 
   return (
     <div className="flex flex-col">

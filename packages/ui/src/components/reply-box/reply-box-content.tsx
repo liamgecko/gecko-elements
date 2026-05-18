@@ -7,14 +7,19 @@ import { Button } from "@gecko/ui/components/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@gecko/ui/components/tooltip"
 import { cn } from "@gecko/ui/lib/utils"
 
-import { getReplyBoxAction, replyBoxActionIconProps } from "./reply-box-actions"
+import {
+  getReplyBoxAction,
+  getReplyBoxTrayItemKey,
+  isReplyBoxTrayBuiltin,
+  replyBoxActionIconProps,
+} from "./reply-box-actions"
 import { useReplyBox } from "./reply-box-context"
-import type { ReplyBoxActionId } from "./reply-box-actions"
+import type { ReplyBoxTrayItem } from "./reply-box-actions"
 
 export type ReplyBoxContentProps = {
   placeholder?: string
   /** Only used when variant is `basic`. */
-  items?: ReplyBoxActionId[]
+  items?: ReplyBoxTrayItem[]
   /** Only used when variant is `basic`. */
   showSend?: boolean
   textareaProps?: React.ComponentProps<"textarea">
@@ -34,7 +39,17 @@ export function ReplyBoxContent({
   const resolvedPlaceholder =
     placeholder ?? (noteMode ? "Type your note..." : "Type your message...")
 
+  const inputClassName =
+    inputProps && "className" in inputProps ? (inputProps.className as string | undefined) : undefined
+  const textareaClassName =
+    textareaProps && "className" in textareaProps
+      ? (textareaProps.className as string | undefined)
+      : undefined
+
   if (variant === "basic") {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used for merge order
+    const { className: _ignored, ...restInputProps } = inputProps ?? {}
+
     return (
       <div
         data-slot="reply-box-content"
@@ -43,28 +58,63 @@ export function ReplyBoxContent({
         <input
           data-slot="reply-box-input"
           placeholder={resolvedPlaceholder}
-          className="appearance-none w-full min-w-0 bg-transparent border-0 px-2 py-0 text-sm outline-none ring-0 shadow-none focus:outline-none focus:ring-0 placeholder:text-muted-foreground"
-          {...inputProps}
+          className={cn(
+            "appearance-none w-full min-w-0 bg-transparent border-0 px-2 py-0 text-sm outline-none ring-0 shadow-none focus:outline-none focus:ring-0 placeholder:text-muted-foreground",
+            inputClassName
+          )}
+          {...restInputProps}
         />
 
         {items?.length ? (
           <div className="flex items-center gap-1">
-            {items.map((id) => {
-              const action = getReplyBoxAction(id)
-              const Icon = action.icon
+            {items.map((item) => {
+              const key = getReplyBoxTrayItemKey(item)
+
+              if (!isReplyBoxTrayBuiltin(item) && item.render) {
+                return <React.Fragment key={key}>{item.render}</React.Fragment>
+              }
+
+              if (isReplyBoxTrayBuiltin(item)) {
+                const action = getReplyBoxAction(item)
+                const Icon = action.icon
+                return (
+                  <TooltipProvider key={key}>
+                    <Tooltip>
+                      <TooltipTrigger
+                        render={
+                          <Button type="button" variant="ghost" size="icon-xs">
+                            <Icon {...replyBoxActionIconProps} />
+                            <span className="sr-only">{action.label}</span>
+                          </Button>
+                        }
+                      />
+                      <TooltipContent side="top">
+                        <p>{action.label}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                )
+              }
+
+              const Icon = item.icon
               return (
-                <TooltipProvider key={id}>
+                <TooltipProvider key={key}>
                   <Tooltip>
                     <TooltipTrigger
                       render={
-                        <Button type="button" variant="ghost" size="icon-xs">
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon-xs"
+                          onClick={item.onClick}
+                        >
                           <Icon {...replyBoxActionIconProps} />
-                          <span className="sr-only">{action.label}</span>
+                          <span className="sr-only">{item.label}</span>
                         </Button>
                       }
                     />
                     <TooltipContent side="top">
-                      <p>{action.label}</p>
+                      <p>{item.label}</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -91,16 +141,23 @@ export function ReplyBoxContent({
       data-slot="reply-box-content"
       className={cn("bg-transparent", className)}
     >
+      {/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- used for merge order */}
+      {(() => {
+        const { className: _ignored, ...restTextareaProps } = textareaProps ?? {}
+        return (
       <textarea
         data-slot="reply-box-textarea"
         placeholder={resolvedPlaceholder}
         className={cn(
           "appearance-none w-full min-w-0 resize-none bg-transparent border-0 text-sm outline-none ring-0 shadow-none focus:outline-none focus:ring-0 placeholder:text-muted-foreground p-4",
           expanded ? "min-h-56 h-full" : "min-h-28",
-          noteMode && "bg-transparent"
+          noteMode && "bg-transparent",
+          textareaClassName
         )}
-        {...textareaProps}
+        {...restTextareaProps}
       />
+        )
+      })()}
     </div>
   )
 }

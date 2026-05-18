@@ -78,8 +78,9 @@ export default function App() {
   return (
     <AppShell>
       <Routes>
-        <Route path="/" element={<Navigate to="/overview" replace />} />
-        <Route path="/overview" element={<OverviewPage />} />
+        <Route path="/" element={<Navigate to="/home" replace />} />
+        <Route path="/home" element={<OverviewPage />} />
+        <Route path="/overview" element={<Navigate to="/home" replace />} />
         <Route path="/contacts" element={<PageWithHeader><ContactsPage /></PageWithHeader>} />
         <Route path="/responses" element={<PageWithHeader><ResponsesPage /></PageWithHeader>} />
         <Route path="/responses/all-responses" element={<PageWithHeader><AllResponsesPage /></PageWithHeader>} />
@@ -131,7 +132,8 @@ export default function App() {
         <Route path="/portal/student-portals" element={<PageWithHeader><PortalStudentPortalsPage /></PageWithHeader>} />
         <Route path="/portal/tasks-and-objectives" element={<PageWithHeader><PortalTasksAndObjectivesPage /></PageWithHeader>} />
         <Route path="/integrations" element={<PageWithHeader><IntegrationsPage /></PageWithHeader>} />
-        <Route path="/dashboards" element={<PageWithHeader><DashboardsPage /></PageWithHeader>} />
+        <Route path="/data-and-reporting" element={<PageWithHeader><DashboardsPage /></PageWithHeader>} />
+        <Route path="/dashboards" element={<Navigate to="/data-and-reporting" replace />} />
         <Route path="/settings" element={<PageWithHeader><SettingsPage /></PageWithHeader>} />
         <Route path="/settings/account-settings" element={<PageWithHeader><SettingsAccountSettingsPage /></PageWithHeader>} />
         <Route path="/settings/user-settings" element={<PageWithHeader><SettingsUserSettingsPage /></PageWithHeader>} />
