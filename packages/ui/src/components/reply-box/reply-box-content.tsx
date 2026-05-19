@@ -41,10 +41,6 @@ export function ReplyBoxContent({
 
   const inputClassName =
     inputProps && "className" in inputProps ? (inputProps.className as string | undefined) : undefined
-  const textareaClassName =
-    textareaProps && "className" in textareaProps
-      ? (textareaProps.className as string | undefined)
-      : undefined
 
   if (variant === "basic") {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used for merge order
@@ -136,15 +132,13 @@ export function ReplyBoxContent({
     )
   }
 
+  const { className: textareaClassFromProps, ...restTextareaProps } = textareaProps ?? {}
+
   return (
     <div
       data-slot="reply-box-content"
       className={cn("bg-transparent", className)}
     >
-      {/* eslint-disable-next-line @typescript-eslint/no-unused-vars -- used for merge order */}
-      {(() => {
-        const { className: _ignored, ...restTextareaProps } = textareaProps ?? {}
-        return (
       <textarea
         data-slot="reply-box-textarea"
         placeholder={resolvedPlaceholder}
@@ -152,12 +146,10 @@ export function ReplyBoxContent({
           "appearance-none w-full min-w-0 resize-none bg-transparent border-0 text-sm outline-none ring-0 shadow-none focus:outline-none focus:ring-0 placeholder:text-muted-foreground p-4",
           expanded ? "min-h-56 h-full" : "min-h-28",
           noteMode && "bg-transparent",
-          textareaClassName
+          textareaClassFromProps
         )}
         {...restTextareaProps}
       />
-        )
-      })()}
     </div>
   )
 }

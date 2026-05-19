@@ -57,19 +57,6 @@ export type ReplyBoxProps = React.ComponentProps<"div"> & {
   onStop?: () => void
 }
 
-export type ReplyBoxHeaderProps = {
-  channel?: ReplyBoxChannel
-  showChannelSwitcher?: boolean
-  showExpand?: boolean
-}
-
-export type ReplyBoxFooterProps = {
-  channelType?: ReplyBoxChannelType
-  showTray?: boolean
-  items?: ReplyBoxTrayItem[]
-  showSend?: boolean
-}
-
 export function ReplyBox({
   className,
   variant = "chat",
