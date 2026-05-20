@@ -97,21 +97,24 @@ export function AssistantRegistrationTrendsReply() {
             dot={false}
           />
           <ChartLegend
-            content={<ChartLegendContent />}
-            payload={[
-              {
-                value: "registrations",
-                dataKey: "registrations",
-                type: "line",
-                color: "var(--color-registrations)",
-              },
-              {
-                value: "cancellations",
-                dataKey: "cancellations",
-                type: "line",
-                color: "var(--color-cancellations)",
-              },
-            ]}
+            content={
+              <ChartLegendContent
+                payload={[
+                  {
+                    value: "registrations",
+                    dataKey: "registrations",
+                    type: "line",
+                    color: "var(--color-registrations)",
+                  },
+                  {
+                    value: "cancellations",
+                    dataKey: "cancellations",
+                    type: "line",
+                    color: "var(--color-cancellations)",
+                  },
+                ]}
+              />
+            }
           />
         </LineChart>
       </ChartContainer>
