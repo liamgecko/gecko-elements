@@ -1,17 +1,16 @@
+/** Sidebar title for conversations started from the reply box. */
+export const ASSISTANT_REPLY_BOX_CONVERSATION_TITLE = "Event registration stats"
+
 export type AssistantConversation = {
   id: string
   title: string
   updatedAt: Date
   pinned?: boolean
+  /** Sidebar animates the title letter-by-letter until complete. */
+  isGeneratingTitle?: boolean
 }
 
 export const DEMO_ASSISTANT_CONVERSATIONS: AssistantConversation[] = [
-  {
-    id: "open-day-stats",
-    title: "Open day registration stats",
-    updatedAt: new Date(Date.now() - 1000 * 60 * 12),
-    pinned: true,
-  },
   {
     id: "may-cancellations",
     title: "May 2026 cancellations",

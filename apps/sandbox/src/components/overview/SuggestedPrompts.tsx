@@ -1,53 +1,43 @@
 "use client"
 
+import * as React from "react"
 import { Lightbulb, X } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@gecko/ui/components/card"
 import { cn } from "@gecko/ui/lib/utils"
 
-export type SuggestedPrompt = {
-  id: string
-  heading: string
-  prompt: string
-}
+import {
+  pickSuggestedPrompts,
+  SUGGESTED_PROMPT_DISPLAY_COUNT,
+  type SuggestedPrompt,
+} from "./assistant-suggested-prompts"
 
+export type { SuggestedPrompt }
+
+/** Section show/hide when dismissing the whole block. */
 export const SUGGESTED_PROMPT_FADE_MS = 200
 
-export const ASSISTANT_SUGGESTED_PROMPTS: SuggestedPrompt[] = [
-  {
-    id: "open-day",
-    heading: "Event registrations",
-    prompt:
-      "What are the most popular times of day for registrations to our events this week?",
-  },
-  {
-    id: "cancellations",
-    heading: "Conversation labels",
-    prompt: "What are the most used conversation labels in our conversations?",
-  },
-  {
-    id: "attendance",
-    heading: "Open rate success",
-    prompt: "What is the average open rate for our marketing campaigns?",
-  },
-]
-
 export type SuggestedPromptsProps = {
+  /** When set, shows this fixed list instead of a random pick from the pool. */
   prompts?: SuggestedPrompt[]
   visible: boolean
-  onSelect: (prompt: string) => void
+  onSelect: (prompt: SuggestedPrompt) => void
   onDismiss: () => void
   className?: string
 }
 
 export function SuggestedPrompts({
-  prompts = ASSISTANT_SUGGESTED_PROMPTS,
+  prompts: promptsOverride,
   visible,
   onSelect,
   onDismiss,
   className,
 }: SuggestedPromptsProps) {
+  const [prompts] = React.useState(
+    () => promptsOverride ?? pickSuggestedPrompts(SUGGESTED_PROMPT_DISPLAY_COUNT)
+  )
+
   return (
     <section
       aria-label="Suggested prompts"
@@ -60,7 +50,10 @@ export function SuggestedPrompts({
       )}
     >
       <div className="mb-3 flex items-center justify-between gap-2">
-        <h2 className="text-sm font-medium text-foreground flex items-center gap-1"><Lightbulb className="size-4" />Suggested prompts</h2>
+        <h2 className="text-sm font-medium text-foreground flex items-center gap-1">
+          <Lightbulb className="size-4" />
+          Suggested prompts
+        </h2>
         <Button
           type="button"
           variant="ghost"
@@ -77,14 +70,14 @@ export function SuggestedPrompts({
             key={item.id}
             type="button"
             className="rounded-sm text-left outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-            onClick={() => onSelect(item.prompt)}
+            onClick={() => onSelect(item)}
           >
             <Card
               size="sm"
               className="h-full cursor-pointer transition-colors hover:bg-muted/40"
             >
               <CardHeader className="border-b-0 !pb-0">
-                  <CardTitle className="!text-sm font-medium">{item.heading}</CardTitle>
+                <CardTitle className="!text-sm font-medium">{item.heading}</CardTitle>
               </CardHeader>
               <CardContent className="!pt-2">
                 <p className="text-xs text-muted-foreground">{item.prompt}</p>

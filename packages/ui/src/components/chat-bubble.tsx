@@ -1,11 +1,18 @@
 "use client"
 
 import * as React from "react"
-import { Check, CheckCheck, CircleAlert, Info } from "lucide-react"
+import { Check, CheckCheck, CircleAlert, Copy, Info, Share, ThumbsDown, ThumbsUp } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@gecko/ui/components/avatar"
+import { Button } from "@gecko/ui/components/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@gecko/ui/components/popover"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@gecko/ui/components/tooltip"
+import { Toggle } from "@gecko/ui/components/toggle"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@gecko/ui/components/tooltip"
 import { cn } from "@gecko/ui/lib/utils"
 
 type RelativeTimeInput = Date | string | number
@@ -134,12 +141,175 @@ export function ChatBubbleAvatar({
 
 export type ChatBubbleMessageStatus = "sent" | "delivered" | "read" | "failed"
 
+export type ChatBubbleAiAgentActionHandlers = {
+  copyText?: string
+  onCopyResponse?: () => void
+  onGoodResponse?: () => void
+  onBadResponse?: () => void
+  onShareResponse?: () => void
+}
+
 export type ChatBubbleMessageProps = React.ComponentProps<"div"> & {
   timestamp: Date
   status?: ChatBubbleMessageStatus
   info?: React.ReactNode
   /** Overrides default meta (timestamp) text color; merged after variant/status styles. */
   metaClassName?: string
+  /** Shown by default on `ai-agent` messages; pass `false` to hide. */
+  aiAgentActions?: boolean | ChatBubbleAiAgentActionHandlers
+} & ChatBubbleAiAgentActionHandlers
+
+async function copyMessageText(text: string) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text)
+    return
+  }
+
+  const el = document.createElement("textarea")
+  el.value = text
+  el.setAttribute("readonly", "")
+  el.style.position = "fixed"
+  el.style.top = "-9999px"
+  document.body.appendChild(el)
+  el.select()
+  document.execCommand("copy")
+  document.body.removeChild(el)
+}
+
+const COPY_FEEDBACK_VISIBLE_MS = 1800
+
+function ChatBubbleAiAgentMetaActions({
+  onCopy,
+  onGoodResponse,
+  onBadResponse,
+  onShareResponse,
+}: {
+  onCopy: () => void | Promise<void | boolean>
+} & Omit<ChatBubbleAiAgentActionHandlers, "copyText" | "onCopyResponse">) {
+  const [feedback, setFeedback] = React.useState<"good" | "bad" | null>(null)
+  const [copiedIconVisible, setCopiedIconVisible] = React.useState(false)
+  const copyFeedbackTimeoutRef = React.useRef<number | null>(null)
+
+  React.useEffect(() => {
+    return () => {
+      if (copyFeedbackTimeoutRef.current !== null) {
+        window.clearTimeout(copyFeedbackTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  const handleCopyClick = React.useCallback(async () => {
+    const result = await Promise.resolve(onCopy())
+    if (result === false) return
+
+    if (copyFeedbackTimeoutRef.current !== null) {
+      window.clearTimeout(copyFeedbackTimeoutRef.current)
+    }
+
+    setCopiedIconVisible(false)
+    window.requestAnimationFrame(() => setCopiedIconVisible(true))
+
+    copyFeedbackTimeoutRef.current = window.setTimeout(() => {
+      setCopiedIconVisible(false)
+    }, COPY_FEEDBACK_VISIBLE_MS)
+  }, [onCopy])
+
+  const feedbackToggles: {
+    key: "good" | "bad"
+    label: string
+    icon: typeof ThumbsUp
+    onPressed: () => void
+  }[] = [
+    { key: "good", label: "Good response", icon: ThumbsUp, onPressed: () => onGoodResponse?.() },
+    { key: "bad", label: "Bad response", icon: ThumbsDown, onPressed: () => onBadResponse?.() },
+  ]
+
+  return (
+    <TooltipProvider delay={0}>
+      <div className="inline-flex h-6 items-center gap-0.5" role="group" aria-label="Message actions">
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-xs"
+                aria-label={copiedIconVisible ? "Copied" : "Copy response"}
+                onClick={() => void handleCopyClick()}
+              >
+                <span className="relative inline-flex size-3 items-center justify-center">
+                  <Copy
+                    aria-hidden
+                    strokeWidth={2}
+                    className={cn(
+                      "absolute inset-0 transition-opacity duration-150 motion-reduce:transition-none",
+                      copiedIconVisible ? "opacity-0" : "opacity-100"
+                    )}
+                  />
+                  <Check
+                    aria-hidden
+                    strokeWidth={2}
+                    className={cn(
+                      "absolute inset-0 transition-opacity duration-150 motion-reduce:transition-none",
+                      copiedIconVisible ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                </span>
+              </Button>
+            }
+          />
+          <TooltipContent side="bottom">
+            <p>{copiedIconVisible ? "Copied" : "Copy response"}</p>
+          </TooltipContent>
+        </Tooltip>
+
+        {feedbackToggles.map(({ key, label, icon: Icon, onPressed }) => {
+          const pressed = feedback === key
+          return (
+            <Tooltip key={key}>
+              <TooltipTrigger
+                render={
+                  <Toggle
+                    size="icon-xs"
+                    aria-label={label}
+                    pressed={pressed}
+                    onPressedChange={(next) => {
+                      setFeedback(next ? key : null)
+                      if (next) onPressed()
+                    }}
+                  >
+                    <Icon aria-hidden strokeWidth={2} />
+                  </Toggle>
+                }
+              />
+              <TooltipContent side="bottom">
+                <p>{label}</p>
+              </TooltipContent>
+            </Tooltip>
+          )
+        })}
+
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-xs"
+                aria-label="Share response"
+                onClick={() => onShareResponse?.()}
+              >
+                <Share aria-hidden strokeWidth={2} />
+              </Button>
+            }
+          />
+          <TooltipContent side="bottom">
+            <p>Share response</p>
+          </TooltipContent>
+        </Tooltip>
+      </div>
+    </TooltipProvider>
+  )
 }
 
 export function ChatBubbleMessage({
@@ -149,6 +319,12 @@ export function ChatBubbleMessage({
   status,
   info,
   metaClassName,
+  aiAgentActions,
+  copyText,
+  onCopyResponse,
+  onGoodResponse,
+  onBadResponse,
+  onShareResponse,
   ...props
 }: ChatBubbleMessageProps) {
   const context = React.useContext(ChatBubbleContext)
@@ -211,6 +387,40 @@ export function ChatBubbleMessage({
 
   const isAiAgent = context.variant === "ai-agent"
 
+  const showAiAgentActions = isAiAgent && context.agent && aiAgentActions !== false
+  const messageBodyRef = React.useRef<HTMLDivElement>(null)
+  const resolvedCopyText =
+    typeof aiAgentActions === "object" ? aiAgentActions.copyText : copyText
+  const resolvedOnCopyResponse =
+    typeof aiAgentActions === "object" ? aiAgentActions.onCopyResponse : onCopyResponse
+
+  const handleCopy = React.useCallback(async (): Promise<boolean> => {
+    if (resolvedOnCopyResponse) {
+      resolvedOnCopyResponse()
+      return true
+    }
+
+    const text =
+      resolvedCopyText?.trim() || messageBodyRef.current?.innerText.trim() || ""
+    if (!text) return false
+
+    try {
+      await copyMessageText(text)
+      return true
+    } catch {
+      return false
+    }
+  }, [resolvedCopyText, resolvedOnCopyResponse])
+
+  const aiAgentActionHandlers =
+    typeof aiAgentActions === "object"
+      ? aiAgentActions
+      : {
+          onGoodResponse,
+          onBadResponse,
+          onShareResponse,
+        }
+
   return (
     <div
       data-slot="chat-bubble-message"
@@ -232,22 +442,33 @@ export function ChatBubbleMessage({
           !isAiAgent && status === "failed" && "bg-red-50 dark:bg-rose-950 text-red-700 dark:text-rose-200"
         )}
       >
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2">
           {isAiAgent ? (
-            <div>{children}</div>
+            <div ref={messageBodyRef}>{children}</div>
           ) : (
             <p>{children}</p>
           )}
           <div
             className={cn(
               "flex items-center gap-2",
+              isAiAgent && showAiAgentActions && "h-6",
               context.agent ? "justify-start" : "justify-end"
             )}
           >
             {context.agent ? (
               <>
-                {statusIndicator}
-                <p className={metaTimeClassName}>{relativeTime}</p>
+                {!isAiAgent ? statusIndicator : null}
+                {showAiAgentActions ? (
+                  <ChatBubbleAiAgentMetaActions
+                    {...aiAgentActionHandlers}
+                    onCopy={handleCopy}
+                  />
+                ) : null}
+                {isAiAgent && showAiAgentActions ? (
+                  <span className={cn(metaTimeClassName, "leading-none")}>{relativeTime}</span>
+                ) : (
+                  <p className={metaTimeClassName}>{relativeTime}</p>
+                )}
                 {info}
               </>
             ) : (

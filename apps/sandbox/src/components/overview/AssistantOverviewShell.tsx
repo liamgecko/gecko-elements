@@ -31,6 +31,7 @@ export type AssistantOverviewShellProps = {
   onPinConversation?: (id: string) => void
   onArchiveConversation?: (id: string) => void
   onShareConversation?: (id: string) => void
+  onConversationTitleGenerated?: (id: string) => void
 }
 
 /**
@@ -51,6 +52,7 @@ export function AssistantOverviewShell({
   onPinConversation,
   onArchiveConversation,
   onShareConversation,
+  onConversationTitleGenerated,
 }: AssistantOverviewShellProps) {
   return (
     <SidebarProvider
@@ -103,6 +105,7 @@ export function AssistantOverviewShell({
           onPinConversation={onPinConversation}
           onArchiveConversation={onArchiveConversation}
           onShareConversation={onShareConversation}
+          onConversationTitleGenerated={onConversationTitleGenerated}
         />
       </div>
     </SidebarProvider>

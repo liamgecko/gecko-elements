@@ -12,18 +12,57 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@gecko/ui/components/dropdown-menu"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
-import {
-  replyBoxActionIconProps,
-  type ReplyBoxTrayItem,
-} from "@gecko/ui/components/reply-box"
+import { type ReplyBoxTrayItem } from "@gecko/ui/components/reply-box"
 
 export type AssistantAiModel = "auto" | "instant" | "thinking"
+
+const AI_MODEL_LABELS: Record<AssistantAiModel, string> = {
+  auto: "Auto",
+  instant: "Instant",
+  thinking: "Thinking",
+}
+
+type AssistantAiModelDropdownProps = {
+  value: AssistantAiModel
+  onChange: (value: AssistantAiModel) => void
+}
+
+function AssistantAiModelDropdown({ value, onChange }: AssistantAiModelDropdownProps) {
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <DropdownMenuTrigger
+        render={
+          <Button
+            type="button"
+            variant="ghost-light"
+            size="xs"
+            dropdown
+            aria-label="Switch AI model"
+          >
+            {AI_MODEL_LABELS[value]}
+          </Button>
+        }
+      />
+      <DropdownMenuContent side="top" align="start" className="w-40">
+        <DropdownMenuGroup>
+          <DropdownMenuRadioGroup
+            value={value}
+            onValueChange={(next) => {
+              onChange(next as AssistantAiModel)
+              setOpen(false)
+            }}
+          >
+            <DropdownMenuRadioItem value="auto">Auto</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="instant">Instant</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="thinking">Thinking</DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
 
 export function useAssistantReplyBoxTrayItems() {
   const [aiModel, setAiModel] = React.useState<AssistantAiModel>("auto")
@@ -34,46 +73,7 @@ export function useAssistantReplyBoxTrayItems() {
         id: "ai-model",
         label: "Switch AI model",
         icon: Astroid,
-        render: (
-          <DropdownMenu>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger
-                  render={
-                    <DropdownMenuTrigger
-                      render={
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="icon-sm"
-                          className="dark:hover:bg-gray-800"
-                          aria-label="Switch AI model"
-                        >
-                          <Astroid {...replyBoxActionIconProps} />
-                        </Button>
-                      }
-                    />
-                  }
-                />
-                <TooltipContent side="top">
-                  <p>Switch AI model</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <DropdownMenuContent side="top" align="start" className="w-40">
-              <DropdownMenuGroup>
-                <DropdownMenuRadioGroup
-                  value={aiModel}
-                  onValueChange={(value) => setAiModel(value as AssistantAiModel)}
-                >
-                  <DropdownMenuRadioItem value="auto">Auto</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="instant">Instant</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="thinking">Thinking</DropdownMenuRadioItem>
-                </DropdownMenuRadioGroup>
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        ),
+        render: <AssistantAiModelDropdown value={aiModel} onChange={setAiModel} />,
       },
       { id: "voice", label: "Record voice message", icon: Mic },
       "attachment",

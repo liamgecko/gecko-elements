@@ -10,20 +10,31 @@ import { Forward, Loader } from "lucide-react"
 import { cn } from "@gecko/ui/lib/utils"
 
 import { AssistantOverviewShell } from "../../components/overview/AssistantOverviewShell"
+import { AssistantRenameConversationDialog } from "../../components/overview/AssistantRenameConversationDialog"
+import { AssistantNegativeFeedbackDialog } from "../../components/overview/AssistantNegativeFeedbackDialog"
+import { AssistantShareConversationDialog } from "../../components/overview/AssistantShareConversationDialog"
 import {
+  ASSISTANT_REPLY_BOX_CONVERSATION_TITLE,
   DEMO_ASSISTANT_CONVERSATIONS,
   type AssistantConversation,
 } from "../../components/overview/assistant-conversations"
 import { getDemoConversationMessages } from "../../components/overview/assistant-conversation-mocks"
 import {
-  AgentStreamingReply,
-  formatAgentMessageText,
-} from "../../components/overview/format-agent-message"
+  AGENT_TRENDS_REPLY_COPY,
+  AssistantRegistrationTrendsReply,
+} from "../../components/overview/assistant-registration-trends-chart"
+import { ASSISTANT_OPEN_DAY_STATS_AGENT_REPLY } from "../../components/overview/assistant-open-day-reply"
+import { formatAgentMessageText } from "../../components/overview/format-agent-message"
+import { getSuggestedPromptAgentReply } from "../../components/overview/assistant-suggested-prompt-replies"
+import type { SuggestedPrompt } from "../../components/overview/assistant-suggested-prompts"
 import {
   SUGGESTED_PROMPT_FADE_MS,
   SuggestedPrompts,
 } from "../../components/overview/SuggestedPrompts"
 import { useAssistantReplyBoxTrayItems } from "../../components/overview/useAssistantReplyBoxTrayItems"
+import thumbDownSoundUrl from "../../assets/thumb-down.mp3"
+import thumbUpSoundUrl from "../../assets/thumb-up.mp3"
+import { playFeedbackSound } from "../../lib/play-feedback-sound"
 
 type ChatMessage = {
   id: string
@@ -32,24 +43,12 @@ type ChatMessage = {
   ts: Date
   /** Rich body for agent demo; falls back to `text` when absent. */
   content?: React.ReactNode
-  /** Plain-text streaming progress for agent demo; omitted once streaming finishes. */
-  agentStreamChars?: number
 }
 
-/** Plain copy aligned with `AgentDemoReply`; streamed then replaced by rich markup when done. */
-const AGENT_REPLY_PLAIN = `Absolutely I can Liam. Over the past 24 hours you have had 14 new registrations for your May 2026 Open Day event.
-
-However you have also had 2 registrants cancel their registration over the same period.
-
-Your current numbers are:
-
-• 149 attendees
-• 12 cancelled
-
-If you need any further information please let me know.`
-
-const STREAM_CHUNK_CHARS = 3
-const STREAM_INTERVAL_MS = 14
+type PendingAgentReply =
+  | { kind: "initial" }
+  | { kind: "trends" }
+  | { kind: "suggested"; promptId: string }
 
 function getTimeOfDay(date = new Date()) {
   const hour = date.getHours()
@@ -69,7 +68,7 @@ export default function OverviewPage() {
   const timeOfDay = getTimeOfDay()
 
   const [composerValue, setComposerValue] = React.useState("")
-  const [phase, setPhase] = React.useState<"idle" | "thinking" | "streaming" | "answered">("idle")
+  const [phase, setPhase] = React.useState<"idle" | "thinking" | "answered">("idle")
   const [messages, setMessages] = React.useState<ChatMessage[]>([])
   const [showSuggestedPrompts, setShowSuggestedPrompts] = React.useState(true)
   const [suggestedPromptsRemoved, setSuggestedPromptsRemoved] = React.useState(false)
@@ -78,6 +77,14 @@ export default function OverviewPage() {
   )
   const [activeConversationId, setActiveConversationId] = React.useState<string | null>(null)
   const [showWelcomeScreen, setShowWelcomeScreen] = React.useState(true)
+  const [shareDialogOpen, setShareDialogOpen] = React.useState(false)
+  const [shareConversationId, setShareConversationId] = React.useState<string | null>(null)
+  const [shareEmail, setShareEmail] = React.useState("")
+  const [renameDialogOpen, setRenameDialogOpen] = React.useState(false)
+  const [renameConversationId, setRenameConversationId] = React.useState<string | null>(null)
+  const [renameTitle, setRenameTitle] = React.useState("")
+  const [negativeFeedbackDialogOpen, setNegativeFeedbackDialogOpen] = React.useState(false)
+  const [negativeFeedback, setNegativeFeedback] = React.useState("")
   const { trayItems } = useAssistantReplyBoxTrayItems()
 
   const hasMessages = messages.length > 0
@@ -86,45 +93,55 @@ export default function OverviewPage() {
   const shouldStickToBottomRef = React.useRef(true)
   const thinkingTimeoutRef = React.useRef<number | null>(null)
   const dismissSuggestedPromptsPendingRef = React.useRef(false)
-
-  const lastMessage = messages[messages.length - 1]
-  const agentStreamTick =
-    lastMessage?.role === "agent" && typeof lastMessage.agentStreamChars === "number"
-      ? lastMessage.agentStreamChars
-      : null
+  const pendingAgentReplyRef = React.useRef<PendingAgentReply>({ kind: "initial" })
+  const liveConversationThreadsRef = React.useRef<Record<string, ChatMessage[]>>({})
 
   React.useEffect(() => {
     if (phase !== "thinking") return
 
     const t = window.setTimeout(() => {
       thinkingTimeoutRef.current = null
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      if (reduced) {
+      const pending = pendingAgentReplyRef.current
+
+      if (pending.kind === "trends") {
         setMessages((prev) => [
           ...prev,
           {
             id: crypto.randomUUID(),
             role: "agent",
-            text: "",
+            text: AGENT_TRENDS_REPLY_COPY,
             ts: new Date(),
-            content: formatAgentMessageText(AGENT_REPLY_PLAIN),
+            content: <AssistantRegistrationTrendsReply />,
           },
         ])
-        setPhase("answered")
-        return
+      } else if (pending.kind === "suggested") {
+        const agentReply = getSuggestedPromptAgentReply(pending.promptId)
+        if (agentReply) {
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: crypto.randomUUID(),
+              role: "agent",
+              text: agentReply,
+              ts: new Date(),
+              content: formatAgentMessageText(agentReply),
+            },
+          ])
+        }
+      } else {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: crypto.randomUUID(),
+            role: "agent",
+            text: ASSISTANT_OPEN_DAY_STATS_AGENT_REPLY,
+            ts: new Date(),
+            content: formatAgentMessageText(ASSISTANT_OPEN_DAY_STATS_AGENT_REPLY),
+          },
+        ])
       }
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          role: "agent",
-          text: "",
-          ts: new Date(),
-          agentStreamChars: 0,
-        },
-      ])
-      setPhase("streaming")
+      setPhase("answered")
     }, 3000)
 
     thinkingTimeoutRef.current = t
@@ -133,6 +150,12 @@ export default function OverviewPage() {
       thinkingTimeoutRef.current = null
     }
   }, [phase])
+
+  React.useEffect(() => {
+    if (!activeConversationId) return
+    if (getDemoConversationMessages(activeConversationId)) return
+    liveConversationThreadsRef.current[activeConversationId] = messages
+  }, [activeConversationId, messages])
 
   const cancelThinking = React.useCallback(() => {
     if (phase !== "thinking") return
@@ -150,6 +173,7 @@ export default function OverviewPage() {
       window.clearTimeout(id)
       thinkingTimeoutRef.current = null
     }
+    pendingAgentReplyRef.current = { kind: "initial" }
     setMessages([])
     setPhase("idle")
     setComposerValue("")
@@ -179,31 +203,39 @@ export default function OverviewPage() {
       setSuggestedPromptsRemoved(true)
       dismissSuggestedPromptsPendingRef.current = false
 
-      const thread = getDemoConversationMessages(id)
-      if (!thread) {
-        setMessages([])
-        setPhase("idle")
+      const demoThread = getDemoConversationMessages(id)
+      if (demoThread) {
+        const baseTime = Date.now()
+        setMessages(
+          demoThread.map((message, index) => ({
+            id: `${id}-${index}`,
+            role: message.role,
+            text: message.text,
+            content:
+              message.role === "agent" ? formatAgentMessageText(message.text) : undefined,
+            ts: new Date(baseTime - (demoThread.length - index) * 1000 * 60 * 4),
+          }))
+        )
+        setPhase("answered")
         return
       }
 
-      const baseTime = Date.now()
-      setMessages(
-        thread.map((message, index) => ({
-          id: `${id}-${index}`,
-          role: message.role,
-          text: message.text,
-          content:
-            message.role === "agent" ? formatAgentMessageText(message.text) : undefined,
-          ts: new Date(baseTime - (thread.length - index) * 1000 * 60 * 4),
-        }))
-      )
-      setPhase("answered")
+      const liveThread = liveConversationThreadsRef.current[id]
+      if (liveThread?.length) {
+        setMessages(liveThread)
+        setPhase(liveThread.some((message) => message.role === "agent") ? "answered" : "idle")
+        return
+      }
+
+      setMessages([])
+      setPhase("idle")
     },
     []
   )
 
   const deleteConversation = React.useCallback(
     (id: string) => {
+      delete liveConversationThreadsRef.current[id]
       setConversations((prev) => prev.filter((c) => c.id !== id))
       if (activeConversationId === id) {
         startNewChat()
@@ -218,10 +250,114 @@ export default function OverviewPage() {
     )
   }, [])
 
+  const shareConversation = React.useCallback((id: string) => {
+    setShareConversationId(id)
+    setShareEmail("")
+    setShareDialogOpen(true)
+  }, [])
+
+  const submitShareConversation = React.useCallback(() => {
+    setShareDialogOpen(false)
+    setShareConversationId(null)
+    setShareEmail("")
+  }, [])
+
+  const shareConversationTitle = React.useMemo(() => {
+    if (!shareConversationId) return undefined
+    return conversations.find((c) => c.id === shareConversationId)?.title
+  }, [conversations, shareConversationId])
+
+  const renameConversation = React.useCallback(
+    (id: string) => {
+      const conversation = conversations.find((c) => c.id === id)
+      setRenameConversationId(id)
+      setRenameTitle(conversation?.title ?? "")
+      setRenameDialogOpen(true)
+    },
+    [conversations]
+  )
+
+  const submitRenameConversation = React.useCallback(() => {
+    const trimmed = renameTitle.trim()
+    if (!renameConversationId || !trimmed) return
+
+    setConversations((prev) =>
+      prev.map((c) =>
+        c.id === renameConversationId ? { ...c, title: trimmed, updatedAt: new Date() } : c
+      )
+    )
+    setRenameDialogOpen(false)
+    setRenameConversationId(null)
+    setRenameTitle("")
+  }, [renameConversationId, renameTitle])
+
+  const openNegativeFeedbackDialog = React.useCallback(() => {
+    setNegativeFeedback("")
+    setNegativeFeedbackDialogOpen(true)
+  }, [])
+
+  const submitNegativeFeedback = React.useCallback(() => {
+    if (!negativeFeedback.trim()) return
+    setNegativeFeedbackDialogOpen(false)
+    setNegativeFeedback("")
+  }, [negativeFeedback])
+
   const dismissSuggestedPrompts = React.useCallback(() => {
     dismissSuggestedPromptsPendingRef.current = true
     setShowSuggestedPrompts(false)
   }, [])
+
+  const handleConversationTitleGenerated = React.useCallback((id: string) => {
+    setConversations((prev) =>
+      prev.map((conversation) =>
+        conversation.id === id
+          ? { ...conversation, isGeneratingTitle: false }
+          : conversation
+      )
+    )
+  }, [])
+
+  const handleSuggestedPromptSelect = React.useCallback((prompt: SuggestedPrompt) => {
+    if (!getSuggestedPromptAgentReply(prompt.id)) return
+    if (phase === "thinking") return
+
+    const thinkingId = thinkingTimeoutRef.current
+    if (thinkingId !== null) {
+      window.clearTimeout(thinkingId)
+      thinkingTimeoutRef.current = null
+    }
+
+    const conversationId = crypto.randomUUID()
+    const now = new Date()
+
+    pendingAgentReplyRef.current = { kind: "suggested", promptId: prompt.id }
+    setComposerValue("")
+    setShowWelcomeScreen(false)
+    setShowSuggestedPrompts(false)
+    setSuggestedPromptsRemoved(true)
+    dismissSuggestedPromptsPendingRef.current = false
+    setActiveConversationId(conversationId)
+
+    setConversations((prev) => [
+      {
+        id: conversationId,
+        title: prompt.heading,
+        updatedAt: now,
+        isGeneratingTitle: true,
+      },
+      ...prev,
+    ])
+
+    setMessages([
+      {
+        id: crypto.randomUUID(),
+        role: "user",
+        text: prompt.prompt,
+        ts: new Date(),
+      },
+    ])
+    setPhase("thinking")
+  }, [phase])
 
   React.useEffect(() => {
     if (showSuggestedPrompts || !dismissSuggestedPromptsPendingRef.current) return
@@ -234,56 +370,53 @@ export default function OverviewPage() {
     return () => window.clearTimeout(t)
   }, [showSuggestedPrompts])
 
-  React.useEffect(() => {
-    const last = messages[messages.length - 1]
-    if (!last || last.role !== "agent") return
-    if (last.agentStreamChars === undefined) return
+  const completeSubmit = React.useCallback(
+    (text: string) => {
+      const trimmed = text.trim()
+      if (!trimmed) return
 
-    const len = AGENT_REPLY_PLAIN.length
-    if (last.agentStreamChars >= len) {
-      setMessages((prev) => {
-        const cur = prev[prev.length - 1]
-        if (!cur || cur.role !== "agent" || cur.agentStreamChars === undefined || cur.agentStreamChars < len) {
-          return prev
-        }
-        const { agentStreamChars: _c, ...rest } = cur
-        return [...prev.slice(0, -1), { ...rest, content: formatAgentMessageText(AGENT_REPLY_PLAIN) }]
-      })
-      setPhase("answered")
-      return
-    }
+      setComposerValue("")
 
-    const id = window.setTimeout(() => {
-      setMessages((prev) => {
-        const cur = prev[prev.length - 1]
-        if (!cur || cur.role !== "agent" || cur.agentStreamChars === undefined) return prev
-        return [
-          ...prev.slice(0, -1),
+      const existingConversationId = activeConversationId
+      if (!existingConversationId) {
+        const newConversationId = crypto.randomUUID()
+        const now = new Date()
+        setActiveConversationId(newConversationId)
+        setConversations((prev) => [
           {
-            ...cur,
-            agentStreamChars: Math.min(len, cur.agentStreamChars + STREAM_CHUNK_CHARS),
+            id: newConversationId,
+            title: ASSISTANT_REPLY_BOX_CONVERSATION_TITLE,
+            updatedAt: now,
+            isGeneratingTitle: true,
           },
+          ...prev,
+        ])
+      } else {
+        setConversations((prev) =>
+          prev.map((conversation) =>
+            conversation.id === existingConversationId
+              ? { ...conversation, updatedAt: new Date() }
+              : conversation
+          )
+        )
+      }
+
+      setMessages((prev) => {
+        const nextUserCount = prev.filter((m) => m.role === "user").length + 1
+        pendingAgentReplyRef.current =
+          nextUserCount >= 2 ? { kind: "trends" } : { kind: "initial" }
+        return [
+          ...prev,
+          { id: crypto.randomUUID(), role: "user", text: trimmed, ts: new Date() },
         ]
       })
-    }, STREAM_INTERVAL_MS)
-
-    return () => window.clearTimeout(id)
-  }, [messages])
-
-  const completeSubmit = React.useCallback((text: string) => {
-    const trimmed = text.trim()
-    if (!trimmed) return
-
-    setComposerValue("")
-    setMessages((prev) => [
-      ...prev,
-      { id: crypto.randomUUID(), role: "user", text: trimmed, ts: new Date() },
-    ])
-    setPhase("thinking")
-  }, [])
+      setPhase("thinking")
+    },
+    [activeConversationId]
+  )
 
   const submit = React.useCallback(() => {
-    if (phase === "thinking" || phase === "streaming") return
+    if (phase === "thinking") return
 
     const text = composerValue.trim()
     if (!text) return
@@ -320,9 +453,7 @@ export default function OverviewPage() {
     const el = messagesScrollRef.current
     if (!el) return
 
-    const last = messages[messages.length - 1]
-    const isStreamingAgent = last?.role === "agent" && last.agentStreamChars !== undefined
-    if (!isStreamingAgent && !shouldStickToBottomRef.current) return
+    if (!shouldStickToBottomRef.current) return
 
     const pin = () => {
       el.scrollTop = el.scrollHeight - el.clientHeight
@@ -330,7 +461,7 @@ export default function OverviewPage() {
     pin()
     const raf = window.requestAnimationFrame(pin)
     return () => window.cancelAnimationFrame(raf)
-  }, [hasMessages, messages.length, agentStreamTick])
+  }, [hasMessages, messages.length])
 
   return (
     <Container className="h-[calc(100dvh-var(--header-height))] min-h-0 p-0 flex flex-col bg-background overflow-hidden">
@@ -342,6 +473,9 @@ export default function OverviewPage() {
         onNewChat={startNewChat}
         onDeleteConversation={deleteConversation}
         onPinConversation={pinConversation}
+        onShareConversation={shareConversation}
+        onRenameConversation={renameConversation}
+        onConversationTitleGenerated={handleConversationTitleGenerated}
       >
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden px-8">
         {isChatView ? (
@@ -350,23 +484,54 @@ export default function OverviewPage() {
             className="min-h-0 flex-1 overflow-auto"
             role="log"
             aria-label="Conversation"
-            aria-busy={phase === "streaming"}
+            aria-busy={phase === "thinking"}
             aria-relevant="additions text"
           >
             <div className="mx-auto flex w-full max-w-2xl flex-col gap-8 pt-6 pb-6">
               {messages.map((m) => (
-                <div key={m.id} className="animate-in fade-in-0 slide-in-from-bottom-1 duration-200">
+                <div
+                  key={m.id}
+                  className={cn(
+                    "animate-in fade-in-0 fill-mode-both duration-300 motion-reduce:animate-none",
+                    m.role === "agent" && "slide-in-from-bottom-1"
+                  )}
+                >
                   <ChatBubble
                     className="mb-0"
                     agent={m.role === "agent"}
                     variant={m.role === "agent" ? "ai-agent" : "default"}
                   >
-                    <ChatBubbleMessage timestamp={m.ts}>
-                      {m.role === "agent" && m.agentStreamChars !== undefined ? (
-                        <AgentStreamingReply text={AGENT_REPLY_PLAIN} charCount={m.agentStreamChars} />
-                      ) : (
-                        m.content ?? m.text
-                      )}
+                    <ChatBubbleMessage
+                      timestamp={m.ts}
+                      copyText={m.role === "agent" ? m.text : undefined}
+                      onGoodResponse={
+                        m.role === "agent"
+                          ? () => playFeedbackSound(thumbUpSoundUrl)
+                          : undefined
+                      }
+                      onBadResponse={
+                        m.role === "agent"
+                          ? () => {
+                              playFeedbackSound(thumbDownSoundUrl)
+                              openNegativeFeedbackDialog()
+                            }
+                          : undefined
+                      }
+                      onShareResponse={
+                        m.role === "agent"
+                          ? () => {
+                              if (activeConversationId) {
+                                shareConversation(activeConversationId)
+                              } else {
+                                setShareConversationId(null)
+                                setShareEmail("")
+                                setShareDialogOpen(true)
+                              }
+                            }
+                          : undefined
+                      }
+                    >
+                      {m.content ?? m.text}
                     </ChatBubbleMessage>
                   </ChatBubble>
                 </div>
@@ -380,7 +545,7 @@ export default function OverviewPage() {
             "mx-auto w-full max-w-2xl shrink-0 pb-6",
             isChatView ? "mt-auto pt-6" : "flex min-h-0 flex-1 flex-col justify-center"
           )}
-          aria-busy={isChatView && (phase === "thinking" || phase === "streaming")}
+          aria-busy={isChatView && phase === "thinking"}
         >
           {showWelcomeScreen ? (
             <>
@@ -425,7 +590,7 @@ export default function OverviewPage() {
               placeholder="Ask Gecko…"
               textareaProps={{
                 value: composerValue,
-                disabled: phase === "thinking" || phase === "streaming",
+                disabled: phase === "thinking",
                 className: cn(
                   "transition-[min-height] duration-300 ease-out",
                   isChatView ? "min-h-8" : undefined
@@ -445,13 +610,47 @@ export default function OverviewPage() {
           {showWelcomeScreen && !suggestedPromptsRemoved ? (
             <SuggestedPrompts
               visible={showSuggestedPrompts}
-              onSelect={setComposerValue}
+              onSelect={handleSuggestedPromptSelect}
               onDismiss={dismissSuggestedPrompts}
             />
           ) : null}
         </div>
       </div>
       </AssistantOverviewShell>
+
+      <AssistantShareConversationDialog
+        open={shareDialogOpen}
+        onOpenChange={setShareDialogOpen}
+        conversationTitle={shareConversationTitle}
+        email={shareEmail}
+        onEmailChange={setShareEmail}
+        onShare={submitShareConversation}
+      />
+
+      <AssistantRenameConversationDialog
+        open={renameDialogOpen}
+        onOpenChange={(open) => {
+          setRenameDialogOpen(open)
+          if (!open) {
+            setRenameConversationId(null)
+            setRenameTitle("")
+          }
+        }}
+        title={renameTitle}
+        onTitleChange={setRenameTitle}
+        onSave={submitRenameConversation}
+      />
+
+      <AssistantNegativeFeedbackDialog
+        open={negativeFeedbackDialogOpen}
+        onOpenChange={(open) => {
+          setNegativeFeedbackDialogOpen(open)
+          if (!open) setNegativeFeedback("")
+        }}
+        feedback={negativeFeedback}
+        onFeedbackChange={setNegativeFeedback}
+        onSubmit={submitNegativeFeedback}
+      />
     </Container>
   )
 }

@@ -4,25 +4,6 @@ export type DemoConversationMessageSeed = {
 }
 
 export const DEMO_CONVERSATION_THREADS: Record<string, DemoConversationMessageSeed[]> = {
-  "open-day-stats": [
-    {
-      role: "user",
-      text: "How many people registered for the May 2026 open day in the last 24 hours?",
-    },
-    {
-      role: "agent",
-      text: `Absolutely I can Liam. Over the past 24 hours you have had 14 new registrations for your May 2026 Open Day event.
-
-However you have also had 2 registrants cancel their registration over the same period.
-
-Your current numbers are:
-
-• 149 attendees
-• 12 cancelled
-
-If you need any further information please let me know.`,
-    },
-  ],
   "may-cancellations": [
     {
       role: "user",

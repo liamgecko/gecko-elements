@@ -23,6 +23,7 @@ import {
 } from "@gecko/ui/components/sidebar"
 
 import type { AssistantConversation } from "./assistant-conversations"
+import { TypingConversationTitle } from "./TypingConversationTitle"
 
 export type AssistantConversationsSidebarProps = {
   conversations: AssistantConversation[]
@@ -33,6 +34,7 @@ export type AssistantConversationsSidebarProps = {
   onPinConversation?: (id: string) => void
   onArchiveConversation?: (id: string) => void
   onShareConversation?: (id: string) => void
+  onConversationTitleGenerated?: (id: string) => void
 }
 
 type ConversationRowProps = {
@@ -43,6 +45,7 @@ type ConversationRowProps = {
   onRenameConversation?: (id: string) => void
   onPinConversation?: (id: string) => void
   onShareConversation?: (id: string) => void
+  onConversationTitleGenerated?: (id: string) => void
 }
 
 function ConversationRow({
@@ -53,8 +56,12 @@ function ConversationRow({
   onRenameConversation,
   onPinConversation,
   onShareConversation,
+  onConversationTitleGenerated,
 }: ConversationRowProps) {
   const active = conversation.id === activeConversationId
+  const handleTitleComplete = React.useCallback(() => {
+    onConversationTitleGenerated?.(conversation.id)
+  }, [conversation.id, onConversationTitleGenerated])
 
   return (
     <SidebarMenuItem className="flex items-center">
@@ -63,14 +70,22 @@ function ConversationRow({
         onClick={() => onSelectConversation(conversation.id)}
         className="flex-1 group-hover/menu-item:bg-sidebar-accent group-hover/menu-item:text-sidebar-accent-foreground"
       >
-        <span>{conversation.title}</span>
+        {conversation.isGeneratingTitle ? (
+          <TypingConversationTitle
+            text={conversation.title}
+            active
+            onComplete={handleTitleComplete}
+          />
+        ) : (
+          <span className="truncate">{conversation.title}</span>
+        )}
       </SidebarMenuButton>
       <DropdownMenu>
         <DropdownMenuTrigger
           render={
             <SidebarMenuAction
               showOnHover
-              aria-label={`Actions for ${conversation.title}`}
+              aria-label={`Actions for ${conversation.title || "conversation"}`}
             />
           }
         >
@@ -112,6 +127,7 @@ function ConversationGroup({
   onRenameConversation,
   onPinConversation,
   onShareConversation,
+  onConversationTitleGenerated,
 }: ConversationGroupProps) {
   if (conversations.length === 0) return null
 
@@ -130,6 +146,7 @@ function ConversationGroup({
               onRenameConversation={onRenameConversation}
               onPinConversation={onPinConversation}
               onShareConversation={onShareConversation}
+              onConversationTitleGenerated={onConversationTitleGenerated}
             />
           ))}
         </SidebarMenu>
@@ -147,6 +164,7 @@ export function AssistantConversationsSidebar({
   onPinConversation,
   onArchiveConversation,
   onShareConversation,
+  onConversationTitleGenerated,
 }: AssistantConversationsSidebarProps) {
   const pinnedConversations = React.useMemo(
     () => conversations.filter((c) => c.pinned),
@@ -165,6 +183,7 @@ export function AssistantConversationsSidebar({
     onRenameConversation,
     onPinConversation,
     onShareConversation,
+    onConversationTitleGenerated,
   }
 
   return (

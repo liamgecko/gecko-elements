@@ -49,9 +49,15 @@ function useResizeObserverWidth<T extends HTMLElement>() {
 export type ReplyBoxButtonTrayProps = {
   items: ReplyBoxTrayItem[]
   className?: string
+  /** Shared delay for all tray tooltips. Defaults to 0 for consistent timing. */
+  tooltipDelay?: number
 }
 
-export function ReplyBoxButtonTray({ items, className }: ReplyBoxButtonTrayProps) {
+export function ReplyBoxButtonTray({
+  items,
+  className,
+  tooltipDelay = 0,
+}: ReplyBoxButtonTrayProps) {
   const { noteMode, toggleNoteMode } = useReplyBox()
 
   const itemsKey = React.useMemo(
@@ -166,28 +172,25 @@ export function ReplyBoxButtonTray({ items, className }: ReplyBoxButtonTrayProps
       const onClick = isNote ? toggleNoteMode : undefined
 
       return (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <Button
-                  ref={opts.ref}
-                  type="button"
-                  variant="ghost"
-                  size="icon-sm"
-                  onClick={onClick}
-                  className="dark:hover:bg-gray-800"
-                >
-                  <Icon {...replyBoxActionIconProps} />
-                  <span className="sr-only">{noteLabel}</span>
-                </Button>
-              }
-            />
-            <TooltipContent side="top">
-              <p>{noteLabel}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button
+                ref={opts.ref}
+                type="button"
+                variant="ghost-light"
+                size="icon-sm"
+                onClick={onClick}
+              >
+                <Icon {...replyBoxActionIconProps} />
+                <span className="sr-only">{noteLabel}</span>
+              </Button>
+            }
+          />
+          <TooltipContent side="top">
+            <p>{noteLabel}</p>
+          </TooltipContent>
+        </Tooltip>
       )
     },
     [noteMode, toggleNoteMode]
@@ -200,28 +203,25 @@ export function ReplyBoxButtonTray({ items, className }: ReplyBoxButtonTrayProps
     ) => {
       const Icon = action.icon
       return (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <Button
-                  ref={opts.ref}
-                  type="button"
-                  variant="ghost"
-                  size="icon-sm"
-                  onClick={action.onClick}
-                  className="dark:hover:bg-gray-800"
-                >
-                  <Icon {...replyBoxActionIconProps} />
-                  <span className="sr-only">{action.label}</span>
-                </Button>
-              }
-            />
-            <TooltipContent side="top">
-              <p>{action.label}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button
+                ref={opts.ref}
+                type="button"
+                variant="ghost-light"
+                size="icon-sm"
+                onClick={action.onClick}
+              >
+                <Icon {...replyBoxActionIconProps} />
+                <span className="sr-only">{action.label}</span>
+              </Button>
+            }
+          />
+          <TooltipContent side="top">
+            <p>{action.label}</p>
+          </TooltipContent>
+        </Tooltip>
       )
     },
     []
@@ -303,11 +303,12 @@ export function ReplyBoxButtonTray({ items, className }: ReplyBoxButtonTrayProps
   }, [])
 
   return (
-    <div
-      ref={containerRef}
-      data-slot="reply-box-tray"
-      className={cn("relative flex flex-nowrap items-center gap-0.5 overflow-hidden", className)}
-    >
+    <TooltipProvider delay={tooltipDelay}>
+      <div
+        ref={containerRef}
+        data-slot="reply-box-tray"
+        className={cn("relative flex flex-nowrap items-center gap-0.5 overflow-hidden", className)}
+      >
       {pinned.map((item, index) => {
         const key = getReplyBoxTrayItemKey(item)
         return (
@@ -328,19 +329,28 @@ export function ReplyBoxButtonTray({ items, className }: ReplyBoxButtonTrayProps
 
       {showOverflow ? (
         <DropdownMenu>
-          <DropdownMenuTrigger
-            render={
-              <Button
-                ref={overflowBtnRef}
-                type="button"
-                variant="ghost"
-                size="icon-sm"
-                aria-label="More actions"
-              >
-                <Ellipsis className="size-4" aria-hidden />
-              </Button>
-            }
-          />
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <DropdownMenuTrigger
+                  render={
+                    <Button
+                      ref={overflowBtnRef}
+                      type="button"
+                      variant="ghost-light"
+                      size="icon-sm"
+                      aria-label="More actions"
+                    >
+                      <Ellipsis className="size-4" aria-hidden />
+                    </Button>
+                  }
+                />
+              }
+            />
+            <TooltipContent side="top">
+              <p>More actions</p>
+            </TooltipContent>
+          </Tooltip>
           <DropdownMenuContent side="top" align="end" className="w-56">
             <DropdownMenuGroup>
               {overflow.map((item) => renderOverflowMenuItem(item))}
@@ -354,7 +364,7 @@ export function ReplyBoxButtonTray({ items, className }: ReplyBoxButtonTrayProps
         aria-hidden
         inert
       >
-        <Button ref={overflowMeasureRef} type="button" variant="ghost" size="icon-sm" tabIndex={-1}>
+        <Button ref={overflowMeasureRef} type="button" variant="ghost-light" size="icon-sm" tabIndex={-1}>
           <Ellipsis className="size-4" aria-hidden />
         </Button>
         {candidates.map((item) => {
@@ -364,7 +374,7 @@ export function ReplyBoxButtonTray({ items, className }: ReplyBoxButtonTrayProps
               key={key}
               ref={candidateMeasureRefs[key]}
               type="button"
-              variant="ghost"
+              variant="ghost-light"
               size="icon-sm"
               tabIndex={-1}
             >
@@ -373,6 +383,7 @@ export function ReplyBoxButtonTray({ items, className }: ReplyBoxButtonTrayProps
           )
         })}
       </div>
-    </div>
+      </div>
+    </TooltipProvider>
   )
 }
