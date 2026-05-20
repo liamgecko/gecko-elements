@@ -2,6 +2,20 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import { BrowserRouter } from "react-router-dom"
 import App from "./App"
+import faviconUrl from "./assets/favicon.svg?url"
+
+function setFavicon(href: string) {
+  let link = document.querySelector<HTMLLinkElement>('link[rel="icon"]')
+  if (!link) {
+    link = document.createElement("link")
+    link.rel = "icon"
+    document.head.appendChild(link)
+  }
+  link.type = "image/svg+xml"
+  link.href = href
+}
+
+setFavicon(faviconUrl)
 
 // GitHub Pages SPA routing:
 // A 404.html redirect can forward deep links into index.html via `?p=/path`.
