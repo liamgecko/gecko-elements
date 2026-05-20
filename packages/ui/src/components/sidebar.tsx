@@ -29,7 +29,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@gecko/ui/components/dropdown-menu"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronRight, PanelLeftClose, PanelLeftOpen } from "lucide-react"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -270,6 +270,9 @@ function SidebarTrigger({
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar, state } = useSidebar()
+  const expanded = state === "expanded"
+  const Icon = expanded ? PanelLeftClose : PanelLeftOpen
+  const label = expanded ? "Collapse sidebar" : "Expand sidebar"
   const isMac =
     typeof navigator !== "undefined" &&
     /Mac|iPhone|iPad|iPod/i.test(navigator.platform)
@@ -281,14 +284,15 @@ function SidebarTrigger({
       variant="ghost"
       size="icon-sm"
       className={cn(className)}
+      aria-label={label}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
       }}
       {...props}
     >
-      {state === "collapsed" ? <ChevronRight /> : <ChevronLeft />}
-      <span className="sr-only">Toggle Sidebar</span>
+      <Icon aria-hidden />
+      <span className="sr-only">{label}</span>
     </Button>
   )
 
@@ -297,7 +301,7 @@ function SidebarTrigger({
       <TooltipTrigger render={button} />
       <TooltipContent side="bottom" align="center">
         <span className="flex items-center gap-2">
-          <span>Toggle sidebar</span>
+          <span>{label}</span>
           <Kbd>{isMac ? "⌘ B" : "Ctrl B"}</Kbd>
         </span>
       </TooltipContent>
