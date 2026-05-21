@@ -15,11 +15,7 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@gecko/ui/components/sidebar"
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@gecko/ui/components/collapsible"
+import { Collapsible, CollapsibleContent } from "@gecko/ui/components/collapsible"
 import { ScrollArea } from "@gecko/ui/components/scroll-area"
 import { cn } from "@gecko/ui/lib/utils"
 import type { LucideIcon } from "lucide-react"
@@ -199,6 +195,9 @@ export function AppSidebar() {
   const [renameOpen, setRenameOpen] = React.useState(false)
   const [renamePath, setRenamePath] = React.useState<string | null>(null)
   const [renameValue, setRenameValue] = React.useState("")
+  const [expandedGroups, setExpandedGroups] = React.useState<
+    Record<string, boolean>
+  >({})
 
   const favouritesLabelForPath = (path: string) => {
     const segments = path.split("?")[0].split("#")[0].split("/").filter(Boolean)
@@ -250,6 +249,32 @@ export function AppSidebar() {
                               >
                                 <span>{label}</span>
                               </SidebarMenuSubButton>
+                              <DropdownMenu>
+                                <DropdownMenuTrigger
+                                  render={
+                                    <SidebarMenuAction aria-label="Favourite actions" />
+                                  }
+                                >
+                                  <MoreHorizontal />
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                  <DropdownMenuItem
+                                    onClick={() => {
+                                      setRenamePath(fav.path)
+                                      setRenameValue(label)
+                                      setRenameOpen(true)
+                                    }}
+                                  >
+                                    Rename
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem
+                                    variant="destructive"
+                                    onClick={() => deleteFavourite(fav.path)}
+                                  >
+                                    Delete
+                                  </DropdownMenuItem>
+                                </DropdownMenuContent>
+                              </DropdownMenu>
                             </SidebarMenuSubItem>
                           )
                         })}
@@ -340,40 +365,69 @@ export function AppSidebar() {
                   const parentPath = `/${parentSlug}`
 
                   if (items?.length) {
+                    const firstChildPath = `${parentPath}/${toSlug(items[0].label)}`
+                    const isGroupActive = items.some(
+                      (item) =>
+                        pathname === `${parentPath}/${toSlug(item.label)}`
+                    )
+                    const isOpen =
+                      label in expandedGroups
+                        ? expandedGroups[label]
+                        : isGroupActive || (defaultOpen ?? false)
+
                     return (
                       <SidebarMenuItem key={label}>
-                        <Collapsible defaultOpen={defaultOpen}>
-                          <CollapsibleTrigger
-                            render={
-                              <SidebarMenuButton>
-                                <Icon />
-                                <span>{label}</span>
-                              </SidebarMenuButton>
-                            }
-                          />
+                        <Collapsible
+                          open={isOpen}
+                          onOpenChange={(open) =>
+                            setExpandedGroups((prev) => ({
+                              ...prev,
+                              [label]: open,
+                            }))
+                          }
+                        >
+                          <SidebarMenuButton
+                            isActive={isGroupActive}
+                            aria-expanded={isOpen}
+                            onClick={() => {
+                              if (isOpen) {
+                                setExpandedGroups((prev) => ({
+                                  ...prev,
+                                  [label]: false,
+                                }))
+                                return
+                              }
+                              setExpandedGroups((prev) => ({
+                                ...prev,
+                                [label]: true,
+                              }))
+                              navigate(firstChildPath)
+                            }}
+                          >
+                            <Icon />
+                            <span>{label}</span>
+                          </SidebarMenuButton>
                           <CollapsibleContent>
                             <SidebarMenuSub>
-                              {items.map((item) => (
-                                (() => {
-                                  const childSlug = toSlug(item.label)
-                                  const to = `${parentPath}/${childSlug}`
-                                  const active = pathname === to
+                              {items.map((item) => {
+                                const childSlug = toSlug(item.label)
+                                const to = `${parentPath}/${childSlug}`
+                                const active = pathname === to
 
-                                  return (
-                                <SidebarMenuSubItem key={item.label}>
-                                  <SidebarMenuSubButton
-                                    isActive={active}
-                                    onClick={(event) => {
-                                      event.preventDefault()
-                                      navigate(to)
-                                    }}
-                                  >
-                                    <span>{item.label}</span>
-                                  </SidebarMenuSubButton>
-                                </SidebarMenuSubItem>
-                                  )
-                                })()
-                              ))}
+                                return (
+                                  <SidebarMenuSubItem key={item.label}>
+                                    <SidebarMenuSubButton
+                                      isActive={active}
+                                      onClick={(event) => {
+                                        event.preventDefault()
+                                        navigate(to)
+                                      }}
+                                    >
+                                      <span>{item.label}</span>
+                                    </SidebarMenuSubButton>
+                                  </SidebarMenuSubItem>
+                                )
+                              })}
                             </SidebarMenuSub>
                           </CollapsibleContent>
                         </Collapsible>

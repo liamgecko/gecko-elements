@@ -6,6 +6,6 @@ type ContainerProps = React.ComponentProps<"div"> & {
 }
 
 export function Container({ className, ...props }: ContainerProps) {
-  return <div className={cn("bg-muted-background p-6", className)} {...props} />
+  return <div className={cn("bg-background p-6", className)} {...props} />
 }
 

@@ -29,7 +29,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@gecko/ui/components/dropdown-menu"
-import { ChevronRight, PanelLeftClose, PanelLeftOpen } from "lucide-react"
+import { ChevronRight, MoreHorizontal, PanelLeftClose, PanelLeftOpen } from "lucide-react"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -339,7 +339,7 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
     <main
       data-slot="sidebar-inset"
       className={cn(
-        "flex-1 flex flex-col bg-sidebar overflow-hidden",
+        "flex-1 flex flex-col bg-background overflow-hidden",
         className
       )}
       {...props}
@@ -593,6 +593,122 @@ function getSidebarMenuButtonIcon(children: React.ReactNode): React.ReactNode {
   return null
 }
 
+type CollapsedSubMenuAction = {
+  label: string
+  onClick?: React.MouseEventHandler<HTMLElement>
+  variant?: "default" | "destructive"
+}
+
+type CollapsedSubMenuEntry = {
+  key: string
+  label: string
+  href?: string
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>
+  actions: CollapsedSubMenuAction[]
+  actionTriggerLabel?: string
+}
+
+function extractDropdownMenuActions(
+  menu: React.ReactElement<React.ComponentProps<typeof DropdownMenu>>
+): CollapsedSubMenuAction[] {
+  const actions: CollapsedSubMenuAction[] = []
+  const content = findFirstElementOfType(
+    menu.props.children as React.ReactNode,
+    DropdownMenuContent
+  )
+  if (!content) return actions
+
+  const walk = (value: React.ReactNode) => {
+    React.Children.forEach(value, (child) => {
+      if (!React.isValidElement(child)) return
+      if (child.type === DropdownMenuItem) {
+        const props = child.props as React.ComponentProps<typeof DropdownMenuItem>
+        actions.push({
+          label: getNodeText(props.children),
+          onClick: props.onClick,
+          variant: props.variant,
+        })
+        return
+      }
+      const props = child.props as unknown as { children?: React.ReactNode }
+      if (props?.children) walk(props.children)
+    })
+  }
+
+  walk((content.props as { children?: React.ReactNode }).children)
+  return actions
+}
+
+function getDropdownMenuTriggerLabel(
+  menu: React.ReactElement<React.ComponentProps<typeof DropdownMenu>>
+): string | undefined {
+  const trigger = findFirstElementOfType(
+    menu.props.children as React.ReactNode,
+    DropdownMenuTrigger
+  )
+  if (!trigger) return undefined
+  const render = (trigger.props as { render?: React.ReactNode }).render
+  if (React.isValidElement(render)) {
+    return (render.props as { "aria-label"?: string })["aria-label"]
+  }
+  return undefined
+}
+
+function collectCollapsedSubMenuEntries(
+  subMenu: React.ReactElement<React.ComponentProps<typeof SidebarMenuSub>>
+): CollapsedSubMenuEntry[] {
+  const entries: CollapsedSubMenuEntry[] = []
+
+  const walk = (value: React.ReactNode) => {
+    React.Children.forEach(value, (child) => {
+      if (!React.isValidElement(child)) return
+      if (child.type === SidebarMenuSubItem) {
+        const subItem = child as React.ReactElement<{
+          children?: React.ReactNode
+        }>
+        const button = findFirstElementOfType(
+          subItem.props.children,
+          SidebarMenuSubButton
+        ) as React.ReactElement<
+          React.ComponentProps<typeof SidebarMenuSubButton>
+        > | null
+        if (!button) return
+        const actionsMenu = findFirstElementOfType(
+          subItem.props.children,
+          DropdownMenu
+        )
+        const label = getNodeText(button.props.children)
+        entries.push({
+          key: `${label}-${entries.length}`,
+          label,
+          href: button.props.href,
+          onClick: button.props.onClick,
+          actions: actionsMenu
+            ? extractDropdownMenuActions(
+                actionsMenu as React.ReactElement<
+                  React.ComponentProps<typeof DropdownMenu>
+                >
+              )
+            : [],
+          actionTriggerLabel: actionsMenu
+            ? getDropdownMenuTriggerLabel(
+                actionsMenu as React.ReactElement<
+                  React.ComponentProps<typeof DropdownMenu>
+                >
+              )
+            : undefined,
+        })
+        return
+      }
+      const props = child.props as unknown as { children?: React.ReactNode }
+      if (props?.children) walk(props.children)
+    })
+  }
+
+  walk(subMenu.props.children)
+  return entries
+}
+
 function SidebarCollapsedSubMenuItem({
   className,
   menuButton,
@@ -603,6 +719,7 @@ function SidebarCollapsedSubMenuItem({
   subMenu: React.ReactElement<React.ComponentProps<typeof SidebarMenuSub>>
 }) {
   const [open, setOpen] = React.useState(false)
+  const [openActionKey, setOpenActionKey] = React.useState<string | null>(null)
   const triggerNodeRef = React.useRef<HTMLElement | null>(null)
   const contentNodeRef = React.useRef<HTMLDivElement | null>(null)
 
@@ -634,30 +751,10 @@ function SidebarCollapsedSubMenuItem({
     )
   }, [headingIconRaw])
 
-  const subButtons = React.useMemo(() => {
-    const collected: React.ReactElement<
-      React.ComponentProps<typeof SidebarMenuSubButton>
-    >[] = []
-
-    const walk = (value: React.ReactNode) => {
-      React.Children.forEach(value, (child) => {
-        if (!React.isValidElement(child)) return
-        if (child.type === SidebarMenuSubButton) {
-          collected.push(
-            child as React.ReactElement<
-              React.ComponentProps<typeof SidebarMenuSubButton>
-            >
-          )
-          return
-        }
-        const props = child.props as unknown as { children?: React.ReactNode }
-        if (props?.children) walk(props.children)
-      })
-    }
-
-    walk(subMenu.props.children)
-    return collected
-  }, [subMenu.props.children])
+  const entries = React.useMemo(
+    () => collectCollapsedSubMenuEntries(subMenu),
+    [subMenu]
+  )
 
   const triggerButton = React.cloneElement(menuButton, {
     tooltip: undefined,
@@ -678,6 +775,7 @@ function SidebarCollapsedSubMenuItem({
             setOpen(true)
           }}
           onMouseLeave={(event) => {
+            if (openActionKey !== null) return
             if (shouldKeepOpen(event.relatedTarget)) return
             setOpen(false)
           }}
@@ -690,6 +788,7 @@ function SidebarCollapsedSubMenuItem({
           ref={contentNodeRef}
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={(event) => {
+            if (openActionKey !== null) return
             if (shouldKeepOpen(event.relatedTarget)) return
             setOpen(false)
           }}
@@ -701,25 +800,80 @@ function SidebarCollapsedSubMenuItem({
             </span>
           </div>
           <DropdownMenuGroup className="p-1">
-            {subButtons.map((button, index) => {
-              const label = getNodeText(button.props.children)
-              const href = button.props.href
-              const onClick = button.props.onClick
+            {entries.map((entry) => {
+              const selectEntry = (
+                event: React.MouseEvent<HTMLElement>
+              ) => {
+                entry.onClick?.(
+                  event as unknown as React.MouseEvent<HTMLAnchorElement>
+                )
+                if (entry.href) window.location.assign(entry.href)
+                setOpenActionKey(null)
+                setOpen(false)
+              }
+
+              if (entry.actions.length === 0) {
+                return (
+                  <DropdownMenuItem
+                    key={entry.key}
+                    className="whitespace-nowrap"
+                    onClick={selectEntry}
+                  >
+                    {entry.label}
+                  </DropdownMenuItem>
+                )
+              }
 
               return (
-                <DropdownMenuItem
-                  key={`${label}-${index}`}
-                  className="whitespace-nowrap"
-                  onClick={(event) => {
-                    onClick?.(
-                      event as unknown as React.MouseEvent<HTMLAnchorElement>
-                    )
-                    if (href) window.location.assign(href)
-                    setOpen(false)
-                  }}
+                <div
+                  key={entry.key}
+                  className="group/row relative flex w-full items-center rounded-sm hover:bg-accent focus-within:bg-accent"
                 >
-                  {label}
-                </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="min-w-0 flex-1 pe-8 whitespace-nowrap"
+                    onClick={selectEntry}
+                  >
+                    {entry.label}
+                  </DropdownMenuItem>
+                  <DropdownMenu
+                    open={openActionKey === entry.key}
+                    onOpenChange={(nextOpen) => {
+                      setOpenActionKey(nextOpen ? entry.key : null)
+                      if (nextOpen) setOpen(true)
+                    }}
+                  >
+                    <DropdownMenuTrigger
+                      render={
+                        <button
+                          type="button"
+                          aria-label={
+                            entry.actionTriggerLabel ?? "Item actions"
+                          }
+                          className="text-muted-foreground hover:bg-accent hover:text-accent-foreground absolute end-1 flex size-6 items-center justify-center rounded-md outline-hidden focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0"
+                          onClick={(event) => event.stopPropagation()}
+                          onPointerDown={(event) => event.stopPropagation()}
+                        />
+                      }
+                    >
+                      <MoreHorizontal aria-hidden />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" side="right" sideOffset={4}>
+                      {entry.actions.map((action, actionIndex) => (
+                        <DropdownMenuItem
+                          key={`${action.label}-${actionIndex}`}
+                          variant={action.variant}
+                          onClick={(event) => {
+                            action.onClick?.(event)
+                            setOpenActionKey(null)
+                            setOpen(false)
+                          }}
+                        >
+                          {action.label}
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               )
             })}
           </DropdownMenuGroup>
