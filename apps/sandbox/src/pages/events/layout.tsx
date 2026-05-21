@@ -39,18 +39,18 @@ export default function EventsLayout() {
   const { isFavourited, setFavourite } = useFavourites()
   const activeTab = eventsTabFromPath(pathname)
   const page = EVENTS_PAGE_CONFIG[activeTab]
-  const headerTitle = getTabLabelForPath(pathname) ?? "Events"
+  const favouriteLabel = getTabLabelForPath(pathname) ?? "Events"
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
-        title={headerTitle}
+        title="Events"
         primaryAction={{ label: page.primaryLabel }}
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
-            setFavourite({ path: pathname, label: headerTitle }, next)
+            setFavourite({ path: pathname, label: favouriteLabel }, next)
           },
         }}
         tabs={{

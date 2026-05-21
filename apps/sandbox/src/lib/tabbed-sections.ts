@@ -1,4 +1,4 @@
-/** Tab labels for tabbed routes — shared by document title and favourites. */
+/** Tab labels for tabbed routes — used by document title and favourites, not the page header. */
 
 function normalizePath(pathname: string) {
   return pathname.split("?")[0].split("#")[0]

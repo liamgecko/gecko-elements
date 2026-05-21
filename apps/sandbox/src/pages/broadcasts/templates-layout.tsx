@@ -26,18 +26,18 @@ export default function BroadcastsTemplatesLayout() {
   const breadcrumbs = usePageBreadcrumbs()
   const { isFavourited, setFavourite } = useFavourites()
   const activeTab = templatesTabFromPath(pathname)
-  const headerTitle = getTabLabelForPath(pathname) ?? "Templates"
+  const favouriteLabel = getTabLabelForPath(pathname) ?? "Templates"
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
-        title={headerTitle}
+        title="Templates"
         primaryAction={{ label: "Create new template" }}
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
-            setFavourite({ path: pathname, label: headerTitle }, next)
+            setFavourite({ path: pathname, label: favouriteLabel }, next)
           },
         }}
         tabs={{

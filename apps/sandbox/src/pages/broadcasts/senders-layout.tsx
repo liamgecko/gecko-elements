@@ -30,18 +30,18 @@ export default function BroadcastsSendersLayout() {
   const { isFavourited, setFavourite } = useFavourites()
   const activeTab = sendersTabFromPath(pathname)
   const page = SENDERS_PAGE_CONFIG[activeTab]
-  const headerTitle = getTabLabelForPath(pathname) ?? "Senders"
+  const favouriteLabel = getTabLabelForPath(pathname) ?? "Senders"
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
-        title={headerTitle}
+        title="Senders"
         primaryAction={{ label: page.primaryLabel }}
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
-            setFavourite({ path: pathname, label: headerTitle }, next)
+            setFavourite({ path: pathname, label: favouriteLabel }, next)
           },
         }}
         tabs={{

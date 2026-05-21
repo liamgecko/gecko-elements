@@ -26,18 +26,18 @@ export default function ResponsesLayout() {
   const breadcrumbs = usePageBreadcrumbs()
   const { isFavourited, setFavourite } = useFavourites()
   const activeTab = responsesTabFromPath(pathname)
-  const headerTitle = getTabLabelForPath(pathname) ?? "Responses"
+  const favouriteLabel = getTabLabelForPath(pathname) ?? "Responses"
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
-        title={headerTitle}
+        title="Responses"
         primaryAction={{ label: "Create new response" }}
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
-            setFavourite({ path: pathname, label: headerTitle }, next)
+            setFavourite({ path: pathname, label: favouriteLabel }, next)
           },
         }}
         tabs={{

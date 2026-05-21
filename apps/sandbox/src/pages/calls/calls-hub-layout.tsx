@@ -30,17 +30,17 @@ export default function CallsHubLayout() {
   const breadcrumbs = usePageBreadcrumbs()
   const { isFavourited, setFavourite } = useFavourites()
   const activeTab = callsHubTabFromPath(pathname)
-  const headerTitle = getTabLabelForPath(pathname) ?? "Calls"
+  const favouriteLabel = getTabLabelForPath(pathname) ?? "Calls"
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
-        title={headerTitle}
+        title="Calls"
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
-            setFavourite({ path: pathname, label: headerTitle }, next)
+            setFavourite({ path: pathname, label: favouriteLabel }, next)
           },
         }}
         tabs={{

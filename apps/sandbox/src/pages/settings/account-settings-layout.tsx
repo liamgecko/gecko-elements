@@ -30,18 +30,18 @@ export default function SettingsAccountSettingsLayout() {
   const breadcrumbs = usePageBreadcrumbs()
   const { isFavourited, setFavourite } = useFavourites()
   const activeTab = accountSettingsTabFromPath(pathname)
-  const headerTitle = getTabLabelForPath(pathname) ?? "Account settings"
+  const favouriteLabel = getTabLabelForPath(pathname) ?? "Account settings"
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
-        title={headerTitle}
+        title="Account settings"
         primaryAction={{ label: "Save settings" }}
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
-            setFavourite({ path: pathname, label: headerTitle }, next)
+            setFavourite({ path: pathname, label: favouriteLabel }, next)
           },
         }}
         tabs={{

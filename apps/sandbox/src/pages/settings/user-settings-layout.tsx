@@ -26,18 +26,18 @@ export default function SettingsUserSettingsLayout() {
   const breadcrumbs = usePageBreadcrumbs()
   const { isFavourited, setFavourite } = useFavourites()
   const activeTab = userSettingsTabFromPath(pathname)
-  const headerTitle = getTabLabelForPath(pathname) ?? "User settings"
+  const favouriteLabel = getTabLabelForPath(pathname) ?? "User settings"
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
-        title={headerTitle}
+        title="User settings"
         primaryAction={{ label: "Save settings" }}
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
-            setFavourite({ path: pathname, label: headerTitle }, next)
+            setFavourite({ path: pathname, label: favouriteLabel }, next)
           },
         }}
         tabs={{

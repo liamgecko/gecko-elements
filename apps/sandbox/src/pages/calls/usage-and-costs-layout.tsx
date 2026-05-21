@@ -26,17 +26,17 @@ export default function CallsUsageAndCostsLayout() {
   const breadcrumbs = usePageBreadcrumbs()
   const { isFavourited, setFavourite } = useFavourites()
   const activeTab = usageTabFromPath(pathname)
-  const headerTitle = getTabLabelForPath(pathname) ?? "Usage and costs"
+  const favouriteLabel = getTabLabelForPath(pathname) ?? "Usage and costs"
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
-        title={headerTitle}
+        title="Usage and costs"
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
-            setFavourite({ path: pathname, label: headerTitle }, next)
+            setFavourite({ path: pathname, label: favouriteLabel }, next)
           },
         }}
         tabs={{

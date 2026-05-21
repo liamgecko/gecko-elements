@@ -32,18 +32,18 @@ export default function ConversationsReportingLayout() {
   const breadcrumbs = usePageBreadcrumbs()
   const { isFavourited, setFavourite } = useFavourites()
   const activeTab = reportingTabFromPath(pathname)
-  const headerTitle = getTabLabelForPath(pathname) ?? "Reporting"
+  const favouriteLabel = getTabLabelForPath(pathname) ?? "Reporting"
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
-        title={headerTitle}
+        title="Reporting"
         secondaryActions={[{ label: "Print" }]}
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
-            setFavourite({ path: pathname, label: headerTitle }, next)
+            setFavourite({ path: pathname, label: favouriteLabel }, next)
           },
         }}
         tabs={{

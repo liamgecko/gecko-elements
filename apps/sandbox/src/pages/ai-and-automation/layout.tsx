@@ -30,18 +30,18 @@ export default function AiAndAutomationLayout() {
   const { isFavourited, setFavourite } = useFavourites()
   const activeTab = automationTabFromPath(pathname)
   const page = AUTOMATION_PAGE_CONFIG[activeTab]
-  const headerTitle = getTabLabelForPath(pathname) ?? "AI agents"
+  const favouriteLabel = getTabLabelForPath(pathname) ?? "AI agents"
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
-        title={headerTitle}
+        title="AI agents"
         primaryAction={{ label: page.primaryLabel }}
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
-            setFavourite({ path: pathname, label: headerTitle }, next)
+            setFavourite({ path: pathname, label: favouriteLabel }, next)
           },
         }}
         tabs={{

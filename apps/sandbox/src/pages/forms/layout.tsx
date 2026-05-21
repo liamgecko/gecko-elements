@@ -36,18 +36,18 @@ export default function FormsLayout() {
   const { isFavourited, setFavourite } = useFavourites()
   const activeTab = formsTabFromPath(pathname)
   const page = FORMS_PAGE_CONFIG[activeTab]
-  const headerTitle = getTabLabelForPath(pathname) ?? "Forms"
+  const favouriteLabel = getTabLabelForPath(pathname) ?? "Forms"
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
-        title={headerTitle}
+        title="Forms"
         primaryAction={{ label: page.primaryLabel }}
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
-            setFavourite({ path: pathname, label: headerTitle }, next)
+            setFavourite({ path: pathname, label: favouriteLabel }, next)
           },
         }}
         tabs={{

@@ -26,18 +26,18 @@ export default function SettingsUsersLayout() {
   const breadcrumbs = usePageBreadcrumbs()
   const { isFavourited, setFavourite } = useFavourites()
   const activeTab = usersTabFromPath(pathname)
-  const headerTitle = getTabLabelForPath(pathname) ?? "Users"
+  const favouriteLabel = getTabLabelForPath(pathname) ?? "Users"
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
-        title={headerTitle}
+        title="Users"
         primaryAction={{ label: "Create new user" }}
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
-            setFavourite({ path: pathname, label: headerTitle }, next)
+            setFavourite({ path: pathname, label: favouriteLabel }, next)
           },
         }}
         tabs={{

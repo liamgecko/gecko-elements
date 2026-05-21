@@ -28,13 +28,13 @@ export default function SettingsDataSecurityLayout() {
   const breadcrumbs = usePageBreadcrumbs()
   const { isFavourited, setFavourite } = useFavourites()
   const activeTab = dataSecurityTabFromPath(pathname)
-  const headerTitle = getTabLabelForPath(pathname) ?? "Data security"
+  const favouriteLabel = getTabLabelForPath(pathname) ?? "Data security"
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
-        title={headerTitle}
+        title="Data security"
         primaryAction={
           activeTab === "consent-reasons"
             ? { label: "Create new consent reason" }
@@ -43,7 +43,7 @@ export default function SettingsDataSecurityLayout() {
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
-            setFavourite({ path: pathname, label: headerTitle }, next)
+            setFavourite({ path: pathname, label: favouriteLabel }, next)
           },
         }}
         tabs={{

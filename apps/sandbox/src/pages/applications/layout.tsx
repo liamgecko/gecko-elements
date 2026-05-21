@@ -24,18 +24,18 @@ export default function ApplicationsLayout() {
   const breadcrumbs = usePageBreadcrumbs()
   const { isFavourited, setFavourite } = useFavourites()
   const activeTab = applicationsTabFromPath(pathname)
-  const headerTitle = getTabLabelForPath(pathname) ?? "Applications"
+  const favouriteLabel = getTabLabelForPath(pathname) ?? "Applications"
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
-        title={headerTitle}
+        title="Applications"
         primaryAction={{ label: "Create new applicant" }}
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
-            setFavourite({ path: pathname, label: headerTitle }, next)
+            setFavourite({ path: pathname, label: favouriteLabel }, next)
           },
         }}
         tabs={{
