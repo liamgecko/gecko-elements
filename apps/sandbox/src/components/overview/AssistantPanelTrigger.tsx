@@ -24,7 +24,7 @@ export function AssistantPanelTrigger({ className }: AssistantPanelTriggerProps)
   const button = (
     <Button
       type="button"
-      variant="ghost"
+      variant="outline"
       size="icon-sm"
       className={cn(
         "shrink-0 aria-expanded:bg-transparent aria-expanded:hover:bg-muted aria-expanded:text-foreground",

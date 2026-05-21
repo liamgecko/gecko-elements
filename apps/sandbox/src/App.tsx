@@ -3,72 +3,102 @@ import "@gecko/ui/globals.css"
 import { AppShell } from "./components/layout/AppShell"
 import { Navigate, Route, Routes } from "react-router-dom"
 
-import { PageWithHeader } from "./components/layout/PageWithHeader"
-
 import OverviewPage from "./pages/overview"
 import ContactsPage from "./pages/contacts"
-import ResponsesPage from "./pages/responses"
+import ResponsesLayout from "./pages/responses/layout"
 import AllResponsesPage from "./pages/responses/all-responses"
 import ResponsesPaymentsPage from "./pages/responses/payments"
 import ResponsesQuarantinePage from "./pages/responses/quarantine"
 import MessagesPage from "./pages/messages"
+import ApplicationsLayout from "./pages/applications/layout"
 import ApplicationsPage from "./pages/applications"
+import ApplicationsQuarantinePage from "./pages/applications/quarantine"
 import ConversationsPage from "./pages/conversations"
 import ConversationsInboxPage from "./pages/conversations/inbox"
 import ConversationsKnowledgeBasePage from "./pages/conversations/knowledge-base"
 import ConversationsChatbotsPage from "./pages/conversations/chatbots"
 import ConversationsChannelsPage from "./pages/conversations/channels"
 import ConversationsWidgetsPage from "./pages/conversations/widgets"
-import ConversationsReportingPage from "./pages/conversations/reporting"
+import ConversationsReportingLayout from "./pages/conversations/reporting/layout"
+import ConversationsReportingConversationsPage from "./pages/conversations/reporting/conversations"
+import ConversationsReportingAgentsPage from "./pages/conversations/reporting/agents"
+import ConversationsReportingTeamsPage from "./pages/conversations/reporting/teams"
+import ConversationsReportingBotsPage from "./pages/conversations/reporting/bots"
+import ConversationsReportingRatingsPage from "./pages/conversations/reporting/ratings"
+import ConversationsReportingLabelsPage from "./pages/conversations/reporting/labels"
 import ConversationsWorkflowsPage from "./pages/conversations/workflows"
 import ConversationsTeamsPage from "./pages/conversations/teams"
 import ConversationsSavedRepliesPage from "./pages/conversations/saved-replies"
-import EventsPage from "./pages/events"
+import EventsLayout from "./pages/events/layout"
 import EventsEventsPage from "./pages/events/events"
 import EventsHostsPage from "./pages/events/hosts"
 import EventsLocationsPage from "./pages/events/locations"
 import EventsSharePage from "./pages/events/share"
 import EventsDeletedEventsPage from "./pages/events/deleted-events"
-import FormsPage from "./pages/forms"
+import FormsLayout from "./pages/forms/layout"
 import FormsFormsPage from "./pages/forms/forms"
-import FormsFieldAndGroupsPage from "./pages/forms/field-and-groups"
+import FormsContactFieldsPage from "./pages/forms/contact-fields"
+import FormsFieldGroupsPage from "./pages/forms/field-groups"
 import FormsFieldOptionsPage from "./pages/forms/field-options"
-import AiAndAutomationPage from "./pages/ai-and-automation"
+import AiAndAutomationLayout from "./pages/ai-and-automation/layout"
 import AiAndAutomationAiAgentsPage from "./pages/ai-and-automation/ai-agents"
 import AiAndAutomationMcpServersPage from "./pages/ai-and-automation/mcp-servers"
-import BroadcastsPage from "./pages/broadcasts"
 import BroadcastsCampaignsPage from "./pages/broadcasts/campaigns"
+import BroadcastsTemplatesLayout from "./pages/broadcasts/templates-layout"
 import BroadcastsTemplatesPage from "./pages/broadcasts/templates"
-import BroadcastsVerifiedSendersAndDomainsPage from "./pages/broadcasts/verified-senders-and-domains"
+import BroadcastsDeletedTemplatesPage from "./pages/broadcasts/deleted-templates"
+import BroadcastsSendersLayout from "./pages/broadcasts/senders-layout"
+import BroadcastsSendersPage from "./pages/broadcasts/senders"
+import BroadcastsDomainsPage from "./pages/broadcasts/domains"
 import BroadcastsSmsGeoPermissionsPage from "./pages/broadcasts/sms-geo-permissions"
-import CallsPage from "./pages/calls"
+import CallsHubLayout from "./pages/calls/calls-hub-layout"
+import CallsOverviewPage from "./pages/calls/calls/overview"
+import CallsCallLogPage from "./pages/calls/calls/call-log"
+import CallsNumbersHubPage from "./pages/calls/calls/numbers"
+import CallsReportingPage from "./pages/calls/calls/reporting"
+import CallsAgentsPage from "./pages/calls/calls/agents"
 import CallsCampaignsPage from "./pages/calls/campaigns"
 import CallsScriptsPage from "./pages/calls/scripts"
 import CallsOutcomesPage from "./pages/calls/outcomes"
 import CallsTelephoneNumbersPage from "./pages/calls/telephone-numbers"
 import CallsVoipNumbersPage from "./pages/calls/voip-numbers"
-import CallsUsageAndCostsPage from "./pages/calls/usage-and-costs"
+import CallsUsageAndCostsLayout from "./pages/calls/usage-and-costs-layout"
+import CallsUsageTransactionsPage from "./pages/calls/usage-and-costs/transactions"
+import CallsUsageCallUsagePage from "./pages/calls/usage-and-costs/call-usage"
+import CallsUsageSmsUsagePage from "./pages/calls/usage-and-costs/sms-usage"
 import LandingPagesPage from "./pages/landing-pages"
-import OrganisationsPage from "./pages/organisations"
 import OrganisationsAllOrganisationsPage from "./pages/organisations/all-organisations"
 import OrganisationsOrganisationTypesPage from "./pages/organisations/organisation-types"
 import OrganisationsOrganisationFieldsPage from "./pages/organisations/organisation-fields"
-import PortalPage from "./pages/portal"
 import PortalStudentPortalsPage from "./pages/portal/student-portals"
 import PortalTasksAndObjectivesPage from "./pages/portal/tasks-and-objectives"
 import IntegrationsPage from "./pages/integrations"
 import DashboardsPage from "./pages/dashboards"
-import SettingsPage from "./pages/settings"
-import SettingsAccountSettingsPage from "./pages/settings/account-settings"
-import SettingsUserSettingsPage from "./pages/settings/user-settings"
-import SettingsUsersPage from "./pages/settings/users"
+import SettingsAccountSettingsLayout from "./pages/settings/account-settings-layout"
+import SettingsAccountSettingsBasicDetailsPage from "./pages/settings/account-settings/basic-details"
+import SettingsAccountSettingsDateAndTimePage from "./pages/settings/account-settings/date-and-time"
+import SettingsAccountSettingsCommunicationPage from "./pages/settings/account-settings/communication"
+import SettingsAccountSettingsBrandingPage from "./pages/settings/account-settings/branding"
+import SettingsAccountSettingsAnalyticsPage from "./pages/settings/account-settings/analytics"
+import SettingsUserSettingsLayout from "./pages/settings/user-settings-layout"
+import SettingsUserSettingsBasicSettingsPage from "./pages/settings/user-settings/basic-settings"
+import SettingsUserSettingsChatSettingsPage from "./pages/settings/user-settings/chat-settings"
+import SettingsUserSettingsPermissionsPage from "./pages/settings/user-settings/permissions"
+import SettingsUsersLayout from "./pages/settings/users-layout"
+import SettingsUsersActivePage from "./pages/settings/users/active"
+import SettingsUsersPendingPage from "./pages/settings/users/pending"
+import SettingsUsersArchivePage from "./pages/settings/users/archive"
 import SettingsUserGroupsPage from "./pages/settings/user-groups"
 import SettingsDevicesPage from "./pages/settings/devices"
 import SettingsImportPage from "./pages/settings/import"
 import SettingsExportPage from "./pages/settings/export"
 import SettingsLabelsPage from "./pages/settings/labels"
 import SettingsCategoriesPage from "./pages/settings/categories"
-import SettingsDataSecurityPage from "./pages/settings/data-security"
+import SettingsDataSecurityLayout from "./pages/settings/data-security-layout"
+import SettingsDataSecurityPreferencesPage from "./pages/settings/data-security/preferences"
+import SettingsDataSecurityActivityLogPage from "./pages/settings/data-security/activity-log"
+import SettingsDataSecurityDeletedContactsPage from "./pages/settings/data-security/deleted-contacts"
+import SettingsDataSecurityConsentReasonsPage from "./pages/settings/data-security/consent-reasons"
 import SecurityPreferencesPage from "./pages/security-preferences"
 import MyAccountsPage from "./pages/my-accounts"
 import UserSettingsPage from "./pages/user-settings"
@@ -81,74 +111,204 @@ export default function App() {
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<OverviewPage />} />
         <Route path="/overview" element={<Navigate to="/home" replace />} />
-        <Route path="/contacts" element={<PageWithHeader><ContactsPage /></PageWithHeader>} />
-        <Route path="/responses" element={<PageWithHeader><ResponsesPage /></PageWithHeader>} />
-        <Route path="/responses/all-responses" element={<PageWithHeader><AllResponsesPage /></PageWithHeader>} />
-        <Route path="/responses/payments" element={<PageWithHeader><ResponsesPaymentsPage /></PageWithHeader>} />
-        <Route path="/responses/quarantine" element={<PageWithHeader><ResponsesQuarantinePage /></PageWithHeader>} />
-        <Route path="/messages" element={<PageWithHeader><MessagesPage /></PageWithHeader>} />
-        <Route path="/applications" element={<PageWithHeader><ApplicationsPage /></PageWithHeader>} />
-        <Route path="/conversations" element={<PageWithHeader><ConversationsPage /></PageWithHeader>} />
-        <Route path="/conversations/inbox" element={<PageWithHeader><ConversationsInboxPage /></PageWithHeader>} />
-        <Route path="/conversations/knowledge-base" element={<PageWithHeader><ConversationsKnowledgeBasePage /></PageWithHeader>} />
-        <Route path="/conversations/chatbots" element={<PageWithHeader><ConversationsChatbotsPage /></PageWithHeader>} />
-        <Route path="/conversations/channels" element={<PageWithHeader><ConversationsChannelsPage /></PageWithHeader>} />
-        <Route path="/conversations/widgets" element={<PageWithHeader><ConversationsWidgetsPage /></PageWithHeader>} />
-        <Route path="/conversations/reporting" element={<PageWithHeader><ConversationsReportingPage /></PageWithHeader>} />
-        <Route path="/conversations/workflows" element={<PageWithHeader><ConversationsWorkflowsPage /></PageWithHeader>} />
-        <Route path="/conversations/teams" element={<PageWithHeader><ConversationsTeamsPage /></PageWithHeader>} />
-        <Route path="/conversations/saved-replies" element={<PageWithHeader><ConversationsSavedRepliesPage /></PageWithHeader>} />
-        <Route path="/events" element={<PageWithHeader><EventsPage /></PageWithHeader>} />
-        <Route path="/events/events" element={<PageWithHeader><EventsEventsPage /></PageWithHeader>} />
-        <Route path="/events/hosts" element={<PageWithHeader><EventsHostsPage /></PageWithHeader>} />
-        <Route path="/events/locations" element={<PageWithHeader><EventsLocationsPage /></PageWithHeader>} />
-        <Route path="/events/share" element={<PageWithHeader><EventsSharePage /></PageWithHeader>} />
-        <Route path="/events/deleted-events" element={<PageWithHeader><EventsDeletedEventsPage /></PageWithHeader>} />
-        <Route path="/forms" element={<PageWithHeader><FormsPage /></PageWithHeader>} />
-        <Route path="/forms/forms" element={<PageWithHeader><FormsFormsPage /></PageWithHeader>} />
-        <Route path="/forms/field-and-groups" element={<PageWithHeader><FormsFieldAndGroupsPage /></PageWithHeader>} />
-        <Route path="/forms/field-options" element={<PageWithHeader><FormsFieldOptionsPage /></PageWithHeader>} />
-        <Route path="/ai-and-automation" element={<PageWithHeader><AiAndAutomationPage /></PageWithHeader>} />
-        <Route path="/ai-and-automation/ai-agents" element={<PageWithHeader><AiAndAutomationAiAgentsPage /></PageWithHeader>} />
-        <Route path="/ai-and-automation/mcp-servers" element={<PageWithHeader><AiAndAutomationMcpServersPage /></PageWithHeader>} />
-        <Route path="/broadcasts" element={<PageWithHeader><BroadcastsPage /></PageWithHeader>} />
-        <Route path="/broadcasts/campaigns" element={<PageWithHeader><BroadcastsCampaignsPage /></PageWithHeader>} />
-        <Route path="/broadcasts/templates" element={<PageWithHeader><BroadcastsTemplatesPage /></PageWithHeader>} />
-        <Route path="/broadcasts/verified-senders-and-domains" element={<PageWithHeader><BroadcastsVerifiedSendersAndDomainsPage /></PageWithHeader>} />
-        <Route path="/broadcasts/sms-geo-permissions" element={<PageWithHeader><BroadcastsSmsGeoPermissionsPage /></PageWithHeader>} />
-        <Route path="/calls" element={<PageWithHeader><CallsPage /></PageWithHeader>} />
-        <Route path="/calls/campaigns" element={<PageWithHeader><CallsCampaignsPage /></PageWithHeader>} />
-        <Route path="/calls/scripts" element={<PageWithHeader><CallsScriptsPage /></PageWithHeader>} />
-        <Route path="/calls/outcomes" element={<PageWithHeader><CallsOutcomesPage /></PageWithHeader>} />
-        <Route path="/calls/telephone-numbers" element={<PageWithHeader><CallsTelephoneNumbersPage /></PageWithHeader>} />
-        <Route path="/calls/voip-numbers" element={<PageWithHeader><CallsVoipNumbersPage /></PageWithHeader>} />
-        <Route path="/calls/usage-and-costs" element={<PageWithHeader><CallsUsageAndCostsPage /></PageWithHeader>} />
-        <Route path="/landing-pages" element={<PageWithHeader><LandingPagesPage /></PageWithHeader>} />
-        <Route path="/organisations" element={<PageWithHeader><OrganisationsPage /></PageWithHeader>} />
-        <Route path="/organisations/all-organisations" element={<PageWithHeader><OrganisationsAllOrganisationsPage /></PageWithHeader>} />
-        <Route path="/organisations/organisation-types" element={<PageWithHeader><OrganisationsOrganisationTypesPage /></PageWithHeader>} />
-        <Route path="/organisations/organisation-fields" element={<PageWithHeader><OrganisationsOrganisationFieldsPage /></PageWithHeader>} />
-        <Route path="/portal" element={<PageWithHeader><PortalPage /></PageWithHeader>} />
-        <Route path="/portal/student-portals" element={<PageWithHeader><PortalStudentPortalsPage /></PageWithHeader>} />
-        <Route path="/portal/tasks-and-objectives" element={<PageWithHeader><PortalTasksAndObjectivesPage /></PageWithHeader>} />
-        <Route path="/integrations" element={<PageWithHeader><IntegrationsPage /></PageWithHeader>} />
-        <Route path="/data-and-reporting" element={<PageWithHeader><DashboardsPage /></PageWithHeader>} />
+        <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="/responses" element={<ResponsesLayout />}>
+          <Route index element={<Navigate to="all-responses" replace />} />
+          <Route path="all-responses" element={<AllResponsesPage />} />
+          <Route path="payments" element={<ResponsesPaymentsPage />} />
+          <Route path="quarantine" element={<ResponsesQuarantinePage />} />
+        </Route>
+        <Route path="/messages" element={<MessagesPage />} />
+        <Route path="/applications" element={<ApplicationsLayout />}>
+          <Route index element={<ApplicationsPage />} />
+          <Route path="quarantine" element={<ApplicationsQuarantinePage />} />
+        </Route>
+        <Route path="/conversations" element={<ConversationsPage />} />
+        <Route path="/conversations/inbox" element={<ConversationsInboxPage />} />
+        <Route path="/conversations/knowledge-base" element={<ConversationsKnowledgeBasePage />} />
+        <Route path="/conversations/chatbots" element={<ConversationsChatbotsPage />} />
+        <Route path="/conversations/channels" element={<ConversationsChannelsPage />} />
+        <Route path="/conversations/widgets" element={<ConversationsWidgetsPage />} />
+        <Route path="/conversations/reporting" element={<ConversationsReportingLayout />}>
+          <Route index element={<Navigate to="conversations" replace />} />
+          <Route path="conversations" element={<ConversationsReportingConversationsPage />} />
+          <Route path="agents" element={<ConversationsReportingAgentsPage />} />
+          <Route path="teams" element={<ConversationsReportingTeamsPage />} />
+          <Route path="bots" element={<ConversationsReportingBotsPage />} />
+          <Route path="ratings" element={<ConversationsReportingRatingsPage />} />
+          <Route path="labels" element={<ConversationsReportingLabelsPage />} />
+        </Route>
+        <Route path="/conversations/workflows" element={<ConversationsWorkflowsPage />} />
+        <Route path="/conversations/teams" element={<ConversationsTeamsPage />} />
+        <Route path="/conversations/saved-replies" element={<ConversationsSavedRepliesPage />} />
+        <Route path="/events" element={<EventsLayout />}>
+          <Route index element={<Navigate to="events" replace />} />
+          <Route path="events" element={<EventsEventsPage />} />
+          <Route path="hosts" element={<EventsHostsPage />} />
+          <Route path="locations" element={<EventsLocationsPage />} />
+          <Route path="share" element={<EventsSharePage />} />
+          <Route path="deleted-events" element={<EventsDeletedEventsPage />} />
+        </Route>
+        <Route path="/forms" element={<FormsLayout />}>
+          <Route index element={<Navigate to="forms" replace />} />
+          <Route path="forms" element={<FormsFormsPage />} />
+          <Route path="contact-fields" element={<FormsContactFieldsPage />} />
+          <Route path="field-groups" element={<FormsFieldGroupsPage />} />
+          <Route path="field-options" element={<FormsFieldOptionsPage />} />
+          <Route
+            path="field-and-groups"
+            element={<Navigate to="contact-fields" replace />}
+          />
+        </Route>
+        <Route path="/ai-and-automation" element={<AiAndAutomationLayout />}>
+          <Route index element={<Navigate to="ai-agents" replace />} />
+          <Route path="ai-agents" element={<AiAndAutomationAiAgentsPage />} />
+          <Route path="mcp-servers" element={<AiAndAutomationMcpServersPage />} />
+        </Route>
+        <Route path="/broadcasts" element={<Navigate to="/broadcasts/campaigns" replace />} />
+        <Route path="/broadcasts/campaigns" element={<BroadcastsCampaignsPage />} />
+        <Route element={<BroadcastsTemplatesLayout />}>
+          <Route path="/broadcasts/templates" element={<BroadcastsTemplatesPage />} />
+          <Route
+            path="/broadcasts/deleted-templates"
+            element={<BroadcastsDeletedTemplatesPage />}
+          />
+        </Route>
+        <Route element={<BroadcastsSendersLayout />}>
+          <Route
+            path="/broadcasts/senders-and-domains"
+            element={<Navigate to="/broadcasts/senders" replace />}
+          />
+          <Route path="/broadcasts/senders" element={<BroadcastsSendersPage />} />
+          <Route path="/broadcasts/domains" element={<BroadcastsDomainsPage />} />
+          <Route
+            path="/broadcasts/verified-senders-and-domains"
+            element={<Navigate to="/broadcasts/senders-and-domains" replace />}
+          />
+        </Route>
+        <Route
+          path="/broadcasts/sms-geo-permissions"
+          element={<BroadcastsSmsGeoPermissionsPage />}
+        />
+        <Route path="/calls" element={<Navigate to="/calls/calls/overview" replace />} />
+        <Route path="/calls/calls" element={<CallsHubLayout />}>
+          <Route index element={<Navigate to="overview" replace />} />
+          <Route path="overview" element={<CallsOverviewPage />} />
+          <Route path="call-log" element={<CallsCallLogPage />} />
+          <Route path="numbers" element={<CallsNumbersHubPage />} />
+          <Route path="reporting" element={<CallsReportingPage />} />
+          <Route path="agents" element={<CallsAgentsPage />} />
+        </Route>
+        <Route path="/calls/campaigns" element={<CallsCampaignsPage />} />
+        <Route path="/calls/scripts" element={<CallsScriptsPage />} />
+        <Route path="/calls/outcomes" element={<CallsOutcomesPage />} />
+        <Route path="/calls/telephone-numbers" element={<CallsTelephoneNumbersPage />} />
+        <Route path="/calls/voip-numbers" element={<CallsVoipNumbersPage />} />
+        <Route path="/calls/usage-and-costs" element={<CallsUsageAndCostsLayout />}>
+          <Route index element={<Navigate to="transactions" replace />} />
+          <Route path="transactions" element={<CallsUsageTransactionsPage />} />
+          <Route path="call-usage" element={<CallsUsageCallUsagePage />} />
+          <Route path="sms-usage" element={<CallsUsageSmsUsagePage />} />
+        </Route>
+        <Route path="/landing-pages" element={<LandingPagesPage />} />
+        <Route
+          path="/organisations"
+          element={<Navigate to="/organisations/all-organisations" replace />}
+        />
+        <Route path="/organisations/all-organisations" element={<OrganisationsAllOrganisationsPage />} />
+        <Route path="/organisations/organisation-types" element={<OrganisationsOrganisationTypesPage />} />
+        <Route path="/organisations/organisation-fields" element={<OrganisationsOrganisationFieldsPage />} />
+        <Route
+          path="/portal"
+          element={<Navigate to="/portal/student-portals" replace />}
+        />
+        <Route path="/portal/student-portals" element={<PortalStudentPortalsPage />} />
+        <Route path="/portal/tasks-and-objectives" element={<PortalTasksAndObjectivesPage />} />
+        <Route path="/integrations" element={<IntegrationsPage />} />
+        <Route path="/data-and-reporting" element={<DashboardsPage />} />
         <Route path="/dashboards" element={<Navigate to="/data-and-reporting" replace />} />
-        <Route path="/settings" element={<PageWithHeader><SettingsPage /></PageWithHeader>} />
-        <Route path="/settings/account-settings" element={<PageWithHeader><SettingsAccountSettingsPage /></PageWithHeader>} />
-        <Route path="/settings/user-settings" element={<PageWithHeader><SettingsUserSettingsPage /></PageWithHeader>} />
-        <Route path="/settings/users" element={<PageWithHeader><SettingsUsersPage /></PageWithHeader>} />
-        <Route path="/settings/user-groups" element={<PageWithHeader><SettingsUserGroupsPage /></PageWithHeader>} />
-        <Route path="/settings/devices" element={<PageWithHeader><SettingsDevicesPage /></PageWithHeader>} />
-        <Route path="/settings/import" element={<PageWithHeader><SettingsImportPage /></PageWithHeader>} />
-        <Route path="/settings/export" element={<PageWithHeader><SettingsExportPage /></PageWithHeader>} />
-        <Route path="/settings/labels" element={<PageWithHeader><SettingsLabelsPage /></PageWithHeader>} />
-        <Route path="/settings/categories" element={<PageWithHeader><SettingsCategoriesPage /></PageWithHeader>} />
-        <Route path="/settings/data-security" element={<PageWithHeader><SettingsDataSecurityPage /></PageWithHeader>} />
-        <Route path="/security-preferences" element={<PageWithHeader><SecurityPreferencesPage /></PageWithHeader>} />
-        <Route path="/my-accounts" element={<PageWithHeader><MyAccountsPage /></PageWithHeader>} />
-        <Route path="/user-settings" element={<PageWithHeader><UserSettingsPage /></PageWithHeader>} />
-        <Route path="/logout" element={<PageWithHeader><LogoutPage /></PageWithHeader>} />
+        <Route
+          path="/settings"
+          element={
+            <Navigate to="/settings/account-settings/basic-details" replace />
+          }
+        />
+        <Route
+          path="/settings/account-settings"
+          element={<SettingsAccountSettingsLayout />}
+        >
+          <Route index element={<Navigate to="basic-details" replace />} />
+          <Route
+            path="basic-details"
+            element={<SettingsAccountSettingsBasicDetailsPage />}
+          />
+          <Route
+            path="date-and-time"
+            element={<SettingsAccountSettingsDateAndTimePage />}
+          />
+          <Route
+            path="communication"
+            element={<SettingsAccountSettingsCommunicationPage />}
+          />
+          <Route
+            path="branding"
+            element={<SettingsAccountSettingsBrandingPage />}
+          />
+          <Route
+            path="analytics"
+            element={<SettingsAccountSettingsAnalyticsPage />}
+          />
+        </Route>
+        <Route path="/settings/user-settings" element={<SettingsUserSettingsLayout />}>
+          <Route index element={<Navigate to="basic-settings" replace />} />
+          <Route
+            path="basic-settings"
+            element={<SettingsUserSettingsBasicSettingsPage />}
+          />
+          <Route
+            path="chat-settings"
+            element={<SettingsUserSettingsChatSettingsPage />}
+          />
+          <Route
+            path="permissions"
+            element={<SettingsUserSettingsPermissionsPage />}
+          />
+        </Route>
+        <Route path="/settings/users" element={<SettingsUsersLayout />}>
+          <Route index element={<Navigate to="active" replace />} />
+          <Route path="active" element={<SettingsUsersActivePage />} />
+          <Route path="pending" element={<SettingsUsersPendingPage />} />
+          <Route path="archive" element={<SettingsUsersArchivePage />} />
+        </Route>
+        <Route path="/settings/user-groups" element={<SettingsUserGroupsPage />} />
+        <Route path="/settings/devices" element={<SettingsDevicesPage />} />
+        <Route path="/settings/import" element={<SettingsImportPage />} />
+        <Route path="/settings/export" element={<SettingsExportPage />} />
+        <Route path="/settings/labels" element={<SettingsLabelsPage />} />
+        <Route path="/settings/categories" element={<SettingsCategoriesPage />} />
+        <Route path="/settings/data-security" element={<SettingsDataSecurityLayout />}>
+          <Route index element={<Navigate to="preferences" replace />} />
+          <Route
+            path="preferences"
+            element={<SettingsDataSecurityPreferencesPage />}
+          />
+          <Route
+            path="activity-log"
+            element={<SettingsDataSecurityActivityLogPage />}
+          />
+          <Route
+            path="deleted-contacts"
+            element={<SettingsDataSecurityDeletedContactsPage />}
+          />
+          <Route
+            path="consent-reasons"
+            element={<SettingsDataSecurityConsentReasonsPage />}
+          />
+        </Route>
+        <Route path="/security-preferences" element={<SecurityPreferencesPage />} />
+        <Route path="/my-accounts" element={<MyAccountsPage />} />
+        <Route path="/user-settings" element={<UserSettingsPage />} />
+        <Route path="/logout" element={<LogoutPage />} />
       </Routes>
     </AppShell>
   )

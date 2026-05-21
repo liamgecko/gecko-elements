@@ -1,6 +1,14 @@
 import * as React from "react"
 
+import { Button } from "@gecko/ui/components/button"
 import { Container } from "@gecko/ui/components/container"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@gecko/ui/components/tooltip"
+import { BotMessageSquare } from "lucide-react"
 import {
   ChatBubble,
   ChatBubbleMessage,
@@ -10,6 +18,7 @@ import { Forward, Loader } from "lucide-react"
 import { cn } from "@gecko/ui/lib/utils"
 
 import { AssistantOverviewShell } from "../../components/overview/AssistantOverviewShell"
+import { AssistantPanelTrigger } from "../../components/overview/AssistantPanelTrigger"
 import { AssistantRenameConversationDialog } from "../../components/overview/AssistantRenameConversationDialog"
 import { AssistantNegativeFeedbackDialog } from "../../components/overview/AssistantNegativeFeedbackDialog"
 import { AssistantShareConversationDialog } from "../../components/overview/AssistantShareConversationDialog"
@@ -463,14 +472,41 @@ export default function OverviewPage() {
     return () => window.cancelAnimationFrame(raf)
   }, [hasMessages, messages.length])
 
+  const overviewHeader = (
+    <header className="flex h-[49px] shrink-0 items-center justify-end gap-2 border-b border-border px-3 md:px-4">
+      <TooltipProvider delay={0}>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button
+                type="button"
+                variant="outline"
+                size="icon-sm"
+                className="shrink-0"
+                aria-label="New chat"
+                onClick={startNewChat}
+              >
+                <BotMessageSquare aria-hidden />
+              </Button>
+            }
+          />
+          <TooltipContent side="bottom" align="center">
+            New chat
+          </TooltipContent>
+        </Tooltip>
+        <AssistantPanelTrigger />
+      </TooltipProvider>
+    </header>
+  )
+
   return (
     <Container className="h-[calc(100dvh-var(--header-height))] min-h-0 p-0 flex flex-col bg-background overflow-hidden">
       <AssistantOverviewShell
+        header={overviewHeader}
         className="min-h-0 flex-1"
         conversations={conversations}
         activeConversationId={activeConversationId}
         onSelectConversation={selectConversation}
-        onNewChat={startNewChat}
         onDeleteConversation={deleteConversation}
         onPinConversation={pinConversation}
         onShareConversation={shareConversation}

@@ -10,10 +10,27 @@ import {
   BreadcrumbSeparator,
 } from "@gecko/ui/components/breadcrumb"
 import { Button } from "@gecko/ui/components/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@gecko/ui/components/dropdown-menu"
 import { Tabs, TabsList, TabsTrigger } from "@gecko/ui/components/tabs"
 import { Toggle } from "@gecko/ui/components/toggle"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@gecko/ui/components/tooltip"
-import { Star } from "lucide-react"
+import { CheckCheck, Plus, Star } from "lucide-react"
+
+function iconForActionLabel(label: React.ReactNode) {
+  if (typeof label !== "string") return undefined
+  if (label.startsWith("Create")) {
+    return <Plus aria-hidden className="size-4 shrink-0" />
+  }
+  if (label.startsWith("Save")) {
+    return <CheckCheck aria-hidden className="size-4 shrink-0" />
+  }
+  return undefined
+}
 
 type HeaderBreadcrumbItem =
   | {
@@ -38,6 +55,37 @@ type HeaderActionProps = Omit<React.ComponentProps<typeof Button>, "children"> &
   label: React.ReactNode
   icon?: React.ReactNode
 }
+
+type HeaderMenuItem = {
+  label: React.ReactNode
+  onSelect?: () => void
+  variant?: "default" | "destructive"
+}
+
+type HeaderSecondaryButtonAction = Omit<
+  React.ComponentProps<typeof Button>,
+  "children"
+> & {
+  /** @default "button" */
+  kind?: "button"
+  label?: React.ReactNode
+  icon?: React.ReactNode
+  ariaLabel?: string
+}
+
+type HeaderSecondaryMenuAction = {
+  kind: "menu"
+  label?: React.ReactNode
+  icon?: React.ReactNode
+  ariaLabel?: string
+  items: readonly HeaderMenuItem[]
+  align?: React.ComponentProps<typeof DropdownMenuContent>["align"]
+  triggerProps?: Omit<React.ComponentProps<typeof Button>, "children">
+}
+
+type HeaderSecondaryAction =
+  | HeaderSecondaryButtonAction
+  | HeaderSecondaryMenuAction
 
 type HeaderFavouriteActionProps = Omit<
   React.ComponentProps<typeof Toggle>,
@@ -65,7 +113,7 @@ type HeaderProps = React.ComponentProps<"div"> & {
   title?: React.ReactNode
   subheading?: React.ReactNode
   favouriteAction?: HeaderFavouriteActionProps
-  secondaryActions?: readonly HeaderActionProps[]
+  secondaryActions?: readonly HeaderSecondaryAction[]
   primaryAction?: HeaderActionProps
   tabs?: HeaderTabsProps
 }
@@ -142,14 +190,77 @@ function renderBreadcrumbs(breadcrumbs: HeaderBreadcrumbsProps) {
   )
 }
 
+function isMenuAction(
+  action: HeaderSecondaryAction
+): action is HeaderSecondaryMenuAction {
+  return action.kind === "menu"
+}
+
+function renderSecondaryAction(action: HeaderSecondaryAction, key: React.Key) {
+  if (isMenuAction(action)) {
+    const { icon, label, ariaLabel, items, align, triggerProps } = action
+    const iconOnly = Boolean(icon) && !label
+
+    return (
+      <DropdownMenu key={key}>
+        <DropdownMenuTrigger
+          render={
+            <Button
+              type="button"
+              variant="outline"
+              size={iconOnly ? "icon-sm" : "sm"}
+              aria-label={
+                ariaLabel ??
+                (typeof label === "string" ? label : undefined) ??
+                "Open menu"
+              }
+              {...triggerProps}
+            >
+              {icon}
+              {label}
+            </Button>
+          }
+        />
+        <DropdownMenuContent align={align ?? "end"}>
+          {items.map((item, itemIndex) => (
+            <DropdownMenuItem
+              key={itemIndex}
+              variant={item.variant}
+              onClick={() => item.onSelect?.()}
+            >
+              {item.label}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    )
+  }
+
+  const { label, icon, ariaLabel, variant, size, kind, ...buttonProps } = action
+  void kind
+  const resolvedIcon = icon ?? iconForActionLabel(label)
+  const iconOnly = Boolean(resolvedIcon) && !label
+
+  return (
+    <Button
+      key={key}
+      type="button"
+      variant={variant ?? "outline"}
+      size={size ?? (iconOnly ? "icon-sm" : "sm")}
+      aria-label={ariaLabel}
+      {...buttonProps}
+    >
+      {resolvedIcon}
+      {label}
+    </Button>
+  )
+}
+
 function Actions({
   favouriteAction,
   secondaryActions,
   primaryAction,
-}: Pick<
-  HeaderProps,
-  "favouriteAction" | "secondaryActions" | "primaryAction"
->) {
+}: Pick<HeaderProps, "favouriteAction" | "secondaryActions" | "primaryAction">) {
   const {
     pressed,
     defaultPressed,
@@ -179,7 +290,7 @@ function Actions({
           render={
             <Toggle
               variant="outline"
-              size="icon"
+              size="icon-sm"
               pressed={resolvedPressed}
               onPressedChange={(next, event) => {
                 if (!isControlled) setUncontrolledPressed(next)
@@ -187,8 +298,6 @@ function Actions({
               }}
               aria-label={ariaLabel ?? tooltipLabel}
               className={cn(
-                // Header-specific: keep background identical when pressed.
-                // But still allow hover feedback when pressed.
                 "aria-pressed:bg-background aria-pressed:hover:bg-muted",
                 className
               )}
@@ -203,23 +312,21 @@ function Actions({
         </TooltipContent>
       </Tooltip>
 
-      {secondaryActions?.map(({ label, icon, variant, ...action }, idx) => (
-        <Button
-          key={idx}
-          type="button"
-          variant={variant ?? "outline"}
-          {...action}
-        >
-          {icon}
-          {label}
-        </Button>
-      ))}
+      {secondaryActions?.map((action, idx) =>
+        renderSecondaryAction(action, action.kind === "menu" ? `menu-${idx}` : `button-${idx}`)
+      )}
 
       {primaryAction ? (
-        <Button type="button" {...primaryAction}>
-          {primaryAction.icon}
-          {primaryAction.label}
-        </Button>
+        (() => {
+          const { icon, label, ...buttonProps } = primaryAction
+          const resolvedIcon = icon ?? iconForActionLabel(label)
+          return (
+            <Button type="button" size="sm" {...buttonProps}>
+              {resolvedIcon}
+              {label}
+            </Button>
+          )
+        })()
       ) : null}
     </div>
   )
@@ -230,7 +337,7 @@ function renderTabs(tabs: HeaderTabsProps) {
   if (!items || items.length === 0) return null
 
   return (
-    <Tabs {...tabsProps} className="border-b border-border">
+    <Tabs {...tabsProps} className={cn(tabsProps?.className)}>
       <TabsList variant="line" {...listProps}>
         {items.map(({ value, label, ...triggerProps }) => (
           <TabsTrigger key={value} value={value} {...triggerProps}>
@@ -254,7 +361,7 @@ function Header({
   ...props
 }: HeaderProps) {
   const hasHeading = Boolean(title || subheading)
-  const actions = (
+  const actionSlot = (
     <Actions
       favouriteAction={favouriteAction}
       secondaryActions={secondaryActions}
@@ -268,20 +375,20 @@ function Header({
     <div
       data-slot="header"
       className={cn(
-        "space-y-6 px-4 pt-2 bg-background",
-        resolvedTabs ? "pb-0" : "pb-2 border-b border-border",
+        "space-y-5 border-b border-border bg-background px-6",
+        resolvedTabs ? "pt-4 pb-0" : "py-4",
         className
       )}
       {...props}
     >
-      {(resolvedBreadcrumbs || (!hasHeading && actions)) && (
+      {(resolvedBreadcrumbs || (!hasHeading && actionSlot)) && (
         <div className="flex items-center justify-between gap-4">
           <div className="min-w-0">{resolvedBreadcrumbs}</div>
-          {!hasHeading && actions ? actions : null}
+          {!hasHeading && actionSlot ? actionSlot : null}
         </div>
       )}
 
-      {(hasHeading || (hasHeading && actions)) && (
+      {(hasHeading || (hasHeading && actionSlot)) && (
         <div className="flex items-center justify-between gap-4">
           {hasHeading ? (
             <div className="min-w-0">
@@ -298,7 +405,7 @@ function Header({
             </div>
           ) : null}
 
-          {hasHeading && actions ? actions : null}
+          {hasHeading && actionSlot ? actionSlot : null}
         </div>
       )}
 
@@ -308,4 +415,12 @@ function Header({
 }
 
 export { Header }
-
+export type {
+  HeaderActionProps,
+  HeaderBreadcrumbsProps,
+  HeaderMenuItem,
+  HeaderProps,
+  HeaderSecondaryAction,
+  HeaderSecondaryButtonAction,
+  HeaderSecondaryMenuAction,
+}

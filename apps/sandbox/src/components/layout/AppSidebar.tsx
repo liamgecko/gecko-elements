@@ -62,6 +62,7 @@ import {
   CheckCheck,
   X,
 } from "lucide-react"
+import { getTabLabelForPath } from "../../lib/tabbed-sections"
 import { useFavourites } from "../../state/favourites"
 
 type NavItem = {
@@ -120,7 +121,12 @@ const navItems: readonly NavItem[] = [
   {
     label: "Forms",
     icon: ClipboardList,
-    items: [{ label: "Forms" }, { label: "Field and groups" }, { label: "Field options" }] as const,
+    items: [
+      { label: "Forms" },
+      { label: "Contact fields" },
+      { label: "Field groups" },
+      { label: "Field options" },
+    ] as const,
   },
   {
     label: "AI and automation",
@@ -133,7 +139,7 @@ const navItems: readonly NavItem[] = [
     items: [
       { label: "Campaigns" },
       { label: "Templates" },
-      { label: "Verified senders and domains" },
+      { label: "Senders and domains" },
       { label: "SMS geo permissions" },
     ] as const,
   },
@@ -141,6 +147,7 @@ const navItems: readonly NavItem[] = [
     label: "Calls",
     icon: Headset,
     items: [
+      { label: "Calls" },
       { label: "Campaigns" },
       { label: "Scripts" },
       { label: "Outcomes" },
@@ -200,6 +207,9 @@ export function AppSidebar() {
   >({})
 
   const favouritesLabelForPath = (path: string) => {
+    const tabLabel = getTabLabelForPath(path)
+    if (tabLabel) return tabLabel
+
     const segments = path.split("?")[0].split("#")[0].split("/").filter(Boolean)
     const last = segments.at(-1) ?? ""
     if (last === "overview" || last === "home") return "Home"
@@ -209,6 +219,10 @@ export function AppSidebar() {
     const spaced = last.replace(/-/g, " ")
     const titleCased = spaced.replace(/\b\w/g, (c) => c.toUpperCase())
     if (last === "mcp-servers") return "MCP servers"
+    if (last === "all-organisations") return "Organisations"
+    if (last === "student-portals") return "Student portal"
+    if (last === "import") return "Imports"
+    if (last === "export") return "Exports"
     if (last === "voip-numbers") return "VoIP numbers"
     if (last === "sms-geo-permissions") return "SMS geo permissions"
     return titleCased || "Overview"

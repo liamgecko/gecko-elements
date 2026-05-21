@@ -1,4 +1,31 @@
-export default function CallsTelephoneNumbersPage() {
-  return <div>Calls / Telephone numbers</div>
-}
+import { useLocation } from "react-router-dom"
 
+import { Container } from "@gecko/ui/components/container"
+import { Header } from "@gecko/ui/components/header"
+import { useFavourites } from "../../../state/favourites"
+import { usePageBreadcrumbs } from "../../../lib/use-page-breadcrumbs"
+
+export default function CallsTelephoneNumbersPage() {
+  const { pathname } = useLocation()
+  const breadcrumbs = usePageBreadcrumbs()
+  const { isFavourited, setFavourite } = useFavourites()
+
+  return (
+    <div className="flex flex-col">
+      <Header
+        breadcrumbs={breadcrumbs}
+        title="Telephone numbers"
+        favouriteAction={{
+          pressed: isFavourited(pathname),
+          onPressedChange: (next) => {
+            setFavourite(
+              { path: pathname, label: "Telephone numbers" },
+              next
+            )
+          },
+        }}
+      />
+      <Container />
+    </div>
+  )
+}
