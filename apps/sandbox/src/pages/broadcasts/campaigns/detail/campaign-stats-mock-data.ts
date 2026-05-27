@@ -31,7 +31,7 @@ function startOfDay(date: Date) {
 
 function startOfHour(date: Date) {
   const d = new Date(date)
-  d.setMinutes(0, 0, 0, 0)
+  d.setMinutes(0, 0, 0)
   return d
 }
 
