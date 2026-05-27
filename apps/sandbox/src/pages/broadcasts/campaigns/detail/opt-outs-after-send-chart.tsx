@@ -8,6 +8,7 @@ import {
   ChartMetric,
   ChartTooltip,
   ChartTooltipContent,
+  ChartTooltipGroupedContent,
   type ChartConfig,
 } from "@gecko/ui/components/chart"
 import { Card, CardContent, CardHeader } from "@gecko/ui/components/card"
@@ -89,7 +90,18 @@ export function OptOutsAfterSendChart({
               tickFormatter={(v) => `${v}h`}
             />
             <YAxis tickLine={false} axisLine={false} tickMargin={8} />
-            <ChartTooltip content={<ChartTooltipContent />} />
+            <ChartTooltip
+              content={
+                comparison ? (
+                  <ChartTooltipGroupedContent
+                    primaryTitle={campaignName}
+                    compareTitle={comparison.campaignName}
+                  />
+                ) : (
+                  <ChartTooltipContent />
+                )
+              }
+            />
             {comparison ? (
               <ChartLegend
                 content={() => (

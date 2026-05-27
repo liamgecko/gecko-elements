@@ -9,6 +9,7 @@ import {
   ChartMetric,
   ChartTooltip,
   ChartTooltipContent,
+  ChartTooltipGroupedContent,
   type ChartConfig,
 } from "@gecko/ui/components/chart"
 import { Card, CardContent, CardHeader } from "@gecko/ui/components/card"
@@ -127,7 +128,18 @@ export function EngagementOverTimeChart({
               tickMargin={8}
               domain={[0, 100]}
             />
-            <ChartTooltip content={<ChartTooltipContent />} />
+            <ChartTooltip
+              content={
+                comparison ? (
+                  <ChartTooltipGroupedContent
+                    primaryTitle={campaignName}
+                    compareTitle={comparison.campaignName}
+                  />
+                ) : (
+                  <ChartTooltipContent />
+                )
+              }
+            />
             <ChartLegend
               content={() =>
                 comparison ? (

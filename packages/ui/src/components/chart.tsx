@@ -65,7 +65,7 @@ function ChartContainer({
         data-slot="chart"
         data-chart={chartId}
         className={cn(
-          "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
+          "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden [&_.recharts-tooltip-wrapper]:z-50 [&_.recharts-legend-wrapper]:z-0",
           className
         )}
         {...props}
@@ -267,6 +267,196 @@ function ChartTooltipContent({
               </div>
             )
           })}
+      </div>
+    </div>
+  )
+}
+
+type ChartTooltipPayloadItem = NonNullable<
+  RechartsPrimitive.DefaultTooltipContentProps<
+    TooltipValueType,
+    TooltipNameType
+  >["payload"]
+>[number]
+
+type ChartTooltipItemsProps = {
+  payload: ChartTooltipPayloadItem[]
+  indicator?: "line" | "dot" | "dashed"
+  hideIndicator?: boolean
+  color?: string
+  nameKey?: string
+  formatter?: (
+    value: TooltipValueType,
+    name: TooltipNameType,
+    item: ChartTooltipPayloadItem,
+    index: number,
+    payload: ChartTooltipPayloadItem["payload"]
+  ) => React.ReactNode
+}
+
+function ChartTooltipItems({
+  payload,
+  indicator = "dot",
+  hideIndicator = false,
+  color,
+  nameKey,
+  formatter,
+}: ChartTooltipItemsProps) {
+  const { config } = useChart()
+
+  return (
+    <div className="grid gap-1.5">
+      {payload
+        .filter((item) => item.type !== "none")
+        .map((item, index) => {
+          const key = `${nameKey ?? item.name ?? item.dataKey ?? "value"}`
+          const itemConfig = getPayloadConfigFromPayload(config, item, key)
+          const indicatorColor = color ?? item.payload?.fill ?? item.color
+
+          return (
+            <div
+              key={index}
+              className={cn(
+                "flex w-full flex-nowrap items-center gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
+                indicator === "dot" && "items-center"
+              )}
+            >
+              {formatter && item?.value !== undefined && item.name ? (
+                <div className="min-w-0 w-full flex-1">
+                  {formatter(item.value, item.name, item, index, item.payload)}
+                </div>
+              ) : (
+                <>
+                  {itemConfig?.icon ? (
+                    <itemConfig.icon />
+                  ) : (
+                    !hideIndicator && (
+                      <div
+                        className={cn(
+                          "shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg)",
+                          {
+                            "h-2.5 w-2.5": indicator === "dot",
+                            "w-1": indicator === "line",
+                            "w-0 border-[1.5px] border-dashed bg-transparent":
+                              indicator === "dashed",
+                          }
+                        )}
+                        style={
+                          {
+                            "--color-bg": indicatorColor,
+                            "--color-border": indicatorColor,
+                          } as React.CSSProperties
+                        }
+                      />
+                    )
+                  )}
+                  <div className="flex min-w-0 flex-1 items-center gap-4 leading-none">
+                    <span className="min-w-0 flex-1 text-muted-foreground">
+                      {itemConfig?.label ?? item.name}
+                    </span>
+                    {item.value != null && (
+                      <span className="shrink-0 font-mono font-medium text-foreground tabular-nums">
+                        {typeof item.value === "number"
+                          ? item.value.toLocaleString()
+                          : String(item.value)}
+                      </span>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+          )
+        })}
+    </div>
+  )
+}
+
+function ChartTooltipGroupedContent({
+  active,
+  payload,
+  className,
+  indicator = "dot",
+  hideIndicator = false,
+  label,
+  labelFormatter,
+  labelClassName,
+  formatter,
+  color,
+  nameKey,
+  primaryTitle,
+  compareTitle,
+  isCompareSeries = (dataKey) => dataKey.startsWith("compare"),
+}: React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
+  React.ComponentProps<"div"> & {
+    hideIndicator?: boolean
+    indicator?: "line" | "dot" | "dashed"
+    nameKey?: string
+    primaryTitle: string
+    compareTitle: string
+    isCompareSeries?: (dataKey: string) => boolean
+  } & Omit<
+    RechartsPrimitive.DefaultTooltipContentProps<
+      TooltipValueType,
+      TooltipNameType
+    >,
+    "accessibilityLayer"
+  >) {
+  if (!active || !payload?.length) {
+    return null
+  }
+
+  const visiblePayload = payload.filter((item) => item.type !== "none")
+  const primaryPayload: ChartTooltipPayloadItem[] = []
+  const comparePayload: ChartTooltipPayloadItem[] = []
+
+  for (const item of visiblePayload) {
+    const dataKey = String(item.dataKey ?? "")
+    if (isCompareSeries(dataKey)) {
+      comparePayload.push(item)
+    } else {
+      primaryPayload.push(item)
+    }
+  }
+
+  const labelContent =
+    label != null ? (
+      <div
+        className={cn(
+          "border-b border-border pb-1.5 font-medium",
+          labelClassName
+        )}
+      >
+        {labelFormatter
+          ? labelFormatter(label, payload)
+          : label}
+      </div>
+    ) : null
+
+  const itemProps = {
+    indicator,
+    hideIndicator,
+    color,
+    nameKey,
+    formatter,
+  }
+
+  return (
+    <div
+      className={cn(
+        "grid min-w-44 items-start gap-2 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl",
+        className
+      )}
+    >
+      {labelContent}
+      <div className="grid gap-2">
+        <div className="grid gap-1">
+          <p className="truncate font-medium text-foreground">{primaryTitle}</p>
+          <ChartTooltipItems payload={primaryPayload} {...itemProps} />
+        </div>
+        <div className="grid gap-1">
+          <p className="truncate font-medium text-foreground">{compareTitle}</p>
+          <ChartTooltipItems payload={comparePayload} {...itemProps} />
+        </div>
       </div>
     </div>
   )
@@ -486,6 +676,7 @@ export {
   ChartMetric,
   ChartTooltip,
   ChartTooltipContent,
+  ChartTooltipGroupedContent,
   ChartLegend,
   ChartLegendContent,
   ChartLegendGroupedContent,
