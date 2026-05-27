@@ -382,7 +382,7 @@ function Header({
     <div
       data-slot="header"
       className={cn(
-        "space-y-5 border-b border-border bg-background px-6",
+        "sticky top-0 z-10 space-y-5 border-b border-border bg-background px-6",
         resolvedTabs ? "pt-4 pb-0" : "py-4",
         className
       )}
