@@ -44,6 +44,12 @@ import AiAndAutomationLayout from "./pages/ai-and-automation/layout"
 import AiAndAutomationAiAgentsPage from "./pages/ai-and-automation/ai-agents"
 import AiAndAutomationMcpServersPage from "./pages/ai-and-automation/mcp-servers"
 import BroadcastsCampaignsPage from "./pages/broadcasts/campaigns"
+import BroadcastCampaignLayout from "./pages/broadcasts/campaigns/campaign-layout"
+import BroadcastCampaignOverviewPage from "./pages/broadcasts/campaigns/detail/overview"
+import BroadcastCampaignStatsPage from "./pages/broadcasts/campaigns/detail/stats"
+import BroadcastCampaignContactsPage from "./pages/broadcasts/campaigns/detail/contacts"
+import BroadcastCampaignWorkflowsPage from "./pages/broadcasts/campaigns/detail/workflows"
+import BroadcastCampaignSettingsPage from "./pages/broadcasts/campaigns/detail/settings"
 import BroadcastsTemplatesLayout from "./pages/broadcasts/templates-layout"
 import BroadcastsTemplatesPage from "./pages/broadcasts/templates"
 import BroadcastsDeletedTemplatesPage from "./pages/broadcasts/deleted-templates"
@@ -167,6 +173,14 @@ export default function App() {
         </Route>
         <Route path="/broadcasts" element={<Navigate to="/broadcasts/campaigns" replace />} />
         <Route path="/broadcasts/campaigns" element={<BroadcastsCampaignsPage />} />
+        <Route path="/broadcasts/campaigns/:campaignId" element={<BroadcastCampaignLayout />}>
+          <Route index element={<Navigate to="overview" replace />} />
+          <Route path="overview" element={<BroadcastCampaignOverviewPage />} />
+          <Route path="stats" element={<BroadcastCampaignStatsPage />} />
+          <Route path="contacts" element={<BroadcastCampaignContactsPage />} />
+          <Route path="workflows" element={<BroadcastCampaignWorkflowsPage />} />
+          <Route path="settings" element={<BroadcastCampaignSettingsPage />} />
+        </Route>
         <Route element={<BroadcastsTemplatesLayout />}>
           <Route path="/broadcasts/templates" element={<BroadcastsTemplatesPage />} />
           <Route

@@ -15,7 +15,7 @@ const InputGroupContext = React.createContext<InputGroupSize | undefined>(
 )
 
 const inputGroupVariants = cva(
-  "border-input hover:border-input-hover has-[[data-slot=input-group-control]:disabled]:hover:border-input has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:border-input-destructive has-[[data-slot=input-group-control][aria-invalid=true]:focus-visible]:ring-3 has-[[data-slot=input-group-control][aria-invalid=true]:focus-visible]:ring-input-destructive/20 dark:has-[[data-slot=input-group-control][aria-invalid=true]:focus-visible]:ring-input-destructive/40 rounded-sm border bg-transparent transition-[color,box-shadow,border] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pe-1.5 has-[>[data-align=inline-start]]:[&>input]:ps-1.5 group/input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto has-[[data-slot=input-group-control]:disabled]:bg-muted",
+  "border-input hover:border-input-hover has-[[data-slot=input-group-control]:disabled]:hover:border-input has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:border-input-destructive has-[[data-slot=input-group-control][aria-invalid=true]:focus-visible]:ring-3 has-[[data-slot=input-group-control][aria-invalid=true]:focus-visible]:ring-input-destructive/20 dark:has-[[data-slot=input-group-control][aria-invalid=true]:focus-visible]:ring-input-destructive/40 rounded-sm border bg-transparent transition-[color,box-shadow,border] in-data-[slot=combobox-content]:focus-within:border-inherit in-data-[slot=combobox-content]:focus-within:ring-0 has-[[data-slot=input-group-control]:focus-visible]:ring-3 has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pe-1.5 has-[>[data-align=inline-start]]:[&>input]:ps-1.5 group/input-group relative flex w-full min-w-0 items-stretch outline-none has-[>textarea]:h-auto has-[[data-slot=input-group-control]:disabled]:bg-muted",
   {
     variants: {
       size: {
@@ -49,21 +49,23 @@ function InputGroup({
 }
 
 const inputGroupAddonVariants = cva(
-  "text-muted-foreground h-auto gap-2 font-medium group-data-[disabled=true]/input-group:opacity-75 group-has-[[data-slot=input-group-control]:disabled]/input-group:opacity-75 [&>kbd]:rounded-[calc(var(--radius)-5px)] flex cursor-text items-center justify-center select-none",
+  "text-muted-foreground gap-2 font-medium group-data-[disabled=true]/input-group:opacity-75 group-has-[[data-slot=input-group-control]:disabled]/input-group:opacity-75 [&>kbd]:rounded-[calc(var(--radius)-5px)] flex shrink-0 cursor-text items-center justify-center select-none",
   {
     variants: {
       align: {
-        "inline-start": "ps-2 has-[>button]:-ms-1 has-[>kbd]:ms-[-0.15rem] order-first",
-        "inline-end": "pe-2 has-[>button]:-me-1 has-[>kbd]:me-[-0.15rem] order-last",
+        "inline-start":
+          "self-stretch py-0 ps-2 has-[>button]:-ms-1 has-[>kbd]:ms-[-0.15rem] order-first",
+        "inline-end":
+          "self-stretch py-0 pe-2 has-[>button]:-me-1 has-[>kbd]:me-[-0.15rem] order-last",
         "block-start":
           "px-2.5 pt-2 group-has-[>input]/input-group:pt-2 [.border-b]:pb-2 order-first w-full justify-start",
         "block-end":
           "px-2.5 pb-2 group-has-[>input]/input-group:pb-2 [.border-t]:pt-2 order-last w-full justify-start",
       },
       size: {
-        sm: "py-1 text-[13px] [&>svg:not([class*='size-'])]:size-3.5",
-        md: "py-1.5 text-sm [&>svg:not([class*='size-'])]:size-4",
-        lg: "py-2 text-base [&>svg:not([class*='size-'])]:size-4.5",
+        sm: "text-[13px] [&>svg:not([class*='size-'])]:size-3.5",
+        md: "text-sm [&>svg:not([class*='size-'])]:size-4",
+        lg: "text-base [&>svg:not([class*='size-'])]:size-4.5",
       },
     },
     defaultVariants: {
@@ -146,9 +148,9 @@ function InputGroupText({ className, ...props }: React.ComponentProps<"span">) {
 }
 
 const inputGroupInputSizeMap = {
-  sm: "!h-7 px-2 text-[13px]",
-  md: "!h-8 px-2.5 text-sm",
-  lg: "!h-9 px-3 text-base",
+  sm: "h-full min-h-0 px-2 text-[13px]",
+  md: "h-full min-h-0 px-2.5 text-sm",
+  lg: "h-full min-h-0 px-3 text-base",
 } as const
 
 function InputGroupInput({

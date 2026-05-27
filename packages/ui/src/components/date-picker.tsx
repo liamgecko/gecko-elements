@@ -23,7 +23,6 @@ import {
   PopoverTrigger,
 } from "@gecko/ui/components/popover"
 
-/** Hide WebKit native picker affordances on `type="date"` / `type="time"` fields. */
 const NATIVE_DATE_OR_TIME_INPUT_CLASSES =
   "appearance-none bg-background [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
 
@@ -80,6 +79,15 @@ type DatePickerSharedProps = {
   contentSideOffset?: React.ComponentProps<typeof PopoverContent>["sideOffset"]
   contentClassName?: string
   /** Button trigger only */
+  buttonSize?: React.ComponentProps<typeof Button>["size"]
+  /** Button trigger only: where the calendar icon renders. @default "end" */
+  calendarIconPosition?: "start" | "end"
+  /**
+   * Button trigger only: stretch to the container width with left-aligned label text.
+   * Use `false` for inline toolbar controls that should match a standard `Button`.
+   * @default true
+   */
+  buttonFullWidth?: boolean
   buttonClassName?: string
   placeholder?: string
   /** Single: format selected date. Range: format range label. */
@@ -280,6 +288,9 @@ function DatePicker(props: DatePickerProps) {
     contentSide: contentSideProp,
     contentSideOffset: contentSideOffsetProp,
     contentClassName,
+    buttonSize,
+    calendarIconPosition = "end",
+    buttonFullWidth = true,
     buttonClassName,
     placeholder = "Select a date",
     formatDate = defaultFormatSingle,
@@ -620,19 +631,25 @@ function DatePicker(props: DatePickerProps) {
                   aria-describedby={ariaDescribedBy}
                   data-slot="date-picker-trigger"
                   className={cn(
-                    "w-full min-w-0 justify-start gap-2 font-normal",
+                    buttonFullWidth
+                      ? "w-full min-w-0 justify-start"
+                      : "w-auto max-w-full",
                     buttonClassName
                   )}
                 >
-                  <span className="min-w-0 flex-1 truncate text-start">
+                  <span
+                    className={cn(
+                      "min-w-0 truncate",
+                      buttonFullWidth && "flex-1 text-start"
+                    )}
+                  >
                     {singleValue
                       ? resolvedSingleFormatDate(singleValue)
                       : placeholder}
                   </span>
                   <CalendarIcon
-                    data-icon="inline-end"
                     aria-hidden="true"
-                    className="pointer-events-none shrink-0 text-muted-foreground"
+                    className="pointer-events-none shrink-0 text-foreground"
                   />
                 </Button>
               }
@@ -801,6 +818,17 @@ function DatePicker(props: DatePickerProps) {
         ? resolvedSingleFormatDate(singleValue)
         : placeholder
 
+  const calendarIconNode = showCalendarOnButton ? (
+    <CalendarIcon
+      aria-hidden="true"
+      className="pointer-events-none shrink-0 text-foreground"
+    />
+  ) : null
+
+  const endCalendarIcon =
+    calendarIconPosition === "end" ? calendarIconNode : null
+  const hasEndCluster = Boolean(buttonEndIcon) || Boolean(endCalendarIcon)
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
@@ -809,6 +837,7 @@ function DatePicker(props: DatePickerProps) {
           <Button
             type="button"
             variant="outline"
+            size={buttonSize}
             id={id}
             aria-label={ariaLabel}
             aria-describedby={ariaDescribedBy}
@@ -817,8 +846,9 @@ function DatePicker(props: DatePickerProps) {
               datePickerTriggerVariants({
                 variant: variant === "dob" ? "dob" : "default",
               }),
-              "w-full min-w-0 justify-start gap-2 font-normal",
-              mode === "range" && "px-2.5",
+              buttonFullWidth
+                ? "w-full min-w-0 justify-start"
+                : "w-auto max-w-full",
               className,
               buttonClassName
             )}
@@ -828,19 +858,21 @@ function DatePicker(props: DatePickerProps) {
                 {buttonStartIcon}
               </span>
             ) : null}
-            <span className="min-w-0 flex-1 truncate text-start">
+            {calendarIconPosition === "start" ? calendarIconNode : null}
+            <span
+              className={cn(
+                "min-w-0 truncate",
+                buttonFullWidth && "flex-1 text-start"
+              )}
+            >
               {buttonLabel}
             </span>
-            <span className="inline-flex shrink-0 items-center gap-1.5">
-              {buttonEndIcon}
-              {showCalendarOnButton ? (
-                <CalendarIcon
-                  data-icon="inline-end"
-                  aria-hidden="true"
-                  className="pointer-events-none text-muted-foreground"
-                />
-              ) : null}
-            </span>
+            {hasEndCluster ? (
+              <span className="inline-flex shrink-0 items-center gap-1.5">
+                {buttonEndIcon}
+                {endCalendarIcon}
+              </span>
+            ) : null}
           </Button>
         }
       />

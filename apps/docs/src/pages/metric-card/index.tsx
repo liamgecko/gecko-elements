@@ -220,6 +220,24 @@ export function MetricCardPage() {
           </ComponentExample>
         </PageSection>
 
+        <PageSection id="detail" label="Detail">
+          <h2 className="text-lg font-semibold">Detail</h2>
+          <p className="mb-8 text-sm text-muted-foreground text-pretty">
+            Add a supporting label beside the value (e.g. counts or units).
+          </p>
+
+          <ComponentExample>
+            <div className="max-w-sm">
+              <MetricCard
+                title="Open rate"
+                value="74%"
+                detail="123 unique opens"
+                description="% of delivered recipients who opened the message."
+              />
+            </div>
+          </ComponentExample>
+        </PageSection>
+
         <PageSection id="description" label="Description">
           <h2 className="text-lg font-semibold">Description</h2>
           <p className="mb-8 text-sm text-muted-foreground text-pretty">

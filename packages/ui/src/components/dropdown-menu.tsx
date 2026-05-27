@@ -4,7 +4,7 @@ import * as React from "react"
 import { Menu as MenuPrimitive } from "@base-ui/react/menu"
 
 import { cn } from "@gecko/ui/lib/utils"
-import { CheckIcon, ChevronRightIcon, SearchIcon } from "lucide-react"
+import { CheckIcon, ChevronRightIcon, SearchIcon, XIcon } from "lucide-react"
 
 type DropdownMenuSearchContextValue = {
   query: string
@@ -366,10 +366,16 @@ function DropdownMenuRadioItem({
   className,
   children,
   inset,
+  clearable = false,
+  onClear,
+  onClick,
   ...props
 }: MenuPrimitive.RadioItem.Props & {
   inset?: boolean
   searchValue?: string
+  /** When selected, show an X on hover; clicking the item clears the selection. */
+  clearable?: boolean
+  onClear?: () => void
 }) {
   const search = useDropdownMenuSearch()
   const query = search?.query.toLowerCase().trim()
@@ -388,19 +394,36 @@ function DropdownMenuRadioItem({
       data-slot="dropdown-menu-radio-item"
       data-inset={inset}
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-2 rounded-sm py-1.5 pe-8 ps-2 text-sm data-inset:ps-8 [&_svg:not([class*='size-'])]:size-4 relative flex cursor-pointer items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-75 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "group/radio-item focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-2 rounded-sm py-1.5 pe-8 ps-2 text-sm data-inset:ps-8 [&_svg:not([class*='size-'])]:size-4 relative flex cursor-pointer items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-75 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className
       )}
       style={isHidden ? { display: "none" } : undefined}
+      onClick={(event) => {
+        if (clearable && onClear) {
+          ;(
+            event as React.MouseEvent & {
+              preventBaseUIHandler?: () => void
+            }
+          ).preventBaseUIHandler?.()
+          onClear()
+        }
+        onClick?.(event)
+      }}
       {...props}
     >
       <span
-        className="absolute end-2 flex items-center justify-center pointer-events-none"
+        className="pointer-events-none absolute end-2 flex items-center justify-center"
         data-slot="dropdown-menu-radio-item-indicator"
       >
         <MenuPrimitive.RadioItemIndicator>
-          <CheckIcon
-          />
+          {clearable && onClear ? (
+            <>
+              <CheckIcon className="size-4 group-hover/radio-item:hidden" />
+              <XIcon className="size-4 hidden group-hover/radio-item:block" />
+            </>
+          ) : (
+            <CheckIcon className="size-4" />
+          )}
         </MenuPrimitive.RadioItemIndicator>
       </span>
       {children}

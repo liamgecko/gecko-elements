@@ -14,6 +14,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@gecko/ui/components/dropdown-menu"
 import { Tabs, TabsList, TabsTrigger } from "@gecko/ui/components/tabs"
@@ -60,6 +61,8 @@ type HeaderMenuItem = {
   label: React.ReactNode
   onSelect?: () => void
   variant?: "default" | "destructive"
+  /** Renders a separator above this item (e.g. before delete). */
+  separatorBefore?: boolean
 }
 
 type HeaderSecondaryButtonAction = Omit<
@@ -208,7 +211,7 @@ function renderSecondaryAction(action: HeaderSecondaryAction, key: React.Key) {
             <Button
               type="button"
               variant="outline"
-              size={iconOnly ? "icon-sm" : "sm"}
+              size={iconOnly ? "icon" : "default"}
               aria-label={
                 ariaLabel ??
                 (typeof label === "string" ? label : undefined) ??
@@ -223,13 +226,17 @@ function renderSecondaryAction(action: HeaderSecondaryAction, key: React.Key) {
         />
         <DropdownMenuContent align={align ?? "end"}>
           {items.map((item, itemIndex) => (
-            <DropdownMenuItem
-              key={itemIndex}
-              variant={item.variant}
-              onClick={() => item.onSelect?.()}
-            >
-              {item.label}
-            </DropdownMenuItem>
+            <React.Fragment key={itemIndex}>
+              {item.separatorBefore && itemIndex > 0 ? (
+                <DropdownMenuSeparator />
+              ) : null}
+              <DropdownMenuItem
+                variant={item.variant}
+                onClick={() => item.onSelect?.()}
+              >
+                {item.label}
+              </DropdownMenuItem>
+            </React.Fragment>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
@@ -290,7 +297,7 @@ function Actions({
           render={
             <Toggle
               variant="outline"
-              size="icon-sm"
+              size="icon"
               pressed={resolvedPressed}
               onPressedChange={(next, event) => {
                 if (!isControlled) setUncontrolledPressed(next)
@@ -321,7 +328,7 @@ function Actions({
           const { icon, label, ...buttonProps } = primaryAction
           const resolvedIcon = icon ?? iconForActionLabel(label)
           return (
-            <Button type="button" size="sm" {...buttonProps}>
+            <Button type="button" size="default" {...buttonProps}>
               {resolvedIcon}
               {label}
             </Button>

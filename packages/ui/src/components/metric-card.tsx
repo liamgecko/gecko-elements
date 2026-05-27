@@ -60,6 +60,8 @@ export type MetricCardMenuItem = {
 export type MetricCardProps = React.ComponentProps<"div"> & {
   title: React.ReactNode
   value: React.ReactNode
+  /** Supporting label beside the value (e.g. "123 unique opens"). */
+  detail?: React.ReactNode
   description?: React.ReactNode
   helpText?: React.ReactNode
   trend?: MetricCardTrend
@@ -153,12 +155,23 @@ function MetricCardTitleRow({
   )
 }
 
+const metricCardInlineLabelClassName =
+  "flex items-center gap-1.5 text-xs text-muted-foreground"
+
+function MetricCardDetail({ detail }: { detail: React.ReactNode }) {
+  return (
+    <div className={metricCardInlineLabelClassName}>
+      <span>{detail}</span>
+    </div>
+  )
+}
+
 function MetricCardTrendRow({ trend }: { trend: MetricCardTrend }) {
   const sentiment = trend.direction === "neutral" ? "neutral" : trend.sentiment
   const color = sentimentTextClass(sentiment)
 
   return (
-    <div className={cn("flex items-center gap-1.5 text-xs", color)}>
+    <div className={cn(metricCardInlineLabelClassName, color)}>
       {trend.direction === "up" ? (
         <TrendingUp className="size-3.5" aria-hidden />
       ) : trend.direction === "down" ? (
@@ -253,6 +266,7 @@ function MetricCardSparklineChart({ sparkline }: { sparkline: MetricCardSparklin
 export function MetricCard({
   title,
   value,
+  detail,
   description,
   helpText,
   trend,
@@ -266,11 +280,12 @@ export function MetricCard({
       <MetricCardTitleRow title={title} helpText={helpText} menuItems={menuItems} />
 
       <CardContent className={cn("px-5 pb-5 pt-2", sparkline && "pb-4")}>
-        <div className="grid gap-1">
-          <div className="flex items-baseline gap-3">
+        <div className="grid gap-4">
+          <div className="flex items-baseline gap-2">
             <div className="text-3xl font-semibold tracking-tight text-foreground">
               {value}
             </div>
+            {detail ? <MetricCardDetail detail={detail} /> : null}
             {trend ? <MetricCardTrendRow trend={trend} /> : null}
           </div>
           {description ? (

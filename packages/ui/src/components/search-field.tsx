@@ -100,22 +100,20 @@ const SearchField = React.forwardRef<HTMLInputElement, SearchFieldProps>(
           disabled={disabled}
           {...rest}
         />
-        {showClear && (
+        {showClear && hasValue ? (
           <InputGroupAddon align="inline-end">
-            {hasValue && (
-              <InputGroupButton
-                type="button"
-                variant="ghost"
-                size="sm"
-                disabled={disabled}
-                onClick={handleClear}
-                aria-label="Clear"
-              >
-                <XIcon className="pointer-events-none" />
-              </InputGroupButton>
-            )}
+            <InputGroupButton
+              type="button"
+              variant="ghost"
+              size="sm"
+              disabled={disabled}
+              onClick={handleClear}
+              aria-label="Clear"
+            >
+              <XIcon className="pointer-events-none" />
+            </InputGroupButton>
           </InputGroupAddon>
-        )}
+        ) : null}
       </InputGroup>
     )
   }

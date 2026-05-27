@@ -191,7 +191,7 @@ function ChartTooltipContent({
   return (
     <div
       className={cn(
-        "grid min-w-32 items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl",
+        "grid min-w-44 items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl",
         className
       )}
     >
@@ -208,12 +208,14 @@ function ChartTooltipContent({
               <div
                 key={index}
                 className={cn(
-                  "flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
+                  "flex w-full flex-nowrap items-center gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
                   indicator === "dot" && "items-center"
                 )}
               >
                 {formatter && item?.value !== undefined && item.name ? (
-                  formatter(item.value, item.name, item, index, item.payload)
+                  <div className="min-w-0 w-full flex-1">
+                    {formatter(item.value, item.name, item, index, item.payload)}
+                  </div>
                 ) : (
                   <>
                     {itemConfig?.icon ? (
@@ -242,18 +244,18 @@ function ChartTooltipContent({
                     )}
                     <div
                       className={cn(
-                        "flex flex-1 justify-between leading-none",
-                        nestLabel ? "items-end" : "items-center"
+                        "flex min-w-0 flex-1 items-center gap-4 leading-none",
+                        nestLabel && "items-end"
                       )}
                     >
-                      <div className="grid gap-1.5">
+                      <div className="grid min-w-0 flex-1 gap-1.5">
                         {nestLabel ? tooltipLabel : null}
                         <span className="text-muted-foreground">
                           {itemConfig?.label ?? item.name}
                         </span>
                       </div>
                       {item.value != null && (
-                        <span className="font-mono font-medium text-foreground tabular-nums">
+                        <span className="shrink-0 font-mono font-medium text-foreground tabular-nums">
                           {typeof item.value === "number"
                             ? item.value.toLocaleString()
                             : String(item.value)}
@@ -271,6 +273,15 @@ function ChartTooltipContent({
 }
 
 const ChartLegend = RechartsPrimitive.Legend
+
+type ChartLegendPayload = NonNullable<
+  RechartsPrimitive.DefaultLegendContentProps["payload"]
+>
+
+type ChartLegendGroup = {
+  title: string
+  payload: ChartLegendPayload
+}
 
 function ChartLegendContent({
   className,
@@ -327,6 +338,51 @@ function ChartLegendContent({
   )
 }
 
+function ChartLegendGroupedContent({
+  className,
+  groups,
+  hideIcon = false,
+  nameKey,
+  verticalAlign = "bottom",
+}: React.ComponentProps<"div"> & {
+  groups: ChartLegendGroup[]
+  hideIcon?: boolean
+  nameKey?: string
+  verticalAlign?: "top" | "bottom"
+}) {
+  if (!groups.length) {
+    return null
+  }
+
+  return (
+    <div
+      className={cn(
+        "flex w-full flex-col items-center gap-2",
+        verticalAlign === "top" ? "pb-3" : "pt-3",
+        className
+      )}
+    >
+      {groups.map((group) => (
+        <div
+          key={group.title}
+          className="flex w-full max-w-full flex-col items-center gap-1"
+        >
+          <p className="max-w-full truncate text-center text-xs font-medium text-foreground">
+            {group.title}
+          </p>
+          <ChartLegendContent
+            payload={group.payload}
+            hideIcon={hideIcon}
+            nameKey={nameKey}
+            verticalAlign={verticalAlign}
+            className="justify-center pt-0"
+          />
+        </div>
+      ))}
+    </div>
+  )
+}
+
 /**
  * Headline metric: primary value + optional muted label. Place above `ChartContainer`
  * as a sibling; use optional `children` only when you need to group extra content.
@@ -356,10 +412,10 @@ const ChartMetric = React.forwardRef<
     typeof value === "number" ? value.toLocaleString() : value
 
   const row = (
-    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 mb-4">
+    <div className="flex items-baseline gap-2">
       <span
         className={cn(
-          "text-3xl font-semibold tabular-nums text-foreground",
+          "text-3xl font-semibold tracking-tight text-foreground",
           valueClassName
         )}
       >
@@ -367,7 +423,7 @@ const ChartMetric = React.forwardRef<
       </span>
       {label != null ? (
         <span
-          className={cn("text-sm text-muted-foreground", labelClassName)}
+          className={cn("text-xs text-muted-foreground ", labelClassName)}
         >
           {label}
         </span>
@@ -379,7 +435,7 @@ const ChartMetric = React.forwardRef<
     <div
       ref={ref}
       data-slot="chart-metric"
-      className={cn(children ? "flex flex-col gap-4" : undefined, className)}
+      className={cn(children ? "flex flex-col gap-4 mb-8" : undefined, className)}
       {...props}
     >
       {row}
@@ -432,5 +488,6 @@ export {
   ChartTooltipContent,
   ChartLegend,
   ChartLegendContent,
+  ChartLegendGroupedContent,
   ChartStyle,
 }

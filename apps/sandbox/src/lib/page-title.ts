@@ -1,8 +1,17 @@
 import * as React from "react"
 import { useLocation } from "react-router-dom"
 
+import { getBroadcastCampaignById } from "../pages/broadcasts/campaigns/broadcast-campaigns-data"
 import { getTabLabelForPath } from "./tabbed-sections"
 import { labelForPath } from "./use-page-breadcrumbs"
+
+const CAMPAIGN_DETAIL_TAB_LABELS: Record<string, string> = {
+  overview: "Overview",
+  stats: "Stats",
+  contacts: "Contacts",
+  workflows: "Workflows",
+  settings: "Settings",
+}
 
 const HOME_PATHS = new Set(["/", "/home", "/overview"])
 
@@ -52,10 +61,24 @@ const EXACT_PAGE_TITLES: Record<string, string> = {
 }
 
 export function getPageTitle(pathname: string) {
+  const path = pathname.split("?")[0].split("#")[0]
+
+  const campaignDetailMatch = path.match(
+    /^\/broadcasts\/campaigns\/([^/]+)(?:\/([^/]+))?$/
+  )
+  if (campaignDetailMatch) {
+    const [, campaignId, tab] = campaignDetailMatch
+    const campaign = campaignId
+      ? getBroadcastCampaignById(campaignId)
+      : undefined
+    if (campaign) {
+      const tabLabel = tab ? CAMPAIGN_DETAIL_TAB_LABELS[tab] : undefined
+      return tabLabel ? `${tabLabel} | ${campaign.name}` : campaign.name
+    }
+  }
+
   const tabLabel = getTabLabelForPath(pathname)
   if (tabLabel) return tabLabel
-
-  const path = pathname.split("?")[0].split("#")[0]
   const exact = EXACT_PAGE_TITLES[path]
   if (exact) return exact
 

@@ -19,13 +19,16 @@ import {
   DropdownMenuEmpty,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
+  DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@gecko/ui/components/dropdown-menu"
+import { Calendar } from "@gecko/ui/components/calendar"
 import { Separator } from "@gecko/ui/components/separator"
 import { cn } from "@gecko/ui/lib/utils"
+import type { DateRange } from "react-day-picker"
 
 export type FilterOption = {
   value: string
@@ -495,6 +498,252 @@ export function Sort({
           {options.length === 0 && (
             <DropdownMenuEmpty>No options.</DropdownMenuEmpty>
           )}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  )
+}
+
+export type DateRangeFilterPreset = {
+  id: string
+  label: string
+  /**
+   * Create a date range relative to `now`.
+   * Use `from`/`to` in the local timezone (DatePicker uses local dates).
+   */
+  getRange: (now: Date) => DateRange
+}
+
+function ordinalSuffix(n: number) {
+  const mod100 = n % 100
+  if (mod100 >= 11 && mod100 <= 13) return "th"
+  const mod10 = n % 10
+  if (mod10 === 1) return "st"
+  if (mod10 === 2) return "nd"
+  if (mod10 === 3) return "rd"
+  return "th"
+}
+
+function formatDateForLabel(d: Date) {
+  const day = d.getDate()
+  const suffix = ordinalSuffix(day)
+  const month = d.toLocaleString(undefined, { month: "long" })
+  const year = d.getFullYear()
+  return `${day}${suffix} ${month} ${year}`
+}
+
+function formatRangeForLabel(range: DateRange) {
+  const { from, to } = range
+  if (!from) return ""
+  if (!to) return formatDateForLabel(from)
+  return `${formatDateForLabel(from)} - ${formatDateForLabel(to)}`
+}
+
+export type DateRangeFilterProps = {
+  /**
+   * When nothing is selected, the trigger shows this label.
+   * @default "Filter by date"
+   */
+  triggerLabel?: string
+  /**
+   * Label for the Custom submenu trigger.
+   * @default "Custom"
+   */
+  customLabel?: string
+  /**
+   * Preset list shown above the separator.
+   * @default: Past 24 hours / Past 7 days / Past 4 weeks / Past 3 months
+   */
+  presets?: readonly DateRangeFilterPreset[]
+  /**
+   * Controlled selected range.
+   * When undefined, the trigger shows `triggerLabel`.
+   */
+  value?: DateRange | undefined
+  /**
+   * Called when a preset is selected or when a complete custom range is chosen.
+   * Only fires when `range.from` and `range.to` are both set.
+   */
+  onChange?: (range: DateRange | undefined) => void
+  /**
+   * When a preset is selected we keep the popover open/closed behaviour native
+   * to the DropdownMenu trigger. Default close-on-select is desired so the
+   * presets feel like a single-choice control.
+   */
+  closeOnSelect?: boolean
+}
+
+export function DateRangeFilter({
+  triggerLabel = "Filter by date",
+  customLabel = "Custom",
+  presets,
+  value,
+  onChange,
+  closeOnSelect = true,
+}: DateRangeFilterProps) {
+  const resolvedPresets = React.useMemo<readonly DateRangeFilterPreset[]>(
+    () =>
+      presets ?? [
+        {
+          id: "last-24-hours",
+          label: "Past 24 hours",
+          getRange: (now) => ({
+            from: new Date(now.getTime() - 24 * 60 * 60 * 1000),
+            to: now,
+          }),
+        },
+        {
+          id: "last-7-days",
+          label: "Past 7 days",
+          getRange: (now) => ({
+            from: new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000),
+            to: now,
+          }),
+        },
+        {
+          id: "last-4-weeks",
+          label: "Past 4 weeks",
+          getRange: (now) => ({
+            from: new Date(now.getTime() - 28 * 24 * 60 * 60 * 1000),
+            to: now,
+          }),
+        },
+        {
+          id: "last-3-months",
+          label: "Past 3 months",
+          getRange: (now) => ({
+            from: new Date(
+              now.getFullYear(),
+              now.getMonth() - 3,
+              now.getDate(),
+              now.getHours(),
+              now.getMinutes()
+            ),
+            to: now,
+          }),
+        },
+      ],
+    [presets]
+  )
+
+  // We can’t infer preset selection purely from `value` (relative ranges),
+  // so we track the last selected preset id in local state for trigger labeling.
+  const [selectedPresetId, setSelectedPresetId] = React.useState<string | null>(
+    null
+  )
+
+  const [customRange, setCustomRange] = React.useState<DateRange | undefined>(
+    undefined
+  )
+  const [calendarMonth, setCalendarMonth] = React.useState<Date>(
+    () => value?.from ?? new Date()
+  )
+
+  // Sync controlled `value` into customRange when parent controls the filter.
+  React.useEffect(() => {
+    if (value?.from && value?.to) {
+      setCustomRange(value)
+      setCalendarMonth(value.from)
+    }
+  }, [value?.from, value?.to])
+
+  const nowForPresetRanges = React.useMemo(() => new Date(), [])
+
+  const resolvedTriggerLabel = React.useMemo(() => {
+    if (!value?.from || !value?.to) return triggerLabel
+
+    const preset = selectedPresetId
+      ? resolvedPresets.find((p) => p.id === selectedPresetId)
+      : undefined
+    if (preset) return preset.label
+
+    // Custom selected: show formatted range
+    return formatRangeForLabel(value)
+  }, [resolvedPresets, selectedPresetId, triggerLabel, value?.from, value?.to])
+
+  const handlePresetSelect = React.useCallback(
+    (presetId: string) => {
+      const preset = resolvedPresets.find((p) => p.id === presetId)
+      if (!preset) return
+      setSelectedPresetId(presetId)
+      const range = preset.getRange(nowForPresetRanges)
+      setCustomRange(range)
+      onChange?.(range)
+    },
+    [nowForPresetRanges, onChange, resolvedPresets]
+  )
+
+  const handleCustomChange = React.useCallback(
+    (next: DateRange | undefined) => {
+      if (!next?.from || !next?.to) {
+        setCustomRange(next)
+        // Don’t call onChange until we have a complete range.
+        return
+      }
+
+      setSelectedPresetId(null)
+      setCustomRange(next)
+      onChange?.(next)
+    },
+    [onChange]
+  )
+
+  const [open, setOpen] = React.useState(false)
+
+  return (
+    <div className="flex items-center gap-2 flex-wrap">
+      <DropdownMenu open={open} onOpenChange={setOpen}>
+        <DropdownMenuTrigger
+          nativeButton={false}
+          render={
+            <Button variant="outline" size="sm" className="gap-2">
+              <ListFilterPlus aria-hidden className="size-4" />
+              {resolvedTriggerLabel}
+            </Button>
+          }
+        />
+        <DropdownMenuContent align="start" className="min-w-[220px]">
+          <DropdownMenuRadioGroup
+            value={selectedPresetId ?? ""}
+            onValueChange={(next) => {
+              handlePresetSelect(next)
+              if (closeOnSelect) setOpen(false)
+            }}
+          >
+            {resolvedPresets.map((p) => (
+              <DropdownMenuRadioItem key={p.id} value={p.id}>
+                {p.label}
+              </DropdownMenuRadioItem>
+            ))}
+          </DropdownMenuRadioGroup>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger
+              openOnHover={false}
+              onClick={() => setSelectedPresetId(null)}
+            >
+              {customLabel}
+            </DropdownMenuSubTrigger>
+            <DropdownMenuSubContent className="max-h-none w-max overflow-visible p-0">
+              <Calendar
+                mode="range"
+                numberOfMonths={2}
+                selected={customRange}
+                month={calendarMonth}
+                onMonthChange={setCalendarMonth}
+                onSelect={(next) => {
+                  setCustomRange(next)
+                  if (next?.from) setCalendarMonth(next.from)
+                  handleCustomChange(next)
+                  if (closeOnSelect && next?.from && next?.to) {
+                    setOpen(false)
+                  }
+                }}
+              />
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

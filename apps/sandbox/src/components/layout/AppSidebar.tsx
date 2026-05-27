@@ -382,7 +382,8 @@ export function AppSidebar() {
                     const firstChildPath = `${parentPath}/${toSlug(items[0].label)}`
                     const isGroupActive = items.some(
                       (item) =>
-                        pathname === `${parentPath}/${toSlug(item.label)}`
+                        pathname === `${parentPath}/${toSlug(item.label)}` ||
+                        pathname.startsWith(`${parentPath}/${toSlug(item.label)}/`)
                     )
                     const isOpen =
                       label in expandedGroups
@@ -426,7 +427,7 @@ export function AppSidebar() {
                               {items.map((item) => {
                                 const childSlug = toSlug(item.label)
                                 const to = `${parentPath}/${childSlug}`
-                                const active = pathname === to
+                                const active = pathname === to || pathname.startsWith(`${to}/`)
 
                                 return (
                                   <SidebarMenuSubItem key={item.label}>
