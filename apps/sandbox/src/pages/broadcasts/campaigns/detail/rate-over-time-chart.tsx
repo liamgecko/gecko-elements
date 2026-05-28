@@ -14,7 +14,6 @@ import {
 } from "@gecko/ui/components/chart"
 import { Card, CardContent, CardHeader } from "@gecko/ui/components/card"
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
-import type { TooltipProps } from "recharts"
 
 import {
   CampaignStatsGroupedLegend,
@@ -28,6 +27,18 @@ import type {
 
 const primaryLegendKeys = ["rate"] as const
 const compareLegendKeys = ["compareRate"] as const
+
+type RechartsTooltipPayloadItem = {
+  dataKey?: string | number
+  value?: number
+  payload?: unknown
+}
+
+type RechartsTooltipContentProps = {
+  active?: boolean
+  payload?: RechartsTooltipPayloadItem[]
+  label?: unknown
+}
 
 type RateOverTimeChartProps = {
   title: string
@@ -50,7 +61,7 @@ function ClickThroughTooltipContent({
   campaignName,
   compareName,
   metricLabel,
-}: TooltipProps<number, string> & {
+}: RechartsTooltipContentProps & {
   campaignName: string
   compareName?: string
   metricLabel: string
