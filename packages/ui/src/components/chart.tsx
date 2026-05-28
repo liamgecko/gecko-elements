@@ -117,11 +117,11 @@ ${colorConfig
 const ChartTooltip = RechartsPrimitive.Tooltip
 
 type ChartAxisTickProps = {
-  x?: number
-  y?: number
+  x?: number | string
+  y?: number | string
   payload?: { value?: unknown }
   // Recharts passes this for category axes; useful for centering/wrapping.
-  width?: number
+  width?: number | string
 }
 
 function wrapTickLabel(value: string, maxCharsPerLine: number, maxLines: number) {
@@ -178,12 +178,16 @@ function ChartXAxisTickLabel({
   lineHeight?: number
   className?: string
 }) {
+  const xNumber = typeof x === "number" ? x : Number(x)
+  const yNumber = typeof y === "number" ? y : Number(y)
+  const widthNumber = typeof width === "number" ? width : Number(width)
+
   const value = payload?.value
   const label =
     typeof value === "string" ? value : value == null ? "" : String(value)
   if (!label) return null
 
-  const tickWidth = Math.max(48, Math.floor(width ?? 84))
+  const tickWidth = Math.max(48, Math.floor(widthNumber || 84))
   // Rough heuristic: average glyph width ~6–7px at text-xs.
   const maxCharsPerLine =
     maxCharsPerLineProp ?? Math.max(6, Math.floor(tickWidth / 6.5))
@@ -192,14 +196,14 @@ function ChartXAxisTickLabel({
   return (
     <g className={cn("[&_text]:fill-muted-foreground", className)}>
       <text
-        x={x}
-        y={y + 18}
+        x={xNumber}
+        y={yNumber + 18}
         textAnchor="middle"
         fontSize={11}
         className="text-muted-foreground"
       >
         {lines.map((line, idx) => (
-          <tspan key={idx} x={x} dy={idx === 0 ? 0 : lineHeight}>
+          <tspan key={idx} x={xNumber} dy={idx === 0 ? 0 : lineHeight}>
             {line}
           </tspan>
         ))}
