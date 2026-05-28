@@ -9,6 +9,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
   ChartTooltipGroupedContent,
+  ChartXAxisTickLabel,
   type ChartConfig,
 } from "@gecko/ui/components/chart"
 import { Card, CardContent, CardHeader } from "@gecko/ui/components/card"
@@ -89,9 +90,17 @@ export function FailureReasonsChart({
               dataKey="reason"
               tickLine={false}
               axisLine={false}
-              tickMargin={10}
+              tickMargin={12}
               interval={0}
-              tick={{ fontSize: 11 }}
+              height={54}
+              tick={(tickProps) => (
+                <ChartXAxisTickLabel
+                  {...tickProps}
+                  maxLines={2}
+                  maxCharsPerLine={12}
+                  lineHeight={13}
+                />
+              )}
             />
             <YAxis tickLine={false} axisLine={false} tickMargin={8} />
             <ChartTooltip

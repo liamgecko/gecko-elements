@@ -116,6 +116,98 @@ ${colorConfig
 
 const ChartTooltip = RechartsPrimitive.Tooltip
 
+type ChartAxisTickProps = {
+  x?: number
+  y?: number
+  payload?: { value?: unknown }
+  // Recharts passes this for category axes; useful for centering/wrapping.
+  width?: number
+}
+
+function wrapTickLabel(value: string, maxCharsPerLine: number, maxLines: number) {
+  const words = value.trim().split(/\s+/).filter(Boolean)
+  if (words.length === 0) return []
+
+  const lines: string[] = []
+  let current = ""
+
+  for (const word of words) {
+    const next = current ? `${current} ${word}` : word
+    if (next.length <= maxCharsPerLine || current.length === 0) {
+      current = next
+      continue
+    }
+
+    lines.push(current)
+    current = word
+
+    if (lines.length >= maxLines) break
+  }
+
+  if (lines.length < maxLines && current) {
+    lines.push(current)
+  }
+
+  if (lines.length > maxLines) {
+    return lines.slice(0, maxLines)
+  }
+
+  // If we exceeded maxLines while still having remaining words, add ellipsis.
+  const usedWords = lines.join(" ").split(/\s+/).filter(Boolean).length
+  if (usedWords < words.length) {
+    const lastIndex = Math.min(maxLines, lines.length) - 1
+    lines[lastIndex] = `${lines[lastIndex].replace(/\.*$/, "")}…`
+  }
+
+  return lines
+}
+
+function ChartXAxisTickLabel({
+  x = 0,
+  y = 0,
+  width,
+  payload,
+  maxLines = 2,
+  maxCharsPerLine: maxCharsPerLineProp,
+  lineHeight = 16,
+  className,
+}: ChartAxisTickProps & {
+  maxLines?: number
+  /** Force wrapping regardless of tick width (useful for dense categorical axes). */
+  maxCharsPerLine?: number
+  lineHeight?: number
+  className?: string
+}) {
+  const value = payload?.value
+  const label =
+    typeof value === "string" ? value : value == null ? "" : String(value)
+  if (!label) return null
+
+  const tickWidth = Math.max(48, Math.floor(width ?? 84))
+  // Rough heuristic: average glyph width ~6–7px at text-xs.
+  const maxCharsPerLine =
+    maxCharsPerLineProp ?? Math.max(6, Math.floor(tickWidth / 6.5))
+  const lines = wrapTickLabel(label, maxCharsPerLine, maxLines)
+
+  return (
+    <g className={cn("[&_text]:fill-muted-foreground", className)}>
+      <text
+        x={x}
+        y={y + 18}
+        textAnchor="middle"
+        fontSize={11}
+        className="text-muted-foreground"
+      >
+        {lines.map((line, idx) => (
+          <tspan key={idx} x={x} dy={idx === 0 ? 0 : lineHeight}>
+            {line}
+          </tspan>
+        ))}
+      </text>
+    </g>
+  )
+}
+
 function ChartTooltipContent({
   active,
   payload,
@@ -677,6 +769,7 @@ export {
   ChartTooltip,
   ChartTooltipContent,
   ChartTooltipGroupedContent,
+  ChartXAxisTickLabel,
   ChartLegend,
   ChartLegendContent,
   ChartLegendGroupedContent,
