@@ -24,6 +24,31 @@ export function applyCampaignComparison(
 ): CampaignStatsView {
   const seed = campaignComparisonSeed(compareCampaignId)
 
+  const openRateData = stats.openRate.data.map((point, index) => ({
+    ...point,
+    compareRate: Math.min(100, scaleComparisonValue(point.rate, index, seed + 5)),
+  }))
+
+  const engagementRateData = stats.engagementRate.data.map((point, index) => ({
+    ...point,
+    compareRate: Math.min(
+      100,
+      scaleComparisonValue(point.rate, index, seed + 6)
+    ),
+  }))
+
+  const clickThroughRateData = stats.clickThroughRate.data.map((point, index) => ({
+    ...point,
+    compareRate: Math.min(
+      100,
+      scaleComparisonValue(point.rate, index, seed + 7)
+    ),
+    breakdown: point.breakdown?.map((b, bIndex) => ({
+      ...b,
+      compareClicks: scaleComparisonValue(b.clicks, bIndex, seed + 70 + index * 3),
+    })),
+  }))
+
   const deliveryData = stats.delivery.data.map((point, index) => ({
     ...point,
     compareDelivered: scaleComparisonValue(point.delivered, index, seed),
@@ -49,6 +74,18 @@ export function applyCampaignComparison(
     comparison: {
       campaignId: compareCampaignId,
       campaignName: compareCampaignName,
+    },
+    openRate: {
+      ...stats.openRate,
+      data: openRateData,
+    },
+    engagementRate: {
+      ...stats.engagementRate,
+      data: engagementRateData,
+    },
+    clickThroughRate: {
+      ...stats.clickThroughRate,
+      data: clickThroughRateData,
     },
     delivery: {
       ...stats.delivery,

@@ -46,6 +46,7 @@ import AiAndAutomationMcpServersPage from "./pages/ai-and-automation/mcp-servers
 import BroadcastsCampaignsPage from "./pages/broadcasts/campaigns"
 import BroadcastCampaignLayout from "./pages/broadcasts/campaigns/campaign-layout"
 import BroadcastCampaignOverviewPage from "./pages/broadcasts/campaigns/detail/overview"
+import BroadcastCampaignStatsV1Page from "./pages/broadcasts/campaigns/detail/stats-v1"
 import BroadcastCampaignStatsPage from "./pages/broadcasts/campaigns/detail/stats"
 import BroadcastCampaignContactsPage from "./pages/broadcasts/campaigns/detail/contacts"
 import BroadcastCampaignWorkflowsPage from "./pages/broadcasts/campaigns/detail/workflows"
@@ -176,7 +177,8 @@ export default function App() {
         <Route path="/broadcasts/campaigns/:campaignId" element={<BroadcastCampaignLayout />}>
           <Route index element={<Navigate to="overview" replace />} />
           <Route path="overview" element={<BroadcastCampaignOverviewPage />} />
-          <Route path="stats" element={<BroadcastCampaignStatsPage />} />
+          <Route path="stats" element={<BroadcastCampaignStatsV1Page />} />
+          <Route path="stats-full" element={<BroadcastCampaignStatsPage />} />
           <Route path="contacts" element={<BroadcastCampaignContactsPage />} />
           <Route path="workflows" element={<BroadcastCampaignWorkflowsPage />} />
           <Route path="settings" element={<BroadcastCampaignSettingsPage />} />

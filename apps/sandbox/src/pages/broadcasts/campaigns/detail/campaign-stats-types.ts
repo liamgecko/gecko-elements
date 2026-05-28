@@ -37,6 +37,17 @@ export type CampaignStatsEngagementPoint = {
   compareReply?: number
 }
 
+export type CampaignStatsRatePoint = {
+  day: string
+  rate: number
+  compareRate?: number
+  breakdown?: {
+    url: string
+    clicks: number
+    compareClicks?: number
+  }[]
+}
+
 export type CampaignStatsConversionPoint = {
   day: string
   conversions: number
@@ -70,6 +81,21 @@ export type CampaignStatsView = {
   summary: CampaignStatsSummaryMetric[]
   comparison?: CampaignStatsComparison
   timeSeriesAxis?: CampaignStatsTimeSeriesAxis
+  openRate: {
+    rate: string
+    detail: string
+    data: CampaignStatsRatePoint[]
+  }
+  engagementRate: {
+    rate: string
+    detail: string
+    data: CampaignStatsRatePoint[]
+  }
+  clickThroughRate: {
+    rate: string
+    detail: string
+    data: CampaignStatsRatePoint[]
+  }
   delivery: {
     rate: string
     detail: string

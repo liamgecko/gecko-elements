@@ -294,6 +294,130 @@ function buildSummary(totals: ReturnType<typeof sumDaily>): CampaignStatsView["s
   ]
 }
 
+function buildRateSeries(
+  rows: CampaignStatsDailyRecord[] | CampaignStatsHourlyRecord[],
+  labelMode: TimeSeriesLabelMode,
+  getRate: (row: CampaignStatsDailyRecord | CampaignStatsHourlyRecord) => number
+) {
+  return rows.map((row) => ({
+    day: formatTimeSeriesLabel(row.date, labelMode),
+    rate: Math.min(100, Math.max(0, Math.round(getRate(row)))),
+  }))
+}
+
+function seeded(seed: number) {
+  const x = Math.sin(seed * 12_989.989) * 43_758.545
+  return x - Math.floor(x)
+}
+
+const DUMMY_CLICK_URLS = [
+  "https://gecko.example/open-day",
+  "https://gecko.example/courses",
+  "https://gecko.example/apply",
+  "https://gecko.example/contact",
+] as const
+
+function buildClickBreakdown(totalClicks: number, seed: number) {
+  if (totalClicks <= 0) {
+    return DUMMY_CLICK_URLS.map((url) => ({ url, clicks: 0 }))
+  }
+
+  const weights = DUMMY_CLICK_URLS.map((_, idx) => 0.2 + seeded(seed + idx * 37) * 0.8)
+  const weightSum = weights.reduce((a, b) => a + b, 0)
+  let remaining = totalClicks
+
+  const clicks = weights.map((w, idx) => {
+    if (idx === weights.length - 1) return remaining
+    const value = Math.max(0, Math.round((w / weightSum) * totalClicks))
+    remaining -= value
+    return value
+  })
+
+  return DUMMY_CLICK_URLS.map((url, idx) => ({ url, clicks: clicks[idx] ?? 0 }))
+}
+
+function buildOpenRateChart(
+  rows: CampaignStatsDailyRecord[] | CampaignStatsHourlyRecord[],
+  labelMode: TimeSeriesLabelMode,
+  totals: ReturnType<typeof sumDaily>
+): CampaignStatsView["openRate"] {
+  const openRate =
+    totals.delivered > 0 ? (totals.uniqueOpens / totals.delivered) * 100 : 0
+
+  return {
+    rate: formatPercent(openRate),
+    detail: `${formatNumber(totals.uniqueOpens)} unique opens`,
+    data: buildRateSeries(rows, labelMode, (row) => {
+      if (isHourlyRecord(row)) return row.readOpen
+      const delivered = row.delivered || 1
+      return (row.uniqueOpens / delivered) * 100
+    }),
+  }
+}
+
+function buildEngagementRateChart(
+  rows: CampaignStatsDailyRecord[] | CampaignStatsHourlyRecord[],
+  labelMode: TimeSeriesLabelMode,
+  totals: ReturnType<typeof sumDaily>
+): CampaignStatsView["engagementRate"] {
+  const engagementRate =
+    totals.delivered > 0
+      ? (totals.engagedRecipients / totals.delivered) * 100
+      : 0
+
+  return {
+    rate: formatPercent(engagementRate),
+    detail: `${formatNumber(totals.engagedRecipients)} contacts engaged`,
+    data: buildRateSeries(rows, labelMode, (row) => {
+      if (isHourlyRecord(row)) return (row.uniqueClick + row.reply) / 2
+      const delivered = row.delivered || 1
+      return (row.engagedRecipients / delivered) * 100
+    }),
+  }
+}
+
+function buildClickThroughRateChart(
+  rows: CampaignStatsDailyRecord[] | CampaignStatsHourlyRecord[],
+  labelMode: TimeSeriesLabelMode,
+  totals: ReturnType<typeof sumDaily>
+): CampaignStatsView["clickThroughRate"] {
+  const clickThroughRate =
+    totals.delivered > 0
+      ? (totals.uniqueLinkClicks / totals.delivered) * 100
+      : 0
+
+  return {
+    rate: formatPercent(clickThroughRate),
+    detail: `${formatNumber(totals.uniqueLinkClicks)} unique clicks`,
+    data: rows.map((row, index) => {
+      const day = formatTimeSeriesLabel(row.date, labelMode)
+
+      const delivered = row.delivered || 1
+      const rate = Math.min(
+        100,
+        Math.max(
+          0,
+          Math.round(
+            isHourlyRecord(row)
+              ? row.uniqueClick
+              : (row.uniqueLinkClicks / delivered) * 100
+          )
+        )
+      )
+
+      const totalClicks = isHourlyRecord(row)
+        ? Math.round((row.delivered * row.uniqueClick) / 100)
+        : row.uniqueLinkClicks
+
+      return {
+        day,
+        rate,
+        breakdown: buildClickBreakdown(totalClicks, index * 97 + row.date.getTime()),
+      }
+    }),
+  }
+}
+
 function buildDeliveryChart(
   rows: CampaignStatsDailyRecord[] | CampaignStatsHourlyRecord[],
   labelMode: TimeSeriesLabelMode
@@ -552,6 +676,9 @@ export function getCampaignStatsForRange(
       useTodayView || usePast4WeeksView || usePast12WeeksView
         ? { angle: -45, height: 56 }
         : undefined,
+    openRate: buildOpenRateChart(timeSeriesRows, labelMode, totals),
+    engagementRate: buildEngagementRateChart(timeSeriesRows, labelMode, totals),
+    clickThroughRate: buildClickThroughRateChart(timeSeriesRows, labelMode, totals),
     delivery: buildDeliveryChart(timeSeriesRows, labelMode),
     failureReasons: buildFailureReasons(detailDailyRows, totals),
     engagement: buildEngagementChart(timeSeriesRows, labelMode, totals),
