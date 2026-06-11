@@ -1,8 +1,18 @@
 import * as React from "react";
 
-import { CheckCheck, Plus, SquarePen, Trash2, X } from "lucide-react";
+import { CheckCheck, SquarePen, Trash2, X } from "lucide-react";
 import { toast } from "sonner";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@gecko/ui/components/alert-dialog";
 import { Button } from "@gecko/ui/components/button";
 import {
   Combobox,
@@ -50,33 +60,75 @@ import {
   TooltipTrigger,
 } from "@gecko/ui/components/tooltip";
 
-const PAYMENT_PROVIDER_OPTIONS = [
-  { value: "GeckoPay", label: "GeckoPay" },
+type PaymentProvider = "Flywire" | "TouchNet";
+
+const PAYMENT_PROVIDER_OPTIONS: {
+  value: PaymentProvider;
+  label: string;
+}[] = [
   { value: "Flywire", label: "Flywire" },
   { value: "TouchNet", label: "TouchNet" },
-] as const;
+];
 
 type PaymentItem = {
   name: string;
   amount: number | null;
+  provider: PaymentProvider;
   minQuantity: number | null;
   maxQuantity: number | null;
   availableQuantity: number | null;
 };
 
 const DEFAULT_PAYMENT_ITEMS: PaymentItem[] = [
-  { name: "Application fee", amount: 50 },
-  { name: "Deposit", amount: 500 },
-  { name: "Tuition payment", amount: 9250 },
-  { name: "Accommodation deposit", amount: 250 },
-  { name: "International student levy", amount: 120 },
-  { name: "Scholarship acceptance fee", amount: 75 },
-].map((item) => ({
-  minQuantity: null,
-  maxQuantity: null,
-  availableQuantity: null,
-  ...item,
-}));
+  {
+    name: "Application fee",
+    amount: 50,
+    provider: "Flywire",
+    minQuantity: null,
+    maxQuantity: null,
+    availableQuantity: null,
+  },
+  {
+    name: "Tuition payment",
+    amount: 9250,
+    provider: "Flywire",
+    minQuantity: null,
+    maxQuantity: null,
+    availableQuantity: null,
+  },
+  {
+    name: "International student levy",
+    amount: 120,
+    provider: "Flywire",
+    minQuantity: null,
+    maxQuantity: null,
+    availableQuantity: null,
+  },
+  {
+    name: "Deposit",
+    amount: 500,
+    provider: "TouchNet",
+    minQuantity: null,
+    maxQuantity: null,
+    availableQuantity: null,
+  },
+  {
+    name: "Accommodation deposit",
+    amount: 250,
+    provider: "TouchNet",
+    minQuantity: null,
+    maxQuantity: null,
+    availableQuantity: null,
+  },
+  {
+    name: "Scholarship acceptance fee",
+    amount: 75,
+    provider: "TouchNet",
+    minQuantity: null,
+    maxQuantity: null,
+    availableQuantity: null,
+  },
+];
 
 type PaymentItemErrors = {
   name?: string;
@@ -102,12 +154,25 @@ function validatePaymentItem(
   return errors;
 }
 
+function formatPaymentAmount(amount: number | null): string {
+  if (amount == null) return "—";
+
+  return new Intl.NumberFormat("en-GB", {
+    style: "currency",
+    currency: "GBP",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
 export default function FormPaymentSettingsPage() {
   const paymentItemsAnchor = React.useRef<HTMLDivElement | null>(null);
 
   const [paymentItems, setPaymentItems] = React.useState<PaymentItem[]>(
     DEFAULT_PAYMENT_ITEMS,
   );
+  const [selectedProvider, setSelectedProvider] =
+    React.useState<PaymentProvider | null>(null);
   const [selectedItems, setSelectedItems] = React.useState<string[]>([]);
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
@@ -120,11 +185,47 @@ export default function FormPaymentSettingsPage() {
     number | null
   >(null);
   const [errors, setErrors] = React.useState<PaymentItemErrors>({});
+  const [providerChangeAlertOpen, setProviderChangeAlertOpen] =
+    React.useState(false);
+  const [pendingProvider, setPendingProvider] =
+    React.useState<PaymentProvider | null>(null);
 
-  const itemNames = paymentItems.map((item) => item.name);
+  const providerItemNames = paymentItems
+    .filter((item) => item.provider === selectedProvider)
+    .map((item) => item.name);
   const basketItems = selectedItems
     .map((name) => paymentItems.find((item) => item.name === name))
     .filter((item): item is PaymentItem => item != null);
+
+  const applyProviderChange = (value: PaymentProvider | null) => {
+    setSelectedProvider(value);
+    setSelectedItems([]);
+  };
+
+  const handleProviderChange = (value: PaymentProvider | null) => {
+    if (value === selectedProvider) return;
+
+    if (selectedProvider != null && selectedItems.length > 0) {
+      setPendingProvider(value);
+      setProviderChangeAlertOpen(true);
+      return;
+    }
+
+    applyProviderChange(value);
+  };
+
+  const handleProviderChangeAlertOpenChange = (open: boolean) => {
+    setProviderChangeAlertOpen(open);
+    if (!open) {
+      setPendingProvider(null);
+    }
+  };
+
+  const confirmProviderChange = () => {
+    applyProviderChange(pendingProvider);
+    setPendingProvider(null);
+    setProviderChangeAlertOpen(false);
+  };
 
   const handleDialogOpenChange = (open: boolean) => {
     setDialogOpen(open);
@@ -140,6 +241,7 @@ export default function FormPaymentSettingsPage() {
   };
 
   const openCreateDialog = () => {
+    if (!selectedProvider) return;
     setDialogOpen(true);
   };
 
@@ -163,9 +265,18 @@ export default function FormPaymentSettingsPage() {
     if (Object.keys(nextErrors).length > 0) return;
 
     const name = itemName.trim();
+    const itemProvider =
+      editingName != null
+        ? (paymentItems.find((item) => item.name === editingName)?.provider ??
+          selectedProvider)
+        : selectedProvider;
+
+    if (!itemProvider) return;
+
     const nextItem: PaymentItem = {
       name,
       amount: itemAmount,
+      provider: itemProvider,
       minQuantity,
       maxQuantity,
       availableQuantity,
@@ -202,7 +313,12 @@ export default function FormPaymentSettingsPage() {
         <FieldGroup>
           <Field>
             <FieldLabel htmlFor="payment-provider">Payment provider</FieldLabel>
-            <Select>
+            <Select
+              value={selectedProvider}
+              onValueChange={(value) =>
+                handleProviderChange(value as PaymentProvider)
+              }
+            >
               <SelectTrigger id="payment-provider" className="w-full">
                 <SelectValue placeholder="Select a payment provider" />
               </SelectTrigger>
@@ -218,12 +334,13 @@ export default function FormPaymentSettingsPage() {
             </Select>
           </Field>
 
-          <Field>
+          <Field data-disabled={!selectedProvider ? true : undefined}>
             <FieldLabel htmlFor="payment-items">Payment items</FieldLabel>
             <Combobox
+              key={selectedProvider ?? "no-provider"}
               multiple
               autoHighlight
-              items={itemNames}
+              items={providerItemNames}
               value={selectedItems}
               onValueChange={(value) => setSelectedItems([...value])}
             >
@@ -236,6 +353,7 @@ export default function FormPaymentSettingsPage() {
                       ))}
                       <ComboboxChipsInput
                         id="payment-items"
+                        disabled={!selectedProvider}
                         placeholder="Select payment items"
                       />
                     </>
@@ -267,17 +385,7 @@ export default function FormPaymentSettingsPage() {
             </FieldDescription>
           </Field>
 
-          <div className="-mt-2">
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={openCreateDialog}
-            >
-              <Plus aria-hidden />
-              Create new payment item
-            </Button>
-            <Dialog open={dialogOpen} onOpenChange={handleDialogOpenChange}>
+          <Dialog open={dialogOpen} onOpenChange={handleDialogOpenChange}>
               <DialogContent size="sm">
                 <DialogWrapper>
                   <DialogHeader>
@@ -479,10 +587,34 @@ export default function FormPaymentSettingsPage() {
                   </Button>
                 </DialogFooter>
               </DialogContent>
-            </Dialog>
-          </div>
+          </Dialog>
         </FieldGroup>
       </FieldSet>
+
+      <AlertDialog
+        open={providerChangeAlertOpen}
+        onOpenChange={handleProviderChangeAlertOpenChange}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Switch payment provider?</AlertDialogTitle>
+            <AlertDialogDescription>
+              By switching provider you will lose all changes. Your selected
+              payment items will be reset.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>
+              <X aria-hidden />
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction onClick={confirmProviderChange}>
+              <CheckCheck aria-hidden />
+              Switch provider
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {basketItems.length > 0 && (
         <section className="rounded-lg bg-muted p-4">
@@ -496,8 +628,15 @@ export default function FormPaymentSettingsPage() {
                   key={item.name}
                   className="flex items-center justify-between gap-2 py-2 last:pb-0"
                 >
-                  <span className="text-sm text-foreground">{item.name}</span>
-                  <div className="flex items-center gap-1">
+                  <div className="min-w-0 flex-1">
+                    <span className="block truncate text-sm text-foreground">
+                      {item.name}
+                    </span>
+                    <span className="block text-xs font-semibold tabular-nums text-foreground">
+                      {formatPaymentAmount(item.amount)}
+                    </span>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-1">
                     <Tooltip>
                       <TooltipTrigger
                         render={
