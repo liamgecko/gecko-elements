@@ -2,6 +2,7 @@ import * as React from "react"
 import { useLocation } from "react-router-dom"
 
 import { getBroadcastCampaignById } from "../pages/broadcasts/campaigns/broadcast-campaigns-data"
+import { getFormById } from "../pages/forms/forms/forms-data"
 import { getTabLabelForPath } from "./tabbed-sections"
 import { labelForPath } from "./use-page-breadcrumbs"
 
@@ -11,6 +12,24 @@ const CAMPAIGN_DETAIL_TAB_LABELS: Record<string, string> = {
   contacts: "Contacts",
   workflows: "Workflows",
   settings: "Settings",
+}
+
+const FORM_DETAIL_TAB_LABELS: Record<string, string> = {
+  designer: "Designer",
+  workflows: "Workflows",
+  settings: "Settings",
+  visibility: "Visibility",
+  share: "Share",
+}
+
+const FORM_SETTINGS_SECTION_LABELS: Record<string, string> = {
+  "basic-settings": "Basic settings",
+  display: "Display",
+  "redirect-rules": "Redirect rules",
+  design: "Design",
+  "payment-settings": "Payment settings",
+  integrations: "Integrations",
+  analytics: "Analytics",
 }
 
 const HOME_PATHS = new Set(["/", "/home", "/overview"])
@@ -62,6 +81,30 @@ const EXACT_PAGE_TITLES: Record<string, string> = {
 
 export function getPageTitle(pathname: string) {
   const path = pathname.split("?")[0].split("#")[0]
+
+  const formSettingsMatch = path.match(
+    /^\/forms\/forms\/([^/]+)\/settings\/([^/]+)$/
+  )
+  if (formSettingsMatch) {
+    const [, formId, section] = formSettingsMatch
+    const form = formId ? getFormById(formId) : undefined
+    if (form) {
+      const sectionLabel = FORM_SETTINGS_SECTION_LABELS[section]
+      return sectionLabel
+        ? `${sectionLabel} | ${form.name}`
+        : form.name
+    }
+  }
+
+  const formDetailMatch = path.match(/^\/forms\/forms\/([^/]+)(?:\/([^/]+))?$/)
+  if (formDetailMatch) {
+    const [, formId, tab] = formDetailMatch
+    const form = formId ? getFormById(formId) : undefined
+    if (form) {
+      const tabLabel = tab ? FORM_DETAIL_TAB_LABELS[tab] : undefined
+      return tabLabel ? `${tabLabel} | ${form.name}` : form.name
+    }
+  }
 
   const campaignDetailMatch = path.match(
     /^\/broadcasts\/campaigns\/([^/]+)(?:\/([^/]+))?$/

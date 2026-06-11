@@ -1,5 +1,6 @@
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@gecko/ui/components/sidebar"
 import { ScrollArea } from "@gecko/ui/components/scroll-area"
+import { Toaster } from "@gecko/ui/components/toast"
 
 import { AppSidebar } from "./AppSidebar"
 import { AppHeader } from "./AppHeader"
@@ -22,6 +23,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </SidebarInset>
           </div>
         </SidebarProvider>
+        <Toaster />
       </FavouritesProvider>
     </div>
   )

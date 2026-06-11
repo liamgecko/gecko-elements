@@ -40,6 +40,19 @@ import FormsFormsPage from "./pages/forms/forms"
 import FormsContactFieldsPage from "./pages/forms/contact-fields"
 import FormsFieldGroupsPage from "./pages/forms/field-groups"
 import FormsFieldOptionsPage from "./pages/forms/field-options"
+import FormLayout from "./pages/forms/forms/form-layout"
+import FormDesignerPage from "./pages/forms/forms/detail/designer"
+import FormWorkflowsPage from "./pages/forms/forms/detail/workflows"
+import FormSettingsLayout from "./pages/forms/forms/detail/settings-layout"
+import FormBasicSettingsPage from "./pages/forms/forms/detail/settings/basic-settings"
+import FormDisplaySettingsPage from "./pages/forms/forms/detail/settings/display"
+import FormRedirectRulesSettingsPage from "./pages/forms/forms/detail/settings/redirect-rules"
+import FormDesignSettingsPage from "./pages/forms/forms/detail/settings/design"
+import FormPaymentSettingsPage from "./pages/forms/forms/detail/settings/payment-settings"
+import FormIntegrationsSettingsPage from "./pages/forms/forms/detail/settings/integrations"
+import FormAnalyticsSettingsPage from "./pages/forms/forms/detail/settings/analytics"
+import FormVisibilityPage from "./pages/forms/forms/detail/visibility"
+import FormSharePage from "./pages/forms/forms/detail/share"
 import AiAndAutomationLayout from "./pages/ai-and-automation/layout"
 import AiAndAutomationAiAgentsPage from "./pages/ai-and-automation/ai-agents"
 import AiAndAutomationMcpServersPage from "./pages/ai-and-automation/mcp-servers"
@@ -155,6 +168,23 @@ export default function App() {
           <Route path="locations" element={<EventsLocationsPage />} />
           <Route path="share" element={<EventsSharePage />} />
           <Route path="deleted-events" element={<EventsDeletedEventsPage />} />
+        </Route>
+        <Route path="/forms/forms/:formId" element={<FormLayout />}>
+          <Route index element={<Navigate to="designer" replace />} />
+          <Route path="designer" element={<FormDesignerPage />} />
+          <Route path="workflows" element={<FormWorkflowsPage />} />
+          <Route path="settings" element={<FormSettingsLayout />}>
+            <Route index element={<Navigate to="basic-settings" replace />} />
+            <Route path="basic-settings" element={<FormBasicSettingsPage />} />
+            <Route path="display" element={<FormDisplaySettingsPage />} />
+            <Route path="redirect-rules" element={<FormRedirectRulesSettingsPage />} />
+            <Route path="design" element={<FormDesignSettingsPage />} />
+            <Route path="payment-settings" element={<FormPaymentSettingsPage />} />
+            <Route path="integrations" element={<FormIntegrationsSettingsPage />} />
+            <Route path="analytics" element={<FormAnalyticsSettingsPage />} />
+          </Route>
+          <Route path="visibility" element={<FormVisibilityPage />} />
+          <Route path="share" element={<FormSharePage />} />
         </Route>
         <Route path="/forms" element={<FormsLayout />}>
           <Route index element={<Navigate to="forms" replace />} />

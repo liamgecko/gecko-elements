@@ -273,7 +273,7 @@ export function Filter({
             </span>
           }
         />
-        <DropdownMenuContent align="start" className="min-w-[260px]">
+        <DropdownMenuContent align="start">
           {categories.map((category) => {
             const searchable = category.searchable !== false
             const selected = values[category.id] ?? []
@@ -282,7 +282,6 @@ export function Filter({
               <DropdownMenuSub key={category.id}>
                 <DropdownMenuSubTrigger>{category.label}</DropdownMenuSubTrigger>
                 <DropdownMenuSubContent
-                  className="w-[260px]"
                   searchable={searchable}
                   searchPlaceholder={
                     category.searchPlaceholder ??
@@ -400,7 +399,6 @@ export function Filter({
                       align="start"
                       side="bottom"
                       sideOffset={4}
-                      className="w-[260px]"
                     >
                       {category.options.map((option) => (
                         <DropdownMenuCheckboxItem

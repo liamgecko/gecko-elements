@@ -62,6 +62,10 @@ export function createExpandColumn<TData>(): ColumnDef<TData> {
 export function createSelectionColumn<TData>(): ColumnDef<TData> {
   return {
     id: "select",
+    meta: {
+      headerClassName: "w-10",
+      cellClassName: "w-10",
+    } satisfies DataTableColumnMeta,
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected()}
@@ -82,6 +86,8 @@ export function createSelectionColumn<TData>(): ColumnDef<TData> {
     ),
     enableSorting: false,
     enableHiding: false,
+    size: 40,
+    minSize: 40,
   }
 }
 

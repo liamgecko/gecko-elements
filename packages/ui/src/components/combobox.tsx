@@ -54,7 +54,7 @@ function ComboboxTrigger({
       {...props}
     >
       {children}
-      <ChevronDownIcon className="text-muted-foreground size-4.5 pointer-events-none" />
+      <ChevronDownIcon className="text-muted-foreground size-4 pointer-events-none" />
     </ComboboxPrimitive.Trigger>
   )
 }
@@ -237,7 +237,7 @@ const ComboboxChips = React.forwardRef<
   ref
 ) {
   return (
-    <InputGroup ref={ref} className={cn("h-auto min-h-9 w-auto min-w-0", className)}>
+    <InputGroup ref={ref} className={cn("h-8 w-auto min-w-0", className)}>
       <ComboboxPrimitive.Chips
         data-slot="combobox-chips"
         className="flex min-h-0 min-w-0 flex-1 flex-wrap items-center gap-1 overflow-hidden px-2.5 py-1 text-sm"

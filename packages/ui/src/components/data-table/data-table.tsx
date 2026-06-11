@@ -324,7 +324,12 @@ function DataTableContent<TData>({ className }: { className?: string }) {
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <TableHead key={header.id}>
+                <TableHead
+                  key={header.id}
+                  className={cn(
+                    dataTableColumnMeta(header.column.columnDef.meta)?.headerClassName
+                  )}
+                >
                   {header.isPlaceholder
                     ? null
                     : flexRender(
