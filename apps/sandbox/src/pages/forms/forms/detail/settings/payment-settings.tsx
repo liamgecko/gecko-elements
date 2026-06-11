@@ -36,11 +36,11 @@ import {
 } from "@gecko/ui/components/dialog";
 import {
   Field,
+  FieldContent,
   FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
-  FieldLegend,
   FieldSeparator,
   FieldSet,
 } from "@gecko/ui/components/field";
@@ -53,6 +53,7 @@ import {
   SelectValue,
 } from "@gecko/ui/components/select";
 import { Input } from "@gecko/ui/components/input";
+import { Switch } from "@gecko/ui/components/switch";
 import {
   Tooltip,
   TooltipContent,
@@ -72,6 +73,7 @@ const PAYMENT_PROVIDER_OPTIONS: {
 
 type PaymentItem = {
   name: string;
+  internalName: string | null;
   amount: number | null;
   provider: PaymentProvider;
   minQuantity: number | null;
@@ -82,6 +84,7 @@ type PaymentItem = {
 const DEFAULT_PAYMENT_ITEMS: PaymentItem[] = [
   {
     name: "Application fee",
+    internalName: null,
     amount: 50,
     provider: "Flywire",
     minQuantity: null,
@@ -90,6 +93,7 @@ const DEFAULT_PAYMENT_ITEMS: PaymentItem[] = [
   },
   {
     name: "Tuition payment",
+    internalName: null,
     amount: 9250,
     provider: "Flywire",
     minQuantity: null,
@@ -98,6 +102,7 @@ const DEFAULT_PAYMENT_ITEMS: PaymentItem[] = [
   },
   {
     name: "International student levy",
+    internalName: null,
     amount: 120,
     provider: "Flywire",
     minQuantity: null,
@@ -106,6 +111,7 @@ const DEFAULT_PAYMENT_ITEMS: PaymentItem[] = [
   },
   {
     name: "Deposit",
+    internalName: null,
     amount: 500,
     provider: "TouchNet",
     minQuantity: null,
@@ -114,6 +120,7 @@ const DEFAULT_PAYMENT_ITEMS: PaymentItem[] = [
   },
   {
     name: "Accommodation deposit",
+    internalName: null,
     amount: 250,
     provider: "TouchNet",
     minQuantity: null,
@@ -122,6 +129,7 @@ const DEFAULT_PAYMENT_ITEMS: PaymentItem[] = [
   },
   {
     name: "Scholarship acceptance fee",
+    internalName: null,
     amount: 75,
     provider: "TouchNet",
     minQuantity: null,
@@ -178,17 +186,21 @@ export default function FormPaymentSettingsPage() {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [editingName, setEditingName] = React.useState<string | null>(null);
   const [itemName, setItemName] = React.useState("");
+  const [itemInternalName, setItemInternalName] = React.useState("");
   const [itemAmount, setItemAmount] = React.useState<number | null>(null);
   const [minQuantity, setMinQuantity] = React.useState<number | null>(null);
   const [maxQuantity, setMaxQuantity] = React.useState<number | null>(null);
   const [availableQuantity, setAvailableQuantity] = React.useState<
     number | null
   >(null);
+  const [inventoryEnabled, setInventoryEnabled] = React.useState(false);
   const [errors, setErrors] = React.useState<PaymentItemErrors>({});
   const [providerChangeAlertOpen, setProviderChangeAlertOpen] =
     React.useState(false);
   const [pendingProvider, setPendingProvider] =
     React.useState<PaymentProvider | null>(null);
+  const [providerRequiredAlertOpen, setProviderRequiredAlertOpen] =
+    React.useState(false);
 
   const providerItemNames = paymentItems
     .filter((item) => item.provider === selectedProvider)
@@ -232,26 +244,37 @@ export default function FormPaymentSettingsPage() {
     if (!open) {
       setEditingName(null);
       setItemName("");
+      setItemInternalName("");
       setItemAmount(null);
       setMinQuantity(null);
       setMaxQuantity(null);
       setAvailableQuantity(null);
+      setInventoryEnabled(false);
       setErrors({});
     }
   };
 
   const openCreateDialog = () => {
-    if (!selectedProvider) return;
+    if (!selectedProvider) {
+      setProviderRequiredAlertOpen(true);
+      return;
+    }
     setDialogOpen(true);
   };
 
   const openEditDialog = (item: PaymentItem) => {
     setEditingName(item.name);
     setItemName(item.name);
+    setItemInternalName(item.internalName ?? "");
     setItemAmount(item.amount);
     setMinQuantity(item.minQuantity);
     setMaxQuantity(item.maxQuantity);
     setAvailableQuantity(item.availableQuantity);
+    setInventoryEnabled(
+      item.minQuantity != null ||
+        item.maxQuantity != null ||
+        item.availableQuantity != null,
+    );
     setDialogOpen(true);
   };
 
@@ -265,6 +288,7 @@ export default function FormPaymentSettingsPage() {
     if (Object.keys(nextErrors).length > 0) return;
 
     const name = itemName.trim();
+    const internalName = itemInternalName.trim() || null;
     const itemProvider =
       editingName != null
         ? (paymentItems.find((item) => item.name === editingName)?.provider ??
@@ -275,11 +299,12 @@ export default function FormPaymentSettingsPage() {
 
     const nextItem: PaymentItem = {
       name,
+      internalName,
       amount: itemAmount,
       provider: itemProvider,
-      minQuantity,
-      maxQuantity,
-      availableQuantity,
+      minQuantity: inventoryEnabled ? minQuantity : null,
+      maxQuantity: inventoryEnabled ? maxQuantity : null,
+      availableQuantity: inventoryEnabled ? availableQuantity : null,
     };
 
     if (editingName) {
@@ -431,6 +456,25 @@ export default function FormPaymentSettingsPage() {
                             )}
                           </Field>
 
+                          <Field>
+                            <FieldLabel htmlFor="payment-item-internal-name">
+                              Internal name
+                            </FieldLabel>
+                            <Input
+                              id="payment-item-internal-name"
+                              type="text"
+                              placeholder="e.g. Parking fee (internal)"
+                              value={itemInternalName}
+                              onChange={(event) =>
+                                setItemInternalName(event.target.value)
+                              }
+                            />
+                            <FieldDescription>
+                              This name is for internal purposes only and won't
+                              be surfaced on forms.
+                            </FieldDescription>
+                          </Field>
+
                           <div className="flex items-start gap-2">
                             <Field
                               className="flex-1"
@@ -498,80 +542,100 @@ export default function FormPaymentSettingsPage() {
                       <FieldSeparator />
 
                       <FieldSet>
-                        <FieldLegend variant="label">
-                          Inventory management
-                        </FieldLegend>
-                        <FieldDescription>
-                          Control how many of this item can be purchased. Set
-                          the minimum and maximum quantities allowed per basket,
-                          and limit the total number available to purchase.
-                        </FieldDescription>
-                        <FieldGroup className="mt-2">
-                          <div className="flex items-start gap-2">
-                            <Field className="flex-1">
-                              <FieldLabel htmlFor="payment-item-min-quantity">
-                                Minimum quantity
-                              </FieldLabel>
-                              <Input
-                                id="payment-item-min-quantity"
-                                type="number"
-                                min={1}
-                                step={1}
-                                value={minQuantity ?? ""}
-                                onChange={(event) =>
-                                  setMinQuantity(
-                                    event.target.value === ""
-                                      ? null
-                                      : Number(event.target.value),
-                                  )
-                                }
-                              />
-                            </Field>
-
-                            <Field className="flex-1">
-                              <FieldLabel htmlFor="payment-item-max-quantity">
-                                Maximum quantity
-                              </FieldLabel>
-                              <Input
-                                id="payment-item-max-quantity"
-                                type="number"
-                                min={1}
-                                step={1}
-                                value={maxQuantity ?? ""}
-                                onChange={(event) =>
-                                  setMaxQuantity(
-                                    event.target.value === ""
-                                      ? null
-                                      : Number(event.target.value),
-                                  )
-                                }
-                              />
-                            </Field>
-                          </div>
-
-                          <Field>
-                            <FieldLabel htmlFor="payment-item-available">
-                              Number available
-                            </FieldLabel>
-                            <Input
-                              id="payment-item-available"
-                              type="number"
-                              min={1}
-                              step={1}
-                              value={availableQuantity ?? ""}
-                              onChange={(event) =>
-                                setAvailableQuantity(
-                                  event.target.value === ""
-                                    ? null
-                                    : Number(event.target.value),
-                                )
+                        <Field orientation="horizontal">
+                          <Switch
+                            id="payment-item-inventory-enabled"
+                            checked={inventoryEnabled}
+                            onCheckedChange={(checked) => {
+                              setInventoryEnabled(checked);
+                              if (!checked) {
+                                setMinQuantity(null);
+                                setMaxQuantity(null);
+                                setAvailableQuantity(null);
                               }
-                            />
+                            }}
+                          />
+                          <FieldContent>
+                            <FieldLabel htmlFor="payment-item-inventory-enabled">
+                              Inventory management
+                            </FieldLabel>
                             <FieldDescription>
-                              Leave blank for unlimited.
+                              Control how many of this item can be purchased. Set
+                              the minimum and maximum quantities allowed per
+                              basket, and limit the total number available to
+                              purchase.
                             </FieldDescription>
-                          </Field>
-                        </FieldGroup>
+                          </FieldContent>
+                        </Field>
+
+                        {inventoryEnabled && (
+                          <FieldGroup className="mt-2">
+                            <div className="flex items-start gap-2">
+                              <Field className="flex-1">
+                                <FieldLabel htmlFor="payment-item-min-quantity">
+                                  Minimum quantity
+                                </FieldLabel>
+                                <Input
+                                  id="payment-item-min-quantity"
+                                  type="number"
+                                  min={1}
+                                  step={1}
+                                  value={minQuantity ?? ""}
+                                  onChange={(event) =>
+                                    setMinQuantity(
+                                      event.target.value === ""
+                                        ? null
+                                        : Number(event.target.value),
+                                    )
+                                  }
+                                />
+                              </Field>
+
+                              <Field className="flex-1">
+                                <FieldLabel htmlFor="payment-item-max-quantity">
+                                  Maximum quantity
+                                </FieldLabel>
+                                <Input
+                                  id="payment-item-max-quantity"
+                                  type="number"
+                                  min={1}
+                                  step={1}
+                                  value={maxQuantity ?? ""}
+                                  onChange={(event) =>
+                                    setMaxQuantity(
+                                      event.target.value === ""
+                                        ? null
+                                        : Number(event.target.value),
+                                    )
+                                  }
+                                />
+                              </Field>
+                            </div>
+
+                            <Field>
+                              <FieldLabel htmlFor="payment-item-available">
+                                Number available
+                              </FieldLabel>
+                              <Input
+                                id="payment-item-available"
+                                type="number"
+                                min={1}
+                                step={1}
+                                value={availableQuantity ?? ""}
+                                onChange={(event) =>
+                                  setAvailableQuantity(
+                                    event.target.value === ""
+                                      ? null
+                                      : Number(event.target.value),
+                                  )
+                                }
+                              />
+                              <FieldDescription>
+                                Leave blank for unlimited.
+                              </FieldDescription>
+                            </Field>
+                          </FieldGroup>
+                        )}
                       </FieldSet>
                     </FieldGroup>
                   </DialogBody>
@@ -616,6 +680,23 @@ export default function FormPaymentSettingsPage() {
         </AlertDialogContent>
       </AlertDialog>
 
+      <AlertDialog
+        open={providerRequiredAlertOpen}
+        onOpenChange={setProviderRequiredAlertOpen}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Payment provider required</AlertDialogTitle>
+            <AlertDialogDescription>
+              Please select a payment provider before creating a payment item.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel variant="default">OK</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       {basketItems.length > 0 && (
         <section className="rounded-lg bg-muted p-4">
           <h3 className="text-sm font-medium text-foreground">
@@ -632,7 +713,7 @@ export default function FormPaymentSettingsPage() {
                     <span className="block truncate text-sm text-foreground">
                       {item.name}
                     </span>
-                    <span className="block text-xs font-semibold tabular-nums text-foreground">
+                    <span className="block text-xs font-semibold text-foreground">
                       {formatPaymentAmount(item.amount)}
                     </span>
                   </div>
