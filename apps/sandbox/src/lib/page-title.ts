@@ -121,7 +121,10 @@ export function getPageTitle(pathname: string) {
   }
 
   const tabLabel = getTabLabelForPath(pathname)
-  if (tabLabel) return tabLabel
+  if (tabLabel) {
+    if (path === "/forms/payment-items/new") return "Create payment item"
+    return tabLabel
+  }
   const exact = EXACT_PAGE_TITLES[path]
   if (exact) return exact
 

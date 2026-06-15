@@ -11,6 +11,7 @@ const FORMS_TAB_PATHS = {
   "contact-fields": "/forms/contact-fields",
   "field-groups": "/forms/field-groups",
   "field-options": "/forms/field-options",
+  "payment-items": "/forms/payment-items",
 } as const
 
 type FormsTab = keyof typeof FORMS_TAB_PATHS
@@ -20,13 +21,19 @@ const FORMS_PAGE_CONFIG: Record<FormsTab, { primaryLabel: string }> = {
   "contact-fields": { primaryLabel: "Create new contact field" },
   "field-groups": { primaryLabel: "Create new field group" },
   "field-options": { primaryLabel: "Create new field option" },
+  "payment-items": { primaryLabel: "Create new payment item" },
 }
 
 function formsTabFromPath(pathname: string): FormsTab {
   if (pathname.startsWith("/forms/contact-fields")) return "contact-fields"
   if (pathname.startsWith("/forms/field-groups")) return "field-groups"
   if (pathname.startsWith("/forms/field-options")) return "field-options"
+  if (pathname.startsWith("/forms/payment-items")) return "payment-items"
   return "forms"
+}
+
+function isPaymentItemCreatePage(pathname: string) {
+  return pathname === "/forms/payment-items/new"
 }
 
 export default function FormsLayout() {
@@ -37,13 +44,24 @@ export default function FormsLayout() {
   const activeTab = formsTabFromPath(pathname)
   const page = FORMS_PAGE_CONFIG[activeTab]
   const favouriteLabel = getTabLabelForPath(pathname) ?? "Forms"
+  const onCreatePage = isPaymentItemCreatePage(pathname)
 
   return (
     <div className="flex flex-col">
       <Header
         breadcrumbs={breadcrumbs}
         title="Forms"
-        primaryAction={{ label: page.primaryLabel }}
+        primaryAction={
+          onCreatePage
+            ? undefined
+            : {
+                label: page.primaryLabel,
+                onClick:
+                  activeTab === "payment-items"
+                    ? () => navigate("/forms/payment-items/new")
+                    : undefined,
+              }
+        }
         favouriteAction={{
           pressed: isFavourited(pathname),
           onPressedChange: (next) => {
@@ -63,6 +81,7 @@ export default function FormsLayout() {
             { value: "contact-fields", label: "Contact fields" },
             { value: "field-groups", label: "Field groups" },
             { value: "field-options", label: "Field options" },
+            { value: "payment-items", label: "Payment items" },
           ],
         }}
       />

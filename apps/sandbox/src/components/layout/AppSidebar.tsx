@@ -126,6 +126,7 @@ const navItems: readonly NavItem[] = [
       { label: "Contact fields" },
       { label: "Field groups" },
       { label: "Field options" },
+      { label: "Payment items" },
     ] as const,
   },
   {

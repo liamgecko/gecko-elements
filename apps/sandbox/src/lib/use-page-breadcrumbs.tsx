@@ -25,6 +25,8 @@ function labelForSegment(segment: string) {
   if (segment === "contact-fields") return "Contact fields"
   if (segment === "field-groups") return "Field groups"
   if (segment === "field-options") return "Field options"
+  if (segment === "payment-items") return "Payment items"
+  if (segment === "new") return "Create payment item"
   if (segment === "all-organisations") return "Organisations"
   if (segment === "student-portals") return "Student portal"
   if (segment === "import") return "Imports"

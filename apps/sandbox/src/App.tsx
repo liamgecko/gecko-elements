@@ -40,6 +40,8 @@ import FormsFormsPage from "./pages/forms/forms"
 import FormsContactFieldsPage from "./pages/forms/contact-fields"
 import FormsFieldGroupsPage from "./pages/forms/field-groups"
 import FormsFieldOptionsPage from "./pages/forms/field-options"
+import FormsPaymentItemsPage from "./pages/forms/payment-items"
+import CreatePaymentItemPage from "./pages/forms/payment-items/new"
 import FormLayout from "./pages/forms/forms/form-layout"
 import FormDesignerPage from "./pages/forms/forms/detail/designer"
 import FormWorkflowsPage from "./pages/forms/forms/detail/workflows"
@@ -192,6 +194,10 @@ export default function App() {
           <Route path="contact-fields" element={<FormsContactFieldsPage />} />
           <Route path="field-groups" element={<FormsFieldGroupsPage />} />
           <Route path="field-options" element={<FormsFieldOptionsPage />} />
+          <Route path="payment-items">
+            <Route index element={<FormsPaymentItemsPage />} />
+            <Route path="new" element={<CreatePaymentItemPage />} />
+          </Route>
           <Route
             path="field-and-groups"
             element={<Navigate to="contact-fields" replace />}

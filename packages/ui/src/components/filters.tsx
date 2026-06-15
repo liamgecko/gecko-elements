@@ -83,11 +83,23 @@ export type FilterProps = Omit<React.ComponentProps<"div">, "onChange"> & {
   variant?: "default" | "condensed"
 }
 
+function pluralizeWord(word: string) {
+  if (word.endsWith("s")) return word
+  if (word.endsWith("y") && !/[aeiou]y$/.test(word)) {
+    return `${word.slice(0, -1)}ies`
+  }
+  return `${word}s`
+}
+
 function pluralize(label: string) {
   const text = label.toLowerCase().trim()
-  if (text.endsWith("s")) return text
-  if (text.endsWith("y")) return `${text.slice(0, -1)}ies`
-  return `${text}s`
+  if (/\sby$/.test(text)) return "users"
+
+  const words = text.split(/\s+/)
+  if (words.length === 1) return pluralizeWord(text)
+
+  const lastWord = words[words.length - 1]!
+  return `${words.slice(0, -1).join(" ")} ${pluralizeWord(lastWord)}`
 }
 
 function toPascalCase(input: string) {

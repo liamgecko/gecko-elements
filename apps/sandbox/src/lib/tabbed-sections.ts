@@ -42,6 +42,7 @@ const TABBED_SECTIONS: TabResolver[] = [
       if (path.startsWith("/forms/contact-fields")) return "Contact fields"
       if (path.startsWith("/forms/field-groups")) return "Field groups"
       if (path.startsWith("/forms/field-options")) return "Field options"
+      if (path.startsWith("/forms/payment-items")) return "Payment items"
       return "Forms"
     },
   },
