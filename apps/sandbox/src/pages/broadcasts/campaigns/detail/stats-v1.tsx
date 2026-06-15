@@ -19,7 +19,12 @@ import { RateOverTimeChart } from "./rate-over-time-chart"
 import { CampaignCompareDropdown } from "./campaign-compare-dropdown"
 import { getCampaignStatsForRange, rangeForPreset } from "./campaign-stats-filter"
 import { applyCampaignComparison } from "./campaign-stats-comparison"
-import { getBroadcastCampaignById } from "../broadcast-campaigns-data"
+import { useBroadcastCampaign } from "@/hooks/useBroadcastCampaign"
+import { useBroadcastCampaigns } from "@/hooks/useBroadcastCampaigns"
+import {
+  DataLoadErrorAlert,
+  SupabaseSetupNotice,
+} from "@/components/supabase-setup-notice"
 import type { CampaignStatsPresetId } from "./campaign-stats-types"
 
 const DATE_PRESETS: {
@@ -46,7 +51,8 @@ function formatDateRange(range: DateRange | undefined) {
 
 export default function BroadcastCampaignStatsV1Page() {
   const { campaignId = "" } = useParams()
-  const campaign = getBroadcastCampaignById(campaignId)
+  const { campaign, loading, error, configured } = useBroadcastCampaign(campaignId)
+  const { campaigns: allCampaigns } = useBroadcastCampaigns()
   const campaignName = campaign?.name ?? "This campaign"
 
   const [filterOpen, setFilterOpen] = React.useState(false)
@@ -66,14 +72,26 @@ export default function BroadcastCampaignStatsV1Page() {
   )
 
   const stats = React.useMemo(() => {
-    const primary = getCampaignStatsForRange(appliedRange, appliedPreset)
+    if (!campaign) return null
+
+    const primary = getCampaignStatsForRange(
+      appliedRange,
+      appliedPreset,
+      campaign.statsDataset,
+    )
     if (!compareCampaignId) return primary
 
-    const compareCampaign = getBroadcastCampaignById(compareCampaignId)
+    const compareCampaign = allCampaigns.find(
+      (item) => item.id === compareCampaignId,
+    )
     if (!compareCampaign) return primary
 
-    return applyCampaignComparison(primary, compareCampaign.id, compareCampaign.name)
-  }, [appliedRange, appliedPreset, compareCampaignId])
+    return applyCampaignComparison(
+      primary,
+      compareCampaign.id,
+      compareCampaign.name,
+    )
+  }, [allCampaigns, appliedPreset, appliedRange, campaign, compareCampaignId])
 
   const filterTriggerLabel = labelForPreset(preset)
 
@@ -86,6 +104,24 @@ export default function BroadcastCampaignStatsV1Page() {
   }
 
   const canApplyFilter = hasPendingSelection && preset !== "custom"
+
+  if (!configured) {
+    return <SupabaseSetupNotice />
+  }
+
+  if (loading) {
+    return <p className="text-sm text-muted-foreground">Loading campaign stats…</p>
+  }
+
+  if (error) {
+    return (
+      <DataLoadErrorAlert title="Could not load campaign stats" message={error} />
+    )
+  }
+
+  if (!stats) {
+    return null
+  }
 
   return (
     <div className="space-y-6">

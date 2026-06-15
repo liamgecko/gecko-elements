@@ -37,11 +37,14 @@ import EventsSharePage from "./pages/events/share"
 import EventsDeletedEventsPage from "./pages/events/deleted-events"
 import FormsLayout from "./pages/forms/layout"
 import FormsFormsPage from "./pages/forms/forms"
+import CreateFormPage from "./pages/forms/forms/new"
+import ArchivedFormsPage from "./pages/forms/forms/archived"
 import FormsContactFieldsPage from "./pages/forms/contact-fields"
 import FormsFieldGroupsPage from "./pages/forms/field-groups"
 import FormsFieldOptionsPage from "./pages/forms/field-options"
 import FormsPaymentItemsPage from "./pages/forms/payment-items"
 import CreatePaymentItemPage from "./pages/forms/payment-items/new"
+import EditPaymentItemPage from "./pages/forms/payment-items/edit"
 import FormLayout from "./pages/forms/forms/form-layout"
 import FormDesignerPage from "./pages/forms/forms/detail/designer"
 import FormWorkflowsPage from "./pages/forms/forms/detail/workflows"
@@ -59,6 +62,7 @@ import AiAndAutomationLayout from "./pages/ai-and-automation/layout"
 import AiAndAutomationAiAgentsPage from "./pages/ai-and-automation/ai-agents"
 import AiAndAutomationMcpServersPage from "./pages/ai-and-automation/mcp-servers"
 import BroadcastsCampaignsPage from "./pages/broadcasts/campaigns"
+import CreateBroadcastCampaignPage from "./pages/broadcasts/campaigns/new"
 import BroadcastCampaignLayout from "./pages/broadcasts/campaigns/campaign-layout"
 import BroadcastCampaignOverviewPage from "./pages/broadcasts/campaigns/detail/overview"
 import BroadcastCampaignStatsV1Page from "./pages/broadcasts/campaigns/detail/stats-v1"
@@ -171,6 +175,26 @@ export default function App() {
           <Route path="share" element={<EventsSharePage />} />
           <Route path="deleted-events" element={<EventsDeletedEventsPage />} />
         </Route>
+        <Route path="/forms" element={<FormsLayout />}>
+          <Route index element={<Navigate to="forms" replace />} />
+          <Route path="forms">
+            <Route index element={<FormsFormsPage />} />
+            <Route path="new" element={<CreateFormPage />} />
+          </Route>
+          <Route path="archived-forms" element={<ArchivedFormsPage />} />
+          <Route path="contact-fields" element={<FormsContactFieldsPage />} />
+          <Route path="field-groups" element={<FormsFieldGroupsPage />} />
+          <Route path="field-options" element={<FormsFieldOptionsPage />} />
+          <Route path="payment-items">
+            <Route index element={<FormsPaymentItemsPage />} />
+            <Route path="new" element={<CreatePaymentItemPage />} />
+            <Route path=":paymentItemId" element={<EditPaymentItemPage />} />
+          </Route>
+          <Route
+            path="field-and-groups"
+            element={<Navigate to="contact-fields" replace />}
+          />
+        </Route>
         <Route path="/forms/forms/:formId" element={<FormLayout />}>
           <Route index element={<Navigate to="designer" replace />} />
           <Route path="designer" element={<FormDesignerPage />} />
@@ -188,21 +212,6 @@ export default function App() {
           <Route path="visibility" element={<FormVisibilityPage />} />
           <Route path="share" element={<FormSharePage />} />
         </Route>
-        <Route path="/forms" element={<FormsLayout />}>
-          <Route index element={<Navigate to="forms" replace />} />
-          <Route path="forms" element={<FormsFormsPage />} />
-          <Route path="contact-fields" element={<FormsContactFieldsPage />} />
-          <Route path="field-groups" element={<FormsFieldGroupsPage />} />
-          <Route path="field-options" element={<FormsFieldOptionsPage />} />
-          <Route path="payment-items">
-            <Route index element={<FormsPaymentItemsPage />} />
-            <Route path="new" element={<CreatePaymentItemPage />} />
-          </Route>
-          <Route
-            path="field-and-groups"
-            element={<Navigate to="contact-fields" replace />}
-          />
-        </Route>
         <Route path="/ai-and-automation" element={<AiAndAutomationLayout />}>
           <Route index element={<Navigate to="ai-agents" replace />} />
           <Route path="ai-agents" element={<AiAndAutomationAiAgentsPage />} />
@@ -210,6 +219,7 @@ export default function App() {
         </Route>
         <Route path="/broadcasts" element={<Navigate to="/broadcasts/campaigns" replace />} />
         <Route path="/broadcasts/campaigns" element={<BroadcastsCampaignsPage />} />
+        <Route path="/broadcasts/campaigns/new" element={<CreateBroadcastCampaignPage />} />
         <Route path="/broadcasts/campaigns/:campaignId" element={<BroadcastCampaignLayout />}>
           <Route index element={<Navigate to="overview" replace />} />
           <Route path="overview" element={<BroadcastCampaignOverviewPage />} />

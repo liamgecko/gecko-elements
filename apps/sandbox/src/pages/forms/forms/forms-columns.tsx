@@ -1,8 +1,7 @@
-import type { ColumnDef, FilterFn } from "@tanstack/react-table"
+import type { ColumnDef } from "@tanstack/react-table"
 import { Lock, LockOpen } from "lucide-react"
 
 import { Avatar, AvatarFallback } from "@gecko/ui/components/avatar"
-import { Badge } from "@gecko/ui/components/badge"
 import {
   Tooltip,
   TooltipContent,
@@ -13,7 +12,7 @@ import { DataTableColumnHeader } from "@gecko/ui/components/data-table/data-tabl
 import { DataTableMultiSelectFilter } from "@gecko/ui/components/data-table/data-table-columns"
 import { DataTableMultiLineCell } from "@gecko/ui/components/data-table/data-table-multi-line-cell"
 
-import type { Form, FormLockStatus, FormStatus } from "./forms-data"
+import type { Form, FormLockStatus } from "./forms-data"
 
 function ordinal(n: number) {
   const mod100 = n % 100
@@ -25,7 +24,7 @@ function ordinal(n: number) {
   return `${n}th`
 }
 
-function formatCreatedAt(iso: string) {
+export function formatFormDate(iso: string) {
   const d = new Date(iso)
   const day = ordinal(d.getDate())
   const month = d.toLocaleString(undefined, { month: "short" })
@@ -89,36 +88,6 @@ function FormLockStatusCell({ form }: { form: Form }) {
   )
 }
 
-function statusLabel(status: FormStatus) {
-  if (status === "published") return "Published"
-  if (status === "draft") return "Draft"
-  return "Unpublished"
-}
-
-function statusVariant(status: FormStatus) {
-  if (status === "published") return "success" as const
-  if (status === "draft") return "warning" as const
-  return "secondary" as const
-}
-
-const formStatusFilter: FilterFn<Form> = (row, columnId, filterValue) => {
-  const selected = filterValue as { operator?: string; values?: string[] } | undefined
-  const values = selected?.values ?? []
-  if (values.length === 0) return true
-
-  const { status, archived } = row.original
-  const matches = values.some((value) => {
-    if (value === "archived") return archived
-    if (value === "published") return status === "published" && !archived
-    if (value === "unpublished") {
-      return (status === "draft" || status === "unpublished") && !archived
-    }
-    return false
-  })
-
-  return selected?.operator === "is not" ? !matches : matches
-}
-
 export const formColumns: ColumnDef<Form>[] = [
   {
     accessorKey: "lockStatus",
@@ -133,7 +102,7 @@ export const formColumns: ColumnDef<Form>[] = [
     filterFn: DataTableMultiSelectFilter,
     sortingFn: (rowA, rowB, columnId) =>
       lockStatusLabel(rowA.getValue(columnId) as FormLockStatus).localeCompare(
-        lockStatusLabel(rowB.getValue(columnId) as FormLockStatus)
+        lockStatusLabel(rowB.getValue(columnId) as FormLockStatus),
       ),
   },
   {
@@ -152,19 +121,8 @@ export const formColumns: ColumnDef<Form>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Form status" />
     ),
-    cell: ({ row }) => {
-      const status = row.original.status
-      return (
-        <Badge variant={statusVariant(status)} size="xs" rounded>
-          {statusLabel(status)}
-        </Badge>
-      )
-    },
-    filterFn: formStatusFilter,
-    sortingFn: (rowA, rowB, columnId) =>
-      statusLabel(rowA.getValue(columnId) as FormStatus).localeCompare(
-        statusLabel(rowB.getValue(columnId) as FormStatus)
-      ),
+    cell: ({ row }) => <span>{row.original.status}</span>,
+    filterFn: DataTableMultiSelectFilter,
   },
   {
     id: "createdBy",
@@ -184,7 +142,7 @@ export const formColumns: ColumnDef<Form>[] = [
           </Avatar>
           <DataTableMultiLineCell
             primary={createdBy.name}
-            secondary={formatCreatedAt(createdBy.createdAt)}
+            secondary={formatFormDate(createdBy.createdAt)}
           />
         </div>
       )

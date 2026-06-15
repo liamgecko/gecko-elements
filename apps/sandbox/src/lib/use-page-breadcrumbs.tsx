@@ -1,15 +1,35 @@
 import * as React from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import { Home } from "lucide-react"
 
 import type { HeaderProps } from "@gecko/ui/components/header"
+
+import { BreadcrumbRouterLink } from "@/components/breadcrumb-router-link"
+import {
+  childPath,
+  findNavGroupByParentSlug,
+  getChildSlug,
+  navItems,
+  toSlug,
+} from "@/lib/nav-items"
+import { getTabLabelForPath } from "@/lib/tabbed-sections"
+
+function normalizePath(pathname: string) {
+  return pathname.split("?")[0].split("#")[0]
+}
 
 function titleCaseFromSlug(slug: string) {
   const spaced = slug.replace(/-/g, " ")
   return spaced.replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
-function labelForSegment(segment: string) {
+function isUuid(segment: string) {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+    segment,
+  )
+}
+
+function labelForSegment(segment: string, previousSegment?: string) {
   if (segment === "home" || segment === "overview") return "Home"
   if (segment === "data-and-reporting" || segment === "dashboards") {
     return "Data and reporting"
@@ -26,7 +46,22 @@ function labelForSegment(segment: string) {
   if (segment === "field-groups") return "Field groups"
   if (segment === "field-options") return "Field options"
   if (segment === "payment-items") return "Payment items"
-  if (segment === "new") return "Create payment item"
+  if (segment === "archived-forms") return "Archived forms"
+  if (segment === "campaigns" && previousSegment === "broadcasts") {
+    return "Broadcasts"
+  }
+  if (segment === "new" && previousSegment === "forms") return "Create form"
+  if (segment === "new" && previousSegment === "campaigns") return "Create broadcast"
+  if (segment === "new" && previousSegment === "payment-items") {
+    return "Create payment item"
+  }
+  if (
+    previousSegment === "payment-items" &&
+    segment !== "new" &&
+    isUuid(segment)
+  ) {
+    return "Edit payment item"
+  }
   if (segment === "all-organisations") return "Organisations"
   if (segment === "student-portals") return "Student portal"
   if (segment === "import") return "Imports"
@@ -41,57 +76,183 @@ function labelForSegment(segment: string) {
   return titleCaseFromSlug(segment)
 }
 
+function labelForNavChild(
+  items: readonly { label: string; slug?: string }[],
+  childSlug: string,
+  parentSlug: string,
+) {
+  const item = items.find((entry) => getChildSlug(entry) === childSlug)
+  const segmentLabel = labelForSegment(childSlug, parentSlug)
+  if (segmentLabel !== titleCaseFromSlug(childSlug)) return segmentLabel
+  return item?.label ?? segmentLabel
+}
+
+export type BreadcrumbCrumb = {
+  label: string
+  path: string
+}
+
+const CONVERSATIONS_PARENT_SLUG = "conversations"
+const CONVERSATIONS_INBOX_PATH = "/conversations/inbox"
+
+function isConversationsInboxPath(path: string) {
+  return path === CONVERSATIONS_INBOX_PATH || path === `/${CONVERSATIONS_PARENT_SLUG}`
+}
+
+function buildConversationsBreadcrumbCrumbs(
+  path: string,
+  segments: string[],
+): BreadcrumbCrumb[] {
+  const childSlug = segments[1]
+  if (!childSlug || childSlug === "inbox") return []
+
+  const navGroup = findNavGroupByParentSlug(CONVERSATIONS_PARENT_SLUG)
+  if (!navGroup?.items?.length) return []
+
+  const crumbs: BreadcrumbCrumb[] = [
+    { label: "Conversations", path: CONVERSATIONS_INBOX_PATH },
+  ]
+
+  const siblingPath = childPath(CONVERSATIONS_PARENT_SLUG, childSlug)
+  const siblingLabel = labelForNavChild(
+    navGroup.items,
+    childSlug,
+    CONVERSATIONS_PARENT_SLUG,
+  )
+  crumbs.push({ label: siblingLabel, path: siblingPath })
+
+  if (segments.length === 2) return crumbs
+
+  return appendDeeperCrumbs(crumbs, segments, 2, path)
+}
+
+function appendDeeperCrumbs(
+  crumbs: BreadcrumbCrumb[],
+  segments: string[],
+  startIndex: number,
+  pathname: string,
+) {
+  const remaining = segments.slice(startIndex)
+  if (remaining.length === 0) return crumbs
+
+  const lastCrumbLabel = crumbs.at(-1)?.label
+  const tabLabel = getTabLabelForPath(pathname)
+  if (tabLabel && tabLabel !== lastCrumbLabel) {
+    crumbs.push({ label: tabLabel, path: normalizePath(pathname) })
+    return crumbs
+  }
+
+  let running = crumbs.at(-1)?.path ?? ""
+  for (let i = startIndex; i < segments.length; i++) {
+    const segment = segments[i] ?? ""
+    running += `/${segment}`
+    crumbs.push({
+      label: labelForSegment(segment, segments[i - 1]),
+      path: running,
+    })
+  }
+  return crumbs
+}
+
+export function buildBreadcrumbCrumbs(pathname: string): BreadcrumbCrumb[] {
+  const path = normalizePath(pathname)
+  const segments = path.split("/").filter(Boolean)
+  if (segments.length === 0) return []
+
+  const parentSlug = segments[0] ?? ""
+  if (parentSlug === "home" || parentSlug === "overview") return []
+
+  if (parentSlug === CONVERSATIONS_PARENT_SLUG) {
+    return buildConversationsBreadcrumbCrumbs(path, segments)
+  }
+
+  const navGroup = findNavGroupByParentSlug(parentSlug)
+  if (!navGroup?.items?.length) {
+    const leaf = navItems.find((item) => toSlug(item.label) === parentSlug)
+    return [
+      {
+        label: leaf?.label ?? labelForSegment(parentSlug),
+        path: `/${parentSlug}`,
+      },
+    ]
+  }
+
+  const firstChild = navGroup.items[0]
+  const firstChildSlug = getChildSlug(firstChild)
+  const firstChildPath = childPath(parentSlug, firstChildSlug)
+  const firstChildLabel = labelForNavChild(navGroup.items, firstChildSlug, parentSlug)
+
+  const childSlug = segments[1]
+  if (!childSlug) {
+    return [{ label: firstChildLabel, path: firstChildPath }]
+  }
+
+  const onFirstChildBranch = childSlug === firstChildSlug
+
+  if (onFirstChildBranch && segments.length === 2) {
+    return [{ label: firstChildLabel, path: firstChildPath }]
+  }
+
+  const crumbs: BreadcrumbCrumb[] = [
+    { label: firstChildLabel, path: firstChildPath },
+  ]
+
+  if (!onFirstChildBranch) {
+    const siblingPath = childPath(parentSlug, childSlug)
+    const siblingLabel = labelForNavChild(navGroup.items, childSlug, parentSlug)
+    crumbs.push({ label: siblingLabel, path: siblingPath })
+    if (segments.length === 2) return crumbs
+    return appendDeeperCrumbs(crumbs, segments, 2, path)
+  }
+
+  return appendDeeperCrumbs(crumbs, segments, 2, path)
+}
+
 export function labelForPath(pathname: string) {
-  const segments = pathname.split("?")[0].split("#")[0].split("/").filter(Boolean)
-  const last = segments.at(-1)
-  if (!last) return "Home"
-  return labelForSegment(last)
+  const path = normalizePath(pathname)
+  if (isConversationsInboxPath(path)) return "Inbox"
+
+  const crumbs = buildBreadcrumbCrumbs(pathname)
+  const last = crumbs.at(-1)
+  if (last) return last.label
+  return "Home"
 }
 
 export function usePageBreadcrumbs(): NonNullable<HeaderProps["breadcrumbs"]> {
   const { pathname } = useLocation()
-  const navigate = useNavigate()
-
-  const segments = React.useMemo(
-    () => pathname.split("?")[0].split("#")[0].split("/").filter(Boolean),
-    [pathname]
-  )
 
   return React.useMemo(() => {
+    const crumbs = buildBreadcrumbCrumbs(pathname)
     const items: {
       label: React.ReactNode
       current?: boolean
-      href?: string
-      onSelect?: () => void
-    }[] = [{ label: "Home", href: "/home" }]
+      renderLabelOnly?: boolean
+    }[] = [
+      {
+        label: (
+          <BreadcrumbRouterLink to="/home">
+            <Home className="size-3.5" />
+            <span className="sr-only">Home</span>
+          </BreadcrumbRouterLink>
+        ),
+        renderLabelOnly: true,
+      },
+    ]
 
-    let runningPath = ""
-    for (let i = 0; i < segments.length; i++) {
-      const segment = segments[i] ?? ""
-      runningPath += `/${segment}`
-      const isLast = i === segments.length - 1
+    crumbs.forEach((crumb, index) => {
+      const isLast = index === crumbs.length - 1
       if (isLast) {
-        items.push({ label: labelForSegment(segment), current: true })
+        items.push({ label: crumb.label, current: true })
       } else {
         items.push({
-          label: labelForSegment(segment),
-          href: runningPath,
-          onSelect: () => navigate(runningPath),
+          label: (
+            <BreadcrumbRouterLink to={crumb.path}>{crumb.label}</BreadcrumbRouterLink>
+          ),
+          renderLabelOnly: true,
         })
       }
-    }
-
-    items[0] = {
-      label: (
-        <>
-          <Home className="size-3.5" />
-          <span className="sr-only">Home</span>
-        </>
-      ),
-      href: "/home",
-      onSelect: () => navigate("/home"),
-    }
+    })
 
     return { items }
-  }, [navigate, segments])
+  }, [pathname])
 }

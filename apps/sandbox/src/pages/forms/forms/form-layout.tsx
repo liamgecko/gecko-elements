@@ -3,10 +3,15 @@ import { Navigate, Outlet, useLocation, useNavigate, useParams } from "react-rou
 
 import { Container } from "@gecko/ui/components/container"
 import { Header } from "@gecko/ui/components/header"
+import {
+  DataLoadErrorAlert,
+  SupabaseSetupNotice,
+} from "@/components/supabase-setup-notice"
+import { BreadcrumbRouterLink } from "@/components/breadcrumb-router-link"
+import { useForm } from "@/hooks/useForm"
 import { useFavourites } from "../../../state/favourites"
 import {
   formHeaderMenuItems,
-  getFormById,
   getFormPath,
 } from "./forms-data"
 
@@ -33,15 +38,46 @@ export default function FormLayout() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const { isFavourited, setFavourite } = useFavourites()
+  const { form, loading, error, configured } = useForm(formId)
 
-  const form = getFormById(formId)
+  const activeTab = formTabFromPath(pathname)
+  const formPath = getFormPath(formId, activeTab)
+
+  if (formId === "new") {
+    return <Navigate to="/forms/forms/new" replace />
+  }
+
+  if (!configured) {
+    return (
+      <Container>
+        <SupabaseSetupNotice />
+      </Container>
+    )
+  }
+
+  if (loading) {
+    return (
+      <Container>
+        <p className="text-sm text-muted-foreground">Loading form…</p>
+      </Container>
+    )
+  }
+
+  if (error) {
+    return (
+      <Container>
+        <DataLoadErrorAlert title="Could not load form" message={error} />
+      </Container>
+    )
+  }
 
   if (!form) {
     return <Navigate to="/forms/forms" replace />
   }
 
-  const activeTab = formTabFromPath(pathname)
-  const formPath = getFormPath(formId, activeTab)
+  if (form.archived) {
+    return <Navigate to="/forms/archived-forms" replace />
+  }
 
   return (
     <div className="flex flex-col">
@@ -50,18 +86,18 @@ export default function FormLayout() {
           items: [
             {
               label: (
-                <>
+                <BreadcrumbRouterLink to="/home">
                   <Home className="size-3.5" />
                   <span className="sr-only">Home</span>
-                </>
+                </BreadcrumbRouterLink>
               ),
-              href: "/home",
-              onSelect: () => navigate("/home"),
+              renderLabelOnly: true,
             },
             {
-              label: "Forms",
-              href: "/forms/forms",
-              onSelect: () => navigate("/forms/forms"),
+              label: (
+                <BreadcrumbRouterLink to="/forms/forms">Forms</BreadcrumbRouterLink>
+              ),
+              renderLabelOnly: true,
             },
             {
               label: form.name,

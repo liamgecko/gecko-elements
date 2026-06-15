@@ -4,6 +4,7 @@ import {
   buildHourlyRecord,
   campaignStatsMockDataset,
   type CampaignStatsDailyRecord,
+  type CampaignStatsDataset,
   type CampaignStatsHourlyRecord,
 } from "./campaign-stats-mock-data"
 import type {
@@ -53,22 +54,23 @@ function isTodayView(from: Date, to: Date) {
   )
 }
 
-function getTodayHourlyRows(): CampaignStatsHourlyRecord[] {
+function getTodayHourlyRows(dataset: CampaignStatsDataset): CampaignStatsHourlyRecord[] {
+  const campaignSeed = dataset.campaignSeed ?? 0
   const todayStart = startOfDay(new Date())
   const rowsByTime = new Map(
-    campaignStatsMockDataset.hourly
+    dataset.hourly
       .filter((row) => row.date.getTime() >= todayStart.getTime())
       .map((row) => [row.date.getTime(), row] as const)
   )
 
-  const todayDayIndex = campaignStatsMockDataset.daily.length - 1
+  const todayDayIndex = dataset.daily.length - 1
 
   return Array.from({ length: 24 }, (_, hour) => {
     const date = new Date(todayStart)
     date.setHours(hour, 0, 0, 0)
     return (
       rowsByTime.get(date.getTime()) ??
-      buildHourlyRecord(date, todayDayIndex * 24 + hour)
+      buildHourlyRecord(date, todayDayIndex * 24 + hour, campaignSeed)
     )
   })
 }
@@ -85,10 +87,8 @@ function inRange(date: Date, from: Date, to: Date) {
   return date.getTime() >= from.getTime() && date.getTime() <= to.getTime()
 }
 
-function filterDaily(from: Date, to: Date) {
-  return campaignStatsMockDataset.daily.filter((row) =>
-    inRange(row.date, from, to)
-  )
+function filterDaily(from: Date, to: Date, dataset: CampaignStatsDataset) {
+  return dataset.daily.filter((row) => inRange(row.date, from, to))
 }
 
 function weekStart(date: Date) {
@@ -123,8 +123,12 @@ function aggregateDailyToWeekly(
 
 const PAST_12_WEEKS = 12
 
-function getPast12WeeksRows(from: Date, to: Date): CampaignStatsDailyRecord[] {
-  const weekly = aggregateDailyToWeekly(filterDaily(from, to))
+function getPast12WeeksRows(
+  from: Date,
+  to: Date,
+  dataset: CampaignStatsDataset,
+): CampaignStatsDailyRecord[] {
+  const weekly = aggregateDailyToWeekly(filterDaily(from, to, dataset))
   return weekly.slice(-PAST_12_WEEKS)
 }
 
@@ -638,7 +642,8 @@ export function rangeForPreset(
 
 export function getCampaignStatsForRange(
   range: DateRange | undefined,
-  preset: CampaignStatsPresetId = "past-7-days"
+  preset: CampaignStatsPresetId = "past-7-days",
+  dataset: CampaignStatsDataset = campaignStatsMockDataset,
 ): CampaignStatsView {
   const from = range?.from ?? rangeForPreset("today").from!
   const to = range?.to ?? new Date()
@@ -646,12 +651,12 @@ export function getCampaignStatsForRange(
   const usePast4WeeksView = preset === "past-4-weeks"
   const usePast12WeeksView = preset === "past-12-weeks"
 
-  const dailyRows = filterDaily(from, to)
+  const dailyRows = filterDaily(from, to, dataset)
   const chartDailyRows = usePast12WeeksView
-    ? getPast12WeeksRows(from, to)
+    ? getPast12WeeksRows(from, to, dataset)
     : dailyRows
 
-  const todayHourlyRows = getTodayHourlyRows()
+  const todayHourlyRows = getTodayHourlyRows(dataset)
   const todayRowsForTotals = todayHourlyRows.filter((row) => row.date <= to)
   const timeSeriesRows = useTodayView ? todayHourlyRows : chartDailyRows
   const totals = useTodayView

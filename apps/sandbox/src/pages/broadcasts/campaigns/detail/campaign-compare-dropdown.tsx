@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@gecko/ui/components/dropdown-menu"
 
-import { broadcastCampaigns } from "../broadcast-campaigns-data"
+import { useBroadcastCampaigns } from "@/hooks/useBroadcastCampaigns"
 
 type CampaignCompareDropdownProps = {
   value: string | null
@@ -26,11 +26,11 @@ export function CampaignCompareDropdown({
   onValueChange,
 }: CampaignCompareDropdownProps) {
   const { campaignId: currentCampaignId = "" } = useParams()
+  const { campaigns: allCampaigns } = useBroadcastCampaigns()
 
   const campaigns = React.useMemo(
-    () =>
-      broadcastCampaigns.filter((campaign) => campaign.id !== currentCampaignId),
-    [currentCampaignId]
+    () => allCampaigns.filter((campaign) => campaign.id !== currentCampaignId),
+    [allCampaigns, currentCampaignId],
   )
 
   return (

@@ -39,6 +39,8 @@ type HeaderBreadcrumbItem =
       current?: false
       href?: string
       onSelect?: () => void
+      /** Label is already an interactive element (e.g. router Link). */
+      renderLabelOnly?: boolean
     }
   | {
       label: React.ReactNode
@@ -165,21 +167,20 @@ function renderBreadcrumbs(breadcrumbs: HeaderBreadcrumbsProps) {
               <BreadcrumbItem>
                 {"current" in item && item.current ? (
                   <BreadcrumbPage>{item.label}</BreadcrumbPage>
-                ) : item.onSelect ? (
+                ) : item.renderLabelOnly ? (
+                  item.label
+                ) : (
                   <BreadcrumbLink
                     href={item.href ?? "#"}
-                    render={
-                      <button
-                        type="button"
-                        onClick={item.onSelect}
-                        className="text-left"
-                      />
+                    onClick={
+                      item.onSelect
+                        ? (event) => {
+                            event.preventDefault()
+                            item.onSelect?.()
+                          }
+                        : undefined
                     }
                   >
-                    {item.label}
-                  </BreadcrumbLink>
-                ) : (
-                  <BreadcrumbLink href={item.href ?? "#"}>
                     {item.label}
                   </BreadcrumbLink>
                 )}

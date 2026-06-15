@@ -42,6 +42,7 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
 function BreadcrumbLink({
   className,
   render,
+  children,
   ...props
 }: useRender.ComponentProps<"a">) {
   return useRender({
@@ -49,6 +50,7 @@ function BreadcrumbLink({
     props: mergeProps<"a">(
       {
         className: cn("hover:text-foreground transition-colors", className),
+        children,
       },
       props
     ),

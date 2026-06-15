@@ -3,10 +3,15 @@ import { Navigate, Outlet, useLocation, useNavigate, useParams } from "react-rou
 
 import { Container } from "@gecko/ui/components/container"
 import { Header } from "@gecko/ui/components/header"
+import {
+  DataLoadErrorAlert,
+  SupabaseSetupNotice,
+} from "@/components/supabase-setup-notice"
+import { BreadcrumbRouterLink } from "@/components/breadcrumb-router-link"
+import { useBroadcastCampaign } from "@/hooks/useBroadcastCampaign"
 import { useFavourites } from "../../../state/favourites"
 import {
   broadcastCampaignHeaderMenuItems,
-  getBroadcastCampaignById,
   getBroadcastCampaignPath,
 } from "./broadcast-campaigns-data"
 import { formatLastRefreshed } from "./format-last-refreshed"
@@ -35,15 +40,38 @@ export default function BroadcastCampaignLayout() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const { isFavourited, setFavourite } = useFavourites()
+  const { campaign, loading, error, configured } = useBroadcastCampaign(campaignId)
 
-  const campaign = getBroadcastCampaignById(campaignId)
+  const activeTab = campaignTabFromPath(pathname)
+  const campaignPath = getBroadcastCampaignPath(campaignId, activeTab)
+
+  if (!configured) {
+    return (
+      <Container>
+        <SupabaseSetupNotice />
+      </Container>
+    )
+  }
+
+  if (loading) {
+    return (
+      <Container>
+        <p className="text-sm text-muted-foreground">Loading campaign…</p>
+      </Container>
+    )
+  }
+
+  if (error) {
+    return (
+      <Container>
+        <DataLoadErrorAlert title="Could not load campaign" message={error} />
+      </Container>
+    )
+  }
 
   if (!campaign) {
     return <Navigate to="/broadcasts/campaigns" replace />
   }
-
-  const activeTab = campaignTabFromPath(pathname)
-  const campaignPath = getBroadcastCampaignPath(campaignId, activeTab)
 
   return (
     <div className="flex flex-col">
@@ -52,23 +80,20 @@ export default function BroadcastCampaignLayout() {
           items: [
             {
               label: (
-                <>
+                <BreadcrumbRouterLink to="/home">
                   <Home className="size-3.5" />
                   <span className="sr-only">Home</span>
-                </>
+                </BreadcrumbRouterLink>
               ),
-              href: "/home",
-              onSelect: () => navigate("/home"),
+              renderLabelOnly: true,
             },
             {
-              label: "Broadcasts",
-              href: "/broadcasts/campaigns",
-              onSelect: () => navigate("/broadcasts/campaigns"),
-            },
-            {
-              label: "Campaigns",
-              href: "/broadcasts/campaigns",
-              onSelect: () => navigate("/broadcasts/campaigns"),
+              label: (
+                <BreadcrumbRouterLink to="/broadcasts/campaigns">
+                  Broadcasts
+                </BreadcrumbRouterLink>
+              ),
+              renderLabelOnly: true,
             },
             {
               label: campaign.name,
@@ -111,7 +136,7 @@ export default function BroadcastCampaignLayout() {
         }}
       />
       <Container>
-        <Outlet />
+        <Outlet context={{ campaign }} />
       </Container>
     </div>
   )

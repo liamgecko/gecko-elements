@@ -8,6 +8,7 @@ import { usePageBreadcrumbs } from "../../lib/use-page-breadcrumbs"
 
 const FORMS_TAB_PATHS = {
   forms: "/forms/forms",
+  "archived-forms": "/forms/archived-forms",
   "contact-fields": "/forms/contact-fields",
   "field-groups": "/forms/field-groups",
   "field-options": "/forms/field-options",
@@ -18,6 +19,7 @@ type FormsTab = keyof typeof FORMS_TAB_PATHS
 
 const FORMS_PAGE_CONFIG: Record<FormsTab, { primaryLabel: string }> = {
   forms: { primaryLabel: "Create new form" },
+  "archived-forms": { primaryLabel: "Create new form" },
   "contact-fields": { primaryLabel: "Create new contact field" },
   "field-groups": { primaryLabel: "Create new field group" },
   "field-options": { primaryLabel: "Create new field option" },
@@ -25,6 +27,7 @@ const FORMS_PAGE_CONFIG: Record<FormsTab, { primaryLabel: string }> = {
 }
 
 function formsTabFromPath(pathname: string): FormsTab {
+  if (pathname.startsWith("/forms/archived-forms")) return "archived-forms"
   if (pathname.startsWith("/forms/contact-fields")) return "contact-fields"
   if (pathname.startsWith("/forms/field-groups")) return "field-groups"
   if (pathname.startsWith("/forms/field-options")) return "field-options"
@@ -32,8 +35,17 @@ function formsTabFromPath(pathname: string): FormsTab {
   return "forms"
 }
 
-function isPaymentItemCreatePage(pathname: string) {
-  return pathname === "/forms/payment-items/new"
+function isPaymentItemSubPage(pathname: string) {
+  return (
+    pathname.startsWith("/forms/payment-items/") &&
+    pathname !== "/forms/payment-items"
+  )
+}
+
+function isFormSubPage(pathname: string) {
+  return (
+    pathname.startsWith("/forms/forms/") && pathname !== "/forms/forms"
+  )
 }
 
 export default function FormsLayout() {
@@ -44,7 +56,8 @@ export default function FormsLayout() {
   const activeTab = formsTabFromPath(pathname)
   const page = FORMS_PAGE_CONFIG[activeTab]
   const favouriteLabel = getTabLabelForPath(pathname) ?? "Forms"
-  const onCreatePage = isPaymentItemCreatePage(pathname)
+  const onPaymentItemSubPage = isPaymentItemSubPage(pathname)
+  const onFormSubPage = isFormSubPage(pathname)
 
   return (
     <div className="flex flex-col">
@@ -52,14 +65,16 @@ export default function FormsLayout() {
         breadcrumbs={breadcrumbs}
         title="Forms"
         primaryAction={
-          onCreatePage
+          onPaymentItemSubPage || onFormSubPage || activeTab === "archived-forms"
             ? undefined
             : {
                 label: page.primaryLabel,
                 onClick:
                   activeTab === "payment-items"
                     ? () => navigate("/forms/payment-items/new")
-                    : undefined,
+                    : activeTab === "forms"
+                      ? () => navigate("/forms/forms/new")
+                      : undefined,
               }
         }
         favouriteAction={{
@@ -78,6 +93,7 @@ export default function FormsLayout() {
           },
           items: [
             { value: "forms", label: "Forms" },
+            { value: "archived-forms", label: "Archived forms" },
             { value: "contact-fields", label: "Contact fields" },
             { value: "field-groups", label: "Field groups" },
             { value: "field-options", label: "Field options" },

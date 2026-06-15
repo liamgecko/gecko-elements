@@ -39,6 +39,7 @@ const TABBED_SECTIONS: TabResolver[] = [
   {
     match: (path) => path.startsWith("/forms"),
     label: (path) => {
+      if (path.startsWith("/forms/archived-forms")) return "Archived forms"
       if (path.startsWith("/forms/contact-fields")) return "Contact fields"
       if (path.startsWith("/forms/field-groups")) return "Field groups"
       if (path.startsWith("/forms/field-options")) return "Field options"

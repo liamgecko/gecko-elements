@@ -18,7 +18,6 @@ import {
 import { Collapsible, CollapsibleContent } from "@gecko/ui/components/collapsible"
 import { ScrollArea } from "@gecko/ui/components/scroll-area"
 import { cn } from "@gecko/ui/lib/utils"
-import type { LucideIcon } from "lucide-react"
 import * as React from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import {
@@ -40,158 +39,14 @@ import {
 } from "@gecko/ui/components/dialog"
 import { Input } from "@gecko/ui/components/input"
 import {
-  Building,
-  ChartLine,
-  CalendarDays,
-  ClipboardList,
-  Megaphone,
-  Settings,
-  Users,
-  House,
-  Inbox,
-  Mails,
-  Headset,
-  MessageSquareText,
-  Zap,
-  SquareMousePointer,
-  UserRoundCheck,
-  Globe,
-  Route,
   Star,
   MoreHorizontal,
   CheckCheck,
   X,
 } from "lucide-react"
 import { getTabLabelForPath } from "../../lib/tabbed-sections"
+import { getChildSlug, navItems, toSlug } from "../../lib/nav-items"
 import { useFavourites } from "../../state/favourites"
-
-type NavItem = {
-  label: string
-  icon: LucideIcon
-  items?: readonly { label: string }[]
-  defaultOpen?: boolean
-}
-
-function toSlug(label: string) {
-  return label
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "")
-}
-
-const navItems: readonly NavItem[] = [
-  { label: "Home", icon: House },
-  { label: "Contacts", icon: Users },
-  {
-    label: "Responses",
-    icon: Inbox,
-    items: [{ label: "All responses" }, { label: "Payments" }, { label: "Quarantine" }] as const,
-  },
-  { label: "Messages", icon: Mails },
-  { label: "Applications", icon: UserRoundCheck },
-  {
-    label: "Conversations",
-    icon: MessageSquareText,
-    items: [
-      { label: "Inbox" },
-      { label: "Knowledge base" },
-      { label: "Chatbots" },
-      { label: "Channels" },
-      { label: "Widgets" },
-      { label: "Reporting" },
-      { label: "Teams" },
-      { label: "Saved replies" },
-      { label: "Workflows" },
-    ] as const,
-  },
-  {
-    label: "Events",
-    icon: CalendarDays,
-    items: [
-      { label: "Events" },
-      { label: "Hosts" },
-      { label: "Locations" },
-      { label: "Share" },
-      { label: "Deleted events" },
-    ] as const,
-  },
-  {
-    label: "Forms",
-    icon: ClipboardList,
-    items: [
-      { label: "Forms" },
-      { label: "Contact fields" },
-      { label: "Field groups" },
-      { label: "Field options" },
-      { label: "Payment items" },
-    ] as const,
-  },
-  {
-    label: "AI and automation",
-    icon: Zap,
-    items: [{ label: "AI agents" }, { label: "MCP servers" }] as const,
-  },
-  {
-    label: "Broadcasts",
-    icon: Megaphone,
-    items: [
-      { label: "Campaigns" },
-      { label: "Templates" },
-      { label: "Senders and domains" },
-      { label: "SMS geo permissions" },
-    ] as const,
-  },
-  {
-    label: "Calls",
-    icon: Headset,
-    items: [
-      { label: "Calls" },
-      { label: "Campaigns" },
-      { label: "Scripts" },
-      { label: "Outcomes" },
-      { label: "Telephone numbers" },
-      { label: "VoIP numbers" },
-      { label: "Usage and costs" },
-    ] as const,
-  },
-  { label: "Landing pages", icon: SquareMousePointer },
-  {
-    label: "Organisations",
-    icon: Building,
-    items: [
-      { label: "All organisations" },
-      { label: "Organisation types" },
-      { label: "Organisation fields" },
-    ] as const,
-  },
-  {
-    label: "Portal",
-    icon: Globe,
-    items: [{ label: "Student portals" }, { label: "Tasks and objectives" }] as const,
-  },
-  { label: "Integrations", icon: Route },
-  { label: "Data and reporting", icon: ChartLine },
-  {
-    label: "Settings",
-    icon: Settings,
-    items: [
-      { label: "Account settings" },
-      { label: "User settings" },
-      { label: "Users" },
-      { label: "User groups" },
-      { label: "Devices" },
-      { label: "Import" },
-      { label: "Export" },
-      { label: "Labels" },
-      { label: "Categories" },
-      { label: "Data security" },
-    ] as const,
-  },
-  
-] as const
 
 export function AppSidebar() {
   const { state } = useSidebar()
@@ -226,6 +81,7 @@ export function AppSidebar() {
     if (last === "export") return "Exports"
     if (last === "voip-numbers") return "VoIP numbers"
     if (last === "sms-geo-permissions") return "SMS geo permissions"
+    if (last === "campaigns" && segments.includes("broadcasts")) return "Broadcasts"
     return titleCased || "Overview"
   }
 
@@ -380,11 +236,16 @@ export function AppSidebar() {
                   const parentPath = `/${parentSlug}`
 
                   if (items?.length) {
-                    const firstChildPath = `${parentPath}/${toSlug(items[0].label)}`
+                    const firstChildSlug = getChildSlug(items[0])
+                    const firstChildPath = `${parentPath}/${firstChildSlug}`
                     const isGroupActive = items.some(
-                      (item) =>
-                        pathname === `${parentPath}/${toSlug(item.label)}` ||
-                        pathname.startsWith(`${parentPath}/${toSlug(item.label)}/`)
+                      (item) => {
+                        const childSlug = getChildSlug(item)
+                        return (
+                          pathname === `${parentPath}/${childSlug}` ||
+                          pathname.startsWith(`${parentPath}/${childSlug}/`)
+                        )
+                      },
                     )
                     const isOpen =
                       label in expandedGroups
@@ -426,7 +287,7 @@ export function AppSidebar() {
                           <CollapsibleContent>
                             <SidebarMenuSub>
                               {items.map((item) => {
-                                const childSlug = toSlug(item.label)
+                                const childSlug = getChildSlug(item)
                                 const to = `${parentPath}/${childSlug}`
                                 const active = pathname === to || pathname.startsWith(`${to}/`)
 

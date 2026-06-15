@@ -27,10 +27,6 @@ export const FORM_SETTINGS_SECTIONS = [
 export type FormSettingsSection =
   (typeof FORM_SETTINGS_SECTIONS)[number]["value"]
 
-export function getFormById(formId: string) {
-  return forms.find((form) => form.id === formId)
-}
-
 export type Form = {
   id: string
   name: string
@@ -46,136 +42,52 @@ export type Form = {
     initials: string
     createdAt: string
   }
-}
-
-const formNames = [
-  "Undergraduate Application Form",
-  "Postgraduate Taught Application",
-  "International Student Enquiry",
-  "Open Day Registration",
-  "Offer Holder Response Form",
-  "Clearing Application",
-  "Scholarship Application",
-  "Accommodation Preference Form",
-  "Mature Student Application",
-  "Reference Request Form",
-] as const
-
-const statuses: FormStatus[] = [
-  "published",
-  "draft",
-  "unpublished",
-  "published",
-  "draft",
-  "published",
-  "unpublished",
-  "published",
-  "draft",
-  "published",
-]
-
-const lockStatuses: FormLockStatus[] = [
-  "unlocked",
-  "locked-can-edit",
-  "locked-view-only",
-  "unlocked",
-  "locked-view-only",
-  "unlocked",
-  "locked-can-edit",
-  "unlocked",
-  "locked-view-only",
-  "unlocked",
-]
-
-const groups = [
-  "Undergraduate",
-  "Postgraduate",
-  "International",
-  "Events",
-  "Admissions",
-  "Scholarships",
-  "Accommodation",
-  "Mature students",
-] as const
-
-const creators = [
-  { name: "Sarah Jenkins", initials: "SJ" },
-  { name: "Jonny Carter", initials: "JC" },
-  { name: "Liam Young", initials: "LY" },
-  { name: "Emma Wilson", initials: "EW" },
-  { name: "James Patel", initials: "JP" },
-  { name: "Mia Torres", initials: "MT" },
-] as const
-
-const responseCounts = [3, 21, 6, 10, 0, 5, 14, 8, 2, 17]
-
-function pseudoRandom(index: number, salt: number) {
-  return ((index + 1) * 9301 + salt * 49297) % 233280
-}
-
-function toIso(year: number, month: number, day: number, hour: number, minute: number) {
-  return new Date(year, month, day, hour, minute, 0, 0).toISOString()
-}
-
-function createdAtForIndex(index: number) {
-  const day = 1 + (pseudoRandom(index, 1) % 28)
-  const month = 8 + (pseudoRandom(index, 2) % 4)
-  const year = 2025
-  const hour = 9 + (pseudoRandom(index, 3) % 8)
-  const minute = pseudoRandom(index, 4) % 2 === 0 ? 0 : 30
-  return toIso(year, month, day, hour, minute)
-}
-
-export const forms: Form[] = formNames.map((name, index) => {
-  const creator = creators[pseudoRandom(index, 9) % creators.length]
-  const lockStatus = lockStatuses[index]
-  const locker = creators[pseudoRandom(index, 12) % creators.length]
-  return {
-    id: `form-${index + 1}`,
-    name,
-    lockStatus,
-    lockedBy:
-      lockStatus === "unlocked" ? undefined : locker.name,
-    status: statuses[index],
-    archived: index === 2 || index === 6,
-    group: groups[pseudoRandom(index, 11) % groups.length],
-    responseCount: responseCounts[index],
-    createdBy: {
-      name: creator.name,
-      initials: creator.initials,
-      createdAt: createdAtForIndex(index),
-    },
+  archivedBy?: {
+    name: string
+    initials: string
+    archivedAt: string
   }
-})
+}
 
-export const formFilterCategories = [
-  {
-    id: "status",
-    label: "Form status",
-    searchable: false,
-    options: [
-      { value: "published", label: "Published forms" },
-      { value: "unpublished", label: "Unpublished forms" },
-      { value: "archived", label: "Archived forms" },
-    ],
-  },
-  {
-    id: "lockStatus",
-    label: "Lock status",
-    searchable: false,
-    options: [
-      { value: "locked-view-only", label: "Locked (view only)" },
-      { value: "locked-can-edit", label: "Locked (can edit)" },
-      { value: "unlocked", label: "Unlocked" },
-    ],
-  },
-  {
-    id: "group",
-    label: "Groups",
-    options: groups.map((group) => ({ value: group, label: group })),
-    searchPlaceholder: "Search groups",
-  },
-]
+import type { FilterCategory } from "@gecko/ui/components/filters"
+
+const formStatusFilterCategory: FilterCategory = {
+  id: "status",
+  label: "Form status",
+  searchable: false,
+  options: [
+    { value: "published", label: "Published" },
+    { value: "draft", label: "Draft" },
+    { value: "unpublished", label: "Unpublished" },
+  ],
+}
+
+const formLockStatusFilterCategory: FilterCategory = {
+  id: "lockStatus",
+  label: "Lock status",
+  searchable: false,
+  options: [
+    { value: "locked-view-only", label: "Locked (view only)" },
+    { value: "locked-can-edit", label: "Locked (can edit)" },
+    { value: "unlocked", label: "Unlocked" },
+  ],
+}
+
+export function createFormFilterCategories(
+  groupNames: string[],
+  options?: { includeStatus?: boolean },
+): FilterCategory[] {
+  return [
+    ...(options?.includeStatus === false ? [] : [formStatusFilterCategory]),
+    formLockStatusFilterCategory,
+    {
+      id: "group",
+      label: "Groups",
+      options: groupNames.map((group) => ({ value: group, label: group })),
+      searchPlaceholder: "Search groups",
+    },
+  ]
+}
 
 export const formHeaderMenuItems = [
   { label: "Form dashboard" },
@@ -211,6 +123,10 @@ export const formRowActions: DataTableRowAction[] = [
     variant: "destructive",
     separatorBefore: true,
   },
+]
+
+export const archivedFormRowActions: DataTableRowAction[] = [
+  { id: "restore", label: "Restore form" },
 ]
 
 export const formSelectActions: DataTableRowAction[] = [
