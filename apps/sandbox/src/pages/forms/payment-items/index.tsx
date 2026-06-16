@@ -20,6 +20,7 @@ import {
   DataLoadErrorAlert,
   SupabaseSetupNotice,
 } from "@/components/supabase-setup-notice"
+import { DataTablePageSkeleton } from "@/components/data-table-page-skeleton"
 import { paymentItemsRepository } from "@/data/repositories/paymentItemsRepository"
 import { usePaymentItems } from "@/hooks/usePaymentItems"
 
@@ -80,7 +81,7 @@ export default function FormsPaymentItemsPage() {
   }
 
   if (loading) {
-    return <p className="text-sm text-muted-foreground">Loading payment items…</p>
+    return <DataTablePageSkeleton columnCount={4} />
   }
 
   if (error) {

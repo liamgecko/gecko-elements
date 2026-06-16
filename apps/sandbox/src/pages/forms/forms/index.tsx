@@ -20,6 +20,7 @@ import {
   DataLoadErrorAlert,
   SupabaseSetupNotice,
 } from "@/components/supabase-setup-notice"
+import { DataTablePageSkeleton } from "@/components/data-table-page-skeleton"
 import { formsRepository } from "@/data/repositories/formsRepository"
 import { useForms } from "@/hooks/useForms"
 
@@ -95,7 +96,7 @@ export default function FormsFormsPage() {
   }
 
   if (loading) {
-    return <p className="text-sm text-muted-foreground">Loading forms…</p>
+    return <DataTablePageSkeleton columnCount={3} />
   }
 
   if (error) {

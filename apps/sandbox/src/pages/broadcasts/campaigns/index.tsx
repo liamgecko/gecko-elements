@@ -22,6 +22,7 @@ import {
   DataLoadErrorAlert,
   SupabaseSetupNotice,
 } from "@/components/supabase-setup-notice"
+import { DataTablePageSkeleton } from "@/components/data-table-page-skeleton"
 import { broadcastCampaignsRepository } from "@/data/repositories/broadcastCampaignsRepository"
 import { useBroadcastCampaigns } from "@/hooks/useBroadcastCampaigns"
 
@@ -130,7 +131,7 @@ export default function BroadcastsCampaignsPage() {
           }}
         />
         <Container>
-          <p className="text-sm text-muted-foreground">Loading campaigns…</p>
+          <DataTablePageSkeleton columnCount={5} />
         </Container>
       </div>
     )

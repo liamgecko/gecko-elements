@@ -19,6 +19,7 @@ import {
   DataLoadErrorAlert,
   SupabaseSetupNotice,
 } from "@/components/supabase-setup-notice"
+import { DataTablePageSkeleton } from "@/components/data-table-page-skeleton"
 import { formsRepository } from "@/data/repositories/formsRepository"
 import { useArchivedForms } from "@/hooks/useArchivedForms"
 
@@ -74,9 +75,7 @@ export default function ArchivedFormsPage() {
   }
 
   if (loading) {
-    return (
-      <p className="text-sm text-muted-foreground">Loading archived forms…</p>
-    )
+    return <DataTablePageSkeleton columnCount={4} />
   }
 
   if (error) {
