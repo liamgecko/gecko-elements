@@ -665,7 +665,7 @@ function DatePicker(props: DatePickerProps) {
         role="group"
         className={cn(
           datePickerTriggerVariants({ variant: "time" }),
-          "flex w-full max-w-full min-w-0 flex-row flex-nowrap items-end gap-4"
+          "flex w-full max-w-full min-w-0 flex-row flex-nowrap items-end gap-2"
         )}
       >
         <Field className={cn("min-w-0 flex-1 basis-0", className)}>

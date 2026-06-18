@@ -16,6 +16,7 @@ import {
   SquareMousePointer,
   UserRoundCheck,
   Users,
+  Workflow,
   Zap,
 } from "lucide-react"
 
@@ -136,6 +137,7 @@ export const navItems: readonly NavItem[] = [
     icon: Globe,
     items: [{ label: "Student portals" }, { label: "Tasks and objectives" }],
   },
+  { label: "Workflows", icon: Workflow },
   { label: "Integrations", icon: Route },
   { label: "Data and reporting", icon: ChartLine },
   {

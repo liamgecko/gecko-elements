@@ -1,6 +1,6 @@
 # Supabase in the sandbox app
 
-The sandbox prototype uses Supabase as the source of truth for **forms**, **payment items**, **form payment settings**, and **broadcast campaigns**. Other areas still use local mock data.
+The sandbox prototype uses Supabase as the source of truth for **forms**, **payment items**, **form payment settings**, **broadcast campaigns**, **workflows**, and **workflow templates**. Other areas still use local mock data.
 
 ## What you need from Supabase
 
@@ -30,14 +30,18 @@ In the Supabase dashboard, open **SQL Editor** and run, in order:
 7. `apps/sandbox/supabase/migrations/004_form_archive.sql` — archived by / archived at columns
 8. `apps/sandbox/supabase/migrations/005_broadcast_campaigns_schema.sql` — broadcast campaigns table
 9. `apps/sandbox/supabase/seed-broadcast-campaigns.sql` — 10 sample campaigns
+10. `apps/sandbox/supabase/migrations/006_workflows_schema.sql` — workflows table
+11. `apps/sandbox/supabase/seed-workflows.sql` — 8 sample workflows
+12. `apps/sandbox/supabase/migrations/007_workflows_definition.sql` — `definition` jsonb column for the workflow builder graph
+13. `apps/sandbox/supabase/migrations/008_workflow_templates.sql` — workflow templates table
 
 ### Reset prototype data
 
 ```sql
-truncate table broadcast_campaigns, form_payment_items, form_payment_settings, payment_items, forms, form_groups, users, accounts cascade;
+truncate table workflow_templates, workflows, broadcast_campaigns, form_payment_items, form_payment_settings, payment_items, forms, form_groups, users, accounts cascade;
 ```
 
-Then run `seed.sql`, `seed-payment-items.sql`, `seed-form-payment-settings.sql`, and `seed-broadcast-campaigns.sql` again.
+Then run `seed.sql`, `seed-payment-items.sql`, `seed-form-payment-settings.sql`, `seed-broadcast-campaigns.sql`, and `seed-workflows.sql` again.
 
 **Note:** RLS is disabled on these tables for the prototype. Do not use this setup in production.
 
@@ -53,6 +57,8 @@ Then run `seed.sql`, `seed-payment-items.sql`, `seed-form-payment-settings.sql`,
 | `form_payment_settings` | Payment provider per form |
 | `form_payment_items` | Payment items attached to a form |
 | `broadcast_campaigns` | Broadcast campaign catalog; `stats` JSONB stores a `campaignSeed` for client-generated chart data |
+| `workflows` | Workflow catalog; `label_ids` stores filter label keys; `definition` stores the React Flow graph (`nodes`, `edges`) |
+| `workflow_templates` | Reusable workflow templates; `definition` stores the React Flow graph; optional `source_workflow_id` when saved from a workflow |
 
 ## Code structure
 
@@ -74,6 +80,10 @@ apps/sandbox/src/
     useArchivedForms.ts
     useBroadcastCampaigns.ts
     useBroadcastCampaign.ts
+    useWorkflows.ts
+    useWorkflow.ts
+    useWorkflowTemplates.ts
+    useWorkflowTemplate.ts
 ```
 
 UI states (not configured, load errors) use `Alert` from `@gecko/ui/components/alert` via `components/supabase-setup-notice.tsx`.

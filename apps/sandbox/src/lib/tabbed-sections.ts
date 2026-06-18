@@ -77,6 +77,15 @@ const TABBED_SECTIONS: TabResolver[] = [
     },
   },
   {
+    match: (path) =>
+      path === "/workflows" ||
+      path.startsWith("/workflows/templates"),
+    label: (path) => {
+      if (path.startsWith("/workflows/templates")) return "Templates"
+      return "Workflows"
+    },
+  },
+  {
     match: (path) => path.startsWith("/conversations/reporting"),
     label: (path) => {
       if (path.includes("/reporting/agents")) return "Agents"

@@ -376,6 +376,188 @@ export type Database = {
           },
         ]
       }
+      workflows: {
+        Row: {
+          id: string
+          account_id: string
+          name: string
+          lock_status: "unlocked" | "locked-can-edit" | "locked-view-only"
+          locked_by_user_id: string | null
+          enabled: boolean
+          last_run: string | null
+          action_type:
+            | "add-label"
+            | "add-to-campaign"
+            | "add-to-event"
+            | "send-message"
+            | "assign-agent"
+          trigger_type:
+            | "before-conversation"
+            | "during-conversation"
+            | "after-conversation-end"
+          label_ids: string[]
+          definition: Record<string, unknown> | null
+          created_by_user_id: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          account_id: string
+          name: string
+          lock_status: "unlocked" | "locked-can-edit" | "locked-view-only"
+          locked_by_user_id?: string | null
+          enabled?: boolean
+          last_run?: string | null
+          definition?: Record<string, unknown> | null
+          action_type:
+            | "add-label"
+            | "add-to-campaign"
+            | "add-to-event"
+            | "send-message"
+            | "assign-agent"
+          trigger_type:
+            | "before-conversation"
+            | "during-conversation"
+            | "after-conversation-end"
+          label_ids?: string[]
+          created_by_user_id: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          account_id?: string
+          name?: string
+          lock_status?: "unlocked" | "locked-can-edit" | "locked-view-only"
+          locked_by_user_id?: string | null
+          enabled?: boolean
+          last_run?: string | null
+          action_type?:
+            | "add-label"
+            | "add-to-campaign"
+            | "add-to-event"
+            | "send-message"
+            | "assign-agent"
+          trigger_type?:
+            | "before-conversation"
+            | "during-conversation"
+            | "after-conversation-end"
+          label_ids?: string[]
+          definition?: Record<string, unknown> | null
+          created_by_user_id?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workflows_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "workflows_created_by_user_id_fkey"
+            columns: ["created_by_user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "workflows_locked_by_user_id_fkey"
+            columns: ["locked_by_user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workflow_templates: {
+        Row: {
+          id: string
+          account_id: string
+          name: string
+          definition: Record<string, unknown> | null
+          action_type:
+            | "add-label"
+            | "add-to-campaign"
+            | "add-to-event"
+            | "send-message"
+            | "assign-agent"
+          trigger_type:
+            | "before-conversation"
+            | "during-conversation"
+            | "after-conversation-end"
+          source_workflow_id: string | null
+          created_by_user_id: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          account_id: string
+          name: string
+          definition?: Record<string, unknown> | null
+          action_type:
+            | "add-label"
+            | "add-to-campaign"
+            | "add-to-event"
+            | "send-message"
+            | "assign-agent"
+          trigger_type:
+            | "before-conversation"
+            | "during-conversation"
+            | "after-conversation-end"
+          source_workflow_id?: string | null
+          created_by_user_id: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          account_id?: string
+          name?: string
+          definition?: Record<string, unknown> | null
+          action_type?:
+            | "add-label"
+            | "add-to-campaign"
+            | "add-to-event"
+            | "send-message"
+            | "assign-agent"
+          trigger_type?:
+            | "before-conversation"
+            | "during-conversation"
+            | "after-conversation-end"
+          source_workflow_id?: string | null
+          created_by_user_id?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workflow_templates_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "workflow_templates_source_workflow_id_fkey"
+            columns: ["source_workflow_id"]
+            isOneToOne: false
+            referencedRelation: "workflows"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "workflow_templates_created_by_user_id_fkey"
+            columns: ["created_by_user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: Record<string, never>
     Functions: Record<string, never>
@@ -406,5 +588,19 @@ export type BroadcastCampaignRow =
   Database["public"]["Tables"]["broadcast_campaigns"]["Row"]
 
 export type BroadcastCampaignWithRelations = BroadcastCampaignRow & {
+  created_by: Pick<UserRow, "name" | "initials"> | null
+}
+
+export type WorkflowRow = Database["public"]["Tables"]["workflows"]["Row"]
+
+export type WorkflowWithRelations = WorkflowRow & {
+  created_by: Pick<UserRow, "name" | "initials"> | null
+  locked_by: Pick<UserRow, "name"> | null
+}
+
+export type WorkflowTemplateRow =
+  Database["public"]["Tables"]["workflow_templates"]["Row"]
+
+export type WorkflowTemplateWithRelations = WorkflowTemplateRow & {
   created_by: Pick<UserRow, "name" | "initials"> | null
 }

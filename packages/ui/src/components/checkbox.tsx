@@ -181,4 +181,5 @@ function CheckboxGroup({
   )
 }
 
-export { Checkbox, CheckboxGroup }
+// eslint-disable-next-line react-refresh/only-export-components -- cva styles are intentionally exported from this module.
+export { Checkbox, CheckboxGroup, asButtonCheckboxVariants }

@@ -166,6 +166,13 @@ export function buildBreadcrumbCrumbs(pathname: string): BreadcrumbCrumb[] {
     return buildConversationsBreadcrumbCrumbs(path, segments)
   }
 
+  if (parentSlug === "workflows" && segments.length >= 2 && isUuid(segments[1] ?? "")) {
+    return [
+      { label: "Workflows", path: "/workflows" },
+      { label: "Workflow", path },
+    ]
+  }
+
   const navGroup = findNavGroupByParentSlug(parentSlug)
   if (!navGroup?.items?.length) {
     const leaf = navItems.find((item) => toSlug(item.label) === parentSlug)

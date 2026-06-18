@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom"
 import { formsRepository } from "../data/repositories/formsRepository"
 import { paymentItemsRepository } from "../data/repositories/paymentItemsRepository"
 import { broadcastCampaignsRepository } from "../data/repositories/broadcastCampaignsRepository"
+import { workflowsRepository } from "../data/repositories/workflowsRepository"
 import { isSupabaseConfigured } from "./supabase/env"
 import { getTabLabelForPath } from "./tabbed-sections"
 import { labelForPath } from "./use-page-breadcrumbs"
@@ -68,6 +69,10 @@ const EXACT_PAGE_TITLES: Record<string, string> = {
   "/portal/student-portals": "Student portal",
   "/portal/tasks-and-objectives": "Tasks and objectives",
   "/integrations": "Integrations",
+  "/workflows": "Workflows",
+  "/workflows/templates": "Templates",
+  "/workflows/templates/new": "New template",
+  "/workflows/new": "New workflow",
   "/data-and-reporting": "Data and reporting",
   "/settings/user-groups": "User groups",
   "/settings/devices": "Devices",
@@ -116,6 +121,7 @@ export function getPageTitle(
   pathname: string,
   formName?: string,
   campaignName?: string,
+  workflowName?: string,
 ) {
   const path = pathname.split("?")[0].split("#")[0]
 
@@ -127,6 +133,26 @@ export function getPageTitle(
   if (campaignName) {
     const campaignTitle = getCampaignRouteTitle(path, campaignName)
     if (campaignTitle) return campaignTitle
+  }
+
+  if (workflowName) {
+    const workflowMatch = path.match(/^\/workflows\/([^/]+)$/)
+    if (
+      workflowMatch?.[1] &&
+      workflowMatch[1] !== "new" &&
+      workflowMatch[1] !== "templates"
+    ) {
+      return workflowName
+    }
+  }
+
+  const workflowDetailMatch = path.match(/^\/workflows\/([^/]+)$/)
+  if (
+    workflowDetailMatch?.[1] &&
+    workflowDetailMatch[1] !== "new" &&
+    workflowDetailMatch[1] !== "templates"
+  ) {
+    return "Workflow"
   }
 
   const campaignDetailMatch = path.match(
@@ -221,6 +247,26 @@ export function usePageDocumentTitle() {
             )
           if (!cancelled && campaign) {
             document.title = `${getPageTitle(pathname, undefined, campaign.name)} | Gecko`
+            return
+          }
+        } catch {
+          // Fall back to a generic title below.
+        }
+      }
+
+      const workflowMatch = path.match(/^\/workflows\/([^/]+)$/)
+      if (
+        workflowMatch?.[1] &&
+        workflowMatch[1] !== "new" &&
+        workflowMatch[1] !== "templates" &&
+        isSupabaseConfigured()
+      ) {
+        try {
+          const workflow = await workflowsRepository.getWorkflowById(
+            workflowMatch[1],
+          )
+          if (!cancelled && workflow) {
+            document.title = `${getPageTitle(pathname, undefined, undefined, workflow.name)} | Gecko`
             return
           }
         } catch {

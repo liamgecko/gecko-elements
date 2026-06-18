@@ -99,6 +99,13 @@ import OrganisationsOrganisationFieldsPage from "./pages/organisations/organisat
 import PortalStudentPortalsPage from "./pages/portal/student-portals"
 import PortalTasksAndObjectivesPage from "./pages/portal/tasks-and-objectives"
 import IntegrationsPage from "./pages/integrations"
+import WorkflowsPage from "./pages/workflows"
+import WorkflowsLayout from "./pages/workflows/workflows-layout"
+import WorkflowTemplatesPage from "./pages/workflows/templates"
+import WorkflowTemplateNewPage from "./pages/workflows/templates/new"
+import WorkflowTemplateEditPage from "./pages/workflows/templates/edit"
+import WorkflowNewPage from "./pages/workflows/new"
+import WorkflowEditPage from "./pages/workflows/edit"
 import DashboardsPage from "./pages/dashboards"
 import SettingsAccountSettingsLayout from "./pages/settings/account-settings-layout"
 import SettingsAccountSettingsBasicDetailsPage from "./pages/settings/account-settings/basic-details"
@@ -287,6 +294,17 @@ export default function App() {
         <Route path="/portal/student-portals" element={<PortalStudentPortalsPage />} />
         <Route path="/portal/tasks-and-objectives" element={<PortalTasksAndObjectivesPage />} />
         <Route path="/integrations" element={<IntegrationsPage />} />
+        <Route path="/workflows" element={<WorkflowsLayout />}>
+          <Route index element={<WorkflowsPage />} />
+          <Route path="templates" element={<WorkflowTemplatesPage />} />
+        </Route>
+        <Route path="/workflows/new" element={<WorkflowNewPage />} />
+        <Route path="/workflows/templates/new" element={<WorkflowTemplateNewPage />} />
+        <Route
+          path="/workflows/templates/:templateId"
+          element={<WorkflowTemplateEditPage />}
+        />
+        <Route path="/workflows/:workflowId" element={<WorkflowEditPage />} />
         <Route path="/data-and-reporting" element={<DashboardsPage />} />
         <Route path="/dashboards" element={<Navigate to="/data-and-reporting" replace />} />
         <Route
