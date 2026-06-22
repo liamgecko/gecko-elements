@@ -53,6 +53,7 @@
     "./lib/*": "./src/lib/*.ts",
     "./hooks/*": "./src/hooks/*.ts",
     "./components/reply-box": "./src/components/reply-box/index.ts",
+    "./components/data-table": "./src/components/data-table/index.ts",
     "./components/*/*.ts": "./src/components/*/*.ts",
     "./components/*/*": "./src/components/*/*.tsx",
     "./components/*": "./src/components/*.tsx"

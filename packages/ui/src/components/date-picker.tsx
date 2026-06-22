@@ -7,6 +7,7 @@ import type { DateRange, Matcher } from "react-day-picker"
 import { CalendarIcon } from "lucide-react"
 
 import { cn } from "@gecko/ui/lib/utils"
+import { useControllableState } from "@gecko/ui/hooks/use-controllable-state"
 import { Button } from "@gecko/ui/components/button"
 import { Calendar } from "@gecko/ui/components/calendar"
 import { Field, FieldLabel } from "@gecko/ui/components/field"
@@ -244,26 +245,6 @@ function applyTimeStringToDay(day: Date, timeStr: string): Date | undefined {
   return out
 }
 
-function useControllableOpen(
-  openProp: boolean | undefined,
-  defaultOpen: boolean | undefined,
-  onOpenChange: ((open: boolean) => void) | undefined
-) {
-  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(
-    defaultOpen ?? false
-  )
-  const isControlled = openProp !== undefined
-  const open = isControlled ? openProp : uncontrolledOpen
-  const setOpen = React.useCallback(
-    (next: boolean) => {
-      if (!isControlled) setUncontrolledOpen(next)
-      onOpenChange?.(next)
-    },
-    [isControlled, onOpenChange]
-  )
-  return [open, setOpen] as const
-}
-
 function DatePicker(props: DatePickerProps) {
   const generatedId = React.useId()
   const {
@@ -332,11 +313,11 @@ function DatePicker(props: DatePickerProps) {
       ? "dropdown"
       : captionLayout
 
-  const [open, setOpen] = useControllableOpen(
-    openProp,
-    defaultOpen,
-    onOpenChange
-  )
+  const [open, setOpen] = useControllableState({
+    value: openProp,
+    defaultValue: defaultOpen ?? false,
+    onChange: onOpenChange,
+  })
 
   const closeOnSelect =
     closeOnSelectProp ?? (mode === "single" ? true : false)

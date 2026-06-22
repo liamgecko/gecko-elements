@@ -31,6 +31,34 @@ function mapToColumnFilters(
     })
 }
 
+function mapFromColumnFilters(columnFilters: ColumnFiltersState): {
+  values: Record<string, string[]>
+  operators: Record<string, FilterOperator>
+} {
+  const values: Record<string, string[]> = {}
+  const operators: Record<string, FilterOperator> = {}
+
+  for (const filter of columnFilters) {
+    const raw = filter.value
+    if (Array.isArray(raw)) {
+      if (raw.length > 0) {
+        values[filter.id] = raw
+        operators[filter.id] = raw.length >= 2 ? "is any of" : "is"
+      }
+      continue
+    }
+    if (raw && typeof raw === "object" && "values" in raw) {
+      const typed = raw as DataTableMultiSelectFilterValue
+      if ((typed.values?.length ?? 0) > 0) {
+        values[filter.id] = typed.values
+        operators[filter.id] = typed.operator
+      }
+    }
+  }
+
+  return { values, operators }
+}
+
 export type DataTableFiltersProps = Omit<FilterProps, "categories" | "onChange"> & {
   categories: FilterCategory[]
 }
@@ -55,11 +83,19 @@ export function DataTableFilters({
     [table]
   )
 
+  const columnFilters = table.getState().columnFilters
+  const { values: defaultValues, operators: defaultOperators } = React.useMemo(
+    () => mapFromColumnFilters(columnFilters),
+    [columnFilters, filterUiResetKey]
+  )
+
   return (
     <Filter
       key={filterUiResetKey}
       categories={categories}
       className={cn(className)}
+      defaultValues={defaultValues}
+      defaultOperators={defaultOperators}
       onChange={handleChange}
       {...props}
     />

@@ -59,6 +59,7 @@ import {
 } from "./data-table-columns"
 import type { DataTableFiltersProps } from "./data-table-filters"
 import type { DataTablePaginationProps } from "./data-table-pagination"
+import { DATA_TABLE_PAGE_SIZE_OPTIONS } from "./data-table-pagination"
 import type { DataTableSearchProps } from "./data-table-search"
 import { DataTableColumnToggle } from "./data-table-column-toggle"
 import { DataTableFilters } from "./data-table-filters"
@@ -102,8 +103,6 @@ export type DataTableProviderProps<TData> = {
   globalFilter?: boolean
   getRowId?: (originalRow: TData, index: number) => string
   initialState?: InitialTableState
-  /** @default 10 */
-  pageSize?: number
   /**
    * Per-row ⋯ menu: pass a shared `DataTableRowAction[]`, or `true` with `getRowActions` /
    * each row’s `actionsKey`. Omit or `false` to disable.
@@ -148,6 +147,23 @@ export type DataTableProps<TData> = Omit<DataTableProviderProps<TData>, "childre
   pagination?: boolean | DataTablePaginationProps
 }
 
+const EMPTY_SELECT_ACTIONS: DataTableRowAction[] = []
+
+const DEFAULT_PAGE_SIZE = DATA_TABLE_PAGE_SIZE_OPTIONS[0]
+
+function resolveInitialPageSize(
+  initialState: InitialTableState | undefined
+): number {
+  const requested = initialState?.pagination?.pageSize
+  if (
+    requested != null &&
+    (DATA_TABLE_PAGE_SIZE_OPTIONS as readonly number[]).includes(requested)
+  ) {
+    return requested
+  }
+  return DEFAULT_PAGE_SIZE
+}
+
 function DataTableProvider<TData>({
   columns,
   data,
@@ -163,10 +179,9 @@ function DataTableProvider<TData>({
   onSelectAction,
   getRowId,
   initialState,
-  pageSize = 10,
   expandable,
 }: DataTableProviderProps<TData>) {
-  const selectActions = enableSelectActionsProp ?? []
+  const selectActions = enableSelectActionsProp ?? EMPTY_SELECT_ACTIONS
 
   const sharedRowActions = Array.isArray(enableActions)
     ? enableActions
@@ -221,7 +236,7 @@ function DataTableProvider<TData>({
   )
   const [pagination, setPagination] = React.useState<PaginationState>(() => ({
     pageIndex: initialState?.pagination?.pageIndex ?? 0,
-    pageSize: initialState?.pagination?.pageSize ?? pageSize,
+    pageSize: resolveInitialPageSize(initialState),
   }))
 
   const [filterUiResetKey, setFilterUiResetKey] = React.useState(0)
@@ -402,18 +417,27 @@ function DataTableContent<TData>({ className }: { className?: string }) {
                         <EmptyTitle>No results found</EmptyTitle>
                         <EmptyDescription>{description}</EmptyDescription>
                       </div>
-                      {hasFilters ? (
+                      {hasSearch || hasFilters ? (
                         <div className="flex items-center justify-center">
                           <Button
                             type="button"
                             variant="outline"
                             size="sm"
                             onClick={() => {
-                              table.resetColumnFilters()
-                              resetFilterUi()
+                              if (hasSearch) {
+                                table.setGlobalFilter("")
+                              }
+                              if (hasFilters) {
+                                table.resetColumnFilters()
+                                resetFilterUi()
+                              }
                             }}
                           >
-                            Clear filters
+                            {hasSearch && hasFilters
+                              ? "Clear search and filters"
+                              : hasSearch
+                                ? "Clear search"
+                                : "Clear filters"}
                           </Button>
                         </div>
                       ) : null}

@@ -4,6 +4,7 @@ import * as React from "react"
 import { Eye, EyeOff } from "lucide-react"
 
 import { cn } from "@gecko/ui/lib/utils"
+import { useControllableState } from "@gecko/ui/hooks/use-controllable-state"
 import {
   InputGroup,
   InputGroupAddon,
@@ -66,18 +67,11 @@ const SensitiveField = React.forwardRef<HTMLInputElement, SensitiveFieldProps>(
       [ref]
     )
 
-    const isControlledVisible = visibleProp !== undefined
-    const [visibleUncontrolled, setVisibleUncontrolled] =
-      React.useState(defaultVisible)
-    const visible = isControlledVisible ? visibleProp : visibleUncontrolled
-
-    const setVisible = React.useCallback(
-      (next: boolean) => {
-        if (!isControlledVisible) setVisibleUncontrolled(next)
-        onVisibleChange?.(next)
-      },
-      [isControlledVisible, onVisibleChange]
-    )
+    const [visible, setVisible] = useControllableState({
+      value: visibleProp,
+      defaultValue: defaultVisible,
+      onChange: onVisibleChange,
+    })
 
     const handleChange = React.useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {

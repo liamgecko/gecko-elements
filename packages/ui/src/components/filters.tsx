@@ -3,7 +3,7 @@
 import * as React from "react"
 import {
   ArrowDownWideNarrow,
-  icons,
+  Funnel,
   ListFilterPlus,
   X,
   type LucideIcon,
@@ -29,6 +29,15 @@ import { Calendar } from "@gecko/ui/components/calendar"
 import { Separator } from "@gecko/ui/components/separator"
 import { cn } from "@gecko/ui/lib/utils"
 import type { DateRange } from "react-day-picker"
+
+const FILTER_TRIGGER_ICONS = {
+  funnel: Funnel,
+  Funnel,
+  "arrow-down-wide-narrow": ArrowDownWideNarrow,
+  ArrowDownWideNarrow,
+  "list-filter-plus": ListFilterPlus,
+  ListFilterPlus,
+} as const satisfies Record<string, LucideIcon>
 
 export type FilterOption = {
   value: string
@@ -69,7 +78,7 @@ export type FilterProps = Omit<React.ComponentProps<"div">, "onChange"> & {
   triggerLabel?: string
   /** Default renders icon + label; icon renders an icon-only trigger. */
   trigger?: "default" | "icon"
-  /** Any lucide icon name (e.g. \"funnel\", \"Funnel\", \"FunnelPlus\"). */
+  /** Lucide icon component or a curated string alias (e.g. `"funnel"`). */
   triggerIcon?: string | LucideIcon
   /**
    * Called when selected values or per-category operators change.
@@ -79,6 +88,10 @@ export type FilterProps = Omit<React.ComponentProps<"div">, "onChange"> & {
     values: Record<string, string[]>,
     operators: Record<string, FilterOperator>
   ) => void
+  /** Initial selected values (uncontrolled). */
+  defaultValues?: Record<string, string[]>
+  /** Initial per-category operators (uncontrolled). */
+  defaultOperators?: Record<string, FilterOperator>
   /** Default shows active filter chips; condensed shows a counter on the trigger. */
   variant?: "default" | "condensed"
 }
@@ -112,11 +125,9 @@ function toPascalCase(input: string) {
     .join("")
 }
 
-function resolveLucideIcon(icon: unknown) {
+function resolveLucideIcon(icon: unknown): LucideIcon {
   if (!icon) return ListFilterPlus
 
-  // lucide-react icons are React components; depending on build they can be
-  // functions or forwardRef objects.
   if (typeof icon === "function" || typeof icon === "object") {
     return icon as LucideIcon
   }
@@ -124,14 +135,90 @@ function resolveLucideIcon(icon: unknown) {
   if (typeof icon !== "string") return ListFilterPlus
 
   const raw = icon.trim()
-  const direct = icons[raw as keyof typeof icons]
+  const direct = FILTER_TRIGGER_ICONS[raw as keyof typeof FILTER_TRIGGER_ICONS]
   if (direct) return direct
 
   const pascal = toPascalCase(raw)
-  const resolved = icons[pascal as keyof typeof icons]
+  const resolved = FILTER_TRIGGER_ICONS[pascal as keyof typeof FILTER_TRIGGER_ICONS]
   if (resolved) return resolved
 
   return ListFilterPlus
+}
+
+type FilterUiState = {
+  values: Record<string, string[]>
+  operators: Record<string, FilterOperator>
+  selectionOrder: string[]
+}
+
+function initialSelectionOrder(values: Record<string, string[]>) {
+  return Object.entries(values)
+    .filter(([, selected]) => (selected?.length ?? 0) > 0)
+    .map(([id]) => id)
+}
+
+function applyUpdateCategory(
+  state: FilterUiState,
+  categoryId: string,
+  updater: (current: string[]) => string[]
+): FilterUiState {
+  const current = state.values[categoryId] ?? []
+  const next = updater(current)
+  const nextValues = { ...state.values, [categoryId]: next }
+  let nextOperators = { ...state.operators }
+  let nextOrder = state.selectionOrder
+
+  const wasEmpty = current.length === 0
+  const isEmpty = next.length === 0
+
+  if (wasEmpty && !isEmpty) {
+    nextOrder = nextOrder.includes(categoryId)
+      ? nextOrder
+      : [...nextOrder, categoryId]
+    if (nextOperators[categoryId] == null) {
+      nextOperators = { ...nextOperators, [categoryId]: "is" }
+    }
+  }
+
+  if (!wasEmpty && isEmpty) {
+    nextOrder = nextOrder.filter((id) => id !== categoryId)
+    nextOperators = { ...nextOperators }
+    delete nextOperators[categoryId]
+  }
+
+  if (next.length < 2 && nextOperators[categoryId] === "is any of") {
+    nextOperators = { ...nextOperators, [categoryId]: "is" }
+  }
+
+  return {
+    values: nextValues,
+    operators: nextOperators,
+    selectionOrder: nextOrder,
+  }
+}
+
+function applySetOperator(
+  state: FilterUiState,
+  categoryId: string,
+  operator: FilterOperator
+): FilterUiState {
+  return {
+    ...state,
+    operators: { ...state.operators, [categoryId]: operator },
+  }
+}
+
+function applyClearCategory(
+  state: FilterUiState,
+  categoryId: string
+): FilterUiState {
+  const nextOperators = { ...state.operators }
+  delete nextOperators[categoryId]
+  return {
+    values: { ...state.values, [categoryId]: [] },
+    operators: nextOperators,
+    selectionOrder: state.selectionOrder.filter((id) => id !== categoryId),
+  }
 }
 
 export function Filter({
@@ -141,18 +228,34 @@ export function Filter({
   trigger = "default",
   triggerIcon,
   onChange,
+  defaultValues,
+  defaultOperators,
   variant = "default",
   ...props
 }: FilterProps) {
-  const [values, setValues] = React.useState<Record<string, string[]>>({})
-  const [operators, setOperators] = React.useState<Record<string, FilterOperator>>(
-    {}
-  )
-  const [selectionOrder, setSelectionOrder] = React.useState<string[]>([])
-
+  const onChangeRef = React.useRef(onChange)
   React.useEffect(() => {
-    onChange?.(values, operators)
-  }, [values, operators, onChange])
+    onChangeRef.current = onChange
+  }, [onChange])
+
+  const [state, setState] = React.useState<FilterUiState>(() => ({
+    values: defaultValues ?? {},
+    operators: defaultOperators ?? {},
+    selectionOrder: initialSelectionOrder(defaultValues ?? {}),
+  }))
+
+  const { values, operators, selectionOrder } = state
+
+  const commitState = React.useCallback(
+    (updater: (prev: FilterUiState) => FilterUiState) => {
+      setState((prev) => {
+        const next = updater(prev)
+        onChangeRef.current?.(next.values, next.operators)
+        return next
+      })
+    },
+    []
+  )
 
   const categoriesById = React.useMemo(() => {
     const map = new Map<string, FilterCategory>()
@@ -162,64 +265,23 @@ export function Filter({
 
   const updateCategory = React.useCallback(
     (categoryId: string, updater: (current: string[]) => string[]) => {
-      setValues((prev) => {
-        const current = prev[categoryId] ?? []
-        const next = updater(current)
-        const nextValues = { ...prev, [categoryId]: next }
-
-        const wasEmpty = current.length === 0
-        const isEmpty = next.length === 0
-
-        if (wasEmpty && !isEmpty) {
-          setSelectionOrder((order) =>
-            order.includes(categoryId) ? order : [...order, categoryId]
-          )
-          setOperators((ops) =>
-            ops[categoryId] == null ? { ...ops, [categoryId]: "is" } : ops
-          )
-        }
-
-        if (!wasEmpty && isEmpty) {
-          setSelectionOrder((order) => order.filter((id) => id !== categoryId))
-          setOperators((ops) => {
-            const nextOps = { ...ops }
-            delete nextOps[categoryId]
-            return nextOps
-          })
-        }
-
-        if (next.length < 2) {
-          setOperators((ops) =>
-            ops[categoryId] === "is any of"
-              ? { ...ops, [categoryId]: "is" }
-              : ops
-          )
-        }
-
-        return nextValues
-      })
+      commitState((prev) => applyUpdateCategory(prev, categoryId, updater))
     },
-    []
+    [commitState]
   )
 
-  const setOperator = React.useCallback((categoryId: string, next: FilterOperator) => {
-    setOperators((prev) => ({ ...prev, [categoryId]: next }))
-  }, [])
+  const setOperator = React.useCallback(
+    (categoryId: string, next: FilterOperator) => {
+      commitState((prev) => applySetOperator(prev, categoryId, next))
+    },
+    [commitState]
+  )
 
   const clearCategory = React.useCallback(
     (categoryId: string) => {
-      setValues((prev) => {
-        const nextValues = { ...prev, [categoryId]: [] }
-        return nextValues
-      })
-      setOperators((prev) => {
-        const next = { ...prev }
-        delete next[categoryId]
-        return next
-      })
-      setSelectionOrder((prev) => prev.filter((id) => id !== categoryId))
+      commitState((prev) => applyClearCategory(prev, categoryId))
     },
-    []
+    [commitState]
   )
 
   const activeCategoryIds = React.useMemo(() => {
@@ -650,12 +712,18 @@ export function DateRangeFilter({
   )
 
   // Sync controlled `value` into customRange when parent controls the filter.
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- mirror controlled value into local calendar state
   React.useEffect(() => {
     if (value?.from && value?.to) {
       setCustomRange(value)
       setCalendarMonth(value.from)
+      return
     }
-  }, [value?.from, value?.to])
+
+    setCustomRange(undefined)
+    setSelectedPresetId(null)
+    setCalendarMonth(new Date())
+  }, [value])
 
   const nowForPresetRanges = React.useMemo(() => new Date(), [])
 

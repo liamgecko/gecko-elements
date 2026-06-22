@@ -72,7 +72,7 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/alert",
   },
   {
-    name: "Alert Dialog",
+    name: "Alert dialog",
     description: "Confirm high‑impact actions with a blocking dialog.",
     path: "/components/alert-dialog",
   },
@@ -82,7 +82,7 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/avatar",
   },
   {
-    name: "Avatar Group",
+    name: "Avatar group",
     description: "Stack multiple avatars with optional overflow count.",
     path: "/components/avatar-group",
   },
@@ -112,9 +112,34 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/card",
   },
   {
+    name: "Charts",
+    description: "Chart layouts for data visualisation.",
+    path: "/components/charts",
+  },
+  {
+    name: "Chat bubble",
+    description: "Message bubbles for chat interfaces.",
+    path: "/components/chat-bubble",
+  },
+  {
+    name: "Chat head",
+    description: "Floating chat head entry points for messaging.",
+    path: "/components/chat-head",
+  },
+  {
     name: "Checkbox",
     description: "Single or multiple binary options.",
     path: "/components/checkbox",
+  },
+  {
+    name: "Code snippet",
+    description: "Code blocks with copy-to-clipboard.",
+    path: "/components/code-snippet",
+  },
+  {
+    name: "Color picker",
+    description: "Pickers for selecting and previewing colors.",
+    path: "/components/color-picker",
   },
   {
     name: "Combobox",
@@ -127,17 +152,27 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/command",
   },
   {
-    name: "Context Menu",
+    name: "Context menu",
     description: "Menu triggered by right‑click or long‑press.",
     path: "/components/context-menu",
   },
   {
-    name: "Date Input",
+    name: "Counter",
+    description: "Numeric counters and steppers.",
+    path: "/components/counter",
+  },
+  {
+    name: "Data table",
+    description: "Advanced table patterns for rich data grids.",
+    path: "/components/data-table",
+  },
+  {
+    name: "Date input",
     description: "Three segment date entry (DD MM YY or MM DD).",
     path: "/components/date-input",
   },
   {
-    name: "Date Picker",
+    name: "Date picker",
     description: "Pick a single date or a date range.",
     path: "/components/date-picker",
   },
@@ -152,7 +187,17 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/direction",
   },
   {
-    name: "Dropdown Menu",
+    name: "Drag and drop",
+    description: "Sortable lists and draggable UI patterns.",
+    path: "/components/drag-and-drop",
+  },
+  {
+    name: "Drop zone",
+    description: "Drop areas for drag-and-drop file uploads.",
+    path: "/components/drop-zone",
+  },
+  {
+    name: "Dropdown menu",
     description: "Menu triggered from a button or icon.",
     path: "/components/dropdown-menu",
   },
@@ -165,6 +210,16 @@ export const componentPages: readonly GalleryItem[] = [
     name: "Field",
     description: "Field wrapper for labels, descriptions, and errors.",
     path: "/components/field",
+  },
+  {
+    name: "File input",
+    description: "File upload fields with states.",
+    path: "/components/file-input",
+  },
+  {
+    name: "File tree",
+    description: "File/folder navigation with nesting and icons.",
+    path: "/components/file-tree",
   },
   {
     name: "Filters",
@@ -197,7 +252,12 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/label",
   },
   {
-    name: "Native Select",
+    name: "Metric card",
+    description: "KPI and metric cards for dashboards.",
+    path: "/components/metric-card",
+  },
+  {
+    name: "Native select",
     description: "System select element with design system styling.",
     path: "/components/native-select",
   },
@@ -222,19 +282,34 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/progress",
   },
   {
-    name: "Radio Group",
+    name: "Radio group",
     description: "Choose exactly one option from a list.",
     path: "/components/radio-group",
   },
   {
-    name: "Scroll Area",
+    name: "Reply box",
+    description: "Reply composer for chat and comment threads.",
+    path: "/components/reply-box",
+  },
+  {
+    name: "Scroll area",
     description: "Custom scrollable container for overflow content.",
     path: "/components/scroll-area",
+  },
+  {
+    name: "Search field",
+    description: "Search fields with affordances and patterns.",
+    path: "/components/search-input",
   },
   {
     name: "Select",
     description: "Custom select with rich content.",
     path: "/components/select",
+  },
+  {
+    name: "Sensitive field",
+    description: "Masked inputs with read-only and edit modes.",
+    path: "/components/sensitive-field",
   },
   {
     name: "Separator",
@@ -250,11 +325,6 @@ export const componentPages: readonly GalleryItem[] = [
     name: "Sidebar",
     description: "App navigation sidebar with collapsed and expanded modes.",
     path: "/components/sidebar",
-  },
-  {
-    name: "Toast",
-    description: "Toast notifications for ephemeral feedback.",
-    path: "/components/toast",
   },
   {
     name: "Spinner",
@@ -277,9 +347,19 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/tabs",
   },
   {
+    name: "Telephone field",
+    description: "Inputs for international phone numbers.",
+    path: "/components/telephone-field",
+  },
+  {
     name: "Textarea",
     description: "Multi‑line text input.",
     path: "/components/textarea",
+  },
+  {
+    name: "Toast",
+    description: "Toast notifications for ephemeral feedback.",
+    path: "/components/toast",
   },
   {
     name: "Tooltip",
@@ -287,88 +367,8 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/tooltip",
   },
   {
-    name: "Chat bubble",
-    description: "Message bubbles for chat interfaces.",
-    path: "/components/chat-bubble",
-  },
-  {
-    name: "Chat head",
-    description: "Floating chat head entry points for messaging.",
-    path: "/components/chat-head",
-  },
-  {
-    name: "Color picker",
-    description: "Pickers for selecting and previewing colors.",
-    path: "/components/color-picker",
-  },
-  {
-    name: "Data table",
-    description: "Advanced table patterns for rich data grids.",
-    path: "/components/data-table",
-  },
-  {
-    name: "Reply box",
-    description: "Reply composer for chat and comment threads.",
-    path: "/components/reply-box",
-  },
-  {
     name: "Typing indicator",
     description: "Indicators that show when someone is typing.",
     path: "/components/typing-indicator",
-  },
-  {
-    name: "Metric card",
-    description: "KPI and metric cards for dashboards.",
-    path: "/components/metric-card",
-  },
-  {
-    name: "Charts",
-    description: "Chart layouts for data visualisation.",
-    path: "/components/charts",
-  },
-  {
-    name: "Telephone field",
-    description: "Inputs for international phone numbers.",
-    path: "/components/telephone-field",
-  },
-  {
-    name: "Search field",
-    description: "Search fields with affordances and patterns.",
-    path: "/components/search-input",
-  },
-  {
-    name: "Sensitive field",
-    description: "Masked inputs with read-only and edit modes.",
-    path: "/components/sensitive-field",
-  },
-  {
-    name: "File input",
-    description: "File upload fields with states.",
-    path: "/components/file-input",
-  },
-  {
-    name: "File tree",
-    description: "File/folder navigation with nesting and icons.",
-    path: "/components/file-tree",
-  },
-  {
-    name: "Drop zone",
-    description: "Drop areas for drag-and-drop file uploads.",
-    path: "/components/drop-zone",
-  },
-  {
-    name: "Drag and drop",
-    description: "Sortable lists and draggable UI patterns.",
-    path: "/components/drag-and-drop",
-  },
-  {
-    name: "Counter",
-    description: "Numeric counters and steppers.",
-    path: "/components/counter",
-  },
-  {
-    name: "Code snippet",
-    description: "Code blocks with copy-to-clipboard.",
-    path: "/components/code-snippet",
-  },
+  }
 ] as const

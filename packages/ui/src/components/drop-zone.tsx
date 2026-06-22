@@ -4,6 +4,7 @@ import * as React from "react"
 import { CloudUpload, Trash2 } from "lucide-react"
 
 import { cn } from "@gecko/ui/lib/utils"
+import { useControllableState } from "@gecko/ui/hooks/use-controllable-state"
 import { Button } from "@gecko/ui/components/button"
 import { Input } from "@gecko/ui/components/input"
 
@@ -14,6 +15,32 @@ const DEFAULT_DESCRIPTION = "Or click to browse"
 const DEFAULT_INVALID_LABEL = "This file couldn't be added."
 const DEFAULT_INVALID_DESCRIPTION =
   "Check the file type and size, then try again."
+
+function fileMatchesAccept(file: File, accept: string | undefined): boolean {
+  if (!accept?.trim()) return true
+
+  const tokens = accept
+    .split(",")
+    .map((token) => token.trim().toLowerCase())
+    .filter(Boolean)
+  const name = file.name.toLowerCase()
+  const type = (file.type || "").toLowerCase()
+
+  return tokens.some((token) => {
+    if (token.startsWith(".")) {
+      return name.endsWith(token)
+    }
+    if (token.endsWith("/*")) {
+      const prefix = token.slice(0, -1)
+      return type.startsWith(prefix)
+    }
+    return type === token
+  })
+}
+
+function filterFilesByAccept(files: File[], accept: string | undefined): File[] {
+  return files.filter((file) => fileMatchesAccept(file, accept))
+}
 
 function formatBytes(bytes: number) {
   if (!Number.isFinite(bytes) || bytes <= 0) return "0 B"
@@ -79,23 +106,15 @@ export function DropZone({
     ? (invalidDescription ?? DEFAULT_INVALID_DESCRIPTION)
     : description
 
-  const isControlled = value !== undefined
-  const [internalFiles, setInternalFiles] = React.useState<File[]>(
-    defaultValue ?? []
-  )
-  const files = isControlled ? value ?? [] : internalFiles
+  const [files, setFiles] = useControllableState<File[]>({
+    value,
+    defaultValue: defaultValue ?? [],
+    onChange: onValueChange,
+  })
 
   const inputRef = React.useRef<HTMLInputElement | null>(null)
   const dragCounterRef = React.useRef(0)
   const [isDragging, setIsDragging] = React.useState(false)
-
-  const setFiles = React.useCallback(
-    (next: File[]) => {
-      if (!isControlled) setInternalFiles(next)
-      onValueChange?.(next)
-    },
-    [isControlled, onValueChange]
-  )
 
   const openPicker = React.useCallback(() => {
     if (disabled) return
@@ -104,10 +123,12 @@ export function DropZone({
 
   const addFiles = React.useCallback(
     (incoming: File[]) => {
-      const next = multiple ? [...files, ...incoming] : incoming.slice(0, 1)
+      const accepted = filterFilesByAccept(incoming, accept)
+      if (!accepted.length) return
+      const next = multiple ? [...files, ...accepted] : accepted.slice(0, 1)
       setFiles(next)
     },
-    [files, multiple, setFiles]
+    [accept, files, multiple, setFiles]
   )
 
   const handleDragEnter = React.useCallback(

@@ -4,6 +4,7 @@ import type { LucideIcon } from "lucide-react"
 import * as React from "react"
 
 import { cn } from "@gecko/ui/lib/utils"
+import { useControllableState } from "@gecko/ui/hooks/use-controllable-state"
 import type {
   ReplyBoxActionId,
   ReplyBoxChannel,
@@ -14,32 +15,6 @@ import type {
 import { ReplyBoxContext } from "./reply-box-context"
 
 export type ReplyBoxVariant = "chat" | "textarea" | "basic"
-
-type ControllableStateOptions<T> = {
-  value?: T
-  defaultValue: T
-  onChange?: (value: T) => void
-}
-
-function useControllableState<T>({
-  value,
-  defaultValue,
-  onChange,
-}: ControllableStateOptions<T>) {
-  const [uncontrolled, setUncontrolled] = React.useState<T>(defaultValue)
-  const isControlled = value !== undefined
-  const resolved = isControlled ? (value as T) : uncontrolled
-  const setValue = React.useCallback(
-    (next: T | ((prev: T) => T)) => {
-      const computed =
-        typeof next === "function" ? (next as (prev: T) => T)(resolved) : next
-      if (!isControlled) setUncontrolled(computed)
-      onChange?.(computed)
-    },
-    [isControlled, onChange, resolved]
-  )
-  return [resolved, setValue] as const
-}
 
 export type ReplyBoxProps = React.ComponentProps<"div"> & {
   variant?: ReplyBoxVariant

@@ -1,8 +1,14 @@
 "use client"
 
 import * as React from "react"
-import * as RechartsPrimitive from "recharts"
-import type { TooltipValueType } from "recharts"
+import {
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  type DefaultLegendContentProps,
+  type DefaultTooltipContentProps,
+  type TooltipValueType,
+} from "recharts"
 
 import { cn } from "@gecko/ui/lib/utils"
 
@@ -49,7 +55,7 @@ function ChartContainer({
 }: React.ComponentProps<"div"> & {
   config: ChartConfig
   children: React.ComponentProps<
-    typeof RechartsPrimitive.ResponsiveContainer
+    typeof ResponsiveContainer
   >["children"]
   initialDimension?: {
     width: number
@@ -71,11 +77,11 @@ function ChartContainer({
         {...props}
       >
         <ChartStyle id={chartId} config={config} />
-        <RechartsPrimitive.ResponsiveContainer
+        <ResponsiveContainer
           initialDimension={initialDimension}
         >
           {children}
-        </RechartsPrimitive.ResponsiveContainer>
+        </ResponsiveContainer>
       </div>
     </ChartContext.Provider>
   )
@@ -114,7 +120,7 @@ ${colorConfig
   )
 }
 
-const ChartTooltip = RechartsPrimitive.Tooltip
+const ChartTooltip = Tooltip
 
 type ChartAxisTickProps = {
   x?: number | string
@@ -226,7 +232,7 @@ function ChartTooltipContent({
   color,
   nameKey,
   labelKey,
-}: React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
+}: React.ComponentProps<typeof Tooltip> &
   React.ComponentProps<"div"> & {
     hideLabel?: boolean
     hideIndicator?: boolean
@@ -234,7 +240,7 @@ function ChartTooltipContent({
     nameKey?: string
     labelKey?: string
   } & Omit<
-    RechartsPrimitive.DefaultTooltipContentProps<
+    DefaultTooltipContentProps<
       TooltipValueType,
       TooltipNameType
     >,
@@ -369,7 +375,7 @@ function ChartTooltipContent({
 }
 
 type ChartTooltipPayloadItem = NonNullable<
-  RechartsPrimitive.DefaultTooltipContentProps<
+  DefaultTooltipContentProps<
     TooltipValueType,
     TooltipNameType
   >["payload"]
@@ -482,7 +488,7 @@ function ChartTooltipGroupedContent({
   primaryTitle,
   compareTitle,
   isCompareSeries = (dataKey) => dataKey.startsWith("compare"),
-}: React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
+}: React.ComponentProps<typeof Tooltip> &
   React.ComponentProps<"div"> & {
     hideIndicator?: boolean
     indicator?: "line" | "dot" | "dashed"
@@ -491,7 +497,7 @@ function ChartTooltipGroupedContent({
     compareTitle: string
     isCompareSeries?: (dataKey: string) => boolean
   } & Omit<
-    RechartsPrimitive.DefaultTooltipContentProps<
+    DefaultTooltipContentProps<
       TooltipValueType,
       TooltipNameType
     >,
@@ -558,10 +564,10 @@ function ChartTooltipGroupedContent({
   )
 }
 
-const ChartLegend = RechartsPrimitive.Legend
+const ChartLegend = Legend
 
 type ChartLegendPayload = NonNullable<
-  RechartsPrimitive.DefaultLegendContentProps["payload"]
+  DefaultLegendContentProps["payload"]
 >
 
 type ChartLegendGroup = {
@@ -578,7 +584,7 @@ function ChartLegendContent({
 }: React.ComponentProps<"div"> & {
   hideIcon?: boolean
   nameKey?: string
-} & RechartsPrimitive.DefaultLegendContentProps) {
+} & DefaultLegendContentProps) {
   const { config } = useChart()
 
   if (!payload?.length) {

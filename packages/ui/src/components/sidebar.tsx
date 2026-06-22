@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { mergeProps } from "@base-ui/react/merge-props"
 import { useRender } from "@base-ui/react/use-render"
@@ -1126,6 +1128,7 @@ function SidebarMenuSubButton({
   })
 }
 
+// eslint-disable-next-line react-refresh/only-export-components -- sidebar hook is intentionally exported from this module.
 export {
   Sidebar,
   SidebarContent,

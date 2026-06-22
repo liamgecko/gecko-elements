@@ -20,17 +20,14 @@ import { cn } from "@gecko/ui/lib/utils"
 
 import { useDataTableContext } from "./data-table-context"
 
-const DEFAULT_PAGE_SIZES = [10, 25, 50] as const
+export const DATA_TABLE_PAGE_SIZE_OPTIONS = [10, 25, 50] as const
 
 export type DataTablePaginationProps = {
   className?: string
-  /** @default [10, 20, 30, 40, 50] */
-  pageSizeOptions?: readonly number[]
 }
 
 export function DataTablePagination({
   className,
-  pageSizeOptions = DEFAULT_PAGE_SIZES,
 }: DataTablePaginationProps) {
   const { table } = useDataTableContext<unknown>()
   const filteredRows = table.getFilteredRowModel().rows.length
@@ -65,7 +62,7 @@ export function DataTablePagination({
             </SelectTrigger>
             <SelectContent side="top">
               <SelectGroup>
-                {pageSizeOptions.map((size) => (
+                {DATA_TABLE_PAGE_SIZE_OPTIONS.map((size) => (
                   <SelectItem key={size} value={String(size)}>
                     {size}
                   </SelectItem>

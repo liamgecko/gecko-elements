@@ -775,7 +775,6 @@ export function DataTablePage() {
               data={demoEvents}
               sorting
               pagination
-              pageSize={8}
               rowSelection
               rowActions={demoRowActions}
               selectActions={demoSelectedActions}

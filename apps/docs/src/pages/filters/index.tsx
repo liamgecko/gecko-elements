@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Funnel } from "lucide-react"
 
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
@@ -201,7 +202,7 @@ export function FiltersPage() {
             Trigger icon
           </h3>
           <ComponentExample className="mb-8">
-            <Filter categories={filterCategories} triggerIcon="funnel" />
+            <Filter categories={filterCategories} triggerIcon={Funnel} />
           </ComponentExample>
 
           <h3 id="trigger-icon-only" className="mb-3 text-base font-semibold">
@@ -211,7 +212,7 @@ export function FiltersPage() {
             <Filter
               categories={filterCategories}
               trigger="icon"
-              triggerIcon="funnel"
+              triggerIcon={Funnel}
               triggerLabel="Filter"
               variant="condensed"
             />

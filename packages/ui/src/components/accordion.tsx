@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -155,6 +157,7 @@ function AccordionContent({
   )
 }
 
+// eslint-disable-next-line react-refresh/only-export-components -- cva variants are intentionally exported from this module.
 export {
   Accordion,
   AccordionContent,

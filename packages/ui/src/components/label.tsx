@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 
 import { cn } from "@gecko/ui/lib/utils"
@@ -12,6 +14,7 @@ function Label({
 
   React.useLayoutEffect(() => {
     if (!htmlFor) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- sync required marker from associated control
       setShowRequired(false)
       return
     }

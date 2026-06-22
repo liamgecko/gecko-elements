@@ -35,7 +35,7 @@ export function ReplyBoxContent({
   inputProps,
   className,
 }: ReplyBoxContentProps) {
-  const { variant, expanded, noteMode } = useReplyBox()
+  const { variant, expanded, noteMode, stopEnabled, onSend, onStop } = useReplyBox()
   const resolvedPlaceholder =
     placeholder ?? (noteMode ? "Type your note..." : "Type your message...")
 
@@ -45,6 +45,8 @@ export function ReplyBoxContent({
   if (variant === "basic") {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used for merge order
     const { className: _ignored, ...restInputProps } = inputProps ?? {}
+
+    const showStop = !noteMode && Boolean(stopEnabled && onStop)
 
     return (
       <div
@@ -120,7 +122,18 @@ export function ReplyBoxContent({
         ) : null}
 
         {showSend ? (
-          <Button type="button" size="icon-xs" aria-label="Send">
+          <Button
+            type="button"
+            size="icon-xs"
+            aria-label={noteMode ? "Add note" : showStop ? "Stop" : "Send"}
+            onClick={() => {
+              if (showStop) {
+                onStop?.()
+                return
+              }
+              onSend?.()
+            }}
+          >
             {noteMode ? (
               <CirclePlus className="size-4" aria-hidden />
             ) : (

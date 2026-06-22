@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import type { LucideIcon } from "lucide-react"
@@ -307,6 +309,7 @@ function ActivityFeed({ children, pagination, ...props }: ActivityFeedProps) {
 
   React.useEffect(() => {
     if (!shouldPaginate) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- clamp page when item count shrinks
     setPage((prev) => Math.min(prev, totalPages - 1))
   }, [shouldPaginate, totalPages])
 
@@ -385,6 +388,7 @@ function ActivityFeedItems({
 
   React.useEffect(() => {
     if (!shouldPaginate) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- clamp page when item count shrinks
     setPage((prev) => Math.min(prev, totalPages - 1))
   }, [shouldPaginate, totalPages])
 
