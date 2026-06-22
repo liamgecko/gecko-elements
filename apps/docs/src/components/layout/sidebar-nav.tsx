@@ -16,7 +16,7 @@ export function SidebarNav() {
   const navigate = useNavigate()
 
   const renderNavItems = (items: readonly SidebarNavItem[]) =>
-    items.map(({ to, label, todo }) => (
+    items.map(({ to, label, todo, custom }) => (
       <SidebarMenuItem key={to}>
         <SidebarMenuButton
           isActive={location.pathname === to}
@@ -24,13 +24,18 @@ export function SidebarNav() {
           aria-current={location.pathname === to ? "page" : undefined}
           onClick={() => navigate(to)}
         >
-          <span className="flex items-center gap-1.5">
-            <span>{label}</span>
-            {todo && (
-              <Badge variant="info" size="xs" rounded>
+          <span className="flex min-w-0 flex-1 items-center gap-1.5">
+            <span className="truncate">{label}</span>
+            {custom ? (
+              <Badge variant="secondary" bordered size="xs" rounded className="shrink-0">
+                Custom
+              </Badge>
+            ) : null}
+            {todo ? (
+              <Badge variant="info" size="xs" rounded className="shrink-0">
                 To do
               </Badge>
-            )}
+            ) : null}
           </span>
         </SidebarMenuButton>
       </SidebarMenuItem>

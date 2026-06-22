@@ -182,11 +182,6 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/dialog",
   },
   {
-    name: "Direction",
-    description: "Control layout direction for components.",
-    path: "/components/direction",
-  },
-  {
     name: "Drag and drop",
     description: "Sortable lists and draggable UI patterns.",
     path: "/components/drag-and-drop",
@@ -240,11 +235,6 @@ export const componentPages: readonly GalleryItem[] = [
     name: "Input OTP",
     description: "Multi‑field one‑time‑password entry.",
     path: "/components/input-otp",
-  },
-  {
-    name: "Kbd",
-    description: "Inline keyboard shortcuts and key labels.",
-    path: "/components/kbd",
   },
   {
     name: "Label",

@@ -1,9 +1,11 @@
 import { componentPages, corePages, structurePages } from "@/pages/gallery-data"
+import { isCustomComponentPath } from "@/config/custom-component-paths"
 
 export type SidebarNavItem = {
   to: string
   label: string
   todo?: boolean
+  custom?: boolean
 }
 
 export type SidebarNavGroup = {
@@ -18,13 +20,18 @@ export const sidebarNavGroups: readonly SidebarNavGroup[] = [
   },
   {
     label: "Structure",
-    items: structurePages.map((p) => ({ to: p.path, label: p.name })),
+    items: structurePages.map((p) => ({
+      to: p.path,
+      label: p.name,
+      custom: isCustomComponentPath(p.path),
+    })),
   },
   {
     label: "Components",
     items: componentPages.map((p) => ({
       to: p.path,
       label: p.name,
+      custom: isCustomComponentPath(p.path),
       // `componentPages` is used for the gallery cards too, but it doesn't currently
       // encode "todo" state. Keep the capability without duplicating the full list.
       todo: false,
