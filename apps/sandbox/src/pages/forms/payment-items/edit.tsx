@@ -55,14 +55,14 @@ export default function EditPaymentItemPage() {
   }
 
   if (loading) {
-    return <p className="text-sm text-muted-foreground">Loading payment item…</p>
+    return <p className="text-sm text-muted-foreground">Loading chargeable item…</p>
   }
 
   if (error) {
     return (
       <div className="w-full max-w-2xl space-y-4">
         <DataLoadErrorAlert
-          title="Could not load payment item"
+          title="Could not load chargeable item"
           message={error}
         />
       </div>
@@ -70,14 +70,14 @@ export default function EditPaymentItemPage() {
   }
 
   if (!paymentItem) {
-    return <Navigate to="/forms/payment-items" replace />
+    return <Navigate to="/forms/chargeable-items" replace />
   }
 
   return (
     <PaymentItemForm
       key={paymentItem.id}
-      title="Edit payment item"
-      submitLabel="Save payment item"
+      title="Edit chargeable item"
+      submitLabel="Save chargeable item"
       initialValues={toFormValues(paymentItem)}
       isSaving={isSaving}
       onSubmit={async (values) => {
@@ -93,11 +93,11 @@ export default function EditPaymentItemPage() {
             maxQuantity: values.maxQuantity,
             availableQuantity: values.availableQuantity,
           })
-          toast.success("Payment item updated successfully")
-          navigate("/forms/payment-items")
+          toast.success("Chargeable item updated successfully")
+          navigate("/forms/chargeable-items")
         } catch (err) {
           toast.error(
-            err instanceof Error ? err.message : "Failed to update payment item",
+            err instanceof Error ? err.message : "Failed to update chargeable item",
           )
         } finally {
           setIsSaving(false)

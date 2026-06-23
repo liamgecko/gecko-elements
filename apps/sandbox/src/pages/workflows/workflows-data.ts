@@ -543,6 +543,15 @@ export function createWorkflowFilterCategories(
 
   return [
     {
+      id: "enabled",
+      label: "Status",
+      searchable: false,
+      options: [
+        { value: "active", label: "Active" },
+        { value: "inactive", label: "Inactive" },
+      ],
+    },
+    {
       id: "lockStatus",
       label: "Lock status",
       searchable: false,
@@ -569,8 +578,6 @@ export function createWorkflowFilterCategories(
     },
   ]
 }
-
-export const hideInactiveWorkflowsLabel = "Hide inactive workflows"
 
 export const workflowHeaderMenuItems = [
   { id: "clone", label: "Clone workflow" },

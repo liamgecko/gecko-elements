@@ -7,7 +7,7 @@ export function mapPaymentItemRowToPaymentItem(
   const createdBy = row.created_by
 
   if (!createdBy) {
-    throw new Error(`Payment item ${row.id} is missing required relations`)
+    throw new Error(`Chargeable item ${row.id} is missing required relations`)
   }
 
   return {

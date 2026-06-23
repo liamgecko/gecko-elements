@@ -1,6 +1,6 @@
 # Supabase in the sandbox app
 
-The sandbox prototype uses Supabase as the source of truth for **forms**, **payment items**, **form payment settings**, **broadcast campaigns**, **workflows**, and **workflow templates**. Other areas still use local mock data.
+The sandbox prototype uses Supabase as the source of truth for **forms**, **chargeable items**, **form payment settings**, **broadcast campaigns**, **workflows**, and **workflow templates**. Other areas still use local mock data.
 
 ## What you need from Supabase
 
@@ -23,8 +23,8 @@ In the Supabase dashboard, open **SQL Editor** and run, in order:
 
 1. `apps/sandbox/supabase/migrations/001_forms_schema.sql` — forms tables
 2. `apps/sandbox/supabase/seed.sql` — accounts, users, form groups, forms
-3. `apps/sandbox/supabase/migrations/002_payment_items_schema.sql` — payment items table
-4. `apps/sandbox/supabase/seed-payment-items.sql` — 15 payment items
+3. `apps/sandbox/supabase/migrations/002_payment_items_schema.sql` — chargeable items table
+4. `apps/sandbox/supabase/seed-payment-items.sql` — 15 chargeable items
 5. `apps/sandbox/supabase/migrations/003_form_payment_settings.sql` — form payment settings tables
 6. `apps/sandbox/supabase/seed-form-payment-settings.sql` — payment settings for two seed forms
 7. `apps/sandbox/supabase/migrations/004_form_archive.sql` — archived by / archived at columns
@@ -58,9 +58,9 @@ Then run `seed.sql`, `seed-payment-items.sql`, `seed-form-payment-settings.sql`,
 | `users` | Creators and lockers (no login yet) |
 | `form_groups` | Form grouping lookup |
 | `forms` | Form catalog |
-| `payment_items` | Payment item catalog |
+| `payment_items` | Chargeable item catalog |
 | `form_payment_settings` | Payment provider per form |
-| `form_payment_items` | Payment items attached to a form |
+| `form_payment_items` | Chargeable items attached to a form |
 | `broadcast_campaigns` | Broadcast campaign catalog; `stats` JSONB stores a `campaignSeed` for client-generated chart data |
 | `workflows` | Workflow catalog; `label_ids` stores filter label keys; `definition` stores the React Flow graph (`nodes`, `edges`) |
 | `workflow_templates` | Reusable workflow templates; `definition` stores the React Flow graph; optional `source_workflow_id` when saved from a workflow |

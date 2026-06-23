@@ -1,7 +1,7 @@
 import "@gecko/ui/globals.css"
 
 import { AppShell } from "./components/layout/AppShell"
-import { Navigate, Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes, useLocation } from "react-router-dom"
 
 import OverviewPage from "./pages/overview"
 import ContactsPage from "./pages/contacts"
@@ -137,6 +137,17 @@ import MyAccountsPage from "./pages/my-accounts"
 import UserSettingsPage from "./pages/user-settings"
 import LogoutPage from "./pages/logout"
 
+function LegacyPaymentItemsRedirect() {
+  const { pathname } = useLocation()
+
+  return (
+    <Navigate
+      to={pathname.replace("/forms/payment-items", "/forms/chargeable-items")}
+      replace
+    />
+  )
+}
+
 export default function App() {
   return (
     <AppShell>
@@ -192,11 +203,12 @@ export default function App() {
           <Route path="contact-fields" element={<FormsContactFieldsPage />} />
           <Route path="field-groups" element={<FormsFieldGroupsPage />} />
           <Route path="field-options" element={<FormsFieldOptionsPage />} />
-          <Route path="payment-items">
+          <Route path="chargeable-items">
             <Route index element={<FormsPaymentItemsPage />} />
             <Route path="new" element={<CreatePaymentItemPage />} />
             <Route path=":paymentItemId" element={<EditPaymentItemPage />} />
           </Route>
+          <Route path="payment-items/*" element={<LegacyPaymentItemsRedirect />} />
           <Route
             path="field-and-groups"
             element={<Navigate to="contact-fields" replace />}

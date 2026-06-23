@@ -54,7 +54,7 @@ export function usePaymentItems(): UsePaymentItemsState {
       } catch (err) {
         if (!cancelled) {
           setError(
-            err instanceof Error ? err.message : "Failed to load payment items",
+            err instanceof Error ? err.message : "Failed to load chargeable items",
           )
           setPaymentItems([])
           setCreatorNames([])

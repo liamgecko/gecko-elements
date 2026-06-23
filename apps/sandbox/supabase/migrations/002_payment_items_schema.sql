@@ -1,4 +1,4 @@
--- Sandbox prototype: payment items (no RLS — prototype only)
+-- Sandbox prototype: chargeable items (no RLS — prototype only)
 
 create table payment_items (
   id text primary key,

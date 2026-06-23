@@ -46,7 +46,7 @@ export function usePaymentItem(paymentItemId: string): UsePaymentItemState {
       } catch (err) {
         if (!cancelled) {
           setError(
-            err instanceof Error ? err.message : "Failed to load payment item",
+            err instanceof Error ? err.message : "Failed to load chargeable item",
           )
           setPaymentItem(null)
         }

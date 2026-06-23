@@ -166,13 +166,13 @@ export function getPageTitle(
 
   const tabLabel = getTabLabelForPath(pathname)
   if (tabLabel) {
-    if (path === "/forms/payment-items/new") return "Create payment item"
+    if (path === "/forms/chargeable-items/new") return "Create chargeable item"
     if (path === "/forms/forms/new") return "Create form"
     if (path === "/broadcasts/campaigns/new") return "Create broadcast"
 
-    const paymentItemMatch = path.match(/^\/forms\/payment-items\/([^/]+)$/)
+    const paymentItemMatch = path.match(/^\/forms\/chargeable-items\/([^/]+)$/)
     if (paymentItemMatch?.[1] && paymentItemMatch[1] !== "new") {
-      return "Edit payment item"
+      return "Edit chargeable item"
     }
 
     return tabLabel
@@ -219,7 +219,7 @@ export function usePageDocumentTitle() {
         }
       }
 
-      const paymentItemMatch = path.match(/^\/forms\/payment-items\/([^/]+)$/)
+      const paymentItemMatch = path.match(/^\/forms\/chargeable-items\/([^/]+)$/)
       if (
         paymentItemMatch?.[1] &&
         paymentItemMatch[1] !== "new" &&
@@ -230,7 +230,7 @@ export function usePageDocumentTitle() {
             paymentItemMatch[1],
           )
           if (!cancelled && paymentItem) {
-            document.title = `Edit payment item | ${paymentItem.name} | Gecko`
+            document.title = `Edit chargeable item | ${paymentItem.name} | Gecko`
             return
           }
         } catch {

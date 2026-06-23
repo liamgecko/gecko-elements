@@ -1,4 +1,4 @@
--- Seed payment items. Requires accounts, users from seed.sql first.
+-- Seed chargeable items. Requires accounts, users from seed.sql first.
 
 insert into payment_items (
   id,

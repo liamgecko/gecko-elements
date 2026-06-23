@@ -66,7 +66,7 @@ export const paymentItemsRepository = {
       .order("name", { ascending: true })
 
     if (error) {
-      throw new PaymentItemsRepositoryError("Failed to load payment items", error)
+      throw new PaymentItemsRepositoryError("Failed to load chargeable items", error)
     }
 
     return mapRows(data as PaymentItemWithRelations[] | null)
@@ -83,7 +83,7 @@ export const paymentItemsRepository = {
 
     if (error) {
       throw new PaymentItemsRepositoryError(
-        `Failed to load payment item ${paymentItemId}`,
+        `Failed to load chargeable item ${paymentItemId}`,
         error,
       )
     }
@@ -104,7 +104,7 @@ export const paymentItemsRepository = {
 
     if (error) {
       throw new PaymentItemsRepositoryError(
-        "Failed to load payment item creators",
+        "Failed to load chargeable item creators",
         error,
       )
     }
@@ -136,7 +136,7 @@ export const paymentItemsRepository = {
 
     if (error) {
       throw new PaymentItemsRepositoryError(
-        "Failed to create payment item",
+        "Failed to create chargeable item",
         error,
       )
     }
@@ -169,7 +169,7 @@ export const paymentItemsRepository = {
 
     if (error) {
       throw new PaymentItemsRepositoryError(
-        "Failed to update payment item",
+        "Failed to update chargeable item",
         error,
       )
     }
@@ -187,7 +187,7 @@ export const paymentItemsRepository = {
 
     if (error) {
       throw new PaymentItemsRepositoryError(
-        "Failed to delete payment item",
+        "Failed to delete chargeable item",
         error,
       )
     }

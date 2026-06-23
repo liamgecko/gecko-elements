@@ -12,7 +12,7 @@ const FORMS_TAB_PATHS = {
   "contact-fields": "/forms/contact-fields",
   "field-groups": "/forms/field-groups",
   "field-options": "/forms/field-options",
-  "payment-items": "/forms/payment-items",
+  "chargeable-items": "/forms/chargeable-items",
 } as const
 
 type FormsTab = keyof typeof FORMS_TAB_PATHS
@@ -23,7 +23,7 @@ const FORMS_PAGE_CONFIG: Record<FormsTab, { primaryLabel: string }> = {
   "contact-fields": { primaryLabel: "Create new contact field" },
   "field-groups": { primaryLabel: "Create new field group" },
   "field-options": { primaryLabel: "Create new field option" },
-  "payment-items": { primaryLabel: "Create new payment item" },
+  "chargeable-items": { primaryLabel: "Create new chargeable item" },
 }
 
 function formsTabFromPath(pathname: string): FormsTab {
@@ -31,14 +31,14 @@ function formsTabFromPath(pathname: string): FormsTab {
   if (pathname.startsWith("/forms/contact-fields")) return "contact-fields"
   if (pathname.startsWith("/forms/field-groups")) return "field-groups"
   if (pathname.startsWith("/forms/field-options")) return "field-options"
-  if (pathname.startsWith("/forms/payment-items")) return "payment-items"
+  if (pathname.startsWith("/forms/chargeable-items")) return "chargeable-items"
   return "forms"
 }
 
-function isPaymentItemSubPage(pathname: string) {
+function isChargeableItemSubPage(pathname: string) {
   return (
-    pathname.startsWith("/forms/payment-items/") &&
-    pathname !== "/forms/payment-items"
+    pathname.startsWith("/forms/chargeable-items/") &&
+    pathname !== "/forms/chargeable-items"
   )
 }
 
@@ -56,7 +56,7 @@ export default function FormsLayout() {
   const activeTab = formsTabFromPath(pathname)
   const page = FORMS_PAGE_CONFIG[activeTab]
   const favouriteLabel = getTabLabelForPath(pathname) ?? "Forms"
-  const onPaymentItemSubPage = isPaymentItemSubPage(pathname)
+  const onChargeableItemSubPage = isChargeableItemSubPage(pathname)
   const onFormSubPage = isFormSubPage(pathname)
 
   return (
@@ -65,13 +65,13 @@ export default function FormsLayout() {
         breadcrumbs={breadcrumbs}
         title="Forms"
         primaryAction={
-          onPaymentItemSubPage || onFormSubPage || activeTab === "archived-forms"
+          onChargeableItemSubPage || onFormSubPage || activeTab === "archived-forms"
             ? undefined
             : {
                 label: page.primaryLabel,
                 onClick:
-                  activeTab === "payment-items"
-                    ? () => navigate("/forms/payment-items/new")
+                  activeTab === "chargeable-items"
+                    ? () => navigate("/forms/chargeable-items/new")
                     : activeTab === "forms"
                       ? () => navigate("/forms/forms/new")
                       : undefined,
@@ -97,7 +97,7 @@ export default function FormsLayout() {
             { value: "contact-fields", label: "Contact fields" },
             { value: "field-groups", label: "Field groups" },
             { value: "field-options", label: "Field options" },
-            { value: "payment-items", label: "Payment items" },
+            { value: "chargeable-items", label: "Chargeable items" },
           ],
         }}
       />

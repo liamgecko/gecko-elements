@@ -63,7 +63,7 @@ export function validatePaymentItemForm(
   }
 
   if (!name.trim()) {
-    errors.name = "Please enter a name for the payment item."
+    errors.name = "Please enter a name for the chargeable item."
   }
 
   if (amount == null) {
@@ -428,7 +428,7 @@ export function PaymentItemForm({
           <Button
             type="button"
             variant="outline"
-            onClick={() => navigate("/forms/payment-items")}
+            onClick={() => navigate("/forms/chargeable-items")}
           >
             <X aria-hidden />
             Cancel

@@ -45,22 +45,22 @@ function labelForSegment(segment: string, previousSegment?: string) {
   if (segment === "contact-fields") return "Contact fields"
   if (segment === "field-groups") return "Field groups"
   if (segment === "field-options") return "Field options"
-  if (segment === "payment-items") return "Payment items"
+  if (segment === "chargeable-items") return "Chargeable items"
   if (segment === "archived-forms") return "Archived forms"
   if (segment === "campaigns" && previousSegment === "broadcasts") {
     return "Broadcasts"
   }
   if (segment === "new" && previousSegment === "forms") return "Create form"
   if (segment === "new" && previousSegment === "campaigns") return "Create broadcast"
-  if (segment === "new" && previousSegment === "payment-items") {
-    return "Create payment item"
+  if (segment === "new" && previousSegment === "chargeable-items") {
+    return "Create chargeable item"
   }
   if (
-    previousSegment === "payment-items" &&
+    previousSegment === "chargeable-items" &&
     segment !== "new" &&
     isUuid(segment)
   ) {
-    return "Edit payment item"
+    return "Edit chargeable item"
   }
   if (segment === "all-organisations") return "Organisations"
   if (segment === "student-portals") return "Student portal"

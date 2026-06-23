@@ -1,3 +1,4 @@
+import * as React from "react"
 import type { ColumnDef, FilterFn } from "@tanstack/react-table"
 import { Lock, LockOpen } from "lucide-react"
 
@@ -126,6 +127,38 @@ export const workflowLabelsFilter: FilterFn<Workflow> = (
   return matches
 }
 
+type WorkflowEnabledSwitchProps = {
+  workflowId: string
+  workflowName: string
+  enabled: boolean
+  onEnabledChange: (workflowId: string, enabled: boolean) => void
+}
+
+function WorkflowEnabledSwitch({
+  workflowId,
+  workflowName,
+  enabled,
+  onEnabledChange,
+}: WorkflowEnabledSwitchProps) {
+  const [checked, setChecked] = React.useState(enabled)
+
+  React.useEffect(() => {
+    setChecked(enabled)
+  }, [enabled])
+
+  return (
+    <Switch
+      id={`workflow-status-${workflowId}`}
+      checked={checked}
+      onCheckedChange={(next) => {
+        setChecked(next)
+        onEnabledChange(workflowId, next)
+      }}
+      aria-label={`${checked ? "Disable" : "Enable"} ${workflowName}`}
+    />
+  )
+}
+
 type CreateWorkflowColumnsOptions = {
   onEnabledChange: (workflowId: string, enabled: boolean) => void
 }
@@ -160,27 +193,25 @@ export function createWorkflowColumns({
       cell: ({ row }) => <span>{row.original.name}</span>,
     },
     {
-      accessorKey: "enabled",
       id: "enabled",
+      accessorFn: (row) => (row.enabled ? "active" : "inactive"),
       meta: { label: "Status" } satisfies DataTableColumnMeta,
       header: ({ column }) => (
         <DataTableColumnHeader column={column} title="Status" />
       ),
       cell: ({ row }) => {
         const workflow = row.original
-        const switchId = `workflow-status-${workflow.id}`
 
         return (
-          <Switch
-            id={switchId}
-            checked={workflow.enabled}
-            onCheckedChange={(checked) => {
-              onEnabledChange(workflow.id, checked)
-            }}
-            aria-label={`${workflow.enabled ? "Disable" : "Enable"} ${workflow.name}`}
+          <WorkflowEnabledSwitch
+            workflowId={workflow.id}
+            workflowName={workflow.name}
+            enabled={workflow.enabled}
+            onEnabledChange={onEnabledChange}
           />
         )
       },
+      filterFn: DataTableMultiSelectFilter,
       sortingFn: (rowA, rowB) =>
         Number(rowB.original.enabled) - Number(rowA.original.enabled),
     },

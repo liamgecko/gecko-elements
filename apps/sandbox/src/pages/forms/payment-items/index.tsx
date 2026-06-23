@@ -60,12 +60,12 @@ export default function FormsPaymentItemsPage() {
 
     try {
       await paymentItemsRepository.deletePaymentItem(itemToDelete.id)
-      toast.success("Payment item deleted successfully")
+      toast.success("Chargeable item deleted successfully")
       setItemToDelete(null)
       refetch()
     } catch (err) {
       toast.error(
-        err instanceof Error ? err.message : "Failed to delete payment item",
+        err instanceof Error ? err.message : "Failed to delete chargeable item",
       )
     } finally {
       setIsDeleting(false)
@@ -88,7 +88,7 @@ export default function FormsPaymentItemsPage() {
     return (
       <div className="space-y-4">
         <DataLoadErrorAlert
-          title="Could not load payment items"
+          title="Could not load chargeable items"
           message={error}
         />
       </div>
@@ -115,7 +115,7 @@ export default function FormsPaymentItemsPage() {
         sorting
         pagination
         toolbar={{
-          search: { placeholder: "Search payment items" },
+          search: { placeholder: "Search chargeable items" },
           filters: {
             categories: filterCategories,
             triggerLabel: "Filter",
@@ -131,7 +131,7 @@ export default function FormsPaymentItemsPage() {
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete payment item?</AlertDialogTitle>
+            <AlertDialogTitle>Delete chargeable item?</AlertDialogTitle>
             <AlertDialogDescription>
               {itemToDelete
                 ? `${itemToDelete.name} will be permanently removed. Any forms using this item will no longer include it.`

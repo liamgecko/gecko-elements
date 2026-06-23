@@ -44,7 +44,7 @@ export const formPaymentSettingsRepository = {
 
     if (itemsResult.error) {
       throw new FormPaymentSettingsRepositoryError(
-        "Failed to load form payment items",
+        "Failed to load form chargeable items",
         itemsResult.error,
       )
     }
@@ -83,7 +83,7 @@ export const formPaymentSettingsRepository = {
 
     if (deleteError) {
       throw new FormPaymentSettingsRepositoryError(
-        "Failed to update form payment items",
+        "Failed to update form chargeable items",
         deleteError,
       )
     }
@@ -100,7 +100,7 @@ export const formPaymentSettingsRepository = {
 
     if (insertError) {
       throw new FormPaymentSettingsRepositoryError(
-        "Failed to save form payment items",
+        "Failed to save form chargeable items",
         insertError,
       )
     }

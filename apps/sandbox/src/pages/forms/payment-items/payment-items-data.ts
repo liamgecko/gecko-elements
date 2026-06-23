@@ -27,7 +27,7 @@ export type PaymentItemLockStatus =
   | "unlocked"
 
 export function getPaymentItemPath(paymentItemId: string) {
-  return `/forms/payment-items/${paymentItemId}`
+  return `/forms/chargeable-items/${paymentItemId}`
 }
 
 const currencySymbols: Record<PaymentCurrency, string> = {

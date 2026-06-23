@@ -74,12 +74,12 @@ function PaymentItemLockStatusCell({ item }: { item: PaymentItem }) {
         <TooltipTrigger
           render={
             <span className="inline-flex text-muted-foreground">
-              <Lock className="size-4" aria-label="Payment item locked" />
+              <Lock className="size-4" aria-label="Chargeable item locked" />
             </span>
           }
         />
         <TooltipContent side="top" className="max-w-xs text-center">
-          This payment item has been locked by {lockedByName}, you do not have
+          This chargeable item has been locked by {lockedByName}, you do not have
           permission to edit.
         </TooltipContent>
       </Tooltip>
@@ -93,13 +93,13 @@ function PaymentItemLockStatusCell({ item }: { item: PaymentItem }) {
           <span className="inline-flex text-muted-foreground">
             <LockOpen
               className="size-4"
-              aria-label="Payment item locked with edit access"
+              aria-label="Chargeable item locked with edit access"
             />
           </span>
         }
       />
       <TooltipContent side="top" className="max-w-xs text-center">
-        This payment item has been locked by {lockedByName}, you have permission
+        This chargeable item has been locked by {lockedByName}, you have permission
         to edit.
       </TooltipContent>
     </Tooltip>

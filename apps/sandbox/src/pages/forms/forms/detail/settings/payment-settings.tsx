@@ -87,7 +87,7 @@ function validatePaymentItem(
   const errors: PaymentItemErrors = {}
 
   if (!name.trim()) {
-    errors.name = "Please enter a name for the payment item."
+    errors.name = "Please enter a name for the chargeable item."
   }
 
   if (amount == null) {
@@ -298,7 +298,7 @@ export default function FormPaymentSettingsPage() {
     try {
       if (editingItemId) {
         await paymentItemsRepository.updatePaymentItem(editingItemId, input)
-        toast.success("Payment item updated successfully")
+        toast.success("Chargeable item updated successfully")
       } else {
         const created = await paymentItemsRepository.createPaymentItem(input)
         const nextIds = selectedItemIds.includes(created.id)
@@ -306,14 +306,14 @@ export default function FormPaymentSettingsPage() {
           : [...selectedItemIds, created.id]
         setSelectedItemIds(nextIds)
         await persistSettings(selectedProvider, nextIds)
-        toast.success("Payment item created successfully")
+        toast.success("Chargeable item created successfully")
       }
 
       refetchCatalog()
       handleDialogOpenChange(false)
     } catch (err) {
       toast.error(
-        err instanceof Error ? err.message : "Failed to save payment item",
+        err instanceof Error ? err.message : "Failed to save chargeable item",
       )
     } finally {
       setIsSavingItem(false)
@@ -388,7 +388,7 @@ export default function FormPaymentSettingsPage() {
           </Field>
 
           <Field data-disabled={!selectedProvider ? true : undefined}>
-            <FieldLabel htmlFor="payment-items">Payment items</FieldLabel>
+            <FieldLabel htmlFor="payment-items">Chargeable items</FieldLabel>
             <Combobox
               key={selectedProvider ?? "no-provider"}
               multiple
@@ -409,7 +409,7 @@ export default function FormPaymentSettingsPage() {
                       <ComboboxChipsInput
                         id="payment-items"
                         disabled={!selectedProvider}
-                        placeholder="Select payment items"
+                        placeholder="Select chargeable items"
                       />
                     </>
                   )}
@@ -430,15 +430,15 @@ export default function FormPaymentSettingsPage() {
               </ComboboxContent>
             </Combobox>
             <FieldDescription>
-              Select payment items to be included within the form or{" "}
+              Select chargeable items to be included within the form or{" "}
               <button
                 type="button"
                 onClick={openCreateDialog}
                 className="cursor-pointer underline underline-offset-4 hover:text-primary"
               >
-                create a new payment item
+                create a new chargeable item
               </button>
-              . Only payment items with the same currency selected with your
+              . Only chargeable items with the same currency selected with your
               payment provider.
             </FieldDescription>
           </Field>
@@ -449,8 +449,8 @@ export default function FormPaymentSettingsPage() {
                 <DialogHeader>
                   <DialogTitle>
                     {editingItemId
-                      ? "Edit payment item"
-                      : "Create new payment item"}
+                      ? "Edit chargeable item"
+                      : "Create new chargeable item"}
                   </DialogTitle>
                 </DialogHeader>
                 <DialogBody>
@@ -681,7 +681,7 @@ export default function FormPaymentSettingsPage() {
                   disabled={isSavingItem}
                 >
                   <CheckCheck aria-hidden />
-                  Save payment item
+                  Save chargeable item
                 </Button>
               </DialogFooter>
             </DialogContent>
@@ -698,7 +698,7 @@ export default function FormPaymentSettingsPage() {
             <AlertDialogTitle>Switch payment provider?</AlertDialogTitle>
             <AlertDialogDescription>
               By switching provider you will lose all changes. Your selected
-              payment items will be reset.
+              chargeable items will be reset.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -722,7 +722,7 @@ export default function FormPaymentSettingsPage() {
           <AlertDialogHeader>
             <AlertDialogTitle>Payment provider required</AlertDialogTitle>
             <AlertDialogDescription>
-              Please select a payment provider before creating a payment item.
+              Please select a payment provider before creating a chargeable item.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -734,7 +734,7 @@ export default function FormPaymentSettingsPage() {
       {basketItems.length > 0 && (
         <section className="rounded-lg bg-muted p-4">
           <h3 className="text-sm font-medium text-foreground">
-            Your payment items
+            Your chargeable items
           </h3>
           <TooltipProvider>
             <ul className="mt-1 divide-y divide-border">
@@ -767,7 +767,7 @@ export default function FormPaymentSettingsPage() {
                         }
                       />
                       <TooltipContent side="bottom">
-                        Edit payment item
+                        Edit chargeable item
                       </TooltipContent>
                     </Tooltip>
                     <Tooltip>
@@ -785,7 +785,7 @@ export default function FormPaymentSettingsPage() {
                         }
                       />
                       <TooltipContent side="bottom">
-                        Remove payment item
+                        Remove chargeable item
                       </TooltipContent>
                     </Tooltip>
                   </div>

@@ -23,8 +23,8 @@ export default function CreatePaymentItemPage() {
 
   return (
     <PaymentItemForm
-      title="Create new payment item"
-      submitLabel="Save payment item"
+      title="Create new chargeable item"
+      submitLabel="Save chargeable item"
       isSaving={isSaving}
       onSubmit={async (values) => {
         setIsSaving(true)
@@ -39,11 +39,11 @@ export default function CreatePaymentItemPage() {
             maxQuantity: values.maxQuantity,
             availableQuantity: values.availableQuantity,
           })
-          toast.success("Payment item created successfully")
-          navigate("/forms/payment-items")
+          toast.success("Chargeable item created successfully")
+          navigate("/forms/chargeable-items")
         } catch (err) {
           toast.error(
-            err instanceof Error ? err.message : "Failed to create payment item",
+            err instanceof Error ? err.message : "Failed to create chargeable item",
           )
         } finally {
           setIsSaving(false)

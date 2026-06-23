@@ -27,7 +27,6 @@ import {
   DataTableToolbarGroup,
   DataTableToolbarSearchRow,
 } from "@gecko/ui/components/data-table/data-table-toolbar"
-import { Switch } from "@gecko/ui/components/switch"
 import { TooltipProvider } from "@gecko/ui/components/tooltip"
 
 import {
@@ -43,7 +42,6 @@ import {
   createWorkflowFilterCategories,
   workflowRowActions,
   workflowSelectActions,
-  hideInactiveWorkflowsLabel,
   getWorkflowPath,
   type Workflow,
 } from "./workflows-data"
@@ -53,58 +51,56 @@ export default function WorkflowsPage() {
   const { workflows, loading, configured, refetch, patchWorkflow, patchWorkflows, removeWorkflows } =
     useWorkflows()
 
-  const [hideInactive, setHideInactive] = React.useState(false)
   const [workflowsToDelete, setWorkflowsToDelete] = React.useState<
     Workflow[] | null
   >(null)
   const [isDeleting, setIsDeleting] = React.useState(false)
-
-  const visibleWorkflows = React.useMemo(
-    () =>
-      hideInactive ? workflows.filter((workflow) => workflow.enabled) : workflows,
-    [hideInactive, workflows],
-  )
 
   const filterCategories = React.useMemo(
     () => createWorkflowFilterCategories(workflows),
     [workflows],
   )
 
+  const workflowsRef = React.useRef(workflows)
+  workflowsRef.current = workflows
+
+  const handleEnabledChange = React.useCallback(
+    (workflowId: string, enabled: boolean) => {
+      const workflow = workflowsRef.current.find((item) => item.id === workflowId)
+      const previousEnabled = workflow?.enabled
+
+      patchWorkflow(workflowId, { enabled })
+
+      void (async () => {
+        try {
+          await workflowsRepository.updateWorkflowEnabled(workflowId, enabled)
+          if (workflow) {
+            toast.success(
+              enabled
+                ? `${workflow.name} enabled`
+                : `${workflow.name} disabled`,
+            )
+          }
+        } catch (err) {
+          if (previousEnabled != null) {
+            patchWorkflow(workflowId, { enabled: previousEnabled })
+          } else {
+            refetch()
+          }
+          toast.error(
+            err instanceof Error
+              ? err.message
+              : "Failed to update workflow status",
+          )
+        }
+      })()
+    },
+    [patchWorkflow, refetch],
+  )
+
   const columns = React.useMemo(
-    () =>
-      createWorkflowColumns({
-        onEnabledChange: (workflowId, enabled) => {
-          const workflow = workflows.find((item) => item.id === workflowId)
-          const previousEnabled = workflow?.enabled
-
-          patchWorkflow(workflowId, { enabled })
-
-          void (async () => {
-            try {
-              await workflowsRepository.updateWorkflowEnabled(workflowId, enabled)
-              if (workflow) {
-                toast.success(
-                  enabled
-                    ? `${workflow.name} enabled`
-                    : `${workflow.name} disabled`,
-                )
-              }
-            } catch (err) {
-              if (previousEnabled != null) {
-                patchWorkflow(workflowId, { enabled: previousEnabled })
-              } else {
-                refetch()
-              }
-              toast.error(
-                err instanceof Error
-                  ? err.message
-                  : "Failed to update workflow status",
-              )
-            }
-          })()
-        },
-      }),
-    [patchWorkflow, refetch, workflows],
+    () => createWorkflowColumns({ onEnabledChange: handleEnabledChange }),
+    [handleEnabledChange],
   )
 
   const deleteDescription = React.useMemo(() => {
@@ -160,7 +156,7 @@ export default function WorkflowsPage() {
     <TooltipProvider>
           <DataTableProvider
             columns={columns}
-            data={visibleWorkflows}
+            data={workflows}
             rowSelection
             rowActions={workflowRowActions}
             onRowAction={(actionId, { original }) => {
@@ -243,15 +239,7 @@ export default function WorkflowsPage() {
                 </DataTableToolbarSearchRow>
                 <DataTableToolbarGroup>
                   <DataTableSelectActions />
-                  <div className="flex items-center gap-4">
-                    <Switch
-                      label={hideInactiveWorkflowsLabel}
-                      labelPosition="before"
-                      checked={hideInactive}
-                      onCheckedChange={setHideInactive}
-                    />
-                    <DataTableColumnToggle />
-                  </div>
+                  <DataTableColumnToggle />
                 </DataTableToolbarGroup>
               </DataTableToolbar>
               <DataTableContent />
