@@ -1,13 +1,13 @@
 -- Sandbox prototype: workflows (no RLS)
 
 create table workflows (
-  id uuid primary key default gen_random_uuid(),
-  account_id uuid not null references accounts (id) on delete cascade,
+  id text primary key,
+  account_id text not null references accounts (id) on delete cascade,
   name text not null,
   lock_status text not null check (
     lock_status in ('unlocked', 'locked-can-edit', 'locked-view-only')
   ),
-  locked_by_user_id uuid references users (id) on delete set null,
+  locked_by_user_id text references users (id) on delete set null,
   enabled boolean not null default true,
   last_run timestamptz,
   action_type text not null check (
@@ -27,7 +27,7 @@ create table workflows (
     )
   ),
   label_ids text[] not null default '{}',
-  created_by_user_id uuid not null references users (id) on delete restrict,
+  created_by_user_id text not null references users (id) on delete restrict,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );

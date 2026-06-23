@@ -1,5 +1,6 @@
 import { mapWorkflowTemplateRowToWorkflowTemplate } from "../mappers/workflowTemplateMapper"
 import { getSupabaseClient } from "../../lib/supabase/client"
+import { generateSandboxId } from "../../lib/supabase/generate-id"
 import {
   DEFAULT_CREATOR_USER_ID,
   SANDBOX_ACCOUNT_ID,
@@ -101,6 +102,7 @@ export const workflowTemplatesRepository = {
     const { data, error } = await supabase
       .from("workflow_templates")
       .insert({
+        id: generateSandboxId(),
         account_id: SANDBOX_ACCOUNT_ID,
         name: input.name.trim(),
         definition: input.definition,

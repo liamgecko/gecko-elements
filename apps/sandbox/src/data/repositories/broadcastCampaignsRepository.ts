@@ -1,5 +1,6 @@
 import { mapBroadcastCampaignRowToBroadcastCampaign } from "../mappers/broadcastCampaignMapper"
 import { getSupabaseClient } from "../../lib/supabase/client"
+import { generateSandboxId } from "../../lib/supabase/generate-id"
 import {
   DEFAULT_CREATOR_USER_ID,
   SANDBOX_ACCOUNT_ID,
@@ -99,6 +100,7 @@ export const broadcastCampaignsRepository = {
     const { data, error } = await supabase
       .from("broadcast_campaigns")
       .insert({
+        id: generateSandboxId(),
         account_id: SANDBOX_ACCOUNT_ID,
         name: input.name.trim(),
         status: "active",

@@ -89,22 +89,36 @@ export function createFormFilterCategories(
   ]
 }
 
+export type FormDraft = {
+  name: string
+  status: FormStatus
+}
+
+export type FormLayoutOutletContext = {
+  draft: FormDraft
+  setDraft: (draft: FormDraft | ((current: FormDraft) => FormDraft)) => void
+}
+
 export const formHeaderMenuItems = [
-  { label: "Form dashboard" },
-  { label: "Export responses" },
-  { label: "Import responses" },
-  { label: "Add a response" },
-  { label: "Show responses" },
-  { label: "Sync responses" },
-  { label: "Sync failures" },
-  { label: "Clone form" },
-  { label: "Lock form" },
+  { id: "dashboard", label: "Form dashboard" },
+  { id: "export-responses", label: "Export responses" },
+  { id: "import-responses", label: "Import responses" },
+  { id: "add-response", label: "Add a response" },
+  { id: "show-responses", label: "Show responses" },
+  { id: "sync-responses", label: "Sync responses" },
+  { id: "sync-failures", label: "Sync failures" },
+  { id: "clone", label: "Clone form" },
+  { id: "lock", label: "Lock form" },
   {
+    id: "archive",
     label: "Archive form",
     variant: "destructive" as const,
     separatorBefore: true,
   },
 ] as const
+
+export type FormHeaderMenuActionId =
+  (typeof formHeaderMenuItems)[number]["id"]
 
 export const formRowActions: DataTableRowAction[] = [
   { id: "edit", label: "Edit form" },

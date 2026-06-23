@@ -34,6 +34,11 @@ In the Supabase dashboard, open **SQL Editor** and run, in order:
 11. `apps/sandbox/supabase/seed-workflows.sql` — 8 sample workflows
 12. `apps/sandbox/supabase/migrations/007_workflows_definition.sql` — `definition` jsonb column for the workflow builder graph
 13. `apps/sandbox/supabase/migrations/008_workflow_templates.sql` — workflow templates table
+14. `apps/sandbox/supabase/migrations/009_short_ids.sql` — **only if upgrading an existing UUID database**; truncates data, drops foreign keys, converts ids to 8-digit text, then re-adds foreign keys. Re-run all seed scripts after.
+
+If `009` fails partway through, run the full script again from the top (it is safe to re-run after truncate).
+
+Prototype ids are **8-digit text** (e.g. `40000006` for a form), not UUIDs.
 
 ### Reset prototype data
 

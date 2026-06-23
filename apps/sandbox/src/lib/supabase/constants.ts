@@ -1,8 +1,8 @@
-/** Stable ids from supabase/seed.sql — prototype stand-ins until auth exists. */
-export const SANDBOX_ACCOUNT_ID = "a0000000-0000-4000-8000-000000000001"
+/** Single sandbox account used by all prototype repositories. */
+export const SANDBOX_ACCOUNT_ID = "10000000"
 
-/** Liam Young — prototype stand-in for the current user when creating records. */
-export const DEFAULT_CREATOR_USER_ID = "a0000003-0000-4000-8000-000000000003"
+/** Default creator for seeded / created rows. */
+export const DEFAULT_CREATOR_USER_ID = "20000003"
 
-/** Default form group until group selection is added to the UI. */
-export const DEFAULT_FORM_GROUP_ID = "b0000001-0000-4000-8000-000000000001"
+/** Default form group for newly created forms. */
+export const DEFAULT_FORM_GROUP_ID = "30000001"

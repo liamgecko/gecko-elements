@@ -1,5 +1,6 @@
 import { mapWorkflowRowToWorkflow } from "../mappers/workflowMapper"
 import { getSupabaseClient } from "../../lib/supabase/client"
+import { generateSandboxId } from "../../lib/supabase/generate-id"
 import {
   DEFAULT_CREATOR_USER_ID,
   SANDBOX_ACCOUNT_ID,
@@ -153,6 +154,7 @@ export const workflowsRepository = {
     const { data, error } = await supabase
       .from("workflows")
       .insert({
+        id: generateSandboxId(),
         account_id: SANDBOX_ACCOUNT_ID,
         name: input.name.trim(),
         lock_status: "unlocked",

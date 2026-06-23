@@ -1,10 +1,11 @@
-import { Navigate, Outlet, useLocation, useNavigate, useParams } from "react-router-dom"
+import { Navigate, Outlet, useLocation, useNavigate, useOutletContext, useParams } from "react-router-dom"
 
 import { Tabs, TabsList, TabsTrigger } from "@gecko/ui/components/tabs"
 import { cn } from "@gecko/ui/lib/utils"
 
 import {
   FORM_SETTINGS_SECTIONS,
+  type FormLayoutOutletContext,
   type FormSettingsSection,
   getFormSettingsPath,
 } from "../forms-data"
@@ -25,6 +26,7 @@ export default function FormSettingsLayout() {
   const { formId = "" } = useParams()
   const { pathname } = useLocation()
   const navigate = useNavigate()
+  const outletContext = useOutletContext<FormLayoutOutletContext>()
   const activeSection = settingsSectionFromPath(pathname)
 
   if (pathname.endsWith("/settings")) {
@@ -58,7 +60,7 @@ export default function FormSettingsLayout() {
           </TabsList>
         </div>
         <div className="min-w-0 flex-1 self-stretch p-6">
-          <Outlet />
+          <Outlet context={outletContext} />
         </div>
       </Tabs>
     </div>

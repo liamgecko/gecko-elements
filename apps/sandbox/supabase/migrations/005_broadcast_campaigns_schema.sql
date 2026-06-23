@@ -1,15 +1,15 @@
 -- Sandbox prototype: broadcast campaigns (no RLS)
 
 create table broadcast_campaigns (
-  id uuid primary key default gen_random_uuid(),
-  account_id uuid not null references accounts (id) on delete cascade,
+  id text primary key,
+  account_id text not null references accounts (id) on delete cascade,
   name text not null,
   status text not null check (status in ('active', 'completed', 'paused', 'failed')),
   start_date timestamptz not null,
   end_date timestamptz not null,
   last_refreshed_at timestamptz not null,
   stats jsonb not null default '{}',
-  created_by_user_id uuid not null references users (id) on delete restrict,
+  created_by_user_id text not null references users (id) on delete restrict,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );

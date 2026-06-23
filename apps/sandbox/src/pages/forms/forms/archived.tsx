@@ -128,7 +128,7 @@ export default function ArchivedFormsPage() {
             <AlertDialogTitle>Restore form?</AlertDialogTitle>
             <AlertDialogDescription>
               {formToRestore
-                ? `"${formToRestore.name}" will be moved back to your forms list.`
+                ? `${formToRestore.name} will be moved back to your forms list.`
                 : null}
             </AlertDialogDescription>
           </AlertDialogHeader>

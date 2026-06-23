@@ -1,4 +1,5 @@
 import { mapFormRowToForm } from "../mappers/formMapper"
+import { generateSandboxId } from "../../lib/supabase/generate-id"
 import { getSupabaseClient } from "../../lib/supabase/client"
 import {
   DEFAULT_CREATOR_USER_ID,
@@ -6,7 +7,7 @@ import {
   SANDBOX_ACCOUNT_ID,
 } from "../../lib/supabase/constants"
 import type { FormWithRelations } from "../../lib/supabase/types"
-import type { Form } from "../../pages/forms/forms/forms-data"
+import type { Form, FormLockStatus, FormStatus } from "../../pages/forms/forms/forms-data"
 
 const FORM_SELECT = `
   id,
@@ -45,6 +46,13 @@ export type FormGroup = {
 
 export type CreateFormInput = {
   name: string
+}
+
+export type UpdateFormInput = {
+  name?: string
+  status?: FormStatus
+  lockStatus?: FormLockStatus
+  groupName?: string
 }
 
 export const formsRepository = {
@@ -116,6 +124,7 @@ export const formsRepository = {
     const { data, error } = await supabase
       .from("forms")
       .insert({
+        id: generateSandboxId(),
         account_id: SANDBOX_ACCOUNT_ID,
         name: input.name.trim(),
         status: "draft",
@@ -130,6 +139,56 @@ export const formsRepository = {
 
     if (error) {
       throw new FormsRepositoryError("Failed to create form", error)
+    }
+
+    return mapFormRowToForm(data as FormWithRelations)
+  },
+
+  async updateForm(formId: string, input: UpdateFormInput): Promise<Form> {
+    const supabase = getSupabaseClient()
+
+    const updates: {
+      updated_at: string
+      name?: string
+      status?: FormStatus
+      lock_status?: FormLockStatus
+      form_group_id?: string
+    } = {
+      updated_at: new Date().toISOString(),
+    }
+
+    if (input.name != null) {
+      updates.name = input.name.trim()
+    }
+
+    if (input.status != null) {
+      updates.status = input.status
+    }
+
+    if (input.lockStatus != null) {
+      updates.lock_status = input.lockStatus
+    }
+
+    if (input.groupName != null) {
+      const groups = await this.listFormGroups()
+      const group = groups.find((entry) => entry.name === input.groupName)
+
+      if (!group) {
+        throw new FormsRepositoryError(`Form group "${input.groupName}" was not found`)
+      }
+
+      updates.form_group_id = group.id
+    }
+
+    const { data, error } = await supabase
+      .from("forms")
+      .update(updates)
+      .eq("id", formId)
+      .select(FORM_SELECT)
+      .single()
+
+    if (error) {
+      throw new FormsRepositoryError(`Failed to update form ${formId}`, error)
     }
 
     return mapFormRowToForm(data as FormWithRelations)

@@ -9,6 +9,7 @@ type UseFormState = {
   loading: boolean
   error: string | null
   configured: boolean
+  setForm: React.Dispatch<React.SetStateAction<Form | null>>
 }
 
 export function useForm(formId: string): UseFormState {
@@ -62,5 +63,5 @@ export function useForm(formId: string): UseFormState {
     }
   }, [configured, formId])
 
-  return { form, loading, error, configured }
+  return { form, loading, error, configured, setForm }
 }

@@ -1,17 +1,16 @@
 -- Sandbox prototype: forms domain (no RLS — prototype only, not for production)
 
-create extension if not exists "pgcrypto";
 
 create table accounts (
-  id uuid primary key default gen_random_uuid(),
+  id text primary key,
   name text not null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
 create table users (
-  id uuid primary key default gen_random_uuid(),
-  account_id uuid not null references accounts (id) on delete cascade,
+  id text primary key,
+  account_id text not null references accounts (id) on delete cascade,
   name text not null,
   initials text not null,
   created_at timestamptz not null default now(),
@@ -19,8 +18,8 @@ create table users (
 );
 
 create table form_groups (
-  id uuid primary key default gen_random_uuid(),
-  account_id uuid not null references accounts (id) on delete cascade,
+  id text primary key,
+  account_id text not null references accounts (id) on delete cascade,
   name text not null,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
@@ -28,18 +27,18 @@ create table form_groups (
 );
 
 create table forms (
-  id uuid primary key default gen_random_uuid(),
-  account_id uuid not null references accounts (id) on delete cascade,
+  id text primary key,
+  account_id text not null references accounts (id) on delete cascade,
   name text not null,
   status text not null check (status in ('published', 'draft', 'unpublished')),
   lock_status text not null check (
     lock_status in ('unlocked', 'locked-can-edit', 'locked-view-only')
   ),
-  locked_by_user_id uuid references users (id) on delete set null,
+  locked_by_user_id text references users (id) on delete set null,
   archived boolean not null default false,
-  form_group_id uuid not null references form_groups (id) on delete restrict,
+  form_group_id text not null references form_groups (id) on delete restrict,
   response_count integer not null default 0,
-  created_by_user_id uuid not null references users (id) on delete restrict,
+  created_by_user_id text not null references users (id) on delete restrict,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );

@@ -134,7 +134,7 @@ export default function FormsPaymentItemsPage() {
             <AlertDialogTitle>Delete payment item?</AlertDialogTitle>
             <AlertDialogDescription>
               {itemToDelete
-                ? `"${itemToDelete.name}" will be permanently removed. Any forms using this item will no longer include it.`
+                ? `${itemToDelete.name} will be permanently removed. Any forms using this item will no longer include it.`
                 : null}
             </AlertDialogDescription>
           </AlertDialogHeader>

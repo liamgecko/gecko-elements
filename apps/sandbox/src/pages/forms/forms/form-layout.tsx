@@ -1,18 +1,24 @@
-import { Cog, Home, Save } from "lucide-react"
+import * as React from "react"
 import { Navigate, Outlet, useLocation, useNavigate, useParams } from "react-router-dom"
+import { toast } from "sonner"
 
 import { Container } from "@gecko/ui/components/container"
-import { Header } from "@gecko/ui/components/header"
 import {
   DataLoadErrorAlert,
   SupabaseSetupNotice,
 } from "@/components/supabase-setup-notice"
-import { BreadcrumbRouterLink } from "@/components/breadcrumb-router-link"
+import { formsRepository } from "@/data/repositories/formsRepository"
 import { useForm } from "@/hooks/useForm"
 import { useFavourites } from "../../../state/favourites"
+import { FormArchiveDialog } from "./form-archive-dialog"
+import { FormBuilderHeader } from "./form-builder-header"
+import { validateFormForm } from "./form-form"
 import {
-  formHeaderMenuItems,
   getFormPath,
+  type Form,
+  type FormDraft,
+  type FormHeaderMenuActionId,
+  type FormLayoutOutletContext,
 } from "./forms-data"
 
 const FORM_TAB_PATHS = {
@@ -38,10 +44,64 @@ export default function FormLayout() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const { isFavourited, setFavourite } = useFavourites()
-  const { form, loading, error, configured } = useForm(formId)
+  const { form, loading, error, configured, setForm } = useForm(formId)
+
+  const [draft, setDraft] = React.useState<FormDraft>({ name: "", status: "draft" })
+  const [isSaving, setIsSaving] = React.useState(false)
+  const [formsToArchive, setFormsToArchive] = React.useState<Form[] | null>(null)
 
   const activeTab = formTabFromPath(pathname)
   const formPath = getFormPath(formId, activeTab)
+  const headerTitle = draft.name.trim() || form?.name || "Form"
+  const canUpdateForm = Boolean(form) && !loading
+
+  React.useEffect(() => {
+    if (!form) return
+
+    setDraft({
+      name: form.name,
+      status: form.status,
+    })
+  }, [form])
+
+  const outletContext = React.useMemo<FormLayoutOutletContext>(
+    () => ({
+      draft,
+      setDraft,
+    }),
+    [draft],
+  )
+
+  const handleMenuAction = (action: FormHeaderMenuActionId) => {
+    if (action === "archive" && form) {
+      setFormsToArchive([form])
+    }
+  }
+
+  const handleUpdate = async () => {
+    if (!form) return
+
+    const validationErrors = validateFormForm(draft.name)
+    if (validationErrors.name) {
+      toast.error(validationErrors.name)
+      return
+    }
+
+    setIsSaving(true)
+
+    try {
+      const updated = await formsRepository.updateForm(form.id, {
+        name: draft.name.trim(),
+        status: draft.status,
+      })
+      setForm(updated)
+      toast.success(`${updated.name} updated`)
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to update form")
+    } finally {
+      setIsSaving(false)
+    }
+  }
 
   if (formId === "new") {
     return <Navigate to="/forms/forms/new" replace />
@@ -81,50 +141,25 @@ export default function FormLayout() {
 
   return (
     <div className="flex flex-col">
-      <Header
-        breadcrumbs={{
-          items: [
-            {
-              label: (
-                <BreadcrumbRouterLink to="/home">
-                  <Home className="size-3.5" />
-                  <span className="sr-only">Home</span>
-                </BreadcrumbRouterLink>
-              ),
-              renderLabelOnly: true,
-            },
-            {
-              label: (
-                <BreadcrumbRouterLink to="/forms/forms">Forms</BreadcrumbRouterLink>
-              ),
-              renderLabelOnly: true,
-            },
-            {
-              label: form.name,
-              current: true,
-            },
-          ],
-        }}
-        title={form.name}
+      <FormBuilderHeader
+        title={headerTitle}
+        loading={loading}
+        onMenuAction={handleMenuAction}
         favouriteAction={{
           pressed: isFavourited(formPath),
           onPressedChange: (next) => {
-            setFavourite({ path: formPath, label: form.name }, next)
+            setFavourite({ path: formPath, label: headerTitle }, next)
           },
         }}
-        secondaryActions={[
-          {
-            kind: "menu",
-            label: "Actions",
-            icon: <Cog aria-hidden />,
-            ariaLabel: "Form actions",
-            items: [...formHeaderMenuItems],
-          },
-        ]}
-        primaryAction={{
-          label: "Save changes",
-          icon: <Save aria-hidden className="size-4 shrink-0" />,
-        }}
+        primaryAction={
+          canUpdateForm
+            ? {
+                label: "Update form",
+                onClick: () => void handleUpdate(),
+                loading: isSaving,
+              }
+            : undefined
+        }
         tabs={{
           tabsProps: {
             value: activeTab,
@@ -143,8 +178,18 @@ export default function FormLayout() {
         }}
       />
       <Container>
-        <Outlet />
+        <Outlet context={outletContext} />
       </Container>
+
+      <FormArchiveDialog
+        forms={formsToArchive}
+        onOpenChange={(open) => {
+          if (!open) {
+            setFormsToArchive(null)
+          }
+        }}
+        onArchived={() => navigate("/forms/archived-forms")}
+      />
     </div>
   )
 }

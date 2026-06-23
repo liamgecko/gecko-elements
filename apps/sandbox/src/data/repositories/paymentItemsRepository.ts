@@ -1,5 +1,6 @@
 import { mapPaymentItemRowToPaymentItem } from "../mappers/paymentItemMapper"
 import { getSupabaseClient } from "../../lib/supabase/client"
+import { generateSandboxId } from "../../lib/supabase/generate-id"
 import {
   DEFAULT_CREATOR_USER_ID,
   SANDBOX_ACCOUNT_ID,
@@ -117,6 +118,7 @@ export const paymentItemsRepository = {
     const { data, error } = await supabase
       .from("payment_items")
       .insert({
+        id: generateSandboxId(),
         account_id: SANDBOX_ACCOUNT_ID,
         name: input.name.trim(),
         internal_name: input.internalName,

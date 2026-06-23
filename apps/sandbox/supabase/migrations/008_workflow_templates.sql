@@ -1,8 +1,8 @@
 -- Sandbox prototype: workflow templates (no RLS)
 
 create table workflow_templates (
-  id uuid primary key default gen_random_uuid(),
-  account_id uuid not null references accounts (id) on delete cascade,
+  id text primary key,
+  account_id text not null references accounts (id) on delete cascade,
   name text not null,
   definition jsonb,
   action_type text not null check (
@@ -21,8 +21,8 @@ create table workflow_templates (
       'after-conversation-end'
     )
   ),
-  source_workflow_id uuid references workflows (id) on delete set null,
-  created_by_user_id uuid not null references users (id) on delete restrict,
+  source_workflow_id text references workflows (id) on delete set null,
+  created_by_user_id text not null references users (id) on delete restrict,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
