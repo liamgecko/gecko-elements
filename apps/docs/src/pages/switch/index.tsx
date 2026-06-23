@@ -3,13 +3,7 @@ import { ComponentExample } from "@/components/layout/component-example"
 import { Code } from "@gecko/ui/components/code"
 import { PageSection } from "@/components/layout/page-section"
 import { Switch } from "@gecko/ui/components/switch"
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-} from "@gecko/ui/components/field"
+import { Field, FieldContent, FieldError } from "@gecko/ui/components/field"
 
 export function SwitchPage() {
   return (
@@ -40,35 +34,29 @@ export function SwitchPage() {
           <p className="mb-8 text-sm text-muted-foreground">
             Use the{" "}
             <Code>
-              Field
+              label
             </Code>{" "}
-            component to pair switches with labels and optional descriptive text.
+            and{" "}
+            <Code>
+              description
+            </Code>{" "}
+            props for accessible naming and helper text.
           </p>
 
           <h3 id="label-and-description-label" className="mb-3 text-base font-semibold">Label</h3>
           <ComponentExample className="mb-6">
-            <Field orientation="horizontal" className="max-w-sm">
-              <Switch id="switch-label" />
-              <FieldContent>
-                <FieldLabel htmlFor="switch-label">Switch with label</FieldLabel>
-              </FieldContent>
-            </Field>
+            <Switch id="switch-label" label="Switch with label" />
           </ComponentExample>
 
           <h3 id="label-and-description-label-desc" className="mb-3 text-base font-semibold">Label and description</h3>
           <ComponentExample>
-            <Field orientation="horizontal" className="max-w-sm">
-              <Switch id="switch-label-desc" />
-              <FieldContent>
-                <FieldLabel htmlFor="switch-label-desc">
-                  Switch with label and description
-                </FieldLabel>
-                <FieldDescription>
-                  Focus is shared across devices, and turns off when you leave the
-                  app.
-                </FieldDescription>
-              </FieldContent>
-            </Field>
+            <div className="max-w-sm">
+              <Switch
+                id="switch-label-desc"
+                label="Switch with label and description"
+                description="Focus is shared across devices, and turns off when you leave the app."
+              />
+            </div>
           </ComponentExample>
         </PageSection>
 
@@ -92,10 +80,7 @@ export function SwitchPage() {
 
           <h3 id="state-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
           <ComponentExample className="mb-6">
-            <Field orientation="horizontal" data-disabled>
-              <Switch id="switch-disabled-unchecked" disabled />
-              <FieldLabel htmlFor="switch-disabled-unchecked">Disabled</FieldLabel>
-            </Field>
+            <Switch id="switch-disabled-unchecked" disabled label="Disabled" />
           </ComponentExample>
 
           <h3 id="state-error" className="mb-3 text-base font-semibold">Error</h3>
@@ -104,10 +89,10 @@ export function SwitchPage() {
               <FieldContent>
                 <Switch
                   id="switch-invalid-unchecked"
+                  label="Invalid"
                   aria-invalid="true"
                   aria-describedby="switch-invalid-unchecked-error"
                 />
-                <FieldLabel htmlFor="switch-invalid-unchecked">Invalid</FieldLabel>
                 <FieldError id="switch-invalid-unchecked-error">
                   This setting must be corrected before you can continue.
                 </FieldError>

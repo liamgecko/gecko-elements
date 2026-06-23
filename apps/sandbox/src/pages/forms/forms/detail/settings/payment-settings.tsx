@@ -572,31 +572,20 @@ export default function FormPaymentSettingsPage() {
                     <FieldSeparator />
 
                     <FieldSet>
-                      <Field orientation="horizontal">
-                        <Switch
-                          id="payment-item-inventory-enabled"
-                          checked={inventoryEnabled}
-                          onCheckedChange={(checked) => {
-                            setInventoryEnabled(checked)
-                            if (!checked) {
-                              setMinQuantity(null)
-                              setMaxQuantity(null)
-                              setAvailableQuantity(null)
-                            }
-                          }}
-                        />
-                        <FieldContent>
-                          <FieldLabel htmlFor="payment-item-inventory-enabled">
-                            Inventory management
-                          </FieldLabel>
-                          <FieldDescription>
-                            Control how many of this item can be purchased. Set
-                            the minimum and maximum quantities allowed per
-                            basket, and limit the total number available to
-                            purchase.
-                          </FieldDescription>
-                        </FieldContent>
-                      </Field>
+                      <Switch
+                        id="payment-item-inventory-enabled"
+                        checked={inventoryEnabled}
+                        onCheckedChange={(checked) => {
+                          setInventoryEnabled(checked)
+                          if (!checked) {
+                            setMinQuantity(null)
+                            setMaxQuantity(null)
+                            setAvailableQuantity(null)
+                          }
+                        }}
+                        label="Inventory management"
+                        description="Control how many of this item can be purchased. Set the minimum and maximum quantities allowed per basket, and limit the total number available to purchase."
+                      />
 
                       {inventoryEnabled && (
                         <FieldGroup className="mt-2">

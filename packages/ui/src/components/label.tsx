@@ -42,4 +42,11 @@ function Label({
   )
 }
 
-export { Label }
+function ControlLabel({
+  className,
+  ...props
+}: React.ComponentProps<typeof Label>) {
+  return <Label className={cn("text-sm", className)} {...props} />
+}
+
+export { Label, ControlLabel }
