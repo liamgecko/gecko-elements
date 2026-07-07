@@ -1,5 +1,3 @@
-"use client"
-
 import { MessageCircleCheck, X } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"

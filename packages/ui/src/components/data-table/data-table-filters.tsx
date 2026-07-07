@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import type { ColumnFiltersState } from "@tanstack/react-table"
 

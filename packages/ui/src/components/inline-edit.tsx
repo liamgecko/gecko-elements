@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { Check, PenSquare, X } from "lucide-react"
 import { cva, type VariantProps } from "class-variance-authority"

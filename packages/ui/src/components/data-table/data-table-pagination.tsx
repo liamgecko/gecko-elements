@@ -1,5 +1,3 @@
-"use client"
-
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"

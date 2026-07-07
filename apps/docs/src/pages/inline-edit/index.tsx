@@ -1,5 +1,3 @@
-"use client"
-
 import { PageSection } from "@/components/layout/page-section"
 import { ComponentExample } from "@/components/layout/component-example"
 import { InlineEdit } from "@gecko/ui/components/inline-edit"

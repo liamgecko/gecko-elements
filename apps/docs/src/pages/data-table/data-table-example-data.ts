@@ -1,5 +1,3 @@
-"use client"
-
 import type { DataTableRowAction } from "@gecko/ui/components/data-table/data-table"
 
 export type DemoEventSyncStatus = "synced" | "failed" | "syncing" | "none"

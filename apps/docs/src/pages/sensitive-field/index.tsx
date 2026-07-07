@@ -1,5 +1,3 @@
-"use client"
-
 import { SensitiveField } from "@gecko/ui/components/sensitive-field"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"

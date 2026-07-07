@@ -121,6 +121,36 @@ export const componentSections: ComponentSections = {
       ],
     },
   ],
+  attachment: [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
+    { id: "basic-example", label: "Basic example" },
+    { id: "error-handling", label: "Error handling" },
+    {
+      id: "states",
+      label: "States",
+      children: [
+        { id: "states-default", label: "Default" },
+        { id: "states-uploading", label: "Uploading" },
+        { id: "states-error", label: "Error" },
+        { id: "states-success", label: "Success" },
+      ],
+    },
+    {
+      id: "sizing",
+      label: "Sizing",
+      children: [
+        { id: "sizing-default", label: "Default" },
+        { id: "sizing-sm", label: "Small" },
+        { id: "sizing-xs", label: "Extra small" },
+      ],
+    },
+    { id: "customisation", label: "Customisation" },
+  ],
   badge: [
     { id: "overview", label: "Overview" },
     { id: "default", label: "Default badge" },
@@ -152,6 +182,35 @@ export const componentSections: ComponentSections = {
     { id: "dismissible", label: "Dismissible" },
     { id: "notification", label: "Notification indicator" },
     { id: "as-button", label: "As button" },
+  ],
+  bubble: [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
+    {
+      id: "variants",
+      label: "Variants",
+      children: [
+        { id: "variants-default", label: "Default" },
+        { id: "variants-secondary", label: "Secondary" },
+        { id: "variants-outline", label: "Outline" },
+        { id: "variants-ghost", label: "Ghost" },
+        { id: "variants-destructive", label: "Destructive" },
+        { id: "variants-note", label: "Note" },
+      ],
+    },
+    { id: "alignment", label: "Alignment" },
+    { id: "group", label: "Group" },
+    { id: "reactions", label: "Reactions" },
+    { id: "tooltip", label: "Tooltip" },
+    { id: "show-more", label: "Show more" },
+    { id: "popover", label: "Popover" },
   ],
   card: [
     { id: "overview", label: "Overview" },
@@ -871,6 +930,57 @@ export const componentSections: ComponentSections = {
         { id: "with-avatar-text", label: "Name with avatar" },
       ],
     },
+  ],
+  marker: [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
+    {
+      id: "variants",
+      label: "Variants",
+      children: [
+        { id: "variants-default", label: "Default" },
+        { id: "variants-separator", label: "Separator" },
+        { id: "variants-border", label: "Border" },
+      ],
+    },
+    { id: "status", label: "Status" },
+    { id: "shimmer", label: "Shimmer" },
+    { id: "with-icon", label: "With icon" },
+    { id: "links-and-buttons", label: "Links and buttons" },
+  ],
+  message: [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
+    { id: "composition", label: "Composition" },
+  ],
+  "message-scroller": [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-installation", label: "Installation" },
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+        { id: "usage-basic", label: "Basic example" },
+      ],
+    },
+    { id: "anchoring", label: "Anchoring turns" },
+    { id: "context", label: "Keeping context visible" },
+    { id: "auto-scroll", label: "Following the live edge" },
+    { id: "animation", label: "Animating new messages" },
+    { id: "scroll-state", label: "Reading scroll state" },
   ],
   "metric-card": [
     { id: "overview", label: "Overview" },

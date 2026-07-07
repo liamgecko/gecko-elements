@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import { SearchField } from "@gecko/ui/components/search-field"
 import { ComponentExample } from "@/components/layout/component-example"

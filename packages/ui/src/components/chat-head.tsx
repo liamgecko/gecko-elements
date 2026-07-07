@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { Check, LockOpen, Trash2 } from "lucide-react"
 

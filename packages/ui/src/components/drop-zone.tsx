@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { CloudUpload, Trash2 } from "lucide-react"
 

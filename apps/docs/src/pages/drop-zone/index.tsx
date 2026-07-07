@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 
 import { ComponentExample } from "@/components/layout/component-example"

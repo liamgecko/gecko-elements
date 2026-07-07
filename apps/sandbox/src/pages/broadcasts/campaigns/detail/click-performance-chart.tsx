@@ -1,5 +1,3 @@
-"use client"
-
 import { ChartMetric } from "@gecko/ui/components/chart"
 import { Card, CardContent, CardHeader } from "@gecko/ui/components/card"
 import {

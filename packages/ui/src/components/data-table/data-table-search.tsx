@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 
 import { SearchField } from "@gecko/ui/components/search-field"

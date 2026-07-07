@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect, useRef } from "react"
 import { TypingIndicator } from "@gecko/ui/components/typing-indicator"
 import { Input } from "@gecko/ui/components/input"

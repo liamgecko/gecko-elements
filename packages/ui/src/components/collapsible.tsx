@@ -1,5 +1,3 @@
-"use client"
-
 import type { CSSProperties } from "react"
 import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible"
 

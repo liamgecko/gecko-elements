@@ -77,6 +77,11 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/alert-dialog",
   },
   {
+    name: "Attachment",
+    description: "File attachment row with upload, error, and uploaded states.",
+    path: "/components/attachment",
+  },
+  {
     name: "Avatar",
     description: "Represent users with an image, initials, or fallback.",
     path: "/components/avatar",
@@ -95,6 +100,11 @@ export const componentPages: readonly GalleryItem[] = [
     name: "Breadcrumb",
     description: "Show the user’s current location in the hierarchy.",
     path: "/components/breadcrumb",
+  },
+  {
+    name: "Bubble",
+    description: "Framed conversational surface for chat content and reactions.",
+    path: "/components/bubble",
   },
   {
     name: "Button",
@@ -240,6 +250,22 @@ export const componentPages: readonly GalleryItem[] = [
     name: "Label",
     description: "Accessible labels for form controls.",
     path: "/components/label",
+  },
+  {
+    name: "Marker",
+    description: "Inline status, note, bordered row, or labeled separator.",
+    path: "/components/marker",
+  },
+  {
+    name: "Message",
+    description: "Conversation row layout with avatar, header, and footer.",
+    path: "/components/message",
+  },
+  {
+    name: "Message scroller",
+    description:
+      "Chat transcript scroller for anchored turns, streaming, and live-edge following.",
+    path: "/components/message-scroller",
   },
   {
     name: "Metric card",

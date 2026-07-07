@@ -1,5 +1,3 @@
-"use client"
-
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 import {

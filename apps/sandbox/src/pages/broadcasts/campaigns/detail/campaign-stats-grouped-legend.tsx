@@ -1,5 +1,3 @@
-"use client"
-
 import { ChartLegendGroupedContent } from "@gecko/ui/components/chart"
 
 type LegendPayloadItem = {

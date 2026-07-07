@@ -12,7 +12,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ai-sdk/react": "^4.0.16",
     "@gecko/ui": "*",
+    "ai": "^7.0.15",
     "chrono-node": "^2.9.0",
     "lucide-react": "^1.14.0",
     "react": "^19.2.4",
@@ -21,7 +23,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "@tailwindcss/vite": "^4.1.18",
+    "@tailwindcss/vite": "^4.3.1",
     "@types/node": "^25.1.0",
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",

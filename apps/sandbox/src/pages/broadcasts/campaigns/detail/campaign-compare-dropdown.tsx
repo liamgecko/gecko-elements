@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { ChartLine } from "lucide-react"
 import { useParams } from "react-router-dom"

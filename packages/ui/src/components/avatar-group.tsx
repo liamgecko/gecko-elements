@@ -1,5 +1,3 @@
-"use client"
-
 import { Avatar, AvatarFallback, AvatarImage } from "@gecko/ui/components/avatar"
 import type { AvatarSize } from "@gecko/ui/components/avatar"
 import { Button } from "@gecko/ui/components/button"

@@ -1,5 +1,3 @@
-"use client"
-
 import { PanelRightClose, PanelRightOpen } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"

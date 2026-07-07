@@ -5,10 +5,12 @@ import { HomePage } from "@/pages/home"
 import { AccordionPage } from "@/pages/accordion"
 import { AlertPage } from "@/pages/alert"
 import { AlertDialogPage } from "@/pages/alert-dialog"
+import { AttachmentPage } from "@/pages/attachment"
 import { AvatarPage } from "@/pages/avatar"
 import { AvatarGroupPage } from "@/pages/avatar-group"
 import { BadgePage } from "@/pages/badge"
 import { BreadcrumbPage } from "@/pages/breadcrumb"
+import { BubblePage } from "@/pages/bubble"
 import { ButtonPage } from "@/pages/button"
 import { CalendarPage } from "@/pages/calendar"
 import { CardPage } from "@/pages/card"
@@ -50,6 +52,9 @@ import { ColorPickerPage } from "@/pages/color-picker"
 import { DataTablePage } from "@/pages/data-table"
 import { ReplyBoxPage } from "@/pages/reply-box"
 import { TypingIndicatorPage } from "@/pages/typing-indicator"
+import { MarkerPage } from "@/pages/marker"
+import { MessagePage } from "@/pages/message"
+import { MessageScrollerPage } from "@/pages/message-scroller"
 import { MetricCardPage } from "@/pages/metric-card"
 import { ChartsPage } from "@/pages/charts"
 import { TelephoneFieldPage } from "@/pages/telephone-field"
@@ -99,10 +104,12 @@ export function App() {
         <Route path="/components/accordion" element={<AccordionPage />} />
         <Route path="/components/alert" element={<AlertPage />} />
         <Route path="/components/alert-dialog" element={<AlertDialogPage />} />
+        <Route path="/components/attachment" element={<AttachmentPage />} />
         <Route path="/components/avatar" element={<AvatarPage />} />
         <Route path="/components/avatar-group" element={<AvatarGroupPage />} />
         <Route path="/components/badge" element={<BadgePage />} />
         <Route path="/components/breadcrumb" element={<BreadcrumbPage />} />
+        <Route path="/components/bubble" element={<BubblePage />} />
         <Route path="/components/button" element={<ButtonPage />} />
         <Route path="/components/calendar" element={<CalendarPage />} />
         <Route path="/components/card" element={<CardPage />} />
@@ -144,6 +151,12 @@ export function App() {
         <Route path="/components/data-table" element={<DataTablePage />} />
         <Route path="/components/reply-box" element={<ReplyBoxPage />} />
         <Route path="/components/typing-indicator" element={<TypingIndicatorPage />} />
+        <Route path="/components/marker" element={<MarkerPage />} />
+        <Route path="/components/message" element={<MessagePage />} />
+        <Route
+          path="/components/message-scroller"
+          element={<MessageScrollerPage />}
+        />
         <Route path="/components/metric-card" element={<MetricCardPage />} />
         <Route path="/components/charts" element={<ChartsPage />} />
         <Route path="/components/telephone-field" element={<TelephoneFieldPage />} />

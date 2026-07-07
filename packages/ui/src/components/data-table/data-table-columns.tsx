@@ -1,5 +1,3 @@
-"use client"
-
 /* eslint-disable react-refresh/only-export-components -- TanStack Table column helpers are intentionally exported from this module. */
 
 import type { ColumnDef, FilterFn } from "@tanstack/react-table"

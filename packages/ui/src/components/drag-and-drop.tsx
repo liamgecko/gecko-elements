@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import type { Data, DragOperation, Draggable } from "@dnd-kit/abstract"
 import type { SortableDraggable } from "@dnd-kit/dom/sortable"

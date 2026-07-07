@@ -1,5 +1,3 @@
-"use client"
-
 import { CheckCheck, X } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"

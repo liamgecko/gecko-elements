@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { CirclePlus, SendHorizontal } from "lucide-react"
 

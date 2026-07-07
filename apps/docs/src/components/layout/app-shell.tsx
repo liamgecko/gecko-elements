@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import {
   Sidebar,
   SidebarContent,
@@ -46,17 +46,7 @@ type AppShellProps = {
 export function AppShell({ children }: AppShellProps) {
   const location = useLocation()
   const navigate = useNavigate()
-  const { setTheme } = useTheme()
-  const [themeReady, setThemeReady] = useState(false)
-  const resolvedTheme = themeReady
-    ? document.documentElement.classList.contains("dark")
-      ? ("dark" as const)
-      : ("light" as const)
-    : ("light" as const)
-
-  useEffect(() => {
-    setThemeReady(true)
-  }, [])
+  const { resolvedTheme, setTheme } = useTheme()
 
   useEffect(() => {
     const viewport = document.querySelector<HTMLElement>(
@@ -258,52 +248,39 @@ export function AppShell({ children }: AppShellProps) {
                   </>
                 )}
               </div>
-              {themeReady ? (
-                <Tooltip>
-                  <TooltipTrigger
-                    render={
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon-sm"
-                        className="shrink-0 transition-none"
-                        onClick={() =>
-                          setTheme(resolvedTheme === "dark" ? "light" : "dark")
-                        }
-                        aria-label={
-                          resolvedTheme === "dark"
-                            ? "Switch to light mode"
-                            : "Switch to dark mode"
-                        }
-                      >
-                        {resolvedTheme === "dark" ? (
-                          <Sun className="size-4" aria-hidden />
-                        ) : (
-                          <Moon className="size-4" aria-hidden />
-                        )}
-                      </Button>
-                    }
-                  />
-                  <TooltipContent side="bottom" align="end">
-                    <p>
-                      {resolvedTheme === "dark"
-                        ? "Switch to light mode"
-                        : "Switch to dark mode"}
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              ) : (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon-sm"
-                  className="shrink-0 transition-none"
-                  aria-hidden
-                  disabled
-                >
-                  <Moon className="size-4 opacity-0" aria-hidden />
-                </Button>
-              )}
+              <Tooltip>
+                <TooltipTrigger
+                  render={
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon-sm"
+                      className="shrink-0 transition-none"
+                      onClick={() =>
+                        setTheme(resolvedTheme === "dark" ? "light" : "dark")
+                      }
+                      aria-label={
+                        resolvedTheme === "dark"
+                          ? "Switch to light mode"
+                          : "Switch to dark mode"
+                      }
+                    >
+                      {resolvedTheme === "dark" ? (
+                        <Sun className="size-4" aria-hidden />
+                      ) : (
+                        <Moon className="size-4" aria-hidden />
+                      )}
+                    </Button>
+                  }
+                />
+                <TooltipContent side="bottom" align="end">
+                  <p>
+                    {resolvedTheme === "dark"
+                      ? "Switch to light mode"
+                      : "Switch to dark mode"}
+                  </p>
+                </TooltipContent>
+              </Tooltip>
             </header>
             <div className="flex-1 mx-2 mb-3 p-1 rounded-2xl bg-background overflow-hidden">
               <ScrollArea className="h-full" data-app-main="true">

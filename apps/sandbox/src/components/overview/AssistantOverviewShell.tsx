@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 
 import { SidebarInset, SidebarProvider } from "@gecko/ui/components/sidebar"

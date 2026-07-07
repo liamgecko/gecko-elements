@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import type { Row, Table } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react"
