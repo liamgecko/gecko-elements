@@ -1,0 +1,18 @@
+/* Frimousse inserts empty spacer divs before category rows for layout math. */
+.live-chat-emoji-picker [frimousse-list-sizer] > div:not([frimousse-row]):not([frimousse-category]):not([aria-hidden]) {
+  display: none !important;
+  height: 0 !important;
+}
+
+.live-chat-emoji-picker [frimousse-row]:not(:has([frimousse-emoji])) {
+  display: none !important;
+  height: 0 !important;
+}
+
+.live-chat-emoji-picker [frimousse-category] {
+  pointer-events: auto;
+}
+
+.live-chat-emoji-picker [frimousse-category-header] {
+  height: auto !important;
+}

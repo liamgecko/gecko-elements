@@ -16,4 +16,5 @@ export type { ReplyBoxHeaderProps } from "./reply-box-header"
 export { ReplyBoxFooter } from "./reply-box-footer"
 export type { ReplyBoxFooterProps } from "./reply-box-footer"
 export { ReplyBoxContent, type ReplyBoxContentProps } from "./reply-box-content"
+export { useReplyBox } from "./reply-box-context"
 

@@ -16,7 +16,7 @@ function BubbleGroup({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 const bubbleVariants = cva(
-  "group/bubble relative flex w-fit max-w-[80%] min-w-0 flex-col gap-1 group-data-[align=end]/message:self-end data-[align=end]:self-end data-[variant=ghost]:max-w-full",
+  "group/bubble relative flex w-fit max-w-[80%] min-w-0 items-center gap-1 group-data-[align=end]/message:self-end data-[align=end]:self-end data-[variant=ghost]:max-w-full",
   {
     variants: {
       variant: {
@@ -70,7 +70,7 @@ function BubbleContent({
     props: mergeProps<"div">(
       {
         className: cn(
-          "w-fit max-w-full min-w-0 overflow-hidden rounded-3xl border border-transparent px-3 py-2.5 text-sm leading-snug wrap-break-word group-data-[align=end]/bubble:self-end [button]:text-left [button,a]:transition-colors [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ring/30",
+          "w-fit max-w-full min-w-0 overflow-hidden rounded-lg border border-transparent px-3 py-2.5 text-sm leading-snug wrap-break-word group-data-[align=end]/bubble:self-end [button]:text-left [button,a]:transition-colors [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ring/30",
           className
         ),
       },
@@ -120,4 +120,53 @@ function BubbleReactions({
   )
 }
 
-export { BubbleGroup, Bubble, BubbleContent, BubbleReactions }
+const bubbleActionsVariants = cva(
+  [
+    "flex shrink-0 items-center gap-0.5 text-muted-foreground opacity-0 transition-opacity",
+    "group-hover/bubble:opacity-100 group-focus-within/bubble:opacity-100",
+    "has-[[data-state=open]]:opacity-100 has-[[data-open]]:opacity-100 has-[[aria-expanded=true]]:opacity-100",
+  ].join(" "),
+  {
+    variants: {
+      side: {
+        start: "order-first",
+        end: "order-last",
+      },
+    },
+  }
+)
+
+function BubbleActions({
+  side,
+  className,
+  ...props
+}: React.ComponentProps<"div"> & {
+  /**
+   * Which side of the content the actions sit on.
+   * Defaults to the outside of the message flow:
+   * after content for `align="start"`, before content for `align="end"`.
+   */
+  side?: "start" | "end"
+}) {
+  return (
+    <div
+      data-slot="bubble-actions"
+      data-side={side}
+      className={cn(
+        bubbleActionsVariants({ side }),
+        // Mirror Messenger/WhatsApp: actions sit outside the bubble.
+        side == null && "group-data-[align=end]/bubble:order-first",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+export {
+  BubbleGroup,
+  Bubble,
+  BubbleContent,
+  BubbleActions,
+  BubbleReactions,
+}

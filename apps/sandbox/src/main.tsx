@@ -17,9 +17,6 @@ function setFavicon(href: string) {
 
 setFavicon(faviconUrl)
 
-// GitHub Pages SPA routing:
-// A 404.html redirect can forward deep links into index.html via `?p=/path`.
-// We rewrite the URL back to the intended path before the app mounts.
 const url = new URL(window.location.href)
 const p = url.searchParams.get("p")
 if (p) {

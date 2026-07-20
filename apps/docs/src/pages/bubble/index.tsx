@@ -1,5 +1,5 @@
 import * as React from "react"
-import { CheckIcon, ChevronDownIcon, InfoIcon } from "lucide-react"
+import { CheckIcon, ChevronDownIcon, InfoIcon, ReplyIcon, SmilePlusIcon } from "lucide-react"
 
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
@@ -11,6 +11,7 @@ import {
 import { Code } from "@gecko/ui/components/code"
 import {
   Bubble,
+  BubbleActions,
   BubbleContent,
   BubbleGroup,
   BubbleReactions,
@@ -73,10 +74,11 @@ function BubbleShowMore() {
 }
 
 export function BubblePage() {
-  const importSnippet = `import { Bubble, BubbleContent, BubbleReactions } from "@gecko/ui/components/bubble"`
+  const importSnippet = `import { Bubble, BubbleActions, BubbleContent, BubbleReactions } from "@gecko/ui/components/bubble"`
 
   const compositionSnippet = `Bubble
 ├── BubbleContent
+├── BubbleActions
 └── BubbleReactions`
 
   return (
@@ -91,7 +93,7 @@ export function BubblePage() {
       <PageSection id="usage" label="Usage">
         <PageSectionHeader
           title="Usage"
-          description="Compose bubbles with content and optional reactions."
+          description="Compose bubbles with content, hover actions, and optional reactions."
         />
         <PageSubsectionHeader
           id="usage-import"
@@ -273,9 +275,9 @@ export function BubblePage() {
           title="Reactions"
           description={
             <>
-              Use <Code>BubbleReactions</Code> for reactions or quick actions.
-              Reactions anchor to the bottom edge and overlap the bubble, so
-              leave vertical space between rows.
+              Use <Code>BubbleReactions</Code> for applied reactions. Reactions
+              anchor to the bottom edge and overlap the bubble, so leave vertical
+              space between rows.
             </>
           }
         />
@@ -306,6 +308,74 @@ export function BubblePage() {
                 <span>🎉</span>
                 <span>👏</span>
               </BubbleReactions>
+            </Bubble>
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="actions" label="Actions">
+        <PageSectionHeader
+          title="Actions"
+          description={
+            <>
+              Use <Code>BubbleActions</Code> for hover reply / react controls that
+              sit beside the bubble — keeping them out of the way of applied
+              reactions and short message clipping. Place after{" "}
+              <Code>BubbleContent</Code>; outgoing bubbles automatically move
+              actions to the outside (left) edge.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="flex w-full max-w-sm flex-col gap-8">
+            <Bubble variant="secondary" align="start">
+              <BubbleContent>Can we ship the bubbles tomorrow?</BubbleContent>
+              <BubbleActions>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-xs"
+                  aria-label="Reply"
+                >
+                  <ReplyIcon />
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-xs"
+                  aria-label="Add reaction"
+                >
+                  <SmilePlusIcon />
+                </Button>
+              </BubbleActions>
+              <BubbleReactions
+                align="start"
+                role="img"
+                aria-label="Reactions: thumbs up"
+              >
+                <span>👍</span>
+              </BubbleReactions>
+            </Bubble>
+            <Bubble variant="default" align="end">
+              <BubbleContent>hi</BubbleContent>
+              <BubbleActions>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-xs"
+                  aria-label="Reply"
+                >
+                  <ReplyIcon />
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-xs"
+                  aria-label="Add reaction"
+                >
+                  <SmilePlusIcon />
+                </Button>
+              </BubbleActions>
             </Bubble>
           </div>
         </ComponentExample>

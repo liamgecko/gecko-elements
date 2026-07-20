@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@gecko/ui/components/avatar"
+import { Avatar, AvatarFallback, AvatarImage, AvatarDescription, AvatarLabel } from "@gecko/ui/components/avatar"
 import { ComponentExample } from "@/components/layout/component-example"
 import { PageSection } from "@/components/layout/page-section"
 
@@ -11,7 +11,8 @@ export function AvatarPage() {
           <h1 className="text-2xl font-bold text-foreground">Avatar</h1>
           <p className="text-sm text-muted-foreground">
             User profile image with optional fallback, status, notification
-            indicator, and label or description.
+            indicator, and <code>AvatarLabel</code> or <code>AvatarDescription</code>{" "}
+            compound children.
           </p>
         </PageSection>
         <PageSection id="default" label="Default avatar">
@@ -100,8 +101,9 @@ export function AvatarPage() {
             size.
           </p>
           <ComponentExample className="mb-6">
-            <Avatar label="Gecko Engage">
+            <Avatar>
               <AvatarFallback>GE</AvatarFallback>
+              <AvatarLabel>Gecko Engage</AvatarLabel>
             </Avatar>
           </ComponentExample>
         </PageSection>
@@ -112,11 +114,10 @@ export function AvatarPage() {
             context.
           </p>
           <ComponentExample>
-            <Avatar
-              label="Gecko Engage"
-              description="gecko@geckoengage.com"
-            >
+            <Avatar>
               <AvatarFallback>GE</AvatarFallback>
+              <AvatarLabel>Gecko Engage</AvatarLabel>
+              <AvatarDescription>gecko@geckoengage.com</AvatarDescription>
             </Avatar>
           </ComponentExample>
         </PageSection>

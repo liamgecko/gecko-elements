@@ -82,7 +82,8 @@ export function ReplyBox({
     "border border-border flex flex-col",
     useWrappedLayout ? "bg-muted rounded-xl shadow-lg" : "bg-background rounded-md",
     variant === "textarea" && "bg-background",
-    variant === "basic" && "shadow-md",
+    variant === "basic" &&
+      "shadow-md transition-[border-color] has-[[data-slot=reply-box-input]:focus]:border-ring",
     expanded && "h-full",
     className
   )

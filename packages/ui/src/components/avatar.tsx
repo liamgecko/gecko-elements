@@ -24,6 +24,38 @@ const sizeMap = {
   default: "xl",
 } as const
 
+type ResolvedAvatarSize = (typeof sizeMap)[AvatarSize]
+
+const textColumnClass: Record<ResolvedAvatarSize, string> = {
+  xs: "-space-y-0.5",
+  sm: "-space-y-1",
+  md: "-space-y-0.5",
+  lg: "-space-y-0.5",
+  xl: "-space-y-1",
+  "2xl": "-space-y-1",
+  "3xl": "-space-y-1",
+}
+
+const labelClass: Record<ResolvedAvatarSize, string> = {
+  xs: "text-3xs/3",
+  sm: "text-2xs/3.5",
+  md: "text-sm/4.25",
+  lg: "text-sm/4.25",
+  xl: "text-sm/5",
+  "2xl": "text-base/5.5",
+  "3xl": "text-lg/6",
+}
+
+const descriptionClass: Record<ResolvedAvatarSize, string> = {
+  xs: "text-3xs/2.75",
+  sm: "text-2xs/3.5",
+  md: "text-xs/3.75",
+  lg: "text-sm/4.25",
+  xl: "text-sm/5",
+  "2xl": "text-base/5.5",
+  "3xl": "text-lg/6",
+}
+
 export type AvatarStatus = "online" | "unavailable" | "offline"
 
 const statusClass: Record<AvatarStatus, string> = {
@@ -46,35 +78,76 @@ const notificationSizeClass =
   "group-data-[size=md]/avatar:size-2 group-data-[size=lg]/avatar:size-2 " +
   "group-data-[size=xl]/avatar:size-2.5 group-data-[size=2xl]/avatar:size-3 group-data-[size=3xl]/avatar:size-3"
 
+type AvatarContextValue = {
+  size: AvatarSize
+  resolvedSize: ResolvedAvatarSize
+}
+
+const AvatarContext = React.createContext<AvatarContextValue | null>(null)
+
+function useAvatarContext() {
+  const context = React.useContext(AvatarContext)
+
+  if (!context) {
+    throw new Error("Avatar compound components must be used within Avatar.")
+  }
+
+  return context
+}
+
+function isAvatarChild(
+  child: React.ReactNode,
+  component: { displayName?: string },
+) {
+  return React.isValidElement(child) && child.type === component
+}
+
 function Avatar({
   className,
   size = "default",
   status,
   notification,
-  label,
-  description,
   children,
   ...props
 }: AvatarPrimitive.Root.Props & {
   size?: AvatarSize
   status?: AvatarStatus
   notification?: boolean
-  label?: React.ReactNode
-  description?: React.ReactNode
 }) {
-  const dataSize = sizeMap[size]
+  const resolvedSize = sizeMap[size]
+  const childArray = React.Children.toArray(children)
+  const avatarChildren: React.ReactNode[] = []
+  let label: React.ReactNode = null
+  let description: React.ReactNode = null
+
+  for (const child of childArray) {
+    if (isAvatarChild(child, AvatarLabel)) {
+      label = child
+      continue
+    }
+
+    if (isAvatarChild(child, AvatarDescription)) {
+      description = child
+      continue
+    }
+
+    avatarChildren.push(child)
+  }
+
+  const hasText = label != null || description != null
+
   const root = (
     <AvatarPrimitive.Root
       data-slot="avatar"
-      data-size={dataSize}
+      data-size={resolvedSize}
       className={cn(
         "rounded-full group/avatar relative flex shrink-0 select-none ring-2 ring-background data-[size=xs]:ring-1 data-[size=sm]:ring-1",
         "data-[size=xs]:size-4 data-[size=sm]:size-5 data-[size=md]:size-6 data-[size=lg]:size-7 data-[size=xl]:size-8 data-[size=2xl]:size-9 data-[size=3xl]:size-12",
-        className
+        className,
       )}
       {...props}
     >
-      {children}
+      {avatarChildren}
       {status != null && (
         <span
           data-slot="avatar-status"
@@ -91,58 +164,22 @@ function Avatar({
       )}
     </AvatarPrimitive.Root>
   )
-  if (label != null || description != null) {
-    return (
-      <div className="flex items-center gap-1.5">
-        {root}
-        <div 
-        className={cn(
-          "flex min-w-0 flex-col",
-          dataSize === "xs" && "-space-y-0.5",
-          dataSize === "sm" && "-space-y-1",
-          dataSize === "md" && "-space-y-0.5",
-          dataSize === "lg" && "-space-y-0.5",
-          dataSize === "xl" && "-space-y-1",
-          dataSize === "2xl" && "-space-y-1",
-          dataSize === "3xl" && "-space-y-1"
-        )}>
-          {label != null && (
-            <span
-              className={cn(
-                "truncate font-medium text-foreground",   
-                dataSize === "xs" && "text-3xs/3",
-                dataSize === "sm" && "text-2xs/3.5",
-                dataSize === "md" && "text-sm/4.25",
-                dataSize === "lg" && "text-sm/4.25", 
-                dataSize === "xl" && "text-sm/5",
-                dataSize === "2xl" && "text-base/5.5",
-                dataSize === "3xl" && "text-lg/6"
-              )}
-            >
-              {label}
-            </span>
-          )}
-          {description != null && (
-            <span
-              className={cn(
-                "truncate text-muted-foreground",
-                dataSize === "xs" && "text-3xs/2.75",
-                dataSize === "sm" && "text-2xs/3.5",
-                dataSize === "md" && "text-xs/3.75",
-                dataSize === "lg" && "text-sm/4.25",
-                dataSize === "xl" && "text-sm/5",
-                dataSize === "2xl" && "text-base/5.5",
-                dataSize === "3xl" && "text-lg/6"
-              )}
-            >
-              {description}
-            </span>
-          )}
+
+  return (
+    <AvatarContext.Provider value={{ size, resolvedSize }}>
+      {hasText ? (
+        <div className="flex items-center gap-1.5">
+          {root}
+          <div className={cn("flex min-w-0 flex-col", textColumnClass[resolvedSize])}>
+            {label}
+            {description}
+          </div>
         </div>
-      </div>
-    )
-  }
-  return root
+      ) : (
+        root
+      )}
+    </AvatarContext.Provider>
+  )
 }
 
 function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
@@ -151,7 +188,7 @@ function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
       data-slot="avatar-image"
       className={cn(
         "rounded-full aspect-square size-full object-cover",
-        className
+        className,
       )}
       {...props}
     />
@@ -168,12 +205,46 @@ function AvatarFallback({
       className={cn(
         "bg-muted text-foreground rounded-full flex size-full items-center justify-center font-medium uppercase",
         "group-data-[size=xs]/avatar:text-[8px] group-data-[size=sm]/avatar:text-[9px] group-data-[size=md]/avatar:text-2xs group-data-[size=lg]/avatar:text-xs group-data-[size=xl]/avatar:text-sm group-data-[size=2xl]/avatar:text-base group-data-[size=3xl]/avatar:text-lg",
-        className
+        className,
       )}
       {...props}
     />
   )
 }
+
+function AvatarLabel({ className, ...props }: React.ComponentProps<"span">) {
+  const { resolvedSize } = useAvatarContext()
+
+  return (
+    <span
+      data-slot="avatar-label"
+      className={cn(
+        "truncate font-medium text-foreground",
+        labelClass[resolvedSize],
+        className,
+      )}
+      {...props}
+    />
+  )
+}
+AvatarLabel.displayName = "AvatarLabel"
+
+function AvatarDescription({ className, ...props }: React.ComponentProps<"span">) {
+  const { resolvedSize } = useAvatarContext()
+
+  return (
+    <span
+      data-slot="avatar-description"
+      className={cn(
+        "truncate text-muted-foreground",
+        descriptionClass[resolvedSize],
+        className,
+      )}
+      {...props}
+    />
+  )
+}
+AvatarDescription.displayName = "AvatarDescription"
 
 function AvatarBadge({ className, ...props }: React.ComponentProps<"span">) {
   return (
@@ -188,7 +259,7 @@ function AvatarBadge({ className, ...props }: React.ComponentProps<"span">) {
         "group-data-[size=xl]/avatar:size-2.5 group-data-[size=xl]/avatar:[&>svg]:size-2",
         "group-data-[size=2xl]/avatar:size-3 group-data-[size=2xl]/avatar:[&>svg]:size-2",
         "group-data-[size=3xl]/avatar:size-3.5 group-data-[size=3xl]/avatar:[&>svg]:size-2.5",
-        className
+        className,
       )}
       {...props}
     />
@@ -199,5 +270,7 @@ export {
   Avatar,
   AvatarImage,
   AvatarFallback,
+  AvatarLabel,
+  AvatarDescription,
   AvatarBadge,
 }

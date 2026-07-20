@@ -208,6 +208,7 @@ export const componentSections: ComponentSections = {
     { id: "alignment", label: "Alignment" },
     { id: "group", label: "Group" },
     { id: "reactions", label: "Reactions" },
+    { id: "actions", label: "Actions" },
     { id: "tooltip", label: "Tooltip" },
     { id: "show-more", label: "Show more" },
     { id: "popover", label: "Popover" },
