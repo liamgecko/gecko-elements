@@ -1,0 +1,401 @@
+import * as React from "react"
+import { EmojiPicker as FrimousseEmojiPicker } from "frimousse"
+import { SmilePlus } from "lucide-react"
+
+import { Button } from "@gecko/ui/components/button"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@gecko/ui/components/popover"
+import { cn } from "@gecko/ui/lib/utils"
+
+import "./emoji-picker.css"
+
+const EMOJI_COLUMNS = 9
+
+/** Default quick-reaction emojis used by the tray. */
+export const DEFAULT_TRAY_EMOJIS = ["👍", "❤️", "😂", "😮", "😢", "👏"] as const
+
+type EmojiPickerView = "picker" | "tray"
+
+type EmojiPickerContextValue = {
+  defaultView: EmojiPickerView
+  trayEmojis: readonly string[]
+  showPickerFromTray: boolean
+  onEmojiSelect?: (emoji: string) => void
+  close: () => void
+}
+
+const EmojiPickerContext = React.createContext<EmojiPickerContextValue | null>(
+  null
+)
+
+function useEmojiPicker(component: string) {
+  const context = React.useContext(EmojiPickerContext)
+  if (!context) {
+    throw new Error(`${component} must be used within EmojiPicker.`)
+  }
+  return context
+}
+
+type EmojiPickerProps = {
+  open?: boolean
+  defaultOpen?: boolean
+  onOpenChange?: (open: boolean) => void
+  /**
+   * What the trigger opens by default when `EmojiPickerContent` has no
+   * children. `"picker"` opens the full emoji panel; `"tray"` opens the
+   * quick-reaction tray.
+   * @default "picker"
+   */
+  defaultView?: EmojiPickerView
+  /**
+   * Quick-reaction emojis when using the tray.
+   * @default DEFAULT_TRAY_EMOJIS
+   */
+  trayEmojis?: readonly string[]
+  /**
+   * When using the tray, whether it includes a control that opens the full
+   * emoji panel. Set to `false` for tray-only selection.
+   * @default true
+   */
+  showPickerFromTray?: boolean
+  onEmojiSelect?: (emoji: string) => void
+  children: React.ReactNode
+}
+
+function EmojiPicker({
+  defaultView = "picker",
+  trayEmojis = DEFAULT_TRAY_EMOJIS,
+  showPickerFromTray = true,
+  onEmojiSelect,
+  open: openProp,
+  onOpenChange,
+  defaultOpen,
+  children,
+}: EmojiPickerProps) {
+  const isControlled = openProp !== undefined
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(
+    defaultOpen ?? false
+  )
+  const open = isControlled ? openProp : uncontrolledOpen
+
+  const onEmojiSelectRef = React.useRef(onEmojiSelect)
+  onEmojiSelectRef.current = onEmojiSelect
+
+  const onOpenChangeRef = React.useRef(onOpenChange)
+  onOpenChangeRef.current = onOpenChange
+
+  const handleOpenChange = React.useCallback(
+    (next: boolean) => {
+      if (!isControlled) {
+        setUncontrolledOpen(next)
+      }
+      onOpenChangeRef.current?.(next)
+    },
+    [isControlled]
+  )
+
+  const close = React.useCallback(() => {
+    handleOpenChange(false)
+  }, [handleOpenChange])
+
+  const handleEmojiSelect = React.useCallback(
+    (emoji: string) => {
+      onEmojiSelectRef.current?.(emoji)
+      close()
+    },
+    [close]
+  )
+
+  const contextValue = React.useMemo<EmojiPickerContextValue>(
+    () => ({
+      defaultView,
+      trayEmojis,
+      showPickerFromTray,
+      onEmojiSelect: handleEmojiSelect,
+      close,
+    }),
+    [defaultView, trayEmojis, showPickerFromTray, handleEmojiSelect, close]
+  )
+
+  return (
+    <EmojiPickerContext.Provider value={contextValue}>
+      <Popover
+        data-slot="emoji-picker"
+        open={open}
+        onOpenChange={(next) => handleOpenChange(next)}
+      >
+        {children}
+      </Popover>
+    </EmojiPickerContext.Provider>
+  )
+}
+
+function EmojiPickerTrigger({
+  ...props
+}: React.ComponentProps<typeof PopoverTrigger>) {
+  return <PopoverTrigger data-slot="emoji-picker-trigger" {...props} />
+}
+
+function EmojiPickerContent({
+  className,
+  side,
+  align,
+  alignOffset = 0,
+  sideOffset = 8,
+  children,
+  ...props
+}: React.ComponentProps<typeof PopoverContent>) {
+  const { defaultView } = useEmojiPicker("EmojiPickerContent")
+  const resolvedSide = side ?? (defaultView === "tray" ? "top" : "bottom")
+  const resolvedAlign = align ?? (defaultView === "tray" ? "start" : "center")
+
+  return (
+    <PopoverContent
+      data-slot="emoji-picker-content"
+      side={resolvedSide}
+      align={resolvedAlign}
+      alignOffset={alignOffset}
+      sideOffset={sideOffset}
+      className={cn(
+        "w-auto gap-0 overflow-hidden p-0",
+        defaultView === "tray" && !children && "rounded-full",
+        className
+      )}
+      {...props}
+    >
+      {children ??
+        (defaultView === "tray" ? <EmojiPickerTray /> : <EmojiPickerPanel />)}
+    </PopoverContent>
+  )
+}
+
+type EmojiPickerTrayProps = React.ComponentProps<"div"> & {
+  /** Controlled open state for the nested full picker. */
+  pickerOpen?: boolean
+  onPickerOpenChange?: (open: boolean) => void
+}
+
+function EmojiPickerTray({
+  className,
+  pickerOpen: pickerOpenProp,
+  onPickerOpenChange,
+  ...props
+}: EmojiPickerTrayProps) {
+  const { trayEmojis, showPickerFromTray, onEmojiSelect } =
+    useEmojiPicker("EmojiPickerTray")
+  const isPickerControlled = pickerOpenProp !== undefined
+  const [uncontrolledPickerOpen, setUncontrolledPickerOpen] =
+    React.useState(false)
+  const pickerOpen = isPickerControlled
+    ? pickerOpenProp
+    : uncontrolledPickerOpen
+
+  function handlePickerOpenChange(next: boolean) {
+    if (!isPickerControlled) {
+      setUncontrolledPickerOpen(next)
+    }
+    onPickerOpenChange?.(next)
+  }
+
+  return (
+    <div
+      data-slot="emoji-picker-tray"
+      role="toolbar"
+      aria-label="Quick reactions"
+      className={cn("flex items-center p-1", className)}
+      {...props}
+    >
+      {trayEmojis.map((emoji) => (
+        <Button
+          key={emoji}
+          type="button"
+          variant="ghost"
+          size="icon-xs"
+          className="hover:bg-muted size-8 rounded-full text-lg leading-none transition-transform duration-100 ease-out"
+          aria-label={`React with ${emoji}`}
+          onClick={() => onEmojiSelect?.(emoji)}
+        >
+          <span aria-hidden>{emoji}</span>
+        </Button>
+      ))}
+
+      {showPickerFromTray ? (
+        <Popover open={pickerOpen} onOpenChange={handlePickerOpenChange}>
+          <PopoverTrigger
+            render={
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className={cn(
+                  "text-muted-foreground size-8 rounded-full",
+                  pickerOpen && "bg-muted text-foreground"
+                )}
+                aria-label="Open emoji picker"
+                aria-expanded={pickerOpen}
+              >
+                <SmilePlus strokeWidth={2.25} />
+              </Button>
+            }
+          />
+          <PopoverContent
+            side="top"
+            align="end"
+            sideOffset={10}
+            className="w-auto gap-0 overflow-hidden p-0"
+          >
+            <EmojiPickerPanel />
+          </PopoverContent>
+        </Popover>
+      ) : null}
+    </div>
+  )
+}
+
+type EmojiPickerPanelProps = React.ComponentProps<"div">
+
+function hasVisibleEmojis(children: React.ReactNode) {
+  return React.Children.toArray(children).some(
+    (child) =>
+      React.isValidElement<{ emoji?: { emoji?: string } }>(child) &&
+      Boolean(child.props.emoji?.emoji)
+  )
+}
+
+function getRowStyle(style?: React.CSSProperties): React.CSSProperties {
+  return {
+    ...style,
+    display: "grid",
+    gridTemplateColumns: `repeat(${EMOJI_COLUMNS}, minmax(0, 1fr))`,
+    alignItems: "center",
+    gap: 0,
+  }
+}
+
+function EmojiPickerPanel({ className, ...props }: EmojiPickerPanelProps) {
+  const { onEmojiSelect } = useEmojiPicker("EmojiPickerPanel")
+
+  return (
+    <div data-slot="emoji-picker-panel" {...props}>
+      <FrimousseEmojiPicker.Root
+        className={cn(
+          "emoji-picker-panel flex h-[300px] w-[352px] flex-col bg-popover",
+          className
+        )}
+        columns={EMOJI_COLUMNS}
+        sticky={false}
+        onEmojiSelect={({ emoji }) => onEmojiSelect?.(emoji)}
+      >
+        <div className="border-border border-b px-3 py-2">
+          <FrimousseEmojiPicker.Search
+            placeholder="Search for an emoji...."
+            className="border-input bg-background text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 w-full rounded-sm border px-2.5 py-1.5 text-sm outline-none focus-visible:ring-3"
+          />
+        </div>
+
+        <FrimousseEmojiPicker.Viewport className="min-h-0 flex-1 overflow-y-auto outline-none">
+          <FrimousseEmojiPicker.Loading className="text-muted-foreground flex items-center justify-center p-6 text-sm">
+            Loading…
+          </FrimousseEmojiPicker.Loading>
+          <FrimousseEmojiPicker.Empty className="text-muted-foreground flex items-center justify-center p-6 text-sm">
+            No emoji found.
+          </FrimousseEmojiPicker.Empty>
+          <FrimousseEmojiPicker.List
+            className="select-none"
+            components={{
+              CategoryHeader: ({
+                category,
+                className: categoryClassName,
+                style,
+                ...categoryProps
+              }) => (
+                <div
+                  {...categoryProps}
+                  className={cn(
+                    "bg-popover text-foreground flex items-center px-3 pt-3 pb-1.5 text-xs font-semibold capitalize",
+                    categoryClassName
+                  )}
+                  style={style}
+                >
+                  {category.label}
+                </div>
+              ),
+              Row: ({
+                children,
+                className: rowClassName,
+                style,
+                ...rowProps
+              }) => {
+                if (!hasVisibleEmojis(children)) {
+                  return null
+                }
+
+                return (
+                  <div
+                    {...rowProps}
+                    className={cn("px-1", rowClassName)}
+                    style={getRowStyle(style)}
+                  >
+                    {children}
+                  </div>
+                )
+              },
+              Emoji: ({ emoji, className: emojiClassName, ...emojiProps }) => (
+                <button
+                  type="button"
+                  className={cn(
+                    "hover:bg-muted data-[active=true]:bg-muted mx-auto flex size-7 items-center justify-center rounded-sm text-lg leading-none",
+                    emojiClassName
+                  )}
+                  data-active={emoji.isActive || undefined}
+                  {...emojiProps}
+                >
+                  {emoji.emoji}
+                </button>
+              ),
+            }}
+          />
+        </FrimousseEmojiPicker.Viewport>
+
+        <div className="border-border flex min-h-11 items-center justify-between gap-3 border-t px-3 py-2">
+          <FrimousseEmojiPicker.ActiveEmoji>
+            {({ emoji }) =>
+              emoji ? (
+                <div className="flex min-w-0 items-center gap-2">
+                  <span className="text-2xl leading-none">{emoji.emoji}</span>
+                  <span className="text-muted-foreground truncate text-xs capitalize">
+                    {emoji.label}
+                  </span>
+                </div>
+              ) : (
+                <span className="text-muted-foreground text-xs">
+                  Select an emoji
+                </span>
+              )
+            }
+          </FrimousseEmojiPicker.ActiveEmoji>
+
+          <div className="hover:bg-muted flex shrink-0 items-center gap-1.5 rounded-sm px-2 py-1">
+            <FrimousseEmojiPicker.SkinToneSelector
+              className="text-muted-foreground flex items-center justify-center p-0 text-lg hover:bg-transparent"
+              aria-label="Skin tone"
+            />
+            <span className="text-muted-foreground text-xs">Skin tone</span>
+          </div>
+        </div>
+      </FrimousseEmojiPicker.Root>
+    </div>
+  )
+}
+
+export {
+  EmojiPicker,
+  EmojiPickerTrigger,
+  EmojiPickerContent,
+  EmojiPickerTray,
+  EmojiPickerPanel,
+  type EmojiPickerView,
+}

@@ -69,6 +69,11 @@ export function ChatBubblePage() {
         <PageSection id="overview" label="Overview">
           <h1 className="text-2xl font-bold text-foreground">Chat bubble</h1>
           <p className="text-sm text-muted-foreground">
+            <span className="text-destructive font-medium">Deprecated.</span>{" "}
+            Prefer <Code>Message</Code> + <Code>Bubble</Code> for new work. This
+            page is kept as a reference while apps migrate.
+          </p>
+          <p className="text-sm text-muted-foreground">
             A simple message bubble with avatar, body text, and relative time
             metadata.
           </p>

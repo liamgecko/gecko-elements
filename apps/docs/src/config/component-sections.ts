@@ -202,10 +202,10 @@ export const componentSections: ComponentSections = {
         { id: "variants-outline", label: "Outline" },
         { id: "variants-ghost", label: "Ghost" },
         { id: "variants-destructive", label: "Destructive" },
-        { id: "variants-note", label: "Note" },
       ],
     },
     { id: "alignment", label: "Alignment" },
+    { id: "full-width", label: "Full width" },
     { id: "group", label: "Group" },
     { id: "reactions", label: "Reactions" },
     { id: "actions", label: "Actions" },
@@ -286,6 +286,30 @@ export const componentSections: ComponentSections = {
       children: [
         { id: "actions-single", label: "Single action" },
         { id: "actions-multi", label: "Multi-action" },
+      ],
+    },
+  ],
+  "emoji-picker": [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
+    { id: "basic-example", label: "Basic example" },
+    { id: "custom-trigger", label: "Custom trigger" },
+    { id: "tray", label: "Reaction tray" },
+    { id: "tray-only", label: "Tray only" },
+    {
+      id: "positioning",
+      label: "Positioning",
+      children: [
+        { id: "positioning-side", label: "Side" },
+        { id: "positioning-align", label: "Align" },
+        { id: "positioning-corners", label: "Corners" },
       ],
     },
   ],
@@ -961,9 +985,50 @@ export const componentSections: ComponentSections = {
     {
       id: "usage",
       label: "Usage",
-      children: [{ id: "usage-import", label: "Import" }],
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
     },
-    { id: "composition", label: "Composition" },
+    {
+      id: "variants",
+      label: "Variants",
+      children: [
+        { id: "variants-user", label: "User" },
+        { id: "variants-agent", label: "Agent" },
+        { id: "variants-ai", label: "AI" },
+        { id: "variants-note", label: "Note" },
+      ],
+    },
+    {
+      id: "types",
+      label: "Types",
+      children: [
+        { id: "types-inbox", label: "Inbox" },
+        { id: "types-chat-widget", label: "Chat widget" },
+        { id: "types-live-chat", label: "Live chat" },
+      ],
+    },
+    { id: "full-width", label: "Full width" },
+    {
+      id: "status",
+      label: "Status",
+      children: [
+        { id: "status-sent", label: "Sent" },
+        { id: "status-delivered", label: "Delivered" },
+        { id: "status-read", label: "Read" },
+        { id: "status-failed", label: "Failed" },
+      ],
+    },
+    { id: "group", label: "Group" },
+    {
+      id: "info-popover",
+      label: "Info popover",
+      children: [
+        { id: "info-popover-user-message", label: "User message" },
+        { id: "info-popover-agent-message", label: "Agent message" },
+      ],
+    },
   ],
   "message-scroller": [
     { id: "overview", label: "Overview" },

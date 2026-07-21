@@ -23,13 +23,15 @@ export function MessageScrollerPage() {
   MessageScrollerProvider,
   MessageScrollerViewport,
 } from "@gecko/ui/components/message-scroller"
-import { MessageAnimated } from "@gecko/ui/components/message-animated"`
+import { Message, MessageContent } from "@gecko/ui/components/message"
+import { Bubble, BubbleContent } from "@gecko/ui/components/bubble"`
 
   const compositionSnippet = `MessageScrollerProvider
 └── MessageScroller
     ├── MessageScrollerViewport
     │   └── MessageScrollerContent
     │       └── MessageScrollerItem
+    │           └── Message → Bubble
     └── MessageScrollerButton`
 
   const basicUsageSnippet = `<MessageScrollerProvider autoScroll>
@@ -42,7 +44,16 @@ import { MessageAnimated } from "@gecko/ui/components/message-animated"`
             messageId={message.id}
             scrollAnchor={message.role === "user"}
           >
-            <Message>...</Message>
+            <Message
+              variant={message.role === "user" ? "user" : "ai"}
+              align={message.role === "user" ? "end" : "start"}
+            >
+              <MessageContent>
+                <Bubble>
+                  <BubbleContent>{message.text}</BubbleContent>
+                </Bubble>
+              </MessageContent>
+            </Message>
           </MessageScrollerItem>
         ))}
       </MessageScrollerContent>
@@ -51,29 +62,176 @@ import { MessageAnimated } from "@gecko/ui/components/message-animated"`
   </MessageScroller>
 </MessageScrollerProvider>`
 
-  const anchorSnippet = `<MessageScrollerItem
-  messageId={message.id}
-  scrollAnchor={message.role === "user"}
-/>`
+  const anchorSnippet = `<MessageScrollerProvider>
+  <MessageScroller>
+    <MessageScrollerViewport>
+      <MessageScrollerContent>
+        {messages.map((message) => (
+          <MessageScrollerItem
+            key={message.id}
+            messageId={message.id}
+            scrollAnchor={message.role === "user"}
+          >
+            <Message
+              variant={message.role === "user" ? "user" : "ai"}
+              align={message.role === "user" ? "end" : "start"}
+            >
+              <MessageContent>
+                <Bubble>
+                  <BubbleContent>{message.text}</BubbleContent>
+                </Bubble>
+              </MessageContent>
+            </Message>
+          </MessageScrollerItem>
+        ))}
+      </MessageScrollerContent>
+    </MessageScrollerViewport>
+    <MessageScrollerButton />
+  </MessageScroller>
+</MessageScrollerProvider>`
 
   const peekSnippet = `<MessageScrollerProvider scrollPreviousItemPeek={64}>
-  <MessageScroller>...</MessageScroller>
+  <MessageScroller>
+    <MessageScrollerViewport>
+      <MessageScrollerContent>
+        {messages.map((message) => (
+          <MessageScrollerItem
+            key={message.id}
+            messageId={message.id}
+            scrollAnchor={message.role === "user"}
+          >
+            <Message
+              variant={message.role === "user" ? "user" : "ai"}
+              align={message.role === "user" ? "end" : "start"}
+            >
+              <MessageContent>
+                <Bubble>
+                  <BubbleContent>{message.text}</BubbleContent>
+                </Bubble>
+              </MessageContent>
+            </Message>
+          </MessageScrollerItem>
+        ))}
+      </MessageScrollerContent>
+    </MessageScrollerViewport>
+    <MessageScrollerButton />
+  </MessageScroller>
 </MessageScrollerProvider>`
 
   const autoScrollSnippet = `<MessageScrollerProvider autoScroll>
-  <MessageScroller>...</MessageScroller>
+  <MessageScroller>
+    <MessageScrollerViewport>
+      <MessageScrollerContent>
+        {messages.map((message) => (
+          <MessageScrollerItem
+            key={message.id}
+            messageId={message.id}
+            scrollAnchor={message.role === "user"}
+          >
+            <Message
+              variant={message.role === "user" ? "user" : "ai"}
+              align={message.role === "user" ? "end" : "start"}
+            >
+              <MessageContent>
+                <Bubble>
+                  <BubbleContent>{message.text}</BubbleContent>
+                </Bubble>
+              </MessageContent>
+            </Message>
+          </MessageScrollerItem>
+        ))}
+      </MessageScrollerContent>
+    </MessageScrollerViewport>
+    <MessageScrollerButton />
+  </MessageScroller>
 </MessageScrollerProvider>`
 
-  const animationSnippet = `import { MessageAnimated } from "@gecko/ui/components/message-animated"
+  const animationSnippet = `import { motion } from "motion/react"
+import { MESSAGE_ANIMATIONS } from "@gecko/ui/lib/message-animations"
 
-<MessageAnimated
-  message={message}
-  scrollAnchor={message.role === "user"}
-/>`
+const MotionItem = motion.create(MessageScrollerItem)
 
-  const scrollStateSnippet = `import { useMessageScrollerScrollable } from "@gecko/ui/components/message-scroller"
+<MessageScrollerProvider>
+  <MessageScroller>
+    <MessageScrollerViewport>
+      <MessageScrollerContent>
+        {messages.map((message) => {
+          const isUser = message.role === "user"
 
-const { start, end } = useMessageScrollerScrollable()`
+          return (
+            <MotionItem
+              key={message.id}
+              messageId={message.id}
+              scrollAnchor={isUser}
+              variants={MESSAGE_ANIMATIONS.pop.variants}
+              initial={isUser ? "initial" : false}
+              animate="animate"
+            >
+              <Message
+                variant={isUser ? "user" : "ai"}
+                align={isUser ? "end" : "start"}
+              >
+                <MessageContent>
+                  <Bubble>
+                    <BubbleContent>{message.text}</BubbleContent>
+                  </Bubble>
+                </MessageContent>
+              </Message>
+            </MotionItem>
+          )
+        })}
+      </MessageScrollerContent>
+    </MessageScrollerViewport>
+    <MessageScrollerButton />
+  </MessageScroller>
+</MessageScrollerProvider>`
+
+  const scrollStateSnippet = `import {
+  MessageScroller,
+  MessageScrollerContent,
+  MessageScrollerItem,
+  MessageScrollerProvider,
+  MessageScrollerViewport,
+  useMessageScrollerScrollable,
+} from "@gecko/ui/components/message-scroller"
+
+function ScrollEdges() {
+  const { start, end } = useMessageScrollerScrollable()
+
+  return (
+    <p>
+      Can scroll up: {String(start)} · Can scroll down: {String(end)}
+    </p>
+  )
+}
+
+<MessageScrollerProvider>
+  <ScrollEdges />
+  <MessageScroller>
+    <MessageScrollerViewport>
+      <MessageScrollerContent>
+        {messages.map((message) => (
+          <MessageScrollerItem
+            key={message.id}
+            messageId={message.id}
+            scrollAnchor={message.role === "user"}
+          >
+            <Message
+              variant={message.role === "user" ? "user" : "ai"}
+              align={message.role === "user" ? "end" : "start"}
+            >
+              <MessageContent>
+                <Bubble>
+                  <BubbleContent>{message.text}</BubbleContent>
+                </Bubble>
+              </MessageContent>
+            </Message>
+          </MessageScrollerItem>
+        ))}
+      </MessageScrollerContent>
+    </MessageScrollerViewport>
+  </MessageScroller>
+</MessageScrollerProvider>`
 
   return (
     <div className="space-y-12">
@@ -106,7 +264,7 @@ const { start, end } = useMessageScrollerScrollable()`
         <PageSubsectionHeader
           id="usage-import"
           title="Import"
-          description="Import the scroller primitives and optional MessageAnimated helper."
+          description="Import the scroller primitives alongside Message and Bubble."
         />
         <ComponentExample className="mb-6">
           <Code
@@ -152,17 +310,17 @@ const { start, end } = useMessageScrollerScrollable()`
           title="Anchoring turns"
           description="Mark the row that should anchor a new turn with scrollAnchor. In AI chat, that is usually the user's message."
         />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={anchorSnippet}
-            showCopyButton
-            copyLabel="Copy example"
-          />
-        </ComponentExample>
         <ComponentExample>
-          <MessageScrollerAnchoringDemo />
+          <div className="space-y-6">
+            <MessageScrollerAnchoringDemo />
+            <Code
+              variant="block"
+              language="tsx"
+              code={anchorSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
         </ComponentExample>
       </PageSection>
 
@@ -171,17 +329,17 @@ const { start, end } = useMessageScrollerScrollable()`
           title="Keeping context visible"
           description="scrollPreviousItemPeek keeps a slice of the previous item visible above the anchor so the new turn stays connected to its context."
         />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={peekSnippet}
-            showCopyButton
-            copyLabel="Copy example"
-          />
-        </ComponentExample>
         <ComponentExample>
-          <MessageScrollerContextDemo />
+          <div className="space-y-6">
+            <MessageScrollerContextDemo />
+            <Code
+              variant="block"
+              language="tsx"
+              code={peekSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
         </ComponentExample>
       </PageSection>
 
@@ -190,36 +348,36 @@ const { start, end } = useMessageScrollerScrollable()`
           title="Following the live edge"
           description="autoScroll keeps streamed replies in view while the reader is at the bottom. Scrolling away releases the view until they return with MessageScrollerButton."
         />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={autoScrollSnippet}
-            showCopyButton
-            copyLabel="Copy example"
-          />
-        </ComponentExample>
         <ComponentExample>
-          <MessageScrollerStreamingDemo />
+          <div className="space-y-6">
+            <MessageScrollerStreamingDemo />
+            <Code
+              variant="block"
+              language="tsx"
+              code={autoScrollSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
         </ComponentExample>
       </PageSection>
 
       <PageSection id="animation" label="Animating new messages">
         <PageSectionHeader
           title="Animating new messages"
-          description="MessageAnimated wraps MessageScrollerItem with motion presets. User messages animate on send; assistant replies stream in below without an entrance animation."
+          description="Compose MessageScrollerItem with motion presets directly. User messages animate on send; assistant replies stream in below without an entrance animation."
         />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={animationSnippet}
-            showCopyButton
-            copyLabel="Copy example"
-          />
-        </ComponentExample>
         <ComponentExample>
-          <MessageScrollerAnimationDemo />
+          <div className="space-y-6">
+            <MessageScrollerAnimationDemo />
+            <Code
+              variant="block"
+              language="tsx"
+              code={animationSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
         </ComponentExample>
       </PageSection>
 
@@ -228,17 +386,17 @@ const { start, end } = useMessageScrollerScrollable()`
           title="Reading scroll state"
           description="useMessageScrollerScrollable reports which edges the viewport can still scroll toward. Prefer data-scrollable on the viewport when styling the scroller itself."
         />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={scrollStateSnippet}
-            showCopyButton
-            copyLabel="Copy example"
-          />
-        </ComponentExample>
         <ComponentExample>
-          <MessageScrollerScrollStateDemo />
+          <div className="space-y-6">
+            <MessageScrollerScrollStateDemo />
+            <Code
+              variant="block"
+              language="tsx"
+              code={scrollStateSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
         </ComponentExample>
       </PageSection>
     </div>

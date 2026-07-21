@@ -7,7 +7,7 @@ import {
 } from "lucide-react"
 
 import { createChat } from "@/lib/ai"
-import { MessageAnimated } from "@gecko/ui/components/message-animated"
+import { ScrollerDemoMessage } from "./scroller-demo-message"
 import { Button } from "@gecko/ui/components/button"
 import {
   Card,
@@ -119,12 +119,10 @@ export function MessageScrollerAnimationDemo() {
                     className="p-4"
                   >
                     {messages.map((message) => (
-                      <MessageAnimated
+                      <ScrollerDemoMessage
                         key={message.id}
                         message={message}
                         animationPreset={preset}
-                        userVariant="secondary"
-                        assistantVariant="ghost"
                       />
                     ))}
                   </MessageScrollerContent>

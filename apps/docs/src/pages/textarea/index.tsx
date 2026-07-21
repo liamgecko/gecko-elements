@@ -17,7 +17,7 @@ export function TextareaPage() {
   return (
     <div className="space-y-12">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Textarea</h1>
+          <h1 className="text-2xl font-bold text-foreground">Textarea field</h1>
           <p className="text-sm text-muted-foreground">
             Multi-line text input for longer content such as comments or
             descriptions.

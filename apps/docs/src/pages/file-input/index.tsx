@@ -15,7 +15,7 @@ export function FileInputPage() {
   return (
     <div className="space-y-12">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">File input</h1>
+          <h1 className="text-2xl font-bold text-foreground">File field</h1>
           <p className="text-sm text-muted-foreground">
             Placeholder for File input component examples.
           </p>

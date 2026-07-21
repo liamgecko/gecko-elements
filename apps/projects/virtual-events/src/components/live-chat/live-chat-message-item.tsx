@@ -1,18 +1,17 @@
-import { Bubble, BubbleActions, BubbleContent, BubbleReactions } from "@gecko/ui/components/bubble"
+import { Bubble, BubbleActions, BubbleAuthor, BubbleContent, BubbleHeader, BubbleReactions, BubbleTimestamp } from "@gecko/ui/components/bubble"
 import { Button } from "@gecko/ui/components/button"
-import { Message, MessageContent } from "@gecko/ui/components/message"
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@gecko/ui/components/popover"
+  EmojiPicker,
+  EmojiPickerContent,
+  EmojiPickerTrigger,
+} from "@gecko/ui/components/emoji-picker"
+import { Message, MessageContent } from "@gecko/ui/components/message"
 import { MESSAGE_ANIMATIONS } from "@gecko/ui/lib/message-animations"
 import { cn } from "@gecko/ui/lib/utils"
 import { Reply, SmilePlus } from "lucide-react"
 import { motion, useReducedMotion } from "motion/react"
 import { useRef, useState } from "react"
 
-import { LiveChatReactionTray } from "./live-chat-reaction-tray"
 import { formatReactionLabel } from "./live-chat-reactions"
 import { LiveChatMessageBody } from "./live-chat-message-body"
 import {
@@ -37,7 +36,6 @@ export function LiveChatMessageItem({
 }: LiveChatMessageItemProps) {
   const shouldReduceMotion = useReducedMotion()
   const [reactionOpen, setReactionOpen] = useState(false)
-  const [pickerOpen, setPickerOpen] = useState(false)
   const [suppressActions, setSuppressActions] = useState(false)
   const ignoreEnterRef = useRef(false)
   const isStaff = isStaffMessage(message.role)
@@ -49,16 +47,13 @@ export function LiveChatMessageItem({
     setReactionOpen(open)
     if (open) {
       setSuppressActions(false)
-      return
     }
-    setPickerOpen(false)
   }
 
   function handleReact(emoji: string) {
     onReact?.(message.id, emoji)
     ignoreEnterRef.current = true
     setSuppressActions(true)
-    setPickerOpen(false)
     handleReactionOpenChange(false)
     window.setTimeout(() => {
       ignoreEnterRef.current = false
@@ -78,10 +73,10 @@ export function LiveChatMessageItem({
       exit={shouldAnimateEntry ? "exit" : undefined}
     >
       <Message>
-        <MessageContent className="max-w-full">
+        <MessageContent>
           <Bubble
             variant={isStaff ? "default" : "secondary"}
-            className="max-w-full"
+            fullWidth
             onPointerEnter={() => {
               if (ignoreEnterRef.current) return
               setSuppressActions(false)
@@ -90,19 +85,16 @@ export function LiveChatMessageItem({
           >
             <BubbleContent
               className={cn(
-                "flex min-w-0 flex-col gap-1.5 text-[13px] transition-shadow duration-200 ease-out motion-reduce:transition-none",
+                "min-w-0 text-[13px] transition-shadow duration-200 ease-out motion-reduce:transition-none",
                 highlighted && "ring-primary/40 ring-2",
               )}
             >
-              <div className="flex items-center justify-between gap-3 text-xs">
-                <span className="text-foreground font-semibold">{message.name}</span>
-                <time
-                  dateTime={message.timestamp}
-                  className="text-muted-foreground shrink-0 text-2xs font-medium"
-                >
+              <BubbleHeader>
+                <BubbleAuthor>{message.name}</BubbleAuthor>
+                <BubbleTimestamp dateTime={message.timestamp}>
                   {message.timestamp}
-                </time>
-              </div>
+                </BubbleTimestamp>
+              </BubbleHeader>
               <LiveChatMessageBody text={message.text} />
             </BubbleContent>
 
@@ -129,8 +121,13 @@ export function LiveChatMessageItem({
                 ) : null}
 
                 {onReact ? (
-                  <Popover open={reactionOpen} onOpenChange={handleReactionOpenChange}>
-                    <PopoverTrigger
+                  <EmojiPicker
+                    defaultView="tray"
+                    open={reactionOpen}
+                    onOpenChange={handleReactionOpenChange}
+                    onEmojiSelect={handleReact}
+                  >
+                    <EmojiPickerTrigger
                       render={
                         <Button
                           type="button"
@@ -144,20 +141,8 @@ export function LiveChatMessageItem({
                         </Button>
                       }
                     />
-                    <PopoverContent
-                      side="top"
-                      align="end"
-                      sideOffset={8}
-                      finalFocus={false}
-                      className="w-auto gap-0 overflow-hidden rounded-full p-0"
-                    >
-                      <LiveChatReactionTray
-                        onSelect={handleReact}
-                        pickerOpen={pickerOpen}
-                        onPickerOpenChange={setPickerOpen}
-                      />
-                    </PopoverContent>
-                  </Popover>
+                    <EmojiPickerContent side="top" align="end" />
+                  </EmojiPicker>
                 ) : null}
               </BubbleActions>
             ) : null}

@@ -42,6 +42,83 @@ function simulateFailingUpload(
 }
 
 export function AttachmentPage() {
+  const importSnippet = `import { Attachment } from "@gecko/ui/components/attachment"`
+
+  const basicExampleSnippet = `<Attachment
+  accept="image/*"
+  label="Click to upload or drag and drop"
+  description="SVG, PNG, JPG or GIF (max. 800x400px)"
+  onUpload={async (file, onProgress) => {
+    // Upload the file and report progress 0–100
+    onProgress(100)
+  }}
+/>`
+
+  const errorHandlingSnippet = `<Attachment
+  accept="image/*"
+  description="This upload always fails — try the retry action"
+  onUpload={async (file, onProgress) => {
+    onProgress(50)
+    throw new Error("Upload failed")
+  }}
+/>`
+
+  const stateDefaultSnippet = `<Attachment
+  state="default"
+  description="SVG, PNG, JPG or GIF (max. 800x400px)"
+/>`
+
+  const stateUploadingSnippet = `<Attachment
+  state="uploading"
+  name="design-system.zip"
+  progress={64}
+  onRemove={() => {}}
+/>`
+
+  const stateErrorSnippet = `<Attachment
+  state="error"
+  name="financial-model.xlsx"
+  onRetry={() => {}}
+  onRemove={() => {}}
+/>`
+
+  const stateSuccessSnippet = `<Attachment
+  state="done"
+  name="uploaded-report.pdf"
+  description="Uploaded · 1.8 MB"
+  onRemove={() => {}}
+/>`
+
+  const sizeDefaultSnippet = `<Attachment
+  size="default"
+  state="default"
+  description="SVG, PNG, JPG or GIF (max. 800x400px)"
+/>`
+
+  const sizeSmSnippet = `<Attachment
+  size="sm"
+  state="default"
+  description="SVG, PNG, JPG or GIF (max. 800x400px)"
+/>`
+
+  const sizeXsSnippet = `<Attachment
+  size="xs"
+  state="default"
+  description="SVG, PNG, JPG or GIF (max. 800x400px)"
+/>`
+
+  const customisationSnippet = `import { ImageUp } from "lucide-react"
+
+<Attachment
+  accept="image/*"
+  icon={<ImageUp />}
+  label="Upload your brand assets"
+  description="Drop a logo or image, or click to browse"
+  onUpload={async (file, onProgress) => {
+    onProgress(100)
+  }}
+/>`
+
   return (
     <div className="space-y-12">
       <PageSection id="overview" label="Overview">
@@ -65,7 +142,7 @@ export function AttachmentPage() {
           <Code
             variant="block"
             language="tsx"
-            code={`import { Attachment } from "@gecko/ui/components/attachment"`}
+            code={importSnippet}
             showCopyButton
             copyLabel="Copy import"
           />
@@ -85,12 +162,21 @@ export function AttachmentPage() {
           }
         />
         <ComponentExample>
-          <div className="w-full max-w-md">
-            <Attachment
-              accept="image/*"
-              label="Click to upload or drag and drop"
-              description="SVG, PNG, JPG or GIF (max. 800x400px)"
-              onUpload={simulateUpload}
+          <div className="space-y-6">
+            <div className="w-full max-w-md">
+              <Attachment
+                accept="image/*"
+                label="Click to upload or drag and drop"
+                description="SVG, PNG, JPG or GIF (max. 800x400px)"
+                onUpload={simulateUpload}
+              />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={basicExampleSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
           </div>
         </ComponentExample>
@@ -108,11 +194,20 @@ export function AttachmentPage() {
           }
         />
         <ComponentExample>
-          <div className="w-full max-w-md">
-            <Attachment
-              accept="image/*"
-              description="This upload always fails — try the retry action"
-              onUpload={simulateFailingUpload}
+          <div className="space-y-6">
+            <div className="w-full max-w-md">
+              <Attachment
+                accept="image/*"
+                description="This upload always fails — try the retry action"
+                onUpload={simulateFailingUpload}
+              />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={errorHandlingSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
           </div>
         </ComponentExample>
@@ -134,10 +229,19 @@ export function AttachmentPage() {
           description="The empty interactive state — click or drag to upload."
         />
         <ComponentExample className="mb-6">
-          <div className="w-full max-w-md">
-            <Attachment
-              state="default"
-              description="SVG, PNG, JPG or GIF (max. 800x400px)"
+          <div className="space-y-6">
+            <div className="w-full max-w-md">
+              <Attachment
+                state="default"
+                description="SVG, PNG, JPG or GIF (max. 800x400px)"
+              />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={stateDefaultSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
           </div>
         </ComponentExample>
@@ -147,12 +251,21 @@ export function AttachmentPage() {
           description="Shows progress while the file is being uploaded."
         />
         <ComponentExample className="mb-6">
-          <div className="w-full max-w-md">
-            <Attachment
-              state="uploading"
-              name="design-system.zip"
-              progress={64}
-              onRemove={() => {}}
+          <div className="space-y-6">
+            <div className="w-full max-w-md">
+              <Attachment
+                state="uploading"
+                name="design-system.zip"
+                progress={64}
+                onRemove={() => {}}
+              />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={stateUploadingSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
           </div>
         </ComponentExample>
@@ -162,12 +275,21 @@ export function AttachmentPage() {
           description="Failed upload with retry and remove actions."
         />
         <ComponentExample className="mb-6">
-          <div className="w-full max-w-md">
-            <Attachment
-              state="error"
-              name="financial-model.xlsx"
-              onRetry={() => {}}
-              onRemove={() => {}}
+          <div className="space-y-6">
+            <div className="w-full max-w-md">
+              <Attachment
+                state="error"
+                name="financial-model.xlsx"
+                onRetry={() => {}}
+                onRemove={() => {}}
+              />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={stateErrorSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
           </div>
         </ComponentExample>
@@ -177,12 +299,21 @@ export function AttachmentPage() {
           description="Uploaded file with size in the description."
         />
         <ComponentExample>
-          <div className="w-full max-w-md">
-            <Attachment
-              state="done"
-              name="uploaded-report.pdf"
-              description="Uploaded · 1.8 MB"
-              onRemove={() => {}}
+          <div className="space-y-6">
+            <div className="w-full max-w-md">
+              <Attachment
+                state="done"
+                name="uploaded-report.pdf"
+                description="Uploaded · 1.8 MB"
+                onRemove={() => {}}
+              />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={stateSuccessSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
           </div>
         </ComponentExample>
@@ -204,11 +335,20 @@ export function AttachmentPage() {
           description="The standard attachment row size."
         />
         <ComponentExample className="mb-6">
-          <div className="w-full max-w-md">
-            <Attachment
-              size="default"
-              state="default"
-              description="SVG, PNG, JPG or GIF (max. 800x400px)"
+          <div className="space-y-6">
+            <div className="w-full max-w-md">
+              <Attachment
+                size="default"
+                state="default"
+                description="SVG, PNG, JPG or GIF (max. 800x400px)"
+              />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={sizeDefaultSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
           </div>
         </ComponentExample>
@@ -218,11 +358,20 @@ export function AttachmentPage() {
           description="A compact row for tighter layouts."
         />
         <ComponentExample className="mb-6">
-          <div className="w-full max-w-md">
-            <Attachment
-              size="sm"
-              state="default"
-              description="SVG, PNG, JPG or GIF (max. 800x400px)"
+          <div className="space-y-6">
+            <div className="w-full max-w-md">
+              <Attachment
+                size="sm"
+                state="default"
+                description="SVG, PNG, JPG or GIF (max. 800x400px)"
+              />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={sizeSmSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
           </div>
         </ComponentExample>
@@ -232,11 +381,20 @@ export function AttachmentPage() {
           description="The smallest variant — label only, no description."
         />
         <ComponentExample>
-          <div className="w-full max-w-md">
-            <Attachment
-              size="xs"
-              state="default"
-              description="SVG, PNG, JPG or GIF (max. 800x400px)"
+          <div className="space-y-6">
+            <div className="w-full max-w-md">
+              <Attachment
+                size="xs"
+                state="default"
+                description="SVG, PNG, JPG or GIF (max. 800x400px)"
+              />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={sizeXsSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
           </div>
         </ComponentExample>
@@ -254,13 +412,22 @@ export function AttachmentPage() {
           }
         />
         <ComponentExample>
-          <div className="w-full max-w-md">
-            <Attachment
-              accept="image/*"
-              icon={<ImageUp />}
-              label="Upload your brand assets"
-              description="Drop a logo or image, or click to browse"
-              onUpload={simulateUpload}
+          <div className="space-y-6">
+            <div className="w-full max-w-md">
+              <Attachment
+                accept="image/*"
+                icon={<ImageUp />}
+                label="Upload your brand assets"
+                description="Drop a logo or image, or click to browse"
+                onUpload={simulateUpload}
+              />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={customisationSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
           </div>
         </ComponentExample>

@@ -3,7 +3,7 @@ import { useChat } from "@ai-sdk/react"
 import { ArrowUpIcon, RotateCwIcon } from "lucide-react"
 
 import { createChat, getMessageText } from "@/lib/ai"
-import { MessageAnimated } from "@gecko/ui/components/message-animated"
+import { ScrollerDemoMessage } from "./scroller-demo-message"
 import { Button } from "@gecko/ui/components/button"
 import {
   Card,
@@ -117,12 +117,10 @@ export function MessageScrollerContextDemo() {
                   className="p-4"
                 >
                   {messages.map((message) => (
-                    <MessageAnimated
+                    <ScrollerDemoMessage
                       key={message.id}
                       message={message}
                       scrollAnchor={message.role === "user"}
-                      userVariant="secondary"
-                      assistantVariant="ghost"
                     />
                   ))}
                 </MessageScrollerContent>

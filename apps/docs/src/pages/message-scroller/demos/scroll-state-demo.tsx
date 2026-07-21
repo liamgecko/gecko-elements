@@ -1,4 +1,4 @@
-import { MessageAnimated } from "@gecko/ui/components/message-animated"
+import { ScrollerDemoMessage } from "./scroller-demo-message"
 import {
   Card,
   CardContent,
@@ -62,12 +62,10 @@ export function MessageScrollerScrollStateDemo() {
 
 function Transcript() {
   return messages.map((message) => (
-    <MessageAnimated
+    <ScrollerDemoMessage
       key={message.id}
       message={message}
       scrollAnchor={message.role === "user"}
-      userVariant="secondary"
-      assistantVariant="ghost"
     />
   ))
 }

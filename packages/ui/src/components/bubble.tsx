@@ -3,20 +3,24 @@ import { mergeProps } from "@base-ui/react/merge-props"
 import { useRender } from "@base-ui/react/use-render"
 import { cva, type VariantProps } from "class-variance-authority"
 
+import {
+  getMessageBubbleVariant,
+  useOptionalMessageContext,
+} from "@gecko/ui/components/message-context"
 import { cn } from "@gecko/ui/lib/utils"
 
 function BubbleGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="bubble-group"
-      className={cn("flex min-w-0 flex-col gap-2", className)}
+      className={cn("flex w-full min-w-0 flex-col gap-2", className)}
       {...props}
     />
   )
 }
 
 const bubbleVariants = cva(
-  "group/bubble relative flex w-fit max-w-[80%] min-w-0 items-center gap-1 group-data-[align=end]/message:self-end data-[align=end]:self-end data-[variant=ghost]:max-w-full",
+  "group/bubble relative flex min-w-0 items-center gap-1 group-data-[align=end]/message:self-end data-[align=end]:self-end",
   {
     variants: {
       variant: {
@@ -30,31 +34,47 @@ const bubbleVariants = cva(
           "border-none *:data-[slot=bubble-content]:rounded-none *:data-[slot=bubble-content]:bg-transparent *:data-[slot=bubble-content]:p-0 [&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted [&>[data-slot=bubble-content]:is(button,a):hover]:text-foreground dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted/50",
         destructive:
           "*:data-[slot=bubble-content]:bg-destructive/10 *:data-[slot=bubble-content]:text-destructive dark:*:data-[slot=bubble-content]:bg-destructive/20 [&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive/20 dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-destructive/30",
-        note:
-          "*:data-[slot=bubble-content]:bg-yellow-100 *:data-[slot=bubble-content]:text-yellow-950 dark:*:data-[slot=bubble-content]:bg-yellow-950 dark:*:data-[slot=bubble-content]:text-yellow-100 [&>[data-slot=bubble-content]:is(button,a):hover]:bg-yellow-200 dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-yellow-900",
+      },
+      fullWidth: {
+        true: "w-fit max-w-full",
+        false: "w-fit max-w-[85%]",
       },
     },
     defaultVariants: {
       variant: "default",
+      fullWidth: false,
     },
   }
 )
 
 function Bubble({
-  variant = "default",
-  align = "start",
+  variant,
+  align,
+  fullWidth = false,
   className,
   ...props
 }: React.ComponentProps<"div"> &
   VariantProps<typeof bubbleVariants> & {
     align?: "start" | "end"
+    /** Raise the max-width cap from 85% to 100%. Bubble still sizes to content. */
+    fullWidth?: boolean
   }) {
+  const message = useOptionalMessageContext()
+  const resolvedVariant =
+    variant ??
+    (message ? getMessageBubbleVariant(message.variant) : "default")
+  const resolvedAlign = align ?? message?.align ?? "start"
+
   return (
     <div
       data-slot="bubble"
-      data-variant={variant}
-      data-align={align}
-      className={cn(bubbleVariants({ variant }), className)}
+      data-variant={resolvedVariant}
+      data-align={resolvedAlign}
+      data-full-width={fullWidth || undefined}
+      className={cn(
+        bubbleVariants({ variant: resolvedVariant, fullWidth }),
+        className
+      )}
       {...props}
     />
   )
@@ -70,7 +90,7 @@ function BubbleContent({
     props: mergeProps<"div">(
       {
         className: cn(
-          "w-fit max-w-full min-w-0 overflow-hidden rounded-lg border border-transparent px-3 py-2.5 text-sm leading-snug wrap-break-word group-data-[align=end]/bubble:self-end [button]:text-left [button,a]:transition-colors [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ring/30",
+          "flex w-full min-w-0 max-w-full flex-col gap-2 overflow-hidden rounded-lg border border-transparent px-3 py-2.5 text-sm leading-snug wrap-break-word group-data-[align=end]/bubble:self-end [button]:text-left [button,a]:transition-colors [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ring/30",
           className
         ),
       },
@@ -81,6 +101,46 @@ function BubbleContent({
       slot: "bubble-content",
     },
   })
+}
+
+/** In-bubble top row for author + timestamp (e.g. live chat). */
+function BubbleHeader({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="bubble-header"
+      className={cn(
+        "flex items-center justify-between gap-3 text-xs",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function BubbleAuthor({ className, ...props }: React.ComponentProps<"span">) {
+  return (
+    <span
+      data-slot="bubble-author"
+      className={cn("text-foreground min-w-0 truncate font-semibold", className)}
+      {...props}
+    />
+  )
+}
+
+function BubbleTimestamp({
+  className,
+  ...props
+}: React.ComponentProps<"time">) {
+  return (
+    <time
+      data-slot="bubble-timestamp"
+      className={cn(
+        "text-muted-foreground shrink-0 text-2xs font-medium",
+        className
+      )}
+      {...props}
+    />
+  )
 }
 
 const bubbleReactionsVariants = cva(
@@ -167,6 +227,9 @@ export {
   BubbleGroup,
   Bubble,
   BubbleContent,
+  BubbleHeader,
+  BubbleAuthor,
+  BubbleTimestamp,
   BubbleActions,
   BubbleReactions,
 }

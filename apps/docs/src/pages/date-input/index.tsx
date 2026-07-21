@@ -13,7 +13,7 @@ export function DateInputPage() {
   return (
     <div className="space-y-12">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Date input</h1>
+          <h1 className="text-2xl font-bold text-foreground">Date field</h1>
           <p className="text-sm text-muted-foreground">
             Three segment inputs for day, month, and year (DD MM YY or DD MM YYYY). Uses the existing Input component. Supports day‑first or month‑first (American) order; focus auto‑advances when a segment is full.
           </p>

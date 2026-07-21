@@ -9,10 +9,13 @@ import {
   TooltipTrigger,
 } from "@gecko/ui/components/tooltip"
 import { BotMessageSquare } from "lucide-react"
+import { Bubble, BubbleContent } from "@gecko/ui/components/bubble"
 import {
-  ChatBubble,
-  ChatBubbleMessage,
-} from "@gecko/ui/components/chat-bubble"
+  Message,
+  MessageAiActions,
+  MessageContent,
+  MessageMeta,
+} from "@gecko/ui/components/message"
 import { ReplyBox, ReplyBoxContent, ReplyBoxFooter } from "@gecko/ui/components/reply-box"
 import { Forward, Loader } from "lucide-react"
 import { cn } from "@gecko/ui/lib/utils"
@@ -524,54 +527,58 @@ export default function OverviewPage() {
             aria-relevant="additions text"
           >
             <div className="mx-auto flex w-full max-w-2xl flex-col gap-8 pt-6 pb-6">
-              {messages.map((m) => (
-                <div
-                  key={m.id}
-                  className={cn(
-                    "animate-in fade-in-0 fill-mode-both duration-300 motion-reduce:animate-none",
-                    m.role === "agent" && "slide-in-from-bottom-1"
-                  )}
-                >
-                  <ChatBubble
-                    className="mb-0"
-                    agent={m.role === "agent"}
-                    variant={m.role === "agent" ? "ai-agent" : "default"}
+              {messages.map((m) => {
+                const isAgent = m.role === "agent"
+                // Assistant chat: user on the right, AI on the left (override inbox defaults).
+                const variant = isAgent ? "ai" : "user"
+                const align = isAgent ? "start" : "end"
+
+                return (
+                  <div
+                    key={m.id}
+                    className={cn(
+                      "animate-in fade-in-0 fill-mode-both duration-300 motion-reduce:animate-none",
+                      isAgent && "slide-in-from-bottom-1"
+                    )}
                   >
-                    <ChatBubbleMessage
-                      timestamp={m.ts}
-                      copyText={m.role === "agent" ? m.text : undefined}
-                      onGoodResponse={
-                        m.role === "agent"
-                          ? () => playFeedbackSound(thumbUpSoundUrl)
-                          : undefined
-                      }
-                      onBadResponse={
-                        m.role === "agent"
-                          ? () => {
-                              playFeedbackSound(thumbDownSoundUrl)
-                              openNegativeFeedbackDialog()
-                            }
-                          : undefined
-                      }
-                      onShareResponse={
-                        m.role === "agent"
-                          ? () => {
-                              if (activeConversationId) {
-                                shareConversation(activeConversationId)
-                              } else {
-                                setShareConversationId(null)
-                                setShareEmail("")
-                                setShareDialogOpen(true)
+                    <Message variant={variant} align={align}>
+                      <MessageContent>
+                        <Bubble>
+                          <BubbleContent>
+                            <div>{m.content ?? m.text}</div>
+                            <MessageMeta
+                              timestamp={m.ts}
+                              actions={
+                                isAgent ? (
+                                  <MessageAiActions
+                                    copyText={m.text}
+                                    onGoodResponse={() =>
+                                      playFeedbackSound(thumbUpSoundUrl)
+                                    }
+                                    onBadResponse={() => {
+                                      playFeedbackSound(thumbDownSoundUrl)
+                                      openNegativeFeedbackDialog()
+                                    }}
+                                    onShareResponse={() => {
+                                      if (activeConversationId) {
+                                        shareConversation(activeConversationId)
+                                      } else {
+                                        setShareConversationId(null)
+                                        setShareEmail("")
+                                        setShareDialogOpen(true)
+                                      }
+                                    }}
+                                  />
+                                ) : undefined
                               }
-                            }
-                          : undefined
-                      }
-                    >
-                      {m.content ?? m.text}
-                    </ChatBubbleMessage>
-                  </ChatBubble>
-                </div>
-              ))}
+                            />
+                          </BubbleContent>
+                        </Bubble>
+                      </MessageContent>
+                    </Message>
+                  </div>
+                )
+              })}
             </div>
           </div>
         ) : null}

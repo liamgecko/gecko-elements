@@ -74,12 +74,186 @@ function BubbleShowMore() {
 }
 
 export function BubblePage() {
-  const importSnippet = `import { Bubble, BubbleActions, BubbleContent, BubbleReactions } from "@gecko/ui/components/bubble"`
+  const importSnippet = `import {
+  Bubble,
+  BubbleActions,
+  BubbleAuthor,
+  BubbleContent,
+  BubbleHeader,
+  BubbleReactions,
+  BubbleTimestamp,
+} from "@gecko/ui/components/bubble"`
 
   const compositionSnippet = `Bubble
 ├── BubbleContent
+│   ├── BubbleHeader
+│   │   ├── BubbleAuthor
+│   │   └── BubbleTimestamp
+│   └── body
 ├── BubbleActions
 └── BubbleReactions`
+
+  const defaultSnippet = `<Bubble>
+  <BubbleContent>This is the default primary bubble.</BubbleContent>
+</Bubble>`
+
+  const secondarySnippet = `<Bubble variant="secondary" align="end">
+  <BubbleContent>This is the secondary variant.</BubbleContent>
+</Bubble>`
+
+  const outlineSnippet = `<Bubble variant="outline">
+  <BubbleContent>We can also use an outlined variant.</BubbleContent>
+</Bubble>`
+
+  const ghostSnippet = `<Bubble variant="ghost">
+  <BubbleContent>
+    Ghost bubbles are unframed for assistant text and rich content.
+  </BubbleContent>
+</Bubble>`
+
+  const destructiveSnippet = `<Bubble variant="destructive" align="end">
+  <BubbleContent>A destructive variant for errors.</BubbleContent>
+</Bubble>`
+
+  const alignmentSnippet = `<Bubble variant="secondary">
+  <BubbleContent>
+    This bubble is aligned to the start (default).
+  </BubbleContent>
+</Bubble>
+
+<Bubble align="end">
+  <BubbleContent>
+    This bubble is aligned to the end — use it for user messages.
+  </BubbleContent>
+</Bubble>`
+
+  const fullWidthSnippet = `<Bubble variant="secondary" align="end">
+  <BubbleContent>Default: grows with content up to 85%…</BubbleContent>
+</Bubble>
+
+<Bubble variant="secondary" align="end" fullWidth>
+  <BubbleContent>Full width: can grow up to 100%…</BubbleContent>
+</Bubble>`
+
+  const groupSnippet = `<Bubble variant="secondary">
+  <BubbleContent>Can you tell me what's the issue?</BubbleContent>
+</Bubble>
+
+<BubbleGroup>
+  <Bubble align="end">
+    <BubbleContent>You tell me!</BubbleContent>
+  </Bubble>
+  <Bubble align="end">
+    <BubbleContent>It worked yesterday. You broke it!</BubbleContent>
+  </Bubble>
+  <Bubble align="end">
+    <BubbleContent>Find the bug and fix it.</BubbleContent>
+  </Bubble>
+</BubbleGroup>`
+
+  const reactionsSnippet = `<Bubble variant="secondary" align="start">
+  <BubbleContent>
+    I don't need tests, I know my code works.
+  </BubbleContent>
+  <BubbleReactions align="start" aria-label="Reactions: thumbs up, surprised">
+    <span>👍</span>
+    <span>😮</span>
+  </BubbleReactions>
+</Bubble>
+
+<Bubble variant="default" align="end">
+  <BubbleContent>
+    Tests passed on the first try. All 142 of them.
+  </BubbleContent>
+  <BubbleReactions align="start" aria-label="Reactions: party popper, clapping hands">
+    <span>🎉</span>
+    <span>👏</span>
+  </BubbleReactions>
+</Bubble>`
+
+  const actionsSnippet = `<Bubble variant="secondary" align="start">
+  <BubbleContent>Can we ship the bubbles tomorrow?</BubbleContent>
+  <BubbleActions>
+    <Button variant="ghost" size="icon-xs" aria-label="Reply">
+      <ReplyIcon />
+    </Button>
+    <Button variant="ghost" size="icon-xs" aria-label="Add reaction">
+      <SmilePlusIcon />
+    </Button>
+  </BubbleActions>
+  <BubbleReactions align="start" aria-label="Reactions: thumbs up">
+    <span>👍</span>
+  </BubbleReactions>
+</Bubble>
+
+<Bubble variant="default" align="end">
+  <BubbleContent>hi</BubbleContent>
+  <BubbleActions>
+    <Button variant="ghost" size="icon-xs" aria-label="Reply">
+      <ReplyIcon />
+    </Button>
+    <Button variant="ghost" size="icon-xs" aria-label="Add reaction">
+      <SmilePlusIcon />
+    </Button>
+  </BubbleActions>
+</Bubble>`
+
+  const tooltipSnippet = `<Bubble variant="secondary">
+  <BubbleContent>Did you remove the stale route?</BubbleContent>
+</Bubble>
+
+<Bubble align="end">
+  <BubbleContent>Yes, removed it from the registry.</BubbleContent>
+  <BubbleReactions>
+    <Tooltip>
+      <TooltipTrigger render={<Button variant="ghost" size="icon-xs" />}>
+        <CheckIcon />
+      </TooltipTrigger>
+      <TooltipContent>Read on Jan 5, 2026 at 4:32 PM</TooltipContent>
+    </Tooltip>
+  </BubbleReactions>
+</Bubble>`
+
+  const showMoreSnippet = `<Bubble variant="secondary" align="end">
+  <BubbleContent className="whitespace-pre-line">
+    <Collapsible open={open} onOpenChange={setOpen}>
+      <div>{open ? fullText : preview}</div>
+      <CollapsibleTrigger
+        render={<Button variant="link" size="sm" />}
+      >
+        {open ? "Show less" : "Show more"}
+        <ChevronDownIcon />
+      </CollapsibleTrigger>
+    </Collapsible>
+  </BubbleContent>
+</Bubble>`
+
+  const popoverSnippet = `<Bubble align="end">
+  <BubbleContent>Run the build script.</BubbleContent>
+</Bubble>
+
+<Bubble variant="destructive">
+  <BubbleContent>Failed to run the command.</BubbleContent>
+  <BubbleReactions>
+    <Popover>
+      <PopoverTrigger
+        render={
+          <Button variant="ghost" size="icon-xs" aria-label="Show error details" />
+        }
+      >
+        <InfoIcon />
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverHeader>
+          <PopoverTitle>Command failed with exit code 1</PopoverTitle>
+          <PopoverDescription>
+            ENOENT: no such file or directory, open pnpm-lock.yaml
+          </PopoverDescription>
+        </PopoverHeader>
+      </PopoverContent>
+    </Popover>
+  </BubbleReactions>
+</Bubble>`
 
   return (
     <div className="space-y-12">
@@ -141,10 +315,19 @@ export function BubblePage() {
           description="A strong primary bubble, usually for the current user."
         />
         <ComponentExample className="mb-6">
-          <div className="w-full max-w-sm">
-            <Bubble>
-              <BubbleContent>This is the default primary bubble.</BubbleContent>
-            </Bubble>
+          <div className="space-y-6">
+            <div className="w-full">
+              <Bubble>
+                <BubbleContent>This is the default primary bubble.</BubbleContent>
+              </Bubble>
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={defaultSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
         <PageSubsectionHeader
@@ -153,10 +336,19 @@ export function BubblePage() {
           description="The standard neutral bubble for conversation content."
         />
         <ComponentExample className="mb-6">
-          <div className="w-full max-w-sm">
-            <Bubble variant="secondary" align="end">
-              <BubbleContent>This is the secondary variant.</BubbleContent>
-            </Bubble>
+          <div className="space-y-6">
+            <div className="w-full">
+              <Bubble variant="secondary" align="end">
+                <BubbleContent>This is the secondary variant.</BubbleContent>
+              </Bubble>
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={secondarySnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
         <PageSubsectionHeader
@@ -165,10 +357,19 @@ export function BubblePage() {
           description="A bordered bubble for secondary or rich content."
         />
         <ComponentExample className="mb-6">
-          <div className="w-full max-w-sm">
-            <Bubble variant="outline">
-              <BubbleContent>We can also use an outlined variant.</BubbleContent>
-            </Bubble>
+          <div className="space-y-6">
+            <div className="w-full">
+              <Bubble variant="outline">
+                <BubbleContent>We can also use an outlined variant.</BubbleContent>
+              </Bubble>
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={outlineSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
         <PageSubsectionHeader
@@ -177,12 +378,21 @@ export function BubblePage() {
           description="Unframed content for assistant text or rich content."
         />
         <ComponentExample className="mb-6">
-          <div className="w-full max-w-sm">
-            <Bubble variant="ghost">
-              <BubbleContent>
-                Ghost bubbles are unframed for assistant text and rich content.
-              </BubbleContent>
-            </Bubble>
+          <div className="space-y-6">
+            <div className="w-full">
+              <Bubble variant="ghost">
+                <BubbleContent>
+                  Ghost bubbles are unframed for assistant text and rich content.
+                </BubbleContent>
+              </Bubble>
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={ghostSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
         <PageSubsectionHeader
@@ -190,25 +400,20 @@ export function BubblePage() {
           title="Destructive"
           description="A destructive bubble for error or failed actions."
         />
-        <ComponentExample className="mb-6">
-          <div className="w-full max-w-sm">
-            <Bubble variant="destructive" align="end">
-              <BubbleContent>A destructive variant for errors.</BubbleContent>
-            </Bubble>
-          </div>
-        </ComponentExample>
-        <PageSubsectionHeader
-          id="variants-note"
-          title="Note"
-          description="A note bubble for internal conversation notes."
-        />
         <ComponentExample>
-          <div className="w-full max-w-sm">
-            <Bubble variant="note">
-              <BubbleContent>
-                A note bubble for internal conversation notes.
-              </BubbleContent>
-            </Bubble>
+          <div className="space-y-6">
+            <div className="w-full">
+              <Bubble variant="destructive" align="end">
+                <BubbleContent>A destructive variant for errors.</BubbleContent>
+              </Bubble>
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={destructiveSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
       </PageSection>
@@ -219,22 +424,77 @@ export function BubblePage() {
           description={
             <>
               Use <Code>align</Code> to position the bubble at the start or end
-              of the conversation.
+              of the conversation. Bubbles grow with content up to 85% of the
+              container width, then wrap.
             </>
           }
         />
         <ComponentExample>
-          <div className="flex w-full max-w-sm flex-col gap-8">
-            <Bubble variant="secondary">
-              <BubbleContent>
-                This bubble is aligned to the start (default).
-              </BubbleContent>
-            </Bubble>
-            <Bubble align="end">
-              <BubbleContent>
-                This bubble is aligned to the end — use it for user messages.
-              </BubbleContent>
-            </Bubble>
+          <div className="space-y-6">
+            <div className="flex w-full flex-col gap-8">
+              <Bubble variant="secondary">
+                <BubbleContent>
+                  This bubble is aligned to the start (default).
+                </BubbleContent>
+              </Bubble>
+              <Bubble align="end">
+                <BubbleContent>
+                  This bubble is aligned to the end — use it for user messages.
+                </BubbleContent>
+              </Bubble>
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={alignmentSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="full-width" label="Full width">
+        <PageSectionHeader
+          title="Full width"
+          description={
+            <>
+              Bubbles always size to their content and wrap when needed. By
+              default the max-width is <Code>85%</Code>. Set{" "}
+              <Code>fullWidth</Code> to raise that cap to <Code>100%</Code> —
+              useful in tighter layouts like sidebars.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <div className="flex w-full flex-col gap-8">
+              <Bubble variant="secondary" align="end">
+                <BubbleContent>
+                  Default: grows with content up to 85% of the container width,
+                  then text wraps onto the next line when it reaches that limit.
+                  Keep adding copy and you will see the bubble stop expanding once
+                  it hits that 85% cap — anything longer wraps onto additional
+                  lines instead of stretching across the full row.
+                </BubbleContent>
+              </Bubble>
+              <Bubble variant="secondary" align="end" fullWidth>
+                <BubbleContent>
+                  Full width: still sizes to the text, but can grow up to 100% of
+                  the container before wrapping. With enough copy the bubble fills
+                  the entire row, then wraps onto the next line — useful in tighter
+                  layouts like sidebars where the usual 85% gap would leave unused
+                  space.
+                </BubbleContent>
+              </Bubble>
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={fullWidthSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
       </PageSection>
@@ -251,21 +511,30 @@ export function BubblePage() {
           }
         />
         <ComponentExample>
-          <div className="flex w-full max-w-sm flex-col gap-8">
-            <Bubble variant="secondary">
-              <BubbleContent>Can you tell me what&apos;s the issue?</BubbleContent>
-            </Bubble>
-            <BubbleGroup>
-              <Bubble align="end">
-                <BubbleContent>You tell me!</BubbleContent>
+          <div className="space-y-6">
+            <div className="flex w-full flex-col gap-8">
+              <Bubble variant="secondary">
+                <BubbleContent>Can you tell me what&apos;s the issue?</BubbleContent>
               </Bubble>
-              <Bubble align="end">
-                <BubbleContent>It worked yesterday. You broke it!</BubbleContent>
-              </Bubble>
-              <Bubble align="end">
-                <BubbleContent>Find the bug and fix it.</BubbleContent>
-              </Bubble>
-            </BubbleGroup>
+              <BubbleGroup>
+                <Bubble align="end">
+                  <BubbleContent>You tell me!</BubbleContent>
+                </Bubble>
+                <Bubble align="end">
+                  <BubbleContent>It worked yesterday. You broke it!</BubbleContent>
+                </Bubble>
+                <Bubble align="end">
+                  <BubbleContent>Find the bug and fix it.</BubbleContent>
+                </Bubble>
+              </BubbleGroup>
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={groupSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
       </PageSection>
@@ -282,33 +551,42 @@ export function BubblePage() {
           }
         />
         <ComponentExample>
-          <div className="flex w-full max-w-sm flex-col gap-12">
-            <Bubble variant="secondary" align="start">
-              <BubbleContent>
-                I don&apos;t need tests, I know my code works.
-              </BubbleContent>
-              <BubbleReactions
-                align="start"
-                role="img"
-                aria-label="Reactions: thumbs up, surprised"
-              >
-                <span>👍</span>
-                <span>😮</span>
-              </BubbleReactions>
-            </Bubble>
-            <Bubble variant="default" align="end">
-              <BubbleContent>
-                Tests passed on the first try. All 142 of them.
-              </BubbleContent>
-              <BubbleReactions
-                align="start"
-                role="img"
-                aria-label="Reactions: party popper, clapping hands"
-              >
-                <span>🎉</span>
-                <span>👏</span>
-              </BubbleReactions>
-            </Bubble>
+          <div className="space-y-6">
+            <div className="flex w-full flex-col gap-12">
+              <Bubble variant="secondary" align="start">
+                <BubbleContent>
+                  I don&apos;t need tests, I know my code works.
+                </BubbleContent>
+                <BubbleReactions
+                  align="start"
+                  role="img"
+                  aria-label="Reactions: thumbs up, surprised"
+                >
+                  <span>👍</span>
+                  <span>😮</span>
+                </BubbleReactions>
+              </Bubble>
+              <Bubble variant="default" align="end">
+                <BubbleContent>
+                  Tests passed on the first try. All 142 of them.
+                </BubbleContent>
+                <BubbleReactions
+                  align="start"
+                  role="img"
+                  aria-label="Reactions: party popper, clapping hands"
+                >
+                  <span>🎉</span>
+                  <span>👏</span>
+                </BubbleReactions>
+              </Bubble>
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={reactionsSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
       </PageSection>
@@ -327,56 +605,65 @@ export function BubblePage() {
           }
         />
         <ComponentExample>
-          <div className="flex w-full max-w-sm flex-col gap-8">
-            <Bubble variant="secondary" align="start">
-              <BubbleContent>Can we ship the bubbles tomorrow?</BubbleContent>
-              <BubbleActions>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon-xs"
-                  aria-label="Reply"
+          <div className="space-y-6">
+            <div className="flex w-full flex-col gap-8">
+              <Bubble variant="secondary" align="start">
+                <BubbleContent>Can we ship the bubbles tomorrow?</BubbleContent>
+                <BubbleActions>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon-xs"
+                    aria-label="Reply"
+                  >
+                    <ReplyIcon />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon-xs"
+                    aria-label="Add reaction"
+                  >
+                    <SmilePlusIcon />
+                  </Button>
+                </BubbleActions>
+                <BubbleReactions
+                  align="start"
+                  role="img"
+                  aria-label="Reactions: thumbs up"
                 >
-                  <ReplyIcon />
-                </Button>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon-xs"
-                  aria-label="Add reaction"
-                >
-                  <SmilePlusIcon />
-                </Button>
-              </BubbleActions>
-              <BubbleReactions
-                align="start"
-                role="img"
-                aria-label="Reactions: thumbs up"
-              >
-                <span>👍</span>
-              </BubbleReactions>
-            </Bubble>
-            <Bubble variant="default" align="end">
-              <BubbleContent>hi</BubbleContent>
-              <BubbleActions>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon-xs"
-                  aria-label="Reply"
-                >
-                  <ReplyIcon />
-                </Button>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon-xs"
-                  aria-label="Add reaction"
-                >
-                  <SmilePlusIcon />
-                </Button>
-              </BubbleActions>
-            </Bubble>
+                  <span>👍</span>
+                </BubbleReactions>
+              </Bubble>
+              <Bubble variant="default" align="end">
+                <BubbleContent>hi</BubbleContent>
+                <BubbleActions>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon-xs"
+                    aria-label="Reply"
+                  >
+                    <ReplyIcon />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon-xs"
+                    aria-label="Add reaction"
+                  >
+                    <SmilePlusIcon />
+                  </Button>
+                </BubbleActions>
+              </Bubble>
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={actionsSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
       </PageSection>
@@ -392,23 +679,32 @@ export function BubblePage() {
           }
         />
         <ComponentExample>
-          <div className="flex w-full max-w-sm flex-col gap-4">
-            <Bubble variant="secondary">
-              <BubbleContent>Did you remove the stale route?</BubbleContent>
-            </Bubble>
-            <Bubble align="end">
-              <BubbleContent>Yes, removed it from the registry.</BubbleContent>
-              <BubbleReactions>
-                <Tooltip>
-                  <TooltipTrigger
-                    render={<Button variant="ghost" size="icon-xs" />}
-                  >
-                    <CheckIcon />
-                  </TooltipTrigger>
-                  <TooltipContent>Read on Jan 5, 2026 at 4:32 PM</TooltipContent>
-                </Tooltip>
-              </BubbleReactions>
-            </Bubble>
+          <div className="space-y-6">
+            <div className="flex w-full flex-col gap-4">
+              <Bubble variant="secondary">
+                <BubbleContent>Did you remove the stale route?</BubbleContent>
+              </Bubble>
+              <Bubble align="end">
+                <BubbleContent>Yes, removed it from the registry.</BubbleContent>
+                <BubbleReactions>
+                  <Tooltip>
+                    <TooltipTrigger
+                      render={<Button variant="ghost" size="icon-xs" />}
+                    >
+                      <CheckIcon />
+                    </TooltipTrigger>
+                    <TooltipContent>Read on Jan 5, 2026 at 4:32 PM</TooltipContent>
+                  </Tooltip>
+                </BubbleReactions>
+              </Bubble>
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={tooltipSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
       </PageSection>
@@ -424,11 +720,20 @@ export function BubblePage() {
           }
         />
         <ComponentExample>
-          <div className="flex w-full max-w-sm flex-col gap-8">
-            <Bubble variant="secondary">
-              <BubbleContent>How can I help you today?</BubbleContent>
-            </Bubble>
-            <BubbleShowMore />
+          <div className="space-y-6">
+            <div className="flex w-full flex-col gap-8">
+              <Bubble variant="secondary">
+                <BubbleContent>How can I help you today?</BubbleContent>
+              </Bubble>
+              <BubbleShowMore />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={showMoreSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
       </PageSection>
@@ -445,39 +750,47 @@ export function BubblePage() {
           }
         />
         <ComponentExample>
-          <div className="flex w-full max-w-sm flex-col gap-4">
-            <Bubble align="end">
-              <BubbleContent>Run the build script.</BubbleContent>
-            </Bubble>
-            <Bubble variant="destructive">
-              <BubbleContent>Failed to run the command.</BubbleContent>
-              <BubbleReactions>
-                <Popover>
-                  <PopoverTrigger
-                    render={
-                      <Button
-                        variant="ghost"
-                        size="icon-xs"
-                        aria-label="Show error details"
-                        className="aria-expanded:text-destructive"
-                      />
-                    }
-                  >
-                    <InfoIcon />
-                  </PopoverTrigger>
-                  <PopoverContent>
-                    <PopoverHeader>
-                      <PopoverTitle className="text-sm">
-                        Command failed with exit code 1
-                      </PopoverTitle>
-                      <PopoverDescription className="text-sm">
-                        ENOENT: no such file or directory, open pnpm-lock.yaml
-                      </PopoverDescription>
-                    </PopoverHeader>
-                  </PopoverContent>
-                </Popover>
-              </BubbleReactions>
-            </Bubble>
+          <div className="space-y-6">
+            <div className="flex w-full flex-col gap-4">
+              <Bubble align="end">
+                <BubbleContent>Run the build script.</BubbleContent>
+              </Bubble>
+              <Bubble variant="destructive">
+                <BubbleContent>Failed to run the command.</BubbleContent>
+                <BubbleReactions>
+                  <Popover>
+                    <PopoverTrigger
+                      render={
+                        <Button
+                          variant="ghost"
+                          size="icon-xs"
+                          aria-label="Show error details"
+                        />
+                      }
+                    >
+                      <InfoIcon />
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <PopoverHeader>
+                        <PopoverTitle className="text-sm">
+                          Command failed with exit code 1
+                        </PopoverTitle>
+                        <PopoverDescription className="text-sm">
+                          ENOENT: no such file or directory, open pnpm-lock.yaml
+                        </PopoverDescription>
+                      </PopoverHeader>
+                    </PopoverContent>
+                  </Popover>
+                </BubbleReactions>
+              </Bubble>
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={popoverSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
       </PageSection>

@@ -23,6 +23,7 @@ import { DatePickerPage } from "@/pages/date-picker"
 import { DialogPage } from "@/pages/dialog"
 import { DirectionPage } from "@/pages/direction"
 import { DropdownMenuPage } from "@/pages/dropdown-menu"
+import { EmojiPickerPage } from "@/pages/emoji-picker"
 import { EmptyPage } from "@/pages/empty"
 import { FieldPage } from "@/pages/field"
 import { InputPage } from "@/pages/input"
@@ -123,6 +124,7 @@ export function App() {
         <Route path="/components/direction" element={<DirectionPage />} />
         <Route path="/components/dropdown-menu" element={<DropdownMenuPage />} />
         <Route path="/components/empty" element={<EmptyPage />} />
+        <Route path="/components/emoji-picker" element={<EmojiPickerPage />} />
         <Route path="/components/field" element={<FieldPage />} />
         <Route path="/components/input" element={<InputPage />} />
         <Route path="/components/input-otp" element={<InputOtpPage />} />

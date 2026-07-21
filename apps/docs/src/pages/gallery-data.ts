@@ -55,6 +55,7 @@ export const structurePages: readonly GalleryItem[] = [
   },
 ] as const
 
+/** Keep alphabetical by `name` — sidebar and home gallery both consume this list. */
 export const componentPages: readonly GalleryItem[] = [
   {
     name: "Accordion",
@@ -127,11 +128,6 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/charts",
   },
   {
-    name: "Chat bubble",
-    description: "Message bubbles for chat interfaces.",
-    path: "/components/chat-bubble",
-  },
-  {
     name: "Chat head",
     description: "Floating chat head entry points for messaging.",
     path: "/components/chat-head",
@@ -147,8 +143,8 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/code-snippet",
   },
   {
-    name: "Color picker",
-    description: "Pickers for selecting and previewing colors.",
+    name: "Colour field",
+    description: "Pickers for selecting and previewing colours.",
     path: "/components/color-picker",
   },
   {
@@ -177,7 +173,7 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/data-table",
   },
   {
-    name: "Date input",
+    name: "Date field",
     description: "Three segment date entry (DD MM YY or MM DD).",
     path: "/components/date-input",
   },
@@ -207,6 +203,11 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/dropdown-menu",
   },
   {
+    name: "Emoji picker",
+    description: "Popover emoji picker with optional reaction tray.",
+    path: "/components/emoji-picker",
+  },
+  {
     name: "Empty",
     description: "Empty state patterns for no‑data views.",
     path: "/components/empty",
@@ -217,7 +218,7 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/field",
   },
   {
-    name: "File input",
+    name: "File field",
     description: "File upload fields with states.",
     path: "/components/file-input",
   },
@@ -237,14 +238,9 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/inline-edit",
   },
   {
-    name: "Input",
+    name: "Input field",
     description: "Single‑line text inputs.",
     path: "/components/input",
-  },
-  {
-    name: "Input OTP",
-    description: "Multi‑field one‑time‑password entry.",
-    path: "/components/input-otp",
   },
   {
     name: "Label",
@@ -281,6 +277,11 @@ export const componentPages: readonly GalleryItem[] = [
     name: "Number field",
     description: "Numeric input with step and constraints.",
     path: "/components/number-field",
+  },
+  {
+    name: "OTP field",
+    description: "Multi‑field one‑time‑password entry.",
+    path: "/components/input-otp",
   },
   {
     name: "Pagination",
@@ -368,7 +369,7 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/telephone-field",
   },
   {
-    name: "Textarea",
+    name: "Textarea field",
     description: "Multi‑line text input.",
     path: "/components/textarea",
   },
@@ -386,5 +387,5 @@ export const componentPages: readonly GalleryItem[] = [
     name: "Typing indicator",
     description: "Indicators that show when someone is typing.",
     path: "/components/typing-indicator",
-  }
+  },
 ] as const

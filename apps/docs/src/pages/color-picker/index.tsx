@@ -8,7 +8,7 @@ export function ColorPickerPage() {
   return (
     <div className="space-y-12">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Color picker</h1>
+          <h1 className="text-2xl font-bold text-foreground">Colour field</h1>
           <p className="text-sm text-muted-foreground">
             A text input with a popover color picker trigger. Type a HEX value
             directly or pick a color visually.

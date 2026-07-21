@@ -5,7 +5,6 @@
 export const customComponentPaths = new Set<string>([
   // Components
   "/components/activity-feed",
-  "/components/attachment",
   "/components/avatar-group",
   "/components/chat-bubble",
   "/components/chat-head",
@@ -15,6 +14,7 @@ export const customComponentPaths = new Set<string>([
   "/components/date-input",
   "/components/drag-and-drop",
   "/components/drop-zone",
+  "/components/emoji-picker",
   "/components/file-input",
   "/components/file-tree",
   "/components/filters",

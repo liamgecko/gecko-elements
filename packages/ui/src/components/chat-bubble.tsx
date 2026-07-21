@@ -54,8 +54,14 @@ export type ChatBubbleProps = React.ComponentProps<"div"> & {
   variant?: ChatBubbleVariant
 }
 
+/** @deprecated Use MessageVariant instead. */
 export type ChatBubbleVariant = "default" | "note" | "ai-agent"
 
+/**
+ * @deprecated Use `Message` + `Bubble` instead. Kept for docs reference only.
+ * @see Message from `@gecko/ui/components/message`
+ * @see Bubble from `@gecko/ui/components/bubble`
+ */
 export function ChatBubble({
   className,
   children,
@@ -102,6 +108,7 @@ export type ChatBubbleAvatarProps = {
   className?: string
 }
 
+/** @deprecated Use MessageAvatar with Avatar instead. */
 export function ChatBubbleAvatar({
   avatarSrc,
   avatarAlt,
@@ -310,6 +317,7 @@ function ChatBubbleAiAgentMetaActions({
   )
 }
 
+/** @deprecated Use Message + Bubble + MessageMeta instead. */
 export function ChatBubbleMessage({
   className,
   children,
@@ -579,6 +587,7 @@ function renderSourceInfo(source: ChatBubbleSourceInfo | undefined) {
   )
 }
 
+/** @deprecated Use MessageInfo instead. */
 export function ChatBubbleInfo({
   userInfo,
   agentInfo,

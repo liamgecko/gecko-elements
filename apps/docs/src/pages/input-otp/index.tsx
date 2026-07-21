@@ -9,7 +9,7 @@ export function InputOtpPage() {
   return (
     <div className="space-y-12">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">One time password input</h1>
+          <h1 className="text-2xl font-bold text-foreground">OTP field</h1>
           <p className="text-sm text-muted-foreground">
             Placeholder for one time password input component examples.
           </p>

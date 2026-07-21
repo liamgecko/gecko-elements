@@ -5,7 +5,7 @@ import {
   RotateCwIcon,
 } from "lucide-react"
 
-import { MessageAnimated } from "@gecko/ui/components/message-animated"
+import { ScrollerDemoMessage } from "./scroller-demo-message"
 import { Button } from "@gecko/ui/components/button"
 import {
   Card,
@@ -125,12 +125,10 @@ export function MessageScrollerAnchoringDemo() {
                 <MessageScrollerViewport>
                   <MessageScrollerContent className="p-4">
                     {messages.map((message) => (
-                      <MessageAnimated
+                      <ScrollerDemoMessage
                         key={message.id}
                         message={message}
                         scrollAnchor={message.role === anchorRole}
-                        userVariant="secondary"
-                        assistantVariant="ghost"
                       />
                     ))}
                   </MessageScrollerContent>

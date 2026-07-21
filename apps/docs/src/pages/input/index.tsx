@@ -16,7 +16,7 @@ export function InputPage() {
   return (
     <div className="space-y-12">
         <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Input</h1>
+          <h1 className="text-2xl font-bold text-foreground">Input field</h1>
           <p className="text-sm text-muted-foreground">
             Text input for forms. Supports placeholder, disabled, invalid state, and file type.
           </p>
