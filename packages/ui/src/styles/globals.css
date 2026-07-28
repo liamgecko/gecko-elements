@@ -321,4 +321,48 @@
       opacity: 0.6;
     }
   }
+
+  /* Native scrollbar styled to match ScrollArea (thin, border thumb, hover-visible). */
+  .scrollbar-scroll-area {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
+  .scrollbar-scroll-area:hover,
+  .scrollbar-scroll-area:focus-within {
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .scrollbar-scroll-area::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  .scrollbar-scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-scroll-area::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .scrollbar-scroll-area:hover::-webkit-scrollbar-thumb,
+  .scrollbar-scroll-area:focus-within::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+  }
+
+  .scrollbar-scroll-area-hidden,
+  .scrollbar-scroll-area-hidden:hover,
+  .scrollbar-scroll-area-hidden:focus-within {
+    scrollbar-color: transparent transparent;
+  }
+
+  .scrollbar-scroll-area-hidden::-webkit-scrollbar-thumb,
+  .scrollbar-scroll-area-hidden:hover::-webkit-scrollbar-thumb,
+  .scrollbar-scroll-area-hidden:focus-within::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
 }
