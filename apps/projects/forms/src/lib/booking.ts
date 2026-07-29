@@ -8,6 +8,7 @@ export type BookingSummary = {
   country: string | null
   selectedSessionIds: string[]
   selectedChargeableItemIds?: string[]
+  acceptTerms: boolean
 }
 
 export type ChargeableItem = {

@@ -1,42 +1,24 @@
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import { Button } from "@gecko/ui/components/button";
 import { Card } from "@gecko/ui/components/card";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ShoppingCart } from "lucide-react";
 
+import { BasketLines } from "../components/basket-content";
 import { FormShell } from "../components/form-shell";
 import { chargeableItems, events } from "../data/event";
 import {
   buildBasket,
   currencyFormatter,
-  formatCost,
   getBasketTotal,
-  type BasketLine,
-  type BookingSummary,
 } from "../lib/booking";
-
-function BasketLineRow({ line, nested }: { line: BasketLine; nested?: boolean }) {
-  return (
-    <div className="flex items-start justify-between gap-4">
-      <div className="min-w-0">
-        <p className={nested ? "text-sm" : "text-sm font-medium"}>{line.name}</p>
-        {line.description ? (
-          <p className="text-xs text-muted-foreground">{line.description}</p>
-        ) : null}
-      </div>
-      <p className="shrink-0 text-sm font-medium">
-        {formatCost(line.cost)}
-      </p>
-    </div>
-  );
-}
+import { useBooking } from "../state/booking";
 
 export function SummaryPage() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const booking = location.state as BookingSummary | null;
+  const { booking, submitted } = useBooking();
 
-  if (!booking) {
+  if (!submitted) {
     return <Navigate to="/" replace />;
   }
 
@@ -60,32 +42,9 @@ export function SummaryPage() {
           >
             <h2 className="text-sm font-semibold">Order summary</h2>
 
-            {lines.length > 0 ? (
-              <div className="mt-4">
-                {lines.map((line) => (
-                  <div
-                    key={line.id}
-                    className="border-b py-4 first:pt-0 last:border-b-0 last:pb-0"
-                  >
-                    <BasketLineRow line={line} />
-
-                    {line.lines?.length ? (
-                      <div className="mt-2">
-                        {line.lines.map((child) => (
-                          <div key={child.id} className="py-2">
-                            <BasketLineRow line={child} nested />
-                          </div>
-                        ))}
-                      </div>
-                    ) : null}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="mt-4 text-sm text-muted-foreground">
-                Your order is empty.
-              </p>
-            )}
+            <div className="mt-4">
+              <BasketLines lines={lines} emptyMessage="Your order is empty." />
+            </div>
 
             <div className="mt-4 flex items-center justify-between border-t pt-4">
               <span className="text-sm font-medium">Total</span>
@@ -99,14 +58,14 @@ export function SummaryPage() {
             <Button
               type="button"
               variant="outline"
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("/")}
             >
               <ChevronLeft data-icon="inline-start" aria-hidden />
-              Back
+              Previous
             </Button>
             <Button type="button">
+              <ShoppingCart data-icon="inline-start" aria-hidden />
               Proceed to Payment
-              <ChevronRight data-icon="inline-end" aria-hidden />
             </Button>
           </div>
         </div>

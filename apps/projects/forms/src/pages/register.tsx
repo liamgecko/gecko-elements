@@ -26,9 +26,10 @@ import { ChevronRight } from "lucide-react";
 
 import { EventField } from "../components/event-field";
 import { FormShell } from "../components/form-shell";
+import { PinnedBasket } from "../components/pinned-basket";
 import { COUNTRIES } from "../data/countries";
-import { chargeableItems, paidEvent } from "../data/event";
-import type { BookingSummary } from "../lib/booking";
+import { paidEvent } from "../data/event";
+import { useBooking } from "../state/booking";
 
 type FormErrors = {
   firstName?: string;
@@ -41,12 +42,14 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function RegisterPage() {
   const navigate = useNavigate();
-  const [phone, setPhone] = React.useState("");
-  const [country, setCountry] = React.useState<string | null>("United Kingdom");
-  const [selectedSessionIds, setSelectedSessionIds] = React.useState<string[]>(
-    [],
-  );
-  const [acceptTerms, setAcceptTerms] = React.useState(false);
+  const {
+    booking,
+    updateBooking,
+    setSubmitted,
+    basketMode,
+    basketLines,
+    removeBasketLine,
+  } = useBooking();
   const [errors, setErrors] = React.useState<FormErrors>({});
 
   function clearError(field: keyof FormErrors) {
@@ -82,33 +85,26 @@ export function RegisterPage() {
       nextErrors.email = "Please enter a valid email address.";
     }
 
-    if (!acceptTerms) {
+    if (!booking.acceptTerms) {
       nextErrors.acceptTerms = "Please accept the terms and conditions.";
     }
 
+    updateBooking({ firstName, lastName, email });
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
       return;
     }
 
-    const booking: BookingSummary = {
-      firstName,
-      lastName,
-      email,
-      phone,
-      country,
-      selectedSessionIds,
-      selectedChargeableItemIds: chargeableItems.map((item) => item.id),
-    };
-
-    navigate("/summary", { state: booking });
+    setSubmitted(true);
+    navigate("/summary");
   }
 
   return (
     <FormShell>
       <form
         aria-label="Paid events form"
+        className={basketMode === "floating" ? "pb-20" : undefined}
         noValidate
         onSubmit={handleSubmit}
       >
@@ -121,12 +117,15 @@ export function RegisterPage() {
                   id="first-name"
                   name="first-name"
                   type="text"
-                  defaultValue="Liam"
+                  value={booking.firstName}
                   aria-invalid={Boolean(errors.firstName)}
                   aria-describedby={
                     errors.firstName ? "first-name-error" : undefined
                   }
-                  onChange={() => clearError("firstName")}
+                  onChange={(event) => {
+                    updateBooking({ firstName: event.target.value });
+                    clearError("firstName");
+                  }}
                 />
                 {errors.firstName ? (
                   <FieldError id="first-name-error">
@@ -141,12 +140,15 @@ export function RegisterPage() {
                   id="last-name"
                   name="last-name"
                   type="text"
-                  defaultValue="Young"
+                  value={booking.lastName}
                   aria-invalid={Boolean(errors.lastName)}
                   aria-describedby={
                     errors.lastName ? "last-name-error" : undefined
                   }
-                  onChange={() => clearError("lastName")}
+                  onChange={(event) => {
+                    updateBooking({ lastName: event.target.value });
+                    clearError("lastName");
+                  }}
                 />
                 {errors.lastName ? (
                   <FieldError id="last-name-error">
@@ -162,10 +164,13 @@ export function RegisterPage() {
                 id="email"
                 name="email"
                 type="email"
-                defaultValue="liam@geckoengage.com"
+                value={booking.email}
                 aria-invalid={Boolean(errors.email)}
                 aria-describedby={errors.email ? "email-error" : undefined}
-                onChange={() => clearError("email")}
+                onChange={(event) => {
+                  updateBooking({ email: event.target.value });
+                  clearError("email");
+                }}
               />
               {errors.email ? (
                 <FieldError id="email-error">{errors.email}</FieldError>
@@ -177,8 +182,8 @@ export function RegisterPage() {
               <TelephoneField
                 id="telephone"
                 defaultCountry="GB"
-                value={phone}
-                onChange={setPhone}
+                value={booking.phone}
+                onChange={(phone) => updateBooking({ phone })}
               />
             </Field>
 
@@ -186,8 +191,10 @@ export function RegisterPage() {
               <FieldLabel htmlFor="country">Select your country</FieldLabel>
               <Combobox
                 items={COUNTRIES}
-                value={country}
-                onValueChange={(value: string | null) => setCountry(value)}
+                value={booking.country}
+                onValueChange={(country: string | null) =>
+                  updateBooking({ country })
+                }
               >
                 <ComboboxInput
                   id="country"
@@ -211,8 +218,10 @@ export function RegisterPage() {
 
             <EventField
               event={paidEvent}
-              selectedSessionIds={selectedSessionIds}
-              onSelectedSessionIdsChange={setSelectedSessionIds}
+              selectedSessionIds={booking.selectedSessionIds}
+              onSelectedSessionIdsChange={(selectedSessionIds) =>
+                updateBooking({ selectedSessionIds })
+              }
             />
 
             <Field
@@ -222,13 +231,13 @@ export function RegisterPage() {
               <Checkbox
                 id="accept-terms"
                 name="accept-terms"
-                checked={acceptTerms}
+                checked={booking.acceptTerms}
                 aria-invalid={Boolean(errors.acceptTerms)}
                 aria-describedby={
                   errors.acceptTerms ? "accept-terms-error" : undefined
                 }
                 onCheckedChange={(checked) => {
-                  setAcceptTerms(checked === true);
+                  updateBooking({ acceptTerms: checked === true });
                   clearError("acceptTerms");
                 }}
               />
@@ -250,6 +259,13 @@ export function RegisterPage() {
                 </FieldDescription>
               </FieldContent>
             </Field>
+
+            {basketMode === "pinned" ? (
+              <PinnedBasket
+                lines={basketLines}
+                onRemove={removeBasketLine}
+              />
+            ) : null}
 
             <div className="flex justify-end">
               <Button type="submit">
