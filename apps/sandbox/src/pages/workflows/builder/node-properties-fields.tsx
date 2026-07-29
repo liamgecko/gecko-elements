@@ -111,9 +111,33 @@ export function NodePropertiesFields({
 
   const labelsErrorId = `action-labels-${node.id}-error`
   const agentsTeamsErrorId = `condition-agents-teams-${node.id}-error`
-  const showLabelsError = showValidation && Boolean(errors.labelIds)
+  const triggerTypeErrorId = `trigger-type-${node.id}-error`
+  const conditionFieldErrorId = `condition-type-${node.id}-error`
+  const channelValueErrorId = `condition-channel-${node.id}-error`
+  const agentsOperatorErrorId = `condition-operator-${node.id}-error`
+  const actionTypeErrorId = `action-type-${node.id}-error`
+  const delayTypeErrorId = `delay-type-${node.id}-error`
+  const delayAmountErrorId = `delay-amount-${node.id}-error`
+  const delayUnitErrorId = `delay-unit-${node.id}-error`
+  const delayUntilErrorId = `delay-until-${node.id}-error`
+  const aiAgentErrorId = `ai-agent-${node.id}-error`
+
+  const showTriggerTypeError = showValidation && Boolean(errors.triggerType)
+  const showConditionFieldError =
+    showValidation && Boolean(errors.conditionField)
+  const showChannelValueError = showValidation && Boolean(errors.channelValue)
+  const showAgentsOperatorError =
+    showValidation && Boolean(errors.agentsOrTeamsOperator)
   const showAgentsTeamsError =
     showValidation && Boolean(errors.agentOrTeamIds)
+  const showActionTypeError = showValidation && Boolean(errors.actionType)
+  const showLabelsError = showValidation && Boolean(errors.labelIds)
+  const showDelayTypeError = showValidation && Boolean(errors.delayType)
+  const showDelayAmountError =
+    showValidation && Boolean(errors.fixedDelayAmount)
+  const showDelayUnitError = showValidation && Boolean(errors.fixedDelayUnit)
+  const showDelayUntilError = showValidation && Boolean(errors.delayUntil)
+  const showAiAgentError = showValidation && Boolean(errors.aiAgentId)
 
   return (
     <Accordion key={node.id} defaultValue={["settings"]} multiple>
@@ -123,7 +147,7 @@ export function NodePropertiesFields({
         </AccordionTrigger>
         <AccordionContent className="p-3">
           {node.data.kind === "trigger" ? (
-            <Field>
+            <Field data-invalid={showTriggerTypeError ? true : undefined}>
               <FieldLabel htmlFor={`trigger-type-${node.id}`}>
                 Trigger type
               </FieldLabel>
@@ -139,6 +163,11 @@ export function NodePropertiesFields({
                 <SelectTrigger
                   id={`trigger-type-${node.id}`}
                   className="w-full"
+                  aria-required
+                  aria-invalid={showTriggerTypeError ? true : undefined}
+                  aria-describedby={
+                    showTriggerTypeError ? triggerTypeErrorId : undefined
+                  }
                 >
                   <SelectValue placeholder="Select trigger type" />
                 </SelectTrigger>
@@ -152,11 +181,16 @@ export function NodePropertiesFields({
                   </SelectGroup>
                 </SelectContent>
               </Select>
+              {showTriggerTypeError ? (
+                <FieldError id={triggerTypeErrorId}>
+                  {errors.triggerType}
+                </FieldError>
+              ) : null}
             </Field>
           ) : null}
           {node.data.kind === "condition" ? (
             <div className="space-y-2">
-              <Field>
+              <Field data-invalid={showConditionFieldError ? true : undefined}>
                 <FieldLabel htmlFor={`condition-type-${node.id}`}>
                   Condition type
                 </FieldLabel>
@@ -184,6 +218,13 @@ export function NodePropertiesFields({
                   <SelectTrigger
                     id={`condition-type-${node.id}`}
                     className="w-full"
+                    aria-required
+                    aria-invalid={showConditionFieldError ? true : undefined}
+                    aria-describedby={
+                      showConditionFieldError
+                        ? conditionFieldErrorId
+                        : undefined
+                    }
                   >
                     <SelectValue placeholder="Select condition type" />
                   </SelectTrigger>
@@ -203,64 +244,108 @@ export function NodePropertiesFields({
                     ))}
                   </SelectContent>
                 </Select>
+                {showConditionFieldError ? (
+                  <FieldError id={conditionFieldErrorId}>
+                    {errors.conditionField}
+                  </FieldError>
+                ) : null}
               </Field>
               {node.data.conditionField === "channel" ? (
-                <Select
-                  items={WORKFLOW_CHANNEL_OPTIONS}
-                  value={node.data.channelValue ?? null}
-                  onValueChange={(value) => {
-                    onNodeDataChange(node.id, {
-                      channelValue: value as WorkflowChannelValue,
-                    })
-                  }}
-                >
-                  <SelectTrigger
-                    id={`condition-channel-${node.id}`}
-                    className="w-full"
-                  >
-                    <SelectValue placeholder="Select channel" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      {WORKFLOW_CHANNEL_OPTIONS.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              ) : null}
-              {node.data.conditionField === "agents-or-teams" ? (
-                <>
+                <Field data-invalid={showChannelValueError ? true : undefined}>
+                  <FieldLabel htmlFor={`condition-channel-${node.id}`}>
+                    Channel
+                  </FieldLabel>
                   <Select
-                    items={WORKFLOW_AGENTS_OR_TEAMS_OPERATOR_OPTIONS}
-                    value={node.data.agentsOrTeamsOperator ?? null}
+                    items={WORKFLOW_CHANNEL_OPTIONS}
+                    value={node.data.channelValue ?? null}
                     onValueChange={(value) => {
                       onNodeDataChange(node.id, {
-                        agentsOrTeamsOperator:
-                          value as WorkflowAgentsOrTeamsOperator,
+                        channelValue: value as WorkflowChannelValue,
                       })
                     }}
                   >
                     <SelectTrigger
-                      id={`condition-operator-${node.id}`}
-                      className="w-full mb-4"
+                      id={`condition-channel-${node.id}`}
+                      className="w-full"
+                      aria-required
+                      aria-invalid={showChannelValueError ? true : undefined}
+                      aria-describedby={
+                        showChannelValueError ? channelValueErrorId : undefined
+                      }
                     >
-                      <SelectValue placeholder="Select operator" />
+                      <SelectValue placeholder="Select channel" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        {WORKFLOW_AGENTS_OR_TEAMS_OPERATOR_OPTIONS.map(
-                          (option) => (
-                            <SelectItem key={option.value} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ),
-                        )}
+                        {WORKFLOW_CHANNEL_OPTIONS.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
                       </SelectGroup>
                     </SelectContent>
                   </Select>
+                  {showChannelValueError ? (
+                    <FieldError id={channelValueErrorId}>
+                      {errors.channelValue}
+                    </FieldError>
+                  ) : null}
+                </Field>
+              ) : null}
+              {node.data.conditionField === "agents-or-teams" ? (
+                <>
+                  <Field
+                    data-invalid={showAgentsOperatorError ? true : undefined}
+                  >
+                    <FieldLabel htmlFor={`condition-operator-${node.id}`}>
+                      Operator
+                    </FieldLabel>
+                    <Select
+                      items={WORKFLOW_AGENTS_OR_TEAMS_OPERATOR_OPTIONS}
+                      value={node.data.agentsOrTeamsOperator ?? null}
+                      onValueChange={(value) => {
+                        onNodeDataChange(node.id, {
+                          agentsOrTeamsOperator:
+                            value as WorkflowAgentsOrTeamsOperator,
+                        })
+                      }}
+                    >
+                      <SelectTrigger
+                        id={`condition-operator-${node.id}`}
+                        className="w-full"
+                        aria-required
+                        aria-invalid={
+                          showAgentsOperatorError ? true : undefined
+                        }
+                        aria-describedby={
+                          showAgentsOperatorError
+                            ? agentsOperatorErrorId
+                            : undefined
+                        }
+                      >
+                        <SelectValue placeholder="Select operator" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {WORKFLOW_AGENTS_OR_TEAMS_OPERATOR_OPTIONS.map(
+                            (option) => (
+                              <SelectItem
+                                key={option.value}
+                                value={option.value}
+                              >
+                                {option.label}
+                              </SelectItem>
+                            ),
+                          )}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                    {showAgentsOperatorError ? (
+                      <FieldError id={agentsOperatorErrorId}>
+                        {errors.agentsOrTeamsOperator}
+                      </FieldError>
+                    ) : null}
+                  </Field>
                   <Field data-invalid={showAgentsTeamsError ? true : undefined}>
                     <FieldLabel htmlFor={`condition-agents-teams-${node.id}`}>
                       Select agents or teams
@@ -352,7 +437,7 @@ export function NodePropertiesFields({
           ) : null}
           {node.data.kind === "action" ? (
             <div className="space-y-4">
-              <Field>
+              <Field data-invalid={showActionTypeError ? true : undefined}>
                 <FieldLabel htmlFor={`action-type-${node.id}`}>
                   Action type
                 </FieldLabel>
@@ -371,6 +456,11 @@ export function NodePropertiesFields({
                   <SelectTrigger
                     id={`action-type-${node.id}`}
                     className="w-full"
+                    aria-required
+                    aria-invalid={showActionTypeError ? true : undefined}
+                    aria-describedby={
+                      showActionTypeError ? actionTypeErrorId : undefined
+                    }
                   >
                     <SelectValue placeholder="Select action type" />
                   </SelectTrigger>
@@ -384,6 +474,11 @@ export function NodePropertiesFields({
                     </SelectGroup>
                   </SelectContent>
                 </Select>
+                {showActionTypeError ? (
+                  <FieldError id={actionTypeErrorId}>
+                    {errors.actionType}
+                  </FieldError>
+                ) : null}
               </Field>
               {showLabelPicker ? (
                 <Field data-invalid={showLabelsError ? true : undefined}>
@@ -446,7 +541,7 @@ export function NodePropertiesFields({
           ) : null}
           {node.data.kind === "delay" ? (
             <div className="space-y-4">
-              <Field>
+              <Field data-invalid={showDelayTypeError ? true : undefined}>
                 <FieldLabel htmlFor={`delay-type-${node.id}`}>
                   Delay type
                 </FieldLabel>
@@ -468,6 +563,11 @@ export function NodePropertiesFields({
                   <SelectTrigger
                     id={`delay-type-${node.id}`}
                     className="w-full"
+                    aria-required
+                    aria-invalid={showDelayTypeError ? true : undefined}
+                    aria-describedby={
+                      showDelayTypeError ? delayTypeErrorId : undefined
+                    }
                   >
                     <SelectValue placeholder="Select delay type" />
                   </SelectTrigger>
@@ -481,10 +581,15 @@ export function NodePropertiesFields({
                     </SelectGroup>
                   </SelectContent>
                 </Select>
+                {showDelayTypeError ? (
+                  <FieldError id={delayTypeErrorId}>
+                    {errors.delayType}
+                  </FieldError>
+                ) : null}
               </Field>
               {node.data.delayType === "fixed" ? (
                 <div className="grid grid-cols-2 gap-2">
-                  <Field>
+                  <Field data-invalid={showDelayAmountError ? true : undefined}>
                     <FieldLabel htmlFor={`delay-amount-${node.id}`}>
                       Delay duration
                     </FieldLabel>
@@ -494,15 +599,25 @@ export function NodePropertiesFields({
                       min={1}
                       inputMode="numeric"
                       className="w-full"
+                      required
                       value={node.data.fixedDelayAmount ?? ""}
                       onChange={(event) => {
                         onNodeDataChange(node.id, {
                           fixedDelayAmount: event.currentTarget.value,
                         })
                       }}
+                      aria-invalid={showDelayAmountError ? true : undefined}
+                      aria-describedby={
+                        showDelayAmountError ? delayAmountErrorId : undefined
+                      }
                     />
+                    {showDelayAmountError ? (
+                      <FieldError id={delayAmountErrorId}>
+                        {errors.fixedDelayAmount}
+                      </FieldError>
+                    ) : null}
                   </Field>
-                  <Field>
+                  <Field data-invalid={showDelayUnitError ? true : undefined}>
                     <FieldLabel htmlFor={`delay-unit-${node.id}`}>
                       Time unit
                     </FieldLabel>
@@ -518,8 +633,13 @@ export function NodePropertiesFields({
                       <SelectTrigger
                         id={`delay-unit-${node.id}`}
                         className="w-full"
+                        aria-required
+                        aria-invalid={showDelayUnitError ? true : undefined}
+                        aria-describedby={
+                          showDelayUnitError ? delayUnitErrorId : undefined
+                        }
                       >
-                        <SelectValue />
+                        <SelectValue placeholder="Select unit" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
@@ -531,13 +651,24 @@ export function NodePropertiesFields({
                         </SelectGroup>
                       </SelectContent>
                     </Select>
+                    {showDelayUnitError ? (
+                      <FieldError id={delayUnitErrorId}>
+                        {errors.fixedDelayUnit}
+                      </FieldError>
+                    ) : null}
                   </Field>
                 </div>
               ) : null}
               {node.data.delayType === "until-datetime" ? (
-                <Field>
-                  <FieldLabel htmlFor={`delay-until-${node.id}`} className="mb-1.5">
+                <Field data-invalid={showDelayUntilError ? true : undefined}>
+                  <FieldLabel
+                    htmlFor={`delay-until-${node.id}`}
+                    className="mb-1.5"
+                  >
                     Select a date and time
+                    <span className="text-destructive" aria-hidden>
+                      *
+                    </span>
                   </FieldLabel>
                   <DatePicker
                     id={`delay-until-${node.id}`}
@@ -550,16 +681,27 @@ export function NodePropertiesFields({
                       })
                     }}
                     placeholder="Select a date"
+                    aria-invalid={showDelayUntilError ? true : undefined}
+                    aria-describedby={
+                      showDelayUntilError ? delayUntilErrorId : undefined
+                    }
                   />
-                  <FieldDescription>
-                    Time is optional, if blank it will run at 00:00 on the chosen day.
-                  </FieldDescription>
+                  {showDelayUntilError ? (
+                    <FieldError id={delayUntilErrorId}>
+                      {errors.delayUntil}
+                    </FieldError>
+                  ) : (
+                    <FieldDescription>
+                      Time is optional, if blank it will run at 00:00 on the
+                      chosen day.
+                    </FieldDescription>
+                  )}
                 </Field>
               ) : null}
             </div>
           ) : null}
           {node.data.kind === "ai-agent" ? (
-            <Field>
+            <Field data-invalid={showAiAgentError ? true : undefined}>
               <FieldLabel htmlFor={`ai-agent-${node.id}`}>AI agent</FieldLabel>
               <Select
                 items={WORKFLOW_AI_AGENT_OPTIONS}
@@ -570,7 +712,15 @@ export function NodePropertiesFields({
                   })
                 }}
               >
-                <SelectTrigger id={`ai-agent-${node.id}`} className="w-full">
+                <SelectTrigger
+                  id={`ai-agent-${node.id}`}
+                  className="w-full"
+                  aria-required
+                  aria-invalid={showAiAgentError ? true : undefined}
+                  aria-describedby={
+                    showAiAgentError ? aiAgentErrorId : undefined
+                  }
+                >
                   <SelectValue placeholder="Select AI agent" />
                 </SelectTrigger>
                 <SelectContent>
@@ -583,6 +733,9 @@ export function NodePropertiesFields({
                   </SelectGroup>
                 </SelectContent>
               </Select>
+              {showAiAgentError ? (
+                <FieldError id={aiAgentErrorId}>{errors.aiAgentId}</FieldError>
+              ) : null}
             </Field>
           ) : null}
         </AccordionContent>

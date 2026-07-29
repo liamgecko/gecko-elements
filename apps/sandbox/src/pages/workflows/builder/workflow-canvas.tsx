@@ -2,6 +2,9 @@ import * as React from "react"
 import {
   Background,
   ConnectionLineType,
+  Controls,
+  MiniMap,
+  Panel,
   ReactFlow,
   ReactFlowProvider,
   addEdge,
@@ -27,6 +30,7 @@ import { WorkflowCanvasEmpty } from "./workflow-canvas-empty"
 import { AgentCursor, type AgentCursorHandle } from "./agent-cursor/agent-cursor"
 import { playAdmissionsWorkflowBuild } from "./workflow-agent-player"
 import { workflowNodeTypes } from "./node-types"
+import { isWorkflowNodeDisconnected, isWorkflowNodeInvalid } from "./use-workflow-node-invalid"
 import {
   WORKFLOW_DRAG_MIME,
   WORKFLOW_DEFAULT_EDGE_OPTIONS,
@@ -50,6 +54,9 @@ type WorkflowCanvasProps = {
 const DRAG_HIGHLIGHT_EASE = "cubic-bezier(0.32, 0.72, 0, 1)"
 const DRAG_HIGHLIGHT_FADE_IN_MS = 200
 const DRAG_HIGHLIGHT_FADE_OUT_MS = 160
+const CANVAS_CONTROLS_HEIGHT = 104
+const CANVAS_MINIMAP_WIDTH = 140
+const NODE_PALETTE_BOTTOM_OFFSET = `calc(1rem + ${CANVAS_CONTROLS_HEIGHT}px + 0.75rem)`
 
 function definitionToFlowState(definition: WorkflowDefinition | null | undefined) {
   if (!definition) {
@@ -95,11 +102,60 @@ function WorkflowCanvasInner(
     [nodes, selectedNodeId],
   )
 
+  const isSelectedNodeDisconnected = React.useMemo(() => {
+    if (!selectedNode) return false
+    return isWorkflowNodeDisconnected(
+      selectedNode.data.kind,
+      selectedNode.id,
+      edges,
+    )
+  }, [edges, selectedNode])
+
+  const edgesForDisplay = React.useMemo(() => {
+    const invalidNodeIds = new Set(
+      nodes
+        .filter((node) => isWorkflowNodeInvalid(node.data, node.id, edges))
+        .map((node) => node.id),
+    )
+
+    return edges.map((edge) => {
+      const touchesInvalid =
+        invalidNodeIds.has(edge.source) || invalidNodeIds.has(edge.target)
+
+      if (!touchesInvalid) return edge
+
+      return {
+        ...edge,
+        style: {
+          ...WORKFLOW_DEFAULT_EDGE_OPTIONS.style,
+          ...edge.style,
+          stroke: "var(--destructive)",
+        },
+      }
+    })
+  }, [edges, nodes])
+
   const onNodeDataSave = React.useCallback(
     (nodeId: string, data: WorkflowGraphNodeData) => {
       setNodes((current) =>
         current.map((node) =>
           node.id === nodeId ? { ...node, data } : node,
+        ),
+      )
+    },
+    [setNodes],
+  )
+
+  const onNodePropertiesErrorChange = React.useCallback(
+    (nodeId: string, hasError: boolean) => {
+      setNodes((current) =>
+        current.map((node) =>
+          node.id === nodeId
+            ? {
+                ...node,
+                data: { ...node.data, hasPropertiesError: hasError },
+              }
+            : node,
         ),
       )
     },
@@ -216,27 +272,6 @@ function WorkflowCanvasInner(
     [screenToFlowPosition, setNodes],
   )
 
-  const insertTriggerNode = React.useCallback(() => {
-    const pane = canvasRef.current?.querySelector(".react-flow__pane")
-    const bounds =
-      pane?.getBoundingClientRect() ??
-      canvasRef.current?.getBoundingClientRect()
-    if (!bounds) return
-
-    const center = screenToFlowPosition({
-      x: bounds.left + bounds.width / 2,
-      y: bounds.top + bounds.height / 2,
-    })
-
-    const newNode = createWorkflowNode(
-      "trigger",
-      getCenteredNodePosition(center),
-    )
-    setNodes([{ ...newNode, selected: true }])
-    setSelectedNodeId(newNode.id)
-    setPropertiesOpen(true)
-  }, [screenToFlowPosition, setNodes])
-
   const canvasRef = React.useRef<HTMLDivElement>(null)
 
   const getCanvasCenter = React.useCallback(() => {
@@ -251,6 +286,26 @@ function WorkflowCanvasInner(
       y: bounds.top + bounds.height / 2,
     })
   }, [screenToFlowPosition])
+
+  const insertNodeAtCenter = React.useCallback(
+    (kind: WorkflowNodeKind) => {
+      const newNode = createWorkflowNode(
+        kind,
+        getCenteredNodePosition(getCanvasCenter()),
+      )
+      setNodes((current) => [
+        ...current.map((node) => ({ ...node, selected: false })),
+        { ...newNode, selected: true },
+      ])
+      setSelectedNodeId(newNode.id)
+      setPropertiesOpen(true)
+    },
+    [getCanvasCenter, setNodes],
+  )
+
+  const insertTriggerNode = React.useCallback(() => {
+    insertNodeAtCenter("trigger")
+  }, [insertNodeAtCenter])
 
   const handleDescribeWorkflow = React.useCallback(async () => {
     if (agentBuilding) return
@@ -309,7 +364,7 @@ function WorkflowCanvasInner(
               "[&_.react-flow__pane]:cursor-grabbing [&_.react-flow__viewport]:cursor-grabbing",
           )}
           nodes={nodes}
-          edges={edges}
+          edges={edgesForDisplay}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
@@ -324,6 +379,25 @@ function WorkflowCanvasInner(
           proOptions={{ hideAttribution: true }}
         >
           <Background gap={16} size={1} />
+          <Panel
+            position="bottom-left"
+            className="m-0 mb-4 ml-4 flex items-end gap-2"
+          >
+            <Controls
+              className="static! m-0! overflow-hidden rounded-lg border border-border bg-card shadow-md [&>button]:border-border [&>button]:bg-card [&>button]:hover:bg-muted"
+              showInteractive
+            />
+            <MiniMap
+              className="static! m-0! overflow-hidden rounded-lg border border-border bg-card shadow-md"
+              style={{
+                height: CANVAS_CONTROLS_HEIGHT,
+                width: CANVAS_MINIMAP_WIDTH,
+              }}
+              pannable
+              zoomable
+              ariaLabel="Canvas overview"
+            />
+          </Panel>
         </ReactFlow>
         {isPaletteDragging ? (
           <div
@@ -354,14 +428,18 @@ function WorkflowCanvasInner(
       </div>
       <NodePalettePanel
         onPaletteDragChange={setIsPaletteDragging}
+        onAddNode={insertNodeAtCenter}
         disabled={agentBuilding}
+        bottomOffset={NODE_PALETTE_BOTTOM_OFFSET}
       />
       <NodePropertiesPanel
         open={propertiesOpen}
         onOpenChange={setPropertiesOpen}
         hasSelection={hasNodeSelection}
         selectedNode={selectedNode}
+        isDisconnected={isSelectedNodeDisconnected}
         onNodeDataSave={onNodeDataSave}
+        onNodePropertiesErrorChange={onNodePropertiesErrorChange}
         onDeleteNode={onDeleteNode}
       />
     </div>

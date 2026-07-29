@@ -31,7 +31,7 @@ export const WORKFLOW_NODE_CATALOG: Record<
   condition: {
     kind: "condition",
     title: "Conditions",
-    description: "Filter contacts by rules",
+    description: "Set the conditions to be met",
     icon: Waypoints,
   },
   action: {
@@ -61,7 +61,9 @@ export const WORKFLOW_NODE_CATALOG: Record<
   },
 }
 
-export const WORKFLOW_NODE_CATALOG_LIST = Object.values(WORKFLOW_NODE_CATALOG)
+export const WORKFLOW_NODE_CATALOG_LIST = Object.values(
+  WORKFLOW_NODE_CATALOG,
+).filter((entry) => entry.kind !== "ai-agent") // temp: hide from palette + add-next menu
 
 export function getWorkflowNodeCatalogEntry(kind: WorkflowNodeKind) {
   return WORKFLOW_NODE_CATALOG[kind]

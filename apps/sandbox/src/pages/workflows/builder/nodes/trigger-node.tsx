@@ -1,16 +1,18 @@
 import { Handle, Position, type NodeProps } from "@xyflow/react"
 
 import type { WorkflowGraphNodeData } from "../../workflows-data"
+import { useWorkflowNodeInvalid } from "../use-workflow-node-invalid"
 import { WorkflowNodeAddNext } from "./workflow-node-add-next"
 import { WorkflowNodeBody, WorkflowNodeShell } from "./workflow-node-body"
 
-export function TriggerNode({ data, selected }: NodeProps) {
+export function TriggerNode({ id, data, selected }: NodeProps) {
   const nodeData = data as WorkflowGraphNodeData
+  const { invalid } = useWorkflowNodeInvalid(id, nodeData)
 
   return (
     <>
-      <WorkflowNodeShell selected={selected}>
-        <WorkflowNodeBody data={nodeData} kind="trigger" />
+      <WorkflowNodeShell selected={selected} invalid={invalid}>
+        <WorkflowNodeBody data={nodeData} kind="trigger" invalid={invalid} />
         <Handle
           type="source"
           position={Position.Bottom}

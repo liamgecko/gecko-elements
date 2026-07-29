@@ -20,6 +20,7 @@ const PANEL_WIDTH_CLOSED = "11.25rem"
 type PaletteItemRowProps = {
   item: WorkflowNodeCatalogEntry
   onPaletteDragChange?: (dragging: boolean) => void
+  onAddNode?: (kind: WorkflowNodeCatalogEntry["kind"]) => void
   disabled?: boolean
 }
 
@@ -62,6 +63,7 @@ function onPaletteDragStart(
 function PaletteItemRow({
   item,
   onPaletteDragChange,
+  onAddNode,
   disabled = false,
 }: PaletteItemRowProps) {
   const [isDragging, setIsDragging] = React.useState(false)
@@ -73,6 +75,11 @@ function PaletteItemRow({
       draggable={!disabled}
       data-agent-target={`palette-${item.kind}`}
       disabled={disabled}
+      aria-label={`Add ${item.title} node to canvas`}
+      onClick={() => {
+        if (disabled) return
+        onAddNode?.(item.kind)
+      }}
       onDragStart={(event) => {
         onPaletteDragStart(event, item.kind)
         setIsDragging(true)
@@ -109,15 +116,23 @@ function PaletteItemRow({
 
 export function NodePalettePanel({
   onPaletteDragChange,
+  onAddNode,
   disabled = false,
+  bottomOffset,
 }: {
   onPaletteDragChange?: (dragging: boolean) => void
+  onAddNode?: (kind: WorkflowNodeCatalogEntry["kind"]) => void
   disabled?: boolean
+  /** Distance from canvas bottom so the panel clears Controls + MiniMap. */
+  bottomOffset?: string
 }) {
   const [paletteOpen, setPaletteOpen] = React.useState(true)
 
   return (
-    <div className="pointer-events-none absolute inset-4 z-10">
+    <div
+      className="pointer-events-none absolute top-4 left-4 z-10"
+      style={{ bottom: bottomOffset ?? "1rem" }}
+    >
       <div
         className={cn(
           "pointer-events-auto flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card shadow-md motion-reduce:transition-none",
@@ -186,6 +201,7 @@ export function NodePalettePanel({
                     key={item.kind}
                     item={item}
                     onPaletteDragChange={onPaletteDragChange}
+                    onAddNode={onAddNode}
                     disabled={disabled}
                   />
                 ))}

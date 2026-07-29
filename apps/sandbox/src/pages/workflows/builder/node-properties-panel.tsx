@@ -12,6 +12,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@gecko/ui/components/alert-dialog"
+import { Alert, AlertDescription, AlertTitle } from "@gecko/ui/components/alert"
 import { Button } from "@gecko/ui/components/button"
 import { cn } from "@gecko/ui/lib/utils"
 
@@ -34,7 +35,9 @@ type NodePropertiesPanelProps = {
   onOpenChange: (open: boolean) => void
   hasSelection: boolean
   selectedNode: WorkflowFlowNode | null
+  isDisconnected?: boolean
   onNodeDataSave: (nodeId: string, data: WorkflowGraphNodeData) => void
+  onNodePropertiesErrorChange: (nodeId: string, hasError: boolean) => void
   onDeleteNode: (nodeId: string) => void
 }
 
@@ -43,7 +46,9 @@ export function NodePropertiesPanel({
   onOpenChange,
   hasSelection,
   selectedNode,
+  isDisconnected = false,
   onNodeDataSave,
+  onNodePropertiesErrorChange,
   onDeleteNode,
 }: NodePropertiesPanelProps) {
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false)
@@ -51,6 +56,32 @@ export function NodePropertiesPanel({
     null,
   )
   const [showValidation, setShowValidation] = React.useState(false)
+  const editingRef = React.useRef<{
+    id: string
+    data: WorkflowGraphNodeData
+  } | null>(null)
+
+  React.useEffect(() => {
+    if (selectedNode && draftData) {
+      editingRef.current = { id: selectedNode.id, data: draftData }
+    }
+  }, [draftData, selectedNode])
+
+  React.useEffect(() => {
+    const currentId = selectedNode?.id ?? null
+
+    return () => {
+      const editing = editingRef.current
+      if (!editing || !currentId || editing.id !== currentId) return
+
+      onNodePropertiesErrorChange(
+        editing.id,
+        hasNodePropertiesValidationErrors(
+          validateNodeProperties(editing.data),
+        ),
+      )
+    }
+  }, [onNodePropertiesErrorChange, selectedNode?.id])
 
   React.useEffect(() => {
     if (!selectedNode) {
@@ -59,7 +90,7 @@ export function NodePropertiesPanel({
     }
 
     setDraftData({ ...selectedNode.data })
-    setShowValidation(false)
+    setShowValidation(Boolean(selectedNode.data.hasPropertiesError))
   }, [selectedNode?.id])
 
   const draftNode = React.useMemo(() => {
@@ -89,17 +120,35 @@ export function NodePropertiesPanel({
     [selectedNode],
   )
 
+  React.useEffect(() => {
+    if (!selectedNode || !draftData || !showValidation) return
+
+    onNodePropertiesErrorChange(
+      selectedNode.id,
+      hasNodePropertiesValidationErrors(validateNodeProperties(draftData)),
+    )
+  }, [
+    draftData,
+    onNodePropertiesErrorChange,
+    selectedNode?.id,
+    showValidation,
+  ])
+
   const handleSaveNode = () => {
     if (!selectedNode || !draftData) return
 
     const errors = validateNodeProperties(draftData)
     if (hasNodePropertiesValidationErrors(errors)) {
       setShowValidation(true)
+      onNodePropertiesErrorChange(selectedNode.id, true)
       return
     }
 
     setShowValidation(false)
-    onNodeDataSave(selectedNode.id, draftData)
+    onNodeDataSave(selectedNode.id, {
+      ...draftData,
+      hasPropertiesError: false,
+    })
     toast.success(`${nodeDisplayName} updated`)
   }
 
@@ -173,6 +222,18 @@ export function NodePropertiesPanel({
                   transitionDelay: open ? "80ms" : "0ms",
                 }}
               >
+                {isDisconnected ? (
+                  <div className="border-b border-border p-3">
+                    <Alert variant="destructive" icon className="px-3 py-2.5">
+                      <AlertTitle className="text-xs">
+                        Node not connected
+                      </AlertTitle>
+                      <AlertDescription className="text-xs">
+                        Connect this node to the workflow to continue.
+                      </AlertDescription>
+                    </Alert>
+                  </div>
+                ) : null}
                 {draftNode ? (
                   <NodePropertiesFields
                     node={draftNode}

@@ -247,6 +247,8 @@ export type WorkflowGraphNodeData = {
   label?: string
   description?: string
   rule?: string
+  /** UI-only: node failed properties validation on save. */
+  hasPropertiesError?: boolean
 }
 
 export type WorkflowDefinition = {
