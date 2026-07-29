@@ -39,6 +39,12 @@ jobs:
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: npm run build --workspace=apps/sandbox
 
+      - name: Build project apps
+        run: |
+          npm run build --workspace=apps/projects/chat-widget
+          npm run build --workspace=apps/projects/forms
+          npm run build --workspace=apps/projects/virtual-events
+
       - name: Prepare Pages artifact
         run: |
           rm -rf dist
@@ -46,6 +52,12 @@ jobs:
           cp -R apps/docs/dist/. dist/docs/
           mkdir -p dist/sandbox
           cp -R apps/sandbox/dist/. dist/sandbox/
+          mkdir -p dist/chat-widget
+          cp -R apps/projects/chat-widget/dist/. dist/chat-widget/
+          mkdir -p dist/forms
+          cp -R apps/projects/forms/dist/. dist/forms/
+          mkdir -p dist/virtual-events
+          cp -R apps/projects/virtual-events/dist/. dist/virtual-events/
 
           # GitHub Pages SPA fallback:
           # Redirect unknown routes (e.g. /docs/components/...) into the right app entry via ?p=/...
@@ -69,6 +81,9 @@ jobs:
                   var targetApp = null;
                   if (rel === "/docs" || rel.indexOf("/docs/") === 0) targetApp = "docs";
                   if (rel === "/sandbox" || rel.indexOf("/sandbox/") === 0) targetApp = "sandbox";
+                  if (rel === "/chat-widget" || rel.indexOf("/chat-widget/") === 0) targetApp = "chat-widget";
+                  if (rel === "/forms" || rel.indexOf("/forms/") === 0) targetApp = "forms";
+                  if (rel === "/virtual-events" || rel.indexOf("/virtual-events/") === 0) targetApp = "virtual-events";
 
                   if (!targetApp) {
                     window.location.replace(repoBase + "/");
@@ -124,6 +139,9 @@ jobs:
                 <div class="card">
                   <p><a href="./docs/">Open Docs</a></p>
                   <p><a href="./sandbox/">Open Sandbox</a></p>
+                  <p><a href="./chat-widget/">Open Chat Widget</a></p>
+                  <p><a href="./forms/">Open Forms</a></p>
+                  <p><a href="./virtual-events/">Open Virtual Events</a></p>
                 </div>
               </main>
             </body>

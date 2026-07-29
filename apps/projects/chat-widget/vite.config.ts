@@ -3,7 +3,8 @@ import tailwindcss from "@tailwindcss/vite"
 import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: command === "build" ? "/gecko-elements/chat-widget/" : "/",
   plugins: [react(), tailwindcss()],
   server: {
     fs: {
@@ -17,4 +18,4 @@ export default defineConfig({
       "@gecko/ui/": `${path.resolve(__dirname, "../../../packages/ui/src")}/`,
     },
   },
-})
+}))
