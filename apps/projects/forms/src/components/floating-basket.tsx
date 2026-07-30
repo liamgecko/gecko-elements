@@ -41,10 +41,10 @@ export function FloatingBasket({ lines, onRemove }: FloatingBasketProps) {
       </CollapsibleContent>
 
       <div className="flex min-h-16 items-center gap-3 p-3">
-        <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-muted">
+        <div className="flex">
           <ShoppingCart aria-hidden className="size-5" />
         </div>
-        <h2 className="min-w-0 flex-1 text-balance text-sm font-semibold">
+        <h2 className="min-w-0 flex-1 text-balance text-sm font-medium">
           Your basket
         </h2>
         <span aria-live="polite" className="shrink-0 font-semibold">

@@ -26,20 +26,20 @@ export function PinnedBasket({ lines, onRemove }: PinnedBasketProps) {
       <Accordion>
         <AccordionItem
           value="basket"
-          className="rounded-sm border-b-0 bg-muted px-4"
+          className="rounded-sm border-b-0 bg-muted"
         >
-          <AccordionTrigger className="gap-3 py-4 hover:text-foreground">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-background">
+          <AccordionTrigger className="gap-3 p-4 hover:text-foreground">
+            <span className="flex">
               <ShoppingCart aria-hidden className="size-4" />
             </span>
-            <span className="min-w-0 flex-1 text-left font-semibold">
+            <span className="min-w-0 flex-1 text-left font-medium">
               Your basket
             </span>
             <span aria-live="polite" className="shrink-0 font-semibold">
               {currencyFormatter.format(total)}
             </span>
           </AccordionTrigger>
-          <AccordionContent className="pb-4">
+          <AccordionContent className="p-4 border-t border-border [&_p:not(:last-child)]:mb-0">
             <BasketLines
               lines={lines}
               emptyMessage="Your basket is empty. Choose a session above to add it."

@@ -13,7 +13,7 @@ function BasketLineRow({
   onRemove?: (lineId: string) => void;
 }) {
   return (
-    <div className="flex items-start justify-between gap-4">
+    <div className="flex items-center justify-between gap-4 ">
       <div className="min-w-0">
         <p className={nested ? "text-xs font-medium" : "text-sm font-medium"}>
           {line.name}
@@ -23,17 +23,17 @@ function BasketLineRow({
         ) : null}
       </div>
       <div className="flex shrink-0 items-center gap-3">
-        <p className="text-sm font-medium">{formatCost(line.cost)}</p>
+        <p className="text-sm font-medium !mb-0">{formatCost(line.cost)}</p>
         {onRemove ? (
           <Button
             type="button"
-            variant="outline"
-            size="sm"
+            variant="ghost"
+            size="icon-xs"
             aria-label={`Remove ${line.name} from basket`}
             onClick={() => onRemove(line.id)}
+            className="hover:bg-white"
           >
             <Trash2 />
-            Remove
           </Button>
         ) : null}
       </div>
@@ -61,14 +61,14 @@ export function BasketLines({
       {lines.map((line) => (
         <div
           key={line.id}
-          className="border-b py-4 first:pt-0 last:border-b-0 last:pb-0"
+          className="border-b py-2 first:pt-0 last:border-b-0 last:pb-0"
         >
           <BasketLineRow line={line} onRemove={onRemove} />
 
           {line.lines?.length ? (
-            <div className="mt-2">
+            <div className="mt-1">
               {line.lines.map((child) => (
-                <div key={child.id} className="py-2">
+                <div key={child.id} className="py-1">
                   <BasketLineRow line={child} nested onRemove={onRemove} />
                 </div>
               ))}
