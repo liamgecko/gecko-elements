@@ -3,54 +3,50 @@ import { useNavigate } from "react-router-dom";
 
 import { Button } from "@gecko/ui/components/button";
 import { Card } from "@gecko/ui/components/card";
-import { Checkbox } from "@gecko/ui/components/checkbox";
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@gecko/ui/components/field";
-import { Input } from "@gecko/ui/components/input";
-import {
-  Combobox,
-  ComboboxContent,
-  ComboboxEmpty,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxList,
-} from "@gecko/ui/components/combobox";
-import { TelephoneField } from "@gecko/ui/components/telephone-field";
-import { ChevronRight } from "lucide-react";
+import { FieldGroup } from "@gecko/ui/components/field";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import { EventField } from "../components/event-field";
 import { FormShell } from "../components/form-shell";
 import { PinnedBasket } from "../components/pinned-basket";
-import { COUNTRIES } from "../data/countries";
-import { paidEvent } from "../data/event";
-import { useBooking } from "../state/booking";
+import { FORM_STEP_COUNT, useBooking } from "../state/booking";
+import {
+  StepBasicDetails,
+  type StepBasicErrors,
+} from "./steps/step-basic-details";
+import { StepCampusTours } from "./steps/step-campus-tours";
+import {
+  StepCourseDetails,
+  type StepCourseErrors,
+} from "./steps/step-course-details";
+import { StepGuestsOpenDay } from "./steps/step-guests-open-day";
 
-type FormErrors = {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  acceptTerms?: string;
-};
+type FormErrors = StepBasicErrors & StepCourseErrors;
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const STEP_TITLES = [
+  "Your details",
+  "Guests and open day",
+  "Campus tours",
+  "Course interest",
+] as const;
 
 export function RegisterPage() {
   const navigate = useNavigate();
   const {
     booking,
-    updateBooking,
+    step,
+    goNext,
+    goPrevious,
     setSubmitted,
     basketMode,
     basketLines,
     removeBasketLine,
   } = useBooking();
   const [errors, setErrors] = React.useState<FormErrors>({});
+
+  const isFirstStep = step === 0;
+  const isLastStep = step === FORM_STEP_COUNT - 1;
 
   function clearError(field: keyof FormErrors) {
     setErrors((current) => {
@@ -61,38 +57,47 @@ export function RegisterPage() {
     });
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  function scrollToPageTop() {
+    window.scrollTo({ top: 0 });
+  }
 
-    const formData = new FormData(event.currentTarget);
-    const firstName = String(formData.get("first-name") ?? "").trim();
-    const lastName = String(formData.get("last-name") ?? "").trim();
-    const email = String(formData.get("email") ?? "").trim();
-
+  function validateStep(currentStep: number): FormErrors {
     const nextErrors: FormErrors = {};
 
-    if (!firstName) {
-      nextErrors.firstName = "Please enter your first name.";
+    if (currentStep === 0) {
+      if (!booking.firstName.trim()) {
+        nextErrors.firstName = "Please enter your first name.";
+      }
+      if (!booking.lastName.trim()) {
+        nextErrors.lastName = "Please enter your last name.";
+      }
+      if (!booking.email.trim()) {
+        nextErrors.email = "Please enter your email address.";
+      } else if (!EMAIL_PATTERN.test(booking.email.trim())) {
+        nextErrors.email = "Please enter a valid email address.";
+      }
     }
 
-    if (!lastName) {
-      nextErrors.lastName = "Please enter your last name.";
-    }
-
-    if (!email) {
-      nextErrors.email = "Please enter your email address.";
-    } else if (!EMAIL_PATTERN.test(email)) {
-      nextErrors.email = "Please enter a valid email address.";
-    }
-
-    if (!booking.acceptTerms) {
+    if (currentStep === FORM_STEP_COUNT - 1 && !booking.acceptTerms) {
       nextErrors.acceptTerms = "Please accept the terms and conditions.";
     }
 
-    updateBooking({ firstName, lastName, email });
+    return nextErrors;
+  }
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const nextErrors = validateStep(step);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
+      return;
+    }
+
+    if (!isLastStep) {
+      goNext();
+      scrollToPageTop();
       return;
     }
 
@@ -109,167 +114,46 @@ export function RegisterPage() {
         onSubmit={handleSubmit}
       >
         <Card className="rounded-xl p-6">
+          <div className="mb-6">
+            <p className="text-xs font-medium text-muted-foreground">
+              Step {step + 1} of {FORM_STEP_COUNT}
+            </p>
+            <h1 className="text-balance text-xl font-semibold">
+              {STEP_TITLES[step]}
+            </h1>
+          </div>
+
           <FieldGroup>
-            <div className="grid grid-cols-2 gap-4">
-              <Field data-invalid={errors.firstName ? true : undefined}>
-                <FieldLabel htmlFor="first-name">First name</FieldLabel>
-                <Input
-                  id="first-name"
-                  name="first-name"
-                  type="text"
-                  value={booking.firstName}
-                  aria-invalid={Boolean(errors.firstName)}
-                  aria-describedby={
-                    errors.firstName ? "first-name-error" : undefined
-                  }
-                  onChange={(event) => {
-                    updateBooking({ firstName: event.target.value });
-                    clearError("firstName");
-                  }}
-                />
-                {errors.firstName ? (
-                  <FieldError id="first-name-error">
-                    {errors.firstName}
-                  </FieldError>
-                ) : null}
-              </Field>
-
-              <Field data-invalid={errors.lastName ? true : undefined}>
-                <FieldLabel htmlFor="last-name">Last name</FieldLabel>
-                <Input
-                  id="last-name"
-                  name="last-name"
-                  type="text"
-                  value={booking.lastName}
-                  aria-invalid={Boolean(errors.lastName)}
-                  aria-describedby={
-                    errors.lastName ? "last-name-error" : undefined
-                  }
-                  onChange={(event) => {
-                    updateBooking({ lastName: event.target.value });
-                    clearError("lastName");
-                  }}
-                />
-                {errors.lastName ? (
-                  <FieldError id="last-name-error">
-                    {errors.lastName}
-                  </FieldError>
-                ) : null}
-              </Field>
-            </div>
-
-            <Field data-invalid={errors.email ? true : undefined}>
-              <FieldLabel htmlFor="email">Email address</FieldLabel>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                value={booking.email}
-                aria-invalid={Boolean(errors.email)}
-                aria-describedby={errors.email ? "email-error" : undefined}
-                onChange={(event) => {
-                  updateBooking({ email: event.target.value });
-                  clearError("email");
-                }}
-              />
-              {errors.email ? (
-                <FieldError id="email-error">{errors.email}</FieldError>
-              ) : null}
-            </Field>
-
-            <Field>
-              <FieldLabel htmlFor="telephone">Telephone number</FieldLabel>
-              <TelephoneField
-                id="telephone"
-                defaultCountry="GB"
-                value={booking.phone}
-                onChange={(phone) => updateBooking({ phone })}
-              />
-            </Field>
-
-            <Field>
-              <FieldLabel htmlFor="country">Select your country</FieldLabel>
-              <Combobox
-                items={COUNTRIES}
-                value={booking.country}
-                onValueChange={(country: string | null) =>
-                  updateBooking({ country })
-                }
-              >
-                <ComboboxInput
-                  id="country"
-                  name="country"
-                  className="w-full"
-                  placeholder="Select a country"
-                  showClear
-                />
-                <ComboboxContent>
-                  <ComboboxEmpty>No countries found.</ComboboxEmpty>
-                  <ComboboxList>
-                    {(item: string) => (
-                      <ComboboxItem key={item} value={item}>
-                        {item}
-                      </ComboboxItem>
-                    )}
-                  </ComboboxList>
-                </ComboboxContent>
-              </Combobox>
-            </Field>
-
-            <EventField
-              event={paidEvent}
-              selectedSessionIds={booking.selectedSessionIds}
-              onSelectedSessionIdsChange={(selectedSessionIds) =>
-                updateBooking({ selectedSessionIds })
-              }
-            />
-
-            <Field
-              orientation="horizontal"
-              data-invalid={errors.acceptTerms ? true : undefined}
-            >
-              <Checkbox
-                id="accept-terms"
-                name="accept-terms"
-                checked={booking.acceptTerms}
-                aria-invalid={Boolean(errors.acceptTerms)}
-                aria-describedby={
-                  errors.acceptTerms ? "accept-terms-error" : undefined
-                }
-                onCheckedChange={(checked) => {
-                  updateBooking({ acceptTerms: checked === true });
-                  clearError("acceptTerms");
-                }}
-              />
-              <FieldContent>
-                <FieldLabel htmlFor="accept-terms">
-                  Accept terms and conditions
-                </FieldLabel>
-                {errors.acceptTerms ? (
-                  <FieldError id="accept-terms-error">
-                    {errors.acceptTerms}
-                  </FieldError>
-                ) : null}
-                <FieldDescription>
-                  By submitting this form, you agree to our{" "}
-                  <a href="#terms-and-conditions">Terms and Conditions</a> and
-                  confirm that the information provided is accurate and
-                  complete. You can review how we handle your data in our{" "}
-                  <a href="#privacy-policy">Privacy Policy</a>.
-                </FieldDescription>
-              </FieldContent>
-            </Field>
-
-            {basketMode === "pinned" ? (
-              <PinnedBasket
-                lines={basketLines}
-                onRemove={removeBasketLine}
-              />
+            {step === 0 ? (
+              <StepBasicDetails errors={errors} clearError={clearError} />
+            ) : null}
+            {step === 1 ? <StepGuestsOpenDay /> : null}
+            {step === 2 ? <StepCampusTours /> : null}
+            {step === 3 ? (
+              <StepCourseDetails errors={errors} clearError={clearError} />
             ) : null}
 
-            <div className="flex justify-end">
+            {basketMode === "pinned" ? (
+              <PinnedBasket lines={basketLines} onRemove={removeBasketLine} />
+            ) : null}
+
+            <div className="flex justify-end gap-2">
+              {!isFirstStep ? (
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => {
+                    setErrors({});
+                    goPrevious();
+                    scrollToPageTop();
+                  }}
+                >
+                  <ChevronLeft data-icon="inline-start" aria-hidden />
+                  Previous
+                </Button>
+              ) : null}
               <Button type="submit">
-                Proceed to Summary
+                {isLastStep ? "Proceed to Summary" : "Next"}
                 <ChevronRight data-icon="inline-end" aria-hidden />
               </Button>
             </div>

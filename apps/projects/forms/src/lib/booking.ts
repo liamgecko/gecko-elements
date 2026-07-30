@@ -1,11 +1,23 @@
 import type { EventFieldEvent } from "../components/event-field"
 
+export type Guest = {
+  firstName: string
+  lastName: string
+}
+
 export type BookingSummary = {
   firstName: string
   lastName: string
   email: string
   phone: string
-  country: string | null
+  address: string
+  nationality: string | null
+  dateOfBirth: string | null
+  guestCount: number
+  guests: Guest[]
+  campusOfInterest: string | null
+  courseOfInterest: string | null
+  yearOfEntry: string | null
   selectedSessionIds: string[]
   selectedChargeableItemIds?: string[]
   acceptTerms: boolean
@@ -92,4 +104,22 @@ export function getBasketTotal(lines: BasketLine[]): number {
     (total, line) => total + line.cost + getBasketTotal(line.lines ?? []),
     0,
   )
+}
+
+export function createEmptyGuests(count: number): Guest[] {
+  return Array.from({ length: count }, () => ({
+    firstName: "",
+    lastName: "",
+  }))
+}
+
+export function resizeGuests(guests: Guest[], count: number): Guest[] {
+  if (count <= guests.length) {
+    return guests.slice(0, count)
+  }
+
+  return [
+    ...guests,
+    ...createEmptyGuests(count - guests.length),
+  ]
 }

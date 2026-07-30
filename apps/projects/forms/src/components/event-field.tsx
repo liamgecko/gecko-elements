@@ -2,6 +2,13 @@ import * as React from "react";
 
 import { Button } from "@gecko/ui/components/button";
 import { FieldLegend, FieldSet } from "@gecko/ui/components/field";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from "@gecko/ui/components/pagination";
 import { SearchField } from "@gecko/ui/components/search-field";
 import { cn } from "@gecko/ui/lib/utils";
 import {
@@ -17,6 +24,8 @@ import {
 
 import { currencyFormatter, formatCost } from "../lib/booking";
 
+const SESSIONS_PER_PAGE = 8;
+
 export type EventSession = {
   id: string;
   title: string;
@@ -24,6 +33,7 @@ export type EventSession = {
   time: string;
   venue: string;
   cost: number;
+  campus?: string;
 };
 
 export type EventFieldEvent = {
@@ -39,6 +49,8 @@ type EventFieldProps = {
   selectedSessionIds?: string[];
   defaultSelectedSessionIds?: string[];
   onSelectedSessionIdsChange?: (sessionIds: string[]) => void;
+  /** When set, only sessions matching this campus (or without a campus) are shown. */
+  campusFilter?: string | null;
 };
 
 export function EventField({
@@ -46,9 +58,11 @@ export function EventField({
   selectedSessionIds: selectedSessionIdsProp,
   defaultSelectedSessionIds = [],
   onSelectedSessionIdsChange,
+  campusFilter,
 }: EventFieldProps) {
   const [search, setSearch] = React.useState("");
   const [sortAscending, setSortAscending] = React.useState(true);
+  const [page, setPage] = React.useState(0);
   const [uncontrolledSelectedSessionIds, setUncontrolledSelectedSessionIds] =
     React.useState(defaultSelectedSessionIds);
 
@@ -57,9 +71,16 @@ export function EventField({
     ? selectedSessionIdsProp
     : uncontrolledSelectedSessionIds;
 
+  const availableSessions = React.useMemo(() => {
+    if (!campusFilter) return event.sessions;
+    return event.sessions.filter(
+      (session) => !session.campus || session.campus === campusFilter,
+    );
+  }, [campusFilter, event.sessions]);
+
   const displayedSessions = React.useMemo(() => {
     const query = search.trim().toLowerCase();
-    return event.sessions
+    return availableSessions
       .filter((session) => {
         if (!query) return true;
         return [session.title, session.date, session.time, session.venue].some(
@@ -71,7 +92,14 @@ export function EventField({
           ? a.title.localeCompare(b.title)
           : b.title.localeCompare(a.title),
       );
-  }, [event.sessions, search, sortAscending]);
+  }, [availableSessions, search, sortAscending]);
+
+  const pageCount = Math.ceil(displayedSessions.length / SESSIONS_PER_PAGE);
+  const currentPage = Math.min(page, Math.max(pageCount - 1, 0));
+  const paginatedSessions = displayedSessions.slice(
+    currentPage * SESSIONS_PER_PAGE,
+    (currentPage + 1) * SESSIONS_PER_PAGE,
+  );
 
   const selectedSessions = event.sessions.filter((session) =>
     selectedSessionIds.includes(session.id),
@@ -110,7 +138,10 @@ export function EventField({
         <div className="flex gap-2 border-b bg-muted p-4">
           <SearchField
             value={search}
-            onChange={(event) => setSearch(event.target.value)}
+            onChange={(event) => {
+              setSearch(event.target.value);
+              setPage(0);
+            }}
             placeholder="Search sessions"
             aria-label="Search sessions"
             showClear
@@ -135,47 +166,47 @@ export function EventField({
         </div>
 
         {displayedSessions.length > 0 ? (
-          displayedSessions.map((session) => {
-            const selected = selectedSessionIds.includes(session.id);
+          <>
+            {paginatedSessions.map((session) => {
+              const selected = selectedSessionIds.includes(session.id);
 
-            return (
-              <article
-                key={session.id}
-                className={cn(
-                  "flex items-start justify-between gap-6 border-b p-4 last:border-b-0",
-                  selected && "bg-muted/20",
-                )}
-              >
-                <div className="min-w-0">
-                  <h3 className="text-sm font-semibold">{session.title}</h3>
-                  <div className="flex flex-col gap-1 mt-1">
-                    <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <CalendarDays className="size-3.5 shrink-0" />
-                      <span>
-                        {session.date}, {session.time}
-                      </span>
-                    </p>
-                    <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                      <MapPin className="size-3.5 shrink-0" />
-                      <span className="truncate">{session.venue}</span>
-                    </p>
-                    <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-                      <Ticket className="size-3.5 shrink-0" />
-                      {formatCost(session.cost)}
-                    </p>
+              return (
+                <article
+                  key={session.id}
+                  className={cn(
+                    "flex items-start justify-between gap-6 border-b p-4",
+                    selected && "bg-muted/20",
+                  )}
+                >
+                  <div className="min-w-0">
+                    <h3 className="text-sm font-semibold">{session.title}</h3>
+                    <div className="mt-1 flex flex-col gap-1">
+                      <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <CalendarDays className="size-3.5 shrink-0" />
+                        <span>
+                          {session.date}, {session.time}
+                        </span>
+                      </p>
+                      <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                        <MapPin className="size-3.5 shrink-0" />
+                        <span className="truncate">{session.venue}</span>
+                      </p>
+                      <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                        <Ticket className="size-3.5 shrink-0" />
+                        {formatCost(session.cost)}
+                      </p>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="link"
+                      size="sm"
+                      className="-ml-2.5 mt-1 text-muted-foreground"
+                    >
+                      <CircleHelp />
+                      View session information
+                    </Button>
                   </div>
-                  <Button
-                    type="button"
-                    variant="link"
-                    size="sm"
-                    className="-ml-2.5 mt-1 text-muted-foreground"
-                  >
-                    <CircleHelp />
-                    View session information
-                  </Button>
-                </div>
 
-                <div className="shrink-0">
                   <Button
                     type="button"
                     variant={selected ? "outline" : "default"}
@@ -186,10 +217,51 @@ export function EventField({
                     {selected ? <Trash2 aria-hidden /> : <Plus aria-hidden />}
                     {selected ? "Remove session" : "Book session"}
                   </Button>
-                </div>
-              </article>
-            );
-          })
+                </article>
+              );
+            })}
+
+            {pageCount > 1 ? (
+              <Pagination className="justify-end p-4">
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      href="#"
+                      iconOnly
+                      variant="outline"
+                      aria-disabled={currentPage === 0}
+                      className={
+                        currentPage === 0
+                          ? "pointer-events-none opacity-50"
+                          : undefined
+                      }
+                      onClick={(event) => {
+                        event.preventDefault();
+                        setPage(Math.max(currentPage - 1, 0));
+                      }}
+                    />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationNext
+                      href="#"
+                      iconOnly
+                      variant="outline"
+                      aria-disabled={currentPage === pageCount - 1}
+                      className={
+                        currentPage === pageCount - 1
+                          ? "pointer-events-none opacity-50"
+                          : undefined
+                      }
+                      onClick={(event) => {
+                        event.preventDefault();
+                        setPage(Math.min(currentPage + 1, pageCount - 1));
+                      }}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            ) : null}
+          </>
         ) : (
           <p className="p-6 text-center text-sm text-muted-foreground">
             No sessions found.
