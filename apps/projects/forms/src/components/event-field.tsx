@@ -288,7 +288,7 @@ export function EventField({
                 key={session.id}
                 className="flex items-center justify-between gap-4 border-b py-2 last:border-b-0"
               >
-                <div className="min-w-0 text-xs">
+                <div className="min-w-0 text-xs font-semibold">
                   <p className="truncate">
                     {session.title} - {session.date}, {session.time}
                   </p>
