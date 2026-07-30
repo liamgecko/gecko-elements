@@ -109,7 +109,7 @@ export function RegisterPage() {
     <FormShell>
       <form
         aria-label="Paid events form"
-        className={basketMode === "floating" ? "pb-20" : undefined}
+        className={basketMode === "floating" ? "pb-8" : undefined}
         noValidate
         onSubmit={handleSubmit}
       >
