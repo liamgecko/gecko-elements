@@ -56,7 +56,15 @@ export function FormDesignerFieldEditDialog({
   const [badgePlacement, setBadgePlacement] =
     React.useState<ChargeableBadgePlacement>("below")
 
-  const showOptionsTab = field ? fieldHasOptionsTab(field.type) : false
+  // Keep the last field while the close animation runs. Clearing `field` in the
+  // parent on close otherwise collapses tabs/footer mid-exit.
+  const fieldRef = React.useRef(field)
+  if (field) fieldRef.current = field
+  const activeField = field ?? fieldRef.current
+
+  const showOptionsTab = activeField
+    ? fieldHasOptionsTab(activeField.type)
+    : false
   const showBadgePlacementToggle = showOptionsTab && tab === "options"
 
   React.useEffect(() => {
@@ -81,15 +89,16 @@ export function FormDesignerFieldEditDialog({
   }, [showOptionsTab, tab])
 
   const canSave = settings.label.trim().length > 0
-  const titleLabel = settings.label.trim() || field?.label || "Field"
+  const titleLabel =
+    settings.label.trim() || activeField?.label || "Field"
 
   const handleSettingsChange = (patch: Partial<FormFieldCommonSettings>) => {
     setSettings((current) => ({ ...current, ...patch }))
   }
 
   const handleSave = () => {
-    if (!field || !canSave) return
-    onSave(field.id, {
+    if (!activeField || !canSave) return
+    onSave(activeField.id, {
       ...settings,
       label: settings.label.trim(),
       choices: settings.choices.map((choice) => ({ ...choice })),
@@ -102,7 +111,7 @@ export function FormDesignerFieldEditDialog({
       <DialogContent
         size="md"
         showCloseButton
-        className="flex max-h-[min(90dvh,40rem)] flex-col gap-0 overflow-hidden p-0"
+        className="flex max-h-[min(90dvh,40rem)] flex-col gap-0 p-0"
       >
         <Tabs
           variant="line"
@@ -129,19 +138,19 @@ export function FormDesignerFieldEditDialog({
 
           <DialogBody className="min-h-0 flex-1 overflow-y-auto px-6 py-4">
             <TabsContent value="settings" className="outline-none">
-              {field ? (
+              {activeField ? (
                 <FormDesignerFieldSettingsForm
-                  fieldType={field.type}
+                  fieldType={activeField.type}
                   settings={settings}
                   onChange={handleSettingsChange}
                 />
               ) : null}
             </TabsContent>
 
-            {showOptionsTab ? (
+            {showOptionsTab && activeField ? (
               <TabsContent value="options" className="outline-none">
                 <FormDesignerFieldOptionsTab
-                  fieldType={field.type}
+                  fieldType={activeField.type}
                   settings={settings}
                   badgePlacement={badgePlacement}
                   onChange={handleSettingsChange}

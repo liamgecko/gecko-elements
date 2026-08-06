@@ -508,9 +508,9 @@ export function FormDesignerCanvasFields({
 
       <FormDesignerFieldEditDialog
         field={editingField}
-        open={editingField != null}
-        onOpenChange={(open) => {
-          if (!open) setEditingFieldId(null)
+        open={editingFieldId != null}
+        onOpenChange={(nextOpen) => {
+          if (!nextOpen) setEditingFieldId(null)
         }}
         onSave={onUpdateField}
       />
