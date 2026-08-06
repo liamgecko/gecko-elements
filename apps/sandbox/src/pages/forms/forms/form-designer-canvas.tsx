@@ -55,6 +55,7 @@ import type {
   FormDesignerField,
   FormFieldChoice,
   FormFieldCommonSettings,
+  ChargeableDisplayType,
 } from "./form-designer-pages"
 
 function choicePreviewLabel(
@@ -78,6 +79,100 @@ function choicePreviewLabel(
   return label || "Untitled option"
 }
 
+function resolveChoiceDisplayType(
+  fieldType: string,
+  displayType: FormFieldCommonSettings["displayType"],
+): ChargeableDisplayType | null {
+  if (fieldType === "chargeable-item") {
+    return displayType || "radio"
+  }
+  if (fieldType === "dropdown-single") return "single-select"
+  if (fieldType === "dropdown-multiple") return "multi-select"
+  if (fieldType === "radio-single") return "radio"
+  if (fieldType === "checkbox-multiple") return "checkbox"
+  return null
+}
+
+function ChoiceFieldPreview({
+  fieldId,
+  displayType,
+  placeholder,
+  choices,
+  paymentItemById,
+}: {
+  fieldId: string
+  displayType: ChargeableDisplayType
+  placeholder?: string
+  choices: FormFieldChoice[]
+  paymentItemById: Map<string, PaymentItem>
+}) {
+  if (displayType === "single-select" || displayType === "multi-select") {
+    return (
+      <Select>
+        <SelectTrigger className="w-full">
+          <SelectValue
+            placeholder={
+              placeholder ||
+              (displayType === "multi-select"
+                ? "Select options…"
+                : "Select an option…")
+            }
+          />
+        </SelectTrigger>
+        <SelectContent>
+          {choices.length > 0 ? (
+            choices.map((choice) => (
+              <SelectItem key={choice.id} value={choice.id}>
+                {choicePreviewLabel(choice, paymentItemById)}
+              </SelectItem>
+            ))
+          ) : (
+            <SelectItem value="__empty" disabled>
+              No options yet
+            </SelectItem>
+          )}
+        </SelectContent>
+      </Select>
+    )
+  }
+
+  if (displayType === "radio") {
+    return (
+      <RadioGroup value="" className="gap-2">
+        {choices.length > 0 ? (
+          choices.map((choice) => (
+            <RadioGroupItem
+              key={choice.id}
+              id={`${fieldId}-${choice.id}`}
+              value={choice.id}
+              label={choicePreviewLabel(choice, paymentItemById)}
+            />
+          ))
+        ) : (
+          <p className="text-sm text-muted-foreground">No options yet</p>
+        )}
+      </RadioGroup>
+    )
+  }
+
+  return (
+    <CheckboxGroup className="gap-2">
+      {choices.length > 0 ? (
+        choices.map((choice) => (
+          <Checkbox
+            key={choice.id}
+            id={`${fieldId}-${choice.id}`}
+            value={choice.id}
+            label={choicePreviewLabel(choice, paymentItemById)}
+          />
+        ))
+      ) : (
+        <p className="text-sm text-muted-foreground">No options yet</p>
+      )}
+    </CheckboxGroup>
+  )
+}
+
 function FieldPreview({
   field,
   paymentItemById,
@@ -93,80 +188,27 @@ function FieldPreview({
       choice.label.trim() ||
       (choice.paymentItemId && paymentItemById.has(choice.paymentItemId)),
   )
+  const choiceDisplayType = resolveChoiceDisplayType(type, settings.displayType)
 
   const control = (() => {
+    if (choiceDisplayType) {
+      return (
+        <ChoiceFieldPreview
+          fieldId={fieldId}
+          displayType={choiceDisplayType}
+          placeholder={placeholder}
+          choices={choices}
+          paymentItemById={paymentItemById}
+        />
+      )
+    }
+
     switch (type) {
       case "text-multiple-lines":
       case "text-block":
       case "address":
         return (
           <Textarea rows={2} placeholder={placeholder || "Enter text…"} />
-        )
-
-      case "dropdown-single":
-      case "dropdown-multiple":
-        return (
-          <Select>
-            <SelectTrigger className="w-full">
-              <SelectValue
-                placeholder={
-                  placeholder ||
-                  (type === "dropdown-multiple"
-                    ? "Select options…"
-                    : "Select an option…")
-                }
-              />
-            </SelectTrigger>
-            <SelectContent>
-              {choices.length > 0 ? (
-                choices.map((choice) => (
-                  <SelectItem key={choice.id} value={choice.id}>
-                    {choicePreviewLabel(choice, paymentItemById)}
-                  </SelectItem>
-                ))
-              ) : (
-                <SelectItem value="__empty" disabled>
-                  No options yet
-                </SelectItem>
-              )}
-            </SelectContent>
-          </Select>
-        )
-
-      case "radio-single":
-        return (
-          <RadioGroup value="" className="gap-2">
-            {choices.length > 0 ? (
-              choices.map((choice) => (
-                <RadioGroupItem
-                  key={choice.id}
-                  id={`${fieldId}-${choice.id}`}
-                  value={choice.id}
-                  label={choicePreviewLabel(choice, paymentItemById)}
-                />
-              ))
-            ) : (
-              <p className="text-sm text-muted-foreground">No options yet</p>
-            )}
-          </RadioGroup>
-        )
-
-      case "checkbox-multiple":
-        return (
-          <CheckboxGroup className="gap-2">
-            {choices.length > 0 ? (
-              choices.map((choice) => (
-                <Checkbox
-                  key={choice.id}
-                  id={`${fieldId}-${choice.id}`}
-                  value={choice.id}
-                  label={choicePreviewLabel(choice, paymentItemById)}
-                />
-              ))
-            ) : (
-              <p className="text-sm text-muted-foreground">No options yet</p>
-            )}
-          </CheckboxGroup>
         )
 
       case "checkbox-true-false":

@@ -51,6 +51,11 @@ export const FORM_FIELD_OPTIONS: FormFieldOption[] = [
   { id: "radio-single", label: "Radio - Single Choice" },
   { id: "checkbox-true-false", label: "Checkbox - True/False" },
   { id: "checkbox-multiple", label: "Checkbox - Multiple Choice" },
+  {
+    id: "chargeable-item",
+    label: "Chargeable Item",
+    help: "Map options to billable items. Choose single select, multi-select, radio, or checkbox.",
+  },
   { id: "date", label: "Date" },
   { id: "number", label: "Number" },
   { id: "address", label: "Address" },

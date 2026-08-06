@@ -7,7 +7,6 @@ import {
   Combobox,
   ComboboxContent,
   ComboboxEmpty,
-  ComboboxInput,
   ComboboxItem,
   ComboboxList,
   ComboboxTrigger,
@@ -20,6 +19,14 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@gecko/ui/components/input-group"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@gecko/ui/components/select"
 import { cn } from "@gecko/ui/lib/utils"
 
 import { usePaymentItems } from "@/hooks/usePaymentItems"
@@ -29,7 +36,10 @@ import {
 } from "@/pages/forms/payment-items/payment-items-data"
 
 import {
+  CHARGEABLE_DISPLAY_TYPE_OPTIONS,
   createEmptyFieldChoice,
+  isChargeableItemField,
+  type ChargeableDisplayType,
   type FormFieldChoice,
   type FormFieldCommonSettings,
 } from "./form-designer-pages"
@@ -37,12 +47,14 @@ import {
 export type ChargeableBadgePlacement = "below" | "inside"
 
 type FormDesignerFieldOptionsTabProps = {
+  fieldType: string
   settings: FormFieldCommonSettings
   badgePlacement: ChargeableBadgePlacement
   onChange: (patch: Partial<FormFieldCommonSettings>) => void
 }
 
 export function FormDesignerFieldOptionsTab({
+  fieldType,
   settings,
   badgePlacement,
   onChange,
@@ -70,6 +82,9 @@ export function FormDesignerFieldOptionsTab({
     () => gbpPaymentItems.map((item) => item.id),
     [gbpPaymentItems],
   )
+
+  const displayType =
+    (settings.displayType as ChargeableDisplayType | "") || "radio"
 
   const updateChoices = (next: FormFieldChoice[]) => {
     onChange({ choices: next })
@@ -108,45 +123,34 @@ export function FormDesignerFieldOptionsTab({
 
   return (
     <FieldGroup>
-      <Field>
-        <FieldLabel htmlFor="field-options-parent">Parent Field</FieldLabel>
-        <Combobox
-          value={settings.parentFieldId || null}
-          onValueChange={(value) =>
-            onChange({
-              parentFieldId: value == null ? "" : String(value),
-            })
-          }
-        >
-          <ComboboxInput
-            id="field-options-parent"
-            placeholder="Search and Select"
-          />
-          <ComboboxContent>
-            <ComboboxEmpty>No fields found.</ComboboxEmpty>
-            <ComboboxList />
-          </ComboboxContent>
-        </Combobox>
-      </Field>
-
-      <Field>
-        <FieldLabel htmlFor="field-options-template">Option Template</FieldLabel>
-        <Combobox
-          value={settings.optionTemplate || null}
-          onValueChange={(value) =>
-            onChange({ optionTemplate: value == null ? "" : String(value) })
-          }
-        >
-          <ComboboxInput
-            id="field-options-template"
-            placeholder="Search and Select"
-          />
-          <ComboboxContent>
-            <ComboboxEmpty>No templates found.</ComboboxEmpty>
-            <ComboboxList />
-          </ComboboxContent>
-        </Combobox>
-      </Field>
+      {isChargeableItemField(fieldType) ? (
+        <Field>
+          <FieldLabel htmlFor="field-options-display-type">
+            Display type
+          </FieldLabel>
+          <Select
+            items={CHARGEABLE_DISPLAY_TYPE_OPTIONS}
+            value={displayType}
+            onValueChange={(value) => {
+              if (!value) return
+              onChange({ displayType: value as ChargeableDisplayType })
+            }}
+          >
+            <SelectTrigger id="field-options-display-type" className="w-full">
+              <SelectValue placeholder="Select display type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {CHARGEABLE_DISPLAY_TYPE_OPTIONS.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </Field>
+      ) : null}
 
       <div className="flex flex-col gap-3">
         <FieldLabel>Field Choices</FieldLabel>
@@ -359,7 +363,7 @@ function FieldChoiceRow({
           type="button"
           variant="ghost-destructive"
           size="icon-sm"
-          aria-label="Delete choice"
+          aria-label="Delete option"
           onClick={() => onDelete(choice.id)}
         >
           <Trash2 aria-hidden />

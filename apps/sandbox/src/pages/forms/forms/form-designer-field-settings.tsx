@@ -5,6 +5,7 @@ import { Input } from "@gecko/ui/components/input"
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -17,7 +18,10 @@ import {
   TooltipTrigger,
 } from "@gecko/ui/components/tooltip"
 
-import type { FormFieldCommonSettings } from "./form-designer-pages"
+import {
+  isChargeableItemField,
+  type FormFieldCommonSettings,
+} from "./form-designer-pages"
 
 const CONTACT_FIELD_NONE = "none"
 
@@ -85,15 +89,19 @@ export function FormDesignerFieldSettingsForm({
         />
       </Field>
 
-      <Field>
-        <FieldLabel htmlFor={ids.placeholder}>Placeholder Text</FieldLabel>
-        <Input
-          id={ids.placeholder}
-          value={settings.placeholder}
-          onChange={(event) => onChange({ placeholder: event.target.value })}
-          placeholder={placeholderHint(fieldType)}
-        />
-      </Field>
+      {!isChargeableItemField(fieldType) ||
+      settings.displayType === "single-select" ||
+      settings.displayType === "multi-select" ? (
+        <Field>
+          <FieldLabel htmlFor={ids.placeholder}>Placeholder Text</FieldLabel>
+          <Input
+            id={ids.placeholder}
+            value={settings.placeholder}
+            onChange={(event) => onChange({ placeholder: event.target.value })}
+            placeholder={placeholderHint(fieldType)}
+          />
+        </Field>
+      ) : null}
 
       <Field>
         <FieldLabel
@@ -139,7 +147,9 @@ export function FormDesignerFieldSettingsForm({
             <SelectValue placeholder="-" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={CONTACT_FIELD_NONE}>-</SelectItem>
+            <SelectGroup>
+              <SelectItem value={CONTACT_FIELD_NONE}>-</SelectItem>
+            </SelectGroup>
           </SelectContent>
         </Select>
       </Field>
@@ -160,21 +170,6 @@ export function FormDesignerFieldSettingsForm({
           onCheckedChange={(checked) => onChange({ hidden: checked })}
         />
       </Field>
-
-      <FormDesignerFieldTypeSettings
-        fieldType={fieldType}
-        settings={settings}
-        onChange={onChange}
-      />
     </FieldGroup>
   )
-}
-
-/** Hook for per-type settings; currently shared options only. */
-function FormDesignerFieldTypeSettings({
-  fieldType: _fieldType,
-  settings: _settings,
-  onChange: _onChange,
-}: FormDesignerFieldSettingsFormProps) {
-  return null
 }

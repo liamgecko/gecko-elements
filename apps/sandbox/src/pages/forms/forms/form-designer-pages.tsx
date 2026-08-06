@@ -15,6 +15,23 @@ export type FormFieldChoice = {
   paymentItemId: string
 }
 
+/** Presentation for the dedicated Chargeable Item field. */
+export type ChargeableDisplayType =
+  | "single-select"
+  | "multi-select"
+  | "radio"
+  | "checkbox"
+
+export const CHARGEABLE_DISPLAY_TYPE_OPTIONS: {
+  value: ChargeableDisplayType
+  label: string
+}[] = [
+  { value: "single-select", label: "Single select" },
+  { value: "multi-select", label: "Multi select" },
+  { value: "radio", label: "Radio" },
+  { value: "checkbox", label: "Checkbox" },
+]
+
 export type FormFieldCommonSettings = {
   label: string
   helpText: string
@@ -25,6 +42,8 @@ export type FormFieldCommonSettings = {
   hidden: boolean
   parentFieldId: string
   optionTemplate: string
+  /** Used by `chargeable-item` fields. */
+  displayType: ChargeableDisplayType | ""
   choices: FormFieldChoice[]
 }
 
@@ -43,12 +62,17 @@ export function createEmptyFieldChoice(): FormFieldChoice {
   }
 }
 
+export function isChargeableItemField(fieldType: string): boolean {
+  return fieldType === "chargeable-item"
+}
+
 export function fieldHasOptionsTab(fieldType: string): boolean {
   return (
     fieldType === "dropdown-single" ||
     fieldType === "dropdown-multiple" ||
     fieldType === "radio-single" ||
-    fieldType === "checkbox-multiple"
+    fieldType === "checkbox-multiple" ||
+    isChargeableItemField(fieldType)
   )
 }
 
@@ -56,6 +80,7 @@ export function createDefaultFieldSettings(
   label: string,
   fieldType?: string,
 ): FormFieldCommonSettings {
+  const type = fieldType ?? ""
   return {
     label,
     helpText: "",
@@ -66,9 +91,8 @@ export function createDefaultFieldSettings(
     hidden: false,
     parentFieldId: "",
     optionTemplate: "",
-    choices: fieldHasOptionsTab(fieldType ?? "")
-      ? [createEmptyFieldChoice()]
-      : [],
+    displayType: isChargeableItemField(type) ? "radio" : "",
+    choices: fieldHasOptionsTab(type) ? [createEmptyFieldChoice()] : [],
   }
 }
 

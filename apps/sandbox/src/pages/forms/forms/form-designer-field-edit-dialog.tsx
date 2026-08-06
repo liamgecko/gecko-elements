@@ -141,6 +141,7 @@ export function FormDesignerFieldEditDialog({
             {showOptionsTab ? (
               <TabsContent value="options" className="outline-none">
                 <FormDesignerFieldOptionsTab
+                  fieldType={field.type}
                   settings={settings}
                   badgePlacement={badgePlacement}
                   onChange={handleSettingsChange}
