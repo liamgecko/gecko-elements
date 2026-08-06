@@ -12,10 +12,11 @@ import { DataTableColumnHeader } from "@gecko/ui/components/data-table/data-tabl
 import { DataTableMultiSelectFilter } from "@gecko/ui/components/data-table/data-table-columns"
 import { DataTableMultiLineCell } from "@gecko/ui/components/data-table/data-table-multi-line-cell"
 
-import type {
-  PaymentItem,
-  PaymentItemLockStatus,
-  PaymentProvider,
+import {
+  formatPaymentItemAmount,
+  type PaymentItem,
+  type PaymentItemLockStatus,
+  type PaymentProvider,
 } from "./payment-items-data"
 
 function ordinal(n: number) {
@@ -43,14 +44,8 @@ function formatCreatedAt(iso: string) {
   return `${day} ${month} ${year} @ ${time}`
 }
 
-const currencySymbols: Record<PaymentItem["currency"], string> = {
-  GBP: "£",
-  EUR: "€",
-  USD: "$",
-}
-
 function formatAmount(amount: number, currency: PaymentItem["currency"]) {
-  return `${currencySymbols[currency]}${amount.toLocaleString()}`
+  return formatPaymentItemAmount(amount, currency)
 }
 
 function lockStatusLabel(status: PaymentItemLockStatus) {

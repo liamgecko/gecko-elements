@@ -40,7 +40,10 @@ export function formatPaymentItemAmount(
   amount: number,
   currency: PaymentCurrency,
 ) {
-  return `${currencySymbols[currency]}${amount.toLocaleString()}`
+  return `${currencySymbols[currency]}${amount.toLocaleString(undefined, {
+    minimumFractionDigits: Number.isInteger(amount) ? 0 : 2,
+    maximumFractionDigits: 2,
+  })}`
 }
 
 export type PaymentItem = {

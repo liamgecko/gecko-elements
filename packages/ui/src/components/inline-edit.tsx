@@ -93,9 +93,19 @@ const inlineEditInputEndPaddingVariants = cva("", {
       md: "pr-[78px]",
       lg: "pr-[88px]",
     },
+    characterCount: {
+      true: "",
+      false: "",
+    },
   },
+  compoundVariants: [
+    { size: "sm", characterCount: true, class: "pr-[112px]" },
+    { size: "md", characterCount: true, class: "pr-[122px]" },
+    { size: "lg", characterCount: true, class: "pr-[132px]" },
+  ],
   defaultVariants: {
     size: "md",
+    characterCount: false,
   },
 })
 
@@ -130,6 +140,9 @@ const inlineEditActionGhostButtonVariants = cva("", {
   },
 })
 
+const inlineEditCharacterCountClassName =
+  "shrink-0 text-xs font-medium tabular-nums text-foreground"
+
 export type InlineEditProps = Omit<
   React.HTMLAttributes<HTMLDivElement>,
   "onSubmit"
@@ -137,7 +150,10 @@ export type InlineEditProps = Omit<
   VariantProps<typeof inlineEditViewRootVariants> & {
     value: string
     onSave: (next: string) => void
+    onValueChange?: (next: string) => void
     placeholder?: string
+    showCharacterCount?: boolean
+    maxLength?: number
   }
 
 const InlineEdit = React.forwardRef<HTMLDivElement, InlineEditProps>(
@@ -146,8 +162,11 @@ const InlineEdit = React.forwardRef<HTMLDivElement, InlineEditProps>(
       className,
       value,
       onSave,
+      onValueChange,
       size = "md",
       placeholder = "",
+      showCharacterCount = false,
+      maxLength,
       onKeyDown,
       ...props
     },
@@ -156,8 +175,24 @@ const InlineEdit = React.forwardRef<HTMLDivElement, InlineEditProps>(
     const [isEditing, setIsEditing] = React.useState(false)
     const [draft, setDraft] = React.useState(value)
     const inputRef = React.useRef<HTMLInputElement | null>(null)
+    const rootRef = React.useRef<HTMLDivElement | null>(null)
+    const editStartValueRef = React.useRef(value)
 
     const resolvedSize = size ?? "md"
+    const hasCharacterCount =
+      showCharacterCount && typeof maxLength === "number"
+
+    const setRootRef = React.useCallback(
+      (node: HTMLDivElement | null) => {
+        rootRef.current = node
+        if (typeof ref === "function") {
+          ref(node)
+        } else if (ref) {
+          ref.current = node
+        }
+      },
+      [ref]
+    )
 
     React.useEffect(() => {
       if (!isEditing) setDraft(value)
@@ -175,19 +210,43 @@ const InlineEdit = React.forwardRef<HTMLDivElement, InlineEditProps>(
     }, [draft, onSave])
 
     const cancelEdit = React.useCallback(() => {
-      setDraft(value)
+      const previous = editStartValueRef.current
+      setDraft(previous)
+      onValueChange?.(previous)
       setIsEditing(false)
-    }, [value])
+    }, [onValueChange])
 
     const openEdit = React.useCallback(() => {
+      editStartValueRef.current = value
       setDraft(value)
       setIsEditing(true)
     }, [value])
 
+    const handleDraftChange = React.useCallback(
+      (next: string) => {
+        setDraft(next)
+        onValueChange?.(next)
+      },
+      [onValueChange]
+    )
+
+    React.useEffect(() => {
+      if (!isEditing) return
+
+      const onPointerDown = (event: PointerEvent) => {
+        if (!rootRef.current?.contains(event.target as Node)) {
+          commitSave()
+        }
+      }
+
+      document.addEventListener("pointerdown", onPointerDown)
+      return () => document.removeEventListener("pointerdown", onPointerDown)
+    }, [isEditing, commitSave])
+
     if (isEditing) {
       return (
         <div
-          ref={ref}
+          ref={setRootRef}
           data-slot="inline-edit"
           data-size={resolvedSize}
           data-editing="true"
@@ -201,11 +260,15 @@ const InlineEdit = React.forwardRef<HTMLDivElement, InlineEditProps>(
             ref={inputRef}
             value={draft}
             size={resolvedSize}
-            onChange={(e) => setDraft(e.target.value)}
+            maxLength={maxLength}
+            onChange={(e) => handleDraftChange(e.target.value)}
             placeholder={placeholder}
             className={cn(
               inlineEditInputControlVariants(),
-              inlineEditInputEndPaddingVariants({ size: resolvedSize })
+              inlineEditInputEndPaddingVariants({
+                size: resolvedSize,
+                characterCount: hasCharacterCount,
+              })
             )}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
@@ -258,6 +321,14 @@ const InlineEdit = React.forwardRef<HTMLDivElement, InlineEditProps>(
                 )}
               />
             </Button>
+            {hasCharacterCount ? (
+              <span
+                className={inlineEditCharacterCountClassName}
+                aria-live="polite"
+              >
+                {draft.length}/{maxLength}
+              </span>
+            ) : null}
           </div>
         </div>
       )
@@ -265,7 +336,7 @@ const InlineEdit = React.forwardRef<HTMLDivElement, InlineEditProps>(
 
     return (
       <div
-        ref={ref}
+        ref={setRootRef}
         role="button"
         tabIndex={0}
         aria-label="Edit"

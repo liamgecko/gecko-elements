@@ -48,6 +48,10 @@ function isFormSubPage(pathname: string) {
   )
 }
 
+function isCreateFormPage(pathname: string) {
+  return pathname === "/forms/forms/new"
+}
+
 export default function FormsLayout() {
   const { pathname } = useLocation()
   const navigate = useNavigate()
@@ -58,6 +62,12 @@ export default function FormsLayout() {
   const favouriteLabel = getTabLabelForPath(pathname) ?? "Forms"
   const onChargeableItemSubPage = isChargeableItemSubPage(pathname)
   const onFormSubPage = isFormSubPage(pathname)
+  const onCreateFormPage = isCreateFormPage(pathname)
+
+  // Create form owns its own form-builder header (same as an existing form).
+  if (onCreateFormPage) {
+    return <Outlet />
+  }
 
   return (
     <div className="flex flex-col">

@@ -68,8 +68,12 @@ export function validatePaymentItemForm(
 
   if (amount == null) {
     errors.amount = "Please enter an amount."
-  } else if (!Number.isInteger(amount) || amount <= 0) {
-    errors.amount = "Please enter a whole number greater than zero."
+  } else if (
+    !Number.isFinite(amount) ||
+    amount <= 0 ||
+    Math.round(amount * 100) !== amount * 100
+  ) {
+    errors.amount = "Please enter an amount greater than zero (max 2 decimals)."
   }
 
   if (provider && !currency) {

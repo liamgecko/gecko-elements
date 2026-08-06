@@ -9,6 +9,7 @@ export function InlineEditPage() {
   const [md, setMd] = React.useState("Click to edit")
   const [lg, setLg] = React.useState("Click to edit")
   const [basic, setBasic] = React.useState("Click to edit")
+  const [withCount, setWithCount] = React.useState("Your form title")
 
   return (
     <div className="space-y-12">
@@ -29,6 +30,26 @@ export function InlineEditPage() {
           <ComponentExample>
             <div className="min-w-0 w-full">
               <InlineEdit value={basic} onSave={setBasic} />
+            </div>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="character-count" label="Character count">
+          <h2 className="text-lg font-semibold">Character count</h2>
+          <p className="mb-6 text-sm text-muted-foreground">
+            Enable{" "}
+            <Code>showCharacterCount</Code> and set{" "}
+            <Code>maxLength</Code> to show a live count and enforce a limit while
+            editing.
+          </p>
+          <ComponentExample>
+            <div className="min-w-0 w-full">
+              <InlineEdit
+                value={withCount}
+                onSave={setWithCount}
+                showCharacterCount
+                maxLength={100}
+              />
             </div>
           </ComponentExample>
         </PageSection>

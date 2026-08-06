@@ -140,7 +140,7 @@ export default function FormLayout() {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex h-[calc(100dvh-var(--header-height))] flex-col overflow-hidden">
       <FormBuilderHeader
         title={headerTitle}
         loading={loading}
@@ -177,8 +177,16 @@ export default function FormLayout() {
           ],
         }}
       />
-      <Container>
-        <Outlet context={outletContext} />
+      <Container className="flex min-h-0 flex-1 flex-col overflow-hidden">
+        <div
+          className={
+            activeTab === "designer"
+              ? "flex min-h-0 flex-1 flex-col overflow-hidden"
+              : "min-h-0 flex-1 overflow-y-auto"
+          }
+        >
+          <Outlet context={outletContext} />
+        </div>
       </Container>
 
       <FormArchiveDialog

@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@dnd-kit/abstract": "0.3.2",
+    "@dnd-kit/dom": "0.3.2",
+    "@dnd-kit/react": "^0.3.2",
     "@gecko/ui": "*",
     "@supabase/supabase-js": "^2.108.1",
     "@xyflow/react": "^12.11.0",

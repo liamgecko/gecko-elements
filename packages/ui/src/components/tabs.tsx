@@ -33,7 +33,8 @@ const tabsListVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-background p-1",
+        default:
+          "gap-0.5 p-1 group-data-horizontal/tabs:bg-muted group-data-vertical/tabs:bg-background",
         line: "gap-1 bg-transparent px-0 py-1",
       },
       fullWidth: {
@@ -75,9 +76,9 @@ function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
     <TabsPrimitive.Tab
       data-slot="tabs-trigger"
       className={cn(
-        "gap-1.5 rounded-sm border border-transparent px-3 py-1.5 text-sm font-medium group-data-[variant=default]/tabs-list:data-active:shadow-none [&_svg:not([class*='size-'])]:size-4 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring text-muted-foreground hover:text-foreground relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center whitespace-nowrap transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:pointer-events-none aria-disabled:opacity-75 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        "group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent",
-        "data-active:bg-muted data-active:text-foreground",
+        "gap-1.5 rounded-sm border border-transparent px-3 py-1.5 text-sm font-medium group-data-horizontal/tabs:group-data-[variant=default]/tabs-list:data-active:shadow-sm [&_svg:not([class*='size-'])]:size-4 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring text-muted-foreground hover:text-foreground relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center whitespace-nowrap transition-all group-data-vertical/tabs:w-full group-data-vertical/tabs:justify-start focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:cursor-not-allowed aria-disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:pointer-events-none aria-disabled:opacity-75 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "group-data-[variant=line]/tabs-list:bg-transparent group-data-[variant=line]/tabs-list:data-active:bg-transparent group-data-[variant=line]/tabs-list:data-active:shadow-none",
+        "data-active:bg-muted data-active:text-foreground group-data-horizontal/tabs:group-data-[variant=default]/tabs-list:data-active:bg-background",
         // Line variant hover underline (same as active, simple transition)
         "group-data-[variant=line]/tabs-list:before:bg-foreground group-data-[variant=line]/tabs-list:before:absolute group-data-[variant=line]/tabs-list:before:opacity-0 group-data-[variant=line]/tabs-list:before:transition-opacity group-data-[variant=line]/tabs-list:before:duration-200",
         "group-data-horizontal/tabs:group-data-[variant=line]/tabs-list:before:inset-x-0 group-data-horizontal/tabs:group-data-[variant=line]/tabs-list:before:bottom-[-7px] group-data-horizontal/tabs:group-data-[variant=line]/tabs-list:before:h-0.5",

@@ -13,8 +13,11 @@ import {
   ComboboxLabel,
   ComboboxList,
   ComboboxSeparator,
+  ComboboxTrigger,
   ComboboxValue,
 } from "@gecko/ui/components/combobox"
+import { Button } from "@gecko/ui/components/button"
+import { CirclePoundSterling } from "lucide-react"
 
 import { Code } from "@gecko/ui/components/code"
 import { ComponentExample } from "@/components/layout/component-example"
@@ -28,6 +31,16 @@ const frameworks = [
   "Remix",
   "Astro",
 ] as const
+
+const popoverOptions = [
+  { value: "accommodation-deposit", name: "Accommodation deposit", amount: "£250" },
+  { value: "application-fee", name: "Application fee", amount: "£50" },
+  { value: "deposit", name: "Deposit", amount: "£500" },
+  { value: "parking", name: "Parking", amount: "£15" },
+  { value: "scholarship-fee", name: "Scholarship acceptance fee", amount: "£75" },
+] as const
+
+type PopoverOption = (typeof popoverOptions)[number]
 
 const timezones = [
   {
@@ -98,6 +111,51 @@ export function ComboboxPage() {
                   {(item: Framework) => (
                     <ComboboxItem key={item} value={item}>
                       {item}
+                    </ComboboxItem>
+                  )}
+                </ComboboxList>
+              </ComboboxContent>
+            </Combobox>
+          </ComponentExample>
+        </PageSection>
+
+        <PageSection id="popover" label="Popover">
+          <h2 className="text-lg font-semibold">Popover</h2>
+          <p className="mb-8 text-sm text-muted-foreground">
+            Use <Code>variant=&quot;popover&quot;</Code> with a custom{" "}
+            <Code>ComboboxTrigger</Code>. Pass{" "}
+            <Code>search</Code> to place a search field inside the popup,
+            matching DropdownMenu searchable styling.
+          </p>
+          <ComponentExample>
+            <Combobox
+              variant="popover"
+              search
+              searchPlaceholder="Search..."
+              items={[...popoverOptions]}
+              itemToStringValue={(item: PopoverOption) => item.value}
+              itemToStringLabel={(item: PopoverOption) => item.name}
+            >
+              <ComboboxTrigger
+                render={
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    aria-label="Open options"
+                  />
+                }
+              >
+                <CirclePoundSterling aria-hidden />
+              </ComboboxTrigger>
+              <ComboboxContent className="w-72">
+                <ComboboxEmpty>No results found.</ComboboxEmpty>
+                <ComboboxList>
+                  {(item: PopoverOption) => (
+                    <ComboboxItem key={item.value} value={item}>
+                      <span className="min-w-0 flex-1 truncate">{item.name}</span>
+                      <span className="shrink-0 text-muted-foreground">
+                        {item.amount}
+                      </span>
                     </ComboboxItem>
                   )}
                 </ComboboxList>

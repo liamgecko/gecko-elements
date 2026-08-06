@@ -5,7 +5,7 @@ create table payment_items (
   account_id text not null references accounts (id) on delete cascade,
   name text not null,
   internal_name text,
-  amount integer not null check (amount > 0),
+  amount numeric(12, 2) not null check (amount > 0),
   currency text not null check (currency in ('GBP', 'EUR', 'USD')),
   provider text not null check (provider in ('Flywire', 'TouchNet')),
   lock_status text not null check (

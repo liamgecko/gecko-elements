@@ -35,6 +35,7 @@ In the Supabase dashboard, open **SQL Editor** and run, in order:
 12. `apps/sandbox/supabase/migrations/007_workflows_definition.sql` — `definition` jsonb column for the workflow builder graph
 13. `apps/sandbox/supabase/migrations/008_workflow_templates.sql` — workflow templates table
 14. `apps/sandbox/supabase/migrations/009_short_ids.sql` — **only if upgrading an existing UUID database**; truncates data, drops foreign keys, converts ids to 8-digit text, then re-adds foreign keys. Re-run all seed scripts after.
+15. `apps/sandbox/supabase/migrations/010_payment_item_amount_decimal.sql` — allow fractional amounts (e.g. £12.50). Safe to run on an existing database.
 
 If `009` fails partway through, run the full script again from the top (it is safe to re-run after truncate).
 

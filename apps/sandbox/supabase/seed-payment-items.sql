@@ -30,4 +30,9 @@ insert into payment_items (
   ('50000012', '10000000', 'Tuition installment', null, 8500, 'USD', 'Flywire', 'locked-view-only', '20000001', null, null, null, '20000004', '2025-08-22T16:00:00.000Z'),
   ('50000013', '10000000', 'Orientation package', null, 125, 'USD', 'TouchNet', 'unlocked', null, null, null, null, '20000005', '2025-09-27T13:30:00.000Z'),
   ('50000014', '10000000', 'Campus housing deposit', null, 600, 'USD', 'TouchNet', 'locked-view-only', '20000003', 1, 2, 40, '20000006', '2025-10-04T10:00:00.000Z'),
-  ('50000015', '10000000', 'International student services fee', null, 150, 'USD', 'Flywire', 'unlocked', null, null, null, null, '20000001', '2025-11-09T15:30:00.000Z');
+  ('50000015', '10000000', 'International student services fee', null, 150, 'USD', 'Flywire', 'unlocked', null, null, null, null, '20000001', '2025-11-09T15:30:00.000Z'),
+  ('50000016', '10000000', 'Parking', null, 15, 'GBP', 'Flywire', 'unlocked', null, null, null, null, '20000005', '2025-11-20T09:00:00.000Z'),
+  ('50000017', '10000000', 'T-shirt', null, 10, 'GBP', 'Flywire', 'unlocked', null, null, null, null, '20000005', '2025-11-21T09:00:00.000Z'),
+  ('50000018', '10000000', 'Hoody', null, 25, 'GBP', 'Flywire', 'unlocked', null, null, null, null, '20000005', '2025-11-21T09:05:00.000Z'),
+  ('50000019', '10000000', 'Hat', null, 10, 'GBP', 'Flywire', 'unlocked', null, null, null, null, '20000005', '2025-11-21T09:10:00.000Z'),
+  ('50000020', '10000000', 'Tote bag', null, 5, 'GBP', 'Flywire', 'unlocked', null, null, null, null, '20000005', '2025-11-21T09:15:00.000Z');

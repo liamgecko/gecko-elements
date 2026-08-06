@@ -26,6 +26,7 @@ export const componentSections: ComponentSections = {
   "inline-edit": [
     { id: "overview", label: "Overview" },
     { id: "basic-example", label: "Basic example" },
+    { id: "character-count", label: "Character count" },
     {
       id: "sizing",
       label: "Sizing",
@@ -684,6 +685,7 @@ export const componentSections: ComponentSections = {
   combobox: [
     { id: "overview", label: "Overview" },
     { id: "basic", label: "Basic" },
+    { id: "popover", label: "Popover" },
     { id: "multiple", label: "Multiple" },
     { id: "with-clear", label: "With clear" },
     { id: "groups", label: "Groups" },
