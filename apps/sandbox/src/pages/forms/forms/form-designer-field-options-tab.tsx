@@ -330,12 +330,19 @@ function FieldChoiceRow({
                       : "Assign chargeable item"
                   }
                   className={cn(
-                    paymentItem && "text-primary hover:text-primary",
+                    "relative",
+                    paymentItem && "bg-muted text-foreground hover:bg-muted",
                   )}
                 />
               }
             >
               <CirclePoundSterling aria-hidden />
+              {paymentItem ? (
+                <span
+                  aria-hidden
+                  className="absolute end-0.5 top-0.5 size-1.5 rounded-full bg-emerald-500"
+                />
+              ) : null}
             </ComboboxTrigger>
             <ComboboxContent align="end" className="w-80">
               <ComboboxEmpty>No items found.</ComboboxEmpty>
