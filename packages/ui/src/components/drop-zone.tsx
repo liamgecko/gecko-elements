@@ -1,244 +1,213 @@
-import * as React from "react"
-import { CloudUpload, Trash2 } from "lucide-react"
+"use client";
 
-import { cn } from "@gecko/ui/lib/utils"
-import { useControllableState } from "@gecko/ui/hooks/use-controllable-state"
-import { Button } from "@gecko/ui/components/button"
-import { Input } from "@gecko/ui/components/input"
+import * as React from "react";
+import { CloudUpload, Trash2 } from "lucide-react";
 
-const DEFAULT_BROWSE_LABEL = "Browse files"
-const DEFAULT_LABEL = "Drag & drop files here"
-const DEFAULT_DESCRIPTION = "Or click to browse"
+import { cn } from "@gecko/ui/lib/utils";
+import { useControllableState } from "@gecko/ui/hooks/use-controllable-state";
+import { Button, buttonVariants } from "@gecko/ui/components/button";
+import { Input } from "@gecko/ui/components/input";
 
-const DEFAULT_INVALID_LABEL = "This file couldn't be added."
-const DEFAULT_INVALID_DESCRIPTION =
-  "Check the file type and size, then try again."
-
-function fileMatchesAccept(file: File, accept: string | undefined): boolean {
-  if (!accept?.trim()) return true
-
-  const tokens = accept
-    .split(",")
-    .map((token) => token.trim().toLowerCase())
-    .filter(Boolean)
-  const name = file.name.toLowerCase()
-  const type = (file.type || "").toLowerCase()
-
-  return tokens.some((token) => {
-    if (token.startsWith(".")) {
-      return name.endsWith(token)
-    }
-    if (token.endsWith("/*")) {
-      const prefix = token.slice(0, -1)
-      return type.startsWith(prefix)
-    }
-    return type === token
-  })
-}
-
-function filterFilesByAccept(files: File[], accept: string | undefined): File[] {
-  return files.filter((file) => fileMatchesAccept(file, accept))
-}
+const DEFAULT_DESCRIPTION = "Or click to browse";
+const DEFAULT_ERROR =
+  "The selection couldn't be added. Check the file requirements and try again.";
 
 function formatBytes(bytes: number) {
-  if (!Number.isFinite(bytes) || bytes <= 0) return "0 B"
-  const units = ["B", "KB", "MB", "GB", "TB"]
-  const power = Math.min(Math.floor(Math.log10(bytes) / Math.log10(1024)), units.length - 1)
-  const value = bytes / Math.pow(1024, power)
-  const decimals = power === 0 ? 0 : 1
-  return `${value.toFixed(decimals)} ${units[power]}`
+  if (!Number.isFinite(bytes) || bytes <= 0) return "0 B";
+  const units = ["B", "KB", "MB", "GB", "TB"];
+  const power = Math.min(
+    Math.floor(Math.log10(bytes) / Math.log10(1024)),
+    units.length - 1,
+  );
+  const value = bytes / Math.pow(1024, power);
+  const decimals = power === 0 ? 0 : 1;
+  return `${value.toFixed(decimals)} ${units[power]}`;
 }
 
 export type DropZoneProps = {
-  value?: File[]
-  defaultValue?: File[]
-  onValueChange?: (files: File[]) => void
+  value?: File[];
+  defaultValue?: File[];
+  onValueChange?: (files: File[]) => void;
 
-  multiple?: boolean
-  accept?: string
+  multiple?: boolean;
+  accept?: string;
 
-  disabled?: boolean
-  className?: string
+  disabled?: boolean;
+  className?: string;
 
-  id?: string
-  name?: string
+  id?: string;
+  name?: string;
 
-  browseLabel?: string
-  label?: string
-  description?: string
+  browseLabel?: string;
+  label?: string;
+  description?: string;
+  error?: string;
 
-  /** Overrides built-in error copy when `aria-invalid` is true. */
-  invalidLabel?: string
-  invalidDescription?: string
-
-  /** Passed to the hidden file input. When true, built-in error label/description and styling apply. */
-  "aria-invalid"?: boolean | "true" | "false"
-  "aria-describedby"?: string
-}
+  /** Passed to the native file input. `error` also sets this state. */
+  "aria-invalid"?: boolean | "true" | "false";
+  "aria-describedby"?: string;
+};
 
 export function DropZone({
   value,
   defaultValue,
   onValueChange,
-  multiple = true,
+  multiple = false,
   accept,
   disabled,
   className,
   id,
   name,
-  browseLabel = DEFAULT_BROWSE_LABEL,
-  label = DEFAULT_LABEL,
+  browseLabel,
+  label,
   description = DEFAULT_DESCRIPTION,
-  invalidLabel,
-  invalidDescription,
+  error,
   "aria-invalid": ariaInvalid,
   "aria-describedby": ariaDescribedBy,
 }: DropZoneProps) {
   const invalid =
-    ariaInvalid === true || ariaInvalid === "true"
-
-  const displayLabel = invalid
-    ? (invalidLabel ?? DEFAULT_INVALID_LABEL)
-    : label
-  const displayDescription = invalid
-    ? (invalidDescription ?? DEFAULT_INVALID_DESCRIPTION)
-    : description
+    Boolean(error) || ariaInvalid === true || ariaInvalid === "true";
+  const displayLabel =
+    label ?? (multiple ? "Drag & drop files here" : "Drag & drop a file here");
+  const displayDescription = invalid ? (error ?? DEFAULT_ERROR) : description;
+  const displayBrowseLabel =
+    browseLabel ?? (multiple ? "Browse files" : "Browse file");
 
   const [files, setFiles] = useControllableState<File[]>({
     value,
     defaultValue: defaultValue ?? [],
     onChange: onValueChange,
-  })
+  });
 
-  const inputRef = React.useRef<HTMLInputElement | null>(null)
-  const dragCounterRef = React.useRef(0)
-  const [isDragging, setIsDragging] = React.useState(false)
-
-  const openPicker = React.useCallback(() => {
-    if (disabled) return
-    inputRef.current?.click()
-  }, [disabled])
+  const dragCounterRef = React.useRef(0);
+  const [isDragging, setIsDragging] = React.useState(false);
 
   const addFiles = React.useCallback(
     (incoming: File[]) => {
-      const accepted = filterFilesByAccept(incoming, accept)
-      if (!accepted.length) return
-      const next = multiple ? [...files, ...accepted] : accepted.slice(0, 1)
-      setFiles(next)
+      if (!incoming.length) return;
+      const next = multiple ? [...files, ...incoming] : incoming.slice(0, 1);
+      setFiles(next);
     },
-    [accept, files, multiple, setFiles]
-  )
+    [files, multiple, setFiles],
+  );
 
   const handleDragEnter = React.useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
-      if (disabled) return
-      e.preventDefault()
-      dragCounterRef.current += 1
-      setIsDragging(true)
+      e.preventDefault();
+      if (disabled) return;
+      dragCounterRef.current += 1;
+      setIsDragging(true);
     },
-    [disabled]
-  )
+    [disabled],
+  );
 
   const handleDragLeave = React.useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
-      if (disabled) return
-      e.preventDefault()
-      dragCounterRef.current = Math.max(0, dragCounterRef.current - 1)
+      e.preventDefault();
+      if (disabled) return;
+      dragCounterRef.current = Math.max(0, dragCounterRef.current - 1);
       if (dragCounterRef.current === 0) {
-        setIsDragging(false)
+        setIsDragging(false);
       }
     },
-    [disabled]
-  )
+    [disabled],
+  );
 
   const handleDragOver = React.useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
-      if (disabled) return
-      e.preventDefault()
-      e.dataTransfer.dropEffect = "copy"
-      setIsDragging(true)
+      e.preventDefault();
+      if (disabled) {
+        e.dataTransfer.dropEffect = "none";
+        return;
+      }
+      e.dataTransfer.dropEffect = "copy";
+      setIsDragging(true);
     },
-    [disabled]
-  )
+    [disabled],
+  );
 
   const handleDrop = React.useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
-      if (disabled) return
-      e.preventDefault()
-      dragCounterRef.current = 0
-      setIsDragging(false)
-      const dropped = Array.from(e.dataTransfer.files ?? [])
-      if (dropped.length) addFiles(dropped)
+      e.preventDefault();
+      dragCounterRef.current = 0;
+      setIsDragging(false);
+      if (disabled) return;
+      const dropped = Array.from(e.dataTransfer.files ?? []);
+      if (dropped.length) addFiles(dropped);
     },
-    [addFiles, disabled]
-  )
+    [addFiles, disabled],
+  );
 
   const handleInputChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const selected = Array.from(e.target.files ?? [])
+      const selected = Array.from(e.target.files ?? []);
       // Allow selecting the same file twice.
-      e.target.value = ""
-      if (selected.length) addFiles(selected)
+      e.target.value = "";
+      if (selected.length) addFiles(selected);
     },
-    [addFiles]
-  )
+    [addFiles],
+  );
 
   const removeAtIndex = React.useCallback(
     (index: number) => {
-      if (disabled) return
-      const next = files.filter((_, i) => i !== index)
-      setFiles(next)
+      if (disabled) return;
+      const next = files.filter((_, i) => i !== index);
+      setFiles(next);
     },
-    [disabled, files, setFiles]
-  )
+    [disabled, files, setFiles],
+  );
 
-  const labelId = React.useId()
-  const descriptionId = React.useId()
-  const labelledBy = `${labelId} ${descriptionId}`
+  const generatedInputId = React.useId();
+  const labelId = React.useId();
+  const descriptionId = React.useId();
+  const inputId = id ?? generatedInputId;
+  const describedBy = [descriptionId, ariaDescribedBy]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className={cn("w-full", className)}>
       <Input
-        ref={(node) => {
-          inputRef.current = node
-        }}
-        id={id}
+        id={inputId}
         name={name}
         type="file"
         accept={accept}
         multiple={multiple}
         disabled={disabled}
         onChange={handleInputChange}
-        className="sr-only"
-        aria-labelledby={labelledBy}
-        aria-invalid={ariaInvalid}
-        aria-describedby={ariaDescribedBy}
+        className="peer sr-only"
+        aria-labelledby={labelId}
+        aria-invalid={invalid || undefined}
+        aria-describedby={describedBy}
       />
 
       <div
-        role="region"
-        aria-labelledby={labelledBy}
-        aria-disabled={disabled ? "true" : undefined}
-        onClick={openPicker}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         className={cn(
-          "rounded-sm border border-dashed border-border bg-transparent transition-colors",
-          "flex flex-col items-center justify-center gap-2 p-6 text-center",
+          "group/drop-zone relative flex flex-col items-center justify-center gap-2 rounded-sm border border-dashed border-border bg-transparent p-6 text-center outline-none transition-[color,background-color,border-color,box-shadow] hover:border-input-hover",
+          "peer-focus-visible:border-ring peer-focus-visible:ring-3 peer-focus-visible:ring-ring/50",
           invalid &&
-            "border-input-destructive bg-destructive/5 dark:bg-destructive/10",
-          isDragging &&
-            !disabled &&
-            !invalid &&
-            "border-blue-500 bg-blue-50 dark:border-blue-700 dark:bg-blue-950",
-          disabled && "pointer-events-none cursor-not-allowed opacity-75"
+            "border-input-destructive bg-destructive/5 peer-focus-visible:border-input-destructive peer-focus-visible:ring-input-destructive/20 dark:bg-destructive/10 dark:peer-focus-visible:ring-input-destructive/40",
+          isDragging && !disabled && !invalid && "border-ring bg-muted",
+          disabled &&
+            "cursor-not-allowed bg-muted opacity-75 hover:border-border",
         )}
       >
+        <label
+          htmlFor={inputId}
+          className={cn(
+            "absolute inset-0 z-10 cursor-pointer rounded-[inherit]",
+            disabled && "cursor-not-allowed",
+          )}
+        >
+          <span className="sr-only">{displayLabel}</span>
+        </label>
+
         <div className="flex flex-col items-center gap-2">
-          <div
-            className="bg-background border border-border shadow-md text-foreground flex size-10 shrink-0 items-center justify-center rounded-lg transition-colors">
+          <div className="bg-background border border-border shadow-md text-foreground flex size-10 shrink-0 items-center justify-center rounded-lg transition-colors">
             <CloudUpload className="size-6" aria-hidden />
           </div>
           <div className="flex flex-col items-center gap-1">
@@ -246,16 +215,17 @@ export function DropZone({
               id={labelId}
               className={cn(
                 "text-sm font-medium",
-                invalid ? "text-destructive" : "text-foreground"
+                invalid ? "text-destructive" : "text-foreground",
               )}
             >
               {displayLabel}
             </p>
             <p
               id={descriptionId}
+              aria-live="polite"
               className={cn(
                 "text-xs",
-                invalid ? "text-destructive" : "text-muted-foreground"
+                invalid ? "text-destructive" : "text-muted-foreground",
               )}
             >
               {displayDescription}
@@ -263,25 +233,28 @@ export function DropZone({
           </div>
         </div>
 
-        <Button
-          type="button"
-          variant="outline"
-          className="mt-2 w-fit"
-          disabled={disabled}
-          onClick={(e) => {
-            // Prevent double triggering when button is clicked within the wrapper.
-            e.stopPropagation()
-            openPicker()
-          }}
+        <span
+          aria-hidden="true"
+          className={cn(
+            buttonVariants({ variant: "outline" }),
+            "mt-2 w-fit group-hover/drop-zone:bg-muted group-hover/drop-zone:text-foreground",
+            disabled && "pointer-events-none bg-muted opacity-75",
+          )}
         >
-          {browseLabel}
-        </Button>
+          {displayBrowseLabel}
+        </span>
       </div>
 
+      <p className="sr-only" role="status">
+        {files.length === 0
+          ? "No files selected."
+          : `${files.length} ${files.length === 1 ? "file" : "files"} selected.`}
+      </p>
+
       {files.length > 0 && (
-        <div className="mt-4 space-y-2">
+        <ul className="mt-4 space-y-2" aria-label="Selected files">
           {files.map((file, index) => (
-            <div
+            <li
               key={`${file.name}-${file.size}-${index}`}
               className="flex items-center justify-between gap-4 rounded-sm border border-border bg-background px-3 py-2"
             >
@@ -305,11 +278,10 @@ export function DropZone({
               >
                 <Trash2 className="size-4" aria-hidden />
               </Button>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
-  )
+  );
 }
-

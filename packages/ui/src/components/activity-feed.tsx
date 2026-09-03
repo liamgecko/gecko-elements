@@ -1,8 +1,9 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-import type { LucideIcon } from "lucide-react"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 import {
   CalendarPlus,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   ListTodo,
   MailCheck,
   MailPlus,
@@ -11,16 +12,16 @@ import {
   MonitorCog,
   PhoneForwarded,
   Smartphone,
-} from "lucide-react"
+  type LucideIcon,
+} from "lucide-react";
 
-import { cn } from "@gecko/ui/lib/utils"
+import { Button } from "@gecko/ui/components/button";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
-  PaginationNext,
-  PaginationPrevious,
-} from "@gecko/ui/components/pagination"
+} from "@gecko/ui/components/pagination";
+import { cn } from "@gecko/ui/lib/utils";
 
 export type ActivityFeedType =
   | "conversation-started"
@@ -31,15 +32,21 @@ export type ActivityFeedType =
   | "added-to-campaign"
   | "call-made"
   | "added-to-event"
-  | "system-alert"
+  | "system-alert";
 
-/** One row of activity data for the convenience `items` API */
 export type ActivityFeedEntry = {
-  id: string
-  type: ActivityFeedType
-  label: React.ReactNode
-  meta: React.ReactNode
-}
+  id: string;
+  type: ActivityFeedType;
+  label: React.ReactNode;
+  meta: React.ReactNode;
+};
+
+export type ActivityFeedPagination = {
+  page: number;
+  pageSize: number;
+  totalItems: number;
+  onPageChange: (page: number) => void;
+};
 
 const ACTIVITY_FEED_ICONS: Record<ActivityFeedType, LucideIcon> = {
   "conversation-started": MessageSquareText,
@@ -51,7 +58,7 @@ const ACTIVITY_FEED_ICONS: Record<ActivityFeedType, LucideIcon> = {
   "call-made": PhoneForwarded,
   "added-to-event": CalendarPlus,
   "system-alert": MonitorCog,
-}
+};
 
 const activityFeedVariants = cva(
   [
@@ -71,8 +78,8 @@ const activityFeedVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
-)
+  },
+);
 
 const activityFeedItemVariants = cva("flex first:pt-0 last:pb-0", {
   variants: {
@@ -84,7 +91,7 @@ const activityFeedItemVariants = cva("flex first:pt-0 last:pb-0", {
   defaultVariants: {
     variant: "default",
   },
-})
+});
 
 const activityFeedIconVariants = cva(
   "relative z-10 flex shrink-0 items-center justify-center rounded-full border border-border bg-background text-foreground ring-background",
@@ -98,8 +105,8 @@ const activityFeedIconVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
-)
+  },
+);
 
 const activityFeedGlyphVariants = cva("", {
   variants: {
@@ -111,7 +118,7 @@ const activityFeedGlyphVariants = cva("", {
   defaultVariants: {
     variant: "default",
   },
-})
+});
 
 const activityFeedContentVariants = cva("min-w-0 flex-1", {
   variants: {
@@ -123,7 +130,7 @@ const activityFeedContentVariants = cva("min-w-0 flex-1", {
   defaultVariants: {
     variant: "default",
   },
-})
+});
 
 const activityFeedLabelVariants = cva(
   "text-foreground [&_a]:font-medium [&_a]:text-foreground [&_a]:underline-offset-2 [&_a]:hover:underline",
@@ -137,8 +144,8 @@ const activityFeedLabelVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
-)
+  },
+);
 
 const activityFeedMetaVariants = cva("text-muted-foreground", {
   variants: {
@@ -150,320 +157,140 @@ const activityFeedMetaVariants = cva("text-muted-foreground", {
   defaultVariants: {
     variant: "default",
   },
-})
+});
 
 export type ActivityFeedVariant = NonNullable<
   VariantProps<typeof activityFeedVariants>["variant"]
->
+>;
 
-type ActivityFeedContextValue = {
-  variant: ActivityFeedVariant
-}
-
-const ActivityFeedContext = React.createContext<ActivityFeedContextValue | null>(
-  null
-)
-
-function useActivityFeed() {
-  const ctx = React.useContext(ActivityFeedContext)
-  if (ctx == null) {
-    throw new Error(
-      "Activity feed components must be used within ActivityFeed."
-    )
-  }
-  return ctx
-}
-
-export type ActivityFeedRootProps = React.ComponentProps<"ul"> &
-  VariantProps<typeof activityFeedVariants>
-
-function ActivityFeedRoot({
-  className,
-  variant = "default",
-  ...props
-}: ActivityFeedRootProps) {
-  const value = React.useMemo(
-    () => ({ variant: (variant ?? "default") as ActivityFeedVariant }),
-    [variant]
-  )
-
-  return (
-    <ActivityFeedContext.Provider value={value}>
-      <ul
-        data-slot="activity-feed"
-        data-variant={variant}
-        role="list"
-        className={cn(activityFeedVariants({ variant }), className)}
-        {...props}
-      />
-    </ActivityFeedContext.Provider>
-  )
-}
-
-type ActivityFeedItemProps = React.ComponentProps<"li"> &
-  VariantProps<typeof activityFeedItemVariants>
-
-function ActivityFeedItem({
-  className,
-  variant: variantProp,
-  ...props
-}: ActivityFeedItemProps) {
-  const { variant: contextVariant } = useActivityFeed()
-  return (
-    <li
-      data-slot="activity-feed-item"
-      className={cn(
-        activityFeedItemVariants({
-          variant: variantProp ?? contextVariant,
-        }),
-        className
-      )}
-      {...props}
-    />
-  )
-}
-
-type ActivityFeedIconProps = Omit<React.ComponentProps<"span">, "children"> & {
-  type: ActivityFeedType
-}
-
-function ActivityFeedIcon({ type, className, ...props }: ActivityFeedIconProps) {
-  const { variant } = useActivityFeed()
-  const Icon = ACTIVITY_FEED_ICONS[type]
-  return (
-    <span
-      data-slot="activity-feed-icon"
-      className={cn(activityFeedIconVariants({ variant }), className)}
-      aria-hidden="true"
-      {...props}
-    >
-      <Icon
-        className={activityFeedGlyphVariants({ variant })}
-        aria-hidden="true"
-      />
-    </span>
-  )
-}
-
-function ActivityFeedContent({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
-  const { variant } = useActivityFeed()
-  return (
-    <div
-      data-slot="activity-feed-content"
-      className={cn(activityFeedContentVariants({ variant }), className)}
-      {...props}
-    />
-  )
-}
-
-function ActivityFeedLabel({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
-  const { variant } = useActivityFeed()
-  return (
-    <div
-      data-slot="activity-feed-label"
-      className={cn(activityFeedLabelVariants({ variant }), className)}
-      {...props}
-    />
-  )
-}
-
-function ActivityFeedMeta({ className, ...props }: React.ComponentProps<"div">) {
-  const { variant } = useActivityFeed()
-  return (
-    <div
-      data-slot="activity-feed-meta"
-      className={cn(activityFeedMetaVariants({ variant }), className)}
-      {...props}
-    />
-  )
-}
-
-export type ActivityFeedProps = Omit<
-  React.ComponentProps<"ul">,
-  never
-> &
+export type ActivityFeedProps = Omit<React.ComponentProps<"ul">, "children"> &
   VariantProps<typeof activityFeedVariants> & {
-    pagination?: boolean | { perPage?: number }
-  }
+    items: readonly ActivityFeedEntry[];
+    pagination?: ActivityFeedPagination;
+  };
 
-function ActivityFeed({ children, pagination, ...props }: ActivityFeedProps) {
-  const perPage =
-    typeof pagination === "object" && pagination?.perPage != null
-      ? pagination.perPage
-      : 5
-  const shouldPaginate = Boolean(pagination)
-
-  const allChildren = React.useMemo(() => React.Children.toArray(children), [children])
-  const [page, setPage] = React.useState(0)
-  const totalPages = shouldPaginate
-    ? Math.max(1, Math.ceil(allChildren.length / perPage))
-    : 1
-
-  React.useEffect(() => {
-    if (!shouldPaginate) return
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- clamp page when item count shrinks
-    setPage((prev) => Math.min(prev, totalPages - 1))
-  }, [shouldPaginate, totalPages])
-
-  const visibleChildren = React.useMemo(() => {
-    if (!shouldPaginate) return allChildren
-    const start = page * perPage
-    return allChildren.slice(start, start + perPage)
-  }, [allChildren, page, perPage, shouldPaginate])
-
-  return (
-    <div className="space-y-4">
-      <ActivityFeedRoot {...props}>{visibleChildren}</ActivityFeedRoot>
-
-      {shouldPaginate && totalPages > 1 ? (
-        <Pagination className="mt-6">
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                href="#"
-                iconOnly
-                variant="outline"
-                aria-disabled={page === 0}
-                tabIndex={page === 0 ? -1 : 0}
-                className={cn(page === 0 && "pointer-events-none opacity-50")}
-                onClick={(event) => {
-                  event.preventDefault()
-                  setPage((p) => Math.max(0, p - 1))
-                }}
-              />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext
-                href="#"
-                iconOnly
-                variant="outline"
-                aria-disabled={page >= totalPages - 1}
-                tabIndex={page >= totalPages - 1 ? -1 : 0}
-                className={cn(
-                  page >= totalPages - 1 && "pointer-events-none opacity-50"
-                )}
-                onClick={(event) => {
-                  event.preventDefault()
-                  setPage((p) => Math.min(totalPages - 1, p + 1))
-                }}
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
-      ) : null}
-    </div>
-  )
-}
-
-export type ActivityFeedItemsProps = Omit<ActivityFeedRootProps, "children"> & {
-  items: ActivityFeedEntry[]
-  pagination?: boolean | { perPage?: number }
-}
-
-function ActivityFeedItems({
+function ActivityFeed({
   className,
   items,
   variant = "default",
   pagination,
   ...props
-}: ActivityFeedItemsProps) {
-  const perPage =
-    typeof pagination === "object" && pagination?.perPage != null
-      ? pagination.perPage
-      : 5
-  const shouldPaginate = Boolean(pagination)
-
-  const [page, setPage] = React.useState(0)
-  const totalPages = shouldPaginate
-    ? Math.max(1, Math.ceil(items.length / perPage))
-    : 1
-
-  React.useEffect(() => {
-    if (!shouldPaginate) return
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- clamp page when item count shrinks
-    setPage((prev) => Math.min(prev, totalPages - 1))
-  }, [shouldPaginate, totalPages])
-
-  const visibleItems = React.useMemo(() => {
-    if (!shouldPaginate) return items
-    const start = page * perPage
-    return items.slice(start, start + perPage)
-  }, [items, page, perPage, shouldPaginate])
+}: ActivityFeedProps) {
+  const resolvedVariant = variant ?? "default";
+  const pageSize = Math.max(1, pagination?.pageSize ?? items.length);
+  const totalItems = Math.max(0, pagination?.totalItems ?? items.length);
+  const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+  const currentPage = Math.min(Math.max(1, pagination?.page ?? 1), totalPages);
 
   return (
     <div className="space-y-4">
-      <ActivityFeedRoot
-        className={className}
-        variant={variant}
+      <ul
+        data-slot="activity-feed"
+        data-variant={resolvedVariant}
+        role="list"
+        className={cn(
+          activityFeedVariants({ variant: resolvedVariant }),
+          className,
+        )}
         {...props}
       >
-        {visibleItems.map((item) => (
-          <ActivityFeedItem key={item.id} data-activity-type={item.type}>
-            <ActivityFeedIcon type={item.type} />
-            <ActivityFeedContent>
-              <ActivityFeedLabel>{item.label}</ActivityFeedLabel>
-              <ActivityFeedMeta>{item.meta}</ActivityFeedMeta>
-            </ActivityFeedContent>
-          </ActivityFeedItem>
-        ))}
-      </ActivityFeedRoot>
+        {items.map((item) => {
+          const Icon = ACTIVITY_FEED_ICONS[item.type];
 
-      {shouldPaginate && totalPages > 1 ? (
-        <Pagination className="mt-4">
+          return (
+            <li
+              key={item.id}
+              data-slot="activity-feed-item"
+              data-activity-type={item.type}
+              className={activityFeedItemVariants({
+                variant: resolvedVariant,
+              })}
+            >
+              <span
+                data-slot="activity-feed-icon"
+                className={activityFeedIconVariants({
+                  variant: resolvedVariant,
+                })}
+                aria-hidden="true"
+              >
+                <Icon
+                  className={activityFeedGlyphVariants({
+                    variant: resolvedVariant,
+                  })}
+                  aria-hidden="true"
+                />
+              </span>
+              <div
+                data-slot="activity-feed-content"
+                className={activityFeedContentVariants({
+                  variant: resolvedVariant,
+                })}
+              >
+                <div
+                  data-slot="activity-feed-label"
+                  className={activityFeedLabelVariants({
+                    variant: resolvedVariant,
+                  })}
+                >
+                  {item.label}
+                </div>
+                <div
+                  data-slot="activity-feed-meta"
+                  className={activityFeedMetaVariants({
+                    variant: resolvedVariant,
+                  })}
+                >
+                  {item.meta}
+                </div>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+
+      {pagination && totalPages > 1 ? (
+        <Pagination aria-label="Activity feed pagination" className="mt-4">
           <PaginationContent>
             <PaginationItem>
-              <PaginationPrevious
-                href="#"
-                iconOnly
+              <Button
+                type="button"
+                size="icon"
                 variant="outline"
-                aria-disabled={page === 0}
-                tabIndex={page === 0 ? -1 : 0}
-                className={cn(page === 0 && "pointer-events-none opacity-50")}
-                onClick={(event) => {
-                  event.preventDefault()
-                  setPage((p) => Math.max(0, p - 1))
-                }}
-              />
+                aria-label="Previous activity page"
+                disabled={currentPage === 1}
+                onClick={() => pagination.onPageChange(currentPage - 1)}
+              >
+                <ChevronLeftIcon className="rtl:rotate-180" />
+              </Button>
             </PaginationItem>
             <PaginationItem>
-              <PaginationNext
-                href="#"
-                iconOnly
+              <Button
+                type="button"
+                size="icon"
                 variant="outline"
-                aria-disabled={page >= totalPages - 1}
-                tabIndex={page >= totalPages - 1 ? -1 : 0}
-                className={cn(
-                  page >= totalPages - 1 && "pointer-events-none opacity-50"
-                )}
-                onClick={(event) => {
-                  event.preventDefault()
-                  setPage((p) => Math.min(totalPages - 1, p + 1))
-                }}
-              />
+                aria-label="Next activity page"
+                disabled={currentPage === totalPages}
+                onClick={() => pagination.onPageChange(currentPage + 1)}
+              >
+                <ChevronRightIcon className="rtl:rotate-180" />
+              </Button>
             </PaginationItem>
           </PaginationContent>
+          <span
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            className="sr-only"
+          >
+            Page {currentPage} of {totalPages}
+          </span>
         </Pagination>
       ) : null}
     </div>
-  )
+  );
 }
 
-export {
-  ActivityFeed,
-  ActivityFeedItems,
-  ActivityFeedContent,
-  ActivityFeedIcon,
-  ActivityFeedItem,
-  ActivityFeedLabel,
-  ActivityFeedMeta,
-  ACTIVITY_FEED_ICONS,
-}
+export { ActivityFeed };
 
-// eslint-disable-next-line react-refresh/only-export-components -- cva styles (see button.tsx)
-export { activityFeedVariants }
+// eslint-disable-next-line react-refresh/only-export-components -- cva styles are intentionally exported from this module.
+export { activityFeedVariants };

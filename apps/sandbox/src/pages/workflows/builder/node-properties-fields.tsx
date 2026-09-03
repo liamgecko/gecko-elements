@@ -1,10 +1,10 @@
-import * as React from "react"
+import * as React from "react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@gecko/ui/components/accordion"
+} from "@gecko/ui/components/accordion";
 import {
   Combobox,
   ComboboxChip,
@@ -19,12 +19,17 @@ import {
   ComboboxList,
   ComboboxSeparator,
   ComboboxValue,
-} from "@gecko/ui/components/combobox"
-import { Avatar, AvatarFallback, AvatarImage } from "@gecko/ui/components/avatar"
-import { Field, FieldDescription, FieldError, FieldLabel } from "@gecko/ui/components/field"
-import { DatePicker } from "@gecko/ui/components/date-picker"
-import { Input } from "@gecko/ui/components/input"
-import { Label } from "@gecko/ui/components/label"
+} from "@gecko/ui/components/combobox";
+import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from "@gecko/ui/components/field";
+import { DatePicker } from "@gecko/ui/components/date-picker";
+import { Input } from "@gecko/ui/components/input";
+import { Label } from "@gecko/ui/components/label";
 import {
   Select,
   SelectContent,
@@ -34,9 +39,9 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select"
-import { Textarea } from "@gecko/ui/components/textarea"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@gecko/ui/components/select";
+import { Textarea } from "@gecko/ui/components/textarea";
+import { cn } from "@gecko/ui/lib/utils";
 
 import type {
   WorkflowActionType,
@@ -49,7 +54,7 @@ import type {
   WorkflowFixedDelayUnit,
   WorkflowGraphNodeData,
   WorkflowTriggerType,
-} from "../workflows-data"
+} from "../workflows-data";
 import {
   WORKFLOW_ACTION_OPTIONS,
   WORKFLOW_ADMISSIONS_LABELS,
@@ -62,20 +67,20 @@ import {
   WORKFLOW_FIXED_DELAY_UNITS,
   WORKFLOW_TRIGGER_OPTIONS,
   isAddLabelAction,
-} from "../workflows-data"
-import type { WorkflowFlowNode } from "./workflow-graph-types"
-import { getNodeSettingsSectionTitle } from "./workflow-node-catalog"
-import type { NodePropertiesValidationErrors } from "./validate-node-properties"
+} from "../workflows-data";
+import type { WorkflowFlowNode } from "./workflow-graph-types";
+import { getNodeSettingsSectionTitle } from "./workflow-node-catalog";
+import type { NodePropertiesValidationErrors } from "./validate-node-properties";
 
 type NodePropertiesFieldsProps = {
-  node: WorkflowFlowNode
+  node: WorkflowFlowNode;
   onNodeDataChange: (
     nodeId: string,
     patch: Partial<WorkflowGraphNodeData>,
-  ) => void
-  errors?: NodePropertiesValidationErrors
-  showValidation?: boolean
-}
+  ) => void;
+  errors?: NodePropertiesValidationErrors;
+  showValidation?: boolean;
+};
 
 export function NodePropertiesFields({
   node,
@@ -83,61 +88,63 @@ export function NodePropertiesFields({
   errors = {},
   showValidation = false,
 }: NodePropertiesFieldsProps) {
-  const labelsAnchor = React.useRef<HTMLDivElement>(null)
-  const agentsTeamsAnchor = React.useRef<HTMLDivElement>(null)
-  const name = node.data.label ?? ""
-  const description = node.data.description ?? ""
-  const settingsSectionTitle = getNodeSettingsSectionTitle(node.data.kind)
+  const labelsAnchor = React.useRef<HTMLDivElement>(null);
+  const agentsTeamsAnchor = React.useRef<HTMLDivElement>(null);
+  const name = node.data.label ?? "";
+  const description = node.data.description ?? "";
+  const settingsSectionTitle = getNodeSettingsSectionTitle(node.data.kind);
 
-  const resolvedActionType = (node.data.actionType ??
-    node.data.subtype) as WorkflowActionType | undefined
-  const showLabelPicker = isAddLabelAction(resolvedActionType)
-  const selectedLabelIds = node.data.labelIds ?? []
-  const admissionsLabelIds = WORKFLOW_ADMISSIONS_LABELS.map((label) => label.id)
+  const resolvedActionType = (node.data.actionType ?? node.data.subtype) as
+    | WorkflowActionType
+    | undefined;
+  const showLabelPicker = isAddLabelAction(resolvedActionType);
+  const selectedLabelIds = node.data.labelIds ?? [];
+  const admissionsLabelIds = WORKFLOW_ADMISSIONS_LABELS.map(
+    (label) => label.id,
+  );
   const admissionsLabelById = new Map<
     string,
     (typeof WORKFLOW_ADMISSIONS_LABELS)[number]
-  >(WORKFLOW_ADMISSIONS_LABELS.map((label) => [label.id, label]))
-  const selectedAgentOrTeamIds = node.data.agentOrTeamIds ?? []
+  >(WORKFLOW_ADMISSIONS_LABELS.map((label) => [label.id, label]));
+  const selectedAgentOrTeamIds = node.data.agentOrTeamIds ?? [];
   const agentOrTeamById = new Map(
     WORKFLOW_AGENTS_AND_TEAMS_GROUPS.flatMap((group) =>
       group.items.map((item) => [item.value, item]),
     ),
-  )
+  );
 
   const delayUntilDate = node.data.delayUntil
     ? new Date(node.data.delayUntil)
-    : undefined
+    : undefined;
 
-  const labelsErrorId = `action-labels-${node.id}-error`
-  const agentsTeamsErrorId = `condition-agents-teams-${node.id}-error`
-  const triggerTypeErrorId = `trigger-type-${node.id}-error`
-  const conditionFieldErrorId = `condition-type-${node.id}-error`
-  const channelValueErrorId = `condition-channel-${node.id}-error`
-  const agentsOperatorErrorId = `condition-operator-${node.id}-error`
-  const actionTypeErrorId = `action-type-${node.id}-error`
-  const delayTypeErrorId = `delay-type-${node.id}-error`
-  const delayAmountErrorId = `delay-amount-${node.id}-error`
-  const delayUnitErrorId = `delay-unit-${node.id}-error`
-  const delayUntilErrorId = `delay-until-${node.id}-error`
-  const aiAgentErrorId = `ai-agent-${node.id}-error`
+  const labelsErrorId = `action-labels-${node.id}-error`;
+  const agentsTeamsErrorId = `condition-agents-teams-${node.id}-error`;
+  const triggerTypeErrorId = `trigger-type-${node.id}-error`;
+  const conditionFieldErrorId = `condition-type-${node.id}-error`;
+  const channelValueErrorId = `condition-channel-${node.id}-error`;
+  const agentsOperatorErrorId = `condition-operator-${node.id}-error`;
+  const actionTypeErrorId = `action-type-${node.id}-error`;
+  const delayTypeErrorId = `delay-type-${node.id}-error`;
+  const delayAmountErrorId = `delay-amount-${node.id}-error`;
+  const delayUnitErrorId = `delay-unit-${node.id}-error`;
+  const delayUntilErrorId = `delay-until-${node.id}-error`;
+  const aiAgentErrorId = `ai-agent-${node.id}-error`;
 
-  const showTriggerTypeError = showValidation && Boolean(errors.triggerType)
+  const showTriggerTypeError = showValidation && Boolean(errors.triggerType);
   const showConditionFieldError =
-    showValidation && Boolean(errors.conditionField)
-  const showChannelValueError = showValidation && Boolean(errors.channelValue)
+    showValidation && Boolean(errors.conditionField);
+  const showChannelValueError = showValidation && Boolean(errors.channelValue);
   const showAgentsOperatorError =
-    showValidation && Boolean(errors.agentsOrTeamsOperator)
-  const showAgentsTeamsError =
-    showValidation && Boolean(errors.agentOrTeamIds)
-  const showActionTypeError = showValidation && Boolean(errors.actionType)
-  const showLabelsError = showValidation && Boolean(errors.labelIds)
-  const showDelayTypeError = showValidation && Boolean(errors.delayType)
+    showValidation && Boolean(errors.agentsOrTeamsOperator);
+  const showAgentsTeamsError = showValidation && Boolean(errors.agentOrTeamIds);
+  const showActionTypeError = showValidation && Boolean(errors.actionType);
+  const showLabelsError = showValidation && Boolean(errors.labelIds);
+  const showDelayTypeError = showValidation && Boolean(errors.delayType);
   const showDelayAmountError =
-    showValidation && Boolean(errors.fixedDelayAmount)
-  const showDelayUnitError = showValidation && Boolean(errors.fixedDelayUnit)
-  const showDelayUntilError = showValidation && Boolean(errors.delayUntil)
-  const showAiAgentError = showValidation && Boolean(errors.aiAgentId)
+    showValidation && Boolean(errors.fixedDelayAmount);
+  const showDelayUnitError = showValidation && Boolean(errors.fixedDelayUnit);
+  const showDelayUntilError = showValidation && Boolean(errors.delayUntil);
+  const showAiAgentError = showValidation && Boolean(errors.aiAgentId);
 
   return (
     <Accordion key={node.id} defaultValue={["settings"]} multiple>
@@ -157,7 +164,7 @@ export function NodePropertiesFields({
                 onValueChange={(value) => {
                   onNodeDataChange(node.id, {
                     triggerType: value as WorkflowTriggerType,
-                  })
+                  });
                 }}
               >
                 <SelectTrigger
@@ -212,7 +219,7 @@ export function NodePropertiesFields({
                               agentOrTeamIds: undefined,
                               channelValue: undefined,
                             }),
-                    })
+                    });
                   }}
                 >
                   <SelectTrigger
@@ -261,7 +268,7 @@ export function NodePropertiesFields({
                     onValueChange={(value) => {
                       onNodeDataChange(node.id, {
                         channelValue: value as WorkflowChannelValue,
-                      })
+                      });
                     }}
                   >
                     <SelectTrigger
@@ -307,7 +314,7 @@ export function NodePropertiesFields({
                         onNodeDataChange(node.id, {
                           agentsOrTeamsOperator:
                             value as WorkflowAgentsOrTeamsOperator,
-                        })
+                        });
                       }}
                     >
                       <SelectTrigger
@@ -356,18 +363,15 @@ export function NodePropertiesFields({
                       items={WORKFLOW_AGENTS_AND_TEAMS_GROUPS}
                       value={selectedAgentOrTeamIds}
                       onValueChange={(ids: string[]) => {
-                        onNodeDataChange(node.id, { agentOrTeamIds: ids })
+                        onNodeDataChange(node.id, { agentOrTeamIds: ids });
                       }}
                     >
-                      <ComboboxChips
-                        ref={agentsTeamsAnchor}
-                        className="w-full"
-                      >
+                      <ComboboxChips ref={agentsTeamsAnchor} className="w-full">
                         <ComboboxValue>
                           {(values: readonly string[]) => (
                             <>
                               {values.map((id) => {
-                                const item = agentOrTeamById.get(id)
+                                const item = agentOrTeamById.get(id);
                                 return (
                                   <ComboboxChip key={id}>
                                     {item ? (
@@ -376,7 +380,7 @@ export function NodePropertiesFields({
                                       id
                                     )}
                                   </ComboboxChip>
-                                )
+                                );
                               })}
                               <ComboboxChipsInput
                                 id={`condition-agents-teams-${node.id}`}
@@ -396,9 +400,7 @@ export function NodePropertiesFields({
                         </ComboboxValue>
                       </ComboboxChips>
                       <ComboboxContent anchor={agentsTeamsAnchor}>
-                        <ComboboxEmpty>
-                          No agents or teams found.
-                        </ComboboxEmpty>
+                        <ComboboxEmpty>No agents or teams found.</ComboboxEmpty>
                         <ComboboxList>
                           {(group, index) => (
                             <ComboboxGroup
@@ -450,7 +452,7 @@ export function NodePropertiesFields({
                       ...(isAddLabelAction(value as WorkflowActionType)
                         ? {}
                         : { labelIds: undefined }),
-                    })
+                    });
                   }}
                 >
                   <SelectTrigger
@@ -491,13 +493,10 @@ export function NodePropertiesFields({
                     items={admissionsLabelIds}
                     value={selectedLabelIds}
                     onValueChange={(labelIds: string[]) => {
-                      onNodeDataChange(node.id, { labelIds })
+                      onNodeDataChange(node.id, { labelIds });
                     }}
                   >
-                    <ComboboxChips
-                      ref={labelsAnchor}
-                      className="w-full"
-                    >
+                    <ComboboxChips ref={labelsAnchor} className="w-full">
                       <ComboboxValue>
                         {(values: readonly string[]) => (
                           <>
@@ -510,9 +509,7 @@ export function NodePropertiesFields({
                               id={`action-labels-${node.id}`}
                               placeholder="Select a label"
                               required
-                              aria-invalid={
-                                showLabelsError ? true : undefined
-                              }
+                              aria-invalid={showLabelsError ? true : undefined}
                               aria-describedby={
                                 showLabelsError ? labelsErrorId : undefined
                               }
@@ -533,7 +530,9 @@ export function NodePropertiesFields({
                     </ComboboxContent>
                   </Combobox>
                   {showLabelsError ? (
-                    <FieldError id={labelsErrorId}>{errors.labelIds}</FieldError>
+                    <FieldError id={labelsErrorId}>
+                      {errors.labelIds}
+                    </FieldError>
                   ) : null}
                 </Field>
               ) : null}
@@ -557,7 +556,7 @@ export function NodePropertiesFields({
                             fixedDelayAmount: undefined,
                             fixedDelayUnit: undefined,
                           }),
-                    })
+                    });
                   }}
                 >
                   <SelectTrigger
@@ -604,7 +603,7 @@ export function NodePropertiesFields({
                       onChange={(event) => {
                         onNodeDataChange(node.id, {
                           fixedDelayAmount: event.currentTarget.value,
-                        })
+                        });
                       }}
                       aria-invalid={showDelayAmountError ? true : undefined}
                       aria-describedby={
@@ -627,7 +626,7 @@ export function NodePropertiesFields({
                       onValueChange={(value) => {
                         onNodeDataChange(node.id, {
                           fixedDelayUnit: value as WorkflowFixedDelayUnit,
-                        })
+                        });
                       }}
                     >
                       <SelectTrigger
@@ -678,7 +677,7 @@ export function NodePropertiesFields({
                     onChange={(date) => {
                       onNodeDataChange(node.id, {
                         delayUntil: date?.toISOString(),
-                      })
+                      });
                     }}
                     placeholder="Select a date"
                     aria-invalid={showDelayUntilError ? true : undefined}
@@ -709,7 +708,7 @@ export function NodePropertiesFields({
                 onValueChange={(value) => {
                   onNodeDataChange(node.id, {
                     aiAgentId: value as WorkflowAiAgentId,
-                  })
+                  });
                 }}
               >
                 <SelectTrigger
@@ -751,7 +750,7 @@ export function NodePropertiesFields({
               id={`node-name-${node.id}`}
               value={name}
               onChange={(event) => {
-                onNodeDataChange(node.id, { label: event.currentTarget.value })
+                onNodeDataChange(node.id, { label: event.currentTarget.value });
               }}
             />
           </div>
@@ -765,33 +764,23 @@ export function NodePropertiesFields({
               onChange={(event) => {
                 onNodeDataChange(node.id, {
                   description: event.currentTarget.value,
-                })
+                });
               }}
             />
           </div>
         </AccordionContent>
       </AccordionItem>
     </Accordion>
-  )
+  );
 }
 
-function AgentOrTeamOptionLabel({
-  item,
-}: {
-  item: WorkflowAgentOrTeamOption
-}) {
-  const isTeam = item.value.startsWith("team-")
-  const avatarInitial = isTeam ? item.initials.at(0) : item.initials
-
+function AgentOrTeamOptionLabel({ item }: { item: WorkflowAgentOrTeamOption }) {
   return (
     <span className="flex items-center gap-2">
-      <Avatar size="xs">
-        {item.avatarSrc ? (
-          <AvatarImage src={item.avatarSrc} alt={item.label} />
-        ) : null}
-        <AvatarFallback>{avatarInitial}</AvatarFallback>
+      <Avatar name={item.label} size="xs">
+        {item.avatarSrc ? <AvatarImage src={item.avatarSrc} /> : null}
       </Avatar>
       {item.label}
     </span>
-  )
+  );
 }

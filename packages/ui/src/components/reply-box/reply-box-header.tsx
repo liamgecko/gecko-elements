@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { Maximize2, Minimize2 } from "lucide-react"
 
@@ -10,7 +12,12 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@gecko/ui/components/dropdown-menu"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@gecko/ui/components/tooltip"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@gecko/ui/components/tooltip"
 
 import { useReplyBox } from "./reply-box-context"
 import type { ReplyBoxChannel, ReplyBoxChannelType } from "./reply-box-actions"
@@ -37,10 +44,6 @@ export function ReplyBoxHeader({
   const noteMode = ctx.noteMode
 
   const [open, setOpen] = React.useState(false)
-
-  React.useEffect(() => {
-    if (noteMode) setOpen(false)
-  }, [noteMode])
 
   const options = React.useMemo(
     () =>
@@ -69,7 +72,7 @@ export function ReplyBoxHeader({
       {showChannelSwitcher ? (
         <DropdownMenu
           searchable
-          searchPlaceholder="Search channels..."
+          searchPlaceholder="Search channels…"
           open={noteMode ? false : open}
           onOpenChange={(next) => {
             if (noteMode) return
@@ -86,10 +89,14 @@ export function ReplyBoxHeader({
                 className="px-1.5"
                 disabled={noteMode}
                 title={
-                  noteMode ? "Channel switching is disabled in note mode" : undefined
+                  noteMode
+                    ? "Channel switching is disabled in note mode"
+                    : undefined
                 }
               >
-                <span className="truncate">{channel.label || "Select a channel"}</span>
+                <span className="truncate">
+                  {channel.label || "Select a channel"}
+                </span>
               </Button>
             }
           />
@@ -98,7 +105,9 @@ export function ReplyBoxHeader({
               <DropdownMenuRadioGroup
                 value={selectedKey}
                 onValueChange={(value) => {
-                  const next = options.find((c) => `${c.type}:${c.label}` === value)
+                  const next = options.find(
+                    (c) => `${c.type}:${c.label}` === value
+                  )
                   if (next) ctx.setChannel(next)
                   setOpen(false)
                 }}
@@ -128,7 +137,9 @@ export function ReplyBoxHeader({
                   type="button"
                   variant="ghost"
                   size="icon-xs"
-                  aria-label={expanded ? "Contract reply box" : "Expand reply box"}
+                  aria-label={
+                    expanded ? "Minimize reply box" : "Maximize reply box"
+                  }
                   onClick={toggleExpanded}
                 >
                   {expanded ? (
@@ -140,7 +151,7 @@ export function ReplyBoxHeader({
               }
             />
             <TooltipContent side="top">
-              <p>{expanded ? "Return to default view" : "Maximize reply box"}</p>
+              <p>{expanded ? "Minimize reply box" : "Maximize reply box"}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -148,4 +159,3 @@ export function ReplyBoxHeader({
     </div>
   )
 }
-

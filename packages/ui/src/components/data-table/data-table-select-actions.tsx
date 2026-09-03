@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { Cog } from "lucide-react"
 
@@ -64,14 +66,10 @@ export function DataTableSelectActions({
             {fromProvider
               ? selectActions.map((action, index) => (
                   <React.Fragment key={action.id}>
-                    {action.separatorBefore && index > 0 ? (
-                      <DropdownMenuSeparator />
-                    ) : null}
+                    {action.separatorBefore && index > 0 ? <DropdownMenuSeparator /> : null}
                     <DropdownMenuItem
                       variant={action.variant ?? "default"}
-                      onClick={() =>
-                        onSelectAction?.(action.id, { selectedRows })
-                      }
+                      onClick={() => onSelectAction?.(action.id, { selectedRows })}
                     >
                       {action.label}
                     </DropdownMenuItem>

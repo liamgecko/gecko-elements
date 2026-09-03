@@ -1,11 +1,9 @@
+"use client"
+
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-} from "@gecko/ui/components/pagination"
+import { Pagination, PaginationContent, PaginationItem } from "@gecko/ui/components/pagination"
 import {
   Select,
   SelectContent,
@@ -24,9 +22,7 @@ export type DataTablePaginationProps = {
   className?: string
 }
 
-export function DataTablePagination({
-  className,
-}: DataTablePaginationProps) {
+export function DataTablePagination({ className }: DataTablePaginationProps) {
   const { table } = useDataTableContext<unknown>()
   const filteredRows = table.getFilteredRowModel().rows.length
   const pageCount = Math.max(1, table.getPageCount())
@@ -45,17 +41,13 @@ export function DataTablePagination({
     >
       <div className="text-foreground flex flex-wrap items-center gap-x-2 gap-y-2 text-sm">
         <p className="text-pretty">
-          Found{" "}
-          <span className="font-medium">{filteredRows}</span>{" "}
-          results.
+          Found <span className="font-medium">{filteredRows}</span>{" "}
+          {filteredRows === 1 ? "result" : "results"}.
         </p>
         <div className="flex flex-wrap items-center gap-2">
           <span>Showing:</span>
-          <Select
-            value={String(pageSize)}
-            onValueChange={(v) => table.setPageSize(Number(v))}
-          >
-            <SelectTrigger size="sm" className="w-14">
+          <Select value={String(pageSize)} onValueChange={(v) => table.setPageSize(Number(v))}>
+            <SelectTrigger size="sm">
               <SelectValue />
             </SelectTrigger>
             <SelectContent side="top">
@@ -80,10 +72,7 @@ export function DataTablePagination({
           <SelectTrigger size="sm" className="min-w-24">
             <SelectValue>
               {(value) => {
-                const page =
-                  value != null && value !== ""
-                    ? Number(value)
-                    : currentPage
+                const page = value != null && value !== "" ? Number(value) : currentPage
                 return `Page ${page} of ${pageCount}`
               }}
             </SelectValue>

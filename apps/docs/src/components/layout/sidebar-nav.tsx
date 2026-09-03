@@ -16,7 +16,7 @@ export function SidebarNav() {
   const navigate = useNavigate()
 
   const renderNavItems = (items: readonly SidebarNavItem[]) =>
-    items.map(({ to, label, todo, custom }) => (
+    items.map(({ to, label, todo }) => (
       <SidebarMenuItem key={to}>
         <SidebarMenuButton
           isActive={location.pathname === to}
@@ -26,11 +26,6 @@ export function SidebarNav() {
         >
           <span className="flex min-w-0 flex-1 items-center gap-1.5">
             <span className="truncate">{label}</span>
-            {custom ? (
-              <Badge variant="secondary" bordered size="xs" rounded className="shrink-0">
-                Custom
-              </Badge>
-            ) : null}
             {todo ? (
               <Badge variant="info" size="xs" rounded className="shrink-0">
                 To do

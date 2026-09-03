@@ -1,13 +1,13 @@
-import * as React from "react"
-import { mergeProps } from "@base-ui/react/merge-props"
-import { useRender } from "@base-ui/react/use-render"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
+import { cva, type VariantProps } from "class-variance-authority";
 
 import {
   getMessageBubbleVariant,
   useOptionalMessageContext,
-} from "@gecko/ui/components/message-context"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@gecko/ui/components/message-context";
+import { cn } from "@gecko/ui/lib/utils";
 
 function BubbleGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -16,7 +16,7 @@ function BubbleGroup({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("flex w-full min-w-0 flex-col gap-2", className)}
       {...props}
     />
-  )
+  );
 }
 
 const bubbleVariants = cva(
@@ -44,8 +44,8 @@ const bubbleVariants = cva(
       variant: "default",
       fullWidth: false,
     },
-  }
-)
+  },
+);
 
 function Bubble({
   variant,
@@ -55,15 +55,14 @@ function Bubble({
   ...props
 }: React.ComponentProps<"div"> &
   VariantProps<typeof bubbleVariants> & {
-    align?: "start" | "end"
+    align?: "start" | "end";
     /** Raise the max-width cap from 85% to 100%. Bubble still sizes to content. */
-    fullWidth?: boolean
+    fullWidth?: boolean;
   }) {
-  const message = useOptionalMessageContext()
+  const message = useOptionalMessageContext();
   const resolvedVariant =
-    variant ??
-    (message ? getMessageBubbleVariant(message.variant) : "default")
-  const resolvedAlign = align ?? message?.align ?? "start"
+    variant ?? (message ? getMessageBubbleVariant(message.variant) : "default");
+  const resolvedAlign = align ?? message?.align ?? "start";
 
   return (
     <div
@@ -73,11 +72,11 @@ function Bubble({
       data-full-width={fullWidth || undefined}
       className={cn(
         bubbleVariants({ variant: resolvedVariant, fullWidth }),
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function BubbleContent({
@@ -91,16 +90,16 @@ function BubbleContent({
       {
         className: cn(
           "flex w-full min-w-0 max-w-full flex-col gap-2 overflow-hidden rounded-lg border border-transparent px-3 py-2.5 text-sm leading-snug wrap-break-word group-data-[align=end]/bubble:self-end [button]:text-left [button,a]:transition-colors [button,a]:outline-none [button,a]:focus-visible:border-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ring/30",
-          className
+          className,
         ),
       },
-      props
+      props,
     ),
     render,
     state: {
       slot: "bubble-content",
     },
-  })
+  });
 }
 
 /** In-bubble top row for author + timestamp (e.g. live chat). */
@@ -110,21 +109,24 @@ function BubbleHeader({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="bubble-header"
       className={cn(
         "flex items-center justify-between gap-3 text-xs",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function BubbleAuthor({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
       data-slot="bubble-author"
-      className={cn("text-foreground min-w-0 truncate font-semibold", className)}
+      className={cn(
+        "text-foreground min-w-0 truncate font-semibold",
+        className,
+      )}
       {...props}
     />
-  )
+  );
 }
 
 function BubbleTimestamp({
@@ -136,11 +138,11 @@ function BubbleTimestamp({
       data-slot="bubble-timestamp"
       className={cn(
         "text-muted-foreground shrink-0 text-2xs font-medium",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 const bubbleReactionsVariants = cva(
@@ -152,15 +154,15 @@ const bubbleReactionsVariants = cva(
         end: "right-3",
       },
     },
-  }
-)
+  },
+);
 
 function BubbleReactions({
   align,
   className,
   ...props
 }: React.ComponentProps<"div"> & {
-  align?: "start" | "end"
+  align?: "start" | "end";
 }) {
   return (
     <div
@@ -173,16 +175,16 @@ function BubbleReactions({
         // prop overrides this.
         align == null &&
           "group-data-[align=start]/bubble:left-3 group-data-[align=end]/bubble:right-3",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 const bubbleActionsVariants = cva(
   [
-    "flex shrink-0 items-center gap-0.5 text-muted-foreground opacity-0 transition-opacity",
+    "flex shrink-0 items-center gap-0.5 text-muted-foreground opacity-0 transition-opacity [@media(hover:none)]:opacity-100",
     "group-hover/bubble:opacity-100 group-focus-within/bubble:opacity-100",
     "has-[[data-state=open]]:opacity-100 has-[[data-open]]:opacity-100 has-[[aria-expanded=true]]:opacity-100",
   ].join(" "),
@@ -193,8 +195,8 @@ const bubbleActionsVariants = cva(
         end: "order-last",
       },
     },
-  }
-)
+  },
+);
 
 function BubbleActions({
   side,
@@ -206,7 +208,7 @@ function BubbleActions({
    * Defaults to the outside of the message flow:
    * after content for `align="start"`, before content for `align="end"`.
    */
-  side?: "start" | "end"
+  side?: "start" | "end";
 }) {
   return (
     <div
@@ -216,11 +218,11 @@ function BubbleActions({
         bubbleActionsVariants({ side }),
         // Mirror Messenger/WhatsApp: actions sit outside the bubble.
         side == null && "group-data-[align=end]/bubble:order-first",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -232,4 +234,4 @@ export {
   BubbleTimestamp,
   BubbleActions,
   BubbleReactions,
-}
+};

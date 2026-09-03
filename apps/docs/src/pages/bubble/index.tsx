@@ -1,52 +1,43 @@
-import * as React from "react"
-import { CheckIcon, ChevronDownIcon, InfoIcon, ReplyIcon, SmilePlusIcon } from "lucide-react"
+import * as React from "react";
+import { ChevronDownIcon, ReplyIcon, SmilePlusIcon } from "lucide-react";
 
-import { ComponentExample } from "@/components/layout/component-example"
-import { PageSection } from "@/components/layout/page-section"
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsExternalLink } from "@/components/layout/docs-external-link";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import { PageSection } from "@/components/layout/page-section";
 import {
   PageOverviewHeader,
   PageSectionHeader,
   PageSubsectionHeader,
-} from "@/components/layout/page-section-header"
-import { Code } from "@gecko/ui/components/code"
+} from "@/components/layout/page-section-header";
+import { Code } from "@gecko/ui/components/code";
 import {
   Bubble,
   BubbleActions,
   BubbleContent,
   BubbleGroup,
   BubbleReactions,
-} from "@gecko/ui/components/bubble"
-import { Button } from "@gecko/ui/components/button"
+} from "@gecko/ui/components/bubble";
+import { Button } from "@gecko/ui/components/button";
 import {
   Collapsible,
   CollapsibleTrigger,
-} from "@gecko/ui/components/collapsible"
-import {
-  Popover,
-  PopoverContent,
-  PopoverDescription,
-  PopoverHeader,
-  PopoverTitle,
-  PopoverTrigger,
-} from "@gecko/ui/components/popover"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
+} from "@gecko/ui/components/collapsible";
 
 const showMoreText = `The accessibility review found two focus states that were visually too subtle in dark mode.
 
 I checked the dialog, menu, and drawer paths because each one renders focusable controls inside a layered surface.
 
-The dialog and drawer are fine. The menu needs the hover and focus tokens split so keyboard focus stays visible when the pointer is not involved.`
+The dialog and drawer are fine. The menu needs the hover and focus tokens split so keyboard focus stays visible when the pointer is not involved.`;
 
-const previewLength = 120
+const previewLength = 120;
 
 function BubbleShowMore() {
-  const [open, setOpen] = React.useState(false)
-  const isLong = showMoreText.length > previewLength
-  const preview = `${showMoreText.slice(0, previewLength)}...`
+  const [open, setOpen] = React.useState(false);
+  const isLong = showMoreText.length > previewLength;
+  const preview = `${showMoreText.slice(0, previewLength)}...`;
 
   return (
     <Bubble variant="secondary" align="end">
@@ -70,7 +61,7 @@ function BubbleShowMore() {
         </Collapsible>
       </BubbleContent>
     </Bubble>
-  )
+  );
 }
 
 export function BubblePage() {
@@ -82,50 +73,49 @@ export function BubblePage() {
   BubbleHeader,
   BubbleReactions,
   BubbleTimestamp,
-} from "@gecko/ui/components/bubble"`
+} from "@gecko/ui/components/bubble"`;
 
   const compositionSnippet = `Bubble
 ├── BubbleContent
 │   ├── BubbleHeader
 │   │   ├── BubbleAuthor
 │   │   └── BubbleTimestamp
-│   └── body
 ├── BubbleActions
-└── BubbleReactions`
+└── BubbleReactions`;
 
-  const defaultSnippet = `<Bubble>
-  <BubbleContent>This is the default primary bubble.</BubbleContent>
-</Bubble>`
+  const defaultSnippet = `<Bubble align="end">
+  <BubbleContent>This is a team message.</BubbleContent>
+</Bubble>`;
 
-  const secondarySnippet = `<Bubble variant="secondary" align="end">
-  <BubbleContent>This is the secondary variant.</BubbleContent>
-</Bubble>`
+  const secondarySnippet = `<Bubble variant="secondary">
+  <BubbleContent>This is a customer message.</BubbleContent>
+</Bubble>`;
 
   const outlineSnippet = `<Bubble variant="outline">
   <BubbleContent>We can also use an outlined variant.</BubbleContent>
-</Bubble>`
+</Bubble>`;
 
   const ghostSnippet = `<Bubble variant="ghost">
   <BubbleContent>
     Ghost bubbles are unframed for assistant text and rich content.
   </BubbleContent>
-</Bubble>`
+</Bubble>`;
 
   const destructiveSnippet = `<Bubble variant="destructive" align="end">
   <BubbleContent>A destructive variant for errors.</BubbleContent>
-</Bubble>`
+</Bubble>`;
 
   const alignmentSnippet = `<Bubble variant="secondary">
   <BubbleContent>
-    This bubble is aligned to the start (default).
+    Customer messages align to the start.
   </BubbleContent>
 </Bubble>
 
 <Bubble align="end">
   <BubbleContent>
-    This bubble is aligned to the end — use it for user messages.
+    Team messages align to the end.
   </BubbleContent>
-</Bubble>`
+</Bubble>`;
 
   const fullWidthSnippet = `<Bubble variant="secondary" align="end">
   <BubbleContent>Default: grows with content up to 85%…</BubbleContent>
@@ -133,7 +123,7 @@ export function BubblePage() {
 
 <Bubble variant="secondary" align="end" fullWidth>
   <BubbleContent>Full width: can grow up to 100%…</BubbleContent>
-</Bubble>`
+</Bubble>`;
 
   const groupSnippet = `<Bubble variant="secondary">
   <BubbleContent>Can you tell me what's the issue?</BubbleContent>
@@ -149,13 +139,13 @@ export function BubblePage() {
   <Bubble align="end">
     <BubbleContent>Find the bug and fix it.</BubbleContent>
   </Bubble>
-</BubbleGroup>`
+</BubbleGroup>`;
 
   const reactionsSnippet = `<Bubble variant="secondary" align="start">
   <BubbleContent>
     I don't need tests, I know my code works.
   </BubbleContent>
-  <BubbleReactions align="start" aria-label="Reactions: thumbs up, surprised">
+  <BubbleReactions role="img" aria-label="Reactions: thumbs up, surprised">
     <span>👍</span>
     <span>😮</span>
   </BubbleReactions>
@@ -165,11 +155,11 @@ export function BubblePage() {
   <BubbleContent>
     Tests passed on the first try. All 142 of them.
   </BubbleContent>
-  <BubbleReactions align="start" aria-label="Reactions: party popper, clapping hands">
+  <BubbleReactions role="img" aria-label="Reactions: party popper, clapping hands">
     <span>🎉</span>
     <span>👏</span>
   </BubbleReactions>
-</Bubble>`
+</Bubble>`;
 
   const actionsSnippet = `<Bubble variant="secondary" align="start">
   <BubbleContent>Can we ship the bubbles tomorrow?</BubbleContent>
@@ -181,7 +171,7 @@ export function BubblePage() {
       <SmilePlusIcon />
     </Button>
   </BubbleActions>
-  <BubbleReactions align="start" aria-label="Reactions: thumbs up">
+  <BubbleReactions role="img" aria-label="Reactions: thumbs up">
     <span>👍</span>
   </BubbleReactions>
 </Bubble>
@@ -196,23 +186,7 @@ export function BubblePage() {
       <SmilePlusIcon />
     </Button>
   </BubbleActions>
-</Bubble>`
-
-  const tooltipSnippet = `<Bubble variant="secondary">
-  <BubbleContent>Did you remove the stale route?</BubbleContent>
-</Bubble>
-
-<Bubble align="end">
-  <BubbleContent>Yes, removed it from the registry.</BubbleContent>
-  <BubbleReactions>
-    <Tooltip>
-      <TooltipTrigger render={<Button variant="ghost" size="icon-xs" />}>
-        <CheckIcon />
-      </TooltipTrigger>
-      <TooltipContent>Read on Jan 5, 2026 at 4:32 PM</TooltipContent>
-    </Tooltip>
-  </BubbleReactions>
-</Bubble>`
+</Bubble>`;
 
   const showMoreSnippet = `<Bubble variant="secondary" align="end">
   <BubbleContent className="whitespace-pre-line">
@@ -226,53 +200,38 @@ export function BubblePage() {
       </CollapsibleTrigger>
     </Collapsible>
   </BubbleContent>
-</Bubble>`
-
-  const popoverSnippet = `<Bubble align="end">
-  <BubbleContent>Run the build script.</BubbleContent>
-</Bubble>
-
-<Bubble variant="destructive">
-  <BubbleContent>Failed to run the command.</BubbleContent>
-  <BubbleReactions>
-    <Popover>
-      <PopoverTrigger
-        render={
-          <Button variant="ghost" size="icon-xs" aria-label="Show error details" />
-        }
-      >
-        <InfoIcon />
-      </PopoverTrigger>
-      <PopoverContent>
-        <PopoverHeader>
-          <PopoverTitle>Command failed with exit code 1</PopoverTitle>
-          <PopoverDescription>
-            ENOENT: no such file or directory, open pnpm-lock.yaml
-          </PopoverDescription>
-        </PopoverHeader>
-      </PopoverContent>
-    </Popover>
-  </BubbleReactions>
-</Bubble>`
+</Bubble>`;
 
   return (
     <div className="space-y-12">
       <PageSection id="overview" label="Overview">
         <PageOverviewHeader
           title="Bubble"
-          description="A framed conversational surface for chat text, short structured output, quoted replies, suggestions, and reactions. Scoped to the bubble surface only — place avatars, names, and metadata in Message."
+          description="The Bubble component is the speech in a conversation — the framed text of a message. It holds the words, and can sit with hover actions and reactions, without the avatar or name."
         />
       </PageSection>
 
       <PageSection id="usage" label="Usage">
         <PageSectionHeader
           title="Usage"
-          description="Compose bubbles with content, hover actions, and optional reactions."
+          description={
+            <>
+              Use a Bubble for the words in a conversation. Compose it inside a{" "}
+              <DocsPageLink to="/components/message">Message</DocsPageLink> for
+              application conversations so speaker, alignment and treatment stay
+              coordinated.
+              <br />
+              <br />
+              Use Bubble directly only for a deliberately lightweight
+              conversation that does not need message identity or metadata.
+              Avoid using it as a card, a tooltip, or a page notice.
+            </>
+          }
         />
         <PageSubsectionHeader
           id="usage-import"
           title="Import"
-          description="Import the Bubble primitives to build conversational surfaces."
+          description="Import the Bubble and its parts to compose a message."
         />
         <ComponentExample className="mb-6">
           <Code
@@ -286,7 +245,7 @@ export function BubblePage() {
         <PageSubsectionHeader
           id="usage-composition"
           title="Composition"
-          description="Use the following composition to build a bubble:"
+          description="The bubble holds the text. Hover actions and reactions sit beside it or on the edge."
         />
         <ComponentExample>
           <Code
@@ -304,21 +263,27 @@ export function BubblePage() {
           title="Variants"
           description={
             <>
-              Use the <Code>variant</Code> prop to change the visual treatment
-              of the bubble.
+              Set the look with the <Code>variant</Code> prop. Use a stronger
+              style for the person speaking, and a quieter style for everyone
+              else.
             </>
           }
         />
         <PageSubsectionHeader
           id="variants-default"
           title="Default"
-          description="A strong primary bubble, usually for the current user."
+          description={
+            <>
+              The main bubble using <Code>variant=&quot;default&quot;</Code>.
+              Message selects this automatically for team or agent messages.
+            </>
+          }
         />
         <ComponentExample className="mb-6">
           <div className="space-y-6">
             <div className="w-full">
-              <Bubble>
-                <BubbleContent>This is the default primary bubble.</BubbleContent>
+              <Bubble align="end">
+                <BubbleContent>This is a team message.</BubbleContent>
               </Bubble>
             </div>
             <Code
@@ -333,13 +298,19 @@ export function BubblePage() {
         <PageSubsectionHeader
           id="variants-secondary"
           title="Secondary"
-          description="The standard neutral bubble for conversation content."
+          description={
+            <>
+              A quieter bubble using <Code>variant=&quot;secondary&quot;</Code>.
+              Message selects this automatically for customer or external user
+              messages.
+            </>
+          }
         />
         <ComponentExample className="mb-6">
           <div className="space-y-6">
             <div className="w-full">
-              <Bubble variant="secondary" align="end">
-                <BubbleContent>This is the secondary variant.</BubbleContent>
+              <Bubble variant="secondary">
+                <BubbleContent>This is a customer message.</BubbleContent>
               </Bubble>
             </div>
             <Code
@@ -354,13 +325,21 @@ export function BubblePage() {
         <PageSubsectionHeader
           id="variants-outline"
           title="Outline"
-          description="A bordered bubble for secondary or rich content."
+          description={
+            <>
+              A bordered bubble using <Code>variant=&quot;outline&quot;</Code>.
+              Use this when the content should feel secondary or sit on a busy
+              background.
+            </>
+          }
         />
         <ComponentExample className="mb-6">
           <div className="space-y-6">
             <div className="w-full">
               <Bubble variant="outline">
-                <BubbleContent>We can also use an outlined variant.</BubbleContent>
+                <BubbleContent>
+                  We can also use an outlined variant.
+                </BubbleContent>
               </Bubble>
             </div>
             <Code
@@ -375,14 +354,20 @@ export function BubblePage() {
         <PageSubsectionHeader
           id="variants-ghost"
           title="Ghost"
-          description="Unframed content for assistant text or rich content."
+          description={
+            <>
+              An unframed bubble using <Code>variant=&quot;ghost&quot;</Code>.
+              Use this when the content should not look like a framed chip.
+            </>
+          }
         />
         <ComponentExample className="mb-6">
           <div className="space-y-6">
             <div className="w-full">
               <Bubble variant="ghost">
                 <BubbleContent>
-                  Ghost bubbles are unframed for assistant text and rich content.
+                  Ghost bubbles are unframed for assistant text and rich
+                  content.
                 </BubbleContent>
               </Bubble>
             </div>
@@ -398,7 +383,12 @@ export function BubblePage() {
         <PageSubsectionHeader
           id="variants-destructive"
           title="Destructive"
-          description="A destructive bubble for error or failed actions."
+          description={
+            <>
+              An error bubble using <Code>variant=&quot;destructive&quot;</Code>
+              . Use this when an action in the thread failed.
+            </>
+          }
         />
         <ComponentExample>
           <div className="space-y-6">
@@ -423,9 +413,10 @@ export function BubblePage() {
           title="Alignment"
           description={
             <>
-              Use <Code>align</Code> to position the bubble at the start or end
-              of the conversation. Bubbles grow with content up to 85% of the
-              container width, then wrap.
+              Positions a standalone bubble with the <Code>align</Code> prop.
+              Customer messages align to the start; team, agent, AI and note
+              messages align to the end. Message applies this mapping
+              automatically.
             </>
           }
         />
@@ -434,13 +425,11 @@ export function BubblePage() {
             <div className="flex w-full flex-col gap-8">
               <Bubble variant="secondary">
                 <BubbleContent>
-                  This bubble is aligned to the start (default).
+                  Customer messages align to the start.
                 </BubbleContent>
               </Bubble>
               <Bubble align="end">
-                <BubbleContent>
-                  This bubble is aligned to the end — use it for user messages.
-                </BubbleContent>
+                <BubbleContent>Team messages align to the end.</BubbleContent>
               </Bubble>
             </div>
             <Code
@@ -459,10 +448,9 @@ export function BubblePage() {
           title="Full width"
           description={
             <>
-              Bubbles always size to their content and wrap when needed. By
-              default the max-width is <Code>85%</Code>. Set{" "}
-              <Code>fullWidth</Code> to raise that cap to <Code>100%</Code> —
-              useful in tighter layouts like sidebars.
+              Raises the max width using the <Code>fullWidth</Code> prop. Use
+              this in a tight layout, where the usual gap would leave unused
+              space.
             </>
           }
         />
@@ -473,18 +461,18 @@ export function BubblePage() {
                 <BubbleContent>
                   Default: grows with content up to 85% of the container width,
                   then text wraps onto the next line when it reaches that limit.
-                  Keep adding copy and you will see the bubble stop expanding once
-                  it hits that 85% cap — anything longer wraps onto additional
-                  lines instead of stretching across the full row.
+                  Keep adding copy and you will see the bubble stop expanding
+                  once it hits that 85% cap — anything longer wraps onto
+                  additional lines instead of stretching across the full row.
                 </BubbleContent>
               </Bubble>
               <Bubble variant="secondary" align="end" fullWidth>
                 <BubbleContent>
-                  Full width: still sizes to the text, but can grow up to 100% of
-                  the container before wrapping. With enough copy the bubble fills
-                  the entire row, then wraps onto the next line — useful in tighter
-                  layouts like sidebars where the usual 85% gap would leave unused
-                  space.
+                  Full width: still sizes to the text, but can grow up to 100%
+                  of the container before wrapping. With enough copy the bubble
+                  fills the entire row, then wraps onto the next line — useful
+                  in tighter layouts like sidebars where the usual 85% gap would
+                  leave unused space.
                 </BubbleContent>
               </Bubble>
             </div>
@@ -504,9 +492,10 @@ export function BubblePage() {
           title="Group"
           description={
             <>
-              Use <Code>BubbleGroup</Code> to stack consecutive bubbles from the
-              same sender. Set <Code>align</Code> on each <Code>Bubble</Code>,
-              not the group.
+              Stacks consecutive bubbles from the same person using{" "}
+              <Code>BubbleGroup</Code>. Set <Code>align</Code> on each{" "}
+              <Code>Bubble</Code>, not the group. Use this when someone sends
+              several messages in a row.
             </>
           }
         />
@@ -514,14 +503,18 @@ export function BubblePage() {
           <div className="space-y-6">
             <div className="flex w-full flex-col gap-8">
               <Bubble variant="secondary">
-                <BubbleContent>Can you tell me what&apos;s the issue?</BubbleContent>
+                <BubbleContent>
+                  Can you tell me what&apos;s the issue?
+                </BubbleContent>
               </Bubble>
               <BubbleGroup>
                 <Bubble align="end">
                   <BubbleContent>You tell me!</BubbleContent>
                 </Bubble>
                 <Bubble align="end">
-                  <BubbleContent>It worked yesterday. You broke it!</BubbleContent>
+                  <BubbleContent>
+                    It worked yesterday. You broke it!
+                  </BubbleContent>
                 </Bubble>
                 <Bubble align="end">
                   <BubbleContent>Find the bug and fix it.</BubbleContent>
@@ -544,9 +537,8 @@ export function BubblePage() {
           title="Reactions"
           description={
             <>
-              Use <Code>BubbleReactions</Code> for applied reactions. Reactions
-              anchor to the bottom edge and overlap the bubble, so leave vertical
-              space between rows.
+              Adds applied emoji using <Code>BubbleReactions</Code>. Use this
+              when people have reacted to the message.
             </>
           }
         />
@@ -558,7 +550,6 @@ export function BubblePage() {
                   I don&apos;t need tests, I know my code works.
                 </BubbleContent>
                 <BubbleReactions
-                  align="start"
                   role="img"
                   aria-label="Reactions: thumbs up, surprised"
                 >
@@ -596,11 +587,9 @@ export function BubblePage() {
           title="Actions"
           description={
             <>
-              Use <Code>BubbleActions</Code> for hover reply / react controls that
-              sit beside the bubble — keeping them out of the way of applied
-              reactions and short message clipping. Place after{" "}
-              <Code>BubbleContent</Code>; outgoing bubbles automatically move
-              actions to the outside (left) edge.
+              Adds hover controls using <Code>BubbleActions</Code>. Place it
+              after <Code>BubbleContent</Code>. Use this for reply or react
+              without crowding the text.
             </>
           }
         />
@@ -627,11 +616,7 @@ export function BubblePage() {
                     <SmilePlusIcon />
                   </Button>
                 </BubbleActions>
-                <BubbleReactions
-                  align="start"
-                  role="img"
-                  aria-label="Reactions: thumbs up"
-                >
+                <BubbleReactions role="img" aria-label="Reactions: thumbs up">
                   <span>👍</span>
                 </BubbleReactions>
               </Bubble>
@@ -668,54 +653,13 @@ export function BubblePage() {
         </ComponentExample>
       </PageSection>
 
-      <PageSection id="tooltip" label="Tooltip">
-        <PageSectionHeader
-          title="Tooltip"
-          description={
-            <>
-              Wrap a reaction in a <Code>Tooltip</Code> to reveal metadata on
-              hover, such as when a message was read.
-            </>
-          }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="flex w-full flex-col gap-4">
-              <Bubble variant="secondary">
-                <BubbleContent>Did you remove the stale route?</BubbleContent>
-              </Bubble>
-              <Bubble align="end">
-                <BubbleContent>Yes, removed it from the registry.</BubbleContent>
-                <BubbleReactions>
-                  <Tooltip>
-                    <TooltipTrigger
-                      render={<Button variant="ghost" size="icon-xs" />}
-                    >
-                      <CheckIcon />
-                    </TooltipTrigger>
-                    <TooltipContent>Read on Jan 5, 2026 at 4:32 PM</TooltipContent>
-                  </Tooltip>
-                </BubbleReactions>
-              </Bubble>
-            </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={tooltipSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
-
       <PageSection id="show-more" label="Show more">
         <PageSectionHeader
           title="Show more"
           description={
             <>
-              Compose long bubble content with <Code>Collapsible</Code> for a
-              show more / show less interaction.
+              Compose long text with <Code>Collapsible</Code>. Use this when the
+              message is too long to show in full at first.
             </>
           }
         />
@@ -738,62 +682,126 @@ export function BubblePage() {
         </ComponentExample>
       </PageSection>
 
-      <PageSection id="popover" label="Popover">
+      <PageSection id="do-dont" label="Do and don’t">
         <PageSectionHeader
-          title="Popover"
+          title="Do and don’t"
+          description="Use variant and align for who is speaking. Do not restyle the bubble chrome."
+        />
+        <DocsDoDont
+          doItems={[
+            <>
+              Compose inside{" "}
+              <DocsPageLink to="/components/message">Message</DocsPageLink> for
+              application conversations so identity, metadata, alignment and
+              treatment stay coordinated.
+            </>,
+            <>
+              Let Message map customer messages to <Code>secondary</Code> and{" "}
+              <Code>start</Code>, and team or agent messages to{" "}
+              <Code>default</Code> and <Code>end</Code>.
+            </>,
+            <>
+              Group consecutive messages with <Code>BubbleGroup</Code>. Set{" "}
+              <Code>align</Code> on each <Code>Bubble</Code>, not the group.
+            </>,
+            <>
+              Give <Code>BubbleReactions</Code> a{" "}
+              <Code>role=&quot;img&quot;</Code> and an <Code>aria-label</Code>.
+              Give icon-only actions an <Code>aria-label</Code>.
+            </>,
+            <>
+              Use <Code>fullWidth</Code> in a tight layout. Compose long text
+              with <Code>Collapsible</Code>.
+            </>,
+          ]}
+          dontItems={[
+            <>
+              Don’t override padding, radius, or colour with{" "}
+              <Code>className</Code>. Use an approved <Code>variant</Code>.
+            </>,
+            <>
+              Don’t use a Bubble as a card, a tooltip, or a page notice. If
+              there is no conversation, it is not a bubble.
+            </>,
+            <>
+              Don’t set <Code>align</Code> on <Code>BubbleGroup</Code>.
+            </>,
+            <>
+              Don’t rely on the destructive colour alone. Keep the error in the
+              message text.
+            </>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Behaviour props on Bubble."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "variant",
+              type: '"default" | "secondary" | "outline" | "ghost" | "destructive"',
+              defaultValue: '"default"',
+              description:
+                "Look. Message selects default for team or agent messages, secondary for customer messages, and ghost for AI messages. Use destructive when an action in the thread failed.",
+            },
+            {
+              name: "align",
+              type: '"start" | "end"',
+              defaultValue: '"start"',
+              description:
+                "Inline position on a standalone Bubble. Message maps customer messages to start and team, agent, AI and note messages to end. BubbleReactions also accepts align to override its inherited anchor.",
+            },
+            {
+              name: "fullWidth",
+              type: "boolean",
+              defaultValue: "false",
+              description:
+                "Raises the max width from 85% to 100%. The bubble still sizes to its content.",
+            },
+            {
+              name: "side",
+              type: '"start" | "end"',
+              description:
+                "On BubbleActions. Which side of the content the hover controls sit on.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-reference"
+          className="mt-6"
+          title="API reference"
           description={
             <>
-              Pair a bubble with a <Code>Popover</Code> to surface more
-              information on demand, such as the full error message for a failed
-              action.
+              See the{" "}
+              <DocsExternalLink href="https://ui.shadcn.com/docs/components/base/bubble">
+                Shadcn Bubble documentation
+              </DocsExternalLink>{" "}
+              and{" "}
+              <DocsExternalLink href="https://base-ui.com/react/handbook/composition">
+                Base UI composition guide
+              </DocsExternalLink>{" "}
+              for the source composition and render API.
             </>
           }
         />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="flex w-full flex-col gap-4">
-              <Bubble align="end">
-                <BubbleContent>Run the build script.</BubbleContent>
-              </Bubble>
-              <Bubble variant="destructive">
-                <BubbleContent>Failed to run the command.</BubbleContent>
-                <BubbleReactions>
-                  <Popover>
-                    <PopoverTrigger
-                      render={
-                        <Button
-                          variant="ghost"
-                          size="icon-xs"
-                          aria-label="Show error details"
-                        />
-                      }
-                    >
-                      <InfoIcon />
-                    </PopoverTrigger>
-                    <PopoverContent>
-                      <PopoverHeader>
-                        <PopoverTitle className="text-sm">
-                          Command failed with exit code 1
-                        </PopoverTitle>
-                        <PopoverDescription className="text-sm">
-                          ENOENT: no such file or directory, open pnpm-lock.yaml
-                        </PopoverDescription>
-                      </PopoverHeader>
-                    </PopoverContent>
-                  </Popover>
-                </BubbleReactions>
-              </Bubble>
-            </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={popoverSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Use a different control when the Bubble is the wrong shape for the job."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/message">Message</DocsPageLink> — when
+            you need a face, a name, or a timestamp beside the words.
+          </li>
+        </ul>
       </PageSection>
     </div>
-  )
+  );
 }

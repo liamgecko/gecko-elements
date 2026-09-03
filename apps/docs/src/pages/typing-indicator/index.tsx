@@ -1,155 +1,240 @@
-import { useState, useEffect, useRef } from "react"
-import { TypingIndicator } from "@gecko/ui/components/typing-indicator"
-import { Input } from "@gecko/ui/components/input"
-import { ComponentExample } from "@/components/layout/component-example"
-import { PageSection } from "@/components/layout/page-section"
-import { Code } from "@gecko/ui/components/code"
+import { useState } from "react";
+import { Button } from "@gecko/ui/components/button";
+import { Code } from "@gecko/ui/components/code";
+import { TypingIndicator } from "@gecko/ui/components/typing-indicator";
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import { PageSection } from "@/components/layout/page-section";
+import {
+  PageOverviewHeader,
+  PageSectionHeader,
+} from "@/components/layout/page-section-header";
 
-const placeholderAvatar =
-  "https://picsum.photos/seed/avatar/200"
+const placeholderAvatar = "https://picsum.photos/seed/avatar/200";
 
 export function TypingIndicatorPage() {
-  const [isTyping, setIsTyping] = useState(false)
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [isTyping, setIsTyping] = useState(true);
 
-  const handleInput = () => {
-    setIsTyping(true)
-    if (timeoutRef.current) clearTimeout(timeoutRef.current)
-    timeoutRef.current = setTimeout(() => {
-      setIsTyping(false)
-      timeoutRef.current = null
-    }, 1000)
-  }
+  const importSnippet = `import { TypingIndicator } from "@gecko/ui/components/typing-indicator"`;
 
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current)
-    }
-  }, [])
+  const defaultSnippet = `<TypingIndicator />`;
+
+  const namedSnippet = `<TypingIndicator variant="text" name="Liam" />`;
+
+  const avatarSnippet = `<TypingIndicator
+  variant="dots|text"
+  name="Liam"
+  avatar={avatarUrl}
+/>`;
+
+  const presenceSnippet = `<TypingIndicator
+  active={isTyping}
+  variant="text"
+  name="Liam"
+/>`;
 
   return (
     <div className="space-y-12">
-        <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">
-            Typing indicator
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            A component that displays animated dots or text to indicate that
-            someone is typing. Use the dots variant for a compact bubble, or the
-            text variant with an optional name and avatar.
-          </p>
-        </PageSection>
+      <PageSection id="overview" label="Overview">
+        <PageOverviewHeader
+          title="Typing indicator"
+          description="The Typing indicator communicates that someone is currently composing a message."
+        />
+      </PageSection>
 
-        <PageSection id="default" label="Default typing indicator">
-          <h2 className="text-lg font-semibold">Default typing indicator</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            The default typing indicator with three animated dots. Use the{" "}
-            <Code>
-              animate
-            </Code>{" "}
-            prop to animate the component in and out.
-          </p>
-          <ComponentExample>
-            <TypingIndicator variant="dots" animate />
-          </ComponentExample>
-        </PageSection>
+      <PageSection id="usage" label="Usage">
+        <PageSectionHeader
+          title="Usage"
+          description={
+            <>
+              Use Typing indicator for remote, real-time typing activity in the
+              inbox or chat widget. Keep it separate from the transcript and
+              pinned near the message composer. Use{" "}
+              <DocsPageLink to="/components/message">Message</DocsPageLink> for
+              content that has been sent.
+            </>
+          }
+        />
+        <ComponentExample>
+          <Code
+            variant="block"
+            language="tsx"
+            code={importSnippet}
+            showCopyButton
+            copyLabel="Copy import"
+          />
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="input-with-indicator" label="Input with typing indicator">
-          <h2 className="text-lg font-semibold">
-            Input with typing indicator
-          </h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            The typing indicator appears when you start typing in the input and
-            hides after a short delay when you stop.
-          </p>
-          <ComponentExample>
-            <div className="flex flex-col gap-4">
-              <Input
-                placeholder="Type something…"
-                onChange={handleInput}
-              />
-              {isTyping && <TypingIndicator animate />}
-            </div>
-          </ComponentExample>
-        </PageSection>
-
-        <PageSection id="text-variant" label="User typing indicator">
-          <h2 className="text-lg font-semibold">User typing indicator</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use the{" "}
-            <Code>
-              variant="text"
-            </Code>{" "}
-            prop with a{" "}
-            <Code>
-              name
-            </Code>{" "}
-            to show who is typing.
-          </p>
-          <ComponentExample>
-            <TypingIndicator variant="text" name="Liam" animate />
-          </ComponentExample>
-        </PageSection>
-
-        <PageSection id="text-variant-demo" label="User typing indicator example">
-          <h2 className="text-lg font-semibold">
-            User typing indicator example
-          </h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            A text indicator with name appears when you type in the input.
-          </p>
-          <ComponentExample>
-            <div className="flex flex-col gap-4">
-              <Input
-                placeholder="Type something…"
-                onChange={handleInput}
-              />
-              {isTyping && (
-                <TypingIndicator
-                  variant="text"
-                  name="Liam"
-                  animate
-                />
-              )}
-            </div>
-          </ComponentExample>
-        </PageSection>
-
-        <PageSection id="with-avatar" label="With avatar">
-          <h2 className="text-lg font-semibold">With avatar</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Pass an{" "}
-            <Code>
-              avatar
-            </Code>{" "}
-            image URL (or a custom React node) to show an avatar next to the
-            dots or text.
-          </p>
-
-          <h3 id="with-avatar-dots" className="mb-3 text-base font-semibold">
-            Dots with avatar
-          </h3>
-          <ComponentExample className="mb-6">
-            <TypingIndicator
-              variant="dots"
-              avatar={placeholderAvatar}
-              name="Liam"
-              animate
+      <PageSection id="basic-example" label="Basic example">
+        <PageSectionHeader
+          title="Basic example"
+          description="Use the compact dots when the person typing is already clear from the conversation context."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <TypingIndicator />
+            <Code
+              variant="block"
+              language="tsx"
+              code={defaultSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
-          </ComponentExample>
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-          <h3 id="with-avatar-text" className="mb-3 text-base font-semibold">
-            Name with avatar
-          </h3>
-          <ComponentExample>
-            <TypingIndicator
-              variant="text"
-              name="Liam"
-              avatar={placeholderAvatar}
-              animate
+      <PageSection id="named" label="Named">
+        <PageSectionHeader
+          title="Named"
+          description="Use the named presentation when the interface needs to identify who is composing the message."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <TypingIndicator variant="text" name="Liam" />
+            <Code
+              variant="block"
+              language="tsx"
+              code={namedSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
-          </ComponentExample>
-        </PageSection>
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="with-avatar" label="With avatar">
+        <PageSectionHeader
+          title="With avatar"
+          description="Add an avatar when visual identity helps distinguish the person from others in the conversation."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <TypingIndicator avatar={placeholderAvatar} name="Liam" />
+              <TypingIndicator
+                variant="text"
+                name="Liam"
+                avatar={placeholderAvatar}
+              />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={avatarSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="presence" label="Presence">
+        <PageSectionHeader
+          title="Presence"
+          description="Keep the indicator mounted and update its active state. It slides up while fading in, then fades out while sliding down."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <Button
+                variant="outline"
+                onClick={() => setIsTyping((current) => !current)}
+              >
+                {isTyping ? "Stop typing" : "Start typing"}
+              </Button>
+              <TypingIndicator active={isTyping} variant="text" name="Liam" />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={presenceSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Show brief, current typing activity without presenting it as a message."
+        />
+        <DocsDoDont
+          doItems={[
+            <>Drive the indicator from remote real-time activity.</>,
+            <>Identify the person when the surrounding context is ambiguous.</>,
+            <>Keep the component mounted when exit motion is required.</>,
+            <>Remove the active state promptly after typing stops.</>,
+          ]}
+          dontItems={[
+            <>Don’t derive the indicator from the local composer input.</>,
+            <>Don’t render it as a transcript message.</>,
+            <>Don’t add an avatar when the person is already clear.</>,
+            <>Don’t show duplicate indicators for the same person.</>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Behaviour props on Typing indicator."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "active",
+              type: "boolean",
+              defaultValue: "true",
+              description:
+                "Shows or hides the indicator while preserving its transitions.",
+            },
+            {
+              name: "variant",
+              type: '"dots" | "text"',
+              defaultValue: '"dots"',
+              description: "Sets the compact or named presentation.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description:
+                "Identifies the person in visible and accessible status text.",
+            },
+            {
+              name: "avatar",
+              type: "string | React.ReactNode",
+              description: "Shows an image URL or custom avatar.",
+            },
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Use conversation components according to whether content is pending or already sent."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/marker">Marker</DocsPageLink> — the
+            status-text foundation used by the named presentation.
+          </li>
+          <li>
+            <DocsPageLink to="/components/message">Message</DocsPageLink> — for
+            content that has already been sent.
+          </li>
+          <li>
+            <DocsPageLink to="/components/avatar">Avatar</DocsPageLink> — for
+            identifying the person who is typing.
+          </li>
+        </ul>
+      </PageSection>
     </div>
-  )
+  );
 }

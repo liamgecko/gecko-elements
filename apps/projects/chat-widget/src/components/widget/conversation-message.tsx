@@ -1,34 +1,34 @@
-import type { ComponentProps } from "react"
-import { motion, useReducedMotion, type Variants } from "motion/react"
+import type { ComponentProps } from "react";
+import { motion, useReducedMotion, type Variants } from "motion/react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@gecko/ui/components/avatar"
-import { Bubble, BubbleContent } from "@gecko/ui/components/bubble"
+import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
+import { Bubble, BubbleContent } from "@gecko/ui/components/bubble";
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@gecko/ui/components/message"
+} from "@gecko/ui/components/message";
 import {
   MESSAGE_ANIMATIONS,
   type MessageAnimationPreset,
-} from "@gecko/ui/lib/message-animations"
-import { MessageScrollerItem } from "@gecko/ui/components/message-scroller"
-import type { AgentProfile, ChatMessage } from "@/lib/types"
+} from "@gecko/ui/lib/message-animations";
+import { MessageScrollerItem } from "@gecko/ui/components/message-scroller";
+import type { AgentProfile, ChatMessage } from "@/lib/types";
 
-const MotionMessageScrollerItem = motion.create(MessageScrollerItem)
+const MotionMessageScrollerItem = motion.create(MessageScrollerItem);
 
 type ConversationMessageProps = Omit<
   ComponentProps<typeof MotionMessageScrollerItem>,
   "animate" | "children" | "exit" | "initial" | "messageId" | "variants"
 > & {
-  message: ChatMessage
-  agent: AgentProfile
-  animationPreset?: MessageAnimationPreset
-}
+  message: ChatMessage;
+  agent: AgentProfile;
+  animationPreset?: MessageAnimationPreset;
+};
 
 function popVariantsForAlign(align: "start" | "end"): Variants {
-  const base = MESSAGE_ANIMATIONS.pop.variants
-  const initial = typeof base.initial === "object" ? base.initial : {}
+  const base = MESSAGE_ANIMATIONS.pop.variants;
+  const initial = typeof base.initial === "object" ? base.initial : {};
 
   return {
     ...base,
@@ -38,7 +38,7 @@ function popVariantsForAlign(align: "start" | "end"): Variants {
       originX: align === "end" ? 1 : 0,
       originY: 1,
     },
-  }
+  };
 }
 
 export function ConversationMessage({
@@ -47,18 +47,18 @@ export function ConversationMessage({
   animationPreset = MESSAGE_ANIMATIONS.pop,
   ...props
 }: ConversationMessageProps) {
-  const shouldReduceMotion = useReducedMotion()
-  const isUser = message.role === "user"
-  const align = isUser ? "end" : "start"
+  const shouldReduceMotion = useReducedMotion();
+  const isUser = message.role === "user";
+  const align = isUser ? "end" : "start";
   const paragraphs = message.text
     .split(/\n\s*\n/)
     .map((paragraph) => paragraph.trim())
-    .filter(Boolean)
+    .filter(Boolean);
 
   const variants =
     animationPreset.id === "pop"
       ? popVariantsForAlign(align)
-      : animationPreset.variants
+      : animationPreset.variants;
 
   return (
     <MotionMessageScrollerItem
@@ -72,11 +72,8 @@ export function ConversationMessage({
       <Message variant={isUser ? "user" : agent.type} align={align}>
         {!isUser ? (
           <MessageAvatar>
-            <Avatar size="default">
-              {agent.avatarSrc ? (
-                <AvatarImage src={agent.avatarSrc} alt={agent.name} />
-              ) : null}
-              <AvatarFallback>{agent.avatarFallback}</AvatarFallback>
+            <Avatar name={agent.name} size="default">
+              {agent.avatarSrc ? <AvatarImage src={agent.avatarSrc} /> : null}
             </Avatar>
           </MessageAvatar>
         ) : null}
@@ -95,5 +92,5 @@ export function ConversationMessage({
         </MessageContent>
       </Message>
     </MotionMessageScrollerItem>
-  )
+  );
 }

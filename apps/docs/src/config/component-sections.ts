@@ -1,43 +1,122 @@
 export interface Section {
-  id: string
-  label: string
-  children?: Section[]
+  id: string;
+  label: string;
+  children?: Section[];
 }
 
 export interface ComponentSections {
-  [key: string]: Section[]
+  [key: string]: Section[];
 }
 
 export const componentSections: ComponentSections = {
+  "guides-styling": [
+    { id: "overview", label: "Overview" },
+    {
+      id: "the-contract",
+      label: "The contract",
+      children: [
+        { id: "tokens", label: "Tokens" },
+        { id: "classname", label: "className" },
+      ],
+    },
+    {
+      id: "forms",
+      label: "Forms",
+      children: [{ id: "field-wrapping", label: "Field wrapping" }],
+    },
+    { id: "layout-wrappers", label: "Layout wrappers" },
+  ],
+  "guides-choosing-components": [
+    { id: "overview", label: "Overview" },
+    { id: "actions", label: "Actions" },
+    { id: "text-entry", label: "Text entry" },
+    { id: "selection", label: "Selection" },
+    { id: "files", label: "Files" },
+    { id: "overlays", label: "Overlays" },
+    { id: "feedback", label: "Feedback" },
+    { id: "data", label: "Data display" },
+    { id: "indicators", label: "Indicators" },
+    { id: "conversation", label: "Conversation" },
+    { id: "navigation", label: "Navigation" },
+    { id: "layout", label: "Layout" },
+  ],
+  "guides-recipes": [
+    { id: "overview", label: "Overview" },
+    {
+      id: "page-shell",
+      label: "Page shell",
+      children: [
+        { id: "page-shell-standard", label: "Standard page" },
+        { id: "page-shell-inbox", label: "Inbox exception" },
+      ],
+    },
+    {
+      id: "forms",
+      label: "Forms",
+      children: [
+        { id: "forms-basic", label: "Basic form" },
+        { id: "forms-sizing", label: "Sizing" },
+        { id: "forms-validation", label: "Validation" },
+        { id: "forms-sectional", label: "Large setup forms" },
+      ],
+    },
+    {
+      id: "list-pages",
+      label: "List pages",
+      children: [{ id: "list-pages-table", label: "Data table stack" }],
+    },
+    {
+      id: "overlays",
+      label: "Overlays",
+      children: [
+        { id: "overlays-choosing", label: "Choosing an overlay" },
+        { id: "overlays-triggers", label: "Triggers" },
+        { id: "overlays-destructive", label: "Destructive actions" },
+      ],
+    },
+    {
+      id: "feedback",
+      label: "Feedback",
+      children: [
+        { id: "feedback-choosing", label: "Choosing feedback" },
+        { id: "feedback-loading", label: "Loading states" },
+      ],
+    },
+  ],
   "activity-feed": [
     { id: "overview", label: "Overview" },
     {
       id: "usage",
       label: "Usage",
-      children: [
-        { id: "usage-import", label: "Import" },
-        { id: "usage-composition", label: "Composition" },
-      ],
+      children: [{ id: "usage-import", label: "Import" }],
     },
     { id: "basic-example", label: "Basic example" },
     { id: "condensed", label: "Condensed" },
     { id: "pagination", label: "Pagination" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "inline-edit": [
     { id: "overview", label: "Overview" },
-    { id: "basic-example", label: "Basic example" },
     {
-      id: "sizing",
-      label: "Sizing",
-      children: [
-        { id: "sizing-small", label: "Small" },
-        { id: "sizing-medium", label: "Medium" },
-        { id: "sizing-large", label: "Large" },
-      ],
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
     },
+    { id: "basic-example", label: "Basic example" },
+    { id: "sizing", label: "Sizing" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   button: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "default", label: "Default button" },
     {
       id: "variants",
@@ -65,19 +144,26 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "loading", label: "Loading button" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   tooltip: [
     { id: "overview", label: "Overview" },
-    { id: "basic", label: "Basic example" },
-    { id: "side", label: "Side" },
     {
-      id: "styling",
-      label: "Styling",
+      id: "usage",
+      label: "Usage",
       children: [
-        { id: "styling-default", label: "Default" },
-        { id: "styling-light", label: "Light" },
+        { id: "usage-import", label: "Import" },
+        { id: "usage-provider", label: "Provider" },
+        { id: "usage-composition", label: "Composition" },
       ],
     },
+    { id: "basic-example", label: "Basic example" },
+    { id: "positioning", label: "Positioning" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   accordion: [
     { id: "overview", label: "Overview" },
@@ -93,9 +179,7 @@ export const componentSections: ComponentSections = {
     {
       id: "variants",
       label: "Variants",
-      children: [
-        { id: "variants-sectional", label: "Sectional" },
-      ],
+      children: [{ id: "variants-sectional", label: "Sectional" }],
     },
     {
       id: "controls",
@@ -107,19 +191,35 @@ export const componentSections: ComponentSections = {
         { id: "controls-multiple", label: "Multiple" },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "alert-dialog": [
     { id: "overview", label: "Overview" },
-    { id: "basic-example", label: "Basic example" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     {
       id: "examples",
       label: "Examples",
       children: [
         { id: "examples-confirm-deletion", label: "Confirm deletion" },
-        { id: "examples-unsaved-changes", label: "Unsaved changes" },
+        {
+          id: "examples-unsaved-changes",
+          label: "Discard changes",
+        },
         { id: "examples-confirm-save", label: "Confirm save" },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   attachment: [
     { id: "overview", label: "Overview" },
@@ -134,25 +234,25 @@ export const componentSections: ComponentSections = {
       id: "states",
       label: "States",
       children: [
-        { id: "states-default", label: "Default" },
+        { id: "states-empty", label: "Empty" },
         { id: "states-uploading", label: "Uploading" },
         { id: "states-error", label: "Error" },
-        { id: "states-success", label: "Success" },
+        { id: "states-done", label: "Done" },
       ],
     },
-    {
-      id: "sizing",
-      label: "Sizing",
-      children: [
-        { id: "sizing-default", label: "Default" },
-        { id: "sizing-sm", label: "Small" },
-        { id: "sizing-xs", label: "Extra small" },
-      ],
-    },
-    { id: "customisation", label: "Customisation" },
+    { id: "customisation", label: "Custom icon" },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   badge: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "default", label: "Default badge" },
     {
       id: "variants",
@@ -171,7 +271,6 @@ export const componentSections: ComponentSections = {
         { id: "with-icons-left", label: "Left icon" },
         { id: "with-icons-right", label: "Right icon" },
         { id: "with-icons-both", label: "Both icons" },
-        { id: "with-icons-only", label: "Icon only" },
       ],
     },
     {
@@ -181,7 +280,9 @@ export const componentSections: ComponentSections = {
     },
     { id: "dismissible", label: "Dismissible" },
     { id: "notification", label: "Notification indicator" },
-    { id: "as-button", label: "As button" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   bubble: [
     { id: "overview", label: "Overview" },
@@ -209,26 +310,56 @@ export const componentSections: ComponentSections = {
     { id: "group", label: "Group" },
     { id: "reactions", label: "Reactions" },
     { id: "actions", label: "Actions" },
-    { id: "tooltip", label: "Tooltip" },
     { id: "show-more", label: "Show more" },
-    { id: "popover", label: "Popover" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   card: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic", label: "Basic example" },
     {
       id: "variants",
       label: "Variants",
       children: [
         { id: "variants-with-header", label: "Card with header" },
-        { id: "variants-with-header-tooltip", label: "Card with header tooltip" },
+        {
+          id: "variants-with-header-action",
+          label: "Card with header action",
+        },
+        {
+          id: "variants-with-header-tooltip",
+          label: "Card with header tooltip",
+        },
         { id: "variants-with-footer", label: "Card with footer" },
-        { id: "variants-with-header-and-footer", label: "Card with header and footer" },
+        {
+          id: "variants-with-header-and-footer",
+          label: "Card with header and footer",
+        },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   checkbox: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic", label: "Basic" },
     { id: "with-description", label: "With description" },
     {
@@ -253,31 +384,38 @@ export const componentSections: ComponentSections = {
         { id: "as-button-error", label: "Error" },
       ],
     },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   dialog: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic-example", label: "Basic example" },
-    {
-      id: "variants",
-      label: "Variants",
-      children: [
-        { id: "variants-with-header", label: "With header" },
-        { id: "variants-with-footer", label: "With footer" },
-        { id: "variants-with-header-and-footer", label: "With header and footer" },
-      ],
-    },
-    {
-      id: "footer-close-button",
-      label: "Footer close button",
-      children: [
-        { id: "footer-close-button-default", label: "Default close button" },
-        { id: "footer-close-button-custom", label: "Custom close button" },
-      ],
-    },
+    { id: "footer", label: "Footer" },
     { id: "sizing", label: "Sizing" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   empty: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic-example", label: "Basic example" },
     { id: "with-icon", label: "With icon" },
     {
@@ -288,6 +426,9 @@ export const componentSections: ComponentSections = {
         { id: "actions-multi", label: "Multi-action" },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "emoji-picker": [
     { id: "overview", label: "Overview" },
@@ -312,9 +453,17 @@ export const componentSections: ComponentSections = {
         { id: "positioning-corners", label: "Corners" },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   input: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic-example", label: "Basic example" },
     {
       id: "states",
@@ -344,33 +493,53 @@ export const componentSections: ComponentSections = {
         { id: "icons-left-and-right", label: "Left and right aligned" },
       ],
     },
+    { id: "button", label: "Button" },
+    { id: "inline", label: "Inline" },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "native-select": [
     { id: "overview", label: "Overview" },
-    { id: "basic-example", label: "Basic example" },
-    { id: "groups", label: "Groups" },
-    { id: "multiple", label: "Multiple select" },
-    { id: "within-form", label: "Within form" },
     {
-      id: "sizing",
-      label: "Sizing",
+      id: "usage",
+      label: "Usage",
       children: [
-        { id: "sizing-small", label: "Small" },
-        { id: "sizing-medium", label: "Medium" },
-        { id: "sizing-large", label: "Large" },
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
       ],
     },
+    { id: "basic-example", label: "Basic example" },
+    { id: "groups", label: "Groups" },
+    { id: "sizing", label: "Sizing" },
     {
       id: "states",
       label: "States",
       children: [
         { id: "states-disabled", label: "Disabled" },
-        { id: "states-error", label: "Error" },
+        { id: "states-invalid", label: "Invalid" },
       ],
     },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    {
+      id: "api",
+      label: "API",
+      children: [{ id: "api-reference", label: "API reference" }],
+    },
+    { id: "related", label: "Related" },
   ],
   popover: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic-example", label: "Basic example" },
     {
       id: "variants",
@@ -378,13 +547,35 @@ export const componentSections: ComponentSections = {
       children: [
         { id: "variants-with-header", label: "With header" },
         { id: "variants-with-footer", label: "With footer" },
-        { id: "variants-with-header-and-footer", label: "With header and footer" },
+        {
+          id: "variants-with-header-and-footer",
+          label: "With header and footer",
+        },
       ],
     },
-    { id: "alignment", label: "Alignment" },
+    { id: "with-form", label: "With form" },
+    {
+      id: "positioning",
+      label: "Positioning",
+      children: [
+        { id: "positioning-side", label: "Side" },
+        { id: "positioning-align", label: "Align" },
+      ],
+    },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   progress: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "progress-bar", label: "Progress bar" },
     { id: "with-value", label: "With value" },
     { id: "with-label", label: "With label" },
@@ -411,9 +602,20 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "progress-colour-ring", label: "Progress colour (ring)" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "radio-group": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic", label: "Basic" },
     { id: "with-description", label: "With description" },
     {
@@ -426,7 +628,6 @@ export const componentSections: ComponentSections = {
         { id: "states-error", label: "Error" },
       ],
     },
-    { id: "radio-group", label: "Radio group" },
     {
       id: "as-button",
       label: "As button",
@@ -437,9 +638,21 @@ export const componentSections: ComponentSections = {
         { id: "as-button-error", label: "Error" },
       ],
     },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   select: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic", label: "Basic" },
     {
       id: "states",
@@ -449,50 +662,55 @@ export const componentSections: ComponentSections = {
         { id: "states-error", label: "Error" },
       ],
     },
-    {
-      id: "sizes",
-      label: "Sizes",
-      children: [
-        { id: "sizes-small", label: "Small" },
-        { id: "sizes-default", label: "Default" },
-        { id: "sizes-large", label: "Large" },
-      ],
-    },
+    { id: "sizes", label: "Sizes" },
     { id: "groups", label: "Groups" },
     { id: "scrollable", label: "Scrollable" },
     { id: "alignment", label: "Alignment" },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-select", label: "Select" },
+        { id: "api-trigger", label: "SelectTrigger" },
+        { id: "api-value", label: "SelectValue" },
+        { id: "api-content", label: "SelectContent" },
+        { id: "api-item", label: "SelectItem" },
+      ],
+    },
+    { id: "related", label: "Related" },
   ],
   sheet: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic", label: "Basic" },
     { id: "sides", label: "Sides" },
     { id: "sizes", label: "Sizes" },
-    {
-      id: "variants",
-      label: "Variants",
-      children: [
-        { id: "variants-with-header", label: "With header" },
-        { id: "variants-with-footer", label: "With footer" },
-        { id: "variants-with-header-and-footer", label: "With header and footer" },
-      ],
-    },
+    { id: "footer", label: "Footer" },
     { id: "overlay", label: "Overlay" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   toast: [
     { id: "overview", label: "Overview" },
-    { id: "basic", label: "Basic example" },
-    { id: "description", label: "Description" },
-    { id: "position", label: "Position" },
     {
-      id: "variants",
-      label: "Variants",
-      children: [
-        { id: "variants-info", label: "Info" },
-        { id: "variants-warning", label: "Warning" },
-        { id: "variants-error", label: "Error" },
-        { id: "variants-success", label: "Success" },
-      ],
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
     },
+    { id: "basic-example", label: "Basic example" },
+    { id: "description", label: "Description" },
+    { id: "variants", label: "Variants" },
+    { id: "action", label: "Action" },
     {
       id: "states",
       label: "States",
@@ -501,10 +719,18 @@ export const componentSections: ComponentSections = {
         { id: "states-loading", label: "Loading" },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   spinner: [
     { id: "overview", label: "Overview" },
-    { id: "basic", label: "Basic example" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
+    { id: "basic-example", label: "Basic example" },
     { id: "sizing", label: "Sizing" },
     {
       id: "combinations",
@@ -515,6 +741,9 @@ export const componentSections: ComponentSections = {
         { id: "combinations-input", label: "Input" },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "structure-header": [
     { id: "overview", label: "Overview" },
@@ -539,8 +768,11 @@ export const componentSections: ComponentSections = {
         { id: "examples-tabs", label: "Tabs" },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
-  "structure-container": [
+  "structure-app-header": [
     { id: "overview", label: "Overview" },
     {
       id: "usage",
@@ -551,16 +783,92 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "example", label: "Example" },
+    { id: "status-controls", label: "Status controls" },
+    { id: "do-dont", label: "Do and don’t" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-header", label: "AppHeader" },
+        { id: "api-logo", label: "AppHeaderLogo" },
+        { id: "api-actions", label: "AppHeaderActions" },
+        { id: "api-account-switcher", label: "AppHeaderAccountSwitcher" },
+        { id: "api-controls", label: "AppHeaderControls" },
+        { id: "api-user-menu", label: "AppHeaderUserMenu" },
+      ],
+    },
+    { id: "related", label: "Related" },
+  ],
+  "structure-app-sidebar": [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
+    { id: "example", label: "Example" },
+    {
+      id: "navigation-structure",
+      label: "Navigation structure",
+      children: [
+        {
+          id: "navigation-structure-favourites",
+          label: "Favourites",
+        },
+        {
+          id: "navigation-structure-groups",
+          label: "Grouped destinations",
+        },
+      ],
+    },
+    { id: "do-dont", label: "Do and don’t" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-app-sidebar", label: "AppSidebar" },
+        { id: "api-favourites", label: "AppSidebarFavourites" },
+        { id: "api-nav", label: "AppSidebarNav" },
+      ],
+    },
+    { id: "related", label: "Related" },
+  ],
+  "structure-container": [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
+    { id: "example", label: "Example" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "related", label: "Related" },
   ],
   switch: [
     { id: "overview", label: "Overview" },
-    { id: "basic", label: "Basic example" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
+    { id: "basic-example", label: "Basic example" },
+    { id: "size", label: "Size" },
     {
       id: "label-and-description",
       label: "Label and description",
       children: [
         { id: "label-and-description-label", label: "Label" },
-        { id: "label-and-description-label-desc", label: "Label and description" },
+        {
+          id: "label-and-description-label-desc",
+          label: "Label and description",
+        },
+        {
+          id: "label-and-description-position",
+          label: "Label position",
+        },
       ],
     },
     {
@@ -571,10 +879,21 @@ export const componentSections: ComponentSections = {
         { id: "state-error", label: "Error" },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   tabs: [
     { id: "overview", label: "Overview" },
-    { id: "basic", label: "Basic example" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
+    { id: "basic-example", label: "Basic example" },
     { id: "line-variant", label: "Line variant" },
     { id: "vertical", label: "Vertical" },
     { id: "disabled", label: "Disabled" },
@@ -595,10 +914,27 @@ export const componentSections: ComponentSections = {
         { id: "badges-vertical", label: "Vertical tabs" },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-tabs", label: "Tabs" },
+        { id: "api-tabs-list", label: "TabsList" },
+        { id: "api-tabs-trigger", label: "TabsTrigger" },
+        { id: "api-tabs-content", label: "TabsContent" },
+      ],
+    },
+    { id: "related", label: "Related" },
   ],
   textarea: [
     { id: "overview", label: "Overview" },
-    { id: "basic", label: "Basic example" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
+    { id: "basic-example", label: "Basic example" },
     {
       id: "states",
       label: "States",
@@ -609,16 +945,11 @@ export const componentSections: ComponentSections = {
     },
     { id: "read-only", label: "Read-only" },
     { id: "required", label: "Required" },
-    {
-      id: "sizes",
-      label: "Sizes",
-      children: [
-        { id: "sizing-small", label: "Small" },
-        { id: "sizing-medium", label: "Medium" },
-        { id: "sizing-large", label: "Large" },
-      ],
-    },
-    { id: "form", label: "Within form" },
+    { id: "sizes", label: "Sizes" },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   alert: [
     { id: "overview", label: "Overview" },
@@ -632,13 +963,13 @@ export const componentSections: ComponentSections = {
     },
     { id: "basic-example", label: "Basic example" },
     {
-      id: "variations",
-      label: "Variations",
+      id: "variants",
+      label: "Variants",
       children: [
-        { id: "variations-destructive", label: "Destructive" },
-        { id: "variations-info", label: "Info" },
-        { id: "variations-success", label: "Success" },
-        { id: "variations-warning", label: "Warning" },
+        { id: "variants-destructive", label: "Destructive" },
+        { id: "variants-info", label: "Info" },
+        { id: "variants-success", label: "Success" },
+        { id: "variants-warning", label: "Warning" },
       ],
     },
     {
@@ -651,9 +982,20 @@ export const componentSections: ComponentSections = {
     },
     { id: "action", label: "Action" },
     { id: "dismissible", label: "Dismissible" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   avatar: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "default", label: "Default avatar" },
     { id: "sizes", label: "Sizes" },
     { id: "image", label: "With image" },
@@ -661,28 +1003,66 @@ export const componentSections: ComponentSections = {
     { id: "notification", label: "Notification" },
     { id: "label-only", label: "Label" },
     { id: "label-description", label: "Label and description" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "avatar-group": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic", label: "Basic example" },
     { id: "with-overflow", label: "With overflow" },
     { id: "sizes", label: "Sizes" },
     { id: "with-tooltips", label: "With tooltips" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   breadcrumb: [
     { id: "overview", label: "Overview" },
-    { id: "basic-example", label: "Basic example" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
+    { id: "basic-example", label: "Canonical use" },
     { id: "with-overflow", label: "With overflow" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   calendar: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic", label: "Basic example" },
     { id: "date-range", label: "Date range" },
     { id: "month-year", label: "Month and year selector" },
     { id: "booked-dates", label: "Booked dates" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   combobox: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic", label: "Basic" },
     { id: "multiple", label: "Multiple" },
     { id: "with-clear", label: "With clear" },
@@ -695,14 +1075,36 @@ export const componentSections: ComponentSections = {
         { id: "states-error", label: "Error" },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   command: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "example", label: "Example" },
     { id: "trigger", label: "Trigger" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "context-menu": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic", label: "Basic" },
     { id: "submenu", label: "Submenu" },
     { id: "shortcuts", label: "Shortcuts" },
@@ -711,11 +1113,19 @@ export const componentSections: ComponentSections = {
     { id: "checkbox", label: "Checkbox" },
     { id: "radio", label: "Radio" },
     { id: "destructive", label: "Destructive" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
-  "date-input": [
+  "date-field": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic-example", label: "Basic example" },
-    { id: "four-digit-year", label: "4-digit year" },
+    { id: "two-digit-year", label: "2-digit year" },
     { id: "american-format", label: "American format" },
     {
       id: "states",
@@ -725,15 +1135,23 @@ export const componentSections: ComponentSections = {
         { id: "states-error", label: "Error" },
       ],
     },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "date-picker": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic", label: "Basic" },
     { id: "range", label: "Range picker" },
     { id: "dob", label: "Date of birth" },
     { id: "button-trigger", label: "Button trigger" },
-    { id: "time-picker", label: "Time picker" },
-    { id: "natural-language", label: "Natural language" },
+    { id: "with-time", label: "With time" },
     {
       id: "states",
       label: "States",
@@ -742,10 +1160,22 @@ export const componentSections: ComponentSections = {
         { id: "states-error", label: "Error" },
       ],
     },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   direction: [{ id: "overview", label: "Overview" }],
   "dropdown-menu": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic-example", label: "Basic example" },
     { id: "submenu", label: "Submenu" },
     { id: "shortcuts", label: "Shortcuts" },
@@ -755,26 +1185,61 @@ export const componentSections: ComponentSections = {
     { id: "radio-group", label: "Radio group" },
     { id: "destructive", label: "Destructive" },
     { id: "search", label: "Search" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   field: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
+    {
+      id: "composition",
+      label: "Composition",
+      children: [
+        { id: "composition-field", label: "Field" },
+        { id: "composition-field-group", label: "Field group" },
+        { id: "composition-field-set", label: "Field set" },
+      ],
+    },
     { id: "basic-example", label: "Basic example" },
     { id: "help-text", label: "Help text" },
+    {
+      id: "field-group",
+      label: "Field group",
+      children: [{ id: "field-group-separator", label: "Separator" }],
+    },
+    { id: "field-set", label: "Field set" },
+    { id: "orientation", label: "Orientation" },
     {
       id: "states",
       label: "States",
       children: [
         { id: "states-disabled", label: "Disabled" },
         { id: "states-error", label: "Error" },
+        { id: "states-read-only", label: "Read-only" },
+        { id: "states-required", label: "Required" },
       ],
     },
     { id: "validation", label: "Validation" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   filters: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic-example", label: "Basic example" },
     { id: "search", label: "Search" },
     { id: "sort", label: "Sort" },
+    { id: "date-range", label: "Date range" },
     { id: "condensed", label: "Condensed" },
     {
       id: "trigger",
@@ -785,13 +1250,24 @@ export const componentSections: ComponentSections = {
         { id: "trigger-icon-only", label: "Icon only trigger" },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
-  "input-otp": [
+  "otp-field": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic-example", label: "Basic example" },
     { id: "separator", label: "Separator" },
     { id: "alphanumeric", label: "Alphanumeric" },
-    { id: "custom", label: "Custom" },
+    { id: "length", label: "Length" },
     {
       id: "states",
       label: "States",
@@ -800,26 +1276,39 @@ export const componentSections: ComponentSections = {
         { id: "states-error", label: "Error" },
       ],
     },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    {
+      id: "api",
+      label: "API",
+      children: [{ id: "api-reference", label: "API reference" }],
+    },
+    { id: "related", label: "Related" },
   ],
   kbd: [{ id: "overview", label: "Overview" }],
   label: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic-example", label: "Basic example" },
     { id: "within-form", label: "Within form" },
     { id: "required-field", label: "Required field" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "number-field": [
     { id: "overview", label: "Overview" },
-    { id: "basic-example", label: "Basic example" },
     {
-      id: "sizes",
-      label: "Sizes",
-      children: [
-        { id: "sizes-small", label: "Small" },
-        { id: "sizes-medium", label: "Medium" },
-        { id: "sizes-large", label: "Large" },
-      ],
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
     },
+    { id: "basic-example", label: "Basic example" },
+    { id: "sizes", label: "Sizes" },
     {
       id: "states",
       label: "States",
@@ -829,27 +1318,91 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   pagination: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "navigational", label: "Navigational" },
     { id: "table-pagination", label: "Icon only" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "scroll-area": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic", label: "Basic" },
     { id: "horizontal", label: "Horizontal" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   separator: [
     { id: "overview", label: "Overview" },
-    { id: "vertical", label: "Vertical" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
+    { id: "orientation", label: "Orientation" },
     { id: "list", label: "List" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   table: [
     { id: "overview", label: "Overview" },
-    { id: "basic", label: "Basic example" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
+    { id: "basic-example", label: "Basic example" },
     { id: "footer", label: "Footer" },
     { id: "hoverable", label: "Hoverable rows" },
+    { id: "nested", label: "Nested table" },
+    {
+      id: "expandable",
+      label: "Expandable rows",
+      children: [
+        { id: "expandable-panel", label: "Panel" },
+        { id: "expandable-sibling-rows", label: "Sibling rows" },
+      ],
+    },
+    { id: "do-dont", label: "Do and don’t" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-table", label: "Table" },
+        { id: "api-expandable-row", label: "TableExpandableRow" },
+        {
+          id: "api-expandable-trigger",
+          label: "TableExpandableRowTrigger",
+        },
+      ],
+    },
+    { id: "related", label: "Related" },
   ],
   "chat-bubble": [
     { id: "overview", label: "Overview" },
@@ -877,13 +1430,29 @@ export const componentSections: ComponentSections = {
   ],
   "chat-head": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "default", label: "Default" },
     { id: "closed", label: "Closed" },
     { id: "unread-notification", label: "Unread notification" },
     { id: "active-state", label: "Active state" },
+    { id: "message-preview", label: "Message preview" },
+    { id: "controls", label: "Controls" },
+    { id: "keyboard", label: "Keyboard" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
-  "color-picker": [
+  "colour-field": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic-example", label: "Basic example" },
     {
       id: "sizing",
@@ -895,6 +1464,7 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "with-default-value", label: "With default value" },
+    { id: "controlled-value", label: "Controlled value" },
     { id: "direct-hex-input", label: "Direct HEX input" },
     {
       id: "states",
@@ -904,9 +1474,18 @@ export const componentSections: ComponentSections = {
         { id: "states-error", label: "Error" },
       ],
     },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "data-table": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic-example", label: "Basic example" },
     {
       id: "table-headers",
@@ -931,30 +1510,54 @@ export const componentSections: ComponentSections = {
     { id: "multi-line-cells", label: "Multi-line cells" },
     { id: "nested-rows", label: "Nested rows" },
     { id: "full-example", label: "Full example" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "reply-box": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "default", label: "Default" },
     { id: "footer-only", label: "Footer only" },
+    { id: "note-mode", label: "Note mode" },
     { id: "textarea", label: "Textarea" },
     { id: "basic", label: "Basic" },
     { id: "basic-actions", label: "Basic with actions" },
-    { id: "note-mode", label: "Note mode" },
+    { id: "do-dont", label: "Do and don’t" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-reply-box", label: "ReplyBox" },
+        { id: "api-content", label: "ReplyBoxContent" },
+        { id: "api-header", label: "ReplyBoxHeader" },
+        { id: "api-footer", label: "ReplyBoxFooter" },
+        { id: "api-custom-action", label: "Custom tray action" },
+      ],
+    },
+    { id: "related", label: "Related" },
   ],
   "typing-indicator": [
     { id: "overview", label: "Overview" },
-    { id: "default", label: "Default typing indicator" },
-    { id: "input-with-indicator", label: "Input with typing indicator" },
-    { id: "text-variant", label: "User typing indicator" },
-    { id: "text-variant-demo", label: "User typing indicator example" },
     {
-      id: "with-avatar",
-      label: "With avatar",
-      children: [
-        { id: "with-avatar-dots", label: "Dots with avatar" },
-        { id: "with-avatar-text", label: "Name with avatar" },
-      ],
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
     },
+    { id: "basic-example", label: "Basic example" },
+    { id: "named", label: "Named" },
+    { id: "with-avatar", label: "With avatar" },
+    { id: "presence", label: "Presence" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   marker: [
     { id: "overview", label: "Overview" },
@@ -979,6 +1582,9 @@ export const componentSections: ComponentSections = {
     { id: "shimmer", label: "Shimmer" },
     { id: "with-icon", label: "With icon" },
     { id: "links-and-buttons", label: "Links and buttons" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   message: [
     { id: "overview", label: "Overview" },
@@ -1029,6 +1635,9 @@ export const componentSections: ComponentSections = {
         { id: "info-popover-agent-message", label: "Agent message" },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "message-scroller": [
     { id: "overview", label: "Overview" },
@@ -1036,7 +1645,6 @@ export const componentSections: ComponentSections = {
       id: "usage",
       label: "Usage",
       children: [
-        { id: "usage-installation", label: "Installation" },
         { id: "usage-import", label: "Import" },
         { id: "usage-composition", label: "Composition" },
         { id: "usage-basic", label: "Basic example" },
@@ -1047,18 +1655,35 @@ export const componentSections: ComponentSections = {
     { id: "auto-scroll", label: "Following the live edge" },
     { id: "animation", label: "Animating new messages" },
     { id: "scroll-state", label: "Reading scroll state" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "metric-card": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic", label: "Basic" },
     { id: "trend", label: "Trend" },
     { id: "sparkline", label: "Sparkline" },
     { id: "menu", label: "Options menu" },
     { id: "help", label: "Help tooltip" },
+    { id: "detail", label: "Detail" },
     { id: "description", label: "Description" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   charts: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     {
       id: "chart-bar",
       label: "Bar",
@@ -1066,14 +1691,6 @@ export const componentSections: ComponentSections = {
         { id: "chart-bar-single", label: "Single bar" },
         { id: "chart-bar-multiple", label: "Multiple bar" },
         { id: "chart-bar-stacked", label: "Stacked bar" },
-        {
-          id: "chart-bar-horizontal-single",
-          label: "Horizontal single bar",
-        },
-        {
-          id: "chart-bar-horizontal-multiple",
-          label: "Horizontal multiple bar",
-        },
       ],
     },
     {
@@ -1155,21 +1772,21 @@ export const componentSections: ComponentSections = {
         },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "telephone-field": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic-example", label: "Basic example" },
     { id: "default-country", label: "Default country" },
     { id: "force-international-format", label: "Force international format" },
-    {
-      id: "sizes",
-      label: "Sizes",
-      children: [
-        { id: "sizes-small", label: "Small" },
-        { id: "sizes-medium", label: "Medium" },
-        { id: "sizes-large", label: "Large" },
-      ],
-    },
+    { id: "sizes", label: "Sizes" },
     {
       id: "states",
       label: "States",
@@ -1178,42 +1795,35 @@ export const componentSections: ComponentSections = {
         { id: "states-error", label: "Error" },
       ],
     },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
-  "search-input": [
+  search: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic-example", label: "Basic example" },
     { id: "with-clear", label: "With clear" },
-    {
-      id: "sizing",
-      label: "Sizing",
-      children: [
-        { id: "sizing-small", label: "Small" },
-        { id: "sizing-medium", label: "Medium" },
-        { id: "sizing-large", label: "Large" },
-      ],
-    },
-    {
-      id: "states",
-      label: "States",
-      children: [
-        { id: "states-disabled", label: "Disabled" },
-        { id: "states-error", label: "Error" },
-      ],
-    },
+    { id: "sizing", label: "Sizing" },
+    { id: "disabled", label: "Disabled" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "sensitive-field": [
     { id: "overview", label: "Overview" },
-    { id: "basic-example", label: "Basic example" },
-    { id: "controlled", label: "Controlled" },
     {
-      id: "sizing",
-      label: "Sizing",
-      children: [
-        { id: "sizing-small", label: "Small" },
-        { id: "sizing-medium", label: "Medium" },
-        { id: "sizing-large", label: "Large" },
-      ],
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
     },
+    { id: "basic-example", label: "Basic example" },
+    { id: "sizing", label: "Sizing" },
     {
       id: "states",
       label: "States",
@@ -1222,9 +1832,18 @@ export const componentSections: ComponentSections = {
         { id: "states-error", label: "Error" },
       ],
     },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
-  "file-input": [
+  "file-field": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic-example", label: "Basic example" },
     {
       id: "states",
@@ -1244,13 +1863,30 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "required", label: "Required" },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "file-tree": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic-example", label: "Basic example" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "drop-zone": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic-example", label: "Basic example" },
     { id: "custom-label-description", label: "Custom label and description" },
     {
@@ -1261,15 +1897,31 @@ export const componentSections: ComponentSections = {
         { id: "states-error", label: "Error" },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
-  "drag-and-drop": [
+  "sortable-list": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic-example", label: "Basic example" },
     { id: "row-actions", label: "Row actions" },
     { id: "nested-example", label: "Nested lists" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   counter: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "basic", label: "Basic example" },
     {
       id: "sizes",
@@ -1282,18 +1934,30 @@ export const componentSections: ComponentSections = {
     },
     { id: "variants", label: "Variants" },
     { id: "overflow", label: "Overflow" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   "code-snippet": [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
     { id: "inline", label: "Inline" },
     {
       id: "block",
       label: "Block",
       children: [
         { id: "block-basic", label: "Basic" },
+        { id: "block-languages", label: "Supported languages" },
         { id: "block-with-copy", label: "With copy button" },
       ],
     },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
   color: [
     { id: "overview", label: "Overview" },
@@ -1301,9 +1965,7 @@ export const componentSections: ComponentSections = {
     {
       id: "primary-colors",
       label: "Primary colors",
-      children: [
-        { id: "color-gray", label: "Gray" }
-      ],
+      children: [{ id: "color-gray", label: "Gray" }],
     },
     {
       id: "secondary-colors",
@@ -1321,8 +1983,8 @@ export const componentSections: ComponentSections = {
   ],
   typography: [
     { id: "overview", label: "Overview" },
-    { 
-      id: "font-families", 
+    {
+      id: "font-families",
       label: "Font families",
       children: [
         { id: "satoshi", label: "Satoshi" },
@@ -1358,12 +2020,136 @@ export const componentSections: ComponentSections = {
     { id: "fill", label: "Fill" },
     { id: "accessibility", label: "Accessibility" },
   ],
+  "button-group": [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
+    { id: "basic-example", label: "Basic example" },
+    { id: "orientation", label: "Orientation" },
+    { id: "sizes", label: "Sizes" },
+    { id: "split-action", label: "Split action" },
+    { id: "with-input", label: "With input" },
+    { id: "with-select", label: "With select" },
+    { id: "do-dont", label: "Do and don’t" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-button-group", label: "ButtonGroup" },
+        { id: "api-button-group-text", label: "ButtonGroupText" },
+        { id: "api-button-group-separator", label: "ButtonGroupSeparator" },
+      ],
+    },
+    { id: "related", label: "Related" },
+  ],
+  "input-group": [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
+    { id: "basic-example", label: "Basic example" },
+    {
+      id: "alignment",
+      label: "Alignment",
+      children: [
+        { id: "alignment-block-start", label: "Block start" },
+        { id: "alignment-block-end", label: "Block end" },
+      ],
+    },
+    { id: "icon", label: "Icon" },
+    { id: "text", label: "Text" },
+    { id: "button", label: "Button" },
+    { id: "kbd", label: "Kbd" },
+    { id: "dropdown", label: "Dropdown" },
+    { id: "spinner", label: "Spinner" },
+    { id: "sizes", label: "Sizes" },
+    { id: "within-form", label: "Within form" },
+    { id: "do-dont", label: "Do and don’t" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-input-group", label: "InputGroup" },
+        { id: "api-input-group-addon", label: "InputGroupAddon" },
+        { id: "api-input-group-button", label: "InputGroupButton" },
+        { id: "api-input-group-text", label: "InputGroupText" },
+        { id: "api-input-group-input", label: "InputGroupInput" },
+        { id: "api-input-group-textarea", label: "InputGroupTextarea" },
+      ],
+    },
+    { id: "related", label: "Related" },
+  ],
+  toggle: [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
+    { id: "basic-example", label: "Basic example" },
+    { id: "sizes", label: "Sizes" },
+    { id: "with-text", label: "With text" },
+    { id: "controlled", label: "Controlled" },
+    { id: "disabled", label: "Disabled" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
+  ],
+  "toggle-group": [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
+    { id: "basic-example", label: "Basic example" },
+    { id: "multiple", label: "Multiple selection" },
+    { id: "sizes", label: "Sizes" },
+    { id: "spacing", label: "Spacing" },
+    { id: "vertical", label: "Vertical" },
+    { id: "disabled", label: "Disabled" },
+    { id: "do-dont", label: "Do and don’t" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-toggle-group", label: "ToggleGroup" },
+        { id: "api-toggle-group-item", label: "ToggleGroupItem" },
+      ],
+    },
+    { id: "related", label: "Related" },
+  ],
   sidebar: [
     { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [
+        { id: "usage-import", label: "Import" },
+        { id: "usage-composition", label: "Composition" },
+      ],
+    },
     { id: "basic-example", label: "Basic example" },
     { id: "collapsed-by-default", label: "Collapsed by default" },
     { id: "sidebar-group", label: "Sidebar group" },
     { id: "sub-menu", label: "Sub-menu" },
     { id: "collapsible-sub-menu", label: "Collapsible sub-menu" },
+    { id: "do-dont", label: "Do and don’t" },
+    { id: "api", label: "API" },
+    { id: "related", label: "Related" },
   ],
-}
+};

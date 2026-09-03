@@ -1,9 +1,11 @@
-import * as React from "react"
-import { mergeProps } from "@base-ui/react/merge-props"
-import { useRender } from "@base-ui/react/use-render"
-import { cva, type VariantProps } from "class-variance-authority"
+"use client";
 
-import { cn } from "@gecko/ui/lib/utils"
+import * as React from "react";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
+import { cva, type VariantProps } from "class-variance-authority";
+
+import { cn } from "@gecko/ui/lib/utils";
 
 const markerVariants = cva(
   "group/marker relative flex min-h-4 w-full items-center gap-2 text-left text-sm text-muted-foreground [&_svg:not([class*='size-'])]:size-4 [a]:underline [a]:underline-offset-3 [a]:hover:text-foreground",
@@ -19,8 +21,8 @@ const markerVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
-)
+  },
+);
 
 function Marker({
   className,
@@ -34,14 +36,14 @@ function Marker({
       {
         className: cn(markerVariants({ variant, className })),
       },
-      props
+      props,
     ),
     render,
     state: {
       slot: "marker",
       variant,
     },
-  })
+  });
 }
 
 function MarkerIcon({ className, ...props }: React.ComponentProps<"span">) {
@@ -51,11 +53,11 @@ function MarkerIcon({ className, ...props }: React.ComponentProps<"span">) {
       aria-hidden="true"
       className={cn(
         "size-4 shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function MarkerContent({
@@ -64,7 +66,7 @@ function MarkerContent({
   ...props
 }: React.ComponentProps<"span"> & {
   /** Apply the animated streaming-text shimmer effect. */
-  shimmer?: boolean
+  shimmer?: boolean;
 }) {
   return (
     <span
@@ -72,11 +74,11 @@ function MarkerContent({
       className={cn(
         "min-w-0 wrap-break-word group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground",
         shimmer && "shimmer",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -85,4 +87,4 @@ export {
   MarkerContent,
   // eslint-disable-next-line react-refresh/only-export-components -- cva variants are intentionally exported from this module.
   markerVariants,
-}
+};

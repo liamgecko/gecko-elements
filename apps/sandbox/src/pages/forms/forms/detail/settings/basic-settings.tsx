@@ -70,7 +70,7 @@ export default function FormBasicSettingsPage() {
                 }))
               }}
             >
-              <SelectTrigger id="form-basic-status" className="w-full">
+              <SelectTrigger id="form-basic-status">
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
               <SelectContent>

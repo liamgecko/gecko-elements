@@ -1,18 +1,18 @@
-import { cn } from "@gecko/ui/lib/utils"
-import { Toaster } from "@gecko/ui/components/toast"
+import { cn } from "@gecko/ui/lib/utils";
+import { Toaster } from "@gecko/ui/components/toast";
 
-import { VirtualEventsProvider } from "@/context/virtual-events-context"
+import { VirtualEventsProvider } from "@/context/virtual-events-context";
 
-import { VirtualEventsHeader } from "./virtual-events-header"
-import { VirtualEventsMainBody } from "./virtual-events-main-body"
-import { VirtualEventsMainContent } from "./virtual-events-main-content"
-import { VirtualEventsScheduleSidebar } from "./virtual-events-schedule-sidebar"
-import { VirtualEventsSidebar } from "./virtual-events-sidebar"
-import { VirtualEventsVideoPlayer } from "./virtual-events-video-player"
+import { VirtualEventsHeader } from "./virtual-events-header";
+import { VirtualEventsMainBody } from "./virtual-events-main-body";
+import { VirtualEventsMainContent } from "./virtual-events-main-content";
+import { VirtualEventsScheduleSidebar } from "./virtual-events-schedule-sidebar";
+import { VirtualEventsSidebar } from "./virtual-events-sidebar";
+import { VirtualEventsVideoPlayer } from "./virtual-events-video-player";
 
 type VirtualEventsLayoutProps = {
-  className?: string
-}
+  className?: string;
+};
 
 export function VirtualEventsLayout({ className }: VirtualEventsLayoutProps) {
   return (
@@ -35,10 +35,10 @@ export function VirtualEventsLayout({ className }: VirtualEventsLayoutProps) {
             </div>
           </VirtualEventsMainBody>
 
-        <VirtualEventsSidebar />
+          <VirtualEventsSidebar />
+        </div>
+        <Toaster />
       </div>
-      <Toaster />
-    </div>
     </VirtualEventsProvider>
-  )
+  );
 }

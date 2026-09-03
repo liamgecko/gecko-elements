@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog"
 
@@ -61,7 +63,7 @@ function DialogContent({
         data-slot="dialog-content"
         data-size={size}
         className={cn(
-          "bg-background data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 grid max-w-[calc(100%-2rem)] rounded-xl text-sm ring-1 duration-100 fixed top-1/2 start-1/2 z-50 w-full -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 outline-none",
+          "bg-background data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-foreground/10 fixed top-1/2 start-1/2 z-50 flex max-h-[calc(100dvh-2rem)] w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-xl text-sm ring-1 duration-100 outline-none rtl:translate-x-1/2",
           sizeClass,
           className
         )}
@@ -80,7 +82,7 @@ function DialogContent({
               />
             }
           >
-            <XIcon />
+            <XIcon aria-hidden="true" />
             <span className="sr-only">Close</span>
           </DialogPrimitive.Close>
         )}
@@ -93,7 +95,10 @@ function DialogWrapper({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-wrapper"
-      className={cn("flex flex-col px-6 py-6 gap-4", className)}
+      className={cn(
+        "flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain px-6 py-6",
+        className
+      )}
       {...props}
     />
   )
@@ -122,21 +127,15 @@ function DialogBody({ className, ...props }: React.ComponentProps<"div">) {
 type DialogFooterProps = React.ComponentProps<"div"> & {
   showCloseButton?: boolean
   closeButtonText?: string
-  closeButtonIcon?: React.ComponentType<React.ComponentProps<"svg">>
-  closeButtonProps?: React.ComponentProps<typeof Button>
 }
 
 function DialogFooter({
   className,
   showCloseButton = false,
   closeButtonText = "Close",
-  closeButtonIcon,
-  closeButtonProps,
   children,
   ...props
 }: DialogFooterProps) {
-  const CloseIcon = closeButtonIcon
-
   return (
     <div
       data-slot="dialog-footer"
@@ -152,9 +151,7 @@ function DialogFooter({
             <Button
               variant="outline"
               type="button"
-              {...closeButtonProps}
             >
-              {CloseIcon && <CloseIcon data-icon="inline-start" />}
               {closeButtonText}
             </Button>
           }

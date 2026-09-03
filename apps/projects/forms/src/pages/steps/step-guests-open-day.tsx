@@ -17,6 +17,10 @@ import { openDayEvent } from "../../data/event";
 import { useBooking } from "../../state/booking";
 
 const GUEST_COUNTS = ["0", "1", "2", "3", "4", "5"] as const;
+const GUEST_COUNT_ITEMS = GUEST_COUNTS.map((count) => ({
+  value: count,
+  label: count === "0" ? "No guests" : count,
+}));
 
 export function StepGuestsOpenDay() {
   const { booking, updateBooking } = useBooking();
@@ -26,19 +30,20 @@ export function StepGuestsOpenDay() {
       <Field>
         <FieldLabel htmlFor="guest-count">Number of guests</FieldLabel>
         <Select
+          items={GUEST_COUNT_ITEMS}
           value={String(booking.guestCount)}
           onValueChange={(value) =>
             updateBooking({ guestCount: Number(value ?? 0) })
           }
         >
-          <SelectTrigger id="guest-count" className="w-full">
+          <SelectTrigger id="guest-count">
             <SelectValue placeholder="Select number of guests" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {GUEST_COUNTS.map((count) => (
-                <SelectItem key={count} value={count}>
-                  {count === "0" ? "No guests" : count}
+              {GUEST_COUNT_ITEMS.map((item) => (
+                <SelectItem key={item.value} value={item.value}>
+                  {item.label}
                 </SelectItem>
               ))}
             </SelectGroup>

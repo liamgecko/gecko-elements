@@ -1,5 +1,14 @@
 import { ComponentExample } from "@/components/layout/component-example"
+import { DocsApiTable } from "@/components/layout/docs-api-table"
+import { DocsDoDont } from "@/components/layout/docs-do-dont"
+import { DocsExternalLink } from "@/components/layout/docs-external-link"
+import { DocsPageLink } from "@/components/layout/docs-page-link"
 import { PageSection } from "@/components/layout/page-section"
+import {
+  PageOverviewHeader,
+  PageSectionHeader,
+  PageSubsectionHeader,
+} from "@/components/layout/page-section-header"
 import {
   Select,
   SelectContent,
@@ -10,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@gecko/ui/components/select"
+import { Button } from "@gecko/ui/components/button"
 import { Code } from "@gecko/ui/components/code"
 import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field"
 
@@ -63,57 +73,294 @@ const southAmerica = [
   { label: "Chile Standard Time", value: "clt" },
 ]
 
+const timezones = [
+  ...northAmerica,
+  ...europeAfrica,
+  ...asia,
+  ...australiaPacific,
+  ...southAmerica,
+]
+
 export function SelectPage() {
+  const importSnippet = `import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "@gecko/ui/components/select"`
+
+  const compositionSnippet = `Select
+├── SelectTrigger
+│   └── SelectValue
+└── SelectContent
+    ├── SelectGroup
+    │   ├── SelectLabel
+    │   └── SelectItem
+    └── SelectSeparator`
+
+  const basicSnippet = `const items = [
+  { label: "Apple", value: "apple" },
+  { label: "Banana", value: "banana" },
+  { label: "Blueberry", value: "blueberry" },
+]
+
+<Select items={items}>
+  <SelectTrigger aria-label="Fruit">
+    <SelectValue placeholder="Select a fruit" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectGroup>
+      <SelectItem value="apple">Apple</SelectItem>
+      <SelectItem value="banana">Banana</SelectItem>
+      <SelectItem value="blueberry">Blueberry</SelectItem>
+      <SelectItem value="grapes">Grapes</SelectItem>
+      <SelectItem value="pineapple">Pineapple</SelectItem>
+    </SelectGroup>
+  </SelectContent>
+</Select>`
+
+  const disabledSnippet = `<Field data-disabled>
+  <FieldLabel htmlFor="select-states-disabled">Fruit</FieldLabel>
+  <Select items={items} defaultValue="apple" disabled>
+    <SelectTrigger id="select-states-disabled">
+      <SelectValue />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectGroup>
+        <SelectItem value="apple">Apple</SelectItem>
+        <SelectItem value="banana">Banana</SelectItem>
+      </SelectGroup>
+    </SelectContent>
+  </Select>
+</Field>`
+
+  const errorSnippet = `<Field data-invalid>
+  <FieldLabel htmlFor="select-states-error">Fruit</FieldLabel>
+  <Select items={items}>
+    <SelectTrigger
+      id="select-states-error"
+      aria-invalid="true"
+      aria-describedby="select-states-error-msg"
+    >
+      <SelectValue placeholder="Select a fruit" />
+    </SelectTrigger>
+    <SelectContent>
+      <SelectGroup>
+        <SelectItem value="apple">Apple</SelectItem>
+        <SelectItem value="banana">Banana</SelectItem>
+      </SelectGroup>
+    </SelectContent>
+  </Select>
+  <FieldError id="select-states-error-msg">
+    Please select a valid fruit to continue.
+  </FieldError>
+</Field>`
+
+  const sizesSnippet = `<Select items={items} defaultValue="apple">
+  <SelectTrigger
+    aria-label="Fruit"
+    size="sm|default|lg"
+  >
+    <SelectValue />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectGroup>
+      <SelectItem value="apple">Apple</SelectItem>
+    </SelectGroup>
+  </SelectContent>
+</Select>`
+
+  const groupsSnippet = `<Select items={items} defaultValue="apple">
+  <SelectTrigger aria-label="Fruit">
+    <SelectValue placeholder="Pick a fruit" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectGroup>
+      <SelectLabel>Tree fruit</SelectLabel>
+      <SelectItem value="apple">Apple</SelectItem>
+      <SelectItem value="banana">Banana</SelectItem>
+    </SelectGroup>
+    <SelectSeparator />
+    <SelectGroup>
+      <SelectLabel>Berries</SelectLabel>
+      <SelectItem value="blueberry">Blueberry</SelectItem>
+    </SelectGroup>
+    <SelectSeparator />
+    <SelectGroup>
+      <SelectLabel>Other</SelectLabel>
+      <SelectItem value="grapes">Grapes</SelectItem>
+      <SelectItem value="pineapple">Pineapple</SelectItem>
+    </SelectGroup>
+  </SelectContent>
+</Select>`
+
+  const scrollableSnippet = `<Select items={timezones}>
+  <SelectTrigger aria-label="Timezone">
+    <SelectValue placeholder="Select a timezone" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectGroup>
+      <SelectLabel>North America</SelectLabel>
+      <SelectItem value="est">Eastern Standard Time</SelectItem>
+      <SelectItem value="cst">Central Standard Time</SelectItem>
+    </SelectGroup>
+    <SelectGroup>
+      <SelectLabel>Europe & Africa</SelectLabel>
+      <SelectItem value="gmt">Greenwich Mean Time</SelectItem>
+      <SelectItem value="cet">Central European Time</SelectItem>
+    </SelectGroup>
+  </SelectContent>
+</Select>`
+
+  const alignmentSnippet = `<Select items={items} defaultValue="apple">
+  <SelectTrigger aria-label="Fruit">
+    <SelectValue />
+  </SelectTrigger>
+  <SelectContent align="start" alignItemWithTrigger={false}>
+    <SelectGroup>
+      <SelectItem value="apple">Apple</SelectItem>
+      <SelectItem value="banana">Banana</SelectItem>
+    </SelectGroup>
+  </SelectContent>
+</Select>`
+
+  const withinFormSnippet = `<form onSubmit={handleSubmit}>
+  <Field>
+    <FieldLabel htmlFor="fruit">Fruit</FieldLabel>
+    <Select items={items} name="fruit" required>
+      <SelectTrigger id="fruit">
+        <SelectValue placeholder="Select a fruit" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          {items.map((item) => (
+            <SelectItem key={item.value} value={item.value}>
+              {item.label}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  </Field>
+  <Button type="submit">Save selection</Button>
+</form>`
+
   return (
     <div className="space-y-12">
-        <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Select</h1>
-          <p className="text-sm text-muted-foreground">
-            A form control that lets users choose a single option from a
-            dropdown list.
-          </p>
-        </PageSection>
+      <PageSection id="overview" label="Overview">
+        <PageOverviewHeader
+          title="Select"
+          description="The Select component is a form control that lets people choose one option from a dropdown list."
+        />
+      </PageSection>
 
-        <PageSection id="basic" label="Basic">
-          <h2 className="text-lg font-semibold">Basic</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use{" "}
-            <Code>
-              Select
-            </Code>{" "}
-            with a trigger and content to render a simple dropdown.
-          </p>
-          <ComponentExample>
-            <Select>
-              <SelectTrigger className="w-full max-w-64">
+      <PageSection id="usage" label="Usage">
+        <PageSectionHeader
+          title="Usage"
+          description={
+            <>
+              Use a Select when the list is short and fixed. People open the
+              menu and pick one option without typing. Pair it with a{" "}
+              <DocsPageLink to="/components/field">Field</DocsPageLink> when the
+              control needs a label, help text, or errors.
+              <br />
+              <br />
+              Avoid using Select when the list is searchable — use a{" "}
+              <DocsPageLink to="/components/combobox">
+                Combobox
+              </DocsPageLink>{" "}
+              instead. Avoid using Select on student-facing surfaces where
+              native mobile menus are preferred — use{" "}
+              <DocsPageLink to="/components/native-select">
+                Native select
+              </DocsPageLink>{" "}
+              instead.
+            </>
+          }
+        />
+        <PageSubsectionHeader
+          id="usage-import"
+          title="Import"
+          description="Import the Select and its parts to compose a dropdown."
+        />
+        <ComponentExample className="mb-6">
+          <Code
+            variant="block"
+            language="tsx"
+            code={importSnippet}
+            showCopyButton
+            copyLabel="Copy import"
+          />
+        </ComponentExample>
+        <PageSubsectionHeader
+          id="usage-composition"
+          title="Composition"
+          description="The trigger shows the current value. Content holds the available options and their visual grouping."
+        />
+        <ComponentExample>
+          <Code
+            variant="block"
+            language="text"
+            code={compositionSnippet}
+            showCopyButton
+            copyLabel="Copy composition"
+          />
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="basic" label="Basic">
+        <PageSectionHeader
+          title="Basic"
+          description="A simple dropdown for choosing one option from a short list."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Select items={items}>
+              <SelectTrigger aria-label="Fruit">
                 <SelectValue placeholder="Select a fruit" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                {items.map((item) => (
-                  <SelectItem key={item.value} value={item.value}>
-                    {item.label}
-                  </SelectItem>
-                ))}
+                  {items.map((item) => (
+                    <SelectItem key={item.value} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={basicSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="states" label="States">
-          <h2 className="text-lg font-semibold">States</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Show disabled and invalid states to communicate availability and
-            validation errors.
-          </p>
+      <PageSection id="states" label="States">
+        <PageSectionHeader
+          title="States"
+          description="Communicate when the field is unavailable or when its current value needs attention."
+        />
 
-          <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
-          <ComponentExample className="mb-6">
+        <PageSubsectionHeader
+          id="states-disabled"
+          title="Disabled"
+          description="Use this when the choice is not available yet."
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Field data-disabled>
               <FieldLabel htmlFor="select-states-disabled">Fruit</FieldLabel>
-              <Select defaultValue="apple" disabled>
-                <SelectTrigger id="select-states-disabled" disabled>
+              <Select items={items} defaultValue="apple" disabled>
+                <SelectTrigger id="select-states-disabled">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -127,13 +374,26 @@ export function SelectPage() {
                 </SelectContent>
               </Select>
             </Field>
-          </ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={disabledSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
 
-          <h3 id="states-error" className="mb-3 text-base font-semibold">Error</h3>
-          <ComponentExample>
+        <PageSubsectionHeader
+          id="states-error"
+          title="Error"
+          description="Use this when the current choice prevents the person from continuing."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Field data-invalid>
               <FieldLabel htmlFor="select-states-error">Fruit</FieldLabel>
-              <Select>
+              <Select items={items}>
                 <SelectTrigger
                   id="select-states-error"
                   aria-invalid="true"
@@ -155,23 +415,26 @@ export function SelectPage() {
                 Please select a valid fruit to continue.
               </FieldError>
             </Field>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={errorSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="sizes" label="Sizes">
-          <h2 className="text-lg font-semibold">Sizes</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Adjust the trigger height to match other controls using the{" "}
-            <Code>
-              size
-            </Code>{" "}
-            prop on <Code>SelectTrigger</Code>.
-          </p>
-
-          <h3 id="sizes-small" className="mb-3 text-base font-semibold">Small</h3>
-          <ComponentExample className="mb-6">
-            <Select defaultValue="apple">
-              <SelectTrigger size="sm" className="w-full max-w-64">
+      <PageSection id="sizes" label="Sizes">
+        <PageSectionHeader
+          title="Sizes"
+          description="Match the trigger height to neighbouring controls."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Select items={items} defaultValue="apple">
+              <SelectTrigger aria-label="Small fruit select" size="sm">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -184,12 +447,8 @@ export function SelectPage() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-          </ComponentExample>
-
-          <h3 id="sizes-default" className="mb-3 text-base font-semibold">Default</h3>
-          <ComponentExample className="mb-6">
-            <Select defaultValue="apple">
-              <SelectTrigger className="w-full max-w-64">
+            <Select items={items} defaultValue="apple">
+              <SelectTrigger aria-label="Default fruit select">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -202,12 +461,8 @@ export function SelectPage() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-          </ComponentExample>
-
-          <h3 id="sizes-large" className="mb-3 text-base font-semibold">Large</h3>
-          <ComponentExample>
-            <Select defaultValue="apple">
-              <SelectTrigger size="lg" className="w-full max-w-64">
+            <Select items={items} defaultValue="apple">
+              <SelectTrigger aria-label="Large fruit select" size="lg">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -220,29 +475,26 @@ export function SelectPage() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={sizesSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="groups" label="Groups">
-          <h2 className="text-lg font-semibold">Groups</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use{" "}
-            <Code>
-              SelectGroup
-            </Code>{" "}
-            and{" "}
-            <Code>
-              SelectLabel
-            </Code>{" "}
-            to visually group related options, separated with{" "}
-            <Code>
-              SelectSeparator
-            </Code>
-            .
-          </p>
-          <ComponentExample>
-            <Select defaultValue="apple">
-              <SelectTrigger className="w-full max-w-64">
+      <PageSection id="groups" label="Groups">
+        <PageSectionHeader
+          title="Groups"
+          description="Organise a longer list into labelled sections when categories make it easier to scan."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Select items={items} defaultValue="apple">
+              <SelectTrigger aria-label="Fruit">
                 <SelectValue placeholder="Pick a fruit" />
               </SelectTrigger>
               <SelectContent>
@@ -264,19 +516,26 @@ export function SelectPage() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={groupsSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="scrollable" label="Scrollable">
-          <h2 className="text-lg font-semibold">Scrollable</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Longer lists of options automatically become scrollable inside the
-            popup. Group related items with labels to keep the menu easy to
-            scan.
-          </p>
-          <ComponentExample>
-            <Select>
-              <SelectTrigger className="w-full max-w-64">
+      <PageSection id="scrollable" label="Scrollable">
+        <PageSectionHeader
+          title="Scrollable"
+          description="Keep a longer list contained and group related options to make it easier to scan."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Select items={timezones}>
+              <SelectTrigger aria-label="Timezone">
                 <SelectValue placeholder="Select a timezone" />
               </SelectTrigger>
               <SelectContent>
@@ -322,26 +581,26 @@ export function SelectPage() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={scrollableSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="alignment" label="Alignment">
-          <h2 className="text-lg font-semibold">Alignment</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Control whether the popup aligns to the trigger or to its content
-            using the{" "}
-            <Code>
-              alignItemWithTrigger
-            </Code>{" "}
-            prop on{" "}
-            <Code>
-              SelectContent
-            </Code>
-            .
-          </p>
-          <ComponentExample>
-            <Select defaultValue="apple">
-              <SelectTrigger className="w-full max-w-64">
+      <PageSection id="alignment" label="Alignment">
+        <PageSectionHeader
+          title="Alignment"
+          description="Use ordinary anchored positioning when the popup should not overlap the trigger’s selected value."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Select items={items} defaultValue="apple">
+              <SelectTrigger aria-label="Fruit">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent align="start" alignItemWithTrigger={false}>
@@ -354,8 +613,286 @@ export function SelectPage() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={alignmentSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="within-form" label="Within form">
+        <PageSectionHeader
+          title="Within form"
+          description="Give the field a submitted name, a visible label and native required behaviour."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <form
+              className="space-y-6"
+              onSubmit={(event) => event.preventDefault()}
+            >
+              <Field>
+                <FieldLabel htmlFor="select-form-fruit">Fruit</FieldLabel>
+                <Select items={items} name="fruit" required>
+                  <SelectTrigger id="select-form-fruit">
+                    <SelectValue placeholder="Select a fruit" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      {items.map((item) => (
+                        <SelectItem key={item.value} value={item.value}>
+                          {item.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </Field>
+              <Button type="submit">Save selection</Button>
+            </form>
+            <Code
+              variant="block"
+              language="tsx"
+              code={withinFormSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Keep a fixed option list easy to scan and consistent with its form."
+        />
+        <DocsDoDont
+          doItems={[
+            <>Use Select for one choice from a short, fixed list.</>,
+            <>
+              Match <Code>SelectTrigger</Code> size to neighbouring controls.
+            </>,
+            <>
+              Use <Code>SelectGroup</Code>, <Code>SelectLabel</Code>, and{" "}
+              <Code>SelectSeparator</Code> to organise longer lists.
+            </>,
+            <>
+              Pair the trigger with{" "}
+              <DocsPageLink to="/components/field">Field</DocsPageLink> for a
+              label and validation.
+            </>,
+          ]}
+          dontItems={[
+            <>
+              Don’t use Select when people need to type to filter. Use a{" "}
+              <DocsPageLink to="/components/combobox">Combobox</DocsPageLink>.
+            </>,
+            <>Don’t group a short list when grouping adds no meaning.</>,
+            <>Don’t use placeholder text as the field’s only label.</>,
+            <>
+              Don’t change popup alignment unless the default placement does not
+              fit the layout.
+            </>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Behaviour props on Select."
+        />
+        <PageSubsectionHeader
+          id="api-select"
+          title="Select"
+          description="Controls the selected value, available items and form behaviour."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "items",
+              type: "Item[]",
+              description: "Maps stored values to their visible labels.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Sets the native form field name.",
+            },
+            {
+              name: "value | defaultValue",
+              type: "Item | null",
+              description: "Controls or initializes the selected value.",
+            },
+            {
+              name: "onValueChange",
+              type: "(value: Item | null) => void",
+              description: "Reports selection changes.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Makes the complete field unavailable.",
+            },
+            {
+              name: "required",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Requires a value for native form submission.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-trigger"
+          className="mt-6"
+          title="SelectTrigger"
+          description="Opens the popup and presents the current value."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "size",
+              type: '"sm" | "default" | "lg"',
+              defaultValue: '"default"',
+              description: "Controls the trigger height and text size.",
+            },
+            {
+              name: "aria-invalid",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Exposes the invalid state.",
+            },
+            {
+              name: "aria-describedby",
+              type: "string",
+              description: "Connects supporting or validation content.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-value"
+          className="mt-6"
+          title="SelectValue"
+          description="Presents the selected label or the unselected hint."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "placeholder",
+              type: "React.ReactNode",
+              description: "Provides a hint while no value is selected.",
+            },
+            {
+              name: "children",
+              type: "React.ReactNode | function",
+              description: "Customizes the selected value rendering.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-content"
+          className="mt-6"
+          title="SelectContent"
+          description="Positions and contains the popup list."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "alignItemWithTrigger",
+              type: "boolean",
+              defaultValue: "true",
+              description: "Aligns the selected item over the trigger value.",
+            },
+            {
+              name: "side",
+              type: '"top" | "right" | "bottom" | "left"',
+              defaultValue: '"bottom"',
+              description: "Sets the preferred side for ordinary positioning.",
+            },
+            {
+              name: "align",
+              type: '"start" | "center" | "end"',
+              defaultValue: '"center"',
+              description: "Aligns the popup across the trigger.",
+            },
+            {
+              name: "sideOffset",
+              type: "number",
+              defaultValue: "4",
+              description: "Sets the distance from the trigger.",
+            },
+            {
+              name: "alignOffset",
+              type: "number",
+              defaultValue: "0",
+              description: "Offsets the popup across the trigger.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-item"
+          className="mt-6"
+          title="SelectItem"
+          description="Defines one selectable option."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "value",
+              type: "Item",
+              description: "Provides the stable selected and submitted value.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Makes one option unavailable.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-reference"
+          className="mt-6"
+          title="API reference"
+          description={
+            <>
+              See the{" "}
+              <DocsExternalLink href="https://ui.shadcn.com/docs/components/base/select">
+                Shadcn Select documentation
+              </DocsExternalLink>{" "}
+              and{" "}
+              <DocsExternalLink href="https://base-ui.com/react/components/select">
+                Base UI Select API
+              </DocsExternalLink>{" "}
+              for the underlying API and source composition.
+            </>
+          }
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Choose a selection control based on list length and browser behaviour."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/combobox">Combobox</DocsPageLink> —
+            when people need to type to filter.
+          </li>
+          <li>
+            <DocsPageLink to="/components/native-select">
+              Native select
+            </DocsPageLink>{" "}
+            — when native browser behaviour is preferred.
+          </li>
+        </ul>
+      </PageSection>
     </div>
   )
 }

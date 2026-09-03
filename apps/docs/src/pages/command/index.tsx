@@ -1,8 +1,14 @@
-import * as React from "react"
-import { Code } from "@gecko/ui/components/code"
-
-import { ComponentExample } from "@/components/layout/component-example"
-import { PageSection } from "@/components/layout/page-section"
+import * as React from "react";
+import {
+  Calculator,
+  Calendar,
+  CreditCard,
+  Settings,
+  Smile,
+  User,
+} from "lucide-react";
+import { Button } from "@gecko/ui/components/button";
+import { Code } from "@gecko/ui/components/code";
 import {
   Command,
   CommandDialog,
@@ -13,39 +19,205 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "@gecko/ui/components/command"
+} from "@gecko/ui/components/command";
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsExternalLink } from "@/components/layout/docs-external-link";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import { PageSection } from "@/components/layout/page-section";
 import {
-  Calculator,
-  Calendar,
-  CreditCard,
-  Settings,
-  Smile,
-  User,
-} from "lucide-react"
-import { Button } from "@gecko/ui/components/button"
+  PageOverviewHeader,
+  PageSectionHeader,
+  PageSubsectionHeader,
+} from "@/components/layout/page-section-header";
 
 export function CommandPage() {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
+
+  const importSnippet = `import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+  CommandShortcut,
+} from "@gecko/ui/components/command"`;
+
+  const compositionSnippet = `Command
+├── CommandInput
+└── CommandList
+    ├── CommandEmpty
+    ├── CommandGroup
+    │   └── CommandItem
+    ├── CommandSeparator
+    └── CommandGroup
+        └── CommandItem
+            └── CommandShortcut`;
+
+  const exampleSnippet = `<Command label="Quick actions" className="max-w-sm rounded-lg border">
+  <CommandInput placeholder="Type a command or search..." />
+  <CommandList>
+    <CommandEmpty>No results found.</CommandEmpty>
+    <CommandGroup heading="Suggestions">
+      <CommandItem>
+        <Calendar />
+        <span>Calendar</span>
+      </CommandItem>
+      <CommandItem>
+        <Smile />
+        <span>Search Emoji</span>
+      </CommandItem>
+      <CommandItem>
+        <Calculator />
+        <span>Calculator</span>
+      </CommandItem>
+    </CommandGroup>
+    <CommandSeparator />
+    <CommandGroup heading="Settings">
+      <CommandItem>
+        <User />
+        <span>Profile</span>
+        <CommandShortcut>⌘P</CommandShortcut>
+      </CommandItem>
+      <CommandItem>
+        <CreditCard />
+        <span>Billing</span>
+        <CommandShortcut>⌘B</CommandShortcut>
+      </CommandItem>
+      <CommandItem>
+        <Settings />
+        <span>Settings</span>
+        <CommandShortcut>⌘S</CommandShortcut>
+      </CommandItem>
+    </CommandGroup>
+  </CommandList>
+</Command>`;
+
+  const triggerSnippet = `<Button onClick={() => setOpen(true)} variant="outline">
+  Open command
+</Button>
+<CommandDialog open={open} onOpenChange={setOpen}>
+  <Command label="Quick actions">
+    <CommandInput placeholder="Type a command or search..." />
+    <CommandList>
+      <CommandEmpty>No results found.</CommandEmpty>
+      <CommandGroup heading="Suggestions">
+        <CommandItem>
+          <Calendar />
+          <span>Calendar</span>
+        </CommandItem>
+        <CommandItem>
+          <Smile />
+          <span>Search Emoji</span>
+        </CommandItem>
+        <CommandItem>
+          <Calculator />
+          <span>Calculator</span>
+        </CommandItem>
+      </CommandGroup>
+      <CommandSeparator />
+      <CommandGroup heading="Settings">
+        <CommandItem>
+          <User />
+          <span>Profile</span>
+          <CommandShortcut>⌘P</CommandShortcut>
+        </CommandItem>
+        <CommandItem>
+          <CreditCard />
+          <span>Billing</span>
+          <CommandShortcut>⌘B</CommandShortcut>
+        </CommandItem>
+        <CommandItem>
+          <Settings />
+          <span>Settings</span>
+          <CommandShortcut>⌘S</CommandShortcut>
+        </CommandItem>
+      </CommandGroup>
+    </CommandList>
+  </Command>
+</CommandDialog>`;
 
   return (
     <div className="space-y-12">
-        <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Command</h1>
-          <p className="text-sm text-muted-foreground">
-            A command menu for building searchable command palettes and quick-switchers.
-          </p>
-        </PageSection>
+      <PageSection id="overview" label="Overview">
+        <PageOverviewHeader
+          title="Command"
+          description="The Command component is a searchable list of actions. People type to find a command, then run it."
+        />
+      </PageSection>
 
-        <PageSection id="example" label="Example">
-          <h2 className="text-lg font-semibold">Example</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code>Command</Code> with{" "}
-            <Code>CommandInput</Code>,{" "}
-            <Code>CommandList</Code>, and{" "}
-            <Code>CommandItem</Code> to build a searchable command surface.
-          </p>
-          <ComponentExample>
-            <Command className="max-w-sm rounded-lg border">
+      <PageSection id="usage" label="Usage">
+        <PageSectionHeader
+          title="Usage"
+          description={
+            <>
+              Use Command when someone needs to find an action by typing. It is
+              faster than hunting through menus.
+              <br />
+              <br />
+              Command is not shipped as a product-wide palette in Gecko yet —
+              adopt it only when that pattern lands. Avoid using it as a form
+              select, or as the only way to reach important actions. If the list
+              is short and always visible, use a{" "}
+              <DocsPageLink to="/components/dropdown-menu">
+                Dropdown menu
+              </DocsPageLink>{" "}
+              instead.
+            </>
+          }
+        />
+        <PageSubsectionHeader
+          id="usage-import"
+          title="Import"
+          description="Import the Command and its parts to compose a searchable list."
+        />
+        <ComponentExample className="mb-6">
+          <Code
+            variant="block"
+            language="tsx"
+            code={importSnippet}
+            showCopyButton
+            copyLabel="Copy import"
+          />
+        </ComponentExample>
+        <PageSubsectionHeader
+          id="usage-composition"
+          title="Composition"
+          description="The command holds a search field and a list. Items sit in groups, with an empty state when nothing matches."
+        />
+        <ComponentExample>
+          <Code
+            variant="block"
+            language="text"
+            code={compositionSnippet}
+            showCopyButton
+            copyLabel="Copy composition"
+          />
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="example" label="Example">
+        <PageSectionHeader
+          title="Example"
+          description={
+            <>
+              A searchable list using <Code>CommandInput</Code>,{" "}
+              <Code>CommandList</Code>, and <Code>CommandItem</Code>. Use this
+              to understand the inline composition. It is not the canonical
+              Gecko configuration.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Command
+              label="Quick actions"
+              className="max-w-sm rounded-lg border"
+            >
               <CommandInput placeholder="Type a command or search..." />
               <CommandList>
                 <CommandEmpty>No results found.</CommandEmpty>
@@ -83,17 +255,31 @@ export function CommandPage() {
                 </CommandGroup>
               </CommandList>
             </Command>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={exampleSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="trigger" label="Trigger">
-          <h2 className="text-lg font-semibold">Trigger</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code>CommandDialog</Code> with a{" "}
-            <Code>Button</Code> to open a command palette
-            from anywhere in your app.
-          </p>
-          <ComponentExample>
+      <PageSection id="trigger" label="Trigger">
+        <PageSectionHeader
+          title="Trigger"
+          description={
+            <>
+              Opens the palette in a dialog using <Code>CommandDialog</Code>{" "}
+              with <Code>open</Code> and <Code>onOpenChange</Code>. Use this as
+              the canonical starting configuration after Command has been
+              approved for the product.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <div className="flex flex-col gap-4">
               <Button
                 onClick={() => setOpen(true)}
@@ -103,7 +289,7 @@ export function CommandPage() {
                 Open command
               </Button>
               <CommandDialog open={open} onOpenChange={setOpen}>
-                <Command>
+                <Command label="Quick actions">
                   <CommandInput placeholder="Type a command or search..." />
                   <CommandList>
                     <CommandEmpty>No results found.</CommandEmpty>
@@ -143,8 +329,178 @@ export function CommandPage() {
                 </Command>
               </CommandDialog>
             </div>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={triggerSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Compose a searchable, keyboard-friendly list. Do not restyle the command chrome."
+        />
+        <DocsDoDont
+          doItems={[
+            <>
+              Use <Code>CommandInput</Code> to label what can be searched.
+            </>,
+            <>
+              Group related items with a clear <Code>heading</Code>.
+            </>,
+            <>
+              Use <Code>CommandEmpty</Code> to explain when no items match.
+            </>,
+            <>
+              Use <Code>CommandDialog</Code> when the palette opens over the
+              page.
+            </>,
+          ]}
+          dontItems={[
+            <>
+              Don’t invent an app-wide command palette until product ships one.
+            </>,
+            <>
+              Don’t use visual styling alone to distinguish groups; provide
+              headings and separators.
+            </>,
+            <>
+              Don’t place a modal command list in a plain <Code>Command</Code>;
+              use <Code>CommandDialog</Code>.
+            </>,
+            <>
+              Don’t use Command for an inline form value. Use a{" "}
+              <DocsPageLink to="/components/combobox">Combobox</DocsPageLink>.
+            </>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Behaviour props on Command."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "Command: label",
+              type: "string",
+              defaultValue: '"Command menu"',
+              description:
+                "Provides the accessible name for the searchable command menu.",
+            },
+            {
+              name: "Command: value",
+              type: "string",
+              description: "Controls the currently selected command value.",
+            },
+            {
+              name: "Command: onValueChange",
+              type: "(value: string) => void",
+              description:
+                "Runs when keyboard or pointer navigation changes the selected value.",
+            },
+            {
+              name: "Command: loop",
+              type: "boolean",
+              defaultValue: "false",
+              description:
+                "Moves from the final item to the first, and vice versa, during keyboard navigation.",
+            },
+            {
+              name: "CommandList: label",
+              type: "string",
+              defaultValue: '"Suggestions"',
+              description: "Provides the accessible name for the results list.",
+            },
+            {
+              name: "CommandItem: value",
+              type: "string",
+              description: "Provides the item’s stable searchable value.",
+            },
+            {
+              name: "CommandItem: keywords",
+              type: "string[]",
+              description: "Adds alternative terms that can match the item.",
+            },
+            {
+              name: "CommandItem: onSelect",
+              type: "(value: string) => void",
+              description:
+                "Runs the product-owned action when the item is selected.",
+            },
+            {
+              name: "CommandDialog: title",
+              type: "string",
+              defaultValue: '"Command Palette"',
+              description: "Provides the accessible dialog title.",
+            },
+            {
+              name: "CommandDialog: description",
+              type: "string",
+              defaultValue: '"Search for a command to run..."',
+              description: "Provides the accessible dialog description.",
+            },
+            {
+              name: "CommandDialog: showCloseButton",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Shows the dialog close button.",
+            },
+            {
+              name: "CommandDialog: open",
+              type: "boolean",
+              description: "Controls whether the command dialog is open.",
+            },
+            {
+              name: "CommandDialog: onOpenChange",
+              type: "(open: boolean) => void",
+              description: "Runs when the command dialog opens or closes.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-reference"
+          className="mt-6"
+          title="API reference"
+          description={
+            <>
+              See the{" "}
+              <DocsExternalLink href="https://github.com/dip/cmdk">
+                cmdk API
+              </DocsExternalLink>{" "}
+              and the{" "}
+              <DocsExternalLink href="https://ui.shadcn.com/docs/components/base/command">
+                Shadcn Command documentation
+              </DocsExternalLink>{" "}
+              for the underlying API and source composition.
+            </>
+          }
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Use another component when the content is not a searchable action list."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/combobox">Combobox</DocsPageLink> —
+            when filtering options in an inline field.
+          </li>
+          <li>
+            <DocsPageLink to="/components/dialog">Dialog</DocsPageLink> — when
+            modal content is not a searchable list.
+          </li>
+        </ul>
+      </PageSection>
     </div>
-  )
+  );
 }

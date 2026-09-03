@@ -1,7 +1,12 @@
-import * as React from "react"
-import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom"
-import { Trash2, X } from "lucide-react"
-import { toast } from "sonner"
+import * as React from "react";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+import { Trash2, X } from "lucide-react";
+import { toast } from "@gecko/ui/components/toast";
 
 import {
   AlertDialog,
@@ -12,118 +17,124 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@gecko/ui/components/alert-dialog"
+} from "@gecko/ui/components/alert-dialog";
 
-import { SupabaseSetupNotice } from "@/components/supabase-setup-notice"
-import { workflowsRepository } from "@/data/repositories/workflowsRepository"
-import { workflowTemplatesRepository } from "@/data/repositories/workflowTemplatesRepository"
-import { useWorkflow } from "@/hooks/useWorkflow"
+import { SupabaseSetupNotice } from "@/components/supabase-setup-notice";
+import { workflowsRepository } from "@/data/repositories/workflowsRepository";
+import { workflowTemplatesRepository } from "@/data/repositories/workflowTemplatesRepository";
+import { useWorkflow } from "@/hooks/useWorkflow";
 
-import { WorkflowBuilderHeader } from "./builder/workflow-builder-header"
+import { WorkflowBuilderHeader } from "./builder/workflow-builder-header";
 import {
   WorkflowCanvas,
   type WorkflowCanvasRef,
-} from "./builder/workflow-canvas"
-import { WorkflowSaveTemplateDialog } from "./builder/workflow-save-template-dialog"
-import type { WorkflowHeaderMenuActionId } from "./workflows-data"
+} from "./builder/workflow-canvas";
+import { WorkflowSaveTemplateDialog } from "./builder/workflow-save-template-dialog";
+import type { WorkflowHeaderMenuActionId } from "./workflows-data";
 
 type WorkflowEditLocationState = {
-  workflowName?: string
-}
+  workflowName?: string;
+};
 
 export default function WorkflowEditPage() {
-  const { workflowId = "" } = useParams()
-  const location = useLocation()
-  const navigate = useNavigate()
-  const canvasRef = React.useRef<WorkflowCanvasRef>(null)
+  const { workflowId = "" } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const canvasRef = React.useRef<WorkflowCanvasRef>(null);
   const workflowNameFromState = (
     location.state as WorkflowEditLocationState | null
-  )?.workflowName
-  const { workflow, loading, configured } = useWorkflow(workflowId)
+  )?.workflowName;
+  const { workflow, loading, configured } = useWorkflow(workflowId);
 
-  const [isSaving, setIsSaving] = React.useState(false)
-  const [templateDialogOpen, setTemplateDialogOpen] = React.useState(false)
-  const [templateName, setTemplateName] = React.useState("")
-  const [isSavingTemplate, setIsSavingTemplate] = React.useState(false)
-  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false)
-  const [isDeleting, setIsDeleting] = React.useState(false)
+  const [isSaving, setIsSaving] = React.useState(false);
+  const [templateDialogOpen, setTemplateDialogOpen] = React.useState(false);
+  const [templateName, setTemplateName] = React.useState("");
+  const [isSavingTemplate, setIsSavingTemplate] = React.useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  const [isDeleting, setIsDeleting] = React.useState(false);
 
-  const headerTitle = workflow?.name ?? workflowNameFromState ?? "Workflow"
-  const workflowName = workflow?.name ?? workflowNameFromState
-  const canUpdateWorkflow = Boolean(workflow) && !loading
+  const headerTitle = workflow?.name ?? workflowNameFromState ?? "Workflow";
+  const workflowName = workflow?.name ?? workflowNameFromState;
+  const canUpdateWorkflow = Boolean(workflow) && !loading;
 
   const handleMenuAction = (action: WorkflowHeaderMenuActionId) => {
     if (action === "save-as-template") {
-      setTemplateName(workflowName ?? "")
-      setTemplateDialogOpen(true)
-      return
+      setTemplateName(workflowName ?? "");
+      setTemplateDialogOpen(true);
+      return;
     }
 
     if (action === "delete" && workflow) {
-      setDeleteDialogOpen(true)
+      setDeleteDialogOpen(true);
     }
-  }
+  };
 
   const handleDeleteWorkflow = async () => {
-    if (!workflow) return
+    if (!workflow) return;
 
-    setIsDeleting(true)
+    setIsDeleting(true);
 
     try {
-      await workflowsRepository.deleteWorkflows([workflow.id])
-      toast.success(`${workflow.name} deleted`)
-      navigate("/workflows")
+      await workflowsRepository.deleteWorkflows([workflow.id]);
+      toast.add({ title: `${workflow.name} deleted`, type: "success" });
+      navigate("/workflows");
     } catch (err) {
-      toast.error(
-        err instanceof Error ? err.message : "Failed to delete workflow",
-      )
+      toast.add({
+        title: err instanceof Error ? err.message : "Failed to delete workflow",
+        type: "error",
+      });
     } finally {
-      setIsDeleting(false)
+      setIsDeleting(false);
     }
-  }
+  };
 
   const handleSaveTemplate = async () => {
-    const trimmedName = templateName.trim()
-    if (!trimmedName || !canvasRef.current) return
+    const trimmedName = templateName.trim();
+    if (!trimmedName || !canvasRef.current) return;
 
-    setIsSavingTemplate(true)
+    setIsSavingTemplate(true);
 
     try {
       const template = await workflowTemplatesRepository.createTemplate({
         name: trimmedName,
         definition: canvasRef.current.getDefinition(),
         sourceWorkflowId: workflow?.id,
-      })
-      toast.success(`${template.name} saved as template`)
-      setTemplateDialogOpen(false)
+      });
+      toast.add({
+        title: `${template.name} saved as template`,
+        type: "success",
+      });
+      setTemplateDialogOpen(false);
     } catch (err) {
-      toast.error(
-        err instanceof Error ? err.message : "Failed to save template",
-      )
+      toast.add({
+        title: err instanceof Error ? err.message : "Failed to save template",
+        type: "error",
+      });
     } finally {
-      setIsSavingTemplate(false)
+      setIsSavingTemplate(false);
     }
-  }
+  };
 
   const handleUpdate = async () => {
-    if (!workflow || !canvasRef.current) return
+    if (!workflow || !canvasRef.current) return;
 
-    setIsSaving(true)
+    setIsSaving(true);
 
     try {
-      const definition = canvasRef.current.getDefinition()
+      const definition = canvasRef.current.getDefinition();
       const updated = await workflowsRepository.updateWorkflow(workflow.id, {
         definition,
-      })
-      toast.success(`${updated.name} updated`)
+      });
+      toast.add({ title: `${updated.name} updated`, type: "success" });
     } catch (err) {
-      toast.error(
-        err instanceof Error ? err.message : "Failed to update workflow",
-      )
+      toast.add({
+        title: err instanceof Error ? err.message : "Failed to update workflow",
+        type: "error",
+      });
     } finally {
-      setIsSaving(false)
+      setIsSaving(false);
     }
-  }
+  };
 
   if (!configured) {
     return (
@@ -133,11 +144,11 @@ export default function WorkflowEditPage() {
           <SupabaseSetupNotice />
         </div>
       </div>
-    )
+    );
   }
 
   if (!loading && !workflow) {
-    return <Navigate to="/workflows" replace />
+    return <Navigate to="/workflows" replace />;
   }
 
   return (
@@ -164,7 +175,7 @@ export default function WorkflowEditPage() {
       <WorkflowSaveTemplateDialog
         open={templateDialogOpen}
         onOpenChange={(open) => {
-          if (!isSavingTemplate) setTemplateDialogOpen(open)
+          if (!isSavingTemplate) setTemplateDialogOpen(open);
         }}
         name={templateName}
         onNameChange={setTemplateName}
@@ -175,7 +186,7 @@ export default function WorkflowEditPage() {
         open={deleteDialogOpen}
         onOpenChange={(open) => {
           if (!open && !isDeleting) {
-            setDeleteDialogOpen(false)
+            setDeleteDialogOpen(false);
           }
         }}
       >
@@ -205,5 +216,5 @@ export default function WorkflowEditPage() {
         </AlertDialogContent>
       </AlertDialog>
     </div>
-  )
+  );
 }

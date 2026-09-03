@@ -1,3 +1,5 @@
+"use client"
+
 import { Columns3Cog } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"
@@ -55,11 +57,7 @@ export function DataTableColumnToggle({
           <DropdownMenuGroup>
             {table
               .getAllColumns()
-              .filter(
-                (column) =>
-                  typeof column.accessorFn !== "undefined" &&
-                  column.getCanHide()
-              )
+              .filter((column) => typeof column.accessorFn !== "undefined" && column.getCanHide())
               .map((column) => (
                 <DropdownMenuCheckboxItem
                   key={column.id}
@@ -67,10 +65,7 @@ export function DataTableColumnToggle({
                   checked={column.getIsVisible()}
                   onCheckedChange={(value) => column.toggleVisibility(!!value)}
                 >
-                  {getDataTableColumnToggleLabel(
-                    column.id,
-                    column.columnDef.meta
-                  )}
+                  {getDataTableColumnToggleLabel(column.id, column.columnDef.meta)}
                 </DropdownMenuCheckboxItem>
               ))}
           </DropdownMenuGroup>

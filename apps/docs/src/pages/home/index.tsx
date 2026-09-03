@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { buttonVariants } from "@gecko/ui/components/button"
-import { componentPages, corePages, structurePages } from "@/pages/gallery-data"
+import { componentPages, corePages, guidesPages, structurePages } from "@/pages/gallery-data"
 import { PageSection } from "@/components/layout/page-section"
 
 export function HomePage() {
@@ -15,6 +15,36 @@ export function HomePage() {
         <p className="text-sm text-muted-foreground">
           Elements is Gecko's design system, a collection of guidelines, components and tools for creating intuitive experiences
         </p>
+      </PageSection>
+
+      <PageSection id="guides" label="Guides">
+        <h2 className="text-lg font-semibold">Guides</h2>
+        <p className="mb-4 text-sm text-muted-foreground">
+          How to style, choose, and compose components.
+        </p>
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {guidesPages.map(({ name, description, path }) => (
+            <li key={path}>
+              <article className="rounded-lg border border-border bg-card p-4 text-card-foreground">
+                <h3 className="font-medium">{name}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {description}
+                </p>
+                <p className="mt-3">
+                  <Link
+                    to={path}
+                    className={buttonVariants({
+                      variant: "secondary",
+                      size: "sm",
+                    })}
+                  >
+                    View
+                  </Link>
+                </p>
+              </article>
+            </li>
+          ))}
+        </ul>
       </PageSection>
 
       <PageSection id="basic-example" label="Basic example">
@@ -50,7 +80,7 @@ export function HomePage() {
       <PageSection id="structure" label="Structure">
         <h2 className="text-lg font-semibold">Structure</h2>
         <p className="mb-4 text-sm text-muted-foreground">
-          Layout and composition building blocks — containers, headers, and menus.
+          Layout and composition building blocks — App Header, App Sidebar, Page Container, and Page Header.
         </p>
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {structurePages.map(({ name, description, path }) => (

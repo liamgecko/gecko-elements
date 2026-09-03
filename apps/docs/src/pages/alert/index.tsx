@@ -1,18 +1,56 @@
-import { ComponentExample } from "@/components/layout/component-example"
+import { Sparkles } from "lucide-react";
+
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsExternalLink } from "@/components/layout/docs-external-link";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import { PageSection } from "@/components/layout/page-section";
 import {
   PageOverviewHeader,
   PageSectionHeader,
   PageSubsectionHeader,
-} from "@/components/layout/page-section-header"
-import { ArrowRight, Sparkles } from "lucide-react"
+} from "@/components/layout/page-section-header";
 import {
   Alert,
   AlertAction,
   AlertDescription,
   AlertTitle,
-} from "@gecko/ui/components/alert"
-import { PageSection } from "@/components/layout/page-section"
-import { Code } from "@gecko/ui/components/code"
+} from "@gecko/ui/components/alert";
+import { Button } from "@gecko/ui/components/button";
+import { Code } from "@gecko/ui/components/code";
+
+const variants = [
+  {
+    key: "default",
+    title: "Scheduled maintenance",
+    description: "Reporting will be unavailable for 15 minutes from 22:00.",
+  },
+  {
+    key: "info",
+    title: "New feature available",
+    description: "You can now export this report as a CSV file.",
+    variant: "info" as const,
+  },
+  {
+    key: "success",
+    title: "Integration connected",
+    description: "New submissions will be sent to your connected account.",
+    variant: "success" as const,
+  },
+  {
+    key: "warning",
+    title: "Connection needs attention",
+    description: "Reconnect the integration to continue receiving updates.",
+    variant: "warning" as const,
+  },
+  {
+    key: "destructive",
+    title: "Unable to load submissions",
+    description: "Check your connection and try again.",
+    variant: "destructive" as const,
+  },
+];
 
 export function AlertPage() {
   const importSnippet = `import {
@@ -20,116 +58,85 @@ export function AlertPage() {
   AlertAction,
   AlertDescription,
   AlertTitle,
-} from "@gecko/ui/components/alert"`
+} from "@gecko/ui/components/alert"`;
 
   const compositionSnippet = `Alert
 ├── AlertTitle
 ├── AlertDescription
-└── AlertAction`
+└── AlertAction (optional)`;
 
   const basicExampleSnippet = `<Alert>
-  <AlertTitle></AlertTitle>
-  <AlertDescription></AlertDescription>
-</Alert>`
+  <AlertTitle>Scheduled maintenance</AlertTitle>
+  <AlertDescription>
+    Reporting will be unavailable for 15 minutes from 22:00.
+  </AlertDescription>
+</Alert>`;
 
   const destructiveExampleSnippet = `<Alert variant="destructive">
-  <AlertTitle></AlertTitle>
-  <AlertDescription></AlertDescription>
-</Alert>`
+  <AlertTitle>Unable to load submissions</AlertTitle>
+  <AlertDescription>
+    Check your connection and try again.
+  </AlertDescription>
+</Alert>`;
 
   const infoExampleSnippet = `<Alert variant="info">
-  <AlertTitle></AlertTitle>
-  <AlertDescription></AlertDescription>
-</Alert>`
+  <AlertTitle>New feature available</AlertTitle>
+  <AlertDescription>
+    You can now export this report as a CSV file.
+  </AlertDescription>
+</Alert>`;
 
   const successExampleSnippet = `<Alert variant="success">
-  <AlertTitle></AlertTitle>
-  <AlertDescription></AlertDescription>
-</Alert>`
+  <AlertTitle>Integration connected</AlertTitle>
+  <AlertDescription>
+    New submissions will be sent to your connected account.
+  </AlertDescription>
+</Alert>`;
 
   const warningExampleSnippet = `<Alert variant="warning">
-  <AlertTitle></AlertTitle>
-  <AlertDescription></AlertDescription>
-</Alert>`
+  <AlertTitle>Connection needs attention</AlertTitle>
+  <AlertDescription>
+    Reconnect the integration to continue receiving updates.
+  </AlertDescription>
+</Alert>`;
 
-  const actionSnippet = `import { ArrowRight } from "lucide-react"
+  const iconDefaultSnippet = `<Alert variant="default|info|success|warning|destructive" icon>
+  <AlertTitle>Alert title</AlertTitle>
+  <AlertDescription>Alert description.</AlertDescription>
+</Alert>`;
 
-<Alert>
-  <AlertTitle></AlertTitle>
-  <AlertDescription></AlertDescription>
-  <AlertAction
-    label=""
-    icon={<ArrowRight />}
-  />
-</Alert>`
+  const iconCustomSnippet = `<Alert variant="info" icon={<Sparkles />}>
+  <AlertTitle>New feature available</AlertTitle>
+  <AlertDescription>
+    You can now export this report as a CSV file.
+  </AlertDescription>
+</Alert>`;
 
-  const iconDefaultSnippet = `<Alert icon>
-  <AlertTitle></AlertTitle>
-  <AlertDescription></AlertDescription>
-</Alert>`
+  const actionSnippet = `<Alert variant="warning" icon>
+  <AlertTitle>Connection needs attention</AlertTitle>
+  <AlertDescription>
+    Reconnect the integration to continue receiving updates.
+  </AlertDescription>
+  <AlertAction>
+    <Button variant="outline" size="sm">Reconnect</Button>
+  </AlertAction>
+</Alert>`;
 
-  const iconCustomSnippet = `import { Sparkles } from "lucide-react"
-
-<Alert
-  variant="success"
-  icon={<Sparkles />}
+  const dismissibleSnippet = `<Alert
+  variant="default|info|success|warning|destructive"
+  icon
+  dismissible={{ onDismiss: handleDismiss }}
 >
-  <AlertTitle></AlertTitle>
-  <AlertDescription></AlertDescription>
-</Alert>`
-
-  const dismissibleSnippet = `<Alert dismissible>
-  <AlertTitle></AlertTitle>
-  <AlertDescription></AlertDescription>
-</Alert>`
-
-  const dismissibleVariants: Array<{
-    key: string
-    title: string
-    description: string
-    variant?: React.ComponentProps<typeof Alert>["variant"]
-  }> = [
-    {
-      key: "default",
-      title: "Default",
-      description: "A general notification for the user.",
-    },
-    {
-      key: "info",
-      title: "Info",
-      description: "Additional context that doesn’t require action.",
-      variant: "info",
-    },
-    {
-      key: "success",
-      title: "Success",
-      description: "An action has completed successfully.",
-      variant: "success",
-    },
-    {
-      key: "warning",
-      title: "Warning",
-      description: "Something may require attention soon.",
-      variant: "warning",
-    },
-    {
-      key: "destructive",
-      title: "Destructive",
-      description: "An error or high-risk state.",
-      variant: "destructive",
-    },
-  ]
+  <AlertTitle>Alert title</AlertTitle>
+  <AlertDescription>Alert description.</AlertDescription>
+</Alert>`;
 
   return (
     <div className="space-y-12">
       <PageSection id="overview" label="Overview">
         <PageOverviewHeader
           title="Alert"
-          description={
-            <>
-              The Alert component displays important contextual messages that need to stand out from surrounding content. It is used to communicate status, warnings, errors, confirmations, or actions that require the user’s attention without interrupting their workflow.
-            </>
-          }
+          description="Alert is a persistent, non-blocking callout for important information within a page or section."
         />
       </PageSection>
 
@@ -138,10 +145,20 @@ export function AlertPage() {
           title="Usage"
           description={
             <>
-              Use an Alert when a message needs stronger visual emphasis than standard body text but does not require a modal or blocking interaction. Alerts should be concise, specific, and matched to the correct intent through variants such as success, warning, destructive, or informational.
+              Use Alert for important information that must remain visible in
+              context until the parent removes it. Make it dismissible only when
+              the message is safe to acknowledge and clear.
               <br />
               <br />
-              Avoid using alerts for general page copy, repeated messages, or information that does not require attention. If the message is persistent and part of the normal layout, consider using standard content or another component instead.
+              Use a <DocsPageLink to="/components/toast">
+                Toast
+              </DocsPageLink>{" "}
+              for brief post-action feedback. Use an{" "}
+              <DocsPageLink to="/components/alert-dialog">
+                Alert dialog
+              </DocsPageLink>{" "}
+              when someone must confirm an action before it happens. Use a
+              field-level error for a problem with one form control.
             </>
           }
         />
@@ -149,11 +166,7 @@ export function AlertPage() {
         <PageSubsectionHeader
           id="usage-import"
           title="Import"
-          description={
-            <>
-              Import the Alert and its subcomponents to compose the message content. The base Alert controls the visual treatment, while the title, description, and action elements provide structure for the message.
-            </>
-          }
+          description="Import Alert and the content parts used by the message. Import Button separately when the alert has an action."
         />
         <ComponentExample className="mb-6">
           <Code
@@ -170,7 +183,9 @@ export function AlertPage() {
           title="Composition"
           description={
             <>
-              The Alert follows a compound component pattern. Use <Code>AlertTitle</Code> for the primary message, <Code>AlertDescription</Code> for supporting detail, and <Code>AlertAction</Code> when the alert includes a clear next step. Icons can be added to reinforce the alert’s intent, but the message should remain understandable without relying on the icon alone.
+              Put the primary message in <Code>AlertTitle</Code> and supporting
+              detail in <Code>AlertDescription</Code>. <Code>AlertAction</Code>{" "}
+              positions one Button or link; it does not create the control.
             </>
           }
         />
@@ -188,18 +203,14 @@ export function AlertPage() {
       <PageSection id="basic-example" label="Basic example">
         <PageSectionHeader
           title="Basic example"
-          description={
-            <>
-            Demonstrates the default Alert structure with a title and supporting description. Use this as the baseline for communicating non-critical information where context is helpful but no immediate action is required.
-            </>
-          }
+          description="Use the default variant for an important neutral notice without a more specific status."
         />
-        <ComponentExample className="mb-6">
+        <ComponentExample>
           <div className="space-y-6">
             <Alert>
-              <AlertTitle>Heads up</AlertTitle>
+              <AlertTitle>Scheduled maintenance</AlertTitle>
               <AlertDescription>
-                You can add components to your app using the cli.
+                Reporting will be unavailable for 15 minutes from 22:00.
               </AlertDescription>
             </Alert>
             <Code
@@ -213,31 +224,23 @@ export function AlertPage() {
         </ComponentExample>
       </PageSection>
 
-      <PageSection id="variations" label="Variations">
+      <PageSection id="variants" label="Variants">
         <PageSectionHeader
-          title="Variations"
-          description={
-            <>
-              The Alert supports multiple variants to communicate intent through visual styling. Choose the variant that matches the meaning of the message rather than the severity alone.
-            </>
-          }
+          title="Variants"
+          description="Choose a variant for the meaning of the message. A variant does not turn Alert into confirmation or temporary feedback."
         />
 
         <PageSubsectionHeader
-          id="variations-destructive"
+          id="variants-destructive"
           title="Destructive"
-          description={
-            <>
-              Use for errors or irreversible actions that could result in data loss or system impact. This variant should clearly communicate risk and, where possible, guide the user toward resolution or recovery.
-            </>
-          }
+          description="Use for an error, failure, or critical state. Give a clear recovery step where one exists. Use Alert dialog—not Alert—to confirm an irreversible action."
         />
         <ComponentExample className="mb-6">
           <div className="space-y-6">
             <Alert variant="destructive">
-              <AlertTitle>Destructive</AlertTitle>
+              <AlertTitle>Unable to load submissions</AlertTitle>
               <AlertDescription>
-                An error or high-risk state.
+                Check your connection and try again.
               </AlertDescription>
             </Alert>
             <Code
@@ -251,20 +254,16 @@ export function AlertPage() {
         </ComponentExample>
 
         <PageSubsectionHeader
-          id="variations-info"
+          id="variants-info"
           title="Info"
-          description={
-            <>
-              Use for neutral or contextual information that helps the user understand the current state or available options. This variant should not imply urgency or require immediate action.
-            </>
-          }
+          description="Use for contextual information about the current state or available options when the blue informational treatment is useful."
         />
         <ComponentExample className="mb-6">
           <div className="space-y-6">
             <Alert variant="info">
-              <AlertTitle>Info</AlertTitle>
+              <AlertTitle>New feature available</AlertTitle>
               <AlertDescription>
-                Additional context that doesn’t require action.
+                You can now export this report as a CSV file.
               </AlertDescription>
             </Alert>
             <Code
@@ -278,20 +277,16 @@ export function AlertPage() {
         </ComponentExample>
 
         <PageSubsectionHeader
-          id="variations-success"
+          id="variants-success"
           title="Success"
-          description={
-            <>
-              Use for confirming that an action has completed successfully. This is typically used after user-initiated events such as form submissions, updates, or completed processes.
-            </>
-          }
+          description="Use for a successful state that must remain visible. Use Toast for ordinary feedback immediately after an action succeeds."
         />
         <ComponentExample className="mb-6">
           <div className="space-y-6">
             <Alert variant="success">
-              <AlertTitle>Success</AlertTitle>
+              <AlertTitle>Integration connected</AlertTitle>
               <AlertDescription>
-                An action has completed successfully.
+                New submissions will be sent to your connected account.
               </AlertDescription>
             </Alert>
             <Code
@@ -305,20 +300,16 @@ export function AlertPage() {
         </ComponentExample>
 
         <PageSubsectionHeader
-          id="variations-warning"
+          id="variants-warning"
           title="Warning"
-          description={
-            <>
-              Use for potential issues that need attention. The warning variant is designed to communicate a potential problem that requires immediate user intervention. It is typically paired with a clear call-to-action in the action slot.
-            </>
-          }
+          description="Use for a potential problem that needs attention while the rest of the page remains available."
         />
         <ComponentExample>
           <div className="space-y-6">
             <Alert variant="warning">
-              <AlertTitle>Warning</AlertTitle>
+              <AlertTitle>Connection needs attention</AlertTitle>
               <AlertDescription>
-                Something may require attention soon.
+                Reconnect the integration to continue receiving updates.
               </AlertDescription>
             </Alert>
             <Code
@@ -335,11 +326,7 @@ export function AlertPage() {
       <PageSection id="icon" label="Icon">
         <PageSectionHeader
           title="Icon"
-          description={
-            <>
-              Alerts can include an icon to reinforce the message intent and improve visual scanning. Icons should support the meaning of the alert rather than carry it, the message should remain clear without relying on the icon alone.
-            </>
-          }
+          description="Icons support scanning but never carry the meaning alone. The title and description must still explain the message."
         />
 
         <PageSubsectionHeader
@@ -347,21 +334,20 @@ export function AlertPage() {
           title="Default icons"
           description={
             <>
-              Enable the <Code>icon</Code> prop to render the default icon associated with the selected variant. This ensures consistent visual meaning across the system without requiring manual icon selection.
+              Set <Code>icon</Code> to use the library-owned icon mapped to the
+              current variant. Prefer this over choosing an icon manually.
             </>
           }
         />
         <ComponentExample className="mb-6">
           <div className="space-y-6">
             <div className="space-y-3">
-              {dismissibleVariants.map(({ key, title, description, variant }) => {
-                return (
-                  <Alert key={key} variant={variant} icon>
-                    <AlertTitle>{title}</AlertTitle>
-                    <AlertDescription>{description}</AlertDescription>
-                  </Alert>
-                )
-              })}
+              {variants.map(({ key, title, description, variant }) => (
+                <Alert key={key} variant={variant} icon>
+                  <AlertTitle>{title}</AlertTitle>
+                  <AlertDescription>{description}</AlertDescription>
+                </Alert>
+              ))}
             </div>
             <Code
               variant="block"
@@ -376,21 +362,14 @@ export function AlertPage() {
         <PageSubsectionHeader
           id="icon-custom"
           title="Custom icons"
-          description={
-            <>
-              Provide a custom icon by passing a React node to the <Code>icon</Code> prop. Use this when the default variant icon does not match the context or when a more specific visual cue is needed.
-            </>
-          }
+          description="Pass a React node only when an approved, context-specific icon communicates more clearly than the variant default. Agents must not invent or substitute icons without consent."
         />
         <ComponentExample>
           <div className="space-y-6">
-            <Alert
-              variant="success"
-              icon={<Sparkles />}
-            >
-              <AlertTitle>New feature</AlertTitle>
+            <Alert variant="info" icon={<Sparkles />}>
+              <AlertTitle>New feature available</AlertTitle>
               <AlertDescription>
-                This alert uses a custom icon passed via the icon prop.
+                You can now export this report as a CSV file.
               </AlertDescription>
             </Alert>
             <Code
@@ -409,39 +388,33 @@ export function AlertPage() {
           title="Action"
           description={
             <>
-            Adds an optional call-to-action within the alert using <Code>AlertAction</Code>. Use this when the message requires a clear next step, such as retrying an action, navigating to a related view, or resolving an issue.
-            <br />
-            <br />
-            Actions should be direct and relevant to the message. Avoid including multiple actions or unrelated links, as this reduces clarity and weakens the alert’s purpose.
+              Use <Code>AlertAction</Code> to position one relevant Button or
+              link. The nested control owns its label and behaviour. Use a
+              visible, verb-first label that names the next step.
             </>
           }
         />
-
-        <ComponentExample className="mb-6">
-          <div className="space-y-3">
-            {dismissibleVariants.map(({ key, title, description, variant }) => {
-              return (
-                <Alert key={key} variant={variant}>
-                  <AlertTitle>{title}</AlertTitle>
-                  <AlertDescription>{description}</AlertDescription>
-                  <AlertAction
-                    label="Action"
-                    icon={<ArrowRight />}
-                  />
-                </Alert>
-              )
-            })}
-          </div>
-        </ComponentExample>
-
         <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={actionSnippet}
-            showCopyButton
-            copyLabel="Copy example"
-          />
+          <div className="space-y-6">
+            <Alert variant="warning" icon>
+              <AlertTitle>Connection needs attention</AlertTitle>
+              <AlertDescription>
+                Reconnect the integration to continue receiving updates.
+              </AlertDescription>
+              <AlertAction>
+                <Button variant="outline" size="sm">
+                  Reconnect
+                </Button>
+              </AlertAction>
+            </Alert>
+            <Code
+              variant="block"
+              language="tsx"
+              code={actionSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
         </ComponentExample>
       </PageSection>
 
@@ -450,37 +423,155 @@ export function AlertPage() {
           title="Dismissible"
           description={
             <>
-            Use the <Code>dismissible</Code> prop to allow the alert to be dismissed by the user via a close action. This is suitable for non-critical messages that can be acknowledged and removed, such as temporary notifications or contextual feedback.
-            <br />
-            <br />
-            Avoid using dismissible for alerts that represent an ongoing state or require user action, such as errors that still need resolving or system conditions that must remain visible.
+              Set <Code>dismissible</Code> only when the message can be safely
+              acknowledged and removed. Keep unresolved errors, required
+              instructions, and ongoing conditions visible. Use an action or a
+              dismiss control, not both.
             </>
           }
         />
-
-        <ComponentExample className="mb-6">
-          <div className="space-y-3">
-            {dismissibleVariants.map(({ key, title, description, variant }) => {
-              return (
-                <Alert key={key} variant={variant} dismissible>
+        <ComponentExample>
+          <div className="space-y-6">
+            <div className="space-y-3">
+              {variants.map(({ key, title, description, variant }) => (
+                <Alert key={key} variant={variant} icon dismissible>
                   <AlertTitle>{title}</AlertTitle>
                   <AlertDescription>{description}</AlertDescription>
                 </Alert>
-              )
-            })}
+              ))}
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={dismissibleSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
+      </PageSection>
 
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={dismissibleSnippet}
-            showCopyButton
-            copyLabel="Copy example"
-          />
-        </ComponentExample>
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Keep the message important, persistent, and focused on one meaning."
+        />
+        <DocsDoDont
+          doItems={[
+            <>
+              Match <Code>variant</Code> to the meaning of the message.
+            </>,
+            <>
+              Use a short <Code>AlertTitle</Code> and clear supporting detail.
+            </>,
+            <>Use the mapped default icon when an icon improves scanning.</>,
+            <>
+              Place one Button or link inside <Code>AlertAction</Code>.
+            </>,
+            <>
+              Use <Code>role=&quot;status&quot;</Code> when a dynamically
+              inserted message is informative rather than urgent.
+            </>,
+          ]}
+          dontItems={[
+            <>Don’t use Alert for temporary post-action feedback; use Toast.</>,
+            <>
+              Don’t use Alert to confirm an irreversible action; use Alert
+              dialog.
+            </>,
+            <>
+              Don’t combine <Code>AlertAction</Code> and{" "}
+              <Code>dismissible</Code>.
+            </>,
+            <>Don’t rely on colour or an icon to communicate the message.</>,
+            <>
+              Don’t override the Alert chrome or add variants, icons, or
+              behaviour props without consent.
+            </>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Behaviour props on Alert."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "variant",
+              type: '"default" | "destructive" | "info" | "success" | "warning"',
+              defaultValue: '"default"',
+              description: "The meaning and visual treatment of the message.",
+            },
+            {
+              name: "icon",
+              type: "boolean | React.ReactNode",
+              defaultValue: "false",
+              description:
+                "true uses the mapped icon for the variant. A React node supplies an approved custom icon.",
+            },
+            {
+              name: "dismissible",
+              type: "boolean | { label?: string; ariaLabel?: string; onDismiss?: () => void }",
+              defaultValue: "false",
+              description:
+                "Adds an internal dismiss button and optionally reports dismissal to the parent.",
+            },
+            {
+              name: "role",
+              type: "React.AriaRole",
+              defaultValue: '"alert"',
+              description:
+                "Inherited from div. Override with status only for a non-urgent dynamic announcement.",
+            },
+            {
+              name: "AlertAction",
+              type: 'React.ComponentProps<"div">',
+              description:
+                "Positions one child Button or link. It does not create the interactive control.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-reference"
+          className="mt-6"
+          title="API reference"
+          description={
+            <>
+              See the{" "}
+              <DocsExternalLink href="https://ui.shadcn.com/docs/components/base/alert">
+                Shadcn Alert documentation
+              </DocsExternalLink>{" "}
+              for the source composition.
+            </>
+          }
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Choose a different feedback surface when the message should not remain inline."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/toast">Toast</DocsPageLink> — brief
+            post-action feedback that can disappear.
+          </li>
+          <li>
+            <DocsPageLink to="/components/alert-dialog">
+              Alert dialog
+            </DocsPageLink>{" "}
+            — confirmation required before an action proceeds.
+          </li>
+          <li>
+            <DocsPageLink to="/components/field">Field</DocsPageLink> — an error
+            or instruction belonging to one form control.
+          </li>
+        </ul>
       </PageSection>
     </div>
-  )
+  );
 }

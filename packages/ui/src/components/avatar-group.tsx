@@ -1,196 +1,220 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@gecko/ui/components/avatar"
-import type { AvatarSize } from "@gecko/ui/components/avatar"
-import { Button } from "@gecko/ui/components/button"
+import * as React from "react";
+
+import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
+import type { AvatarSize } from "@gecko/ui/components/avatar";
+import { Button } from "@gecko/ui/components/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"
+  Popover,
+  PopoverContent,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@gecko/ui/components/popover";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@gecko/ui/components/tooltip";
+import { cn } from "@gecko/ui/lib/utils";
 
 export type AvatarGroupItem = {
-  src?: string
-  alt?: string
-  fallback?: string
-  name?: string
-  tooltip?: string
+  /** Stable identity used when people are reordered. */
+  id: string;
+  /** Person or account name. */
+  name: string;
+  /** Optional profile-image URL. */
+  src?: string;
+};
+
+type ResolvedAvatarGroupSize = Exclude<AvatarSize, "default">;
+
+const resolvedSize: Record<AvatarSize, ResolvedAvatarGroupSize> = {
+  xs: "xs",
+  sm: "sm",
+  md: "md",
+  lg: "lg",
+  xl: "xl",
+  "2xl": "2xl",
+  "3xl": "3xl",
+  default: "xl",
+};
+
+const overlapClass: Record<ResolvedAvatarGroupSize, string> = {
+  xs: "-ms-1",
+  sm: "-ms-1",
+  md: "-ms-1.5",
+  lg: "-ms-2",
+  xl: "-ms-2",
+  "2xl": "-ms-2",
+  "3xl": "-ms-3",
+};
+
+const countSizeClass: Record<ResolvedAvatarGroupSize, string> = {
+  xs: "size-4 text-[7px]",
+  sm: "size-5 text-[9px]",
+  md: "size-6 text-[10px]",
+  lg: "size-7 text-xs",
+  xl: "size-8 text-xs",
+  "2xl": "size-9 text-sm",
+  "3xl": "size-12 text-base",
+};
+
+export type AvatarGroupProps = Omit<
+  React.ComponentProps<"div">,
+  "children" | "role"
+> & {
+  /** People to display in their supplied order. */
+  items: readonly AvatarGroupItem[];
+  /** Uses the same size values and diameters as Avatar. */
+  size?: AvatarSize;
+  /** Maximum visible people before the built-in overflow control appears. */
+  maxVisible?: number;
+  /** Shows a supplementary visual name on hover and keyboard focus. */
+  tooltips?: boolean;
+};
+
+function getVisibleCount(maxVisible: number | undefined, total: number) {
+  if (maxVisible == null || !Number.isFinite(maxVisible)) return total;
+  return Math.min(total, Math.max(1, Math.floor(maxVisible)));
 }
 
-export type AvatarGroupSize =
-  | "3xs"
-  | "2xs"
-  | "xs"
-  | "sm"
-  | "md"
-  | "lg"
-  | "xl"
-  | "2xl"
-
-const sizeToAvatarSize: Record<AvatarGroupSize, AvatarSize> = {
-  "3xs": "xs",
-  "2xs": "xs",
-  xs: "sm",
-  sm: "md",
-  md: "lg",
-  lg: "xl",
-  xl: "2xl",
-  "2xl": "3xl",
+function PersonAvatar({
+  item,
+  size,
+}: {
+  item: AvatarGroupItem;
+  size: AvatarSize;
+}) {
+  return (
+    <Avatar name={item.name} size={size} aria-hidden="true">
+      {item.src != null && <AvatarImage src={item.src} />}
+    </Avatar>
+  );
 }
 
-const sizeMapButton: Record<AvatarGroupSize, string> = {
-  "3xs": "size-3 text-[7px]",
-  "2xs": "size-4 text-[7px]",
-  xs: "size-5 text-[9px]",
-  sm: "size-6 text-xs",
-  md: "size-7 text-xs",
-  lg: "size-8 text-sm",
-  xl: "size-9 text-sm",
-  "2xl": "size-12 text-base",
+function VisiblePerson({
+  item,
+  size,
+  tooltips,
+}: {
+  item: AvatarGroupItem;
+  size: AvatarSize;
+  tooltips: boolean;
+}) {
+  const identity = (
+    <span
+      role="img"
+      aria-label={item.name}
+      tabIndex={tooltips ? 0 : undefined}
+      className={cn(
+        "relative inline-flex rounded-full outline-none",
+        tooltips &&
+          "focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      )}
+    >
+      <PersonAvatar item={item} size={size} />
+    </span>
+  );
+
+  if (!tooltips) return identity;
+
+  return (
+    <Tooltip>
+      <TooltipTrigger render={identity} />
+      <TooltipContent>{item.name}</TooltipContent>
+    </Tooltip>
+  );
 }
 
-const sizeMapSpacing: Record<AvatarGroupSize, string> = {
-  "3xs": "-ml-0.5",
-  "2xs": "-ml-0.5",
-  xs: "-ml-1",
-  sm: "-ml-2",
-  md: "-ml-2",
-  lg: "-ml-2",
-  xl: "-ml-2",
-  "2xl": "-ml-3",
-}
+function OverflowPeople({
+  items,
+  size,
+}: {
+  items: readonly AvatarGroupItem[];
+  size: ResolvedAvatarGroupSize;
+}) {
+  const label = `${items.length} more ${items.length === 1 ? "person" : "people"}`;
 
-export type AvatarGroupProps = {
-  /**
-   * Array of avatar items to display
-   */
-  items: AvatarGroupItem[]
-  /**
-   * Maximum number of avatars to display before showing overflow
-   */
-  displayItems?: number
-  /**
-   * Enable overflow menu for items beyond displayItems
-   */
-  overflow?: boolean
-  /**
-   * Enable tooltips on hover
-   */
-  tooltips?: boolean
-  /**
-   * Additional className for the container
-   */
-  className?: string
-  /**
-   * Size of the avatars
-   */
-  size?: AvatarGroupSize
+  return (
+    <Popover>
+      <PopoverTrigger
+        render={
+          <Button
+            type="button"
+            variant="secondary"
+            size="icon-xs"
+            className={cn(
+              "relative rounded-full p-0 ring-2 ring-background hover:bg-muted aria-expanded:bg-muted",
+              "after:absolute after:start-1/2 after:top-1/2 after:size-6 after:-translate-x-1/2 after:-translate-y-1/2 after:content-['']",
+              countSizeClass[size],
+            )}
+            aria-label={`Show ${label}`}
+          >
+            <span aria-hidden="true">+{items.length}</span>
+          </Button>
+        }
+      />
+      <PopoverContent align="end" className="w-56 gap-0 p-1">
+        <PopoverTitle className="sr-only">{label}</PopoverTitle>
+        <ul className="space-y-0.5">
+          {items.map((item) => (
+            <li
+              key={item.id}
+              className="flex min-w-0 items-center gap-2 rounded-sm px-2 py-1.5"
+            >
+              <PersonAvatar item={item} size="sm" />
+              <span className="truncate text-sm">{item.name}</span>
+            </li>
+          ))}
+        </ul>
+      </PopoverContent>
+    </Popover>
+  );
 }
 
 export function AvatarGroup({
   items,
-  displayItems = 3,
-  overflow = false,
+  size = "default",
+  maxVisible,
   tooltips = false,
   className,
-  size = "md",
+  ...props
 }: AvatarGroupProps) {
-  const visibleItems = overflow ? items.slice(0, displayItems) : items
-  const overflowItems = overflow ? items.slice(displayItems) : []
-  const hasOverflow = overflow && overflowItems.length > 0
-  const avatarSize = sizeToAvatarSize[size]
-
-  const AvatarWrapper = ({
-    item,
-    index,
-  }: {
-    item: AvatarGroupItem
-    index: number
-  }) => {
-    const hasTooltip = Boolean(tooltips && (item.tooltip ?? item.name))
-    const avatar = (
-      <Avatar
-        size={avatarSize}
-        className={cn(
-          "relative",
-          hasTooltip &&
-            "before:absolute before:inset-0 before:rounded-full before:bg-primary/20 before:opacity-0 before:transition-opacity hover:before:opacity-100 before:z-0",
-          index > 0 && sizeMapSpacing[size]
-        )}
-      >
-        {item.src && (
-          <AvatarImage src={item.src} alt={item.alt ?? item.name} />
-        )}
-        <AvatarFallback>
-          {item.fallback ?? item.name?.slice(0, 2).toUpperCase() ?? "?"}
-        </AvatarFallback>
-      </Avatar>
-    )
-
-    if (hasTooltip) {
-      return (
-        <Tooltip>
-          <TooltipTrigger>{avatar}</TooltipTrigger>
-          <TooltipContent>
-            <p>{item.tooltip ?? item.name}</p>
-          </TooltipContent>
-        </Tooltip>
-      )
-    }
-
-    return avatar
-  }
+  const visibleCount = getVisibleCount(maxVisible, items.length);
+  const visibleItems = items.slice(0, visibleCount);
+  const overflowItems = items.slice(visibleCount);
+  const visualSize = resolvedSize[size];
 
   return (
     <div
-      className={cn("flex items-center", className)}
+      role="list"
       data-slot="avatar-group"
+      data-size={visualSize}
+      className={cn("flex items-center", className)}
+      {...props}
     >
       {visibleItems.map((item, index) => (
-        <AvatarWrapper key={index} item={item} index={index} />
+        <span
+          key={item.id}
+          role="listitem"
+          className={cn(
+            "relative inline-flex shrink-0",
+            index > 0 && overlapClass[visualSize],
+          )}
+        >
+          <VisiblePerson item={item} size={size} tooltips={tooltips} />
+        </span>
       ))}
-      {hasOverflow && (
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            render={
-              <Button
-                variant="secondary"
-                size="icon"
-                className={cn(
-                  sizeMapButton[size],
-                  "relative rounded-full z-10 ring-2 ring-background",
-                  sizeMapSpacing[size]
-                )}
-                aria-label={`${overflowItems.length} more items`}
-              >
-                +{overflowItems.length}
-              </Button>
-            }
-          />
-          <DropdownMenuContent align="end" className="w-56">
-            {overflowItems.map((item, index) => (
-              <DropdownMenuItem key={index} className="gap-2">
-                <Avatar size="sm">
-                  {item.src && (
-                    <AvatarImage src={item.src} alt={item.alt ?? item.name} />
-                  )}
-                  <AvatarFallback>
-                    {item.fallback ??
-                      item.name?.slice(0, 2).toUpperCase() ??
-                      "?"}
-                  </AvatarFallback>
-                </Avatar>
-                {item.name != null && <span>{item.name}</span>}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+      {overflowItems.length > 0 && (
+        <span
+          role="listitem"
+          className={cn(
+            "relative inline-flex shrink-0",
+            visibleItems.length > 0 && overlapClass[visualSize],
+          )}
+        >
+          <OverflowPeople items={overflowItems} size={visualSize} />
+        </span>
       )}
     </div>
-  )
+  );
 }

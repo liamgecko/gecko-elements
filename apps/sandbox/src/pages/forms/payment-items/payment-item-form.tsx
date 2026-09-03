@@ -183,7 +183,7 @@ export function PaymentItemForm({
                     handleProviderChange(value as PaymentProvider)
                   }
                 >
-                  <SelectTrigger id="payment-item-provider" className="w-full">
+                  <SelectTrigger id="payment-item-provider">
                     <SelectValue placeholder="Select a payment provider" />
                   </SelectTrigger>
                   <SelectContent>

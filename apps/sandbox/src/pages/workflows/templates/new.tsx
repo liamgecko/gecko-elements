@@ -1,71 +1,72 @@
-import * as React from "react"
-import { useNavigate } from "react-router-dom"
-import { toast } from "sonner"
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "@gecko/ui/components/toast";
 
-import { SupabaseSetupNotice } from "@/components/supabase-setup-notice"
-import { workflowTemplatesRepository } from "@/data/repositories/workflowTemplatesRepository"
-import { isSupabaseConfigured } from "@/lib/supabase/env"
+import { SupabaseSetupNotice } from "@/components/supabase-setup-notice";
+import { workflowTemplatesRepository } from "@/data/repositories/workflowTemplatesRepository";
+import { isSupabaseConfigured } from "@/lib/supabase/env";
 
-import { WorkflowBuilderHeader } from "../builder/workflow-builder-header"
+import { WorkflowBuilderHeader } from "../builder/workflow-builder-header";
 import {
   WorkflowCanvas,
   type WorkflowCanvasRef,
-} from "../builder/workflow-canvas"
-import { WorkflowNameDialog } from "../builder/workflow-name-dialog"
+} from "../builder/workflow-canvas";
+import { WorkflowNameDialog } from "../builder/workflow-name-dialog";
 import {
   WORKFLOW_TAB_PATHS,
   getWorkflowTemplatePath,
   workflowTemplateHeaderMenuItems,
   type WorkflowHeaderMenuActionId,
   type WorkflowTemplateHeaderMenuActionId,
-} from "../workflows-data"
+} from "../workflows-data";
 
 export default function WorkflowTemplateNewPage() {
-  const navigate = useNavigate()
-  const canvasRef = React.useRef<WorkflowCanvasRef>(null)
-  const configured = isSupabaseConfigured()
+  const navigate = useNavigate();
+  const canvasRef = React.useRef<WorkflowCanvasRef>(null);
+  const configured = isSupabaseConfigured();
 
-  const [nameDialogOpen, setNameDialogOpen] = React.useState(false)
-  const [templateName, setTemplateName] = React.useState("")
-  const [isSaving, setIsSaving] = React.useState(false)
+  const [nameDialogOpen, setNameDialogOpen] = React.useState(false);
+  const [templateName, setTemplateName] = React.useState("");
+  const [isSaving, setIsSaving] = React.useState(false);
 
   const handleMenuAction = (
     action: WorkflowHeaderMenuActionId | WorkflowTemplateHeaderMenuActionId,
   ) => {
     if (action === "delete") {
-      navigate(WORKFLOW_TAB_PATHS.templates)
+      navigate(WORKFLOW_TAB_PATHS.templates);
     }
-  }
+  };
 
   const handleSaveClick = () => {
-    setNameDialogOpen(true)
-  }
+    setNameDialogOpen(true);
+  };
 
   const handleConfirmSave = async () => {
-    const trimmedName = templateName.trim()
-    if (!trimmedName || !canvasRef.current) return
+    const trimmedName = templateName.trim();
+    if (!trimmedName || !canvasRef.current) return;
 
-    setIsSaving(true)
+    setIsSaving(true);
 
     try {
-      const definition = canvasRef.current.getDefinition()
+      const definition = canvasRef.current.getDefinition();
       const template = await workflowTemplatesRepository.createTemplate({
         name: trimmedName,
         definition,
-      })
-      toast.success(`${template.name} created`)
+      });
+      toast.add({ title: `${template.name} created`, type: "success" });
       navigate(getWorkflowTemplatePath(template.id), {
         state: { templateName: template.name },
         replace: true,
-      })
+      });
     } catch (err) {
-      toast.error(
-        err instanceof Error ? err.message : "Failed to create template",
-      )
+      toast.add({
+        title: err instanceof Error ? err.message : "Failed to create template",
+        type: "error",
+      });
     } finally {
-      setIsSaving(false)
+      setIsSaving(false);
     }
-  }
+  };
 
   if (!configured) {
     return (
@@ -79,7 +80,7 @@ export default function WorkflowTemplateNewPage() {
           <SupabaseSetupNotice />
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -99,7 +100,7 @@ export default function WorkflowTemplateNewPage() {
       <WorkflowNameDialog
         open={nameDialogOpen}
         onOpenChange={(open) => {
-          if (!isSaving) setNameDialogOpen(open)
+          if (!isSaving) setNameDialogOpen(open);
         }}
         name={templateName}
         onNameChange={setTemplateName}
@@ -108,5 +109,5 @@ export default function WorkflowTemplateNewPage() {
         variant="template"
       />
     </div>
-  )
+  );
 }

@@ -1,6 +1,6 @@
-import * as React from "react"
-import { Archive, X } from "lucide-react"
-import { toast } from "sonner"
+import * as React from "react";
+import { Archive, X } from "lucide-react";
+import { toast } from "@gecko/ui/components/toast";
 
 import {
   AlertDialog,
@@ -11,67 +11,72 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@gecko/ui/components/alert-dialog"
+} from "@gecko/ui/components/alert-dialog";
 
-import { formsRepository } from "@/data/repositories/formsRepository"
+import { formsRepository } from "@/data/repositories/formsRepository";
 
-import type { Form } from "./forms-data"
+import type { Form } from "./forms-data";
 
 type FormArchiveDialogProps = {
-  forms: Form[] | null
-  onOpenChange: (open: boolean) => void
-  onArchived?: () => void
-}
+  forms: Form[] | null;
+  onOpenChange: (open: boolean) => void;
+  onArchived?: () => void;
+};
 
 export function FormArchiveDialog({
   forms,
   onOpenChange,
   onArchived,
 }: FormArchiveDialogProps) {
-  const [open, setOpen] = React.useState(false)
-  const [targetForms, setTargetForms] = React.useState<Form[]>([])
-  const [isArchiving, setIsArchiving] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
+  const [targetForms, setTargetForms] = React.useState<Form[]>([]);
+  const [isArchiving, setIsArchiving] = React.useState(false);
 
   React.useEffect(() => {
-    if (!forms?.length) return
-    setTargetForms(forms)
-    setOpen(true)
-  }, [forms])
+    if (!forms?.length) return;
+    setTargetForms(forms);
+    setOpen(true);
+  }, [forms]);
 
   const handleOpenChange = (nextOpen: boolean) => {
-    if (nextOpen || isArchiving) return
+    if (nextOpen || isArchiving) return;
 
-    setOpen(false)
-    onOpenChange(false)
-  }
+    setOpen(false);
+    onOpenChange(false);
+  };
 
   const confirmArchive = async () => {
-    if (!targetForms.length) return
+    if (!targetForms.length) return;
 
-    setIsArchiving(true)
+    setIsArchiving(true);
 
     try {
       await Promise.all(
         targetForms.map((form) => formsRepository.archiveForm(form.id)),
-      )
-      toast.success(
-        targetForms.length === 1
-          ? "Form archived successfully"
-          : `${targetForms.length} forms archived successfully`,
-      )
-      setOpen(false)
-      onOpenChange(false)
-      onArchived?.()
+      );
+      toast.add({
+        title:
+          targetForms.length === 1
+            ? "Form archived successfully"
+            : `${targetForms.length} forms archived successfully`,
+        type: "success",
+      });
+      setOpen(false);
+      onOpenChange(false);
+      onArchived?.();
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Failed to archive form")
+      toast.add({
+        title: err instanceof Error ? err.message : "Failed to archive form",
+        type: "error",
+      });
     } finally {
-      setIsArchiving(false)
+      setIsArchiving(false);
     }
-  }
+  };
 
-  if (!targetForms.length) return null
+  if (!targetForms.length) return null;
 
-  const isSingle = targetForms.length === 1
+  const isSingle = targetForms.length === 1;
 
   return (
     <AlertDialog open={open} onOpenChange={handleOpenChange}>
@@ -102,5 +107,5 @@ export function FormArchiveDialog({
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
+  );
 }

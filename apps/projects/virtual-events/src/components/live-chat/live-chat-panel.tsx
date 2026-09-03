@@ -6,132 +6,137 @@ import {
   type ChangeEvent,
   type KeyboardEvent,
   type SyntheticEvent,
-} from "react"
-import { toast } from "sonner"
+} from "react";
+import { toast } from "@gecko/ui/components/toast";
 
-import { ReplyBox } from "@gecko/ui/components/reply-box"
+import { ReplyBox } from "@gecko/ui/components/reply-box";
 
-import { useVirtualEvents } from "@/context/virtual-events-context"
+import { useVirtualEvents } from "@/context/virtual-events-context";
 
-import { formatChatTimestamp } from "./format-chat-timestamp"
-import { LiveChat } from "./live-chat"
-import { LiveChatMentionList } from "./live-chat-mention-list"
-import { LiveChatReplyField } from "./live-chat-reply-field"
+import { formatChatTimestamp } from "./format-chat-timestamp";
+import { LiveChat } from "./live-chat";
+import { LiveChatMentionList } from "./live-chat-mention-list";
+import { LiveChatReplyField } from "./live-chat-reply-field";
 import {
   filterPeopleByMentionQuery,
   getMentionAtCursor,
   getMentionedNames,
   insertMention,
   type MentionRange,
-} from "./live-chat-mentions"
-import { LIVE_CHAT_PEOPLE, type LiveChatPerson } from "./live-chat-people"
-import { addReactionToMessage } from "./live-chat-reactions"
+} from "./live-chat-mentions";
+import { LIVE_CHAT_PEOPLE, type LiveChatPerson } from "./live-chat-people";
+import { addReactionToMessage } from "./live-chat-reactions";
 import {
   MOCK_LIVE_CHAT_MESSAGES,
   MOCK_USER_REPLIES,
   MOCK_USER_REPLY_DELAY_MS,
   type LiveChatMessage,
-} from "./live-chat-messages"
+} from "./live-chat-messages";
 
-const CURRENT_USER_NAME = "You"
+const CURRENT_USER_NAME = "You";
 
 type LiveChatPanelProps = {
-  initialMessages?: LiveChatMessage[]
-  senderName?: string
-}
+  initialMessages?: LiveChatMessage[];
+  senderName?: string;
+};
 
 export function LiveChatPanel({
   initialMessages = MOCK_LIVE_CHAT_MESSAGES,
   senderName = CURRENT_USER_NAME,
 }: LiveChatPanelProps) {
-  const [messages, setMessages] = useState(initialMessages)
-  const [draft, setDraft] = useState("")
-  const [mentionRange, setMentionRange] = useState<MentionRange | null>(null)
-  const [highlightedIndex, setHighlightedIndex] = useState(0)
-  const inputRef = useRef<HTMLInputElement>(null)
-  const replyIndexRef = useRef(0)
-  const replyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const { addMentionNotification } = useVirtualEvents()
+  const [messages, setMessages] = useState(initialMessages);
+  const [draft, setDraft] = useState("");
+  const [mentionRange, setMentionRange] = useState<MentionRange | null>(null);
+  const [highlightedIndex, setHighlightedIndex] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const replyIndexRef = useRef(0);
+  const replyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { addMentionNotification } = useVirtualEvents();
 
   const filteredPeople = useMemo(() => {
     if (!mentionRange) {
-      return []
+      return [];
     }
 
-    return filterPeopleByMentionQuery(mentionRange.query, LIVE_CHAT_PEOPLE)
-  }, [mentionRange])
+    return filterPeopleByMentionQuery(mentionRange.query, LIVE_CHAT_PEOPLE);
+  }, [mentionRange]);
 
   useEffect(() => {
     return () => {
       if (replyTimeoutRef.current) {
-        clearTimeout(replyTimeoutRef.current)
+        clearTimeout(replyTimeoutRef.current);
       }
-    }
-  }, [])
+    };
+  }, []);
 
   function updateMentionFromInput(input: HTMLInputElement) {
     const mention = getMentionAtCursor(
       input.value,
       input.selectionStart ?? input.value.length,
       LIVE_CHAT_PEOPLE,
-    )
+    );
 
-    setMentionRange(mention)
+    setMentionRange(mention);
 
     if (mention) {
-      setHighlightedIndex(0)
+      setHighlightedIndex(0);
     }
   }
 
   function handleInputBlur() {
     window.setTimeout(() => {
-      const activeElement = document.activeElement
+      const activeElement = document.activeElement;
 
       if (activeElement?.closest("[data-mention-list]")) {
-        return
+        return;
       }
 
-      setMentionRange(null)
-    }, 0)
+      setMentionRange(null);
+    }, 0);
   }
 
   function handleDraftChange(event: ChangeEvent<HTMLInputElement>) {
-    setDraft(event.target.value)
-    updateMentionFromInput(event.target)
+    setDraft(event.target.value);
+    updateMentionFromInput(event.target);
   }
 
   function handleInputEvent(event: SyntheticEvent<HTMLInputElement>) {
-    updateMentionFromInput(event.currentTarget)
+    updateMentionFromInput(event.currentTarget);
   }
 
   function handleSelectPerson(person: LiveChatPerson) {
     if (!mentionRange) {
-      return
+      return;
     }
 
-    const { nextValue, nextCursor } = insertMention(draft, mentionRange, person.name)
+    const { nextValue, nextCursor } = insertMention(
+      draft,
+      mentionRange,
+      person.name,
+    );
 
-    setDraft(nextValue)
-    setMentionRange(null)
-    setHighlightedIndex(0)
+    setDraft(nextValue);
+    setMentionRange(null);
+    setHighlightedIndex(0);
 
     requestAnimationFrame(() => {
-      const input = inputRef.current
+      const input = inputRef.current;
       if (!input) {
-        return
+        return;
       }
 
-      input.focus()
-      input.setSelectionRange(nextCursor, nextCursor)
-    })
+      input.focus();
+      input.setSelectionRange(nextCursor, nextCursor);
+    });
   }
 
   function queueMockUserReply() {
-    const reply = MOCK_USER_REPLIES[replyIndexRef.current % MOCK_USER_REPLIES.length]
-    replyIndexRef.current += 1
+    const reply =
+      MOCK_USER_REPLIES[replyIndexRef.current % MOCK_USER_REPLIES.length];
+    replyIndexRef.current += 1;
 
     if (replyTimeoutRef.current) {
-      clearTimeout(replyTimeoutRef.current)
+      clearTimeout(replyTimeoutRef.current);
     }
 
     replyTimeoutRef.current = setTimeout(() => {
@@ -144,27 +149,29 @@ export function LiveChatPanel({
           timestamp: formatChatTimestamp(new Date()),
           role: "user",
         },
-      ])
-      replyTimeoutRef.current = null
-    }, MOCK_USER_REPLY_DELAY_MS)
+      ]);
+      replyTimeoutRef.current = null;
+    }, MOCK_USER_REPLY_DELAY_MS);
   }
 
   function addReaction(messageId: string, emoji: string) {
     setMessages((current) =>
       current.map((message) =>
-        message.id === messageId ? addReactionToMessage(message, emoji) : message,
+        message.id === messageId
+          ? addReactionToMessage(message, emoji)
+          : message,
       ),
-    )
+    );
   }
 
   function sendMessage() {
-    const text = draft.trim()
+    const text = draft.trim();
     if (!text) {
-      return
+      return;
     }
 
-    const messageId = `chat-${crypto.randomUUID()}`
-    const mentionedNames = getMentionedNames(text)
+    const messageId = `chat-${crypto.randomUUID()}`;
+    const mentionedNames = getMentionedNames(text);
 
     setMessages((current) => [
       ...current,
@@ -175,50 +182,50 @@ export function LiveChatPanel({
         timestamp: formatChatTimestamp(new Date()),
         role: "user",
       },
-    ])
-    setDraft("")
-    setMentionRange(null)
+    ]);
+    setDraft("");
+    setMentionRange(null);
 
     if (mentionedNames.length > 0) {
-      addMentionNotification(senderName, messageId)
-      toast(`${senderName} mentioned you in a message`)
+      addMentionNotification(senderName, messageId);
+      toast.add({ title: `${senderName} mentioned you in a message` });
     }
 
-    queueMockUserReply()
+    queueMockUserReply();
   }
 
   function handleInputKeyDown(event: KeyboardEvent<HTMLInputElement>) {
     if (mentionRange) {
       if (event.key === "ArrowDown") {
-        event.preventDefault()
+        event.preventDefault();
         setHighlightedIndex((current) =>
           Math.min(current + 1, Math.max(filteredPeople.length - 1, 0)),
-        )
-        return
+        );
+        return;
       }
 
       if (event.key === "ArrowUp") {
-        event.preventDefault()
-        setHighlightedIndex((current) => Math.max(current - 1, 0))
-        return
+        event.preventDefault();
+        setHighlightedIndex((current) => Math.max(current - 1, 0));
+        return;
       }
 
       if (event.key === "Enter" && filteredPeople.length > 0) {
-        event.preventDefault()
-        handleSelectPerson(filteredPeople[highlightedIndex]!)
-        return
+        event.preventDefault();
+        handleSelectPerson(filteredPeople[highlightedIndex]!);
+        return;
       }
 
       if (event.key === "Escape") {
-        event.preventDefault()
-        setMentionRange(null)
-        return
+        event.preventDefault();
+        setMentionRange(null);
+        return;
       }
     }
 
     if (event.key === "Enter") {
-      event.preventDefault()
-      sendMessage()
+      event.preventDefault();
+      sendMessage();
     }
   }
 
@@ -229,7 +236,7 @@ export function LiveChatPanel({
           messages={messages}
           onReact={addReaction}
           onReply={() => {
-            inputRef.current?.focus()
+            inputRef.current?.focus();
           }}
         />
       </div>
@@ -266,5 +273,5 @@ export function LiveChatPanel({
         </div>
       </div>
     </>
-  )
+  );
 }

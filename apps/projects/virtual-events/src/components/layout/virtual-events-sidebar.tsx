@@ -33,7 +33,7 @@ export function VirtualEventsSidebar({ className }: VirtualEventsSidebarProps) {
       aria-label="Live chat and people"
       className={cn(
         "border-border flex w-(--ve-sidebar-width) shrink-0 flex-col border-l",
-        className,
+        className
       )}
     >
       <Tabs
@@ -43,8 +43,11 @@ export function VirtualEventsSidebar({ className }: VirtualEventsSidebarProps) {
         className="flex min-h-0 flex-1 flex-col gap-0"
       >
         <div className="border-border shrink-0 border-b relative z-10">
-          <TabsList variant="line" fullWidth className="gap-0">
-            <TabsTrigger value="chat" className={cn(sidebarTabTriggerClassName, "text-[13px]")}>
+          <TabsList fullWidth className="gap-0">
+            <TabsTrigger
+              value="chat"
+              className={cn(sidebarTabTriggerClassName, "text-[13px]")}
+            >
               <MessageSquareText />
               Live chat
             </TabsTrigger>
@@ -69,7 +72,10 @@ export function VirtualEventsSidebar({ className }: VirtualEventsSidebarProps) {
           <ChatPanel />
         </TabsContent>
 
-        <TabsContent value="attendees" className="mt-0 min-h-0 flex-1 overflow-hidden">
+        <TabsContent
+          value="attendees"
+          className="mt-0 min-h-0 flex-1 overflow-hidden"
+        >
           <AttendeesPanel />
         </TabsContent>
       </Tabs>

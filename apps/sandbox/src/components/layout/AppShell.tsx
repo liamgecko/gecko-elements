@@ -1,11 +1,15 @@
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@gecko/ui/components/sidebar"
-import { ScrollArea } from "@gecko/ui/components/scroll-area"
-import { Toaster } from "@gecko/ui/components/toast"
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@gecko/ui/components/sidebar";
+import { ScrollArea } from "@gecko/ui/components/scroll-area";
+import { Toaster } from "@gecko/ui/components/toast";
 
-import { AppSidebar } from "./AppSidebar"
-import { AppHeader } from "./AppHeader"
-import { PageDocumentTitle } from "./PageDocumentTitle"
-import { FavouritesProvider } from "../../state/favourites"
+import { AppSidebar } from "./AppSidebar";
+import { AppHeader } from "./AppHeader";
+import { PageDocumentTitle } from "./PageDocumentTitle";
+import { FavouritesProvider } from "../../state/favourites";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
@@ -26,6 +30,5 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <Toaster />
       </FavouritesProvider>
     </div>
-  )
+  );
 }
-

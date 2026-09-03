@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { Command as CommandPrimitive } from "cmdk"
 
@@ -13,6 +15,7 @@ import { SearchIcon, CheckIcon } from "lucide-react"
 
 function Command({
   className,
+  label = "Command menu",
   ...props
 }: React.ComponentProps<typeof CommandPrimitive>) {
   return (
@@ -22,6 +25,7 @@ function Command({
         "bg-popover text-popover-foreground rounded-xl! flex size-full flex-col overflow-hidden",
         className
       )}
+      label={label}
       {...props}
     />
   )
@@ -84,6 +88,7 @@ function CommandInput({
 
 function CommandList({
   className,
+  label = "Suggestions",
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.List>) {
   return (
@@ -93,6 +98,7 @@ function CommandList({
         "no-scrollbar max-h-72 scroll-py-1 outline-none overflow-x-hidden overflow-y-auto p-1",
         className
       )}
+      label={label}
       {...props}
     />
   )
@@ -152,7 +158,10 @@ function CommandItem({
       {...props}
     >
       {children}
-      <CheckIcon className="ms-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100" />
+      <CheckIcon
+        className="ms-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100"
+        aria-hidden="true"
+      />
     </CommandPrimitive.Item>
   )
 }

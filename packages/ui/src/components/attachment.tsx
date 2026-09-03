@@ -8,70 +8,62 @@ import { cn } from "@gecko/ui/lib/utils"
 import { Button } from "@gecko/ui/components/button"
 import { Spinner } from "@gecko/ui/components/spinner"
 
-type AttachmentState = "default" | "uploading" | "error" | "done"
-type AttachmentSize = "default" | "sm" | "xs"
+type AttachmentState = "empty" | "uploading" | "error" | "done"
 
-/** Performs the upload. Call `onProgress` (0–100) to drive the progress copy. */
+/** Performs the upload. Call `onProgress` with a value from 0 to 100. */
 type AttachmentUpload = (
   file: File,
   onProgress: (percent: number) => void
 ) => void | Promise<void>
 
-const attachmentVariants = cva(
-  "group/attachment relative flex w-full min-w-0 items-center gap-3 rounded border bg-card text-card-foreground transition-colors data-[state=default]:border-solid data-[state=error]:border-destructive/30",
-  {
-    variants: {
-      size: {
-        default: "p-2 text-sm",
-        sm: "gap-2.5 p-1.5 text-xs",
-        xs: "gap-2 rounded p-1 text-xs",
-      },
-      interactive: {
-        true: "cursor-pointer hover:bg-muted/25 hover:border-input-hover focus-visible:ring-1 focus-visible:ring-ring/30 focus-visible:outline-none",
-        false: "",
-      },
-    },
-    defaultVariants: {
-      size: "default",
-      interactive: false,
-    },
-  }
-)
-
-const mediaClass =
-  "relative flex aspect-square w-10 shrink-0 items-center justify-center overflow-hidden rounded bg-muted text-foreground [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive group-data-[dragging=true]/attachment:bg-blue-100 dark:group-data-[dragging=true]/attachment:bg-blue-900 group-data-[size=sm]/attachment:w-8 group-data-[size=xs]/attachment:w-7 group-data-[size=xs]/attachment:rounded-md group-data-[size=xs]/attachment:[&_svg:not([class*='size-'])]:size-3.5"
-
-type AttachmentProps = Omit<React.ComponentProps<"div">, "onChange"> & {
-  /**
-   * Force a state (controlled / presentational). When omitted, the component
-   * manages its own lifecycle from the `default` (empty) state.
-   */
-  state?: AttachmentState
-  size?: AttachmentSize
-  /** Filename shown for uploading/error/done. Defaults to the selected file's name. */
-  name?: React.ReactNode
-  /** Secondary line. Overrides the per-state default copy. */
+type AttachmentBaseProps = Omit<React.ComponentProps<"div">, "onChange"> & {
+  /** Secondary copy for the empty state or a status override in controlled mode. */
   description?: React.ReactNode
-  /** Title for the default (empty) state. */
+  /** Title for the empty file field. */
   label?: React.ReactNode
-  /** Upload progress percentage for the uploading state (controlled mode). */
-  progress?: number
-  /** File picker `accept` for the default state. */
+  /** File picker hint. Validate the selected file inside `onUpload` or `onFileChange`. */
   accept?: string
-  /** Performs the upload when a file is chosen (self-managed mode). */
-  onUpload?: AttachmentUpload
-  /** Notified when the managed file changes (selected or cleared). */
-  onFileChange?: (file: File | null) => void
-  /** Called with chosen/dropped files from the default state. */
-  onFiles?: (files: File[]) => void
-  /** Trash action. In controlled mode, also controls whether it renders. */
-  onRemove?: () => void
-  /** Retry action. In controlled mode, also controls whether it renders. */
-  onRetry?: () => void
-  /** Custom media. Overrides the state-derived icon (e.g. a file-type icon). */
+  /** Replaces the library-owned state icon. */
   icon?: React.ReactNode
+  /** Notified when a file is selected or the managed file is cleared. */
+  onFileChange?: (file: File | null) => void
+  /** Called when the remove action is selected. */
+  onRemove?: () => void
+  /** Called when the retry action is selected in controlled mode. */
+  onRetry?: () => void
   disabled?: boolean
 }
+
+type ManagedAttachmentProps = AttachmentBaseProps & {
+  /** Omit `state` to let Attachment own the upload lifecycle. */
+  state?: never
+  /** Required in managed mode. Throw to enter the error state. */
+  onUpload: AttachmentUpload
+  name?: never
+  progress?: never
+}
+
+type ControlledEmptyAttachmentProps = AttachmentBaseProps & {
+  state: "empty"
+  onUpload?: never
+  name?: never
+  progress?: never
+  onFileChange: (file: File | null) => void
+}
+
+type ControlledFileAttachmentProps = AttachmentBaseProps & {
+  state: Exclude<AttachmentState, "empty">
+  onUpload?: never
+  /** Filename shown in the uploading, error, or done state. */
+  name: React.ReactNode
+  /** Upload percentage for the controlled uploading state. */
+  progress?: number
+}
+
+type AttachmentProps =
+  | ManagedAttachmentProps
+  | ControlledEmptyAttachmentProps
+  | ControlledFileAttachmentProps
 
 type ManagedState = {
   state: AttachmentState
@@ -80,25 +72,48 @@ type ManagedState = {
 }
 
 const INITIAL_MANAGED: ManagedState = {
-  state: "default",
+  state: "empty",
   file: null,
   progress: 0,
+}
+
+const attachmentVariants = cva(
+  "group/attachment relative flex w-full min-w-0 items-center gap-3 rounded border bg-card p-2 text-sm text-card-foreground transition-colors data-[state=error]:border-destructive/30",
+  {
+    variants: {
+      interactive: {
+        true: "cursor-pointer hover:border-input-hover hover:bg-muted/25 has-[input:focus-visible]:ring-1 has-[input:focus-visible]:ring-ring/30",
+        false: "",
+      },
+    },
+    defaultVariants: {
+      interactive: false,
+    },
+  }
+)
+
+const mediaClass =
+  "relative flex aspect-square w-10 shrink-0 items-center justify-center overflow-hidden rounded bg-muted text-foreground group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive group-data-[dragging=true]/attachment:bg-blue-100 dark:group-data-[dragging=true]/attachment:bg-blue-900 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4"
+
+function clampProgress(percent: number) {
+  if (!Number.isFinite(percent)) return 0
+  return Math.min(100, Math.max(0, Math.round(percent)))
 }
 
 function formatBytes(bytes: number) {
   if (!bytes) return "0 B"
   const units = ["B", "KB", "MB", "GB"]
-  const i = Math.min(
+  const index = Math.min(
     Math.floor(Math.log(bytes) / Math.log(1024)),
     units.length - 1
   )
-  return `${(bytes / Math.pow(1024, i)).toFixed(i ? 1 : 0)} ${units[i]}`
+  return `${(bytes / Math.pow(1024, index)).toFixed(index ? 1 : 0)} ${units[index]}`
 }
 
-function getMedia(state: AttachmentState, size: AttachmentSize) {
+function getMedia(state: AttachmentState) {
   switch (state) {
     case "uploading":
-      return <Spinner size={size === "xs" ? "xs" : "sm"} />
+      return <Spinner size="sm" />
     case "error":
       return <FileWarning />
     case "done":
@@ -108,25 +123,24 @@ function getMedia(state: AttachmentState, size: AttachmentSize) {
   }
 }
 
-function Attachment({
-  state: stateProp,
-  size = "default",
-  name,
-  description,
-  label = "Click to upload or drag and drop",
-  progress,
-  accept,
-  onUpload,
-  onFileChange,
-  onFiles,
-  onRemove,
-  onRetry,
-  icon,
-  disabled,
-  className,
-  ...props
-}: AttachmentProps) {
-  const inputRef = React.useRef<HTMLInputElement>(null)
+function Attachment(props: AttachmentProps) {
+  const {
+    state: stateProp,
+    name,
+    description,
+    label = "Choose a file or drag and drop",
+    progress,
+    accept,
+    onUpload,
+    onFileChange,
+    onRemove,
+    onRetry,
+    icon,
+    disabled,
+    className,
+    ...rootProps
+  } = props
+
   const [isDragging, setIsDragging] = React.useState(false)
   const [managed, setManaged] = React.useState<ManagedState>(INITIAL_MANAGED)
 
@@ -135,34 +149,37 @@ function Attachment({
 
   const startUpload = React.useCallback(
     async (file: File) => {
+      if (!onUpload) return
+
       setManaged({ state: "uploading", file, progress: 0 })
-      onFileChange?.(file)
+
       try {
-        if (onUpload) {
-          await onUpload(file, (percent) =>
-            setManaged((prev) =>
-              prev.file === file
-                ? { ...prev, progress: Math.round(percent) }
-                : prev
-            )
+        await onUpload(file, (percent) =>
+          setManaged((previous) =>
+            previous.file === file
+              ? { ...previous, progress: clampProgress(percent) }
+              : previous
           )
-        }
-        setManaged((prev) =>
-          prev.file === file ? { ...prev, state: "done", progress: 100 } : prev
+        )
+        setManaged((previous) =>
+          previous.file === file
+            ? { ...previous, state: "done", progress: 100 }
+            : previous
         )
       } catch {
-        setManaged((prev) =>
-          prev.file === file ? { ...prev, state: "error" } : prev
+        setManaged((previous) =>
+          previous.file === file
+            ? { ...previous, state: "error" }
+            : previous
         )
       }
     },
-    [onUpload, onFileChange]
+    [onUpload]
   )
 
-  const handleFiles = (files: File[]) => {
-    if (!files.length) return
-    onFiles?.(files)
-    if (!isControlled) startUpload(files[0])
+  const handleFile = (file: File) => {
+    onFileChange?.(file)
+    if (!isControlled) void startUpload(file)
   }
 
   const handleRemove = () => {
@@ -175,26 +192,29 @@ function Attachment({
 
   const handleRetry = () => {
     onRetry?.()
-    if (!isControlled && managed.file) startUpload(managed.file)
+    if (!isControlled && managed.file) void startUpload(managed.file)
   }
 
-  const media = icon != null ? icon : getMedia(state, size)
+  const media = icon != null ? icon : getMedia(state)
   const displayName = isControlled ? name : managed.file?.name
   const ariaName = typeof displayName === "string" ? displayName : "attachment"
+  const inputLabel = typeof label === "string" ? label : "Choose a file"
 
   const displayDescription = (() => {
-    // The smallest variant is a single line and never shows a description.
-    if (size === "xs") return null
-    // `description` is the hint for the empty state; in controlled mode it can
-    // also override the status line. In self-managed mode the status line is
-    // always derived from the current state.
-    if (state === "default") return description ?? null
+    if (state === "empty") return description ?? null
     if (isControlled && description != null) return description
 
-    const pct = isControlled ? progress : managed.progress
+    const currentProgress = isControlled
+      ? progress == null
+        ? undefined
+        : clampProgress(progress)
+      : managed.progress
+
     switch (state) {
       case "uploading":
-        return pct != null ? `Uploading · ${pct}%` : "Uploading"
+        return currentProgress != null
+          ? `Uploading · ${currentProgress}%`
+          : "Uploading"
       case "error":
         return "Upload failed. Try again."
       case "done":
@@ -206,28 +226,13 @@ function Attachment({
     }
   })()
 
-  if (state === "default") {
-    const openPicker = () => {
-      if (disabled) return
-      inputRef.current?.click()
-    }
-
+  if (state === "empty") {
     return (
       <div
         data-slot="attachment"
         data-state={state}
-        data-size={size}
         data-dragging={isDragging && !disabled ? "true" : undefined}
-        role="button"
-        tabIndex={disabled ? -1 : 0}
-        aria-disabled={disabled || undefined}
-        onClick={openPicker}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault()
-            openPicker()
-          }
-        }}
+        data-disabled={disabled ? "true" : undefined}
         onDragOver={(event) => {
           if (disabled) return
           event.preventDefault()
@@ -241,39 +246,42 @@ function Attachment({
           if (disabled) return
           event.preventDefault()
           setIsDragging(false)
-          handleFiles(Array.from(event.dataTransfer.files ?? []))
+          const file = event.dataTransfer.files?.[0]
+          if (file) handleFile(file)
         }}
         className={cn(
-          attachmentVariants({ size, interactive: true }),
+          attachmentVariants({ interactive: true }),
           isDragging &&
             !disabled &&
-            "data-[state=default]:border-dashed border-blue-500 bg-blue-50 dark:border-blue-700 dark:bg-blue-950",
-          disabled && "pointer-events-none opacity-75",
+            "border-blue-500 bg-blue-50 dark:border-blue-700 dark:bg-blue-950",
+          disabled && "cursor-not-allowed opacity-75",
           className
         )}
-        {...props}
+        {...rootProps}
       >
-        <span className={mediaClass}>{media}</span>
+        <input
+          type="file"
+          accept={accept}
+          disabled={disabled}
+          aria-label={inputLabel}
+          className="absolute inset-0 z-10 size-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
+          onChange={(event) => {
+            const file = event.target.files?.[0]
+            event.target.value = ""
+            if (file) handleFile(file)
+          }}
+        />
+        <span className={mediaClass} aria-hidden="true">
+          {media}
+        </span>
         <span className="min-w-0 flex-1 leading-tight">
           <span className="block truncate font-medium">{label}</span>
           {displayDescription != null && (
-            <span className="mt-0.5 block truncate text-xs text-muted-foreground group-data-[size=sm]/attachment:text-[11px]">
+            <span className="mt-0.5 block truncate text-xs text-muted-foreground">
               {displayDescription}
             </span>
           )}
         </span>
-        <input
-          ref={inputRef}
-          type="file"
-          accept={accept}
-          disabled={disabled}
-          className="sr-only"
-          onChange={(event) => {
-            const files = Array.from(event.target.files ?? [])
-            event.target.value = ""
-            handleFiles(files)
-          }}
-        />
       </div>
     )
   }
@@ -285,11 +293,17 @@ function Attachment({
     <div
       data-slot="attachment"
       data-state={state}
-      data-size={size}
-      className={cn(attachmentVariants({ size }), className)}
-      {...props}
+      data-disabled={disabled ? "true" : undefined}
+      className={cn(
+        attachmentVariants(),
+        disabled && "opacity-75",
+        className
+      )}
+      {...rootProps}
     >
-      <span className={mediaClass}>{media}</span>
+      <span className={mediaClass} aria-hidden="true">
+        {media}
+      </span>
       <span className="min-w-0 flex-1 leading-tight">
         <span
           className={cn(
@@ -301,8 +315,11 @@ function Attachment({
         </span>
         {displayDescription != null && (
           <span
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
             className={cn(
-              "mt-0.5 block truncate text-xs text-muted-foreground group-data-[size=sm]/attachment:text-[11px]",
+              "mt-0.5 block truncate text-xs text-muted-foreground",
               state === "error" && "text-destructive/80"
             )}
           >
@@ -311,16 +328,17 @@ function Attachment({
         )}
       </span>
       {(showRetry || showRemove) && (
-        <div className="relative z-10 flex shrink-0 items-center gap-1">
+        <div className="relative z-20 flex shrink-0 items-center gap-1">
           {showRetry && (
             <Button
               type="button"
               variant="ghost"
               size="icon-xs"
+              disabled={disabled}
               onClick={handleRetry}
               aria-label={`Retry ${ariaName}`}
             >
-              <RefreshCw />
+              <RefreshCw aria-hidden="true" />
             </Button>
           )}
           {showRemove && (
@@ -328,10 +346,11 @@ function Attachment({
               type="button"
               variant="ghost"
               size="icon-xs"
+              disabled={disabled}
               onClick={handleRemove}
               aria-label={`Remove ${ariaName}`}
             >
-              <Trash2 />
+              <Trash2 aria-hidden="true" />
             </Button>
           )}
         </div>
@@ -341,4 +360,11 @@ function Attachment({
 }
 
 export { Attachment }
-export type { AttachmentProps, AttachmentState, AttachmentSize, AttachmentUpload }
+export type {
+  AttachmentProps,
+  AttachmentState,
+  AttachmentUpload,
+  ManagedAttachmentProps,
+  ControlledEmptyAttachmentProps,
+  ControlledFileAttachmentProps,
+}

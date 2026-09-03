@@ -1,12 +1,12 @@
-import type { ColumnDef } from "@tanstack/react-table"
+import type { ColumnDef } from "@tanstack/react-table";
 
-import { Avatar, AvatarFallback } from "@gecko/ui/components/avatar"
-import type { DataTableColumnMeta } from "@gecko/ui/components/data-table/data-table"
-import { DataTableColumnHeader } from "@gecko/ui/components/data-table/data-table-column-header"
-import { DataTableMultiLineCell } from "@gecko/ui/components/data-table/data-table-multi-line-cell"
+import { Avatar } from "@gecko/ui/components/avatar";
+import type { DataTableColumnMeta } from "@gecko/ui/components/data-table/data-table";
+import { DataTableColumnHeader } from "@gecko/ui/components/data-table/data-table-column-header";
+import { DataTableMultiLineCell } from "@gecko/ui/components/data-table/data-table-multi-line-cell";
 
-import type { WorkflowTemplate } from "./workflows-data"
-import { formatWorkflowDateTime } from "./workflows-columns"
+import type { WorkflowTemplate } from "./workflows-data";
+import { formatWorkflowDateTime } from "./workflows-columns";
 
 export function createWorkflowTemplateColumns(): ColumnDef<WorkflowTemplate>[] {
   return [
@@ -27,21 +27,21 @@ export function createWorkflowTemplateColumns(): ColumnDef<WorkflowTemplate>[] {
         <DataTableColumnHeader column={column} title="Created by" />
       ),
       sortingFn: (rowA, rowB) =>
-        rowA.original.createdBy.name.localeCompare(rowB.original.createdBy.name),
+        rowA.original.createdBy.name.localeCompare(
+          rowB.original.createdBy.name,
+        ),
       cell: ({ row }) => {
-        const { createdBy } = row.original
+        const { createdBy } = row.original;
         return (
           <div className="flex min-w-0 items-center gap-3">
-            <Avatar size="md">
-              <AvatarFallback>{createdBy.initials}</AvatarFallback>
-            </Avatar>
+            <Avatar name={createdBy.name} size="md" />
             <DataTableMultiLineCell
               primary={createdBy.name}
               secondary={formatWorkflowDateTime(createdBy.createdAt)}
             />
           </div>
-        )
+        );
       },
     },
-  ]
+  ];
 }

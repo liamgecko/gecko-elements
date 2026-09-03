@@ -1,6 +1,6 @@
-import * as React from "react"
-import { ArchiveRestore, X } from "lucide-react"
-import { toast } from "sonner"
+import * as React from "react";
+import { ArchiveRestore, X } from "lucide-react";
+import { toast } from "@gecko/ui/components/toast";
 
 import {
   AlertDialog,
@@ -11,71 +11,72 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@gecko/ui/components/alert-dialog"
-import { DataTable } from "@gecko/ui/components/data-table/data-table"
-import { TooltipProvider } from "@gecko/ui/components/tooltip"
+} from "@gecko/ui/components/alert-dialog";
+import { DataTable } from "@gecko/ui/components/data-table/data-table";
+import { TooltipProvider } from "@gecko/ui/components/tooltip";
 
 import {
   DataLoadErrorAlert,
   SupabaseSetupNotice,
-} from "@/components/supabase-setup-notice"
-import { DataTablePageSkeleton } from "@/components/data-table-page-skeleton"
-import { formsRepository } from "@/data/repositories/formsRepository"
-import { useArchivedForms } from "@/hooks/useArchivedForms"
+} from "@/components/supabase-setup-notice";
+import { DataTablePageSkeleton } from "@/components/data-table-page-skeleton";
+import { formsRepository } from "@/data/repositories/formsRepository";
+import { useArchivedForms } from "@/hooks/useArchivedForms";
 
-import { archivedFormColumns } from "./archived-forms-columns"
+import { archivedFormColumns } from "./archived-forms-columns";
 import {
   archivedFormRowActions,
   createFormFilterCategories,
   type Form,
-} from "./forms-data"
+} from "./forms-data";
 
 export default function ArchivedFormsPage() {
   const { forms, groupNames, loading, error, configured, refetch } =
-    useArchivedForms()
-  const [formToRestore, setFormToRestore] = React.useState<Form | null>(null)
-  const [isRestoring, setIsRestoring] = React.useState(false)
+    useArchivedForms();
+  const [formToRestore, setFormToRestore] = React.useState<Form | null>(null);
+  const [isRestoring, setIsRestoring] = React.useState(false);
 
   const filterCategories = React.useMemo(
     () => createFormFilterCategories(groupNames, { includeStatus: false }),
     [groupNames],
-  )
+  );
 
   const handleRestoreDialogOpenChange = (open: boolean) => {
     if (!open && !isRestoring) {
-      setFormToRestore(null)
+      setFormToRestore(null);
     }
-  }
+  };
 
   const confirmRestore = async () => {
-    if (!formToRestore) return
+    if (!formToRestore) return;
 
-    setIsRestoring(true)
+    setIsRestoring(true);
 
     try {
-      await formsRepository.restoreForm(formToRestore.id)
-      toast.success("Form restored successfully")
-      setFormToRestore(null)
-      refetch()
+      await formsRepository.restoreForm(formToRestore.id);
+      toast.add({ title: "Form restored successfully", type: "success" });
+      setFormToRestore(null);
+      refetch();
     } catch (err) {
-      toast.error(
-        err instanceof Error ? err.message : "Failed to restore form",
-      )
+      toast.add({
+        title: err instanceof Error ? err.message : "Failed to restore form",
+        type: "error",
+      });
     } finally {
-      setIsRestoring(false)
+      setIsRestoring(false);
     }
-  }
+  };
 
   if (!configured) {
     return (
       <div className="space-y-4">
         <SupabaseSetupNotice />
       </div>
-    )
+    );
   }
 
   if (loading) {
-    return <DataTablePageSkeleton columnCount={4} />
+    return <DataTablePageSkeleton columnCount={4} />;
   }
 
   if (error) {
@@ -86,7 +87,7 @@ export default function ArchivedFormsPage() {
           message={error}
         />
       </div>
-    )
+    );
   }
 
   return (
@@ -97,7 +98,7 @@ export default function ArchivedFormsPage() {
         rowActions={archivedFormRowActions}
         onRowAction={(actionId, { original }) => {
           if (actionId === "restore") {
-            setFormToRestore(original)
+            setFormToRestore(original);
           }
         }}
         sorting
@@ -148,5 +149,5 @@ export default function ArchivedFormsPage() {
         </AlertDialogContent>
       </AlertDialog>
     </TooltipProvider>
-  )
+  );
 }

@@ -1,7 +1,15 @@
-import { ComponentExample } from "@/components/layout/component-example"
-
-import { Code } from "@gecko/ui/components/code"
-import { PageSection } from "@/components/layout/page-section"
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsExternalLink } from "@/components/layout/docs-external-link";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import { Code } from "@gecko/ui/components/code";
+import { PageSection } from "@/components/layout/page-section";
+import {
+  PageOverviewHeader,
+  PageSectionHeader,
+  PageSubsectionHeader,
+} from "@/components/layout/page-section-header";
 import {
   Dialog,
   DialogWrapper,
@@ -12,192 +20,267 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@gecko/ui/components/dialog"
-import { Button } from "@gecko/ui/components/button"
-import { XIcon } from "lucide-react"
+} from "@gecko/ui/components/dialog";
+import { Button } from "@gecko/ui/components/button";
+import { Field, FieldLabel } from "@gecko/ui/components/field";
+import { Input } from "@gecko/ui/components/input";
 
 export function DialogPage() {
+  const importSnippet = `import {
+  Dialog,
+  DialogBody,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogWrapper,
+} from "@gecko/ui/components/dialog"`;
+
+  const compositionSnippet = `Dialog
+├── DialogTrigger
+└── DialogContent
+    ├── DialogWrapper
+    │   ├── DialogHeader
+    │   │   ├── DialogTitle
+    │   │   └── DialogDescription
+    │   └── DialogBody
+    └── DialogFooter`;
+
+  const basicSnippet = `<Dialog>
+  <DialogTrigger render={<Button variant="outline">Open dialog</Button>} />
+  <DialogContent>
+    <DialogWrapper>
+      <DialogHeader>
+        <DialogTitle>Edit project</DialogTitle>
+        <DialogDescription>
+          Update the project details, then save your changes.
+        </DialogDescription>
+      </DialogHeader>
+      <DialogBody>
+        <Field>
+          <FieldLabel htmlFor="project-name">Project name</FieldLabel>
+          <Input id="project-name" name="projectName" />
+        </Field>
+      </DialogBody>
+    </DialogWrapper>
+  </DialogContent>
+</Dialog>`;
+
+  const withFooterSnippet = `<Dialog>
+  <DialogTrigger render={<Button variant="outline">Open dialog</Button>} />
+  <DialogContent>
+    <DialogWrapper>
+      <DialogHeader>
+        <DialogTitle>Edit project</DialogTitle>
+        <DialogDescription>
+          Update the project details, then save your changes.
+        </DialogDescription>
+      </DialogHeader>
+      <DialogBody>
+        <Field>
+          <FieldLabel htmlFor="project-name">Project name</FieldLabel>
+          <Input id="project-name" name="projectName" />
+        </Field>
+      </DialogBody>
+    </DialogWrapper>
+    <DialogFooter showCloseButton closeButtonText="Cancel">
+      <Button>Save changes</Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>`;
+
+  const sizingSnippet = `<DialogContent size="xs|sm|md|lg|xl">
+  <DialogWrapper>
+    <DialogHeader>
+      <DialogTitle>Dialog title</DialogTitle>
+    </DialogHeader>
+  </DialogWrapper>
+</DialogContent>`;
+
   return (
     <div className="space-y-12">
-        <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Dialog</h1>
-          <p className="text-sm text-muted-foreground">
-            A dialog displays important content or actions in a focused overlay.
-          </p>
-        </PageSection>
+      <PageSection id="overview" label="Overview">
+        <PageOverviewHeader
+          title="Dialog"
+          description="The Dialog component is a window over the page. It holds a task that needs attention while the rest of the screen waits."
+        />
+      </PageSection>
 
-        <PageSection id="basic-example" label="Basic example">
-          <h2 className="text-lg font-semibold">Basic example</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            A minimal dialog without a header or footer. Use{" "}
-            <Code>Dialog</Code>,{" "}
-            <Code>DialogTrigger</Code>, and{" "}
-            <Code>DialogContent</Code> to show simple
-            content.
-          </p>
-          <ComponentExample>
+      <PageSection id="usage" label="Usage">
+        <PageSectionHeader
+          title="Usage"
+          description={
+            <>
+              Use Dialog for focused setup tasks — create/edit forms and similar
+              flows where the person must finish before returning to the page.
+              <br />
+              <br />
+              Avoid using it for action confirmation (delete, unsaved changes,
+              confirm save) — that is an{" "}
+              <DocsPageLink to="/components/alert-dialog">
+                Alert dialog
+              </DocsPageLink>
+              . If the content should slide in from the side while keeping page
+              context, use a{" "}
+              <DocsPageLink to="/components/sheet">Sheet</DocsPageLink>.
+            </>
+          }
+        />
+        <PageSubsectionHeader
+          id="usage-import"
+          title="Import"
+          description="Import the Dialog and its parts to compose an overlay."
+        />
+        <ComponentExample className="mb-6">
+          <Code
+            variant="block"
+            language="tsx"
+            code={importSnippet}
+            showCopyButton
+            copyLabel="Copy import"
+          />
+        </ComponentExample>
+        <PageSubsectionHeader
+          id="usage-composition"
+          title="Composition"
+          description="The trigger opens the overlay. Content sits in a wrapper with its required title, optional description and body, followed by an optional footer."
+        />
+        <ComponentExample>
+          <Code
+            variant="block"
+            language="text"
+            code={compositionSnippet}
+            showCopyButton
+            copyLabel="Copy composition"
+          />
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="basic-example" label="Basic example">
+        <PageSectionHeader
+          title="Basic example"
+          description={
+            <>
+              A titled Dialog using <Code>DialogHeader</Code> and{" "}
+              <Code>DialogBody</Code>. Every Dialog needs a clear{" "}
+              <Code>DialogTitle</Code>; the description is optional.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Dialog>
-              <DialogTrigger render={<Button variant="outline">Open dialog</Button>} />
+              <DialogTrigger
+                render={<Button variant="outline">Open dialog</Button>}
+              />
               <DialogContent>
                 <DialogWrapper>
+                  <DialogHeader>
+                    <DialogTitle>Edit project</DialogTitle>
+                    <DialogDescription>
+                      Update the project details, then save your changes.
+                    </DialogDescription>
+                  </DialogHeader>
                   <DialogBody>
-                    <p className="text-sm text-muted-foreground">
-                      This is a basic dialog without a header or footer. Use it for lightweight messages or confirmations.
-                    </p>
+                    <Field>
+                      <FieldLabel htmlFor="dialog-basic-project-name">
+                        Project name
+                      </FieldLabel>
+                      <Input
+                        id="dialog-basic-project-name"
+                        name="projectName"
+                      />
+                    </Field>
                   </DialogBody>
                 </DialogWrapper>
               </DialogContent>
             </Dialog>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={basicSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="variants" label="Variants">
-          <h2 className="text-lg font-semibold">Variants</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Compose dialogs by adding{" "}
-            <Code>DialogHeader</Code> and{" "}
-            <Code>DialogFooter</Code> inside{" "}
-            <Code>DialogContent</Code>.
-          </p>
-
-          <h3 id="variants-with-header" className="mb-3 text-base font-semibold">With header</h3>
-          <ComponentExample className="mb-6">
+      <PageSection id="footer" label="Footer">
+        <PageSectionHeader
+          title="Footer"
+          description="Add a footer when the task has actions. The product owns the primary action; DialogFooter owns the standard dismissal treatment."
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Dialog>
-              <DialogTrigger render={<Button variant="outline">Open dialog</Button>} />
+              <DialogTrigger
+                render={<Button variant="outline">Open dialog</Button>}
+              />
               <DialogContent>
                 <DialogWrapper>
                   <DialogHeader>
-                    <DialogTitle>Dialog title</DialogTitle>
+                    <DialogTitle>Edit project</DialogTitle>
                     <DialogDescription>
-                      Use a header to provide a clear, accessible title and optional description for the dialog.
-                    </DialogDescription>
-                  </DialogHeader>
-                </DialogWrapper>
-              </DialogContent>
-            </Dialog>
-          </ComponentExample>
-
-          <h3 id="variants-with-footer" className="mb-3 text-base font-semibold">With footer</h3>
-          <ComponentExample className="mb-6">
-            <Dialog>
-              <DialogTrigger render={<Button variant="outline">Open dialog</Button>} />
-              <DialogContent>
-                <DialogWrapper>
-                  <DialogBody>
-                    <p className="text-sm text-muted-foreground">
-                      Use a footer to lay out primary and secondary actions at the bottom of the dialog.
-                    </p>
-                  </DialogBody>
-                </DialogWrapper>
-                <DialogFooter>
-                  <Button variant="outline">Cancel</Button>
-                  <Button variant="default">Continue</Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </ComponentExample>
-
-          <h3 id="variants-with-header-and-footer" className="mb-3 text-base font-semibold">With header and footer</h3>
-          <ComponentExample>
-            <Dialog>
-              <DialogTrigger render={<Button variant="outline">Open dialog</Button>} />
-              <DialogContent>
-                <DialogWrapper>
-                  <DialogHeader>
-                    <DialogTitle>Create project</DialogTitle>
-                    <DialogDescription>
-                      Combine a header and footer for more structured dialogs that include titles and actions.
+                      Update the project details, then save your changes.
                     </DialogDescription>
                   </DialogHeader>
                   <DialogBody>
-                    <p className="text-sm text-muted-foreground">
-                      Use a body to lay out the main content of the dialog.
-                    </p>
+                    <Field>
+                      <FieldLabel htmlFor="dialog-footer-project-name">
+                        Project name
+                      </FieldLabel>
+                      <Input
+                        id="dialog-footer-project-name"
+                        name="projectName"
+                      />
+                    </Field>
                   </DialogBody>
                 </DialogWrapper>
-                <DialogFooter>
-                  <Button variant="default">Create</Button>
+                <DialogFooter showCloseButton closeButtonText="Cancel">
+                  <Button>Save changes</Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={withFooterSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="footer-close-button" label="Footer close button">
-          <h2 className="text-lg font-semibold">Footer close button</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use the{" "}
-            <Code>showCloseButton</Code> prop on{" "}
-            <Code>DialogFooter</Code> to render a footer
-            close action, and customise its label and icon with{" "}
-            <Code>closeButtonText</Code> and{" "}
-            <Code>closeButtonIcon</Code>.
-          </p>
-
-          <h3 id="footer-close-button-default" className="mb-3 text-base font-semibold">Default close button</h3>
-          <ComponentExample className="mb-6">
-            <Dialog>
-              <DialogTrigger render={<Button variant="outline">Open dialog</Button>} />
-              <DialogContent>
-                <DialogWrapper>
-                  <DialogHeader>
-                    <DialogTitle>Leave workspace</DialogTitle>
-                    <DialogDescription>
-                      The default footer close button renders an outline button labelled &quot;Close&quot;.
-                    </DialogDescription>
-                  </DialogHeader>
-                </DialogWrapper>
-                <DialogFooter showCloseButton>
-                  <Button variant="default">Leave</Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </ComponentExample>
-
-          <h3 id="footer-close-button-custom" className="mb-3 text-base font-semibold">Custom close button</h3>
-          <ComponentExample>
-            <Dialog>
-              <DialogTrigger render={<Button variant="outline">Open dialog</Button>} />
-              <DialogContent>
-                <DialogWrapper>
-                  <DialogHeader>
-                    <DialogTitle>Discard changes</DialogTitle>
-                    <DialogDescription>
-                      Customise the footer close button text and icon while keeping layout and styling consistent.
-                    </DialogDescription>
-                  </DialogHeader>
-                </DialogWrapper>
-                <DialogFooter
-                  showCloseButton
-                  closeButtonText="Cancel"
-                  closeButtonIcon={XIcon}
-                >
-                  <Button variant="default">Discard</Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </ComponentExample>
-        </PageSection>
-
-        <PageSection id="sizing" label="Sizing">
-          <h2 className="text-lg font-semibold">Sizing</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Control the maximum width of the dialog content with the{" "}
-            <Code>size</Code> prop on{" "}
-            <Code>DialogContent</Code>. Sizes map to
-            responsive max-widths on larger screens.
-          </p>
-          <ComponentExample>
+      <PageSection id="sizing" label="Sizing">
+        <PageSectionHeader
+          title="Sizing"
+          description={
+            <>
+              Sets the width using <Code>size</Code> on{" "}
+              <Code>DialogContent</Code>. Choose the smallest size that fits the
+              task without crowding its content. The example contains every
+              available size.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <div className="flex flex-wrap gap-4">
               <Dialog>
-                <DialogTrigger render={<Button variant="outline">Extra small</Button>} />
+                <DialogTrigger
+                  render={<Button variant="outline">Extra small</Button>}
+                />
                 <DialogContent size="xs">
                   <DialogWrapper>
                     <DialogHeader>
                       <DialogTitle>Extra small dialog</DialogTitle>
                       <DialogDescription>
-                        Use <Code>size=&quot;xs&quot;</Code> for
-                        very compact dialogs such as toasts or inline confirmations.
+                        Use <Code>size=&quot;xs&quot;</Code> for very compact
+                        single-step tasks.
                       </DialogDescription>
                     </DialogHeader>
                   </DialogWrapper>
@@ -205,14 +288,16 @@ export function DialogPage() {
               </Dialog>
 
               <Dialog>
-                <DialogTrigger render={<Button variant="outline">Small</Button>} />
+                <DialogTrigger
+                  render={<Button variant="outline">Small</Button>}
+                />
                 <DialogContent size="sm">
                   <DialogWrapper>
                     <DialogHeader>
                       <DialogTitle>Small dialog</DialogTitle>
                       <DialogDescription>
-                        <Code>size=&quot;sm&quot;</Code> is ideal
-                        for short forms and simple confirmation flows.
+                        <Code>size=&quot;sm&quot;</Code> is ideal for short
+                        forms with only a few fields.
                       </DialogDescription>
                     </DialogHeader>
                   </DialogWrapper>
@@ -220,15 +305,16 @@ export function DialogPage() {
               </Dialog>
 
               <Dialog>
-                <DialogTrigger render={<Button variant="outline">Medium</Button>} />
+                <DialogTrigger
+                  render={<Button variant="outline">Medium</Button>}
+                />
                 <DialogContent size="md">
                   <DialogWrapper>
                     <DialogHeader>
                       <DialogTitle>Medium dialog</DialogTitle>
                       <DialogDescription>
-                        The default{" "}
-                        <Code>size=&quot;md&quot;</Code>{" "}
-                        balances content density and readability.
+                        The default <Code>size=&quot;md&quot;</Code> suits
+                        standard forms and setup tasks.
                       </DialogDescription>
                     </DialogHeader>
                   </DialogWrapper>
@@ -236,15 +322,16 @@ export function DialogPage() {
               </Dialog>
 
               <Dialog>
-                <DialogTrigger render={<Button variant="outline">Large</Button>} />
+                <DialogTrigger
+                  render={<Button variant="outline">Large</Button>}
+                />
                 <DialogContent size="lg">
                   <DialogWrapper>
                     <DialogHeader>
                       <DialogTitle>Large dialog</DialogTitle>
                       <DialogDescription>
-                        Use{" "}
-                        <Code>size=&quot;lg&quot;</Code> for
-                        content-heavy dialogs such as settings or multi-step flows.
+                        Use <Code>size=&quot;lg&quot;</Code> for multi-section
+                        forms or wider content.
                       </DialogDescription>
                     </DialogHeader>
                   </DialogWrapper>
@@ -252,22 +339,154 @@ export function DialogPage() {
               </Dialog>
 
               <Dialog>
-                <DialogTrigger render={<Button variant="outline">Extra large</Button>} />
+                <DialogTrigger
+                  render={<Button variant="outline">Extra large</Button>}
+                />
                 <DialogContent size="xl">
                   <DialogWrapper>
                     <DialogHeader>
                       <DialogTitle>Extra large dialog</DialogTitle>
                       <DialogDescription>
-                        <Code>size=&quot;xl&quot;</Code> gives
-                        the widest layout for complex editors or previews.
+                        Use <Code>size=&quot;xl&quot;</Code> for dense editors
+                        or previews that genuinely need the available width.
                       </DialogDescription>
                     </DialogHeader>
                   </DialogWrapper>
                 </DialogContent>
               </Dialog>
             </div>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={sizingSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Give modal content a clear structure and accessible name. Do not restyle the dialog chrome."
+        />
+        <DocsDoDont
+          doItems={[
+            <>
+              Give every Dialog a <Code>DialogTitle</Code>. Add a{" "}
+              <Code>DialogDescription</Code> when supporting context helps.
+            </>,
+            <>
+              Keep the main content in <Code>DialogBody</Code> and actions in{" "}
+              <Code>DialogFooter</Code>.
+            </>,
+            <>
+              Choose the smallest <Code>size</Code> that fits the demonstrated
+              content.
+            </>,
+            <>
+              Use <Code>DialogFooter.showCloseButton</Code> when dismissal
+              belongs with the footer actions.
+            </>,
+            <>
+              Keep <Code>DialogContent.showCloseButton</Code> enabled unless
+              another <Code>DialogClose</Code> is rendered inside the Dialog.
+            </>,
+          ]}
+          dontItems={[
+            <>
+              Don’t render a Dialog without an accessible{" "}
+              <Code>DialogTitle</Code>.
+            </>,
+            <>
+              Don’t place action confirmation (delete, unsaved changes, confirm
+              save) in a general Dialog. Use an{" "}
+              <DocsPageLink to="/components/alert-dialog">
+                Alert dialog
+              </DocsPageLink>
+              .
+            </>,
+            <>Don’t use the largest size when the content is short.</>,
+            <>
+              Don’t override the overlay, radius, shadow, or close-button chrome
+              with <Code>className</Code>.
+            </>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Behaviour props on Dialog."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "size",
+              type: '"xs" | "sm" | "md" | "lg" | "xl"',
+              defaultValue: '"md"',
+              description: "Sets the width of DialogContent.",
+            },
+            {
+              name: "DialogContent.showCloseButton",
+              type: "boolean",
+              defaultValue: "true",
+              description: "Shows the corner close action.",
+            },
+            {
+              name: "DialogFooter.showCloseButton",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Adds a close action to DialogFooter.",
+            },
+            {
+              name: "closeButtonText",
+              type: "string",
+              defaultValue: '"Close"',
+              description: "Sets the footer close action label.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-reference"
+          className="mt-6"
+          title="API reference"
+          description={
+            <>
+              See the{" "}
+              <DocsExternalLink href="https://base-ui.com/react/components/dialog">
+                Base UI Dialog API
+              </DocsExternalLink>{" "}
+              and the{" "}
+              <DocsExternalLink href="https://ui.shadcn.com/docs/components/base/dialog">
+                Shadcn Dialog documentation
+              </DocsExternalLink>{" "}
+              for the underlying API and source composition.
+            </>
+          }
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Use a more specific overlay when the interaction calls for one."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/alert-dialog">
+              Alert dialog
+            </DocsPageLink>{" "}
+            — when an action needs explicit confirmation.
+          </li>
+          <li>
+            <DocsPageLink to="/components/sheet">Sheet</DocsPageLink> — when
+            content should enter from the edge of the screen.
+          </li>
+        </ul>
+      </PageSection>
     </div>
-  )
+  );
 }

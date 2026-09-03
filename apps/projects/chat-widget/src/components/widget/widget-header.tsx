@@ -1,21 +1,21 @@
-import { Minus, X } from "lucide-react"
+import { Minus, X } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@gecko/ui/components/avatar"
-import { Button } from "@gecko/ui/components/button"
+import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
+import { Button } from "@gecko/ui/components/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
-import type { AgentProfile, WidgetPhase } from "@/lib/types"
+} from "@gecko/ui/components/tooltip";
+import type { AgentProfile, WidgetPhase } from "@/lib/types";
 
 type WidgetHeaderProps = {
-  phase: WidgetPhase
-  agent: AgentProfile
-  onMinimize: () => void
-  onClose: () => void
-}
+  phase: WidgetPhase;
+  agent: AgentProfile;
+  onMinimize: () => void;
+  onClose: () => void;
+};
 
 export function WidgetHeader({
   phase,
@@ -28,11 +28,12 @@ export function WidgetHeader({
       <header className="relative bg-gray-950 px-6 pt-6 pb-10 text-white">
         <div className="flex items-center justify-between">
           <div className="flex min-w-0 items-center gap-3">
-            <Avatar size="2xl" className="ring-1 ring-gray-200">
-              {agent.avatarSrc ? (
-                <AvatarImage src={agent.avatarSrc} alt={agent.name} />
-              ) : null}
-              <AvatarFallback>{agent.avatarFallback}</AvatarFallback>
+            <Avatar
+              name={agent.name}
+              size="2xl"
+              className="ring-1 ring-gray-200"
+            >
+              {agent.avatarSrc ? <AvatarImage src={agent.avatarSrc} /> : null}
             </Avatar>
             <div className="min-w-0">
               <p className="text-xs text-gray-400">You are speaking with</p>
@@ -54,7 +55,7 @@ export function WidgetHeader({
           </TooltipProvider>
         </div>
       </header>
-    )
+    );
   }
 
   return (
@@ -78,7 +79,7 @@ export function WidgetHeader({
         your inquiries and give you the answers you need.
       </p>
     </header>
-  )
+  );
 }
 
 function HeaderIconButton({
@@ -86,9 +87,9 @@ function HeaderIconButton({
   onClick,
   children,
 }: {
-  label: string
-  onClick: () => void
-  children: React.ReactNode
+  label: string;
+  onClick: () => void;
+  children: React.ReactNode;
 }) {
   return (
     <Tooltip>
@@ -110,5 +111,5 @@ function HeaderIconButton({
         <p>{label}</p>
       </TooltipContent>
     </Tooltip>
-  )
+  );
 }

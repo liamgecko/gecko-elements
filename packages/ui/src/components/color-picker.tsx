@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { HexColorPicker } from "react-colorful"
 
@@ -6,6 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@gecko/ui/components/po
 import { cn } from "@gecko/ui/lib/utils"
 
 const HEX_PATTERN = /^#([0-9a-fA-F]{6})$/
+const HEX_INPUT_PATTERN = "#[0-9A-Fa-f]{6}"
 const DEFAULT_COLOR = "#FFFFFF"
 
 function normalizeHex(value: string) {
@@ -19,18 +22,16 @@ function parseHex(value: string | undefined) {
 
 type ColorPickerProps = Omit<
   React.ComponentProps<typeof Input>,
-  "type" | "value" | "defaultValue" | "onChange"
+  "type" | "value" | "defaultValue" | "onChange" | "inputMode" | "spellCheck" | "autoComplete" | "pattern" | "maxLength"
 > & {
   value?: string
   defaultValue?: string
-  onChange?: React.ChangeEventHandler<HTMLInputElement>
   onValueChange?: (value: string) => void
 }
 
 export function ColorPicker({
   value,
   defaultValue,
-  onChange,
   onValueChange,
   size = "md",
   disabled,
@@ -45,32 +46,27 @@ export function ColorPicker({
   } as const
 
   const inputPaddingLeftMap = {
-    sm: "pl-9",
-    md: "pl-10",
-    lg: "pl-11",
+    sm: "ps-9",
+    md: "ps-10",
+    lg: "ps-11",
   } as const
 
   const buttonSize = buttonSizeMap[inputSize]
   const inputPaddingLeft = inputPaddingLeftMap[inputSize]
   const isControlled = value !== undefined
-  const { id, name, placeholder, ...inputProps } = props
+  const {
+    id,
+    name,
+    placeholder,
+    "aria-invalid": ariaInvalid,
+    "aria-describedby": ariaDescribedBy,
+    ...inputProps
+  } = props
 
-  const [internalInputValue, setInternalInputValue] = React.useState(
-    defaultValue ?? ""
-  )
-  const [selectedHex, setSelectedHex] = React.useState<string>(() => {
-    return parseHex(value ?? defaultValue) ?? DEFAULT_COLOR
-  })
-
-  const inputValue = isControlled ? value ?? "" : internalInputValue
-
-  React.useEffect(() => {
-    if (!isControlled) return
-    const parsed = parseHex(value)
-    if (parsed) {
-      setSelectedHex(parsed)
-    }
-  }, [isControlled, value])
+  const [internalInputValue, setInternalInputValue] = React.useState(parseHex(defaultValue) ?? defaultValue ?? "")
+  const controlledInputValue = parseHex(value) ?? value ?? ""
+  const inputValue = isControlled ? controlledInputValue : internalInputValue
+  const selectedHex = parseHex(inputValue)
 
   function setValue(next: string) {
     if (!isControlled) {
@@ -80,19 +76,13 @@ export function ColorPicker({
   }
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const next = event.target.value
+    const typedValue = event.target.value
+    const next = parseHex(typedValue) ?? typedValue
     setValue(next)
-    onChange?.(event)
-
-    const parsed = parseHex(next)
-    if (parsed) {
-      setSelectedHex(parsed)
-    }
   }
 
   function handlePickerChange(color: string) {
     const next = normalizeHex(color)
-    setSelectedHex(next)
     setValue(next)
   }
 
@@ -104,15 +94,15 @@ export function ColorPicker({
             <button
               type="button"
               disabled={disabled}
-              aria-label="Pick color"
+              aria-label={selectedHex ? `Choose colour. Current value ${selectedHex}` : "Choose colour"}
               className={cn(
-                "absolute left-2 rounded-full bg-red p-0 shadow-[inset_0_0_0_1px_rgb(0_0_0/0.1)]",
+                "absolute start-2 rounded-full bg-muted p-0 shadow-[inset_0_0_0_1px_rgb(0_0_0/0.1)] after:absolute after:-inset-1",
                 "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring/50",
                 "disabled:pointer-events-none disabled:opacity-75",
-                buttonSize
+                buttonSize,
               )}
               style={{
-                backgroundColor: selectedHex,
+                backgroundColor: selectedHex ?? undefined,
               }}
             />
           }
@@ -123,6 +113,8 @@ export function ColorPicker({
           inputMode="text"
           spellCheck={false}
           autoComplete="off"
+          pattern={HEX_INPUT_PATTERN}
+          maxLength={7}
           value={inputValue}
           onChange={handleInputChange}
           disabled={disabled}
@@ -131,33 +123,38 @@ export function ColorPicker({
             "w-full max-w-[126px]",
             !disabled && "group-hover/color-picker:border-input-hover",
             className,
-            inputPaddingLeft
+            inputPaddingLeft,
           )}
           id={id}
           name={name}
           placeholder={placeholder}
+          aria-invalid={ariaInvalid}
+          aria-describedby={ariaDescribedBy}
           {...inputProps}
         />
       </div>
 
       <PopoverContent className="flex w-auto flex-col gap-3 p-3">
-        <HexColorPicker color={selectedHex} onChange={handlePickerChange} />
+        <HexColorPicker color={selectedHex ?? DEFAULT_COLOR} onChange={handlePickerChange} />
 
         <Input
           type="text"
           inputMode="text"
           spellCheck={false}
           autoComplete="off"
+          pattern={HEX_INPUT_PATTERN}
+          maxLength={7}
           value={inputValue}
           onChange={handleInputChange}
           disabled={disabled}
           size={inputSize}
           id={id ? `${id}-popover` : undefined}
           placeholder={placeholder}
-          {...inputProps}
+          aria-label="Hex colour"
+          aria-invalid={ariaInvalid}
+          aria-describedby={ariaDescribedBy}
         />
       </PopoverContent>
     </Popover>
   )
 }
-

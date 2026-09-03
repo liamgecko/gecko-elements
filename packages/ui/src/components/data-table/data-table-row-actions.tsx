@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import type { Row, Table } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react"
@@ -35,10 +37,7 @@ RowActionsTrigger.displayName = "RowActionsTrigger"
 
 type DataTableMeta<TData> = {
   getRowActions?: (original: TData) => DataTableRowAction[]
-  onRowAction?: (
-    actionId: string,
-    context: DataTableRowActionContext<TData>
-  ) => void
+  onRowAction?: (actionId: string, context: DataTableRowActionContext<TData>) => void
 }
 
 function getMeta<TData>(table: Table<TData>): DataTableMeta<TData> {
@@ -63,22 +62,17 @@ export function DataTableRowActionsMenu<TData>({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger render={<RowActionsTrigger />} />
-      <DropdownMenuContent
-        align="end"
-        className="w-max min-w-max"
-      >
+      <DropdownMenuTrigger
+        render={<RowActionsTrigger aria-label={`Open actions for row ${row.index + 1}`} />}
+      />
+      <DropdownMenuContent align="end" className="w-max min-w-max">
         <DropdownMenuGroup>
           {actions.map((action, index) => (
             <React.Fragment key={action.id}>
-              {action.separatorBefore && index > 0 ? (
-                <DropdownMenuSeparator />
-              ) : null}
+              {action.separatorBefore && index > 0 ? <DropdownMenuSeparator /> : null}
               <DropdownMenuItem
                 variant={action.variant ?? "default"}
-                onClick={() =>
-                  onRowAction?.(action.id, { row, original: row.original })
-                }
+                onClick={() => onRowAction?.(action.id, { row, original: row.original })}
               >
                 {action.label}
               </DropdownMenuItem>
@@ -89,4 +83,3 @@ export function DataTableRowActionsMenu<TData>({
     </DropdownMenu>
   )
 }
-

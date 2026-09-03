@@ -1,4 +1,7 @@
+"use client"
+
 import type { LucideIcon } from "lucide-react"
+
 import * as React from "react"
 
 import type { ReplyBoxChannel, ReplyBoxTrayItem } from "./reply-box-actions"
@@ -27,4 +30,3 @@ export function useReplyBox() {
   }
   return ctx
 }
-

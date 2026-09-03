@@ -1,9 +1,9 @@
-import type { ChartConfig } from "@gecko/ui/components/chart"
+import type { ChartConfig } from "@gecko/ui/components/chart";
 
 export type SingleBarChartExampleDatum = {
-  month: string
-  desktop: number
-}
+  month: string;
+  desktop: number;
+};
 
 export const singleBarChartExampleData: SingleBarChartExampleDatum[] = [
   { month: "January", desktop: 186 },
@@ -18,20 +18,19 @@ export const singleBarChartExampleData: SingleBarChartExampleDatum[] = [
   { month: "October", desktop: 214 },
   { month: "November", desktop: 214 },
   { month: "December", desktop: 214 },
-]
+];
 
 export const singleBarChartExampleConfig = {
   desktop: {
-    color: "var(--chart-1)",
+    label: "Desktop",
   },
-} satisfies ChartConfig
-
+} satisfies ChartConfig;
 
 export type MultipleBarChartExampleDatum = {
-  month: string
-  desktop: number
-  mobile: number
-}
+  month: string;
+  desktop: number;
+  mobile: number;
+};
 
 /**
  * 12-month dataset (Jan..Dec) for the "multiple bar" example.
@@ -50,24 +49,22 @@ export const multipleBarChartExampleData: MultipleBarChartExampleDatum[] = [
   { month: "October", desktop: 260, mobile: 170 },
   { month: "November", desktop: 280, mobile: 180 },
   { month: "December", desktop: 240, mobile: 165 },
-]
+];
 
 export const multipleBarChartExampleConfig = {
   desktop: {
     label: "Desktop",
-    color: "var(--chart-1)",
   },
   mobile: {
     label: "Mobile",
-    color: "var(--chart-2)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export type StackedBarChartExampleDatum = {
-  month: string
-  desktop: number
-  mobile: number
-}
+  month: string;
+  desktop: number;
+  mobile: number;
+};
 
 /**
  * 12-month dataset (Jan..Dec) for the "stacked bar" example.
@@ -86,23 +83,21 @@ export const stackedBarChartExampleData: StackedBarChartExampleDatum[] = [
   { month: "October", desktop: 260, mobile: 170 },
   { month: "November", desktop: 280, mobile: 180 },
   { month: "December", desktop: 240, mobile: 165 },
-]
+];
 
 export const stackedBarChartExampleConfig = {
   desktop: {
     label: "Desktop",
-    color: "var(--chart-1)",
   },
   mobile: {
     label: "Mobile",
-    color: "var(--chart-2)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export type SingleLineChartExampleDatum = {
-  month: string
-  desktop: number
-}
+  month: string;
+  desktop: number;
+};
 
 export const singleLineChartExampleData: SingleLineChartExampleDatum[] = [
   { month: "January", desktop: 186 },
@@ -117,19 +112,19 @@ export const singleLineChartExampleData: SingleLineChartExampleDatum[] = [
   { month: "October", desktop: 260 },
   { month: "November", desktop: 280 },
   { month: "December", desktop: 240 },
-]
+];
 
 export const singleLineChartExampleConfig = {
   desktop: {
-    color: "var(--chart-1)",
+    label: "Desktop",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export type MultipleLineChartExampleDatum = {
-  month: string
-  desktop: number
-  mobile: number
-}
+  month: string;
+  desktop: number;
+  mobile: number;
+};
 
 export const multipleLineChartExampleData: MultipleLineChartExampleDatum[] = [
   { month: "January", desktop: 186, mobile: 80 },
@@ -144,23 +139,21 @@ export const multipleLineChartExampleData: MultipleLineChartExampleDatum[] = [
   { month: "October", desktop: 260, mobile: 170 },
   { month: "November", desktop: 280, mobile: 180 },
   { month: "December", desktop: 240, mobile: 165 },
-]
+];
 
 export const multipleLineChartExampleConfig = {
   desktop: {
     label: "Desktop",
-    color: "var(--chart-1)",
   },
   mobile: {
     label: "Mobile",
-    color: "var(--chart-2)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export type LineWithDotsChartExampleDatum = {
-  month: string
-  desktop: number
-}
+  month: string;
+  desktop: number;
+};
 
 export const lineWithDotsChartExampleData: LineWithDotsChartExampleDatum[] = [
   { month: "January", desktop: 186 },
@@ -175,18 +168,18 @@ export const lineWithDotsChartExampleData: LineWithDotsChartExampleDatum[] = [
   { month: "October", desktop: 260 },
   { month: "November", desktop: 280 },
   { month: "December", desktop: 240 },
-]
+];
 
 export const lineWithDotsChartExampleConfig = {
   desktop: {
-    color: "var(--chart-1)",
+    label: "Desktop",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export type AreaSingleChartExampleDatum = {
-  month: string
-  desktop: number
-}
+  month: string;
+  desktop: number;
+};
 
 export const areaSingleChartExampleData: AreaSingleChartExampleDatum[] = [
   { month: "January", desktop: 186 },
@@ -201,19 +194,19 @@ export const areaSingleChartExampleData: AreaSingleChartExampleDatum[] = [
   { month: "October", desktop: 260 },
   { month: "November", desktop: 280 },
   { month: "December", desktop: 240 },
-]
+];
 
 export const areaSingleChartExampleConfig = {
   desktop: {
-    color: "var(--chart-1)",
+    label: "Desktop",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export type AreaMultipleChartExampleDatum = {
-  month: string
-  desktop: number
-  mobile: number
-}
+  month: string;
+  desktop: number;
+  mobile: number;
+};
 
 export const areaMultipleChartExampleData: AreaMultipleChartExampleDatum[] = [
   { month: "January", desktop: 186, mobile: 80 },
@@ -228,38 +221,38 @@ export const areaMultipleChartExampleData: AreaMultipleChartExampleDatum[] = [
   { month: "October", desktop: 260, mobile: 170 },
   { month: "November", desktop: 280, mobile: 180 },
   { month: "December", desktop: 240, mobile: 165 },
-]
+];
 
 export const areaMultipleChartExampleConfig = {
   desktop: {
     label: "Desktop",
-    color: "var(--chart-1)",
   },
   mobile: {
     label: "Mobile",
-    color: "var(--chart-2)",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
-export type AreaStackedChartExampleDatum = AreaMultipleChartExampleDatum
+export type AreaStackedChartExampleDatum = AreaMultipleChartExampleDatum;
 
 export const areaStackedChartExampleData: AreaStackedChartExampleDatum[] =
-  areaMultipleChartExampleData
+  areaMultipleChartExampleData;
 
-export const areaStackedChartExampleConfig = areaMultipleChartExampleConfig satisfies ChartConfig
+export const areaStackedChartExampleConfig =
+  areaMultipleChartExampleConfig satisfies ChartConfig;
 
-export type AreaGradientChartExampleDatum = AreaMultipleChartExampleDatum
+export type AreaGradientChartExampleDatum = AreaMultipleChartExampleDatum;
 
 export const areaGradientChartExampleData: AreaGradientChartExampleDatum[] =
-  areaMultipleChartExampleData
+  areaMultipleChartExampleData;
 
-export const areaGradientChartExampleConfig = areaMultipleChartExampleConfig satisfies ChartConfig
+export const areaGradientChartExampleConfig =
+  areaMultipleChartExampleConfig satisfies ChartConfig;
 
 export type PieChartExampleDatum = {
-  browser: "chrome" | "safari" | "firefox" | "edge" | "other"
-  visitors: number
-  fill: string
-}
+  browser: "chrome" | "safari" | "firefox" | "edge" | "other";
+  visitors: number;
+  fill: string;
+};
 
 /**
  * 5-slice dataset for Pie examples.
@@ -271,21 +264,21 @@ export const pieChartExampleData: PieChartExampleDatum[] = [
   { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
   { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
   { browser: "other", visitors: 90, fill: "var(--color-other)" },
-]
+];
 
 export const pieChartExampleConfig = {
-  chrome: { label: "Chrome", color: "var(--chart-1)" },
-  safari: { label: "Safari", color: "var(--chart-2)" },
-  firefox: { label: "Firefox", color: "var(--chart-3)" },
-  edge: { label: "Edge", color: "var(--chart-4)" },
-  other: { label: "Other", color: "var(--chart-5)" },
-} satisfies ChartConfig
+  chrome: { label: "Chrome" },
+  safari: { label: "Safari" },
+  firefox: { label: "Firefox" },
+  edge: { label: "Edge" },
+  other: { label: "Other" },
+} satisfies ChartConfig;
 
 export type RadarChartExampleDatum = {
-  month: string
-  desktop: number
-  mobile: number
-}
+  month: string;
+  desktop: number;
+  mobile: number;
+};
 
 // 6 points as requested.
 export const radarChartExampleData: RadarChartExampleDatum[] = [
@@ -295,17 +288,17 @@ export const radarChartExampleData: RadarChartExampleDatum[] = [
   { month: "April", desktop: 73, mobile: 190 },
   { month: "May", desktop: 209, mobile: 130 },
   { month: "June", desktop: 214, mobile: 140 },
-]
+];
 
 export const radarChartExampleConfig = {
-  desktop: { label: "Desktop", color: "var(--chart-1)" },
-  mobile: { label: "Mobile", color: "var(--chart-2)" },
-} satisfies ChartConfig
+  desktop: { label: "Desktop" },
+  mobile: { label: "Mobile" },
+} satisfies ChartConfig;
 
 export type RadialDefaultChartExampleDatum = {
-  browser: "chrome" | "safari" | "firefox" | "edge" | "other"
-  visitors: number
-}
+  browser: "chrome" | "safari" | "firefox" | "edge" | "other";
+  visitors: number;
+};
 
 export const radialDefaultChartExampleData: RadialDefaultChartExampleDatum[] = [
   { browser: "chrome", visitors: 1_286 },
@@ -313,28 +306,27 @@ export const radialDefaultChartExampleData: RadialDefaultChartExampleDatum[] = [
   { browser: "firefox", visitors: 734 },
   { browser: "edge", visitors: 513 },
   { browser: "other", visitors: 286 },
-]
+];
 
 export const radialDefaultChartExampleConfig = {
-  visitors: { label: "Visitors", color: "var(--chart-1)" },
-} satisfies ChartConfig
+  visitors: { label: "Visitors" },
+} satisfies ChartConfig;
 
 export const radialTextChartExampleData: RadialDefaultChartExampleDatum[] = [
   { browser: "chrome", visitors: 1_286 },
-]
+];
 
 export type RadialStackedChartExampleDatum = {
-  browser: "chrome"
-  mobile: number
-  desktop: number
-}
+  browser: "chrome";
+  mobile: number;
+  desktop: number;
+};
 
 export const radialStackedChartExampleData: RadialStackedChartExampleDatum[] = [
   { browser: "chrome", mobile: 386, desktop: 900 },
-]
+];
 
 export const radialStackedChartExampleConfig = {
-  mobile: { label: "Mobile", color: "var(--chart-2)" },
-  desktop: { label: "Desktop", color: "var(--chart-1)" },
-} satisfies ChartConfig
-
+  desktop: { label: "Desktop" },
+  mobile: { label: "Mobile" },
+} satisfies ChartConfig;

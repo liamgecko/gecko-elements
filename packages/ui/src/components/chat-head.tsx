@@ -1,194 +1,234 @@
-import * as React from "react"
-import { Check, LockOpen, Trash2 } from "lucide-react"
+import * as React from "react";
+import { Check, LockOpen, Trash2 } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@gecko/ui/components/avatar"
-import { Button } from "@gecko/ui/components/button"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@gecko/ui/components/tooltip"
-import { cn } from "@gecko/ui/lib/utils"
+import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
+import { Button } from "@gecko/ui/components/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@gecko/ui/components/tooltip";
+import { cn } from "@gecko/ui/lib/utils";
 
-type RelativeTimeInput = Date | string | number
+export type ChatHeadPresence = "online" | "unavailable" | "offline";
+export type ChatHeadMessageSender = "contact" | "agent";
+export type ChatHeadState = "open" | "closed";
 
-function toDate(value: RelativeTimeInput): Date | null {
-  if (value instanceof Date) {
-    return Number.isNaN(value.getTime()) ? null : value
-  }
+export type ChatHeadItem = {
+  id: string;
+  name: string;
+  messageSnippet: string;
+  timestamp: Date;
+  avatarSrc?: string;
+  presence?: ChatHeadPresence;
+  lastMessageSender?: ChatHeadMessageSender;
+  state?: ChatHeadState;
+  unread?: boolean;
+};
 
-  const date = new Date(value)
-  return Number.isNaN(date.getTime()) ? null : date
+export type ChatHeadProps = Omit<
+  React.ComponentProps<"ul">,
+  "children" | "onSelect"
+> & {
+  items: readonly ChatHeadItem[];
+  selectedId?: string;
+  onSelect: (item: ChatHeadItem) => void;
+};
+
+function formatRelativeTime(timestamp: Date, now: Date): string {
+  const diffMs = Math.max(0, now.getTime() - timestamp.getTime());
+  const minute = 60 * 1000;
+  const hour = 60 * minute;
+  const day = 24 * hour;
+  const week = 7 * day;
+  const year = 365 * day;
+
+  if (!Number.isFinite(diffMs) || diffMs < minute) return "now";
+  if (diffMs < hour) return `${Math.floor(diffMs / minute)}m`;
+  if (diffMs < day) return `${Math.floor(diffMs / hour)}h`;
+  if (diffMs < week) return `${Math.floor(diffMs / day)}d`;
+  if (diffMs < year) return `${Math.floor(diffMs / week)}w`;
+  return `${Math.floor(diffMs / year)}y`;
 }
 
-function formatRelativeTime(value: RelativeTimeInput, nowDate = new Date()): string {
-  const date = toDate(value)
-  if (!date) return "now"
-
-  const diffMs = Math.max(0, nowDate.getTime() - date.getTime())
-  const minute = 60 * 1000
-  const hour = 60 * minute
-  const day = 24 * hour
-  const week = 7 * day
-  const year = 365 * day
-
-  if (diffMs < minute) return "now"
-  if (diffMs < hour) return `${Math.floor(diffMs / minute)}m`
-  if (diffMs < day) return `${Math.floor(diffMs / hour)}h`
-  if (diffMs < week) return `${Math.floor(diffMs / day)}d`
-  if (diffMs < year) return `${Math.floor(diffMs / week)}w`
-  return `${Math.floor(diffMs / year)}y`
+function ChatHeadActions({ state }: { state: ChatHeadState }) {
+  return (
+    <div className="pointer-events-none absolute inset-y-0 end-3 z-10 flex items-center gap-1.5 opacity-0 transition-opacity duration-200 group-hover/chat-head-item:pointer-events-auto group-hover/chat-head-item:opacity-100 group-focus-within/chat-head-item:pointer-events-auto group-focus-within/chat-head-item:opacity-100">
+      {state === "closed" ? (
+        <>
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button type="button" variant="outline" size="icon-xs">
+                  <LockOpen aria-hidden="true" />
+                  <span className="sr-only">Re-open conversation</span>
+                </Button>
+              }
+            />
+            <TooltipContent side="bottom">
+              <p>Re-open this conversation</p>
+            </TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button type="button" variant="outline" size="icon-xs">
+                  <Trash2 aria-hidden="true" />
+                  <span className="sr-only">Delete conversation</span>
+                </Button>
+              }
+            />
+            <TooltipContent side="bottom">
+              <p>Permanently delete this conversation</p>
+            </TooltipContent>
+          </Tooltip>
+        </>
+      ) : (
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <Button type="button" variant="outline" size="icon-xs">
+                <Check aria-hidden="true" />
+                <span className="sr-only">Close conversation</span>
+              </Button>
+            }
+          />
+          <TooltipContent side="bottom">
+            <p>Mark this conversation as closed</p>
+          </TooltipContent>
+        </Tooltip>
+      )}
+    </div>
+  );
 }
 
-type ChatHeadAvatar = {
-  src?: string
-  alt?: string
-  fallback?: string
-}
+function ChatHead({
+  className,
+  items,
+  selectedId,
+  onSelect,
+  ...props
+}: ChatHeadProps) {
+  const [now, setNow] = React.useState(() => new Date());
+  const selectionRefs = React.useRef(new Map<string, HTMLButtonElement>());
 
-export type ChatHeadProps = React.ComponentProps<"div"> & {
-  closed?: boolean
-}
+  React.useEffect(() => {
+    const interval = window.setInterval(() => setNow(new Date()), 60_000);
+    return () => window.clearInterval(interval);
+  }, []);
 
-export type ChatHeadItemProps = Omit<React.ComponentProps<"div">, "children"> & {
-  name: string
-  messageSnippet: string
-  timestamp: Date
-  avatar?: ChatHeadAvatar
-  isOnline?: boolean
-  isAgent?: boolean
-  isActive?: boolean
-  closed?: boolean
-  isUnread?: boolean
-}
+  const moveFocus = (index: number) => {
+    const item = items[index];
+    if (!item) return;
 
-export const ChatHead = React.forwardRef<HTMLDivElement, ChatHeadProps>(
-  ({ className, children, closed, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
+    selectionRefs.current.get(item.id)?.focus();
+  };
+
+  const handleSelectionKeyDown = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    index: number,
+  ) => {
+    let nextIndex: number | undefined;
+
+    switch (event.key) {
+      case "ArrowDown":
+        nextIndex = Math.min(index + 1, items.length - 1);
+        break;
+      case "ArrowUp":
+        nextIndex = Math.max(index - 1, 0);
+        break;
+      case "Home":
+        nextIndex = 0;
+        break;
+      case "End":
+        nextIndex = items.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    moveFocus(nextIndex);
+  };
+
+  return (
+    <TooltipProvider>
+      <ul
         data-slot="chat-head"
         className={cn("space-y-px", className)}
         {...props}
       >
-        {React.Children.map(children, (child) => {
-          if (React.isValidElement<ChatHeadItemProps>(child)) {
-            return React.cloneElement(child, {
-              closed: child.props.closed ?? closed,
-            })
-          }
-          return child
+        {items.map((item, index) => {
+          const isSelected = item.id === selectedId;
+          const state = item.state ?? "open";
+          const preview =
+            item.lastMessageSender === "agent"
+              ? `You: ${item.messageSnippet}`
+              : item.messageSnippet;
+
+          return (
+            <li
+              key={item.id}
+              data-slot="chat-head-item"
+              data-active={isSelected ? "true" : undefined}
+              className={cn(
+                "group/chat-head-item relative rounded-sm transition-colors hover:bg-muted",
+                isSelected && "bg-muted/60 hover:bg-muted",
+              )}
+            >
+              <button
+                ref={(element) => {
+                  if (element) selectionRefs.current.set(item.id, element);
+                  else selectionRefs.current.delete(item.id);
+                }}
+                type="button"
+                aria-current={isSelected ? "true" : undefined}
+                onClick={() => onSelect(item)}
+                onKeyDown={(event) => handleSelectionKeyDown(event, index)}
+                className="flex w-full items-center gap-3 rounded-sm border border-transparent py-3 pe-3 ps-2 text-start outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+              >
+                <Avatar
+                  name={item.name}
+                  size="lg"
+                  status={item.presence}
+                  notification={item.unread}
+                  aria-hidden="true"
+                >
+                  {item.avatarSrc ? <AvatarImage src={item.avatarSrc} /> : null}
+                </Avatar>
+
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-sm font-medium text-foreground">
+                    {item.name}
+                  </span>
+                  <span className="block truncate text-xs text-muted-foreground">
+                    {preview}
+                  </span>
+                  {(item.unread || item.presence) && (
+                    <span className="sr-only">
+                      {item.unread ? "Unread conversation. " : null}
+                      {item.presence ? `Status: ${item.presence}.` : null}
+                    </span>
+                  )}
+                </span>
+
+                <time
+                  dateTime={item.timestamp.toISOString()}
+                  title={item.timestamp.toLocaleString()}
+                  className="shrink-0 whitespace-nowrap text-xs font-medium text-muted-foreground transition-opacity duration-200 group-hover/chat-head-item:opacity-0 group-focus-within/chat-head-item:opacity-0"
+                >
+                  {formatRelativeTime(item.timestamp, now)}
+                </time>
+              </button>
+
+              <ChatHeadActions state={state} />
+            </li>
+          );
         })}
-      </div>
-    )
-  }
-)
+      </ul>
+    </TooltipProvider>
+  );
+}
 
-export const ChatHeadItem = React.forwardRef<HTMLDivElement, ChatHeadItemProps>(
-  (
-    {
-      className,
-      name,
-      messageSnippet,
-      timestamp,
-      avatar,
-      isOnline = false,
-      isAgent = false,
-      isActive = false,
-      closed = false,
-      isUnread = false,
-      ...props
-    },
-    ref
-  ) => {
-    const relativeTime = React.useMemo(() => formatRelativeTime(timestamp), [timestamp])
-    const avatarFallback = avatar?.fallback ?? name.slice(0, 2).toUpperCase()
-    const preview = isAgent ? messageSnippet : `You: ${messageSnippet}`
-
-    return (
-      <div
-        ref={ref}
-        data-slot="chat-head-item"
-        data-active={isActive ? "true" : undefined}
-        className={cn(
-          "group flex cursor-pointer items-center gap-3 rounded py-3 pl-2 pr-3 transition-colors hover:bg-gray-100 dark:hover:bg-gray-900",
-          isActive && "bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900",
-          className
-        )}
-        {...props}
-      >
-        <Avatar
-          size="lg"
-          status={isOnline ? "online" : "offline"}
-          notification={isUnread}
-        >
-          {avatar?.src ? <AvatarImage src={avatar.src} alt={avatar.alt || name} /> : null}
-          <AvatarFallback>{avatarFallback}</AvatarFallback>
-        </Avatar>
-
-        <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-medium text-foreground">{name}</p>
-          <p className="truncate text-xs text-muted-foreground">{preview}</p>
-        </div>
-
-        <div className="relative flex shrink-0 items-center">
-          <p className="whitespace-nowrap text-xs font-medium text-muted-foreground transition-opacity duration-200 group-hover:opacity-0 group-focus-within:opacity-0">
-            {relativeTime}
-          </p>
-          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center gap-1.5 opacity-0 transition-opacity duration-200 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
-            {closed ? (
-              <>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger
-                      render={
-                        <Button type="button" variant="outline" size="icon-xs" className="size-6">
-                          <LockOpen className="size-3" strokeWidth={2.2} />
-                          <span className="sr-only">Re-open conversation</span>
-                        </Button>
-                      }
-                    />
-                    <TooltipContent side="bottom">
-                      <p>Re-open this conversation</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger
-                      render={
-                        <Button type="button" variant="outline" size="icon-xs" className="size-6">
-                          <Trash2 className="size-3" strokeWidth={2.2} />
-                          <span className="sr-only">Delete conversation</span>
-                        </Button>
-                      }
-                    />
-                    <TooltipContent side="bottom">
-                      <p>Permanently delete this conversation</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </>
-            ) : (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger
-                    render={
-                      <Button type="button" variant="outline" size="icon-xs" className="size-6">
-                        <Check className="size-3" strokeWidth={2.2} />
-                        <span className="sr-only">Close conversation</span>
-                      </Button>
-                    }
-                  />
-                  <TooltipContent side="bottom">
-                    <p>Mark this conversation as closed</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            )}
-          </div>
-        </div>
-      </div>
-    )
-  }
-)
-
-ChatHead.displayName = "ChatHead"
-ChatHeadItem.displayName = "ChatHeadItem"
-
+export { ChatHead };

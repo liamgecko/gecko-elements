@@ -1,150 +1,95 @@
-import * as React from "react"
+"use client";
 
-import { cn } from "@gecko/ui/lib/utils"
-import { Avatar, AvatarImage, AvatarFallback } from "@gecko/ui/components/avatar"
+import * as React from "react";
 
-export type TypingIndicatorEase =
-  | "linear"
-  | "easeIn"
-  | "easeOut"
-  | "easeInOut"
-  | "circIn"
-  | "circOut"
-  | "circInOut"
-  | "backIn"
-  | "backOut"
-  | "backInOut"
-  | "anticipate"
+import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
+import { Marker, MarkerContent, MarkerIcon } from "@gecko/ui/components/marker";
+import { cn } from "@gecko/ui/lib/utils";
 
-export interface TypingIndicatorProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  /** Number of dots (dots variant only). @default 3 */
-  dots?: number
-  /** Dot size in pixels. @default 8 */
-  size?: number
-  /** Dot color. @default "currentColor" */
-  color?: string
-  /** Animation cycle duration in seconds. @default 1.4 */
-  duration?: number
-  /** Variant: dots or text. @default "dots" */
-  variant?: "dots" | "text"
-  /** Name for text variant ("{name} is typing..."). */
-  name?: string
-  /** Avatar: image URL string or custom ReactNode. */
-  avatar?: React.ReactNode
-  /** Whether to animate enter. @default false */
-  animate?: boolean
-  /** Enter animation duration in seconds. @default 0.2 */
-  animationDuration?: number
-  /** Enter animation easing. @default "easeInOut" */
-  animationEase?: TypingIndicatorEase
+export interface TypingIndicatorProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "children"
+> {
+  /** Whether someone is currently typing. Keep the component mounted so exit motion can complete. */
+  active?: boolean;
+  /** Displays a compact dot bubble or a named text status. */
+  variant?: "dots" | "text";
+  /** Identifies the person in the text status and accessible announcement. */
+  name?: string;
+  /** Displays an image URL or custom avatar beside the indicator. */
+  avatar?: React.ReactNode;
 }
+
+const dotDelays = ["0ms", "200ms", "400ms"] as const;
 
 const TypingIndicator = React.forwardRef<HTMLDivElement, TypingIndicatorProps>(
   (
-    {
-      dots = 3,
-      size = 8,
-      color = "currentColor",
-      duration = 1.4,
-      variant = "dots",
-      name,
-      avatar,
-      animate = false,
-      animationDuration = 0.2,
-      animationEase = "easeInOut",
-      className,
-      ...props
-    },
-    ref
+    { active = true, variant = "dots", name, avatar, className, ...props },
+    ref,
   ) => {
-    const avatarNode = React.useMemo(() => {
-      if (!avatar) return null
-      if (typeof avatar === "string") {
-        return (
-          <Avatar size={variant === "dots" ? "sm" : "xs"}>
-            <AvatarImage src={avatar} alt={name ?? "Avatar"} />
-            <AvatarFallback>{name?.[0] ?? "?"}</AvatarFallback>
-          </Avatar>
-        )
-      }
-      return avatar
-    }, [avatar, name, variant])
-
-    const statusText = name ? `${name} is typing` : "Someone is typing"
-
-    const renderContent = () => {
-      if (variant === "text") {
-        return (
-          <span
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-            className={cn(
-              "inline-flex items-center gap-2 text-xs text-muted-foreground",
-              className
-            )}
-            ref={ref}
-            {...props}
-          >
-            {avatarNode}
-            {name ? `${name} is typing...` : "Someone is typing..."}
-          </span>
-        )
-      }
-
-      return (
-        <div
-          role="status"
-          aria-live="polite"
-          aria-atomic="true"
-          className={cn("inline-flex items-center gap-2", className)}
-          ref={ref}
-          {...props}
+    const statusText = name ? `${name} is typing…` : "Someone is typing…";
+    const avatarNode =
+      typeof avatar === "string" ? (
+        <Avatar
+          name={name ?? "Person typing"}
+          size={variant === "dots" ? "sm" : "xs"}
         >
-          {avatarNode}
-          <span className="sr-only">{statusText}</span>
-          <div
-            aria-hidden
-            className="inline-flex items-center gap-1 p-2.5 bg-muted rounded-lg rounded-bl-none relative"
-          >
-            {Array.from({ length: dots }).map((_, index) => (
-              <span
-                key={index}
-                className="animate-typing-dot rounded-full"
-                style={{
-                  width: size,
-                  height: size,
-                  backgroundColor: color,
-                  animationDuration: `${duration}s`,
-                  animationDelay: `${index * 0.2}s`,
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      )
-    }
-
-    if (!animate) {
-      return renderContent()
-    }
+          <AvatarImage src={avatar} />
+        </Avatar>
+      ) : (
+        avatar
+      );
 
     return (
       <div
-        className="animate-in fade-in-0 slide-in-from-bottom-2 duration-200 motion-reduce:animate-none motion-reduce:opacity-100"
-        style={
-          animationDuration !== 0.2
-            ? ({ animationDuration: `${animationDuration}s` } as React.CSSProperties)
-            : undefined
-        }
+        {...props}
+        ref={ref}
+        data-slot="typing-indicator"
+        data-active={active}
+        role="status"
+        aria-live={active ? "polite" : "off"}
+        aria-atomic="true"
+        aria-hidden={active ? undefined : true}
+        className={cn(
+          "w-fit data-[active=false]:pointer-events-none data-[active=false]:translate-y-2 data-[active=false]:opacity-0 data-[active=false]:transition-[opacity,transform] data-[active=false]:duration-200 data-[active=false]:ease-in data-[active=true]:translate-y-0 data-[active=true]:opacity-100 data-[active=true]:transition-none motion-reduce:translate-y-0 motion-reduce:transition-none",
+          className,
+        )}
       >
-        {renderContent()}
+        <div
+          data-active={active}
+          className="w-fit data-[active=true]:animate-in data-[active=true]:fade-in-0 data-[active=true]:slide-in-from-bottom-2 data-[active=true]:duration-200 data-[active=true]:ease-out motion-reduce:animate-none"
+        >
+          {variant === "text" ? (
+            <Marker className="w-fit text-xs">
+              {avatarNode ? (
+                <MarkerIcon className="size-auto">{avatarNode}</MarkerIcon>
+              ) : null}
+              <MarkerContent shimmer>{statusText}</MarkerContent>
+            </Marker>
+          ) : (
+            <div className="inline-flex items-center gap-2">
+              {avatarNode ? <span aria-hidden="true">{avatarNode}</span> : null}
+              <span className="sr-only">{statusText}</span>
+              <span
+                aria-hidden="true"
+                className="relative inline-flex items-center gap-1 rounded-lg rounded-es-none bg-muted p-2.5 text-muted-foreground"
+              >
+                {dotDelays.map((delay) => (
+                  <span
+                    key={delay}
+                    className="size-2 animate-typing-dot rounded-full bg-current"
+                    style={{ animationDelay: delay }}
+                  />
+                ))}
+              </span>
+            </div>
+          )}
+        </div>
       </div>
-    )
-  }
-)
+    );
+  },
+);
 
-TypingIndicator.displayName = "TypingIndicator"
+TypingIndicator.displayName = "TypingIndicator";
 
-export { TypingIndicator }
+export { TypingIndicator };

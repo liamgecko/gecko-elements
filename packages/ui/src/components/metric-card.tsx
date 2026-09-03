@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import {
   CircleHelp,
@@ -15,14 +17,24 @@ import {
 } from "recharts"
 
 import { Button } from "@gecko/ui/components/button"
-import { Card, CardAction, CardContent, CardHeader } from "@gecko/ui/components/card"
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardHeader,
+} from "@gecko/ui/components/card"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@gecko/ui/components/dropdown-menu"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@gecko/ui/components/tooltip"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@gecko/ui/components/tooltip"
 import { cn } from "@gecko/ui/lib/utils"
 
 export type MetricCardSentiment = "positive" | "negative" | "neutral"
@@ -42,6 +54,7 @@ export type MetricCardSparklineDatum = {
 export type MetricCardSparkline = {
   data: MetricCardSparklineDatum[]
   sentiment: MetricCardSentiment
+  ariaLabel?: string
   showTooltip?: boolean
   tooltipLabel?: React.ReactNode
   formatLabel?: (x: MetricCardSparklineDatum["x"]) => React.ReactNode
@@ -62,31 +75,53 @@ export type MetricCardProps = React.ComponentProps<"div"> & {
   detail?: React.ReactNode
   description?: React.ReactNode
   helpText?: React.ReactNode
+  helpLabel?: string
   trend?: MetricCardTrend
   sparkline?: MetricCardSparkline
   menuItems?: MetricCardMenuItem[]
+  menuLabel?: string
 }
 
 function sentimentTextClass(sentiment: MetricCardSentiment) {
-  if (sentiment === "positive") return "text-emerald-600"
-  if (sentiment === "negative") return "text-red-600"
+  if (sentiment === "positive") return "text-success"
+  if (sentiment === "negative") return "text-destructive"
   return "text-muted-foreground"
 }
 
 function sentimentStroke(sentiment: MetricCardSentiment) {
-  if (sentiment === "positive") return "rgb(5 150 105)" // emerald-600
-  if (sentiment === "negative") return "rgb(220 38 38)" // red-600
-  return "rgb(107 114 128)" // gray-500
+  if (sentiment === "positive") return "var(--success)"
+  if (sentiment === "negative") return "var(--destructive)"
+  return "var(--muted-foreground)"
+}
+
+function metricControlLabel({
+  title,
+  label,
+  action,
+  fallback,
+}: {
+  title: React.ReactNode
+  label?: string
+  action: string
+  fallback: string
+}) {
+  if (label) return label
+  if (typeof title === "string" && title.trim()) return `${action} ${title}`
+  return fallback
 }
 
 function MetricCardTitleRow({
   title,
   helpText,
+  helpLabel,
   menuItems,
+  menuLabel,
 }: {
   title: React.ReactNode
   helpText?: React.ReactNode
+  helpLabel?: string
   menuItems?: MetricCardMenuItem[]
+  menuLabel?: string
 }) {
   return (
     <CardHeader className="border-b-0 px-5 pt-5 pb-0">
@@ -103,10 +138,18 @@ function MetricCardTitleRow({
                         type="button"
                         variant="ghost"
                         size="icon-xs"
-                        aria-label="Metric help"
-                        className="size-5"
+                        aria-label={metricControlLabel({
+                          title,
+                          label: helpLabel,
+                          action: "Help for",
+                          fallback: "Metric help",
+                        })}
                       >
-                        <CircleHelp className="size-3" aria-hidden strokeWidth={2.5}/>
+                        <CircleHelp
+                          className="size-3"
+                          aria-hidden
+                          strokeWidth={2.5}
+                        />
                       </Button>
                     }
                   />
@@ -128,7 +171,12 @@ function MetricCardTitleRow({
                     type="button"
                     variant="ghost"
                     size="icon-xs"
-                    aria-label="Options"
+                    aria-label={metricControlLabel({
+                      title,
+                      label: menuLabel,
+                      action: "Options for",
+                      fallback: "Metric options",
+                    })}
                   >
                     <MoreHorizontal className="size-4" aria-hidden />
                   </Button>
@@ -167,6 +215,12 @@ function MetricCardDetail({ detail }: { detail: React.ReactNode }) {
 function MetricCardTrendRow({ trend }: { trend: MetricCardTrend }) {
   const sentiment = trend.direction === "neutral" ? "neutral" : trend.sentiment
   const color = sentimentTextClass(sentiment)
+  const accessibleTrend =
+    sentiment === "positive"
+      ? `Positive change, ${trend.direction} trend: `
+      : sentiment === "negative"
+        ? `Negative change, ${trend.direction} trend: `
+        : "No change: "
 
   return (
     <div className={cn(metricCardInlineLabelClassName, color)}>
@@ -177,6 +231,7 @@ function MetricCardTrendRow({ trend }: { trend: MetricCardTrend }) {
       ) : (
         <CircleMinus className="size-3.5" aria-hidden />
       )}
+      <span className="sr-only">{accessibleTrend}</span>
       <span className="font-medium">{trend.label}</span>
       {trend.compareTo ? (
         <span className="text-muted-foreground">{trend.compareTo}</span>
@@ -200,21 +255,41 @@ function MetricCardSparklineTooltip({
 
   return (
     <div className="rounded-md border border-border bg-popover px-2 py-1 text-xs shadow-md text-foreground">
-      {labelText ? <div className="text-muted-foreground">{labelText}</div> : null}
-      <div className="font-medium tabular-nums">{formatValue ? formatValue(v) : v}</div>
+      {labelText ? (
+        <div className="text-muted-foreground">{labelText}</div>
+      ) : null}
+      <div className="font-medium tabular-nums">
+        {formatValue ? formatValue(v) : v}
+      </div>
     </div>
   )
 }
 
-function MetricCardSparklineChart({ sparkline }: { sparkline: MetricCardSparkline }) {
+function MetricCardSparklineChart({
+  sparkline,
+  title,
+}: {
+  sparkline: MetricCardSparkline
+  title: React.ReactNode
+}) {
   const stroke = sentimentStroke(sparkline.sentiment)
   const gradientId = React.useId()
   const showTooltip = sparkline.showTooltip ?? true
+  const ariaLabel =
+    sparkline.ariaLabel ??
+    (typeof title === "string" && title.trim()
+      ? `${title} trend`
+      : "Metric trend")
 
   return (
     <div className="h-14 w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={sparkline.data} margin={{ top: 6, right: 0, bottom: 0, left: 0 }}>
+        <AreaChart
+          accessibilityLayer
+          title={ariaLabel}
+          data={sparkline.data}
+          margin={{ top: 6, right: 0, bottom: 0, left: 0 }}
+        >
           <defs>
             <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor={stroke} stopOpacity={0.22} />
@@ -229,13 +304,19 @@ function MetricCardSparklineChart({ sparkline }: { sparkline: MetricCardSparklin
                   payload={p.payload}
                   labelText={
                     sparkline.formatLabel
-                      ? sparkline.formatLabel((p.payload?.[0]?.payload as MetricCardSparklineDatum | undefined)?.x ?? "")
+                      ? sparkline.formatLabel(
+                          (
+                            p.payload?.[0]?.payload as
+                              | MetricCardSparklineDatum
+                              | undefined
+                          )?.x ?? ""
+                        )
                       : sparkline.tooltipLabel
                   }
                   formatValue={sparkline.formatValue}
                 />
               )}
-              cursor={{ stroke: "hsl(var(--border))", strokeWidth: 1 }}
+              cursor={{ stroke: "var(--border)", strokeWidth: 1 }}
             />
           ) : (
             <RechartsTooltip content={() => null} cursor={false} />
@@ -250,7 +331,7 @@ function MetricCardSparklineChart({ sparkline }: { sparkline: MetricCardSparklin
             dot={false}
             activeDot={
               showTooltip
-                ? { r: 5, stroke: "hsl(var(--background))", strokeWidth: 2 }
+                ? { r: 5, stroke: "var(--background)", strokeWidth: 2 }
                 : false
             }
             isAnimationActive={false}
@@ -267,15 +348,23 @@ export function MetricCard({
   detail,
   description,
   helpText,
+  helpLabel,
   trend,
   sparkline,
   menuItems,
+  menuLabel,
   className,
   ...props
 }: MetricCardProps) {
   return (
     <Card className={cn("rounded-md", className)} {...props}>
-      <MetricCardTitleRow title={title} helpText={helpText} menuItems={menuItems} />
+      <MetricCardTitleRow
+        title={title}
+        helpText={helpText}
+        helpLabel={helpLabel}
+        menuItems={menuItems}
+        menuLabel={menuLabel}
+      />
 
       <CardContent className={cn("px-5 pb-5 pt-2", sparkline && "pb-4")}>
         <div className="grid gap-4">
@@ -295,11 +384,10 @@ export function MetricCard({
 
         {sparkline ? (
           <div className="mt-3">
-            <MetricCardSparklineChart sparkline={sparkline} />
+            <MetricCardSparklineChart sparkline={sparkline} title={title} />
           </div>
         ) : null}
       </CardContent>
     </Card>
   )
 }
-

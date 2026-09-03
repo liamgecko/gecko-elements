@@ -22,7 +22,9 @@ function getComponentKey(pathname: string): string | null {
   const core = pathname.match(/^\/core\/(.+)$/)
   if (core) return core[1]
   const structure = pathname.match(/^\/structure\/(.+)$/)
-  return structure ? `structure-${structure[1]}` : null
+  if (structure) return `structure-${structure[1]}`
+  const guides = pathname.match(/^\/guides\/(.+)$/)
+  return guides ? `guides-${guides[1]}` : null
 }
 
 function SectionLink({

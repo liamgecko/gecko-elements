@@ -1,7 +1,10 @@
+"use client"
+
 export {
   DataTable,
   DataTableProvider,
   DataTableContent,
+  type DataTableContentProps,
   type DataTableProps,
   type DataTableProviderProps,
   type DataTableToolbarConfig,
@@ -20,14 +23,8 @@ export {
   type DataTableMultiSelectFilterValue,
 } from "./data-table-columns"
 
-export {
-  DataTableColumnHeader,
-  type DataTableColumnHeaderProps,
-} from "./data-table-column-header"
-export {
-  DataTableColumnToggle,
-  type DataTableColumnToggleProps,
-} from "./data-table-column-toggle"
+export { DataTableColumnHeader, type DataTableColumnHeaderProps } from "./data-table-column-header"
+export { DataTableColumnToggle, type DataTableColumnToggleProps } from "./data-table-column-toggle"
 export { getDataTableColumnToggleLabel } from "./data-table-column-meta"
 export { DataTableFilters, type DataTableFiltersProps } from "./data-table-filters"
 export {

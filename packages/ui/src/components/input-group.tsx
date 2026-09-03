@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 
@@ -84,7 +86,10 @@ function InputGroupAddon({
       role="group"
       data-slot="input-group-addon"
       data-align={align}
-      className={cn(inputGroupAddonVariants({ align, size: groupSize }), className)}
+      className={cn(
+        inputGroupAddonVariants({ align, size: groupSize }),
+        className
+      )}
       onClick={(e) => {
         if ((e.target as HTMLElement).closest("button")) {
           return
@@ -97,9 +102,15 @@ function InputGroupAddon({
 }
 
 const inputGroupButtonSizeMap = {
-  sm: "size-5 rounded-[calc(var(--radius)-5px)] p-0 [&>svg:not([class*='size-'])]:size-3.5",
-  md: "size-6 rounded-[calc(var(--radius)-5px)] p-0 [&>svg:not([class*='size-'])]:size-4",
-  lg: "size-7 rounded-[calc(var(--radius)-5px)] p-0 [&>svg:not([class*='size-'])]:size-4.5",
+  sm: "h-5 min-w-5 rounded-[calc(var(--radius)-5px)] px-1.5 [&>svg:not([class*='size-'])]:size-3.5",
+  md: "h-6 min-w-6 rounded-[calc(var(--radius)-5px)] px-2 [&>svg:not([class*='size-'])]:size-4",
+  lg: "h-7 min-w-7 rounded-[calc(var(--radius)-5px)] px-2.5 [&>svg:not([class*='size-'])]:size-4.5",
+} as const
+
+const inputGroupIconButtonSizeMap = {
+  sm: "w-5 px-0",
+  md: "w-6 px-0",
+  lg: "w-7 px-0",
 } as const
 
 function InputGroupButton({
@@ -107,6 +118,7 @@ function InputGroupButton({
   type = "button",
   variant = "ghost",
   size: sizeProp,
+  children,
   ...props
 }: Omit<React.ComponentProps<typeof Button>, "size" | "type"> & {
   type?: "button" | "submit" | "reset"
@@ -114,14 +126,25 @@ function InputGroupButton({
 }) {
   const groupSize = React.useContext(InputGroupContext) ?? "md"
   const size = sizeProp ?? groupSize
+  const childArray = React.Children.toArray(children)
+  const isIconOnly =
+    childArray.length === 1 && React.isValidElement(childArray[0])
+
   return (
     <Button
       type={type}
       data-size={size}
       variant={variant}
-      className={cn("shadow-none flex items-center justify-center", inputGroupButtonSizeMap[size], className)}
+      className={cn(
+        "shadow-none flex items-center justify-center",
+        inputGroupButtonSizeMap[size],
+        isIconOnly && inputGroupIconButtonSizeMap[size],
+        className
+      )}
       {...props}
-    />
+    >
+      {children}
+    </Button>
   )
 }
 
@@ -176,7 +199,10 @@ function InputGroupTextarea({
   return (
     <Textarea
       data-slot="input-group-control"
-      className={cn("rounded-none border-0 bg-transparent py-2 shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 flex-1 resize-none", className)}
+      className={cn(
+        "rounded-none border-0 bg-transparent py-2 shadow-none ring-0 focus-visible:ring-0 aria-invalid:ring-0 flex-1 resize-none",
+        className
+      )}
       {...props}
     />
   )

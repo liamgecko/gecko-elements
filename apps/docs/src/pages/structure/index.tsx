@@ -8,7 +8,7 @@ export function StructureIndexPage() {
       <div>
         <h1 className="text-2xl font-bold text-foreground">Structure</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Layout and composition building blocks for consistent screens.
+          Layout and composition building blocks for consistent screens — app chrome and page structure.
         </p>
       </div>
 

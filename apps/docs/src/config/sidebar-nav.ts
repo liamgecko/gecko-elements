@@ -1,11 +1,9 @@
-import { componentPages, corePages, structurePages } from "@/pages/gallery-data"
-import { isCustomComponentPath } from "@/config/custom-component-paths"
+import { componentPages, corePages, guidesPages, structurePages } from "@/pages/gallery-data"
 
 export type SidebarNavItem = {
   to: string
   label: string
   todo?: boolean
-  custom?: boolean
 }
 
 export type SidebarNavGroup = {
@@ -15,6 +13,10 @@ export type SidebarNavGroup = {
 
 export const sidebarNavGroups: readonly SidebarNavGroup[] = [
   {
+    label: "Guides",
+    items: guidesPages.map((p) => ({ to: p.path, label: p.name })),
+  },
+  {
     label: "Core",
     items: corePages.map((p) => ({ to: p.path, label: p.name })),
   },
@@ -23,7 +25,6 @@ export const sidebarNavGroups: readonly SidebarNavGroup[] = [
     items: structurePages.map((p) => ({
       to: p.path,
       label: p.name,
-      custom: isCustomComponentPath(p.path),
     })),
   },
   {
@@ -31,7 +32,6 @@ export const sidebarNavGroups: readonly SidebarNavGroup[] = [
     items: componentPages.map((p) => ({
       to: p.path,
       label: p.name,
-      custom: isCustomComponentPath(p.path),
       // `componentPages` is used for the gallery cards too, but it doesn't currently
       // encode "todo" state. Keep the capability without duplicating the full list.
       todo: false,
@@ -40,4 +40,3 @@ export const sidebarNavGroups: readonly SidebarNavGroup[] = [
   // Keep room for any future static sections without hardcoding them into the component.
   // { label: "Other", items: [{ to: "/something", label: titleFromPath("/something") }] },
 ] as const
-

@@ -1,63 +1,63 @@
-import * as React from "react"
-import type { ColumnDef, FilterFn } from "@tanstack/react-table"
-import { Lock, LockOpen } from "lucide-react"
+import * as React from "react";
+import type { ColumnDef, FilterFn } from "@tanstack/react-table";
+import { Lock, LockOpen } from "lucide-react";
 
-import { Avatar, AvatarFallback } from "@gecko/ui/components/avatar"
-import { Switch } from "@gecko/ui/components/switch"
+import { Avatar } from "@gecko/ui/components/avatar";
+import { Switch } from "@gecko/ui/components/switch";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
-import type { DataTableColumnMeta } from "@gecko/ui/components/data-table/data-table"
-import { DataTableColumnHeader } from "@gecko/ui/components/data-table/data-table-column-header"
+} from "@gecko/ui/components/tooltip";
+import type { DataTableColumnMeta } from "@gecko/ui/components/data-table/data-table";
+import { DataTableColumnHeader } from "@gecko/ui/components/data-table/data-table-column-header";
 import {
   DataTableMultiSelectFilter,
   type DataTableMultiSelectFilterValue,
-} from "@gecko/ui/components/data-table/data-table-columns"
-import { DataTableMultiLineCell } from "@gecko/ui/components/data-table/data-table-multi-line-cell"
+} from "@gecko/ui/components/data-table/data-table-columns";
+import { DataTableMultiLineCell } from "@gecko/ui/components/data-table/data-table-multi-line-cell";
 
-import type { Workflow, WorkflowLockStatus } from "./workflows-data"
+import type { Workflow, WorkflowLockStatus } from "./workflows-data";
 
 function ordinal(n: number) {
-  const mod100 = n % 100
-  if (mod100 >= 11 && mod100 <= 13) return `${n}th`
-  const mod10 = n % 10
-  if (mod10 === 1) return `${n}st`
-  if (mod10 === 2) return `${n}nd`
-  if (mod10 === 3) return `${n}rd`
-  return `${n}th`
+  const mod100 = n % 100;
+  if (mod100 >= 11 && mod100 <= 13) return `${n}th`;
+  const mod10 = n % 10;
+  if (mod10 === 1) return `${n}st`;
+  if (mod10 === 2) return `${n}nd`;
+  if (mod10 === 3) return `${n}rd`;
+  return `${n}th`;
 }
 
 export function formatWorkflowDateTime(iso: string) {
-  const d = new Date(iso)
-  const day = ordinal(d.getDate())
-  const month = d.toLocaleString(undefined, { month: "short" })
-  const year = d.getFullYear()
+  const d = new Date(iso);
+  const day = ordinal(d.getDate());
+  const month = d.toLocaleString(undefined, { month: "short" });
+  const year = d.getFullYear();
   const time = d
     .toLocaleString(undefined, {
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,
     })
-    .replace(/\s/g, "")
-  return `${day} ${month} ${year} @ ${time}`
+    .replace(/\s/g, "");
+  return `${day} ${month} ${year} @ ${time}`;
 }
 
 function lockStatusLabel(status: WorkflowLockStatus) {
-  if (status === "locked-view-only") return "Locked (view only)"
-  if (status === "locked-can-edit") return "Locked (can edit)"
-  return "Unlocked"
+  if (status === "locked-view-only") return "Locked (view only)";
+  if (status === "locked-can-edit") return "Locked (can edit)";
+  return "Unlocked";
 }
 
 function WorkflowLockStatusCell({ workflow }: { workflow: Workflow }) {
-  const { lockStatus, lockedBy } = workflow
+  const { lockStatus, lockedBy } = workflow;
 
   if (lockStatus === "unlocked") {
-    return null
+    return null;
   }
 
-  const lockedByName = lockedBy ?? "another user"
+  const lockedByName = lockedBy ?? "another user";
 
   if (lockStatus === "locked-view-only") {
     return (
@@ -74,7 +74,7 @@ function WorkflowLockStatusCell({ workflow }: { workflow: Workflow }) {
           permission to edit.
         </TooltipContent>
       </Tooltip>
-    )
+    );
   }
 
   return (
@@ -94,7 +94,7 @@ function WorkflowLockStatusCell({ workflow }: { workflow: Workflow }) {
         edit.
       </TooltipContent>
     </Tooltip>
-  )
+  );
 }
 
 export const workflowLabelsFilter: FilterFn<Workflow> = (
@@ -102,37 +102,37 @@ export const workflowLabelsFilter: FilterFn<Workflow> = (
   columnId,
   filterValue,
 ) => {
-  if (filterValue == null) return true
+  if (filterValue == null) return true;
 
-  const labelIds = row.getValue(columnId) as string[]
-  if (!Array.isArray(labelIds)) return true
+  const labelIds = row.getValue(columnId) as string[];
+  if (!Array.isArray(labelIds)) return true;
 
   const resolveSelected = (): string[] => {
-    if (Array.isArray(filterValue)) return filterValue as string[]
-    const fv = filterValue as DataTableMultiSelectFilterValue
-    return fv.values ?? []
-  }
+    if (Array.isArray(filterValue)) return filterValue as string[];
+    const fv = filterValue as DataTableMultiSelectFilterValue;
+    return fv.values ?? [];
+  };
 
-  const selected = resolveSelected()
-  if (!selected.length) return true
+  const selected = resolveSelected();
+  if (!selected.length) return true;
 
   const op =
     !Array.isArray(filterValue) && filterValue != null
       ? ((filterValue as DataTableMultiSelectFilterValue).operator ?? "is")
-      : "is"
+      : "is";
 
-  const matches = selected.some((value) => labelIds.includes(value))
+  const matches = selected.some((value) => labelIds.includes(value));
 
-  if (op === "is not") return !matches
-  return matches
-}
+  if (op === "is not") return !matches;
+  return matches;
+};
 
 type WorkflowEnabledSwitchProps = {
-  workflowId: string
-  workflowName: string
-  enabled: boolean
-  onEnabledChange: (workflowId: string, enabled: boolean) => void
-}
+  workflowId: string;
+  workflowName: string;
+  enabled: boolean;
+  onEnabledChange: (workflowId: string, enabled: boolean) => void;
+};
 
 function WorkflowEnabledSwitch({
   workflowId,
@@ -140,28 +140,28 @@ function WorkflowEnabledSwitch({
   enabled,
   onEnabledChange,
 }: WorkflowEnabledSwitchProps) {
-  const [checked, setChecked] = React.useState(enabled)
+  const [checked, setChecked] = React.useState(enabled);
 
   React.useEffect(() => {
-    setChecked(enabled)
-  }, [enabled])
+    setChecked(enabled);
+  }, [enabled]);
 
   return (
     <Switch
       id={`workflow-status-${workflowId}`}
       checked={checked}
       onCheckedChange={(next) => {
-        setChecked(next)
-        onEnabledChange(workflowId, next)
+        setChecked(next);
+        onEnabledChange(workflowId, next);
       }}
       aria-label={`${checked ? "Disable" : "Enable"} ${workflowName}`}
     />
-  )
+  );
 }
 
 type CreateWorkflowColumnsOptions = {
-  onEnabledChange: (workflowId: string, enabled: boolean) => void
-}
+  onEnabledChange: (workflowId: string, enabled: boolean) => void;
+};
 
 export function createWorkflowColumns({
   onEnabledChange,
@@ -179,7 +179,9 @@ export function createWorkflowColumns({
       cell: ({ row }) => <WorkflowLockStatusCell workflow={row.original} />,
       filterFn: DataTableMultiSelectFilter,
       sortingFn: (rowA, rowB, columnId) =>
-        lockStatusLabel(rowA.getValue(columnId) as WorkflowLockStatus).localeCompare(
+        lockStatusLabel(
+          rowA.getValue(columnId) as WorkflowLockStatus,
+        ).localeCompare(
           lockStatusLabel(rowB.getValue(columnId) as WorkflowLockStatus),
         ),
     },
@@ -200,7 +202,7 @@ export function createWorkflowColumns({
         <DataTableColumnHeader column={column} title="Status" />
       ),
       cell: ({ row }) => {
-        const workflow = row.original
+        const workflow = row.original;
 
         return (
           <WorkflowEnabledSwitch
@@ -209,7 +211,7 @@ export function createWorkflowColumns({
             enabled={workflow.enabled}
             onEnabledChange={onEnabledChange}
           />
-        )
+        );
       },
       filterFn: DataTableMultiSelectFilter,
       sortingFn: (rowA, rowB) =>
@@ -230,12 +232,12 @@ export function createWorkflowColumns({
         </span>
       ),
       sortingFn: (rowA, rowB) => {
-        const a = rowA.original.lastRun
-        const b = rowB.original.lastRun
-        if (!a && !b) return 0
-        if (!a) return 1
-        if (!b) return -1
-        return new Date(a).getTime() - new Date(b).getTime()
+        const a = rowA.original.lastRun;
+        const b = rowB.original.lastRun;
+        if (!a && !b) return 0;
+        if (!a) return 1;
+        if (!b) return -1;
+        return new Date(a).getTime() - new Date(b).getTime();
       },
     },
     {
@@ -246,20 +248,20 @@ export function createWorkflowColumns({
         <DataTableColumnHeader column={column} title="Created by" />
       ),
       sortingFn: (rowA, rowB) =>
-        rowA.original.createdBy.name.localeCompare(rowB.original.createdBy.name),
+        rowA.original.createdBy.name.localeCompare(
+          rowB.original.createdBy.name,
+        ),
       cell: ({ row }) => {
-        const { createdBy } = row.original
+        const { createdBy } = row.original;
         return (
           <div className="flex min-w-0 items-center gap-3">
-            <Avatar size="md">
-              <AvatarFallback>{createdBy.initials}</AvatarFallback>
-            </Avatar>
+            <Avatar name={createdBy.name} size="md" />
             <DataTableMultiLineCell
               primary={createdBy.name}
               secondary={formatWorkflowDateTime(createdBy.createdAt)}
             />
           </div>
-        )
+        );
       },
     },
     {
@@ -280,5 +282,5 @@ export function createWorkflowColumns({
       cell: () => null,
       filterFn: workflowLabelsFilter,
     },
-  ]
+  ];
 }

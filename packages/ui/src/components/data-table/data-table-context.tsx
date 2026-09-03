@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import type { Table } from "@tanstack/react-table"
 
@@ -17,10 +19,7 @@ export type DataTableContextValue = {
   expandable?: DataTableExpandableConfig<unknown>
   /** Bulk toolbar actions from `DataTableProvider` `selectActions`. */
   selectActions: DataTableRowAction[]
-  onSelectAction?: (
-    actionId: string,
-    context: DataTableSelectActionContext<unknown>
-  ) => void
+  onSelectAction?: (actionId: string, context: DataTableSelectActionContext<unknown>) => void
   /**
    * Incrementing this remounts `DataTableFilters` so its UI matches TanStack after
    * e.g. `table.resetColumnFilters()` from outside the Filter component.
@@ -30,26 +29,19 @@ export type DataTableContextValue = {
   resetFilterUi: () => void
 }
 
-export const DataTableContext = React.createContext<DataTableContextValue | null>(
-  null
-)
+export const DataTableContext = React.createContext<DataTableContextValue | null>(null)
 
 export function useDataTableContext<TData>() {
   const ctx = React.useContext(DataTableContext)
   if (!ctx) {
-    throw new Error(
-      "Data table subcomponents must be used within DataTableProvider."
-    )
+    throw new Error("Data table subcomponents must be used within DataTableProvider.")
   }
   return {
     table: ctx.table as Table<TData>,
     expandable: ctx.expandable as DataTableExpandableConfig<TData> | undefined,
     selectActions: ctx.selectActions as DataTableRowAction[],
     onSelectAction: ctx.onSelectAction as
-      | ((
-          actionId: string,
-          context: DataTableSelectActionContext<TData>
-        ) => void)
+      | ((actionId: string, context: DataTableSelectActionContext<TData>) => void)
       | undefined,
     filterUiResetKey: ctx.filterUiResetKey,
     resetFilterUi: ctx.resetFilterUi,

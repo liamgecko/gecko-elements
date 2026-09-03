@@ -1,3 +1,5 @@
+"use client"
+
 /* eslint-disable react-refresh/only-export-components -- TanStack Table column helpers are intentionally exported from this module. */
 
 import type { ColumnDef, FilterFn } from "@tanstack/react-table"
@@ -67,19 +69,17 @@ export function createSelectionColumn<TData>(): ColumnDef<TData> {
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected()}
-        indeterminate={
-          table.getIsSomePageRowsSelected() &&
-          !table.getIsAllPageRowsSelected()
-        }
+        indeterminate={table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected()}
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label="Select all rows on this page"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
+        disabled={!row.getCanSelect()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label={`Select row ${row.index + 1}`}
       />
     ),
     enableSorting: false,

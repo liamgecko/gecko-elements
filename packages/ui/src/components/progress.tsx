@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { Progress as ProgressPrimitive } from "@base-ui/react/progress"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -23,19 +25,39 @@ const progressTrackSizeVariants = cva("", {
   },
 })
 
-function getValueColorBar(value: number | null | undefined): string {
+function getProgressPercentage(
+  value: number | null | undefined,
+  min: number,
+  max: number
+): number {
+  if (value == null || max <= min) return 0
+
+  return Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100))
+}
+
+function getValueColorBar(
+  value: number | null | undefined,
+  min: number,
+  max: number
+): string {
   if (value === undefined || value === null) return "bg-primary"
-  if (value <= 25) return "bg-red-500 dark:bg-rose-500"
-  if (value <= 50) return "bg-orange-500"
-  if (value <= 75) return "bg-yellow-500"
+  const percentage = getProgressPercentage(value, min, max)
+  if (percentage <= 25) return "bg-red-500 dark:bg-rose-500"
+  if (percentage <= 50) return "bg-orange-500"
+  if (percentage <= 75) return "bg-yellow-500"
   return "bg-emerald-500 dark:bg-teal-500"
 }
 
-function getValueColorRing(value: number | null | undefined): string {
+function getValueColorRing(
+  value: number | null | undefined,
+  min: number,
+  max: number
+): string {
   if (value === undefined || value === null) return "stroke-primary"
-  if (value <= 25) return "stroke-red-500 dark:stroke-rose-500"
-  if (value <= 50) return "stroke-orange-500"
-  if (value <= 75) return "stroke-yellow-500"
+  const percentage = getProgressPercentage(value, min, max)
+  if (percentage <= 25) return "stroke-red-500 dark:stroke-rose-500"
+  if (percentage <= 50) return "stroke-orange-500"
+  if (percentage <= 75) return "stroke-yellow-500"
   return "stroke-emerald-500 dark:stroke-teal-500"
 }
 
@@ -62,6 +84,9 @@ const Progress = React.forwardRef<
     label,
     valueLabel,
     showValueColors = false,
+    min = 0,
+    max = 100,
+    "aria-valuetext": ariaValueText,
     ...props
   },
   ref
@@ -71,18 +96,20 @@ const Progress = React.forwardRef<
     const config = RING_SIZE_CONFIG[ringSize]
     const { size: svgSize, radius, stroke } = config
     const center = svgSize / 2
-    const normalizedValue = value ?? 0
+    const normalizedValue = getProgressPercentage(value, min, max)
     const circumference = 2 * Math.PI * radius
-    const strokeDashoffset =
-      ((100 - normalizedValue) / 100) * circumference
+    const strokeDashoffset = ((100 - normalizedValue) / 100) * circumference
     const strokeClass = showValueColors
-      ? getValueColorRing(value)
+      ? getValueColorRing(value, min, max)
       : "stroke-primary"
 
     return (
       <ProgressPrimitive.Root
         ref={ref}
         value={value}
+        min={min}
+        max={max}
+        aria-valuetext={ariaValueText ?? valueLabel}
         data-slot="progress"
         data-type="ring"
         className={cn("inline-flex flex-col items-center gap-2", className)}
@@ -93,6 +120,8 @@ const Progress = React.forwardRef<
           style={{ width: svgSize, height: svgSize }}
         >
           <svg
+            aria-hidden="true"
+            focusable="false"
             height={svgSize}
             width={svgSize}
             viewBox={`0 0 ${svgSize} ${svgSize}`}
@@ -112,7 +141,7 @@ const Progress = React.forwardRef<
               r={radius}
               fill="none"
               className={cn(
-                "transition-all duration-300 ease-in-out",
+                "motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-in-out",
                 strokeClass
               )}
               strokeWidth={stroke}
@@ -150,8 +179,9 @@ const Progress = React.forwardRef<
     )
   }
 
-  const indicatorColorClass =
-    showValueColors ? getValueColorBar(value) : undefined
+  const indicatorColorClass = showValueColors
+    ? getValueColorBar(value, min, max)
+    : undefined
 
   const hasLabelOrValue = label != null || valueLabel != null
 
@@ -160,6 +190,9 @@ const Progress = React.forwardRef<
       <ProgressPrimitive.Root
         ref={ref}
         value={value}
+        min={min}
+        max={max}
+        aria-valuetext={ariaValueText}
         data-slot="progress"
         data-type="bar"
         className={cn("flex flex-wrap gap-3 w-full", className)}
@@ -177,6 +210,9 @@ const Progress = React.forwardRef<
     <ProgressPrimitive.Root
       ref={ref}
       value={value}
+      min={min}
+      max={max}
+      aria-valuetext={ariaValueText ?? valueLabel}
       data-slot="progress"
       data-type="bar"
       className={cn("flex flex-col gap-1.5 w-full", className)}
@@ -237,16 +273,16 @@ function ProgressIndicator({
   return (
     <ProgressPrimitive.Indicator
       data-slot="progress-indicator"
-      className={cn("bg-primary h-full transition-all rounded-full", className)}
+      className={cn(
+        "bg-primary h-full rounded-full motion-safe:transition-all",
+        className
+      )}
       {...props}
     />
   )
 }
 
-function ProgressLabel({
-  className,
-  ...props
-}: ProgressPrimitive.Label.Props) {
+function ProgressLabel({ className, ...props }: ProgressPrimitive.Label.Props) {
   return (
     <ProgressPrimitive.Label
       className={cn("text-sm font-medium", className)}
@@ -256,10 +292,7 @@ function ProgressLabel({
   )
 }
 
-function ProgressValue({
-  className,
-  ...props
-}: ProgressPrimitive.Value.Props) {
+function ProgressValue({ className, ...props }: ProgressPrimitive.Value.Props) {
   return (
     <ProgressPrimitive.Value
       className={cn(

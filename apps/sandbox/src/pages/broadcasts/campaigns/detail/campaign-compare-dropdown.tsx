@@ -1,35 +1,37 @@
-import * as React from "react"
-import { ChartLine } from "lucide-react"
-import { useParams } from "react-router-dom"
+import * as React from "react";
+import { ChartLine } from "lucide-react";
+import { useParams } from "react-router-dom";
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@gecko/ui/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuEmpty,
+  DropdownMenuItem,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"
+} from "@gecko/ui/components/dropdown-menu";
 
-import { useBroadcastCampaigns } from "@/hooks/useBroadcastCampaigns"
+import { useBroadcastCampaigns } from "@/hooks/useBroadcastCampaigns";
 
 type CampaignCompareDropdownProps = {
-  value: string | null
-  onValueChange: (campaignId: string | null) => void
-}
+  value: string | null;
+  onValueChange: (campaignId: string | null) => void;
+};
 
 export function CampaignCompareDropdown({
   value,
   onValueChange,
 }: CampaignCompareDropdownProps) {
-  const { campaignId: currentCampaignId = "" } = useParams()
-  const { campaigns: allCampaigns } = useBroadcastCampaigns()
+  const { campaignId: currentCampaignId = "" } = useParams();
+  const { campaigns: allCampaigns } = useBroadcastCampaigns();
 
   const campaigns = React.useMemo(
     () => allCampaigns.filter((campaign) => campaign.id !== currentCampaignId),
     [allCampaigns, currentCampaignId],
-  )
+  );
 
   return (
     <DropdownMenu searchable searchPlaceholder="Search campaigns…">
@@ -52,15 +54,21 @@ export function CampaignCompareDropdown({
               key={campaign.id}
               value={campaign.id}
               searchValue={campaign.name}
-              clearable={value === campaign.id}
-              onClear={() => onValueChange(null)}
             >
               <span className="truncate">{campaign.name}</span>
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>
         <DropdownMenuEmpty>No campaigns found.</DropdownMenuEmpty>
+        {value && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => onValueChange(null)}>
+              Clear comparison
+            </DropdownMenuItem>
+          </>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

@@ -1,88 +1,95 @@
-import { Routes, Route } from "react-router-dom"
-import { AppShell } from "@/components/layout/app-shell"
-import { Toaster } from "@gecko/ui/components/toast"
-import { HomePage } from "@/pages/home"
-import { AccordionPage } from "@/pages/accordion"
-import { AlertPage } from "@/pages/alert"
-import { AlertDialogPage } from "@/pages/alert-dialog"
-import { AttachmentPage } from "@/pages/attachment"
-import { AvatarPage } from "@/pages/avatar"
-import { AvatarGroupPage } from "@/pages/avatar-group"
-import { BadgePage } from "@/pages/badge"
-import { BreadcrumbPage } from "@/pages/breadcrumb"
-import { BubblePage } from "@/pages/bubble"
-import { ButtonPage } from "@/pages/button"
-import { CalendarPage } from "@/pages/calendar"
-import { CardPage } from "@/pages/card"
-import { CheckboxPage } from "@/pages/checkbox"
-import { ComboboxPage } from "@/pages/combobox"
-import { CommandPage } from "@/pages/command"
-import { ContextMenuPage } from "@/pages/context-menu"
-import { DateInputPage } from "@/pages/date-input"
-import { DatePickerPage } from "@/pages/date-picker"
-import { DialogPage } from "@/pages/dialog"
-import { DirectionPage } from "@/pages/direction"
-import { DropdownMenuPage } from "@/pages/dropdown-menu"
-import { EmojiPickerPage } from "@/pages/emoji-picker"
-import { EmptyPage } from "@/pages/empty"
-import { FieldPage } from "@/pages/field"
-import { InputPage } from "@/pages/input"
-import { InputOtpPage } from "@/pages/input-otp"
-import { KbdPage } from "@/pages/kbd"
-import { LabelPage } from "@/pages/label"
-import { NativeSelectPage } from "@/pages/native-select"
-import { NumberFieldPage } from "@/pages/number-field"
-import { PaginationPage } from "@/pages/pagination"
-import { PopoverPage } from "@/pages/popover"
-import { ProgressPage } from "@/pages/progress"
-import { RadioGroupPage } from "@/pages/radio-group"
-import { ScrollAreaPage } from "@/pages/scroll-area"
-import { SelectPage } from "@/pages/select"
-import { SeparatorPage } from "@/pages/separator"
-import { SheetPage } from "@/pages/sheet"
-import { ToastPage } from "@/pages/toast"
-import { SpinnerPage } from "@/pages/spinner"
-import { SwitchPage } from "@/pages/switch"
-import { TablePage } from "@/pages/table"
-import { TabsPage } from "@/pages/tabs"
-import { TextareaPage } from "@/pages/textarea"
-import { TooltipPage } from "@/pages/tooltip"
-import { ChatBubblePage } from "@/pages/chat-bubble"
-import { ChatHeadPage } from "@/pages/chat-head"
-import { ColorPickerPage } from "@/pages/color-picker"
-import { DataTablePage } from "@/pages/data-table"
-import { ReplyBoxPage } from "@/pages/reply-box"
-import { TypingIndicatorPage } from "@/pages/typing-indicator"
-import { MarkerPage } from "@/pages/marker"
-import { MessagePage } from "@/pages/message"
-import { MessageScrollerPage } from "@/pages/message-scroller"
-import { MetricCardPage } from "@/pages/metric-card"
-import { ChartsPage } from "@/pages/charts"
-import { TelephoneFieldPage } from "@/pages/telephone-field"
-import { SearchInputPage } from "@/pages/search-input"
-import { SensitiveFieldPage } from "@/pages/sensitive-field"
-import { FileInputPage } from "@/pages/file-input"
-import { DropZonePage } from "@/pages/drop-zone"
-import { DragAndDropPage } from "@/pages/drag-and-drop"
-import { CounterPage } from "@/pages/counter"
-import { CodeSnippetPage } from "@/pages/code-snippet"
-import { FiltersPage } from "@/pages/filters"
-import { FileTreePage } from "@/pages/file-tree"
-import { InlineEditPage } from "@/pages/inline-edit"
-import { ActivityFeedPage } from "@/pages/activity-feed"
-import { ColorPage } from "@/pages/core/color"
-import { IconsPage } from "@/pages/core/icons"
-import { RadiusPage } from "@/pages/core/radius"
-import { ShadowsPage } from "@/pages/core/shadows"
-import { SpacingPage } from "@/pages/core/spacing"
-import { TypographyPage } from "@/pages/core/typography"
-import { CoreIndexPage } from "@/pages/core/index"
-import { ComponentsIndexPage } from "@/pages/components/index"
-import { SidebarPage } from "@/pages/sidebar"
-import { StructureIndexPage } from "@/pages/structure"
-import { StructureContainerPage } from "@/pages/structure/container"
-import { StructureHeaderPage } from "@/pages/structure/header"
-import { StructureMenuPage } from "@/pages/structure/menu"
+import { Navigate, Routes, Route } from "react-router-dom";
+import { AppShell } from "@/components/layout/app-shell";
+import { Toaster } from "@gecko/ui/components/toast";
+import { HomePage } from "@/pages/home";
+import { AccordionPage } from "@/pages/accordion";
+import { AlertPage } from "@/pages/alert";
+import { AlertDialogPage } from "@/pages/alert-dialog";
+import { AttachmentPage } from "@/pages/attachment";
+import { AvatarPage } from "@/pages/avatar";
+import { AvatarGroupPage } from "@/pages/avatar-group";
+import { BadgePage } from "@/pages/badge";
+import { BreadcrumbPage } from "@/pages/breadcrumb";
+import { BubblePage } from "@/pages/bubble";
+import { ButtonPage } from "@/pages/button";
+import { ButtonGroupPage } from "@/pages/button-group";
+import { CalendarPage } from "@/pages/calendar";
+import { CardPage } from "@/pages/card";
+import { CheckboxPage } from "@/pages/checkbox";
+import { ComboboxPage } from "@/pages/combobox";
+import { CommandPage } from "@/pages/command";
+import { ContextMenuPage } from "@/pages/context-menu";
+import { DateInputPage } from "@/pages/date-input";
+import { DatePickerPage } from "@/pages/date-picker";
+import { DialogPage } from "@/pages/dialog";
+import { DropdownMenuPage } from "@/pages/dropdown-menu";
+import { EmojiPickerPage } from "@/pages/emoji-picker";
+import { EmptyPage } from "@/pages/empty";
+import { FieldPage } from "@/pages/field";
+import { InputPage } from "@/pages/input";
+import { InputGroupPage } from "@/pages/input-group";
+import { InputOtpPage } from "@/pages/input-otp";
+import { LabelPage } from "@/pages/label";
+import { NativeSelectPage } from "@/pages/native-select";
+import { NumberFieldPage } from "@/pages/number-field";
+import { PaginationPage } from "@/pages/pagination";
+import { PopoverPage } from "@/pages/popover";
+import { ProgressPage } from "@/pages/progress";
+import { RadioGroupPage } from "@/pages/radio-group";
+import { ScrollAreaPage } from "@/pages/scroll-area";
+import { SelectPage } from "@/pages/select";
+import { SeparatorPage } from "@/pages/separator";
+import { SheetPage } from "@/pages/sheet";
+import { ToastPage } from "@/pages/toast";
+import { TogglePage } from "@/pages/toggle";
+import { ToggleGroupPage } from "@/pages/toggle-group";
+import { SpinnerPage } from "@/pages/spinner";
+import { SwitchPage } from "@/pages/switch";
+import { TablePage } from "@/pages/table";
+import { TabsPage } from "@/pages/tabs";
+import { TextareaPage } from "@/pages/textarea";
+import { TooltipPage } from "@/pages/tooltip";
+import { ChatBubblePage } from "@/pages/chat-bubble";
+import { ChatHeadPage } from "@/pages/chat-head";
+import { ColorPickerPage } from "@/pages/color-picker";
+import { DataTablePage } from "@/pages/data-table";
+import { ReplyBoxPage } from "@/pages/reply-box";
+import { TypingIndicatorPage } from "@/pages/typing-indicator";
+import { MarkerPage } from "@/pages/marker";
+import { MessagePage } from "@/pages/message";
+import { MessageScrollerPage } from "@/pages/message-scroller";
+import { MetricCardPage } from "@/pages/metric-card";
+import { ChartsPage } from "@/pages/charts";
+import { TelephoneFieldPage } from "@/pages/telephone-field";
+import { SearchPage } from "@/pages/search";
+import { SensitiveFieldPage } from "@/pages/sensitive-field";
+import { FileFieldPage } from "@/pages/file-field";
+import { DropZonePage } from "@/pages/drop-zone";
+import { SortableListPage } from "@/pages/sortable-list";
+import { CounterPage } from "@/pages/counter";
+import { CodeSnippetPage } from "@/pages/code-snippet";
+import { FiltersPage } from "@/pages/filters";
+import { FileTreePage } from "@/pages/file-tree";
+import { InlineEditPage } from "@/pages/inline-edit";
+import { ActivityFeedPage } from "@/pages/activity-feed";
+import { ColorPage } from "@/pages/core/color";
+import { IconsPage } from "@/pages/core/icons";
+import { RadiusPage } from "@/pages/core/radius";
+import { ShadowsPage } from "@/pages/core/shadows";
+import { SpacingPage } from "@/pages/core/spacing";
+import { TypographyPage } from "@/pages/core/typography";
+import { CoreIndexPage } from "@/pages/core/index";
+import { ComponentsIndexPage } from "@/pages/components/index";
+import { SidebarPage } from "@/pages/sidebar";
+import { StructureIndexPage } from "@/pages/structure";
+import { StructureAppHeaderPage } from "@/pages/structure/app-header";
+import { StructureAppSidebarPage } from "@/pages/structure/app-sidebar";
+import { StructureContainerPage } from "@/pages/structure/container";
+import { StructureHeaderPage } from "@/pages/structure/header";
+import { GuidesIndexPage } from "@/pages/guides/index";
+import { GuidesStylingPage } from "@/pages/guides/styling";
+import { GuidesChoosingComponentsPage } from "@/pages/guides/choosing-components";
+import { GuidesRecipesPage } from "@/pages/guides/recipes";
 
 export function App() {
   return (
@@ -90,6 +97,13 @@ export function App() {
       <Toaster />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/guides" element={<GuidesIndexPage />} />
+        <Route path="/guides/styling" element={<GuidesStylingPage />} />
+        <Route
+          path="/guides/choosing-components"
+          element={<GuidesChoosingComponentsPage />}
+        />
+        <Route path="/guides/recipes" element={<GuidesRecipesPage />} />
         <Route path="/core" element={<CoreIndexPage />} />
         <Route path="/components" element={<ComponentsIndexPage />} />
         <Route path="/structure" element={<StructureIndexPage />} />
@@ -99,8 +113,22 @@ export function App() {
         <Route path="/core/radius" element={<RadiusPage />} />
         <Route path="/core/shadows" element={<ShadowsPage />} />
         <Route path="/core/icons" element={<IconsPage />} />
-        <Route path="/structure/container" element={<StructureContainerPage />} />
-        <Route path="/structure/menu" element={<StructureMenuPage />} />
+        <Route
+          path="/structure/container"
+          element={<StructureContainerPage />}
+        />
+        <Route
+          path="/structure/app-header"
+          element={<StructureAppHeaderPage />}
+        />
+        <Route
+          path="/structure/app-sidebar"
+          element={<StructureAppSidebarPage />}
+        />
+        <Route
+          path="/structure/menu"
+          element={<Navigate to="/structure/app-sidebar" replace />}
+        />
         <Route path="/structure/header" element={<StructureHeaderPage />} />
         <Route path="/components/accordion" element={<AccordionPage />} />
         <Route path="/components/alert" element={<AlertPage />} />
@@ -112,26 +140,40 @@ export function App() {
         <Route path="/components/breadcrumb" element={<BreadcrumbPage />} />
         <Route path="/components/bubble" element={<BubblePage />} />
         <Route path="/components/button" element={<ButtonPage />} />
+        <Route path="/components/button-group" element={<ButtonGroupPage />} />
         <Route path="/components/calendar" element={<CalendarPage />} />
         <Route path="/components/card" element={<CardPage />} />
         <Route path="/components/checkbox" element={<CheckboxPage />} />
         <Route path="/components/combobox" element={<ComboboxPage />} />
         <Route path="/components/command" element={<CommandPage />} />
         <Route path="/components/context-menu" element={<ContextMenuPage />} />
-        <Route path="/components/date-input" element={<DateInputPage />} />
+        <Route path="/components/date-field" element={<DateInputPage />} />
+        <Route
+          path="/components/date-input"
+          element={<Navigate to="/components/date-field" replace />}
+        />
         <Route path="/components/date-picker" element={<DatePickerPage />} />
         <Route path="/components/dialog" element={<DialogPage />} />
-        <Route path="/components/direction" element={<DirectionPage />} />
-        <Route path="/components/dropdown-menu" element={<DropdownMenuPage />} />
+        <Route
+          path="/components/dropdown-menu"
+          element={<DropdownMenuPage />}
+        />
         <Route path="/components/empty" element={<EmptyPage />} />
         <Route path="/components/emoji-picker" element={<EmojiPickerPage />} />
         <Route path="/components/field" element={<FieldPage />} />
         <Route path="/components/input" element={<InputPage />} />
-        <Route path="/components/input-otp" element={<InputOtpPage />} />
-        <Route path="/components/kbd" element={<KbdPage />} />
+        <Route path="/components/input-group" element={<InputGroupPage />} />
+        <Route
+          path="/components/input-otp"
+          element={<Navigate to="/components/otp-field" replace />}
+        />
         <Route path="/components/label" element={<LabelPage />} />
-        <Route path="/components/native-select" element={<NativeSelectPage />} />
+        <Route
+          path="/components/native-select"
+          element={<NativeSelectPage />}
+        />
         <Route path="/components/number-field" element={<NumberFieldPage />} />
+        <Route path="/components/otp-field" element={<InputOtpPage />} />
         <Route path="/components/pagination" element={<PaginationPage />} />
         <Route path="/components/popover" element={<PopoverPage />} />
         <Route path="/components/progress" element={<ProgressPage />} />
@@ -141,6 +183,8 @@ export function App() {
         <Route path="/components/separator" element={<SeparatorPage />} />
         <Route path="/components/sheet" element={<SheetPage />} />
         <Route path="/components/toast" element={<ToastPage />} />
+        <Route path="/components/toggle" element={<TogglePage />} />
+        <Route path="/components/toggle-group" element={<ToggleGroupPage />} />
         <Route path="/components/spinner" element={<SpinnerPage />} />
         <Route path="/components/switch" element={<SwitchPage />} />
         <Route path="/components/table" element={<TablePage />} />
@@ -149,10 +193,17 @@ export function App() {
         <Route path="/components/tooltip" element={<TooltipPage />} />
         <Route path="/components/chat-bubble" element={<ChatBubblePage />} />
         <Route path="/components/chat-head" element={<ChatHeadPage />} />
-        <Route path="/components/color-picker" element={<ColorPickerPage />} />
+        <Route path="/components/colour-field" element={<ColorPickerPage />} />
+        <Route
+          path="/components/color-picker"
+          element={<Navigate to="/components/colour-field" replace />}
+        />
         <Route path="/components/data-table" element={<DataTablePage />} />
         <Route path="/components/reply-box" element={<ReplyBoxPage />} />
-        <Route path="/components/typing-indicator" element={<TypingIndicatorPage />} />
+        <Route
+          path="/components/typing-indicator"
+          element={<TypingIndicatorPage />}
+        />
         <Route path="/components/marker" element={<MarkerPage />} />
         <Route path="/components/message" element={<MessagePage />} />
         <Route
@@ -161,20 +212,40 @@ export function App() {
         />
         <Route path="/components/metric-card" element={<MetricCardPage />} />
         <Route path="/components/charts" element={<ChartsPage />} />
-        <Route path="/components/telephone-field" element={<TelephoneFieldPage />} />
-        <Route path="/components/search-input" element={<SearchInputPage />} />
-        <Route path="/components/sensitive-field" element={<SensitiveFieldPage />} />
-        <Route path="/components/file-input" element={<FileInputPage />} />
+        <Route
+          path="/components/telephone-field"
+          element={<TelephoneFieldPage />}
+        />
+        <Route path="/components/search" element={<SearchPage />} />
+        <Route
+          path="/components/search-input"
+          element={<Navigate to="/components/search" replace />}
+        />
+        <Route
+          path="/components/sensitive-field"
+          element={<SensitiveFieldPage />}
+        />
+        <Route path="/components/file-field" element={<FileFieldPage />} />
+        <Route
+          path="/components/file-input"
+          element={<Navigate to="/components/file-field" replace />}
+        />
         <Route path="/components/file-tree" element={<FileTreePage />} />
         <Route path="/components/inline-edit" element={<InlineEditPage />} />
-        <Route path="/components/activity-feed" element={<ActivityFeedPage />} />
+        <Route
+          path="/components/activity-feed"
+          element={<ActivityFeedPage />}
+        />
         <Route path="/components/drop-zone" element={<DropZonePage />} />
-        <Route path="/components/drag-and-drop" element={<DragAndDropPage />} />
+        <Route
+          path="/components/sortable-list"
+          element={<SortableListPage />}
+        />
         <Route path="/components/counter" element={<CounterPage />} />
         <Route path="/components/filters" element={<FiltersPage />} />
         <Route path="/components/code-snippet" element={<CodeSnippetPage />} />
         <Route path="/components/sidebar" element={<SidebarPage />} />
       </Routes>
     </AppShell>
-  )
+  );
 }

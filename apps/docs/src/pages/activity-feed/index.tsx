@@ -1,19 +1,22 @@
-import { ComponentExample } from "@/components/layout/component-example"
-import { PageSection } from "@/components/layout/page-section"
+import { useState } from "react";
+
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import { PageSection } from "@/components/layout/page-section";
 import {
   PageOverviewHeader,
   PageSectionHeader,
   PageSubsectionHeader,
-} from "@/components/layout/page-section-header"
+} from "@/components/layout/page-section-header";
 import {
   ActivityFeed,
-  ActivityFeedContent,
-  ActivityFeedIcon,
-  ActivityFeedItem,
-  ActivityFeedLabel,
-  ActivityFeedMeta,
-} from "@gecko/ui/components/activity-feed"
-import { Code } from "@gecko/ui/components/code"
+  type ActivityFeedEntry,
+} from "@gecko/ui/components/activity-feed";
+import { Code } from "@gecko/ui/components/code";
+
+const PAGE_SIZE = 5;
 
 const sampleItems = [
   {
@@ -78,209 +81,266 @@ const sampleItems = [
     label: "System alert: integration sync delayed",
     meta: "23rd Mar 2026 at 08:00 by System",
   },
-] as const
+] satisfies readonly ActivityFeedEntry[];
 
 export function ActivityFeedPage() {
-  const importSnippet = `import {
-  ActivityFeed,
-  ActivityFeedItem,
-  ActivityFeedIcon,
-  ActivityFeedContent,
-  ActivityFeedLabel,
-  ActivityFeedMeta,
-} from "@gecko/ui/components/activity-feed"`
+  const [page, setPage] = useState(1);
+  const pageItems = sampleItems.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  const compositionSnippet = `ActivityFeed
-└─ ActivityFeedItem
-   ├─ ActivityFeedIcon
-   └─ ActivityFeedContent
-      ├─ ActivityFeedLabel
-      └─ ActivityFeedMeta`
+  const importSnippet = `import { ActivityFeed } from "@gecko/ui/components/activity-feed"`;
 
-  const basicExampleSnippet = `<ActivityFeed>
-  <ActivityFeedItem key={item.id} data-activity-type={item.type}>
-    <ActivityFeedIcon type={item.type} />
-    <ActivityFeedContent>
-      <ActivityFeedLabel>{item.label}</ActivityFeedLabel>
-      <ActivityFeedMeta>{item.meta}</ActivityFeedMeta>
-    </ActivityFeedContent>
-  </ActivityFeedItem>
-</ActivityFeed>`
+  const basicExampleSnippet = `<ActivityFeed items={activities} />`;
 
-  const condensedExampleSnippet = `<ActivityFeed variant="condensed">
-  <ActivityFeedItem key={item.id} data-activity-type={item.type}>
-    <ActivityFeedIcon type={item.type} />
-    <ActivityFeedContent>
-      <ActivityFeedLabel>{item.label}</ActivityFeedLabel>
-      <ActivityFeedMeta>{item.meta}</ActivityFeedMeta>
-    </ActivityFeedContent>
-  </ActivityFeedItem>
-</ActivityFeed>`
+  const condensedExampleSnippet = `<ActivityFeed
+  items={activities}
+  variant="condensed"
+/>`;
 
-  const paginationExampleSnippet = `<ActivityFeed pagination={{ perPage: 5 }}>
-  <ActivityFeedItem key={item.id} data-activity-type={item.type}>
-    <ActivityFeedIcon type={item.type} />
-    <ActivityFeedContent>
-      <ActivityFeedLabel>{item.label}</ActivityFeedLabel>
-      <ActivityFeedMeta>{item.meta}</ActivityFeedMeta>
-    </ActivityFeedContent>
-  </ActivityFeedItem>
-</ActivityFeed>`
+  const paginationExampleSnippet = `<ActivityFeed
+  items={activities}
+  pagination={{
+    page,
+    pageSize: 20,
+    totalItems,
+    onPageChange: setPage,
+  }}
+/>`;
 
   return (
     <div className="space-y-12">
-        <PageSection id="overview" label="Overview">
-          <PageOverviewHeader
-            title="Activity feed"
-            description={
-              <>
-                The Activity Feed component displays a chronological timeline of events related to a contact or entity. Each item represents a discrete action such as a form submission, conversation, event attendance, marketing interaction, call activity, or system-generated update. Content is structured with an icon, a primary label, and supporting metadata such as timestamps or attribution, allowing users to quickly understand what happened and when.
-              </>
-            }
-          />
-        </PageSection>
+      <PageSection id="overview" label="Overview">
+        <PageOverviewHeader
+          title="Activity feed"
+          description="Activity feed displays a chronological history of actions. Each entry has a decorative activity icon, a label that describes what happened, and supporting metadata such as a timestamp or attribution."
+        />
+      </PageSection>
 
-        <PageSection id="usage" label="Usage">
-          <PageSectionHeader
-            title="Usage"
-            description={
-              <>
-                Use the Activity Feed when you need to present a history of actions in a clear, ordered format. It is best suited to contact profiles, audit trails, and any interface where understanding the sequence of events is important. Labels should be concise and action-oriented, with metadata used to provide additional context such as time, source, or actor.
-              </>
-            }
-          />
+      <PageSection id="usage" label="Usage">
+        <PageSectionHeader
+          title="Usage"
+          description={
+            <>
+              Use Activity feed for a history of actions on a contact view or in
+              the Inbox contact-details sidebar. Supply entries newest first and
+              use the default variant unless condensed is explicitly required.
+              The parent surface supplies loading, empty, and error states.
+              <br />
+              <br />
+              Avoid using Activity feed for a conversation transcript — use{" "}
+              <DocsPageLink to="/components/message">
+                Message
+              </DocsPageLink> and{" "}
+              <DocsPageLink to="/components/message-scroller">
+                Message scroller
+              </DocsPageLink>{" "}
+              instead.
+            </>
+          }
+        />
 
-          <PageSubsectionHeader
-            id="usage-import"
-            title="Import"
-            description="Import the Activity Feed and its subcomponents to compose the feed structure. The component follows a compound pattern, where each part is responsible for a specific piece of the UI."
+        <PageSubsectionHeader
+          id="usage-import"
+          title="Import"
+          description="Import Activity feed and pass it the current activity entries."
+        />
+        <ComponentExample>
+          <Code
+            variant="block"
+            language="tsx"
+            code={importSnippet}
+            showCopyButton
+            copyLabel="Copy import"
           />
-          <ComponentExample className="mb-6">
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="basic-example" label="Basic example">
+        <PageSectionHeader
+          title="Basic example"
+          description="Pass activities in newest-first order. Activity feed maps each approved activity type to its icon and renders the label and metadata consistently."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <ActivityFeed items={sampleItems} />
             <Code
               variant="block"
               language="tsx"
-              code={importSnippet}
+              code={basicExampleSnippet}
               showCopyButton
-              copyLabel="Copy import"
+              copyLabel="Copy example"
             />
-          </ComponentExample>
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-          <PageSubsectionHeader
-            id="usage-composition"
-            title="Composition"
-            description={
-              <>
-                The Activity Feed is composed of structured subcomponents rather than a single data-driven API. Each item is built using <Code>ActivityFeedItem</Code>, with <Code>ActivityFeedIcon</Code> for the visual indicator and <Code>ActivityFeedContent</Code> for the text content. Within the content, <Code>ActivityFeedLabel</Code> represents the primary message and <Code>ActivityFeedMeta</Code> provides supporting context such as time or attribution.
-              </>
-            }
-          />
-          <ComponentExample>
+      <PageSection id="condensed" label="Condensed">
+        <PageSectionHeader
+          title="Condensed"
+          description={
+            <>
+              Set <Code>variant=&quot;condensed&quot;</Code> only when the
+              denser treatment is explicitly required. Otherwise use the default
+              variant, including in constrained layouts.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <ActivityFeed items={sampleItems} variant="condensed" />
             <Code
               variant="block"
-              language="text"
-              code={compositionSnippet}
+              language="tsx"
+              code={condensedExampleSnippet}
               showCopyButton
-              copyLabel="Copy composition"
+              copyLabel="Copy example"
             />
-          </ComponentExample>
-        </PageSection>
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="basic-example" label="Basic example">
-          <PageSectionHeader
-            title="Basic example"
-            description="Demonstrates the default Activity Feed layout using standard spacing and full visual hierarchy. Each item maps an activity type to an icon and displays a label with supporting metadata. Use this as the baseline implementation for primary views where the feed is a key part of the interface."
-          />
-          <ComponentExample>
-            <div className="space-y-6">
-              <ActivityFeed>
-                {sampleItems.map((item) => (
-                  <ActivityFeedItem key={item.id} data-activity-type={item.type}>
-                    <ActivityFeedIcon type={item.type} />
-                    <ActivityFeedContent>
-                      <ActivityFeedLabel>{item.label}</ActivityFeedLabel>
-                      <ActivityFeedMeta>{item.meta}</ActivityFeedMeta>
-                    </ActivityFeedContent>
-                  </ActivityFeedItem>
-                ))}
-              </ActivityFeed>
-              <Code
-                variant="block"
-                language="tsx"
-                code={basicExampleSnippet}
-                showCopyButton
-                copyLabel="Copy example"
+      <PageSection id="pagination" label="Pagination">
+        <PageSectionHeader
+          title="Pagination"
+          description={
+            <>
+              Activity feed renders its own accessible pagination controls. The
+              parent fetches and supplies only the current page of entries, plus
+              the current page, page size, total item count, and page-change
+              callback. Pages are one-based: the first page is <Code>1</Code>.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="w-full min-w-0 space-y-6">
+            <div className="w-80 rounded-md border border-border p-6">
+              <ActivityFeed
+                items={pageItems}
+                pagination={{
+                  page,
+                  pageSize: PAGE_SIZE,
+                  totalItems: sampleItems.length,
+                  onPageChange: setPage,
+                }}
               />
             </div>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={paginationExampleSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="condensed" label="Condensed">
-          <PageSectionHeader
-            title="Condensed"
-            description={
-              <>
-                Shows the Activity Feed in its condensed variant, reducing spacing and icon size while preserving structure and readability. Use this when the feed is secondary or space is limited, such as within side panels or embedded contexts.
-              </>
-            }
-          />
-          <ComponentExample>
-            <div className="space-y-6">
-              <ActivityFeed variant="condensed">
-                {sampleItems.map((item) => (
-                  <ActivityFeedItem key={item.id} data-activity-type={item.type}>
-                    <ActivityFeedIcon type={item.type} />
-                    <ActivityFeedContent>
-                      <ActivityFeedLabel>{item.label}</ActivityFeedLabel>
-                      <ActivityFeedMeta>{item.meta}</ActivityFeedMeta>
-                    </ActivityFeedContent>
-                  </ActivityFeedItem>
-                ))}
-              </ActivityFeed>
-              <Code
-                variant="block"
-                language="tsx"
-                code={condensedExampleSnippet}
-                showCopyButton
-                copyLabel="Copy example"
-              />
-            </div>
-          </ComponentExample>
-        </PageSection>
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Supply approved activity data and let Activity feed own its rows and pagination interface. Do not extend or restyle the module without consent."
+        />
+        <DocsDoDont
+          doItems={[
+            <>
+              Supply entries through <Code>items</Code>, ordered newest first.
+            </>,
+            <>
+              Make the <Code>label</Code> describe the activity without relying
+              on its decorative icon.
+            </>,
+            <>
+              Link only the relevant object within the label, such as a
+              conversation or event name.
+            </>,
+            <>
+              Put the timestamp and relevant attribution in <Code>meta</Code>.
+            </>,
+            <>
+              For long histories, fetch one page at a time and pass controlled{" "}
+              <Code>pagination</Code> data.
+            </>,
+          ]}
+          dontItems={[
+            <>
+              Don’t use Activity feed for a conversation transcript. Use{" "}
+              <DocsPageLink to="/components/message">Message</DocsPageLink>.
+            </>,
+            <>Don’t make the entire activity row interactive.</>,
+            <>
+              Don’t override the timeline, icons, spacing, or typography with{" "}
+              <Code>className</Code>.
+            </>,
+            <>
+              Don’t add an activity type, icon, variant, or behaviour prop
+              without explicit consent.
+            </>,
+            <>
+              Don’t pass the full history when using server-backed pagination;
+              supply only the requested page.
+            </>,
+          ]}
+        />
+      </PageSection>
 
-        <PageSection id="pagination" label="Pagination">
-          <PageSectionHeader
-            title="Pagination"
-            description={
-              <>
-                Demonstrates how to paginate the Activity Feed when working with longer activity histories. Pagination limits the number of visible items and introduces navigation controls, helping maintain performance and preventing the feed from becoming overwhelming in data-heavy scenarios.
-              </>
-            }
-          />
-          <ComponentExample>
-            <div className="min-w-0 w-full space-y-6">
-              <div className="w-80 border border-border rounded-md p-6">
-                <ActivityFeed pagination={{ perPage: 5 }}>
-                  {sampleItems.map((item) => (
-                    <ActivityFeedItem key={item.id} data-activity-type={item.type}>
-                      <ActivityFeedIcon type={item.type} />
-                      <ActivityFeedContent>
-                        <ActivityFeedLabel>{item.label}</ActivityFeedLabel>
-                        <ActivityFeedMeta>{item.meta}</ActivityFeedMeta>
-                      </ActivityFeedContent>
-                    </ActivityFeedItem>
-                  ))}
-                </ActivityFeed>
-              </div>
-              <Code
-                variant="block"
-                language="tsx"
-                code={paginationExampleSnippet}
-                showCopyButton
-                copyLabel="Copy example"
-              />
-            </div>
-          </ComponentExample>
-        </PageSection>
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Behaviour props on Activity feed."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "items",
+              type: "readonly ActivityFeedEntry[]",
+              description:
+                "The current entries to render, ordered newest first. Each entry contains id, type, label, and meta.",
+            },
+            {
+              name: "variant",
+              type: '"default" | "condensed"',
+              defaultValue: '"default"',
+              description:
+                "Density. Use default unless condensed is explicitly requested.",
+            },
+            {
+              name: "pagination",
+              type: "{ page: number; pageSize: number; totalItems: number; onPageChange: (page: number) => void }",
+              description:
+                "Controlled, one-based pagination. Activity feed renders the controls; the parent supplies the requested page of items.",
+            },
+            {
+              name: "ActivityFeedEntry.type",
+              type: '"conversation-started" | "conversation-closed" | "form-submission" | "email-sent" | "sms-sent" | "added-to-campaign" | "call-made" | "added-to-event" | "system-alert"',
+              description:
+                "The approved closed set of activity types. Determines the decorative icon.",
+            },
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Use another module when the content is not a chronological history of actions."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/message">Message</DocsPageLink> — when
+            the list is a conversation transcript.
+          </li>
+          <li>
+            <DocsPageLink to="/components/pagination">Pagination</DocsPageLink>{" "}
+            — for paginating other kinds of content. Activity feed already owns
+            its pagination controls.
+          </li>
+          <li>
+            <DocsPageLink to="/components/empty">Empty</DocsPageLink>,{" "}
+            <DocsPageLink to="/components/spinner">Spinner</DocsPageLink>, and{" "}
+            <DocsPageLink to="/components/alert">Alert</DocsPageLink> — compose
+            these at the parent surface for empty, loading, and error states.
+          </li>
+        </ul>
+      </PageSection>
     </div>
-  )
+  );
 }

@@ -44,8 +44,13 @@ type DatePickerMode = "single" | "range"
 type DatePickerSharedProps = {
   id?: string
   className?: string
-  /** Accessible name for the trigger (button, native date input, natural text, or time fields). */
+  /**
+   * Accessible field name. Input-trigger calendar buttons use it as context,
+   * for example `aria-label="Start date"` produces “Open calendar for Start date”.
+   */
   "aria-label"?: string
+  /** Overrides the accessible name of the input trigger's calendar button. */
+  calendarButtonAriaLabel?: string
   /**
    * For single-date pickers, choose between a native `type="date"` field (`input`, default)
    * or an outline button trigger (`button`).
@@ -249,6 +254,7 @@ function DatePicker(props: DatePickerProps) {
     id,
     className,
     "aria-label": ariaLabel,
+    calendarButtonAriaLabel,
     disabled = false,
     open: openProp,
     defaultOpen,
@@ -506,7 +512,7 @@ function DatePicker(props: DatePickerProps) {
 
   const triggerCalendarButton = (
     triggerId: string | undefined,
-    ariaLabel: string
+    fieldLabel = ariaLabel
   ) => (
     <PopoverTrigger
       disabled={disabled}
@@ -515,10 +521,12 @@ function DatePicker(props: DatePickerProps) {
           id={triggerId}
           variant="ghost"
           disabled={disabled}
-          aria-label={ariaLabel}
+          aria-label={
+            calendarButtonAriaLabel ??
+            (fieldLabel ? `Open calendar for ${fieldLabel}` : "Open calendar")
+          }
         >
           <CalendarIcon />
-          <span className="sr-only">{ariaLabel}</span>
         </InputGroupButton>
       }
     />
@@ -589,7 +597,7 @@ function DatePicker(props: DatePickerProps) {
               <InputGroupAddon align="inline-end">
                 {triggerCalendarButton(
                   dateId ? `${dateId}-calendar` : undefined,
-                  "Select a date"
+                  dateLabel
                 )}
               </InputGroupAddon>
             </InputGroup>
@@ -720,10 +728,7 @@ function DatePicker(props: DatePickerProps) {
               }}
             />
             <InputGroupAddon align="inline-end">
-              {triggerCalendarButton(
-                id ? `${id}-calendar` : undefined,
-                "Select a date"
-              )}
+              {triggerCalendarButton(id ? `${id}-calendar` : undefined)}
             </InputGroupAddon>
           </InputGroup>
         </div>
@@ -773,10 +778,7 @@ function DatePicker(props: DatePickerProps) {
               }}
             />
             <InputGroupAddon align="inline-end">
-              {triggerCalendarButton(
-                id ? `${id}-calendar` : undefined,
-                "Select a date"
-              )}
+              {triggerCalendarButton(id ? `${id}-calendar` : undefined)}
             </InputGroupAddon>
           </InputGroup>
         </div>

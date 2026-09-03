@@ -1,30 +1,33 @@
-import * as React from "react"
-import { Navigate, useNavigate, useParams } from "react-router-dom"
-import { toast } from "sonner"
+import * as React from "react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { toast } from "@gecko/ui/components/toast";
 
 import {
   DataLoadErrorAlert,
   SupabaseSetupNotice,
-} from "@/components/supabase-setup-notice"
-import { paymentItemsRepository } from "@/data/repositories/paymentItemsRepository"
-import { usePaymentItem } from "@/hooks/usePaymentItem"
+} from "@/components/supabase-setup-notice";
+import { paymentItemsRepository } from "@/data/repositories/paymentItemsRepository";
+import { usePaymentItem } from "@/hooks/usePaymentItem";
 
-import { PaymentItemForm, type PaymentItemFormValues } from "./payment-item-form"
+import {
+  PaymentItemForm,
+  type PaymentItemFormValues,
+} from "./payment-item-form";
 
 function toFormValues(item: {
-  name: string
-  internalName: string | null
-  amount: number
-  currency: PaymentItemFormValues["currency"]
-  provider: PaymentItemFormValues["provider"]
-  minQuantity: number | null
-  maxQuantity: number | null
-  availableQuantity: number | null
+  name: string;
+  internalName: string | null;
+  amount: number;
+  currency: PaymentItemFormValues["currency"];
+  provider: PaymentItemFormValues["provider"];
+  minQuantity: number | null;
+  maxQuantity: number | null;
+  availableQuantity: number | null;
 }): PaymentItemFormValues {
   const hasInventory =
     item.minQuantity != null ||
     item.maxQuantity != null ||
-    item.availableQuantity != null
+    item.availableQuantity != null;
 
   return {
     name: item.name,
@@ -36,26 +39,28 @@ function toFormValues(item: {
     maxQuantity: item.maxQuantity,
     availableQuantity: item.availableQuantity,
     inventoryEnabled: hasInventory,
-  }
+  };
 }
 
 export default function EditPaymentItemPage() {
-  const { paymentItemId = "" } = useParams()
-  const navigate = useNavigate()
+  const { paymentItemId = "" } = useParams();
+  const navigate = useNavigate();
   const { paymentItem, loading, error, configured } =
-    usePaymentItem(paymentItemId)
-  const [isSaving, setIsSaving] = React.useState(false)
+    usePaymentItem(paymentItemId);
+  const [isSaving, setIsSaving] = React.useState(false);
 
   if (!configured) {
     return (
       <div className="w-full max-w-2xl space-y-4">
         <SupabaseSetupNotice />
       </div>
-    )
+    );
   }
 
   if (loading) {
-    return <p className="text-sm text-muted-foreground">Loading chargeable item…</p>
+    return (
+      <p className="text-sm text-muted-foreground">Loading chargeable item…</p>
+    );
   }
 
   if (error) {
@@ -66,11 +71,11 @@ export default function EditPaymentItemPage() {
           message={error}
         />
       </div>
-    )
+    );
   }
 
   if (!paymentItem) {
-    return <Navigate to="/forms/chargeable-items" replace />
+    return <Navigate to="/forms/chargeable-items" replace />;
   }
 
   return (
@@ -81,7 +86,7 @@ export default function EditPaymentItemPage() {
       initialValues={toFormValues(paymentItem)}
       isSaving={isSaving}
       onSubmit={async (values) => {
-        setIsSaving(true)
+        setIsSaving(true);
         try {
           await paymentItemsRepository.updatePaymentItem(paymentItem.id, {
             name: values.name,
@@ -92,17 +97,24 @@ export default function EditPaymentItemPage() {
             minQuantity: values.minQuantity,
             maxQuantity: values.maxQuantity,
             availableQuantity: values.availableQuantity,
-          })
-          toast.success("Chargeable item updated successfully")
-          navigate("/forms/chargeable-items")
+          });
+          toast.add({
+            title: "Chargeable item updated successfully",
+            type: "success",
+          });
+          navigate("/forms/chargeable-items");
         } catch (err) {
-          toast.error(
-            err instanceof Error ? err.message : "Failed to update chargeable item",
-          )
+          toast.add({
+            title:
+              err instanceof Error
+                ? err.message
+                : "Failed to update chargeable item",
+            type: "error",
+          });
         } finally {
-          setIsSaving(false)
+          setIsSaving(false);
         }
       }}
     />
-  )
+  );
 }

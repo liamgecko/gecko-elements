@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import {
   flexRender,
@@ -38,9 +40,7 @@ import {
 
 import type { DataTableColumnMeta } from "./data-table-column-meta"
 
-function dataTableColumnMeta(
-  meta: unknown
-): DataTableColumnMeta | undefined {
+function dataTableColumnMeta(meta: unknown): DataTableColumnMeta | undefined {
   return meta as DataTableColumnMeta | undefined
 }
 import type { DataTableColumnToggleProps } from "./data-table-column-toggle"
@@ -65,6 +65,7 @@ import { DataTablePagination } from "./data-table-pagination"
 import { DataTableSearch } from "./data-table-search"
 import { DataTableSelectActions } from "./data-table-select-actions"
 import {
+  DataTableRoot,
   DataTableToolbar,
   DataTableToolbarGroup,
   DataTableToolbarSearchRow,
@@ -91,10 +92,9 @@ export type DataTableSelectActionContext<TData> = {
   selectedRows: import("@tanstack/react-table").Row<TData>[]
 }
 
-export type DataTableProviderProps<TData> = {
+type DataTableBaseProviderProps<TData> = {
   columns: ColumnDef<TData>[]
   data: TData[]
-  children: React.ReactNode
   /** @default false */
   sorting?: boolean
   rowSelection?: boolean
@@ -102,45 +102,71 @@ export type DataTableProviderProps<TData> = {
   getRowId?: (originalRow: TData, index: number) => string
   initialState?: InitialTableState
   /**
-   * Per-row ⋯ menu: pass a shared `DataTableRowAction[]`, or `true` with `getRowActions` /
-   * each row’s `actionsKey`. Omit or `false` to disable.
-   */
-  rowActions?: boolean | DataTableRowAction[]
-  onRowAction?: (
-    actionId: string,
-    context: DataTableRowActionContext<TData>
-  ) => void
-  /** When `rowActions` is `true`, read actions from this key on each row. @default "actions" */
-  actionsKey?: keyof TData
-  /** Per-row actions; enables the column when provided (unless `rowActions: false`). */
-  getRowActions?: (original: TData) => DataTableRowAction[]
-  /**
-   * Bulk “actions on selected” menu: same shape as row actions. Omit or use `[]` to disable.
-   * Pair with `onSelectAction`.
-   */
-  selectActions?: DataTableRowAction[]
-  onSelectAction?: (
-    actionId: string,
-    context: DataTableSelectActionContext<TData>
-  ) => void
-  /**
    * When set, prepends an expand column and renders each body row with
    * `TableExpandableRow`; use `renderDetail` for nested content (e.g. a nested `Table`).
    */
   expandable?: DataTableExpandableConfig<TData>
 }
 
+type DataTableRowActionsConfig<TData> =
+  | {
+      rowActions?: false
+      getRowActions?: undefined
+      actionsKey?: undefined
+      onRowAction?: undefined
+    }
+  | {
+      /** Shared actions shown for every row. */
+      rowActions: DataTableRowAction[]
+      getRowActions?: undefined
+      actionsKey?: undefined
+      onRowAction: (actionId: string, context: DataTableRowActionContext<TData>) => void
+    }
+  | {
+      /** Resolve actions from each row using `actionsKey`. @default "actions" */
+      rowActions: true
+      getRowActions?: undefined
+      actionsKey?: keyof TData
+      onRowAction: (actionId: string, context: DataTableRowActionContext<TData>) => void
+    }
+  | {
+      rowActions?: true
+      /** Resolve the actions available for each row. */
+      getRowActions: (original: TData) => DataTableRowAction[]
+      actionsKey?: undefined
+      onRowAction: (actionId: string, context: DataTableRowActionContext<TData>) => void
+    }
+
+type DataTableSelectActionsConfig<TData> =
+  | {
+      selectActions?: undefined
+      onSelectAction?: undefined
+    }
+  | {
+      /** Bulk actions shown when one or more rows are selected. */
+      selectActions: DataTableRowAction[]
+      onSelectAction: (actionId: string, context: DataTableSelectActionContext<TData>) => void
+    }
+
+type DataTableProviderConfig<TData> = DataTableBaseProviderProps<TData> &
+  DataTableRowActionsConfig<TData> &
+  DataTableSelectActionsConfig<TData>
+
+export type DataTableProviderProps<TData> = DataTableProviderConfig<TData> & {
+  children: React.ReactNode
+}
+
 export type DataTableToolbarConfig = {
   search?: false | DataTableSearchProps
   filters?: false | DataTableFiltersProps
   columnToggle?: boolean | DataTableColumnToggleProps
-  /** When true, renders `DataTableSelectActions` (still only shows when rows are selected). */
-  selectActions?: boolean
 }
 
-export type DataTableProps<TData> = Omit<DataTableProviderProps<TData>, "children"> & {
+export type DataTableProps<TData> = DataTableProviderConfig<TData> & {
   className?: string
   contentClassName?: string
+  /** Concise accessible name for the table, such as "Events". */
+  "aria-label"?: string
   toolbar?: false | DataTableToolbarConfig
   pagination?: boolean | DataTablePaginationProps
 }
@@ -149,9 +175,7 @@ const EMPTY_SELECT_ACTIONS: DataTableRowAction[] = []
 
 const DEFAULT_PAGE_SIZE = DATA_TABLE_PAGE_SIZE_OPTIONS[0]
 
-function resolveInitialPageSize(
-  initialState: InitialTableState | undefined
-): number {
+function resolveInitialPageSize(initialState: InitialTableState | undefined): number {
   const requested = initialState?.pagination?.pageSize
   if (
     requested != null &&
@@ -181,16 +205,12 @@ function DataTableProvider<TData>({
 }: DataTableProviderProps<TData>) {
   const selectActions = enableSelectActionsProp ?? EMPTY_SELECT_ACTIONS
 
-  const sharedRowActions = Array.isArray(enableActions)
-    ? enableActions
-    : undefined
+  const sharedRowActions = Array.isArray(enableActions) ? enableActions : undefined
   const rowActionsFromRowsOnly = enableActions === true
 
   const showRowActionsColumn =
     enableActions !== false &&
-    (Boolean(getRowActions) ||
-      (sharedRowActions?.length ?? 0) > 0 ||
-      rowActionsFromRowsOnly)
+    (Boolean(getRowActions) || (sharedRowActions?.length ?? 0) > 0 || rowActionsFromRowsOnly)
 
   const getRowActionsResolved = React.useCallback(
     (original: TData) => {
@@ -218,20 +238,17 @@ function DataTableProvider<TData>({
     return cols
   }, [columns, enableRowSelection, expandable, showRowActionsColumn])
 
-  const [sorting, setSorting] = React.useState<SortingState>(
-    () => initialState?.sorting ?? []
-  )
+  const [sorting, setSorting] = React.useState<SortingState>(() => initialState?.sorting ?? [])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     () => initialState?.columnFilters ?? []
   )
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>(() => initialState?.columnVisibility ?? {})
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>(
+    () => initialState?.columnVisibility ?? {}
+  )
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>(
     () => initialState?.rowSelection ?? {}
   )
-  const [globalFilter, setGlobalFilter] = React.useState(
-    () => initialState?.globalFilter ?? ""
-  )
+  const [globalFilter, setGlobalFilter] = React.useState(() => initialState?.globalFilter ?? "")
   const [pagination, setPagination] = React.useState<PaginationState>(() => ({
     pageIndex: initialState?.pagination?.pageIndex ?? 0,
     pageSize: resolveInitialPageSize(initialState),
@@ -289,10 +306,7 @@ function DataTableProvider<TData>({
         expandable: expandable as DataTableExpandableConfig<unknown> | undefined,
         selectActions,
         onSelectAction: onSelectAction as
-          | ((
-              actionId: string,
-              context: DataTableSelectActionContext<unknown>
-            ) => void)
+          | ((actionId: string, context: DataTableSelectActionContext<unknown>) => void)
           | undefined,
         filterUiResetKey,
         resetFilterUi,
@@ -303,17 +317,17 @@ function DataTableProvider<TData>({
   )
 }
 
-function DataTableRoot({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="data-table-root"
-      className={cn("flex flex-col gap-4", className)}
-      {...props}
-    />
-  )
+export type DataTableContentProps = {
+  className?: string
+  paginated?: boolean
+  "aria-label"?: string
 }
 
-function DataTableContent<TData>({ className }: { className?: string }) {
+function DataTableContent<TData>({
+  className,
+  paginated = true,
+  "aria-label": ariaLabel,
+}: DataTableContentProps) {
   const { table, expandable, resetFilterUi } = useDataTableContext<TData>()
 
   const visibleLeafCount = table.getVisibleLeafColumns().length
@@ -321,98 +335,95 @@ function DataTableContent<TData>({ className }: { className?: string }) {
   const searchTerm = String(state.globalFilter ?? "").trim()
   const hasSearch = searchTerm.length > 0
   const hasFilters = (state.columnFilters?.length ?? 0) > 0
+  const rows = paginated
+    ? table.getRowModel().rows
+    : table.getPrePaginationRowModel().rows
   const description = hasSearch
     ? `There are no items that match '${searchTerm}'. Please try another search term.`
     : hasFilters
       ? "There are no results that match your criteria."
-      : "There are no results to display."
+      : "There are no items to display."
 
   return (
     <div
       data-slot="data-table-content"
       className={cn("data-table rounded-md border border-border", className)}
     >
-      <Table>
+      <Table aria-label={ariaLabel}>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <TableHead
                   key={header.id}
-                  className={cn(
-                    dataTableColumnMeta(header.column.columnDef.meta)?.headerClassName
-                  )}
+                  aria-sort={
+                    header.column.getIsSorted() === "asc"
+                      ? "ascending"
+                      : header.column.getIsSorted() === "desc"
+                        ? "descending"
+                        : undefined
+                  }
+                  className={cn(dataTableColumnMeta(header.column.columnDef.meta)?.headerClassName)}
                 >
                   {header.isPlaceholder
                     ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
+                    : flexRender(header.column.columnDef.header, header.getContext())}
                 </TableHead>
               ))}
             </TableRow>
           ))}
         </TableHeader>
         <TableBody>
-          {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => {
+          {rows.length ? (
+            rows.map((row) => {
               const cells = row.getVisibleCells().map((cell) => (
-                <TableCell
-                  key={cell.id}
-                  className={cn(
-                    dataTableColumnMeta(cell.column.columnDef.meta)?.cellClassName
-                  )}
-                >
-                  {flexRender(
-                    cell.column.columnDef.cell,
-                    cell.getContext()
-                  )}
-                </TableCell>
-              ))
+                  <TableCell
+                    key={cell.id}
+                    className={cn(dataTableColumnMeta(cell.column.columnDef.meta)?.cellClassName)}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))
 
               if (expandable) {
                 return (
-                  <TableExpandableRow
-                    key={row.id}
-                    colSpan={visibleLeafCount}
-                    data-state={row.getIsSelected() ? "selected" : undefined}
-                    detail={expandable.renderDetail({
-                      row,
-                      original: row.original,
-                    })}
-                  >
-                    {cells}
-                  </TableExpandableRow>
+                    <TableExpandableRow
+                      key={row.id}
+                      colSpan={visibleLeafCount}
+                      data-state={row.getIsSelected() ? "selected" : undefined}
+                      detail={expandable.renderDetail({
+                        row,
+                        original: row.original,
+                      })}
+                    >
+                      {cells}
+                    </TableExpandableRow>
                 )
               }
 
               return (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() ? "selected" : undefined}
-                >
+                <TableRow key={row.id} data-state={row.getIsSelected() ? "selected" : undefined}>
                   {cells}
                 </TableRow>
               )
             })
           ) : (
             <TableRow>
-              <TableCell
-                colSpan={visibleLeafCount}
-                data-slot="data-table-empty"
-                className="p-0"
-              >
+              <TableCell colSpan={visibleLeafCount} data-slot="data-table-empty" className="p-0">
                 <div className="p-4">
                   <Empty>
-                    <EmptyHeader>
-                      <EmptyMedia variant="icon">
-                        <SearchX />
-                      </EmptyMedia>
-                    </EmptyHeader>
+                    {hasSearch || hasFilters ? (
+                      <EmptyHeader>
+                        <EmptyMedia variant="icon">
+                          <SearchX />
+                        </EmptyMedia>
+                      </EmptyHeader>
+                    ) : null}
                     <EmptyContent>
                       <div className="grid gap-1">
-                        <EmptyTitle>No results found</EmptyTitle>
+                        <EmptyTitle>
+                          {hasSearch || hasFilters ? "No results found" : "No items yet"}
+                        </EmptyTitle>
                         <EmptyDescription>{description}</EmptyDescription>
                       </div>
                       {hasSearch || hasFilters ? (
@@ -454,26 +465,24 @@ function DataTableContent<TData>({ className }: { className?: string }) {
 export function DataTable<TData>({
   className,
   contentClassName,
+  "aria-label": ariaLabel,
   toolbar,
   pagination,
   ...providerProps
 }: DataTableProps<TData>) {
-  const showToolbar = toolbar !== false && toolbar != null
+  const hasSelectActions = (providerProps.selectActions?.length ?? 0) > 0
+  const showToolbar = (toolbar !== false && toolbar != null) || hasSelectActions
   const toolbarConfig: DataTableToolbarConfig | undefined =
-    showToolbar ? toolbar : undefined
+    toolbar && typeof toolbar === "object" ? toolbar : undefined
 
   const showPagination = Boolean(pagination)
-  const paginationProps =
-    typeof pagination === "object" ? pagination : undefined
+  const paginationProps = typeof pagination === "object" ? pagination : undefined
 
   const showSearch = toolbarConfig?.search !== false && toolbarConfig?.search != null
   const searchProps = showSearch && toolbarConfig ? toolbarConfig.search : undefined
 
-  const showFilters =
-    toolbarConfig?.filters !== false && toolbarConfig?.filters != null
+  const showFilters = toolbarConfig?.filters !== false && toolbarConfig?.filters != null
   const filtersProps = showFilters && toolbarConfig ? toolbarConfig.filters : undefined
-
-  const showSelectActions = toolbarConfig?.selectActions === true
 
   const showColumnToggle = Boolean(toolbarConfig?.columnToggle)
   const columnToggleProps =
@@ -481,12 +490,12 @@ export function DataTable<TData>({
       ? toolbarConfig.columnToggle
       : undefined
 
-  const resolvedGlobalFilter =
-    providerProps.globalFilter ?? (showSearch ? true : undefined)
+  const resolvedGlobalFilter = providerProps.globalFilter ?? (showSearch ? true : undefined)
 
   return (
     <DataTableProvider
       {...providerProps}
+      rowSelection={hasSelectActions ? true : providerProps.rowSelection}
       globalFilter={resolvedGlobalFilter ?? true}
     >
       <DataTableRoot className={className}>
@@ -499,14 +508,18 @@ export function DataTable<TData>({
               ) : null}
             </DataTableToolbarSearchRow>
             <DataTableToolbarGroup>
-              {showSelectActions ? <DataTableSelectActions /> : null}
+              {hasSelectActions ? <DataTableSelectActions /> : null}
               {showColumnToggle ? (
                 <DataTableColumnToggle {...(columnToggleProps as DataTableColumnToggleProps)} />
               ) : null}
             </DataTableToolbarGroup>
           </DataTableToolbar>
         ) : null}
-        <DataTableContent className={contentClassName} />
+        <DataTableContent
+          className={contentClassName}
+          paginated={showPagination}
+          aria-label={ariaLabel}
+        />
         {showPagination ? (
           <DataTablePagination {...(paginationProps as DataTablePaginationProps)} />
         ) : null}

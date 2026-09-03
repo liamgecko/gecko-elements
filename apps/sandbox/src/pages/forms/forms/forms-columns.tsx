@@ -1,58 +1,58 @@
-import type { ColumnDef } from "@tanstack/react-table"
-import { Lock, LockOpen } from "lucide-react"
+import type { ColumnDef } from "@tanstack/react-table";
+import { Lock, LockOpen } from "lucide-react";
 
-import { Avatar, AvatarFallback } from "@gecko/ui/components/avatar"
+import { Avatar } from "@gecko/ui/components/avatar";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
-import type { DataTableColumnMeta } from "@gecko/ui/components/data-table/data-table"
-import { DataTableColumnHeader } from "@gecko/ui/components/data-table/data-table-column-header"
-import { DataTableMultiSelectFilter } from "@gecko/ui/components/data-table/data-table-columns"
-import { DataTableMultiLineCell } from "@gecko/ui/components/data-table/data-table-multi-line-cell"
+} from "@gecko/ui/components/tooltip";
+import type { DataTableColumnMeta } from "@gecko/ui/components/data-table/data-table";
+import { DataTableColumnHeader } from "@gecko/ui/components/data-table/data-table-column-header";
+import { DataTableMultiSelectFilter } from "@gecko/ui/components/data-table/data-table-columns";
+import { DataTableMultiLineCell } from "@gecko/ui/components/data-table/data-table-multi-line-cell";
 
-import type { Form, FormLockStatus } from "./forms-data"
+import type { Form, FormLockStatus } from "./forms-data";
 
 function ordinal(n: number) {
-  const mod100 = n % 100
-  if (mod100 >= 11 && mod100 <= 13) return `${n}th`
-  const mod10 = n % 10
-  if (mod10 === 1) return `${n}st`
-  if (mod10 === 2) return `${n}nd`
-  if (mod10 === 3) return `${n}rd`
-  return `${n}th`
+  const mod100 = n % 100;
+  if (mod100 >= 11 && mod100 <= 13) return `${n}th`;
+  const mod10 = n % 10;
+  if (mod10 === 1) return `${n}st`;
+  if (mod10 === 2) return `${n}nd`;
+  if (mod10 === 3) return `${n}rd`;
+  return `${n}th`;
 }
 
 export function formatFormDate(iso: string) {
-  const d = new Date(iso)
-  const day = ordinal(d.getDate())
-  const month = d.toLocaleString(undefined, { month: "short" })
-  const year = d.getFullYear()
+  const d = new Date(iso);
+  const day = ordinal(d.getDate());
+  const month = d.toLocaleString(undefined, { month: "short" });
+  const year = d.getFullYear();
   const time = d
     .toLocaleString(undefined, {
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,
     })
-    .replace(/\s/g, "")
-  return `${day} ${month} ${year} @ ${time}`
+    .replace(/\s/g, "");
+  return `${day} ${month} ${year} @ ${time}`;
 }
 
 function lockStatusLabel(status: FormLockStatus) {
-  if (status === "locked-view-only") return "Locked (view only)"
-  if (status === "locked-can-edit") return "Locked (can edit)"
-  return "Unlocked"
+  if (status === "locked-view-only") return "Locked (view only)";
+  if (status === "locked-can-edit") return "Locked (can edit)";
+  return "Unlocked";
 }
 
 function FormLockStatusCell({ form }: { form: Form }) {
-  const { lockStatus, lockedBy } = form
+  const { lockStatus, lockedBy } = form;
 
   if (lockStatus === "unlocked") {
-    return null
+    return null;
   }
 
-  const lockedByName = lockedBy ?? "another user"
+  const lockedByName = lockedBy ?? "another user";
 
   if (lockStatus === "locked-view-only") {
     return (
@@ -65,11 +65,11 @@ function FormLockStatusCell({ form }: { form: Form }) {
           }
         />
         <TooltipContent side="top" className="max-w-xs text-center">
-          This form has been locked by {lockedByName}, you do not have permission
-          to edit.
+          This form has been locked by {lockedByName}, you do not have
+          permission to edit.
         </TooltipContent>
       </Tooltip>
-    )
+    );
   }
 
   return (
@@ -77,15 +77,19 @@ function FormLockStatusCell({ form }: { form: Form }) {
       <TooltipTrigger
         render={
           <span className="inline-flex text-muted-foreground">
-            <LockOpen className="size-4" aria-label="Form locked with edit access" />
+            <LockOpen
+              className="size-4"
+              aria-label="Form locked with edit access"
+            />
           </span>
         }
       />
       <TooltipContent side="top" className="max-w-xs text-center">
-        This form has been locked by {lockedByName}, you have permission to edit.
+        This form has been locked by {lockedByName}, you have permission to
+        edit.
       </TooltipContent>
     </Tooltip>
-  )
+  );
 }
 
 export const formColumns: ColumnDef<Form>[] = [
@@ -134,18 +138,16 @@ export const formColumns: ColumnDef<Form>[] = [
     sortingFn: (rowA, rowB) =>
       rowA.original.createdBy.name.localeCompare(rowB.original.createdBy.name),
     cell: ({ row }) => {
-      const { createdBy } = row.original
+      const { createdBy } = row.original;
       return (
         <div className="flex min-w-0 items-center gap-3">
-          <Avatar size="md">
-            <AvatarFallback>{createdBy.initials}</AvatarFallback>
-          </Avatar>
+          <Avatar name={createdBy.name} size="md" />
           <DataTableMultiLineCell
             primary={createdBy.name}
             secondary={formatFormDate(createdBy.createdAt)}
           />
         </div>
-      )
+      );
     },
   },
   {
@@ -167,4 +169,4 @@ export const formColumns: ColumnDef<Form>[] = [
     cell: ({ row }) => <span>{row.original.group}</span>,
     filterFn: DataTableMultiSelectFilter,
   },
-]
+];

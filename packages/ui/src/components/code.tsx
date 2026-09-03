@@ -1,32 +1,53 @@
-import * as React from "react"
-import { Check, Copy } from "lucide-react"
-import { toast } from "sonner"
+"use client";
 
-import { cn } from "@gecko/ui/lib/utils"
-import { Button } from "@gecko/ui/components/button"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@gecko/ui/components/tooltip"
+import * as React from "react";
+import { Check, Copy } from "lucide-react";
+import { toast } from "@gecko/ui/components/toast";
+
+import { cn } from "@gecko/ui/lib/utils";
+import { Button } from "@gecko/ui/components/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@gecko/ui/components/tooltip";
 
 type CodeInlineProps = {
-  variant?: "inline"
-  className?: string
-  children: React.ReactNode
-}
+  variant?: "inline";
+  className?: string;
+  children: React.ReactNode;
+};
+
+const codeLanguages = [
+  "text",
+  "tsx",
+  "ts",
+  "jsx",
+  "js",
+  "json",
+  "bash",
+  "css",
+  "html",
+  "markdown",
+] as const;
+
+export type CodeLanguage = (typeof codeLanguages)[number];
 
 type CodeBlockProps = {
-  variant: "block"
-  className?: string
-  code: string
-  language?: string
-  showCopyButton?: boolean
-  copyLabel?: string
-}
+  variant: "block";
+  className?: string;
+  code: string;
+  language: CodeLanguage;
+  showCopyButton?: boolean;
+  copyLabel?: string;
+};
 
-export type CodeProps = CodeInlineProps | CodeBlockProps
+export type CodeProps = CodeInlineProps | CodeBlockProps;
 
-type Shiki = typeof import("shiki")
-type Highlighter = Awaited<ReturnType<Shiki["createHighlighter"]>>
+type Shiki = typeof import("shiki");
+type Highlighter = Awaited<ReturnType<Shiki["createHighlighter"]>>;
 
-let highlighterPromise: Promise<Highlighter> | null = null
+let highlighterPromise: Promise<Highlighter> | null = null;
 
 async function getHighlighter() {
   if (!highlighterPromise) {
@@ -34,42 +55,31 @@ async function getHighlighter() {
       Promise.resolve(
         createHighlighter({
           themes: ["github-light", "github-dark"],
-          langs: [
-            "text",
-            "tsx",
-            "ts",
-            "jsx",
-            "js",
-            "json",
-            "bash",
-            "css",
-            "html",
-            "markdown",
-          ],
-        })
-      )
-    )
+          langs: [...codeLanguages],
+        }),
+      ),
+    );
   }
-  return highlighterPromise
+  return highlighterPromise;
 }
 
 function useIsDarkMode() {
   const [isDark, setIsDark] = React.useState(() => {
-    if (typeof document === "undefined") return false
-    return document.documentElement.classList.contains("dark")
-  })
+    if (typeof document === "undefined") return false;
+    return document.documentElement.classList.contains("dark");
+  });
 
   React.useEffect(() => {
-    if (typeof document === "undefined") return
-    const el = document.documentElement
+    if (typeof document === "undefined") return;
+    const el = document.documentElement;
     const observer = new MutationObserver(() => {
-      setIsDark(el.classList.contains("dark"))
-    })
-    observer.observe(el, { attributes: true, attributeFilter: ["class"] })
-    return () => observer.disconnect()
-  }, [])
+      setIsDark(el.classList.contains("dark"));
+    });
+    observer.observe(el, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
 
-  return isDark
+  return isDark;
 }
 
 function escapeHtml(input: string) {
@@ -78,107 +88,109 @@ function escapeHtml(input: string) {
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;")
+    .replaceAll("'", "&#039;");
 }
 
 async function copyText(text: string) {
   if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text)
-    return
+    await navigator.clipboard.writeText(text);
+    return;
   }
 
-  const el = document.createElement("textarea")
-  el.value = text
-  el.setAttribute("readonly", "")
-  el.style.position = "fixed"
-  el.style.top = "-9999px"
-  document.body.appendChild(el)
-  el.select()
-  document.execCommand("copy")
-  document.body.removeChild(el)
+  const el = document.createElement("textarea");
+  el.value = text;
+  el.setAttribute("readonly", "");
+  el.style.position = "fixed";
+  el.style.top = "-9999px";
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand("copy");
+  document.body.removeChild(el);
 }
 
 export function Code(props: CodeProps) {
   if (!("variant" in props) || props.variant === "inline") {
-    const { className, children } = props
+    const { className, children } = props;
     return (
       <code
         className={cn(
           "rounded bg-muted text-destructive dark:text-rose-400 px-1.5 py-0.5 font-mono text-xs",
-          className
+          className,
         )}
       >
         {children}
       </code>
-    )
+    );
   }
 
-  return <CodeBlock {...(props as CodeBlockProps)} />
+  return <CodeBlock {...(props as CodeBlockProps)} />;
 }
 
 function CodeBlock({
   className,
   code,
-  language = "tsx",
+  language,
   showCopyButton = false,
   copyLabel = "Copy",
 }: CodeBlockProps) {
-  const isDark = useIsDarkMode()
-  const [html, setHtml] = React.useState<string | null>(null)
-  const [isCopying, setIsCopying] = React.useState(false)
-  const [copied, setCopied] = React.useState(false)
+  const isDark = useIsDarkMode();
+  const highlightKey = `${isDark ? "dark" : "light"}:${language}:${code}`;
+  const [highlighted, setHighlighted] = React.useState<{
+    key: string;
+    html: string;
+  } | null>(null);
+  const [isCopying, setIsCopying] = React.useState(false);
+  const [copied, setCopied] = React.useState(false);
 
   React.useEffect(() => {
-    let cancelled = false
+    let cancelled = false;
 
     async function run() {
       try {
-        const highlighter = await getHighlighter()
-        const safeLang = highlighter.getLoadedLanguages().includes(language as never)
-          ? language
-          : "text"
-
+        const highlighter = await getHighlighter();
         const rendered = highlighter.codeToHtml(code, {
-          lang: safeLang as never,
+          lang: language,
           theme: isDark ? "github-dark" : "github-light",
           transformers: [
             {
               pre(node) {
                 if (node.properties && "style" in node.properties) {
-                  delete (node.properties as Record<string, unknown>).style
+                  delete (node.properties as Record<string, unknown>).style;
                 }
               },
             },
           ],
-        })
+        });
 
-        if (!cancelled) setHtml(rendered)
+        if (!cancelled) {
+          setHighlighted({ key: highlightKey, html: rendered });
+        }
       } catch {
         if (!cancelled) {
-          setHtml(
-            `<pre class="shiki"><code>${escapeHtml(code)}</code></pre>`
-          )
+          setHighlighted({
+            key: highlightKey,
+            html: `<pre class="shiki"><code>${escapeHtml(code)}</code></pre>`,
+          });
         }
       }
     }
 
-    setHtml(null)
-    run()
+    run();
 
     return () => {
-      cancelled = true
-    }
-  }, [code, isDark, language])
+      cancelled = true;
+    };
+  }, [code, highlightKey, isDark, language]);
 
   return (
     <div
       className={cn(
-        "bg-muted/40 border-border relative overflow-hidden rounded-md border",
-        className
+        "bg-muted/40 border-border relative isolate overflow-hidden rounded-md border",
+        className,
       )}
     >
       {showCopyButton ? (
-        <div className="absolute right-2 top-2 z-10">
+        <div className="absolute end-2 top-2 z-10">
           <Tooltip>
             <TooltipTrigger
               render={
@@ -190,15 +202,15 @@ function CodeBlock({
                   disabled={isCopying}
                   onClick={async () => {
                     try {
-                      setIsCopying(true)
-                      await copyText(code)
-                      setCopied(true)
-                      toast.success("Copied")
-                      window.setTimeout(() => setCopied(false), 1200)
+                      setIsCopying(true);
+                      await copyText(code);
+                      setCopied(true);
+                      toast.add({ title: "Copied", type: "success" });
+                      window.setTimeout(() => setCopied(false), 1200);
                     } catch {
-                      toast.error("Failed to copy")
+                      toast.add({ title: "Failed to copy", type: "error" });
                     } finally {
-                      setIsCopying(false)
+                      setIsCopying(false);
                     }
                   }}
                 >
@@ -215,18 +227,20 @@ function CodeBlock({
 
       <div
         className={cn(
-          "[&_.shiki]:m-0 [&_.shiki]:bg-transparent [&_.shiki]:p-4 [&_.shiki]:overflow-auto",
-          "[&_.shiki]:font-mono [&_.shiki]:text-xs [&_.shiki_code]:block [&_.shiki_code]:min-w-max"
+          "overflow-auto outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-ring/50",
+          "[&_.shiki]:m-0 [&_.shiki]:bg-transparent [&_.shiki]:p-4",
+          "[&_.shiki]:font-mono [&_.shiki]:text-xs [&_.shiki_code]:block [&_.shiki_code]:min-w-max",
+          showCopyButton && "me-10",
         )}
         tabIndex={0}
+        role="region"
         aria-label="Code snippet"
         dangerouslySetInnerHTML={{
           __html:
-            html ??
+            (highlighted?.key === highlightKey ? highlighted.html : null) ??
             `<pre class="shiki"><code>${escapeHtml(code)}</code></pre>`,
         }}
       />
     </div>
-  )
+  );
 }
-

@@ -1,85 +1,78 @@
-import * as React from "react"
-import { Menu as MenuPrimitive } from "@base-ui/react/menu"
+"use client";
 
-import { cn } from "@gecko/ui/lib/utils"
-import { CheckIcon, ChevronRightIcon, SearchIcon, XIcon } from "lucide-react"
+import * as React from "react";
+import { Menu as MenuPrimitive } from "@base-ui/react/menu";
+
+import { cn } from "@gecko/ui/lib/utils";
+import { CheckIcon, ChevronRightIcon, SearchIcon, XIcon } from "lucide-react";
 
 type DropdownMenuSearchContextValue = {
-  query: string
-  setQuery: (value: string) => void
-  /** Ref updated synchronously during render by items; read by DropdownMenuEmpty. Reset each render in root. */
-  visibleCountRef: React.MutableRefObject<number>
-  addVisible: () => void
-}
+  query: string;
+  setQuery: (value: string) => void;
+};
 
 const DropdownMenuSearchContext =
-  React.createContext<DropdownMenuSearchContextValue | null>(null)
+  React.createContext<DropdownMenuSearchContextValue | null>(null);
 
 function useDropdownMenuSearch() {
-  return React.useContext(DropdownMenuSearchContext)
+  return React.useContext(DropdownMenuSearchContext);
 }
 
 type DropdownMenuConfigContextValue = {
-  searchable?: boolean
-  searchPlaceholder?: string
-}
+  searchable?: boolean;
+  searchLabel?: string;
+  searchPlaceholder?: string;
+};
 
 const DropdownMenuConfigContext =
-  React.createContext<DropdownMenuConfigContextValue>({})
+  React.createContext<DropdownMenuConfigContextValue>({});
 
 function useDropdownMenuConfig() {
-  return React.useContext(DropdownMenuConfigContext)
+  return React.useContext(DropdownMenuConfigContext);
 }
 
 function DropdownMenu({
   searchable = false,
+  searchLabel,
   searchPlaceholder = "Search...",
+  onOpenChange,
   ...props
 }: MenuPrimitive.Root.Props & {
-  searchable?: boolean
-  searchPlaceholder?: string
+  searchable?: boolean;
+  searchLabel?: string;
+  searchPlaceholder?: string;
 }) {
-  const [query, setQuery] = React.useState("")
-  const visibleCountRef = React.useRef(0)
+  const [query, setQuery] = React.useState("");
 
-  // Reset so items can re-count during this render. Empty must render after items to read correct count.
-  // eslint-disable-next-line -- intentional: sync visible count so empty state shows in same frame (no flicker)
-  visibleCountRef.current = 0
-
-  const addVisible = React.useCallback(() => {
-    visibleCountRef.current += 1
-  }, [])
-
-  const searchValue = React.useMemo(
-    () => ({
-      query,
-      setQuery,
-      visibleCountRef,
-      addVisible,
-    }),
-    [query, addVisible]
-  )
+  const searchValue = React.useMemo(() => ({ query, setQuery }), [query]);
 
   const configValue = React.useMemo(
-    () => ({ searchable, searchPlaceholder }),
-    [searchable, searchPlaceholder]
-  )
+    () => ({ searchable, searchLabel, searchPlaceholder }),
+    [searchable, searchLabel, searchPlaceholder],
+  );
 
   return (
     <DropdownMenuConfigContext.Provider value={configValue}>
       <DropdownMenuSearchContext.Provider value={searchValue}>
-        <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />
+        <MenuPrimitive.Root
+          data-slot="dropdown-menu"
+          onOpenChange={(open, eventDetails) => {
+            if (!open) setQuery("");
+            onOpenChange?.(open, eventDetails);
+          }}
+          {...props}
+        />
       </DropdownMenuSearchContext.Provider>
     </DropdownMenuConfigContext.Provider>
-  )
+  );
 }
 
 function DropdownMenuPortal({ ...props }: MenuPrimitive.Portal.Props) {
-  return <MenuPrimitive.Portal data-slot="dropdown-menu-portal" {...props} />
+  return <MenuPrimitive.Portal data-slot="dropdown-menu-portal" {...props} />;
 }
 
 function DropdownMenuTrigger({ ...props }: MenuPrimitive.Trigger.Props) {
-  return <MenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />
+  return <MenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />;
 }
 
 function DropdownMenuContent({
@@ -89,23 +82,30 @@ function DropdownMenuContent({
   sideOffset = 4,
   className,
   children,
+  searchable: searchableProp,
   ...props
 }: MenuPrimitive.Popup.Props &
   Pick<
     MenuPrimitive.Positioner.Props,
     "align" | "alignOffset" | "side" | "sideOffset"
-  >) {
-  const config = useDropdownMenuConfig()
-  const searchable = config.searchable ?? false
+  > & {
+    searchable?: boolean;
+  }) {
+  const config = useDropdownMenuConfig();
+  const searchable = searchableProp ?? config.searchable ?? false;
 
   const content = searchable ? (
     <>
-      <DropdownMenuSearch placeholder={config.searchPlaceholder} />
-      <div className="p-1">{children}</div>
+      <DropdownMenuSearch
+        aria-label={config.searchLabel ?? config.searchPlaceholder}
+        placeholder={config.searchPlaceholder}
+        autoFocus
+      />
+      <div className="group/dropdown-menu-results p-1">{children}</div>
     </>
   ) : (
     children
-  )
+  );
 
   return (
     <MenuPrimitive.Portal>
@@ -119,10 +119,10 @@ function DropdownMenuContent({
         <MenuPrimitive.Popup
           data-slot="dropdown-menu-content"
           className={cn(
-            "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-32 w-max rounded-md shadow-md ring-1 duration-100 data-[side=inline-start]:slide-in-from-end-2 data-[side=inline-end]:slide-in-from-start-2 z-50 max-h-(--available-height) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden transition-none",
+            "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-32 w-max rounded-md shadow-md ring-1 duration-100 data-[side=inline-start]:slide-in-from-end-2 data-[side=inline-end]:slide-in-from-start-2 z-50 max-h-(--available-height) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden transition-none motion-reduce:animate-none",
             searchable && "min-w-(--anchor-width)",
             searchable ? "p-0" : "p-1",
-            className
+            className,
           )}
           {...props}
         >
@@ -130,28 +130,30 @@ function DropdownMenuContent({
         </MenuPrimitive.Popup>
       </MenuPrimitive.Positioner>
     </MenuPrimitive.Portal>
-  )
+  );
 }
 
 function DropdownMenuGroup({ ...props }: MenuPrimitive.Group.Props) {
-  return <MenuPrimitive.Group data-slot="dropdown-menu-group" {...props} />
+  return <MenuPrimitive.Group data-slot="dropdown-menu-group" {...props} />;
 }
 
 function getItemText(children: React.ReactNode): string {
   return React.Children.toArray(children)
     .map((child) => {
       if (typeof child === "string" || typeof child === "number") {
-        return String(child)
+        return String(child);
       }
       if (React.isValidElement(child)) {
-        const element = child as React.ReactElement<{ children?: React.ReactNode }>
+        const element = child as React.ReactElement<{
+          children?: React.ReactNode;
+        }>;
         if (element.props.children != null) {
-          return getItemText(element.props.children)
+          return getItemText(element.props.children);
         }
       }
-      return ""
+      return "";
     })
-    .join(" ")
+    .join(" ");
 }
 
 function DropdownMenuLabel({
@@ -159,16 +161,19 @@ function DropdownMenuLabel({
   inset,
   ...props
 }: MenuPrimitive.GroupLabel.Props & {
-  inset?: boolean
+  inset?: boolean;
 }) {
   return (
     <MenuPrimitive.GroupLabel
       data-slot="dropdown-menu-label"
       data-inset={inset}
-      className={cn("text-muted-foreground px-2 py-1.5 text-xs font-medium data-inset:ps-8", className)}
+      className={cn(
+        "text-muted-foreground px-2 py-1.5 text-xs font-medium data-inset:ps-8",
+        className,
+      )}
       {...props}
     />
-  )
+  );
 }
 
 function DropdownMenuItem({
@@ -177,43 +182,41 @@ function DropdownMenuItem({
   variant = "default",
   children,
   searchValue,
+  style,
   ...props
 }: MenuPrimitive.Item.Props & {
-  inset?: boolean
-  variant?: "default" | "destructive"
-  searchValue?: string
+  inset?: boolean;
+  variant?: "default" | "destructive";
+  searchValue?: string;
 }) {
-  const search = useDropdownMenuSearch()
-  const query = search?.query.toLowerCase().trim()
+  const search = useDropdownMenuSearch();
+  const query = search?.query.toLowerCase().trim();
   const text = React.useMemo(
     () => (searchValue ?? getItemText(children)).toLowerCase(),
-    [searchValue, children]
-  )
-  const isHidden = query ? !text.includes(query) : false
-
-  if (search && !isHidden) {
-    search.addVisible()
-  }
+    [searchValue, children],
+  );
+  const isHidden = query ? !text.includes(query) : false;
 
   return (
     <MenuPrimitive.Item
       data-slot="dropdown-menu-item"
+      data-search-visible={search && !isHidden ? "" : undefined}
       data-inset={inset}
       data-variant={variant}
       className={cn(
         "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive-muted data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:text-destructive not-data-[variant=destructive]:focus:**:text-accent-foreground gap-2 rounded-sm px-2 py-1.5 text-sm whitespace-nowrap data-inset:ps-8 [&_svg:not([class*='size-'])]:size-4 group/dropdown-menu-item relative flex items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-75 [&_svg]:pointer-events-none [&_svg]:shrink-0 cursor-pointer",
-        className
+        className,
       )}
-      style={isHidden ? { display: "none" } : undefined}
+      style={isHidden ? { ...style, display: "none" } : style}
       {...props}
     >
       {children}
     </MenuPrimitive.Item>
-  )
+  );
 }
 
 function DropdownMenuSub({ ...props }: MenuPrimitive.SubmenuRoot.Props) {
-  return <MenuPrimitive.SubmenuRoot data-slot="dropdown-menu-sub" {...props} />
+  return <MenuPrimitive.SubmenuRoot data-slot="dropdown-menu-sub" {...props} />;
 }
 
 function DropdownMenuSubTrigger({
@@ -222,7 +225,7 @@ function DropdownMenuSubTrigger({
   children,
   ...props
 }: MenuPrimitive.SubmenuTrigger.Props & {
-  inset?: boolean
+  inset?: boolean;
 }) {
   return (
     <MenuPrimitive.SubmenuTrigger
@@ -230,14 +233,14 @@ function DropdownMenuSubTrigger({
       data-inset={inset}
       className={cn(
         "focus:bg-accent focus:text-accent-foreground data-open:bg-accent data-open:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground gap-2 rounded-sm px-2 py-1.5 text-sm data-inset:ps-8 [&_svg:not([class*='size-'])]:size-4 data-popup-open:bg-accent data-popup-open:text-accent-foreground flex cursor-pointer items-center outline-hidden select-none [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        className
+        className,
       )}
       {...props}
     >
       {children}
-      <ChevronRightIcon className="rtl:rotate-180 ms-auto" />
+      <ChevronRightIcon className="rtl:rotate-180 ms-auto" aria-hidden="true" />
     </MenuPrimitive.SubmenuTrigger>
-  )
+  );
 }
 
 function DropdownMenuSubContent({
@@ -247,50 +250,44 @@ function DropdownMenuSubContent({
   sideOffset = 0,
   className,
   searchable = false,
+  searchLabel,
   searchPlaceholder = "Search...",
   children,
   ...props
 }: React.ComponentProps<typeof DropdownMenuContent> & {
-  searchable?: boolean
-  searchPlaceholder?: string
+  searchable?: boolean;
+  searchLabel?: string;
+  searchPlaceholder?: string;
 }) {
-  const [query, setQuery] = React.useState("")
-  const visibleCountRef = React.useRef(0)
-
-  // eslint-disable-next-line -- intentional: sync visible count so empty state shows in same frame (no flicker)
-  visibleCountRef.current = 0
-
-  const addVisible = React.useCallback(() => {
-    visibleCountRef.current += 1
-  }, [])
+  const [query, setQuery] = React.useState("");
 
   const submenuSearchValue = React.useMemo(
-    () => ({
-      query,
-      setQuery,
-      visibleCountRef,
-      addVisible,
-    }),
-    [query, addVisible]
-  )
+    () => ({ query, setQuery }),
+    [query],
+  );
 
   const inner = searchable ? (
     <DropdownMenuSearchContext.Provider value={submenuSearchValue}>
-      <DropdownMenuSearch placeholder={searchPlaceholder} />
-      <div className="p-1">{children}</div>
+      <DropdownMenuSearch
+        aria-label={searchLabel ?? searchPlaceholder}
+        placeholder={searchPlaceholder}
+        autoFocus
+      />
+      <div className="group/dropdown-menu-results p-1">{children}</div>
     </DropdownMenuSearchContext.Provider>
   ) : (
     children
-  )
+  );
 
   return (
     <DropdownMenuContent
       data-slot="dropdown-menu-sub-content"
+      searchable={false}
       className={cn(
         "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-[96px] w-max rounded-md shadow-lg ring-1 duration-100",
         searchable && "min-w-(--anchor-width)",
         searchable ? "p-0" : "p-1",
-        className
+        className,
       )}
       align={align}
       alignOffset={alignOffset}
@@ -300,7 +297,7 @@ function DropdownMenuSubContent({
     >
       {inner}
     </DropdownMenuContent>
-  )
+  );
 }
 
 function DropdownMenuCheckboxItem({
@@ -309,33 +306,31 @@ function DropdownMenuCheckboxItem({
   checked,
   inset,
   searchValue,
+  style,
   ...props
 }: MenuPrimitive.CheckboxItem.Props & {
-  inset?: boolean
-  searchValue?: string
+  inset?: boolean;
+  searchValue?: string;
 }) {
-  const search = useDropdownMenuSearch()
-  const query = search?.query.toLowerCase().trim()
+  const search = useDropdownMenuSearch();
+  const query = search?.query.toLowerCase().trim();
   const text = React.useMemo(
     () => (searchValue ?? getItemText(children)).toLowerCase(),
-    [searchValue, children]
-  )
-  const isHidden = query ? !text.includes(query) : false
-
-  if (search && !isHidden) {
-    search.addVisible()
-  }
+    [searchValue, children],
+  );
+  const isHidden = query ? !text.includes(query) : false;
 
   return (
     <MenuPrimitive.CheckboxItem
       data-slot="dropdown-menu-checkbox-item"
+      data-search-visible={search && !isHidden ? "" : undefined}
       data-inset={inset}
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-2 rounded-sm py-1.5 pe-8 ps-2 text-sm data-inset:ps-8 [&_svg:not([class*='size-'])]:size-4 relative flex cursor-pointer items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-75 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        className
+        "group/dropdown-menu-checkbox-item focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-2 rounded-sm py-1.5 pe-8 ps-2 text-sm data-inset:ps-8 [&_svg:not([class*='size-'])]:size-4 relative flex cursor-pointer items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-75 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        className,
       )}
       checked={checked}
-      style={isHidden ? { display: "none" } : undefined}
+      style={isHidden ? { ...style, display: "none" } : style}
       {...props}
     >
       <span
@@ -344,12 +339,18 @@ function DropdownMenuCheckboxItem({
       >
         <MenuPrimitive.CheckboxItemIndicator>
           <CheckIcon
+            className="group-hover/dropdown-menu-checkbox-item:hidden group-focus-visible/dropdown-menu-checkbox-item:hidden"
+            aria-hidden="true"
+          />
+          <XIcon
+            className="hidden group-hover/dropdown-menu-checkbox-item:block group-focus-visible/dropdown-menu-checkbox-item:block"
+            aria-hidden="true"
           />
         </MenuPrimitive.CheckboxItemIndicator>
       </span>
       {children}
     </MenuPrimitive.CheckboxItem>
-  )
+  );
 }
 
 function DropdownMenuRadioGroup({ ...props }: MenuPrimitive.RadioGroup.Props) {
@@ -358,56 +359,38 @@ function DropdownMenuRadioGroup({ ...props }: MenuPrimitive.RadioGroup.Props) {
       data-slot="dropdown-menu-radio-group"
       {...props}
     />
-  )
+  );
 }
 
 function DropdownMenuRadioItem({
   className,
   children,
   inset,
-  clearable = false,
-  onClear,
-  onClick,
+  searchValue,
+  style,
   ...props
 }: MenuPrimitive.RadioItem.Props & {
-  inset?: boolean
-  searchValue?: string
-  /** When selected, show an X on hover; clicking the item clears the selection. */
-  clearable?: boolean
-  onClear?: () => void
+  inset?: boolean;
+  searchValue?: string;
 }) {
-  const search = useDropdownMenuSearch()
-  const query = search?.query.toLowerCase().trim()
+  const search = useDropdownMenuSearch();
+  const query = search?.query.toLowerCase().trim();
   const text = React.useMemo(
-    () => (props.searchValue ?? getItemText(children)).toLowerCase(),
-    [props.searchValue, children]
-  )
-  const isHidden = query ? !text.includes(query) : false
-
-  if (search && !isHidden) {
-    search.addVisible()
-  }
+    () => (searchValue ?? getItemText(children)).toLowerCase(),
+    [searchValue, children],
+  );
+  const isHidden = query ? !text.includes(query) : false;
 
   return (
     <MenuPrimitive.RadioItem
       data-slot="dropdown-menu-radio-item"
+      data-search-visible={search && !isHidden ? "" : undefined}
       data-inset={inset}
       className={cn(
         "group/radio-item focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-2 rounded-sm py-1.5 pe-8 ps-2 text-sm data-inset:ps-8 [&_svg:not([class*='size-'])]:size-4 relative flex cursor-pointer items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-75 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-        className
+        className,
       )}
-      style={isHidden ? { display: "none" } : undefined}
-      onClick={(event) => {
-        if (clearable && onClear) {
-          ;(
-            event as React.MouseEvent & {
-              preventBaseUIHandler?: () => void
-            }
-          ).preventBaseUIHandler?.()
-          onClear()
-        }
-        onClick?.(event)
-      }}
+      style={isHidden ? { ...style, display: "none" } : style}
       {...props}
     >
       <span
@@ -415,32 +398,29 @@ function DropdownMenuRadioItem({
         data-slot="dropdown-menu-radio-item-indicator"
       >
         <MenuPrimitive.RadioItemIndicator>
-          {clearable && onClear ? (
-            <>
-              <CheckIcon className="size-4 group-hover/radio-item:hidden" />
-              <XIcon className="size-4 hidden group-hover/radio-item:block" />
-            </>
-          ) : (
-            <CheckIcon className="size-4" />
-          )}
+          <CheckIcon className="size-4" aria-hidden="true" />
         </MenuPrimitive.RadioItemIndicator>
       </span>
       {children}
     </MenuPrimitive.RadioItem>
-  )
+  );
 }
 
 function DropdownMenuSeparator({
   className,
+  style,
   ...props
 }: MenuPrimitive.Separator.Props) {
+  const search = useDropdownMenuSearch();
+
   return (
     <MenuPrimitive.Separator
       data-slot="dropdown-menu-separator"
       className={cn("bg-border -mx-1 my-1 h-px", className)}
+      style={search?.query.trim() ? { ...style, display: "none" } : style}
       {...props}
     />
-  )
+  );
 }
 
 function DropdownMenuShortcut({
@@ -450,22 +430,28 @@ function DropdownMenuShortcut({
   return (
     <span
       data-slot="dropdown-menu-shortcut"
-      className={cn("text-muted-foreground group-focus/dropdown-menu-item:text-accent-foreground ms-auto text-xs tracking-widest", className)}
+      className={cn(
+        "text-muted-foreground group-focus/dropdown-menu-item:text-accent-foreground ms-auto text-xs tracking-widest",
+        className,
+      )}
       {...props}
     />
-  )
+  );
 }
 
 function DropdownMenuSearch({
   className,
   placeholder = "Search...",
-  autoFocus = false,
+  autoFocus = true,
+  "aria-label": ariaLabel,
+  onChange,
+  onKeyDown,
   ...props
 }: React.InputHTMLAttributes<HTMLInputElement>) {
-  const search = useDropdownMenuSearch()
+  const search = useDropdownMenuSearch();
 
   if (!search) {
-    return null
+    return null;
   }
 
   return (
@@ -473,50 +459,72 @@ function DropdownMenuSearch({
       data-slot="dropdown-menu-search"
       className={cn(
         "border-border text-muted-foreground flex items-center gap-2 border-b px-2 py-2",
-        className
+        className,
       )}
     >
       <SearchIcon className="size-4 shrink-0" aria-hidden="true" />
       <input
         className="placeholder:text-muted-foreground/80 focus-visible:outline-none flex-1 bg-transparent text-sm"
         value={search.query}
-        onChange={(event) => search.setQuery(event.target.value)}
+        onChange={(event) => {
+          search.setQuery(event.target.value);
+          onChange?.(event);
+        }}
         onKeyDown={(event) => {
-          // Keep keyboard input inside the search field instead of triggering menu typeahead
-          event.stopPropagation()
+          onKeyDown?.(event);
+          if (event.defaultPrevented) return;
+
+          if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+            const popup = event.currentTarget.closest(
+              '[data-slot="dropdown-menu-content"], [data-slot="dropdown-menu-sub-content"]',
+            );
+            const items = Array.from(
+              popup?.querySelectorAll<HTMLElement>(
+                '[role^="menuitem"]:not([data-disabled])',
+              ) ?? [],
+            ).filter((item) => item.offsetParent !== null);
+            const item = event.key === "ArrowDown" ? items[0] : items.at(-1);
+
+            if (item) {
+              event.preventDefault();
+              item.focus();
+            }
+          }
+
+          if (event.key !== "Escape" && event.key !== "Tab") {
+            event.stopPropagation();
+          }
         }}
         placeholder={placeholder}
+        aria-label={ariaLabel ?? placeholder}
         autoFocus={autoFocus}
         {...props}
       />
     </div>
-  )
+  );
 }
 
 function DropdownMenuEmpty({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const search = useDropdownMenuSearch()
-  const show =
-    search &&
-    search.query.trim().length > 0 &&
-    search.visibleCountRef.current === 0
+  const search = useDropdownMenuSearch();
+  const show = search && search.query.trim().length > 0;
 
   if (!show) {
-    return null
+    return null;
   }
 
   return (
     <div
       data-slot="dropdown-menu-empty"
       className={cn(
-        "text-muted-foreground w-full px-2 py-1.5 text-center text-sm",
-        className
+        "text-muted-foreground w-full px-2 py-1.5 text-center text-sm group-has-data-[search-visible]/dropdown-menu-results:hidden",
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -537,4 +545,4 @@ export {
   DropdownMenuSub,
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
-}
+};

@@ -80,7 +80,7 @@ export function StepCourseDetails({
             updateBooking({ yearOfEntry: value ?? null })
           }
         >
-          <SelectTrigger id="year-of-entry" className="w-full">
+          <SelectTrigger id="year-of-entry">
             <SelectValue placeholder="Select a year" />
           </SelectTrigger>
           <SelectContent>

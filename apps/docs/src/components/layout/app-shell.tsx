@@ -15,7 +15,7 @@ import {
 import geckoLogo from "@/assets/gecko-logo.svg"
 import { SidebarNav } from "./sidebar-nav"
 import { ScrollArea } from "@gecko/ui/components/scroll-area"
-import { useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useTheme } from "@/components/theme-provider"
 import { Home, Moon, Sun } from "lucide-react"
 import { Separator } from "@gecko/ui/components/separator"
@@ -29,6 +29,7 @@ import {
 } from "@gecko/ui/components/breadcrumb"
 import { PageSectionNav } from "./page-section-nav"
 import { Button } from "@gecko/ui/components/button"
+import { structurePages } from "@/pages/gallery-data"
 
 const APP_TITLE = "Gecko Elements"
 
@@ -39,13 +40,27 @@ function slugToPageTitle(slug: string): string {
     .join(" ")
 }
 
+function structurePageTitle(slug: string): string {
+  const path = `/structure/${slug}`
+  return (
+    structurePages.find((page) => page.path === path)?.name ??
+    slugToPageTitle(slug)
+  )
+}
+
+function structureDocumentTitle(slug: string): string {
+  return structurePageTitle(slug)
+    .split(" ")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ")
+}
+
 type AppShellProps = {
   children: React.ReactNode
 }
 
 export function AppShell({ children }: AppShellProps) {
   const location = useLocation()
-  const navigate = useNavigate()
   const { resolvedTheme, setTheme } = useTheme()
 
   useEffect(() => {
@@ -59,6 +74,13 @@ export function AppShell({ children }: AppShellProps) {
     const { pathname } = location
     if (pathname === "/") {
       document.title = `Home | ${APP_TITLE}`
+    } else if (pathname === "/guides") {
+      document.title = `Guides | ${APP_TITLE}`
+    } else if (pathname.startsWith("/guides/")) {
+      const slug = pathname.replace("/guides/", "").replace(/\/$/, "")
+      document.title = slug
+        ? `${slugToPageTitle(slug)} | ${APP_TITLE}`
+        : APP_TITLE
     } else if (pathname === "/core") {
       document.title = `Core | ${APP_TITLE}`
     } else if (pathname === "/components") {
@@ -73,6 +95,13 @@ export function AppShell({ children }: AppShellProps) {
       document.title = slug
         ? `${slugToPageTitle(slug)} | ${APP_TITLE}`
         : APP_TITLE
+    } else if (pathname === "/structure") {
+      document.title = `Structure | ${APP_TITLE}`
+    } else if (pathname.startsWith("/structure/")) {
+      const slug = pathname.replace("/structure/", "").replace(/\/$/, "")
+      document.title = slug
+        ? `${structureDocumentTitle(slug)} | ${APP_TITLE}`
+        : APP_TITLE
     } else {
       document.title = APP_TITLE
     }
@@ -82,11 +111,16 @@ export function AppShell({ children }: AppShellProps) {
   const isHome = pathname === "/"
   const isComponentsRoute =
     pathname === "/components" || pathname.startsWith("/components/")
+  const isGuidesRoute =
+    pathname === "/guides" || pathname.startsWith("/guides/")
   const isCoreRoute = pathname === "/core" || pathname.startsWith("/core/")
   const isStructureRoute =
     pathname === "/structure" || pathname.startsWith("/structure/")
   const componentSlug = isComponentsRoute
     ? pathname.replace(/^\/components\/?/, "").replace(/\/$/, "")
+    : null
+  const guidesSlug = isGuidesRoute
+    ? pathname.replace(/^\/guides\/?/, "").replace(/\/$/, "")
     : null
   const coreSlug = isCoreRoute
     ? pathname.replace(/^\/core\/?/, "").replace(/\/$/, "")
@@ -95,6 +129,8 @@ export function AppShell({ children }: AppShellProps) {
     ? pathname.replace(/^\/structure\/?/, "").replace(/\/$/, "")
     : null
 
+  const guidesPageName =
+    guidesSlug && guidesSlug.length > 0 ? slugToPageTitle(guidesSlug) : null
   const componentName =
     componentSlug && componentSlug.length > 0
       ? slugToPageTitle(componentSlug)
@@ -103,7 +139,7 @@ export function AppShell({ children }: AppShellProps) {
     coreSlug && coreSlug.length > 0 ? slugToPageTitle(coreSlug) : null
   const structurePageName =
     structureSlug && structureSlug.length > 0
-      ? slugToPageTitle(structureSlug)
+      ? structurePageTitle(structureSlug)
       : null
 
   return (
@@ -139,18 +175,40 @@ export function AppShell({ children }: AppShellProps) {
                       <BreadcrumbItem>
                         <BreadcrumbLink
                           aria-label="Home"
-                          render={
-                            <button
-                              type="button"
-                              onClick={() => navigate("/")}
-                              className="text-left"
-                            />
-                          }
+                          render={<Link to="/" className="text-left" />}
                         >
                           <Home className="size-3.5" />
                           <span className="sr-only">Home</span>
                         </BreadcrumbLink>
                       </BreadcrumbItem>
+                      {isGuidesRoute && (
+                        <>
+                          <BreadcrumbSeparator />
+                          <BreadcrumbItem>
+                            {pathname === "/guides" ? (
+                              <BreadcrumbPage>Guides</BreadcrumbPage>
+                            ) : (
+                              <BreadcrumbLink
+                                render={
+                                  <Link to="/guides" className="text-left" />
+                                }
+                              >
+                                Guides
+                              </BreadcrumbLink>
+                            )}
+                          </BreadcrumbItem>
+                          {guidesPageName ? (
+                            <>
+                              <BreadcrumbSeparator />
+                              <BreadcrumbItem>
+                                <BreadcrumbPage>
+                                  {guidesPageName}
+                                </BreadcrumbPage>
+                              </BreadcrumbItem>
+                            </>
+                          ) : null}
+                        </>
+                      )}
                       {isCoreRoute && (
                         <>
                           <BreadcrumbSeparator />
@@ -160,11 +218,7 @@ export function AppShell({ children }: AppShellProps) {
                             ) : (
                               <BreadcrumbLink
                                 render={
-                                  <button
-                                    type="button"
-                                    onClick={() => navigate("/core")}
-                                    className="text-left"
-                                  />
+                                  <Link to="/core" className="text-left" />
                                 }
                               >
                                 Core
@@ -190,9 +244,8 @@ export function AppShell({ children }: AppShellProps) {
                             ) : (
                               <BreadcrumbLink
                                 render={
-                                  <button
-                                    type="button"
-                                    onClick={() => navigate("/components")}
+                                  <Link
+                                    to="/components"
                                     className="text-left"
                                   />
                                 }
@@ -220,9 +273,8 @@ export function AppShell({ children }: AppShellProps) {
                             ) : (
                               <BreadcrumbLink
                                 render={
-                                  <button
-                                    type="button"
-                                    onClick={() => navigate("/structure")}
+                                  <Link
+                                    to="/structure"
                                     className="text-left"
                                   />
                                 }

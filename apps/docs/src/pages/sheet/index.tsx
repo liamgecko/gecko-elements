@@ -1,7 +1,15 @@
-import { ComponentExample } from "@/components/layout/component-example"
-
-import { Code } from "@gecko/ui/components/code"
-import { PageSection } from "@/components/layout/page-section"
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsExternalLink } from "@/components/layout/docs-external-link";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import { Code } from "@gecko/ui/components/code";
+import { PageSection } from "@/components/layout/page-section";
+import {
+  PageOverviewHeader,
+  PageSectionHeader,
+  PageSubsectionHeader,
+} from "@/components/layout/page-section-header";
 import {
   Sheet,
   SheetBody,
@@ -11,62 +19,185 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@gecko/ui/components/sheet"
-import { Button } from "@gecko/ui/components/button"
+} from "@gecko/ui/components/sheet";
+import { Button } from "@gecko/ui/components/button";
 
 export function SheetPage() {
+  const importSnippet = `import {
+  Sheet,
+  SheetBody,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@gecko/ui/components/sheet"`;
+
+  const compositionSnippet = `Sheet
+├── SheetTrigger
+└── SheetContent
+    ├── SheetHeader
+    │   ├── SheetTitle
+    │   └── SheetDescription
+    ├── SheetBody
+    └── SheetFooter`;
+
+  const basicSnippet = `<Sheet>
+  <SheetTrigger render={<Button variant="outline">Open sheet</Button>} />
+  <SheetContent>
+    <SheetHeader>
+      <SheetTitle>Customer details</SheetTitle>
+      <SheetDescription>
+        Review contact and account information without leaving the conversation.
+      </SheetDescription>
+    </SheetHeader>
+  </SheetContent>
+</Sheet>`;
+
+  const sidesSnippet = `<SheetContent side="top|right|bottom|left">...</SheetContent>`;
+
+  const sizesSnippet = `<SheetContent side="right" size="sm|md|lg|xl|full">...</SheetContent>`;
+
+  const footerSnippet = `<Sheet>
+  <SheetTrigger render={<Button variant="outline">Edit preferences</Button>} />
+  <SheetContent side="right">
+    <SheetHeader>
+      <SheetTitle>Notification preferences</SheetTitle>
+      <SheetDescription>
+        Choose which updates you want to receive.
+      </SheetDescription>
+    </SheetHeader>
+    <SheetBody>
+      Notification controls
+    </SheetBody>
+    <SheetFooter className="border-t">
+      <div className="flex justify-end gap-2">
+        <Button variant="outline">Cancel</Button>
+        <Button>Save preferences</Button>
+      </div>
+    </SheetFooter>
+  </SheetContent>
+</Sheet>`;
+
+  const overlaySnippet = `<SheetContent side="right" hideOverlay>
+  <SheetHeader>
+    <SheetTitle>Sheet without overlay</SheetTitle>
+    <SheetDescription>
+      The visual backdrop is hidden while modal behaviour remains active.
+    </SheetDescription>
+  </SheetHeader>
+</SheetContent>`;
+
   return (
     <div className="space-y-12">
-        <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Sheet</h1>
-          <p className="text-sm text-muted-foreground">
-            A panel that slides in from the edge of the screen to display
-            additional content.
-          </p>
-        </PageSection>
+      <PageSection id="overview" label="Overview">
+        <PageOverviewHeader
+          title="Sheet"
+          description="The Sheet component is a panel that slides in from the edge of the screen. It holds secondary content or a short task without leaving the page."
+        />
+      </PageSection>
 
-        <PageSection id="basic" label="Basic">
-          <h2 className="text-lg font-semibold">Basic</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Wrap your content in{" "}
-            <Code>
-              Sheet
-            </Code>{" "}
-            and use{" "}
-            <Code>
-              SheetTrigger
-            </Code>{" "}
-            to open it.
-          </p>
-          <ComponentExample>
+      <PageSection id="usage" label="Usage">
+        <PageSectionHeader
+          title="Usage"
+          description={
+            <>
+              Use Sheet for detail or side tasks that should keep the page
+              behind visible — secondary context without taking over the screen.
+              <br />
+              <br />
+              Avoid using it for focused setup forms — that is a{" "}
+              <DocsPageLink to="/components/dialog">Dialog</DocsPageLink>. Avoid
+              using it for action confirmation — that is an{" "}
+              <DocsPageLink to="/components/alert-dialog">
+                Alert dialog
+              </DocsPageLink>
+              .
+            </>
+          }
+        />
+        <PageSubsectionHeader
+          id="usage-import"
+          title="Import"
+          description="Import the Sheet and its parts to compose a sliding panel."
+        />
+        <ComponentExample className="mb-6">
+          <Code
+            variant="block"
+            language="tsx"
+            code={importSnippet}
+            showCopyButton
+            copyLabel="Copy import"
+          />
+        </ComponentExample>
+        <PageSubsectionHeader
+          id="usage-composition"
+          title="Composition"
+          description="The trigger opens the panel. Every Sheet includes a header and title; add a body and footer when the task needs them."
+        />
+        <ComponentExample>
+          <Code
+            variant="block"
+            language="text"
+            code={compositionSnippet}
+            showCopyButton
+            copyLabel="Copy composition"
+          />
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="basic" label="Basic">
+        <PageSectionHeader
+          title="Basic"
+          description={
+            <>
+              A minimal panel using <Code>SheetTrigger</Code> and{" "}
+              <Code>SheetContent</Code> with a <Code>SheetHeader</Code>. Use
+              this for a short message or detail panel.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Sheet>
-              <SheetTrigger render={<Button variant="outline">Open sheet</Button>} />
+              <SheetTrigger
+                render={<Button variant="outline">Open sheet</Button>}
+              />
               <SheetContent>
                 <SheetHeader>
-                  <SheetTitle>Are you absolutely sure?</SheetTitle>
+                  <SheetTitle>Customer details</SheetTitle>
                   <SheetDescription>
-                    This action cannot be undone.
+                    Review contact and account information without leaving the
+                    conversation.
                   </SheetDescription>
                 </SheetHeader>
               </SheetContent>
             </Sheet>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={basicSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="sides" label="Sides">
-          <h2 className="text-lg font-semibold">Sides</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use the{" "}
-            <Code>
-              side
-            </Code>{" "}
-            prop on{" "}
-            <Code>
-              SheetContent
-            </Code>{" "}
-            to control which edge of the screen the sheet slides in from.
-          </p>
-          <ComponentExample>
+      <PageSection id="sides" label="Sides">
+        <PageSectionHeader
+          title="Sides"
+          description={
+            <>
+              Sets the entry edge using <Code>side</Code> on{" "}
+              <Code>SheetContent</Code>. Use the edge that matches where the
+              content belongs in the layout.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <div className="flex flex-wrap gap-3">
               <Sheet>
                 <SheetTrigger render={<Button variant="outline">Top</Button>} />
@@ -81,7 +212,9 @@ export function SheetPage() {
               </Sheet>
 
               <Sheet>
-                <SheetTrigger render={<Button variant="outline">Right</Button>} />
+                <SheetTrigger
+                  render={<Button variant="outline">Right</Button>}
+                />
                 <SheetContent side="right">
                   <SheetHeader>
                     <SheetTitle>Right sheet</SheetTitle>
@@ -93,7 +226,9 @@ export function SheetPage() {
               </Sheet>
 
               <Sheet>
-                <SheetTrigger render={<Button variant="outline">Bottom</Button>} />
+                <SheetTrigger
+                  render={<Button variant="outline">Bottom</Button>}
+                />
                 <SheetContent side="bottom">
                   <SheetHeader>
                     <SheetTitle>Bottom sheet</SheetTitle>
@@ -105,7 +240,9 @@ export function SheetPage() {
               </Sheet>
 
               <Sheet>
-                <SheetTrigger render={<Button variant="outline">Left</Button>} />
+                <SheetTrigger
+                  render={<Button variant="outline">Left</Button>}
+                />
                 <SheetContent side="left">
                   <SheetHeader>
                     <SheetTitle>Left sheet</SheetTitle>
@@ -116,29 +253,38 @@ export function SheetPage() {
                 </SheetContent>
               </Sheet>
             </div>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={sidesSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="sizes" label="Sizes">
-          <h2 className="text-lg font-semibold">Sizes</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Control the width of side sheets with the{" "}
-            <Code>
-              size
-            </Code>{" "}
-            prop on{" "}
-            <Code>
-              SheetContent
-            </Code>
-            .
-          </p>
-          <ComponentExample>
+      <PageSection id="sizes" label="Sizes">
+        <PageSectionHeader
+          title="Sizes"
+          description={
+            <>
+              Controls the width of side sheets using <Code>size</Code> on{" "}
+              <Code>SheetContent</Code>. Use a narrower size for quick actions
+              and a wider size for denser content.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <div className="flex flex-wrap gap-3">
               <Sheet>
-                <SheetTrigger render={<Button variant="outline">Extra small</Button>} />
+                <SheetTrigger
+                  render={<Button variant="outline">Small</Button>}
+                />
                 <SheetContent side="right" size="sm">
                   <SheetHeader>
-                    <SheetTitle>Extra small sheet</SheetTitle>
+                    <SheetTitle>Small sheet</SheetTitle>
                     <SheetDescription>
                       Narrow layout, useful for quick actions.
                     </SheetDescription>
@@ -147,10 +293,12 @@ export function SheetPage() {
               </Sheet>
 
               <Sheet>
-                <SheetTrigger render={<Button variant="outline">Small</Button>} />
+                <SheetTrigger
+                  render={<Button variant="outline">Medium</Button>}
+                />
                 <SheetContent side="right" size="md">
                   <SheetHeader>
-                    <SheetTitle>Small sheet</SheetTitle>
+                    <SheetTitle>Medium sheet</SheetTitle>
                     <SheetDescription>
                       Default width for most use cases.
                     </SheetDescription>
@@ -159,7 +307,9 @@ export function SheetPage() {
               </Sheet>
 
               <Sheet>
-                <SheetTrigger render={<Button variant="outline">Large</Button>} />
+                <SheetTrigger
+                  render={<Button variant="outline">Large</Button>}
+                />
                 <SheetContent side="right" size="lg">
                   <SheetHeader>
                     <SheetTitle>Large sheet</SheetTitle>
@@ -171,7 +321,9 @@ export function SheetPage() {
               </Sheet>
 
               <Sheet>
-                <SheetTrigger render={<Button variant="outline">Extra large</Button>} />
+                <SheetTrigger
+                  render={<Button variant="outline">Extra large</Button>}
+                />
                 <SheetContent side="right" size="xl">
                   <SheetHeader>
                     <SheetTitle>Extra large sheet</SheetTitle>
@@ -183,7 +335,9 @@ export function SheetPage() {
               </Sheet>
 
               <Sheet>
-                <SheetTrigger render={<Button variant="outline">Full width</Button>} />
+                <SheetTrigger
+                  render={<Button variant="outline">Full width</Button>}
+                />
                 <SheetContent side="right" size="full">
                   <SheetHeader>
                     <SheetTitle>Full width sheet</SheetTitle>
@@ -194,115 +348,218 @@ export function SheetPage() {
                 </SheetContent>
               </Sheet>
             </div>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={sizesSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="variants" label="Variants">
-          <h2 className="text-lg font-semibold">Variants</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Combine headers and footers to match the content and actions you
-            need in the sheet.
-          </p>
-
-          <h3 id="variants-with-header" className="mb-3 text-base font-semibold">With header</h3>
-          <ComponentExample className="mb-6">
+      <PageSection id="footer" label="Footer">
+        <PageSectionHeader
+          title="Footer"
+          description={
+            <>
+              Add <Code>SheetFooter</Code> when the task has an action. Keep the
+              required title in <Code>SheetHeader</Code> and the scrollable
+              content in <Code>SheetBody</Code>.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Sheet>
               <SheetTrigger
-                render={<Button variant="outline">Open with header</Button>}
+                render={<Button variant="outline">Edit preferences</Button>}
               />
               <SheetContent side="right">
                 <SheetHeader>
-                  <SheetTitle>Newsletter preferences</SheetTitle>
+                  <SheetTitle>Notification preferences</SheetTitle>
                   <SheetDescription>
-                    Choose how often you want to receive email updates.
+                    Choose which updates you want to receive.
                   </SheetDescription>
                 </SheetHeader>
-              </SheetContent>
-            </Sheet>
-          </ComponentExample>
-
-          <h3 id="variants-with-footer" className="mb-3 text-base font-semibold">With footer</h3>
-          <ComponentExample className="mb-6">
-            <Sheet>
-              <SheetTrigger
-                render={<Button variant="outline">Open with footer</Button>}
-              />
-              <SheetContent side="right">
-                <SheetBody>
-                  Update your settings and confirm when you&apos;re ready.
-                </SheetBody>
+                <SheetBody>Notification controls</SheetBody>
                 <SheetFooter className="border-t">
                   <div className="flex justify-end gap-2">
                     <Button variant="outline">Cancel</Button>
-                    <Button>Save</Button>
+                    <Button>Save preferences</Button>
                   </div>
                 </SheetFooter>
               </SheetContent>
             </Sheet>
-          </ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={footerSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-          <h3 id="variants-with-header-and-footer" className="mb-3 text-base font-semibold">
-            With header and footer
-          </h3>
-          <ComponentExample>
+      <PageSection id="overlay" label="Overlay">
+        <PageSectionHeader
+          title="Overlay"
+          description={
+            <>
+              Hides the backdrop using <Code>hideOverlay</Code> on{" "}
+              <Code>SheetContent</Code>. This changes the visual treatment only;
+              the Sheet remains modal and the page behind stays unavailable.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Sheet>
               <SheetTrigger
-                render={
-                  <Button variant="outline">
-                    Open with header and footer
-                  </Button>
-                }
+                render={<Button variant="outline">Open without overlay</Button>}
               />
-              <SheetContent side="right">
-                <SheetHeader>
-                  <SheetTitle>Delete account</SheetTitle>
-                  <SheetDescription>
-                    This action will permanently remove your account and all
-                    associated data.
-                  </SheetDescription>
-                </SheetHeader>
-                <SheetBody>
-                  If you&apos;re sure you want to continue, confirm below. This
-                  cannot be undone.
-                </SheetBody>
-                <SheetFooter className="border-t">
-                  <div className="flex justify-end gap-2">
-                    <Button variant="outline">Cancel</Button>
-                    <Button variant="destructive">Delete account</Button>
-                  </div>
-                </SheetFooter>
-              </SheetContent>
-            </Sheet>
-          </ComponentExample>
-        </PageSection>
-
-        <PageSection id="overlay" label="Overlay">
-          <h2 className="text-lg font-semibold">Overlay</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use the{" "}
-            <Code>
-              hideOverlay
-            </Code>{" "}
-            prop on{" "}
-            <Code>
-              SheetContent
-            </Code>{" "}
-            to disable the backdrop while keeping the sheet visible.
-          </p>
-          <ComponentExample>
-            <Sheet>
-              <SheetTrigger render={<Button variant="outline">Open without overlay</Button>} />
               <SheetContent side="right" hideOverlay>
                 <SheetHeader>
                   <SheetTitle>Sheet without overlay</SheetTitle>
                   <SheetDescription>
-                    The page remains interactive behind this sheet.
+                    The visual backdrop is hidden while modal behaviour remains
+                    active.
                   </SheetDescription>
                 </SheetHeader>
               </SheetContent>
             </Sheet>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={overlaySnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Keep side tasks contained and choose the edge and width deliberately."
+        />
+        <DocsDoDont
+          doItems={[
+            <>
+              Choose <Code>side</Code> to match where the panel belongs in the
+              layout.
+            </>,
+            <>
+              Choose the smallest <Code>size</Code> that comfortably fits the
+              content.
+            </>,
+            <>
+              Use <Code>SheetHeader</Code>, <Code>SheetBody</Code>, and{" "}
+              <Code>SheetFooter</Code> to structure longer content.
+            </>,
+            <>
+              Keep the default overlay when the modal boundary should remain
+              visually explicit.
+            </>,
+          ]}
+          dontItems={[
+            <>
+              Don’t use a Sheet for a consequential decision. Use an{" "}
+              <DocsPageLink to="/components/alert-dialog">
+                Alert dialog
+              </DocsPageLink>
+              .
+            </>,
+            <>
+              Don’t use a full-width Sheet when a narrower size fits the task.
+            </>,
+            <>
+              Don’t use <Code>hideOverlay</Code> to imply that the background is
+              interactive. It only removes the visible backdrop.
+            </>,
+            <>
+              Don’t remove the close button unless another clear way to close
+              the panel exists.
+            </>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Behaviour props on Sheet."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "side",
+              type: '"top" | "right" | "bottom" | "left"',
+              defaultValue: '"right"',
+              description:
+                "On SheetContent. Sets the edge the panel enters from.",
+            },
+            {
+              name: "size",
+              type: '"sm" | "md" | "lg" | "xl" | "full"',
+              defaultValue: '"md"',
+              description:
+                "On SheetContent. Controls the width of left and right panels.",
+            },
+            {
+              name: "showCloseButton",
+              type: "boolean",
+              defaultValue: "true",
+              description:
+                "On SheetContent. Shows the close button in the panel.",
+            },
+            {
+              name: "hideOverlay",
+              type: "boolean",
+              defaultValue: "false",
+              description:
+                "On SheetContent. Visually removes the backdrop without changing modal behaviour.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          className="mt-6"
+          title="API reference"
+          description={
+            <>
+              See the{" "}
+              <DocsExternalLink href="https://ui.shadcn.com/docs/components/base/sheet">
+                Shadcn Sheet documentation
+              </DocsExternalLink>{" "}
+              and{" "}
+              <DocsExternalLink href="https://base-ui.com/react/components/dialog">
+                Base UI Dialog API
+              </DocsExternalLink>{" "}
+              for the source composition and underlying behaviour.
+            </>
+          }
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Choose between a temporary edge panel and persistent app chrome."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/dialog">Dialog</DocsPageLink> — for a
+            centred modal.
+          </li>
+          <li>
+            <DocsPageLink to="/components/sidebar">Sidebar</DocsPageLink> — for
+            app chrome.
+          </li>
+        </ul>
+      </PageSection>
     </div>
-  )
+  );
 }

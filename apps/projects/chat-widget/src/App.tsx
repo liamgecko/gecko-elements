@@ -11,6 +11,11 @@ import {
 import { Widget } from "@/components/widget"
 import type { AgentType } from "@/lib/types"
 
+const agentTypes = [
+  { value: "ai", label: "AI agent (streaming)" },
+  { value: "agent", label: "Chat agent (no stream)" },
+] satisfies { value: AgentType; label: string }[]
+
 export default function App() {
   const [agentType, setAgentType] = React.useState<AgentType>("ai")
 
@@ -37,6 +42,7 @@ export default function App() {
         <div className="flex max-w-xs flex-col gap-2">
           <Label htmlFor="agent-type">Demo agent type</Label>
           <Select
+            items={agentTypes}
             value={agentType}
             onValueChange={(value) => {
               if (value === "ai" || value === "agent") {
@@ -44,12 +50,15 @@ export default function App() {
               }
             }}
           >
-            <SelectTrigger id="agent-type" className="w-full bg-background">
+            <SelectTrigger id="agent-type" className="bg-background">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="ai">AI agent (streaming)</SelectItem>
-              <SelectItem value="agent">Chat agent (no stream)</SelectItem>
+              {agentTypes.map((type) => (
+                <SelectItem key={type.value} value={type.value}>
+                  {type.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <p className="text-xs text-muted-foreground">

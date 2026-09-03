@@ -1,3 +1,6 @@
+"use client"
+
+import * as React from "react"
 import { Toggle as TogglePrimitive } from "@base-ui/react/toggle"
 import { cva, type VariantProps } from "class-variance-authority"
 
@@ -19,8 +22,7 @@ const toggleVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-transparent hover:bg-muted hover:text-foreground",
+        default: "bg-transparent hover:bg-muted hover:text-foreground",
         "ghost-light":
           "bg-transparent hover:bg-black/5 hover:text-foreground aria-pressed:bg-black/5 aria-pressed:text-foreground",
         "ghost-dark":
@@ -29,10 +31,11 @@ const toggleVariants = cva(
           "border-border bg-background hover:bg-muted hover:text-foreground",
       },
       size: {
-        default: "h-8 min-w-8 gap-2 px-2.5",
-        xs: "h-6 min-w-6 gap-1.5 px-2 text-xs [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-7 min-w-7 gap-1.5 px-2.5 text-xs [&_svg:not([class*='size-'])]:size-3.5",
-        lg: "h-9 min-w-9 gap-2 px-3 text-lg [&_svg:not([class*='size-'])]:size-4.5",
+        default:
+          "h-8 min-w-8 gap-2 px-2.5 data-[icon-only=true]:w-8 data-[icon-only=true]:px-0",
+        xs: "h-6 min-w-6 gap-1.5 px-2 text-xs data-[icon-only=true]:w-6 data-[icon-only=true]:px-0 [&_svg:not([class*='size-'])]:size-3",
+        sm: "h-7 min-w-7 gap-1.5 px-2.5 text-xs data-[icon-only=true]:w-7 data-[icon-only=true]:px-0 [&_svg:not([class*='size-'])]:size-3.5",
+        lg: "h-9 min-w-9 gap-2 px-3 text-lg data-[icon-only=true]:w-9 data-[icon-only=true]:px-0 [&_svg:not([class*='size-'])]:size-4.5",
         icon: "size-8 p-0",
         "icon-xs": "size-6 p-0 [&_svg:not([class*='size-'])]:size-3",
         "icon-sm": "size-7 p-0",
@@ -40,7 +43,7 @@ const toggleVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "outline",
       size: "default",
     },
   }
@@ -48,16 +51,24 @@ const toggleVariants = cva(
 
 function Toggle({
   className,
-  variant = "default",
+  variant = "outline",
   size = "default",
+  children,
   ...props
 }: TogglePrimitive.Props & VariantProps<typeof toggleVariants>) {
+  const childArray = React.Children.toArray(children)
+  const isIconOnly =
+    childArray.length === 1 && React.isValidElement(childArray[0])
+
   return (
     <TogglePrimitive
       data-slot="toggle"
+      data-icon-only={isIconOnly || undefined}
       className={cn(toggleVariants({ variant, size, className }))}
       {...props}
-    />
+    >
+      {children}
+    </TogglePrimitive>
   )
 }
 

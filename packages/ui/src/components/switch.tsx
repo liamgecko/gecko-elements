@@ -1,16 +1,18 @@
-import * as React from "react"
-import { Switch as SwitchPrimitive } from "@base-ui/react/switch"
+"use client";
 
-import { ControlLabel } from "@gecko/ui/components/label"
-import { cn } from "@gecko/ui/lib/utils"
+import * as React from "react";
+import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
+
+import { ControlLabel } from "@gecko/ui/components/label";
+import { cn } from "@gecko/ui/lib/utils";
 
 type SwitchProps = SwitchPrimitive.Root.Props & {
-  size?: "sm" | "default"
-  label?: React.ReactNode
-  description?: React.ReactNode
+  size?: "sm" | "default" | "lg";
+  label?: React.ReactNode;
+  description?: React.ReactNode;
   /** @default "after" */
-  labelPosition?: "before" | "after"
-}
+  labelPosition?: "before" | "after";
+};
 
 function Switch({
   className,
@@ -19,36 +21,42 @@ function Switch({
   description,
   labelPosition = "after",
   id: idProp,
+  "aria-describedby": ariaDescribedBy,
   ...props
 }: SwitchProps) {
-  const generatedId = React.useId()
-  const inputId = idProp ?? generatedId
+  const generatedId = React.useId();
+  const inputId = idProp ?? generatedId;
+  const descriptionId = `${inputId}-description`;
+  const describedBy =
+    [ariaDescribedBy, description && descriptionId].filter(Boolean).join(" ") ||
+    undefined;
 
   const control = (
     <SwitchPrimitive.Root
       data-slot="switch"
       data-size={size}
       id={inputId}
+      aria-describedby={describedBy}
       className={cn(
-        "data-checked:bg-primary dark:data-checked:bg-gray-100 data-unchecked:bg-input dark:data-unchecked:bg-gray-700 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:focus-visible:ring-input-destructive/20 dark:aria-invalid:focus-visible:ring-input-destructive/40 aria-invalid:border-input-destructive aria-invalid:bg-input-destructive shrink-0 rounded-full border border-transparent shadow-xs focus-visible:ring-3 aria-invalid:focus-visible:ring-3 data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px] peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-75 cursor-pointer",
-        !label && !description && "mr-1",
+        "data-checked:bg-primary dark:data-checked:bg-gray-100 data-unchecked:bg-input dark:data-unchecked:bg-gray-700 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:focus-visible:ring-input-destructive/20 dark:aria-invalid:focus-visible:ring-input-destructive/40 aria-invalid:border-input-destructive aria-invalid:bg-input-destructive shrink-0 rounded-full border border-transparent shadow-xs focus-visible:ring-3 aria-invalid:focus-visible:ring-3 data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px] data-[size=lg]:h-[24px] data-[size=lg]:w-[40px] peer group/switch relative inline-flex items-center transition-all outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-75 cursor-pointer",
+        !label && !description && "me-1",
         className,
       )}
       {...props}
     >
       <SwitchPrimitive.Thumb
         data-slot="switch-thumb"
-        className="bg-background shadow-md rounded-full group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] rtl:group-data-[size=default]/switch:data-checked:-translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] rtl:group-data-[size=sm]/switch:data-checked:-translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 rtl:group-data-[size=default]/switch:data-unchecked:-translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0 rtl:group-data-[size=sm]/switch:data-unchecked:-translate-x-0 pointer-events-none block ring-0 transition-transform"
+        className="bg-background shadow-md rounded-full group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=lg]/switch:size-5 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] rtl:group-data-[size=default]/switch:data-checked:-translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] rtl:group-data-[size=sm]/switch:data-checked:-translate-x-[calc(100%-2px)] group-data-[size=lg]/switch:data-checked:translate-x-[calc(100%-2px)] rtl:group-data-[size=lg]/switch:data-checked:-translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 rtl:group-data-[size=default]/switch:data-unchecked:-translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0 rtl:group-data-[size=sm]/switch:data-unchecked:-translate-x-0 group-data-[size=lg]/switch:data-unchecked:translate-x-0 rtl:group-data-[size=lg]/switch:data-unchecked:-translate-x-0 pointer-events-none block ring-0 transition-transform"
       />
     </SwitchPrimitive.Root>
-  )
+  );
 
   if (!label && !description) {
-    return control
+    return control;
   }
 
   const labelClassName =
-    "cursor-pointer select-none group-data-[disabled=true]/switch-field:cursor-not-allowed group-data-[disabled=true]/switch-field:opacity-75"
+    "cursor-pointer select-none group-data-[disabled=true]/switch-field:cursor-not-allowed group-data-[disabled=true]/switch-field:opacity-75";
 
   if (description) {
     return (
@@ -63,12 +71,15 @@ function Switch({
               {label}
             </ControlLabel>
           ) : null}
-          <p className="text-muted-foreground text-xs leading-normal">
+          <p
+            id={descriptionId}
+            className="text-muted-foreground text-xs leading-normal"
+          >
             {description}
           </p>
         </div>
       </div>
-    )
+    );
   }
 
   const labelNode = (
@@ -78,7 +89,7 @@ function Switch({
     >
       {label}
     </ControlLabel>
-  )
+  );
 
   return (
     <div
@@ -89,7 +100,7 @@ function Switch({
       {control}
       {labelPosition === "after" ? labelNode : null}
     </div>
-  )
+  );
 }
 
-export { Switch }
+export { Switch };

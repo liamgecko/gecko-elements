@@ -1,6 +1,15 @@
-import { ComponentExample } from "@/components/layout/component-example"
-import { PageSection } from "@/components/layout/page-section"
-import { Code } from "@gecko/ui/components/code"
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsExternalLink } from "@/components/layout/docs-external-link";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import { PageSection } from "@/components/layout/page-section";
+import {
+  PageOverviewHeader,
+  PageSectionHeader,
+  PageSubsectionHeader,
+} from "@/components/layout/page-section-header";
+import { Code } from "@gecko/ui/components/code";
 
 export function CodeSnippetPage() {
   const blockExample = `import { Field, FieldDescription, FieldLabel } from "@gecko/ui/components/field"
@@ -14,46 +23,168 @@ export function InputFile() {
       <FieldDescription>Select a picture to upload.</FieldDescription>
     </Field>
   )
-}`
+}`;
+
+  const importSnippet = `import { Code } from "@gecko/ui/components/code"`;
+
+  const inlineSnippet = `<Code>Inline code snippet</Code>`;
+
+  const blockSnippet = `<Code variant="block" language="tsx" code={code} />`;
+
+  const supportedLanguages = `text
+tsx
+ts
+jsx
+js
+json
+bash
+css
+html
+markdown`;
+
+  const blockWithCopySnippet = `<Code
+  variant="block"
+  language="tsx"
+  code={code}
+  showCopyButton
+  copyLabel="Copy code"
+/>`;
 
   return (
     <div className="space-y-12">
-        <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Code snippet</h1>
-          <p className="text-sm text-muted-foreground">
-            Inline and block code presentation for documentation and examples.
-          </p>
-        </PageSection>
+      <PageSection id="overview" label="Overview">
+        <PageOverviewHeader
+          title="Code snippet"
+          description="The Code snippet shows source in the page — a short token in a sentence, or a block people can read and copy. It is for documentation and examples, not for editing code."
+        />
+      </PageSection>
 
-        <PageSection id="inline" label="Inline">
-          <h2 className="text-lg font-semibold">Inline</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code>inline code</Code> to highlight short tokens inside prose.
-          </p>
-          <ComponentExample>
+      <PageSection id="usage" label="Usage">
+        <PageSectionHeader
+          title="Usage"
+          description={
+            <>
+              Use Code snippet for read-only technical content. Inline is for a
+              short token in a sentence. Block is for source, configuration,
+              commands, plain-text output, or customer-facing snippets such as
+              website embed code.
+              <br />
+              <br />
+              Avoid using it as a text field. If people need to edit the value,
+              use an{" "}
+              <DocsPageLink to="/components/input">Input field</DocsPageLink> or
+              a{" "}
+              <DocsPageLink to="/components/textarea">
+                Textarea field
+              </DocsPageLink>{" "}
+              instead.
+            </>
+          }
+        />
+        <PageSubsectionHeader
+          id="usage-import"
+          title="Import"
+          description="Import Code to show a token in prose or a block of source."
+        />
+        <ComponentExample>
+          <Code
+            variant="block"
+            language="tsx"
+            code={importSnippet}
+            showCopyButton
+            copyLabel="Copy import"
+          />
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="inline" label="Inline">
+        <PageSectionHeader
+          title="Inline"
+          description="The default Code, with no variant. Use this to highlight a short token inside a sentence."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <p className="text-sm text-foreground">
               <Code>Inline code snippet</Code>
             </p>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={inlineSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="block" label="Block">
-          <h2 className="text-lg font-semibold">Block</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use a block snippet for multiline examples with syntax highlighting.
-          </p>
+      <PageSection id="block" label="Block">
+        <PageSectionHeader
+          title="Block"
+          description={
+            <>
+              A multiline example using <Code>variant=&quot;block&quot;</Code>{" "}
+              with <Code>code</Code> and the required <Code>language</Code>. Use
+              this when the example needs its own space, not a word in a
+              sentence.
+            </>
+          }
+        />
 
-          <h3 id="block-basic" className="mb-3 text-base font-semibold">
-            Basic
-          </h3>
-          <ComponentExample className="mb-6">
+        <PageSubsectionHeader
+          id="block-basic"
+          title="Basic"
+          description={
+            <>
+              A highlighted block using <Code>variant=&quot;block&quot;</Code>.
+              Use this for a read-only example.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Code variant="block" language="tsx" code={blockExample} />
-          </ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={blockSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
 
-          <h3 id="block-with-copy" className="mb-3 text-base font-semibold">
-            With copy button
-          </h3>
-          <ComponentExample>
+        <PageSubsectionHeader
+          id="block-languages"
+          title="Supported languages"
+          description={
+            <>
+              Set <Code>language</Code> to one of the approved values below. Use{" "}
+              <Code>text</Code> for content that does not need syntax
+              highlighting.
+            </>
+          }
+        />
+        <Code
+          variant="block"
+          language="text"
+          code={supportedLanguages}
+          className="mb-6"
+        />
+
+        <PageSubsectionHeader
+          id="block-with-copy"
+          title="With copy button"
+          description={
+            <>
+              Adds a copy control using <Code>showCopyButton</Code> and{" "}
+              <Code>copyLabel</Code>. Use this when people should be able to
+              copy the example in one click.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Code
               variant="block"
               language="tsx"
@@ -61,9 +192,124 @@ export function InputFile() {
               showCopyButton
               copyLabel="Copy code"
             />
-          </ComponentExample>
-        </PageSection>
-    </div>
-  )
-}
+            <Code
+              variant="block"
+              language="tsx"
+              code={blockWithCopySnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Choose inline or block Code to match the amount of source."
+        />
+        <DocsDoDont
+          doItems={[
+            <>Use inline Code for a short token within a sentence.</>,
+            <>
+              Use <Code>variant=&quot;block&quot;</Code> for multiline source.
+            </>,
+            <>
+              Set <Code>language</Code> to match the block content.
+            </>,
+            <>
+              Use <Code>text</Code> for plain-text output.
+            </>,
+            <>
+              Add <Code>showCopyButton</Code> when the example is useful to
+              copy.
+            </>,
+          ]}
+          dontItems={[
+            <>Don’t use inline Code for a multiline example.</>,
+            <>Don’t use a block for a single prop name in prose.</>,
+            <>
+              Don’t set an unrelated <Code>language</Code> for syntax
+              highlighting.
+            </>,
+            <>
+              Don’t add an unsupported language without changing the library.
+            </>,
+            <>Don’t add a copy button when the source is only for reading.</>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader title="API" description="Behaviour props on Code." />
+        <DocsApiTable
+          rows={[
+            {
+              name: "variant",
+              type: '"inline" | "block"',
+              defaultValue: '"inline"',
+              description:
+                "Displays a token in prose or a standalone source block.",
+            },
+            {
+              name: "code",
+              type: "string",
+              description: "Source rendered by the block variant.",
+            },
+            {
+              name: "language",
+              type: '"text" | "tsx" | "ts" | "jsx" | "js" | "json" | "bash" | "css" | "html" | "markdown"',
+              description: "Required syntax-highlighting language for a block.",
+            },
+            {
+              name: "showCopyButton",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Shows a control that copies the block source.",
+            },
+            {
+              name: "copyLabel",
+              type: "string",
+              defaultValue: '"Copy"',
+              description:
+                "Accessible label and tooltip text for the copy control.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-reference"
+          className="mt-6"
+          title="API reference"
+          description={
+            <>
+              See the{" "}
+              <DocsExternalLink href="https://shiki.style/guide/">
+                Shiki documentation
+              </DocsExternalLink>{" "}
+              for the underlying syntax-highlighting API.
+            </>
+          }
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Use an editable field when people need to change the value."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/input">Input field</DocsPageLink> —
+            editable single-line values.
+          </li>
+          <li>
+            <DocsPageLink to="/components/textarea">
+              Textarea field
+            </DocsPageLink>{" "}
+            — editable multiline plain text.
+          </li>
+        </ul>
+      </PageSection>
+    </div>
+  );
+}

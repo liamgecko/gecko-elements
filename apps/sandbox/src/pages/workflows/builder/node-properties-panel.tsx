@@ -1,6 +1,12 @@
-import * as React from "react"
-import { CheckCheck, PanelRightClose, PanelRightOpen, Trash2, X } from "lucide-react"
-import { toast } from "sonner"
+import * as React from "react";
+import {
+  CheckCheck,
+  PanelRightClose,
+  PanelRightOpen,
+  Trash2,
+  X,
+} from "lucide-react";
+import { toast } from "@gecko/ui/components/toast";
 
 import {
   AlertDialog,
@@ -11,35 +17,42 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@gecko/ui/components/alert-dialog"
-import { Alert, AlertDescription, AlertTitle } from "@gecko/ui/components/alert"
-import { Button } from "@gecko/ui/components/button"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@gecko/ui/components/alert-dialog";
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@gecko/ui/components/alert";
+import { Button } from "@gecko/ui/components/button";
+import { cn } from "@gecko/ui/lib/utils";
 
-import type { WorkflowGraphNodeData } from "../workflows-data"
-import { NodePropertiesFields } from "./node-properties-fields"
-import { getNodeDisplayName, type WorkflowFlowNode } from "./workflow-graph-types"
+import type { WorkflowGraphNodeData } from "../workflows-data";
+import { NodePropertiesFields } from "./node-properties-fields";
+import {
+  getNodeDisplayName,
+  type WorkflowFlowNode,
+} from "./workflow-graph-types";
 import {
   hasNodePropertiesValidationErrors,
   validateNodeProperties,
-} from "./validate-node-properties"
+} from "./validate-node-properties";
 
-const PANEL_EASE = "cubic-bezier(0.32, 0.72, 0, 1)"
-const PANEL_OPEN_MS = 420
-const PANEL_CLOSE_MS = 320
-const PANEL_WIDTH_OPEN = "18rem"
-const PANEL_WIDTH_CLOSED = "11.25rem"
+const PANEL_EASE = "cubic-bezier(0.32, 0.72, 0, 1)";
+const PANEL_OPEN_MS = 420;
+const PANEL_CLOSE_MS = 320;
+const PANEL_WIDTH_OPEN = "18rem";
+const PANEL_WIDTH_CLOSED = "11.25rem";
 
 type NodePropertiesPanelProps = {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  hasSelection: boolean
-  selectedNode: WorkflowFlowNode | null
-  isDisconnected?: boolean
-  onNodeDataSave: (nodeId: string, data: WorkflowGraphNodeData) => void
-  onNodePropertiesErrorChange: (nodeId: string, hasError: boolean) => void
-  onDeleteNode: (nodeId: string) => void
-}
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  hasSelection: boolean;
+  selectedNode: WorkflowFlowNode | null;
+  isDisconnected?: boolean;
+  onNodeDataSave: (nodeId: string, data: WorkflowGraphNodeData) => void;
+  onNodePropertiesErrorChange: (nodeId: string, hasError: boolean) => void;
+  onDeleteNode: (nodeId: string) => void;
+};
 
 export function NodePropertiesPanel({
   open,
@@ -51,112 +64,107 @@ export function NodePropertiesPanel({
   onNodePropertiesErrorChange,
   onDeleteNode,
 }: NodePropertiesPanelProps) {
-  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false)
-  const [draftData, setDraftData] = React.useState<WorkflowGraphNodeData | null>(
-    null,
-  )
-  const [showValidation, setShowValidation] = React.useState(false)
+  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  const [draftData, setDraftData] =
+    React.useState<WorkflowGraphNodeData | null>(null);
+  const [showValidation, setShowValidation] = React.useState(false);
   const editingRef = React.useRef<{
-    id: string
-    data: WorkflowGraphNodeData
-  } | null>(null)
+    id: string;
+    data: WorkflowGraphNodeData;
+  } | null>(null);
 
   React.useEffect(() => {
     if (selectedNode && draftData) {
-      editingRef.current = { id: selectedNode.id, data: draftData }
+      editingRef.current = { id: selectedNode.id, data: draftData };
     }
-  }, [draftData, selectedNode])
+  }, [draftData, selectedNode]);
 
   React.useEffect(() => {
-    const currentId = selectedNode?.id ?? null
+    const currentId = selectedNode?.id ?? null;
 
     return () => {
-      const editing = editingRef.current
-      if (!editing || !currentId || editing.id !== currentId) return
+      const editing = editingRef.current;
+      if (!editing || !currentId || editing.id !== currentId) return;
 
       onNodePropertiesErrorChange(
         editing.id,
-        hasNodePropertiesValidationErrors(
-          validateNodeProperties(editing.data),
-        ),
-      )
-    }
-  }, [onNodePropertiesErrorChange, selectedNode?.id])
+        hasNodePropertiesValidationErrors(validateNodeProperties(editing.data)),
+      );
+    };
+  }, [onNodePropertiesErrorChange, selectedNode?.id]);
 
   React.useEffect(() => {
     if (!selectedNode) {
-      setDraftData(null)
-      return
+      setDraftData(null);
+      return;
     }
 
-    setDraftData({ ...selectedNode.data })
-    setShowValidation(Boolean(selectedNode.data.hasPropertiesError))
-  }, [selectedNode?.id])
+    setDraftData({ ...selectedNode.data });
+    setShowValidation(Boolean(selectedNode.data.hasPropertiesError));
+  }, [selectedNode?.id]);
 
   const draftNode = React.useMemo(() => {
-    if (!selectedNode || !draftData) return null
-    return { ...selectedNode, data: draftData }
-  }, [draftData, selectedNode])
+    if (!selectedNode || !draftData) return null;
+    return { ...selectedNode, data: draftData };
+  }, [draftData, selectedNode]);
 
   const validationErrors = React.useMemo(() => {
-    if (!showValidation || !draftData) return {}
-    return validateNodeProperties(draftData)
-  }, [draftData, showValidation])
+    if (!showValidation || !draftData) return {};
+    return validateNodeProperties(draftData);
+  }, [draftData, showValidation]);
 
   const nodeDisplayName = draftNode
     ? getNodeDisplayName(draftNode.data)
     : selectedNode
       ? getNodeDisplayName(selectedNode.data)
-      : ""
+      : "";
 
   const handleDraftChange = React.useCallback(
     (nodeId: string, patch: Partial<WorkflowGraphNodeData>) => {
-      if (!selectedNode || nodeId !== selectedNode.id) return
+      if (!selectedNode || nodeId !== selectedNode.id) return;
 
-      setDraftData((current) =>
-        current ? { ...current, ...patch } : current,
-      )
+      setDraftData((current) => (current ? { ...current, ...patch } : current));
     },
     [selectedNode],
-  )
+  );
 
   React.useEffect(() => {
-    if (!selectedNode || !draftData || !showValidation) return
+    if (!selectedNode || !draftData || !showValidation) return;
 
     onNodePropertiesErrorChange(
       selectedNode.id,
       hasNodePropertiesValidationErrors(validateNodeProperties(draftData)),
-    )
+    );
   }, [
     draftData,
     onNodePropertiesErrorChange,
     selectedNode?.id,
     showValidation,
-  ])
+  ]);
 
   const handleSaveNode = () => {
-    if (!selectedNode || !draftData) return
+    if (!selectedNode || !draftData) return;
 
-    const errors = validateNodeProperties(draftData)
+    const errors = validateNodeProperties(draftData);
     if (hasNodePropertiesValidationErrors(errors)) {
-      setShowValidation(true)
-      onNodePropertiesErrorChange(selectedNode.id, true)
-      return
+      setShowValidation(true);
+      onNodePropertiesErrorChange(selectedNode.id, true);
+      return;
     }
 
-    setShowValidation(false)
+    setShowValidation(false);
     onNodeDataSave(selectedNode.id, {
       ...draftData,
       hasPropertiesError: false,
-    })
-    toast.success(`${nodeDisplayName} updated`)
-  }
+    });
+    toast.add({ title: `${nodeDisplayName} updated`, type: "success" });
+  };
 
   const handleConfirmDelete = () => {
-    if (!selectedNode) return
-    onDeleteNode(selectedNode.id)
-    setDeleteDialogOpen(false)
-  }
+    if (!selectedNode) return;
+    onDeleteNode(selectedNode.id);
+    setDeleteDialogOpen(false);
+  };
 
   return (
     <>
@@ -266,11 +274,7 @@ export function NodePropertiesPanel({
                       <Trash2 data-icon="inline-start" aria-hidden />
                       Delete node
                     </Button>
-                    <Button
-                      type="button"
-                      size="sm"
-                      onClick={handleSaveNode}
-                    >
+                    <Button type="button" size="sm" onClick={handleSaveNode}>
                       <CheckCheck data-icon="inline-start" aria-hidden />
                       Save node
                     </Button>
@@ -306,5 +310,5 @@ export function NodePropertiesPanel({
         </AlertDialogContent>
       </AlertDialog>
     </>
-  )
+  );
 }

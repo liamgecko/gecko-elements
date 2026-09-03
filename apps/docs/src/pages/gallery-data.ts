@@ -1,8 +1,27 @@
 export type GalleryItem = {
-  name: string
-  description: string
-  path: string
-}
+  name: string;
+  description: string;
+  path: string;
+};
+
+export const guidesPages: readonly GalleryItem[] = [
+  {
+    name: "Styling",
+    description:
+      "How to style components — what className is for and what to leave alone.",
+    path: "/guides/styling",
+  },
+  {
+    name: "Choosing components",
+    description: "Which component to reach for, starting from the task.",
+    path: "/guides/choosing-components",
+  },
+  {
+    name: "Recipes",
+    description: "Composed patterns for forms, overlays, and feedback.",
+    path: "/guides/recipes",
+  },
+] as const;
 
 export const corePages: readonly GalleryItem[] = [
   {
@@ -35,25 +54,30 @@ export const corePages: readonly GalleryItem[] = [
     description: "Lucide icons and usage notes.",
     path: "/core/icons",
   },
-] as const
+] as const;
 
 export const structurePages: readonly GalleryItem[] = [
   {
-    name: "Container",
+    name: "App header",
+    description: "Sticky product chrome for account, status, and user menu.",
+    path: "/structure/app-header",
+  },
+  {
+    name: "App sidebar",
+    description: "App-wide navigation rail under the app header.",
+    path: "/structure/app-sidebar",
+  },
+  {
+    name: "Page container",
     description: "Page and content containers for consistent layout.",
     path: "/structure/container",
   },
   {
-    name: "Menu",
-    description: "Navigation menus and composition patterns.",
-    path: "/structure/menu",
-  },
-  {
-    name: "Header",
+    name: "Page header",
     description: "Page headers, titles, and supporting actions.",
     path: "/structure/header",
   },
-] as const
+] as const;
 
 /** Keep alphabetical by `name` — sidebar and home gallery both consume this list. */
 export const componentPages: readonly GalleryItem[] = [
@@ -104,13 +128,19 @@ export const componentPages: readonly GalleryItem[] = [
   },
   {
     name: "Bubble",
-    description: "Framed conversational surface for chat content and reactions.",
+    description:
+      "Framed conversational surface for chat content and reactions.",
     path: "/components/bubble",
   },
   {
     name: "Button",
     description: "Actions, submit, and triggers.",
     path: "/components/button",
+  },
+  {
+    name: "Button group",
+    description: "Join related actions into one compact control group.",
+    path: "/components/button-group",
   },
   {
     name: "Calendar",
@@ -145,7 +175,7 @@ export const componentPages: readonly GalleryItem[] = [
   {
     name: "Colour field",
     description: "Pickers for selecting and previewing colours.",
-    path: "/components/color-picker",
+    path: "/components/colour-field",
   },
   {
     name: "Combobox",
@@ -175,7 +205,7 @@ export const componentPages: readonly GalleryItem[] = [
   {
     name: "Date field",
     description: "Three segment date entry (DD MM YY or MM DD).",
-    path: "/components/date-input",
+    path: "/components/date-field",
   },
   {
     name: "Date picker",
@@ -186,11 +216,6 @@ export const componentPages: readonly GalleryItem[] = [
     name: "Dialog",
     description: "Non‑blocking overlay dialog for additional content.",
     path: "/components/dialog",
-  },
-  {
-    name: "Drag and drop",
-    description: "Sortable lists and draggable UI patterns.",
-    path: "/components/drag-and-drop",
   },
   {
     name: "Drop zone",
@@ -219,8 +244,8 @@ export const componentPages: readonly GalleryItem[] = [
   },
   {
     name: "File field",
-    description: "File upload fields with states.",
-    path: "/components/file-input",
+    description: "Native file selection for forms.",
+    path: "/components/file-field",
   },
   {
     name: "File tree",
@@ -241,6 +266,11 @@ export const componentPages: readonly GalleryItem[] = [
     name: "Input field",
     description: "Single‑line text inputs.",
     path: "/components/input",
+  },
+  {
+    name: "Input group",
+    description: "Add text, icons, or actions inside an input boundary.",
+    path: "/components/input-group",
   },
   {
     name: "Label",
@@ -280,8 +310,8 @@ export const componentPages: readonly GalleryItem[] = [
   },
   {
     name: "OTP field",
-    description: "Multi‑field one‑time‑password entry.",
-    path: "/components/input-otp",
+    description: "Verification-code input with fixed visual slots.",
+    path: "/components/otp-field",
   },
   {
     name: "Pagination",
@@ -314,18 +344,18 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/scroll-area",
   },
   {
-    name: "Search field",
-    description: "Search fields with affordances and patterns.",
-    path: "/components/search-input",
+    name: "Search",
+    description: "Find or filter content using a product query.",
+    path: "/components/search",
   },
   {
     name: "Select",
-    description: "Custom select with rich content.",
+    description: "Choose one option from a custom dropdown list.",
     path: "/components/select",
   },
   {
     name: "Sensitive field",
-    description: "Masked inputs with read-only and edit modes.",
+    description: "Keep private values concealed until deliberately revealed.",
     path: "/components/sensitive-field",
   },
   {
@@ -342,6 +372,11 @@ export const componentPages: readonly GalleryItem[] = [
     name: "Sidebar",
     description: "App navigation sidebar with collapsed and expanded modes.",
     path: "/components/sidebar",
+  },
+  {
+    name: "Sortable list",
+    description: "Lists whose items can be reordered.",
+    path: "/components/sortable-list",
   },
   {
     name: "Spinner",
@@ -379,6 +414,16 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/toast",
   },
   {
+    name: "Toggle",
+    description: "Two-state buttons for persistent local tools and modes.",
+    path: "/components/toggle",
+  },
+  {
+    name: "Toggle group",
+    description: "Coordinate related single or multiple toggle states.",
+    path: "/components/toggle-group",
+  },
+  {
     name: "Tooltip",
     description: "Small labels that appear on hover or focus.",
     path: "/components/tooltip",
@@ -388,4 +433,4 @@ export const componentPages: readonly GalleryItem[] = [
     description: "Indicators that show when someone is typing.",
     path: "/components/typing-indicator",
   },
-] as const
+] as const;

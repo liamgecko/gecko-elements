@@ -27,7 +27,7 @@ const counterVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "primary",
+      variant: "secondary",
       size: "md",
     },
   }
@@ -42,15 +42,6 @@ export interface CounterProps
   max?: number
 }
 
-const fixedWidthBySize: Record<
-  NonNullable<CounterVariantProps["size"]>,
-  string
-> = {
-  sm: "size-4",
-  md: "size-5",
-  lg: "size-6",
-}
-
 export function Counter({
   value,
   max,
@@ -60,31 +51,26 @@ export function Counter({
   ...props
 }: CounterProps) {
   const clamped = Number.isFinite(value) ? Math.max(0, Math.floor(value)) : 0
+  const flooredMax =
+    typeof max === "number" && Number.isFinite(max) ? Math.floor(max) : undefined
+  const normalizedMax =
+    flooredMax !== undefined && flooredMax > 0 ? flooredMax : undefined
   const display =
-    typeof max === "number" && Number.isFinite(max) && clamped > max
-      ? `${max}+`
+    normalizedMax !== undefined && clamped > normalizedMax
+      ? `${normalizedMax}+`
       : clamped.toString()
 
   const resolvedSize: NonNullable<CounterVariantProps["size"]> =
     size ?? "md"
-  const fixedWidthClass =
-    typeof max === "number" && Number.isFinite(max)
-      ? fixedWidthBySize[resolvedSize]
-      : undefined
 
   return (
     <span
       data-slot="counter"
-      className={cn(
-        counterVariants({ variant, size: resolvedSize }),
-        fixedWidthClass,
-        className
-      )}
-      aria-label={`Count: ${display}`}
+      className={cn(counterVariants({ variant, size: resolvedSize }), className)}
+      aria-label={`Count: ${clamped}`}
       {...props}
     >
       {display}
     </span>
   )
 }
-

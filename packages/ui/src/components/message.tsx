@@ -1,53 +1,71 @@
-import * as React from "react"
-import { Check, CheckCheck, CircleAlert, Copy, Info, Share, ThumbsDown, ThumbsUp } from "lucide-react"
+"use client";
 
-import { Button } from "@gecko/ui/components/button"
-import { Popover, PopoverContent, PopoverTrigger } from "@gecko/ui/components/popover"
-import { Toggle } from "@gecko/ui/components/toggle"
+import * as React from "react";
+import {
+  Check,
+  CheckCheck,
+  CircleAlert,
+  Copy,
+  Info,
+  Share,
+  ThumbsDown,
+  ThumbsUp,
+} from "lucide-react";
+
+import { Button } from "@gecko/ui/components/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@gecko/ui/components/popover";
+import { Toggle } from "@gecko/ui/components/toggle";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
+} from "@gecko/ui/components/tooltip";
 import {
   MessageContext,
   getDefaultAlign,
   getMessageBubbleVariant,
   useMessageContext,
   type MessageVariant,
-} from "@gecko/ui/components/message-context"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@gecko/ui/components/message-context";
+import { cn } from "@gecko/ui/lib/utils";
 
-type MessageStatus = "sent" | "delivered" | "read" | "failed"
-type RelativeTimeInput = Date | string | number
+type MessageStatus = "sent" | "delivered" | "read" | "failed";
+type RelativeTimeInput = Date | string | number;
 
 function toDate(value: RelativeTimeInput): Date | null {
   if (value instanceof Date) {
-    return Number.isNaN(value.getTime()) ? null : value
+    return Number.isNaN(value.getTime()) ? null : value;
   }
 
-  const date = new Date(value)
-  return Number.isNaN(date.getTime()) ? null : date
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : date;
 }
 
-function formatRelativeTime(value: RelativeTimeInput, nowDate = new Date()): string {
-  const date = toDate(value)
-  if (!date) return "now"
+function formatRelativeTime(
+  value: RelativeTimeInput,
+  nowDate = new Date(),
+): string {
+  const date = toDate(value);
+  if (!date) return "now";
 
-  const diffMs = Math.max(0, nowDate.getTime() - date.getTime())
-  const minute = 60 * 1000
-  const hour = 60 * minute
-  const day = 24 * hour
-  const week = 7 * day
-  const year = 365 * day
+  const diffMs = Math.max(0, nowDate.getTime() - date.getTime());
+  const minute = 60 * 1000;
+  const hour = 60 * minute;
+  const day = 24 * hour;
+  const week = 7 * day;
+  const year = 365 * day;
 
-  if (diffMs < minute) return "now"
-  if (diffMs < hour) return `${Math.floor(diffMs / minute)}m`
-  if (diffMs < day) return `${Math.floor(diffMs / hour)}h`
-  if (diffMs < week) return `${Math.floor(diffMs / day)}d`
-  if (diffMs < year) return `${Math.floor(diffMs / week)}w`
-  return `${Math.floor(diffMs / year)}y`
+  if (diffMs < minute) return "now";
+  if (diffMs < hour) return `${Math.floor(diffMs / minute)}m`;
+  if (diffMs < day) return `${Math.floor(diffMs / hour)}h`;
+  if (diffMs < week) return `${Math.floor(diffMs / day)}d`;
+  if (diffMs < year) return `${Math.floor(diffMs / week)}w`;
+  return `${Math.floor(diffMs / year)}y`;
 }
 
 function MessageGroup({ className, ...props }: React.ComponentProps<"div">) {
@@ -57,7 +75,7 @@ function MessageGroup({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("flex min-w-0 flex-col gap-2", className)}
       {...props}
     />
-  )
+  );
 }
 
 function Message({
@@ -66,10 +84,10 @@ function Message({
   align,
   ...props
 }: React.ComponentProps<"div"> & {
-  variant?: MessageVariant
-  align?: "start" | "end"
+  variant?: MessageVariant;
+  align?: "start" | "end";
 }) {
-  const resolvedAlign = align ?? getDefaultAlign(variant)
+  const resolvedAlign = align ?? getDefaultAlign(variant);
 
   return (
     <MessageContext.Provider value={{ variant, align: resolvedAlign }}>
@@ -82,18 +100,18 @@ function Message({
           // Note styling lives on Message, applied to nested bubble content.
           "data-[variant=note]:[&_[data-slot=bubble-content]]:bg-yellow-100 data-[variant=note]:[&_[data-slot=bubble-content]]:text-yellow-950",
           "dark:data-[variant=note]:[&_[data-slot=bubble-content]]:bg-yellow-950 dark:data-[variant=note]:[&_[data-slot=bubble-content]]:text-yellow-100",
-          className
+          className,
         )}
         {...props}
       />
     </MessageContext.Provider>
-  )
+  );
 }
 
 function MessageAvatar({ className, ...props }: React.ComponentProps<"div">) {
-  const context = React.useContext(MessageContext)
+  const context = React.useContext(MessageContext);
   if (context?.variant === "ai") {
-    return null
+    return null;
   }
 
   return (
@@ -103,11 +121,11 @@ function MessageAvatar({ className, ...props }: React.ComponentProps<"div">) {
         // Layout slot only — visual styling comes from Avatar.
         // Empty spacer matches Avatar size="md" (size-6) for grouped messages.
         "flex shrink-0 self-end empty:size-6 group-has-data-[slot=message-footer]/message:-translate-y-8",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function MessageContent({ className, ...props }: React.ComponentProps<"div">) {
@@ -116,11 +134,11 @@ function MessageContent({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="message-content"
       className={cn(
         "flex w-full min-w-0 flex-col gap-1 wrap-break-word group-data-[align=end]/message:*:data-slot:self-end",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function MessageHeader({ className, ...props }: React.ComponentProps<"div">) {
@@ -129,11 +147,11 @@ function MessageHeader({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="message-header"
       className={cn(
         "flex max-w-full min-w-0 items-center px-3 text-xs font-medium text-muted-foreground group-has-data-[variant=ghost]/message:px-0",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function MessageFooter({ className, ...props }: React.ComponentProps<"div">) {
@@ -142,28 +160,38 @@ function MessageFooter({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="message-footer"
       className={cn(
         "flex max-w-full min-w-0 items-center px-3 text-xs font-medium text-muted-foreground group-has-data-[variant=ghost]/message:px-0 group-data-[align=end]/message:justify-end",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function MessageStatusIndicator({
   status,
   className,
 }: {
-  status: MessageStatus
-  className?: string
+  status: MessageStatus;
+  className?: string;
 }) {
   const config = {
     sent: {
-      icon: <Check className="text-muted-foreground size-3" aria-hidden strokeWidth={2.2} />,
+      icon: (
+        <Check
+          className="text-muted-foreground size-3"
+          aria-hidden
+          strokeWidth={2.2}
+        />
+      ),
       label: "This message has been sent",
     },
     delivered: {
       icon: (
-        <CheckCheck className="text-muted-foreground size-3" aria-hidden strokeWidth={2.2} />
+        <CheckCheck
+          className="text-muted-foreground size-3"
+          aria-hidden
+          strokeWidth={2.2}
+        />
       ),
       label: "This message has been delivered",
     },
@@ -187,31 +215,32 @@ function MessageStatusIndicator({
       ),
       label: "This message failed to send",
     },
-  } as const
+  } as const;
 
-  const statusConfig = config[status]
+  const statusConfig = config[status];
 
   return (
     <Tooltip>
-      <TooltipTrigger className={cn("flex", className)}>
-        <span className="inline-flex" aria-label={`${status} status`}>
-          {statusConfig.icon}
-        </span>
+      <TooltipTrigger
+        className={cn("flex", className)}
+        aria-label={statusConfig.label}
+      >
+        <span className="inline-flex">{statusConfig.icon}</span>
       </TooltipTrigger>
       <TooltipContent side="bottom">
         <p>{statusConfig.label}</p>
       </TooltipContent>
     </Tooltip>
-  )
+  );
 }
 
 type MessageMetaProps = React.ComponentProps<"div"> & {
-  timestamp: RelativeTimeInput
-  status?: MessageStatus
-  info?: React.ReactNode
+  timestamp: RelativeTimeInput;
+  status?: MessageStatus;
+  info?: React.ReactNode;
   /** Optional actions row (e.g. MessageAiActions) shown beside the timestamp. */
-  actions?: React.ReactNode
-}
+  actions?: React.ReactNode;
+};
 
 /**
  * In-bubble meta row: status, relative time, and optional info popover.
@@ -225,9 +254,12 @@ function MessageMeta({
   actions,
   ...props
 }: MessageMetaProps) {
-  const { variant, align } = useMessageContext("MessageMeta")
-  const relativeTime = React.useMemo(() => formatRelativeTime(timestamp), [timestamp])
-  const showStatus = Boolean(status) && variant === "agent"
+  const { variant, align } = useMessageContext("MessageMeta");
+  const relativeTime = React.useMemo(
+    () => formatRelativeTime(timestamp),
+    [timestamp],
+  );
+  const showStatus = Boolean(status) && variant === "agent";
 
   return (
     <div
@@ -239,13 +271,15 @@ function MessageMeta({
         variant === "note" && "dark:text-yellow-100",
         status === "failed" && "dark:text-rose-200",
         actions && "h-6",
-        className
+        className,
       )}
       {...props}
     >
       {align === "end" ? (
         <>
-          {showStatus && status ? <MessageStatusIndicator status={status} /> : null}
+          {showStatus && status ? (
+            <MessageStatusIndicator status={status} />
+          ) : null}
           {actions}
           <span className={cn(actions && "leading-none")}>{relativeTime}</span>
           {info}
@@ -255,41 +289,43 @@ function MessageMeta({
           {info}
           {actions}
           <span className={cn(actions && "leading-none")}>{relativeTime}</span>
-          {showStatus && status ? <MessageStatusIndicator status={status} /> : null}
+          {showStatus && status ? (
+            <MessageStatusIndicator status={status} />
+          ) : null}
         </>
       )}
     </div>
-  )
+  );
 }
 
 type MessageAiActionsProps = {
-  copyText?: string
-  onCopyResponse?: () => void
-  onGoodResponse?: () => void
-  onBadResponse?: () => void
-  onShareResponse?: () => void
+  copyText?: string;
+  onCopyResponse?: () => void;
+  onGoodResponse?: () => void;
+  onBadResponse?: () => void;
+  onShareResponse?: () => void;
   /** Optional ref to the message body for fallback copy-from-DOM. */
-  bodyRef?: React.RefObject<HTMLElement | null>
-}
+  bodyRef?: React.RefObject<HTMLElement | null>;
+};
 
 async function copyMessageText(text: string) {
   if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text)
-    return
+    await navigator.clipboard.writeText(text);
+    return;
   }
 
-  const el = document.createElement("textarea")
-  el.value = text
-  el.setAttribute("readonly", "")
-  el.style.position = "fixed"
-  el.style.top = "-9999px"
-  document.body.appendChild(el)
-  el.select()
-  document.execCommand("copy")
-  document.body.removeChild(el)
+  const el = document.createElement("textarea");
+  el.value = text;
+  el.setAttribute("readonly", "");
+  el.style.position = "fixed";
+  el.style.top = "-9999px";
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand("copy");
+  document.body.removeChild(el);
 }
 
-const COPY_FEEDBACK_VISIBLE_MS = 1800
+const COPY_FEEDBACK_VISIBLE_MS = 1800;
 
 function MessageAiActions({
   copyText,
@@ -299,64 +335,78 @@ function MessageAiActions({
   onShareResponse,
   bodyRef,
 }: MessageAiActionsProps) {
-  const [feedback, setFeedback] = React.useState<"good" | "bad" | null>(null)
-  const [copiedIconVisible, setCopiedIconVisible] = React.useState(false)
-  const copyFeedbackTimeoutRef = React.useRef<number | null>(null)
+  const [feedback, setFeedback] = React.useState<"good" | "bad" | null>(null);
+  const [copiedIconVisible, setCopiedIconVisible] = React.useState(false);
+  const copyFeedbackTimeoutRef = React.useRef<number | null>(null);
 
   React.useEffect(() => {
     return () => {
       if (copyFeedbackTimeoutRef.current !== null) {
-        window.clearTimeout(copyFeedbackTimeoutRef.current)
+        window.clearTimeout(copyFeedbackTimeoutRef.current);
       }
-    }
-  }, [])
+    };
+  }, []);
 
   const handleCopy = React.useCallback(async (): Promise<boolean> => {
     if (onCopyResponse) {
-      onCopyResponse()
-      return true
+      onCopyResponse();
+      return true;
     }
 
-    const text = copyText?.trim() || bodyRef?.current?.innerText.trim() || ""
-    if (!text) return false
+    const text = copyText?.trim() || bodyRef?.current?.innerText.trim() || "";
+    if (!text) return false;
 
     try {
-      await copyMessageText(text)
-      return true
+      await copyMessageText(text);
+      return true;
     } catch {
-      return false
+      return false;
     }
-  }, [bodyRef, copyText, onCopyResponse])
+  }, [bodyRef, copyText, onCopyResponse]);
 
   const handleCopyClick = React.useCallback(async () => {
-    const result = await handleCopy()
-    if (result === false) return
+    const result = await handleCopy();
+    if (result === false) return;
 
     if (copyFeedbackTimeoutRef.current !== null) {
-      window.clearTimeout(copyFeedbackTimeoutRef.current)
+      window.clearTimeout(copyFeedbackTimeoutRef.current);
     }
 
-    setCopiedIconVisible(false)
-    window.requestAnimationFrame(() => setCopiedIconVisible(true))
+    setCopiedIconVisible(false);
+    window.requestAnimationFrame(() => setCopiedIconVisible(true));
 
     copyFeedbackTimeoutRef.current = window.setTimeout(() => {
-      setCopiedIconVisible(false)
-    }, COPY_FEEDBACK_VISIBLE_MS)
-  }, [handleCopy])
+      setCopiedIconVisible(false);
+    }, COPY_FEEDBACK_VISIBLE_MS);
+  }, [handleCopy]);
 
   const feedbackToggles: {
-    key: "good" | "bad"
-    label: string
-    icon: typeof ThumbsUp
-    onPressed: () => void
+    key: "good" | "bad";
+    label: string;
+    icon: typeof ThumbsUp;
+    onPressed: () => void;
   }[] = [
-    { key: "good", label: "Good response", icon: ThumbsUp, onPressed: () => onGoodResponse?.() },
-    { key: "bad", label: "Bad response", icon: ThumbsDown, onPressed: () => onBadResponse?.() },
-  ]
+    {
+      key: "good",
+      label: "Good response",
+      icon: ThumbsUp,
+      onPressed: () => onGoodResponse?.(),
+    },
+    {
+      key: "bad",
+      label: "Bad response",
+      icon: ThumbsDown,
+      onPressed: () => onBadResponse?.(),
+    },
+  ];
 
   return (
     <TooltipProvider delay={0}>
-      <div className="inline-flex h-6 items-center gap-0.5" role="group" aria-label="Message actions">
+      <div
+        className="inline-flex h-6 items-center gap-0.5"
+        role="group"
+        aria-label="Message actions"
+      >
         <Tooltip>
           <TooltipTrigger
             render={
@@ -373,7 +423,7 @@ function MessageAiActions({
                     strokeWidth={2}
                     className={cn(
                       "absolute inset-0 transition-opacity duration-150 motion-reduce:transition-none",
-                      copiedIconVisible ? "opacity-0" : "opacity-100"
+                      copiedIconVisible ? "opacity-0" : "opacity-100",
                     )}
                   />
                   <Check
@@ -381,7 +431,7 @@ function MessageAiActions({
                     strokeWidth={2}
                     className={cn(
                       "absolute inset-0 transition-opacity duration-150 motion-reduce:transition-none",
-                      copiedIconVisible ? "opacity-100" : "opacity-0"
+                      copiedIconVisible ? "opacity-100" : "opacity-0",
                     )}
                   />
                 </span>
@@ -394,7 +444,7 @@ function MessageAiActions({
         </Tooltip>
 
         {feedbackToggles.map(({ key, label, icon: Icon, onPressed }) => {
-          const pressed = feedback === key
+          const pressed = feedback === key;
           return (
             <Tooltip key={key}>
               <TooltipTrigger
@@ -404,8 +454,8 @@ function MessageAiActions({
                     aria-label={label}
                     pressed={pressed}
                     onPressedChange={(next) => {
-                      setFeedback(next ? key : null)
-                      if (next) onPressed()
+                      setFeedback(next ? key : null);
+                      if (next) onPressed();
                     }}
                   >
                     <Icon aria-hidden strokeWidth={2} />
@@ -416,7 +466,7 @@ function MessageAiActions({
                 <p>{label}</p>
               </TooltipContent>
             </Tooltip>
-          )
+          );
         })}
 
         <Tooltip>
@@ -439,63 +489,63 @@ function MessageAiActions({
         </Tooltip>
       </div>
     </TooltipProvider>
-  )
+  );
 }
 
 type MessageReference = {
-  title: string
-  url: string
-}
+  title: string;
+  url: string;
+};
 
 type MessageSourceInfo = {
-  source: string
-  references?: MessageReference[]
-}
+  source: string;
+  references?: MessageReference[];
+};
 
 type MessageUserInfo = {
-  channel?: string
+  channel?: string;
   page?: {
-    title: string
-    url: string
-  }
-  receivedAt?: string
-  sentTo?: string | string[]
-  cc?: string | string[]
-}
+    title: string;
+    url: string;
+  };
+  receivedAt?: string;
+  sentTo?: string | string[];
+  cc?: string | string[];
+};
 
 type MessageAgentInfo = {
-  source?: MessageSourceInfo
-  channel?: string
-  receivedAt?: string
-}
+  source?: MessageSourceInfo;
+  channel?: string;
+  receivedAt?: string;
+};
 
 type MessageInfoProps = {
-  userInfo?: MessageUserInfo
-  agentInfo?: MessageAgentInfo
-  className?: string
-}
+  userInfo?: MessageUserInfo;
+  agentInfo?: MessageAgentInfo;
+  className?: string;
+};
 
 function MessageInfoRow({
   label,
   children,
 }: {
-  label: string
-  children: React.ReactNode
+  label: string;
+  children: React.ReactNode;
 }) {
-  if (!children) return null
+  if (!children) return null;
 
   return (
     <>
       <span className="font-medium text-muted-foreground">{label}:</span>
       <div>{children}</div>
     </>
-  )
+  );
 }
 
 function renderEmailList(value: string | string[] | undefined) {
-  if (!value) return null
+  if (!value) return null;
 
-  const emails = Array.isArray(value) ? value : [value]
+  const emails = Array.isArray(value) ? value : [value];
 
   return (
     <div className="flex flex-col gap-0.5">
@@ -509,11 +559,11 @@ function renderEmailList(value: string | string[] | undefined) {
         </a>
       ))}
     </div>
-  )
+  );
 }
 
 function renderSourceInfo(source: MessageSourceInfo | undefined) {
-  if (!source) return null
+  if (!source) return null;
 
   return (
     <div className="flex flex-col gap-0.5">
@@ -530,12 +580,13 @@ function renderSourceInfo(source: MessageSourceInfo | undefined) {
         </a>
       ))}
     </div>
-  )
+  );
 }
 
 function MessageInfo({ userInfo, agentInfo, className }: MessageInfoProps) {
-  const { variant } = useMessageContext("MessageInfo")
-  const isAgentSide = variant === "agent" || variant === "ai" || variant === "note"
+  const { variant } = useMessageContext("MessageInfo");
+  const isAgentSide =
+    variant === "agent" || variant === "ai" || variant === "note";
 
   const hasUserInfo = !!(
     userInfo?.channel ||
@@ -543,14 +594,14 @@ function MessageInfo({ userInfo, agentInfo, className }: MessageInfoProps) {
     userInfo?.receivedAt ||
     userInfo?.sentTo ||
     userInfo?.cc
-  )
+  );
   const hasAgentInfo = !!(
     agentInfo?.source ||
     agentInfo?.channel ||
     agentInfo?.receivedAt
-  )
+  );
 
-  if (isAgentSide ? !hasAgentInfo : !hasUserInfo) return null
+  if (isAgentSide ? !hasAgentInfo : !hasUserInfo) return null;
 
   return (
     <Popover>
@@ -560,11 +611,11 @@ function MessageInfo({ userInfo, agentInfo, className }: MessageInfoProps) {
             type="button"
             className={cn(
               "inline-flex items-center text-muted-foreground hover:text-foreground",
-              className
+              className,
             )}
             aria-label="Message information"
           >
-            <Info className="size-3" strokeWidth={2.2} />
+            <Info aria-hidden className="size-3" strokeWidth={2.2} />
           </button>
         }
       />
@@ -575,12 +626,18 @@ function MessageInfo({ userInfo, agentInfo, className }: MessageInfoProps) {
               <MessageInfoRow label="Source">
                 {renderSourceInfo(agentInfo?.source)}
               </MessageInfoRow>
-              <MessageInfoRow label="Channel">{agentInfo?.channel}</MessageInfoRow>
-              <MessageInfoRow label="Sent">{agentInfo?.receivedAt}</MessageInfoRow>
+              <MessageInfoRow label="Channel">
+                {agentInfo?.channel}
+              </MessageInfoRow>
+              <MessageInfoRow label="Sent">
+                {agentInfo?.receivedAt}
+              </MessageInfoRow>
             </>
           ) : (
             <>
-              <MessageInfoRow label="Channel">{userInfo?.channel}</MessageInfoRow>
+              <MessageInfoRow label="Channel">
+                {userInfo?.channel}
+              </MessageInfoRow>
               <MessageInfoRow label="Page">
                 {userInfo?.page ? (
                   <a
@@ -593,17 +650,21 @@ function MessageInfo({ userInfo, agentInfo, className }: MessageInfoProps) {
                   </a>
                 ) : null}
               </MessageInfoRow>
-              <MessageInfoRow label="Received">{userInfo?.receivedAt}</MessageInfoRow>
+              <MessageInfoRow label="Received">
+                {userInfo?.receivedAt}
+              </MessageInfoRow>
               <MessageInfoRow label="Sent to">
                 {renderEmailList(userInfo?.sentTo)}
               </MessageInfoRow>
-              <MessageInfoRow label="CC">{renderEmailList(userInfo?.cc)}</MessageInfoRow>
+              <MessageInfoRow label="CC">
+                {renderEmailList(userInfo?.cc)}
+              </MessageInfoRow>
             </>
           )}
         </div>
       </PopoverContent>
     </Popover>
-  )
+  );
 }
 
 export {
@@ -617,7 +678,9 @@ export {
   MessageInfo,
   MessageAiActions,
   MessageStatusIndicator,
+  // eslint-disable-next-line react-refresh/only-export-components -- message-to-bubble mapping is part of the public Message interface.
   getMessageBubbleVariant,
+  // eslint-disable-next-line react-refresh/only-export-components -- compact relative-time formatting is part of the public Message interface.
   formatRelativeTime,
   type MessageVariant,
   type MessageStatus,
@@ -625,4 +688,4 @@ export {
   type MessageAgentInfo,
   type MessageInfoProps,
   type MessageAiActionsProps,
-}
+};

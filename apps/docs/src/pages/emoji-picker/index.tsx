@@ -1,23 +1,27 @@
-import { Smile, SmilePlus } from "lucide-react"
+import { Smile, SmilePlus } from "lucide-react";
 
-import { ComponentExample } from "@/components/layout/component-example"
-import { PageSection } from "@/components/layout/page-section"
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsExternalLink } from "@/components/layout/docs-external-link";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import { PageSection } from "@/components/layout/page-section";
 import {
   PageOverviewHeader,
   PageSectionHeader,
   PageSubsectionHeader,
-} from "@/components/layout/page-section-header"
-import { Button } from "@gecko/ui/components/button"
-import { Code } from "@gecko/ui/components/code"
+} from "@/components/layout/page-section-header";
+import { Button } from "@gecko/ui/components/button";
+import { Code } from "@gecko/ui/components/code";
 import {
   DEFAULT_TRAY_EMOJIS,
   EmojiPicker,
   EmojiPickerContent,
   EmojiPickerTrigger,
-} from "@gecko/ui/components/emoji-picker"
+} from "@gecko/ui/components/emoji-picker";
 
-const sides = ["top", "right", "bottom", "left"] as const
-const aligns = ["start", "center", "end"] as const
+const sides = ["top", "right", "bottom", "left"] as const;
+const aligns = ["start", "center", "end"] as const;
 
 const placements = [
   { label: "Top start", side: "top", align: "start" },
@@ -32,23 +36,23 @@ const placements = [
   { label: "Right start", side: "right", align: "start" },
   { label: "Right", side: "right", align: "center" },
   { label: "Right end", side: "right", align: "end" },
-] as const
+] as const;
 
 export function EmojiPickerPage() {
   const importSnippet = `import {
   EmojiPicker,
   EmojiPickerContent,
   EmojiPickerTrigger,
-} from "@gecko/ui/components/emoji-picker"`
+} from "@gecko/ui/components/emoji-picker"`;
 
   const compositionSnippet = `EmojiPicker
 ├── EmojiPickerTrigger
 └── EmojiPickerContent
     ├── EmojiPickerPanel
     └── EmojiPickerTray
-        └── EmojiPickerPanel`
+        └── EmojiPickerPanel`;
 
-  const basicExampleSnippet = `<EmojiPicker onEmojiSelect={(emoji) => {}}>
+  const basicExampleSnippet = `<EmojiPicker onEmojiSelect={insertEmoji}>
   <EmojiPickerTrigger
     render={
       <Button variant="ghost" size="icon" aria-label="Open emoji picker" />
@@ -57,9 +61,9 @@ export function EmojiPickerPage() {
     <Smile />
   </EmojiPickerTrigger>
   <EmojiPickerContent />
-</EmojiPicker>`
+</EmojiPicker>`;
 
-  const customTriggerSnippet = `<EmojiPicker onEmojiSelect={(emoji) => {}}>
+  const customTriggerSnippet = `<EmojiPicker>
   <EmojiPickerTrigger
     render={
       <Button variant="ghost">
@@ -69,9 +73,9 @@ export function EmojiPickerPage() {
     }
   />
   <EmojiPickerContent />
-</EmojiPicker>`
+</EmojiPicker>`;
 
-  const traySnippet = `<EmojiPicker defaultView="tray" onEmojiSelect={(emoji) => {}}>
+  const traySnippet = `<EmojiPicker defaultView="tray">
   <EmojiPickerTrigger
     render={
       <Button variant="ghost" size="icon-sm" aria-label="Add reaction" />
@@ -80,13 +84,12 @@ export function EmojiPickerPage() {
     <SmilePlus />
   </EmojiPickerTrigger>
   <EmojiPickerContent />
-</EmojiPicker>`
+</EmojiPicker>`;
 
   const trayOnlySnippet = `<EmojiPicker
   defaultView="tray"
   showPickerFromTray={false}
   trayEmojis={["👍", "❤️", "🔥", "🎉"]}
-  onEmojiSelect={(emoji) => {}}
 >
   <EmojiPickerTrigger
     render={
@@ -96,20 +99,23 @@ export function EmojiPickerPage() {
     <SmilePlus />
   </EmojiPickerTrigger>
   <EmojiPickerContent />
-</EmojiPicker>`
+</EmojiPicker>`;
+
+  const positioningSideSnippet = `<EmojiPickerContent side="top|right|bottom|left" />`;
+
+  const positioningAlignSnippet = `<EmojiPickerContent side="top" align="start|center|end" />`;
+
+  const positioningCornersSnippet = `<EmojiPickerContent
+  side="top|right|bottom|left"
+  align="start|center|end"
+/>`;
 
   return (
     <div className="space-y-12">
       <PageSection id="overview" label="Overview">
         <PageOverviewHeader
           title="Emoji picker"
-          description={
-            <>
-              A popover emoji picker built on <Code>frimousse</Code>. By default
-              the trigger opens the full emoji panel. For message reactions, use
-              the tray view for quick emojis with an optional nested full picker.
-            </>
-          }
+          description="The Emoji picker is a popover for choosing an emoji from a trigger. It can open the full panel, or a short tray first."
         />
       </PageSection>
 
@@ -118,21 +124,26 @@ export function EmojiPickerPage() {
           title="Usage"
           description={
             <>
-              Use EmojiPicker when users need to insert or react with an emoji
-              from a trigger. Prefer the default picker for composers and input
-              actions; use the tray for quick reactions on messages.
+              Use an Emoji picker when someone needs to choose an emoji from a
+              control on the page. The trigger stays visible; the panel or tray
+              should not.
+              <br />
+              <br />
+              In Gecko, use the tray for message reactions and the picker panel
+              to insert an emoji into the reply text.
+              <br />
+              <br />
+              Avoid using it as a general overlay. If the content is not an
+              emoji list, use a{" "}
+              <DocsPageLink to="/components/popover">Popover</DocsPageLink>{" "}
+              instead.
             </>
           }
         />
         <PageSubsectionHeader
           id="usage-import"
           title="Import"
-          description={
-            <>
-              Import the root and its subcomponents. The component follows a
-              compound pattern similar to Popover.
-            </>
-          }
+          description="Import the Emoji picker and its parts to compose a trigger and a panel."
         />
         <ComponentExample className="mb-6">
           <Code
@@ -149,12 +160,11 @@ export function EmojiPickerPage() {
           title="Composition"
           description={
             <>
-              Compose with <Code>EmojiPickerTrigger</Code> and{" "}
-              <Code>EmojiPickerContent</Code>. With no children, content renders{" "}
-              <Code>EmojiPickerPanel</Code> or <Code>EmojiPickerTray</Code> based
-              on <Code>defaultView</Code>. You can also compose{" "}
-              <Code>EmojiPickerTray</Code> and <Code>EmojiPickerPanel</Code>{" "}
-              explicitly.
+              The trigger opens the overlay. With no children,{" "}
+              <Code>EmojiPickerContent</Code> renders{" "}
+              <Code>EmojiPickerPanel</Code> or <Code>EmojiPickerTray</Code> from{" "}
+              <Code>defaultView</Code>. You can also compose the tray and panel
+              yourself.
             </>
           }
         />
@@ -174,8 +184,9 @@ export function EmojiPickerPage() {
           title="Basic example"
           description={
             <>
-              By default the trigger opens the full emoji panel. Pass{" "}
-              <Code>onEmojiSelect</Code> to receive the chosen emoji.
+              Opens the full panel from the trigger. Pass{" "}
+              <Code>onEmojiSelect</Code> to receive the chosen emoji. Use this
+              when people should search or browse the full set.
             </>
           }
         />
@@ -211,8 +222,9 @@ export function EmojiPickerPage() {
           title="Custom trigger"
           description={
             <>
-              Use the <Code>render</Code> prop on{" "}
-              <Code>EmojiPickerTrigger</Code> to compose any trigger element.
+              Compose any trigger using the <Code>render</Code> prop on{" "}
+              <Code>EmojiPickerTrigger</Code>. Use this when an icon-only button
+              is not enough.
             </>
           }
         />
@@ -245,11 +257,11 @@ export function EmojiPickerPage() {
           title="Reaction tray"
           description={
             <>
-              Set <Code>defaultView=&quot;tray&quot;</Code> to open a
-              quick-reaction tray first. The default set is{" "}
-              <Code>{DEFAULT_TRAY_EMOJIS.join(" ")}</Code>. The tray opens at top
-              start by default. The SmilePlus control opens the full picker in a
-              nested popover.
+              Opens a short set first using{" "}
+              <Code>defaultView=&quot;tray&quot;</Code>. The default set is{" "}
+              <Code>{DEFAULT_TRAY_EMOJIS.join(" ")}</Code>. A control on the
+              tray opens the full panel. Use this when a few emojis should be
+              quicker to reach than the full list.
             </>
           }
         />
@@ -285,8 +297,10 @@ export function EmojiPickerPage() {
           title="Tray only"
           description={
             <>
-              Pass <Code>showPickerFromTray={"{false}"}</Code> to hide the full
-              picker control. Override the set with <Code>trayEmojis</Code>.
+              Hides the full panel from the tray using{" "}
+              <Code>showPickerFromTray=&#123;false&#125;</Code>. This example
+              also sets <Code>trayEmojis</Code>. Use this when the short set is
+              the whole choice.
             </>
           }
         />
@@ -326,11 +340,12 @@ export function EmojiPickerPage() {
           title="Positioning"
           description={
             <>
-              Position the tray or panel with <Code>side</Code> and{" "}
-              <Code>align</Code> on <Code>EmojiPickerContent</Code>, the same way
-              as Tooltip and Popover. Combine them for corners (for example{" "}
-              <Code>side=&quot;top&quot; align=&quot;start&quot;</Code>). Tray
-              defaults to top start; the full panel defaults to bottom center.
+              Places the overlay using <Code>side</Code> and <Code>align</Code>{" "}
+              on <Code>EmojiPickerContent</Code>, the same way as{" "}
+              <DocsPageLink to="/components/tooltip">Tooltip</DocsPageLink> and{" "}
+              <DocsPageLink to="/components/popover">Popover</DocsPageLink>.
+              Tray defaults to top start; the full panel defaults to bottom
+              center.
             </>
           }
         />
@@ -340,30 +355,39 @@ export function EmojiPickerPage() {
           title="Side"
           description={
             <>
-              <Code>side</Code> places the content relative to the trigger:{" "}
-              <Code>top</Code>, <Code>right</Code>, <Code>bottom</Code>, or{" "}
-              <Code>left</Code>.
+              Places the content relative to the trigger using <Code>side</Code>
+              . Use this when the overlay should open in a specific direction.
+              The example contains every available side.
             </>
           }
         />
-        <ComponentExample className="mb-10">
-          <div className="flex flex-wrap gap-4">
-            {sides.map((side) => (
-              <EmojiPicker
-                key={side}
-                defaultView="tray"
-                showPickerFromTray={false}
-              >
-                <EmojiPickerTrigger
-                  render={
-                    <Button variant="ghost" className="capitalize">
-                      {side}
-                    </Button>
-                  }
-                />
-                <EmojiPickerContent side={side} />
-              </EmojiPicker>
-            ))}
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
+            <div className="flex flex-wrap gap-4">
+              {sides.map((side) => (
+                <EmojiPicker
+                  key={side}
+                  defaultView="tray"
+                  showPickerFromTray={false}
+                >
+                  <EmojiPickerTrigger
+                    render={
+                      <Button variant="ghost" className="capitalize">
+                        {side}
+                      </Button>
+                    }
+                  />
+                  <EmojiPickerContent side={side} />
+                </EmojiPicker>
+              ))}
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={positioningSideSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
 
@@ -372,29 +396,39 @@ export function EmojiPickerPage() {
           title="Align"
           description={
             <>
-              <Code>align</Code> shifts the content along the side:{" "}
-              <Code>start</Code>, <Code>center</Code>, or <Code>end</Code>.
+              Shifts the content along the side using <Code>align</Code>. Use
+              this when the overlay should line up with an edge of the trigger.
+              The example contains every available alignment.
             </>
           }
         />
-        <ComponentExample className="mb-10">
-          <div className="flex flex-wrap gap-4">
-            {aligns.map((align) => (
-              <EmojiPicker
-                key={align}
-                defaultView="tray"
-                showPickerFromTray={false}
-              >
-                <EmojiPickerTrigger
-                  render={
-                    <Button variant="ghost" className="capitalize">
-                      {align}
-                    </Button>
-                  }
-                />
-                <EmojiPickerContent side="top" align={align} />
-              </EmojiPicker>
-            ))}
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
+            <div className="flex flex-wrap gap-4">
+              {aligns.map((align) => (
+                <EmojiPicker
+                  key={align}
+                  defaultView="tray"
+                  showPickerFromTray={false}
+                >
+                  <EmojiPickerTrigger
+                    render={
+                      <Button variant="ghost" className="capitalize">
+                        {align}
+                      </Button>
+                    }
+                  />
+                  <EmojiPickerContent side="top" align={align} />
+                </EmojiPicker>
+              ))}
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={positioningAlignSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
 
@@ -403,32 +437,167 @@ export function EmojiPickerPage() {
           title="Corners"
           description={
             <>
-              Pair <Code>side</Code> and <Code>align</Code> for corner placements
-              such as top start or bottom end.
+              Pair <Code>side</Code> and <Code>align</Code> for a corner. Use
+              this when the overlay should sit at a specific corner of the
+              trigger.
             </>
           }
         />
         <ComponentExample>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            {placements.map(({ label, side, align }) => (
-              <EmojiPicker
-                key={label}
-                defaultView="tray"
-                showPickerFromTray={false}
-              >
-                <EmojiPickerTrigger
-                  render={
-                    <Button variant="ghost" className="w-full">
-                      {label}
-                    </Button>
-                  }
-                />
-                <EmojiPickerContent side={side} align={align} />
-              </EmojiPicker>
-            ))}
+          <div className="space-y-6">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {placements.map(({ label, side, align }) => (
+                <EmojiPicker
+                  key={label}
+                  defaultView="tray"
+                  showPickerFromTray={false}
+                >
+                  <EmojiPickerTrigger
+                    render={
+                      <Button variant="ghost" className="w-full">
+                        {label}
+                      </Button>
+                    }
+                  />
+                  <EmojiPickerContent side={side} align={align} />
+                </EmojiPicker>
+              ))}
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={positioningCornersSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
           </div>
         </ComponentExample>
       </PageSection>
+
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Choose the picker or tray for the task, and keep the trigger clear."
+        />
+        <DocsDoDont
+          doItems={[
+            <>
+              Use <Code>defaultView=&quot;picker&quot;</Code> when people need
+              to insert an emoji into the reply text.
+            </>,
+            <>
+              Use <Code>defaultView=&quot;tray&quot;</Code> for quick reactions.
+            </>,
+            <>
+              Set <Code>showPickerFromTray=&#123;false&#125;</Code> when the
+              tray is the complete choice.
+            </>,
+            <>Give an icon-only trigger an accessible name.</>,
+          ]}
+          dontItems={[
+            <>Don’t use the Emoji picker for content other than emoji.</>,
+            <>
+              Don’t add a large tray when the full picker is easier to browse.
+            </>,
+            <>
+              Don’t hide the full picker from the tray unless{" "}
+              <Code>trayEmojis</Code> covers the intended choices.
+            </>,
+            <>
+              Don’t force a position that causes the overlay to leave the
+              viewport.
+            </>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Behaviour props on Emoji picker."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "defaultView",
+              type: '"picker" | "tray"',
+              defaultValue: '"picker"',
+              description:
+                "Chooses whether the trigger opens the full picker or reaction tray.",
+            },
+            {
+              name: "trayEmojis",
+              type: "readonly string[]",
+              defaultValue: "DEFAULT_TRAY_EMOJIS",
+              description: "Emoji choices shown in the quick-reaction tray.",
+            },
+            {
+              name: "showPickerFromTray",
+              type: "boolean",
+              defaultValue: "true",
+              description:
+                "Shows a control in the tray that opens the full picker.",
+            },
+            {
+              name: "onEmojiSelect",
+              type: "(emoji: string) => void",
+              description:
+                "Runs with the selected emoji, then the overlay closes.",
+            },
+            {
+              name: "open",
+              type: "boolean",
+              description: "Controls whether the emoji overlay is open.",
+            },
+            {
+              name: "defaultOpen",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Sets the initial uncontrolled open state.",
+            },
+            {
+              name: "onOpenChange",
+              type: "(open: boolean) => void",
+              description: "Runs when the overlay opens or closes.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-reference"
+          className="mt-6"
+          title="API reference"
+          description={
+            <>
+              See the{" "}
+              <DocsExternalLink href="https://frimousse.liveblocks.io">
+                Frimousse API
+              </DocsExternalLink>{" "}
+              and the{" "}
+              <DocsExternalLink href="https://base-ui.com/react/components/popover">
+                Base UI Popover API
+              </DocsExternalLink>{" "}
+              for the underlying picker and overlay behaviour.
+            </>
+          }
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Use a related component when people are not choosing an emoji."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/popover">Popover</DocsPageLink> — for
+            custom overlay content that is not an emoji list.
+          </li>
+          <li>
+            <DocsPageLink to="/components/message">Message</DocsPageLink> — when
+            emoji reactions belong to a conversation.
+          </li>
+        </ul>
+      </PageSection>
     </div>
-  )
+  );
 }

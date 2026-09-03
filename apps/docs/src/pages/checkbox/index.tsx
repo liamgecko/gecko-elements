@@ -1,108 +1,457 @@
-import { useState } from "react"
-import { ComponentExample } from "@/components/layout/component-example"
-import { PageSection } from "@/components/layout/page-section"
-import { Checkbox, CheckboxGroup } from "@gecko/ui/components/checkbox"
-import { Code } from "@gecko/ui/components/code"
-import { Field, FieldContent, FieldError, FieldGroup } from "@gecko/ui/components/field"
+import { useState } from "react";
+import { Checkbox, CheckboxGroup } from "@gecko/ui/components/checkbox";
+import { Button } from "@gecko/ui/components/button";
+import { Code } from "@gecko/ui/components/code";
+import {
+  Field,
+  FieldContent,
+  FieldError,
+  FieldGroup,
+} from "@gecko/ui/components/field";
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsExternalLink } from "@/components/layout/docs-external-link";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import { PageSection } from "@/components/layout/page-section";
+import {
+  PageOverviewHeader,
+  PageSectionHeader,
+  PageSubsectionHeader,
+} from "@/components/layout/page-section-header";
 
 export function CheckboxPage() {
-  const [groupValue, setGroupValue] = useState<string[]>(["fuji"])
+  const [groupValue, setGroupValue] = useState<string[]>(["email"]);
+  const [channelValue, setChannelValue] = useState<string[]>(["email"]);
+
+  const importSnippet = `import { Checkbox, CheckboxGroup } from "@gecko/ui/components/checkbox"`;
+
+  const compositionSnippet = `CheckboxGroup
+└── Checkbox`;
+
+  const basicSnippet = `<Checkbox
+  id="terms"
+  name="terms"
+  required
+  label="Accept terms and conditions"
+/>`;
+
+  const descriptionSnippet = `<Checkbox
+  id="product-updates"
+  name="product-updates"
+  label="Send me product updates"
+  description="Receive occasional product news by email."
+/>`;
+
+  const defaultStateSnippet = `<Checkbox
+  id="archived"
+  name="archived"
+  label="Show archived conversations"
+/>`;
+
+  const checkedSnippet = `<Checkbox
+  id="archived"
+  name="archived"
+  defaultChecked
+  label="Show archived conversations"
+/>`;
+
+  const indeterminateSnippet = `const channels = ["email", "sms", "whatsapp"]
+const [selectedChannels, setSelectedChannels] = useState(["email"])
+
+<CheckboxGroup
+  label="Communication channels"
+  value={selectedChannels}
+  onValueChange={setSelectedChannels}
+  allValues={channels}
+>
+  <Checkbox parent label="Select all channels" />
+  <Checkbox value="email" label="Email" />
+  <Checkbox value="sms" label="SMS" />
+  <Checkbox value="whatsapp" label="WhatsApp" />
+</CheckboxGroup>`;
+
+  const disabledSnippet = `<Field orientation="horizontal" data-disabled>
+  <Checkbox
+    id="sms-notifications"
+    name="sms-notifications"
+    disabled
+    label="Enable SMS notifications"
+  />
+</Field>`;
+
+  const errorSnippet = `<Field orientation="horizontal" data-invalid>
+  <FieldContent>
+    <Checkbox
+      id="terms-checkbox-invalid"
+      name="terms-checkbox-invalid"
+      aria-invalid
+      aria-describedby="terms-checkbox-invalid-error"
+      label="Accept terms and conditions"
+    />
+    <FieldError id="terms-checkbox-invalid-error">
+      You must accept the terms and conditions to continue.
+    </FieldError>
+  </FieldContent>
+</Field>`;
+
+  const groupSnippet = `<CheckboxGroup
+  label="Communication channels"
+  description="Select every channel your team can use."
+  value={groupValue}
+  onValueChange={setGroupValue}
+>
+  <Checkbox value="email" label="Email" />
+  <Checkbox value="sms" label="SMS" />
+  <Checkbox value="whatsapp" label="WhatsApp" />
+</CheckboxGroup>`;
+
+  const asButtonBasicSnippet = `<CheckboxGroup
+  horizontal
+  label="Preferred contact methods"
+  defaultValue={["email"]}
+>
+  <Checkbox asButton value="email" label="Email" />
+  <Checkbox asButton value="sms" label="SMS" />
+  <Checkbox asButton value="phone" label="Phone" />
+</CheckboxGroup>`;
+
+  const asButtonDescriptionSnippet = `<CheckboxGroup
+  horizontal
+  label="Event formats"
+  defaultValue={["online"]}
+>
+  <Checkbox
+    asButton
+    value="in-person"
+    label="In person"
+    description="Attend the event on campus."
+  />
+  <Checkbox
+    asButton
+    value="online"
+    label="Online"
+    description="Join the event remotely."
+  />
+</CheckboxGroup>`;
+
+  const asButtonDisabledSnippet = `<CheckboxGroup
+  horizontal
+  label="Event formats"
+  defaultValue={["online"]}
+  disabled
+>
+  <Checkbox
+    asButton
+    value="in-person"
+    label="In person"
+  />
+  <Checkbox
+    asButton
+    value="online"
+    label="Online"
+  />
+</CheckboxGroup>`;
+
+  const asButtonErrorSnippet = `<Field data-invalid>
+  <FieldContent>
+    <CheckboxGroup
+      horizontal
+      aria-invalid
+      aria-describedby="event-formats-error"
+      label="Event formats"
+    >
+      <Checkbox
+        asButton
+        value="in-person"
+        label="In person"
+      />
+      <Checkbox
+        asButton
+        value="online"
+        label="Online"
+      />
+    </CheckboxGroup>
+    <FieldError id="event-formats-error">
+      Select at least one event format.
+    </FieldError>
+  </FieldContent>
+</Field>`;
+
+  const withinFormSnippet = `<form onSubmit={handleSubmit}>
+  <FieldGroup>
+    <Checkbox
+      id="product-updates"
+      name="productUpdates"
+      label="Send me product updates"
+    />
+  </FieldGroup>
+  <Button type="submit">Save preferences</Button>
+</form>`;
 
   return (
     <div className="space-y-12">
-        <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Checkbox</h1>
-          <p className="text-sm text-muted-foreground">
-            A control that toggles between checked and unchecked. Use the{" "}
-            <Code>
-              label
-            </Code>
-            {" "}
-            and
-            <Code>
-              description
-            </Code>
-            {" "}
-            props for accessible labeling and helper text.
-          </p>
-        </PageSection>
+      <PageSection id="overview" label="Overview">
+        <PageOverviewHeader
+          title="Checkbox"
+          description="The Checkbox component lets people turn an option on or off. It is for choices that can sit together — more than one can be selected at a time."
+        />
+      </PageSection>
 
-        <PageSection id="basic" label="Basic">
-          <h2 className="text-lg font-semibold">Basic</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Provide a label for accessible naming. The checkbox and label are
-            laid out automatically.
-          </p>
-          <ComponentExample>
-            <Checkbox id="terms" label="Accept terms and conditions" />
-          </ComponentExample>
-        </PageSection>
+      <PageSection id="usage" label="Usage">
+        <PageSectionHeader
+          title="Usage"
+          description={
+            <>
+              Use a Checkbox when someone can select one or more options from a
+              list. Use <Code>CheckboxGroup</Code> when related options make up
+              one multiple-choice value.
+              <br />
+              <br />
+              Use the button variant (<Code>asButton</Code>) with{" "}
+              <Code>horizontal</Code> when the choices should draw more
+              attention — for example, a short set of selectable options. This
+              changes presentation only; every option remains a Checkbox and
+              multiple options may be selected.
+              <br />
+              <br />
+              Avoid using it when only one choice is allowed; use a{" "}
+              <DocsPageLink to="/components/radio-group">
+                Radio group
+              </DocsPageLink>{" "}
+              instead. Do not use it as an on/off setting that takes effect
+              immediately — that is a{" "}
+              <DocsPageLink to="/components/switch">Switch</DocsPageLink>.
+            </>
+          }
+        />
+        <PageSubsectionHeader
+          id="usage-import"
+          title="Import"
+          description="Import Checkbox for a single option, and CheckboxGroup for a list."
+        />
+        <ComponentExample className="mb-6">
+          <Code
+            variant="block"
+            language="tsx"
+            code={importSnippet}
+            showCopyButton
+            copyLabel="Copy import"
+          />
+        </ComponentExample>
+        <PageSubsectionHeader
+          id="usage-composition"
+          title="Composition"
+          description="A group holds the shared label and state. Each option is a Checkbox."
+        />
+        <ComponentExample>
+          <Code
+            variant="block"
+            language="text"
+            code={compositionSnippet}
+            showCopyButton
+            copyLabel="Copy composition"
+          />
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="with-description" label="With description">
-          <h2 className="text-lg font-semibold">With description</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Add optional helper text below the label with the{" "}
-            <Code>
-              description
-            </Code>
-            {" "}
-            prop.
-          </p>
-          <ComponentExample>
+      <PageSection id="basic" label="Basic">
+        <PageSectionHeader
+          title="Basic"
+          description={
+            <>
+              A labelled checkbox using the <Code>label</Code> prop. Use this
+              for one independent boolean choice.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Checkbox
+              id="terms"
+              name="terms"
+              required
+              label="Accept terms and conditions"
+            />
+            <Code
+              variant="block"
+              language="tsx"
+              code={basicSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="with-description" label="With description">
+        <PageSectionHeader
+          title="With description"
+          description={
+            <>
+              Adds helper text using the <Code>description</Code> prop. Checkbox
+              automatically connects it to the control for assistive technology.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <div className="max-w-sm">
               <Checkbox
-                id="terms-desc"
-                name="terms-desc"
-                defaultChecked
-                label="Accept terms and conditions"
-                description="By clicking this checkbox, you agree to the terms."
+                id="product-updates"
+                name="product-updates"
+                label="Send me product updates"
+                description="Receive occasional product news by email."
               />
             </div>
-          </ComponentExample>
-        </PageSection>
-
-        <PageSection id="states" label="States">
-          <h2 className="text-lg font-semibold">States</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Default, checked, indeterminate, disabled, and error states.
-          </p>
-
-          <h3 id="states-default" className="mb-3 text-base font-semibold">Default</h3>
-          <ComponentExample className="mb-6">
-            <Checkbox id="states-default" label="Unchecked" />
-          </ComponentExample>
-
-          <h3 id="states-checked" className="mb-3 text-base font-semibold">Checked</h3>
-          <ComponentExample className="mb-6">
-            <Checkbox id="states-checked" defaultChecked label="Checked" />
-          </ComponentExample>
-
-          <h3 id="states-indeterminate" className="mb-3 text-base font-semibold">Indeterminate</h3>
-          <ComponentExample className="mb-6">
-            <Checkbox
-              id="states-indeterminate"
-              indeterminate
-              readOnly
-              label="Indeterminate"
+            <Code
+              variant="block"
+              language="tsx"
+              code={descriptionSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
-          </ComponentExample>
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-          <h3 id="states-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
-          <ComponentExample className="mb-6">
+      <PageSection id="states" label="States">
+        <PageSectionHeader
+          title="States"
+          description="A checkbox can be empty, selected, mixed, unavailable, or invalid. Use the state that matches where the option is."
+        />
+
+        <PageSubsectionHeader
+          id="states-default"
+          title="Default"
+          description="The empty checkbox. Use this before the person has made a choice."
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
+            <Checkbox
+              id="states-default"
+              name="archived"
+              label="Show archived conversations"
+            />
+            <Code
+              variant="block"
+              language="tsx"
+              code={defaultStateSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="states-checked"
+          title="Checked"
+          description={
+            <>
+              Starts selected using <Code>defaultChecked</Code>. Use this only
+              when the initial selection reflects an existing preference or a
+              safe product default. Consent choices start unchecked.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
+            <Checkbox
+              id="states-checked"
+              name="archived"
+              defaultChecked
+              label="Show archived conversations"
+            />
+            <Code
+              variant="block"
+              language="tsx"
+              code={checkedSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="states-indeterminate"
+          title="Indeterminate"
+          description={
+            <>
+              A parent checkbox becomes indeterminate automatically when some,
+              but not all, child options are selected. Pass every child value
+              through <Code>allValues</Code> and add <Code>parent</Code> to the
+              parent Checkbox.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
+            <CheckboxGroup
+              label="Communication channels"
+              value={channelValue}
+              onValueChange={setChannelValue}
+              allValues={["email", "sms", "whatsapp"]}
+            >
+              <Checkbox parent label="Select all channels" />
+              <Checkbox value="email" label="Email" />
+              <Checkbox value="sms" label="SMS" />
+              <Checkbox value="whatsapp" label="WhatsApp" />
+            </CheckboxGroup>
+            <Code
+              variant="block"
+              language="tsx"
+              code={indeterminateSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="states-disabled"
+          title="Disabled"
+          description={
+            <>
+              Prevents interaction using the <Code>disabled</Code> prop. Use
+              this when the option is not available yet.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <FieldGroup>
               <Field orientation="horizontal" data-disabled>
                 <Checkbox
-                  id="terms-checkbox-disabled"
-                  name="terms-checkbox-disabled"
+                  id="sms-notifications"
+                  name="sms-notifications"
                   disabled
-                  label="Accept terms and conditions"
+                  label="Enable SMS notifications"
                 />
               </Field>
             </FieldGroup>
-          </ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={disabledSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
 
-          <h3 id="states-error" className="mb-3 text-base font-semibold">Error</h3>
-          <ComponentExample>
+        <PageSubsectionHeader
+          id="states-error"
+          title="Error"
+          description={
+            <>
+              Shows a validation error using <Code>aria-invalid</Code> on the
+              checkbox and <Code>data-invalid</Code> on the field. Use this when
+              the option must be selected before continuing.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <FieldGroup>
               <Field orientation="horizontal" data-invalid className="max-w-md">
                 <FieldContent>
@@ -119,105 +468,427 @@ export function CheckboxPage() {
                 </FieldContent>
               </Field>
             </FieldGroup>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={errorSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="checkbox-group" label="Checkbox group">
-          <h2 className="text-lg font-semibold">Checkbox group</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use CheckboxGroup for a list of options with shared state.
-          </p>
-          <ComponentExample>
+      <PageSection id="checkbox-group" label="Checkbox group">
+        <PageSectionHeader
+          title="Checkbox group"
+          description={
+            <>
+              Related options represented by one shared array value. The group
+              owns its legend, description, orientation and disabled state; each
+              Checkbox supplies one unique <Code>value</Code>.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <CheckboxGroup
-              label="Select your favourite apples"
+              label="Communication channels"
+              description="Select every channel your team can use."
               value={groupValue}
               onValueChange={setGroupValue}
             >
-              <Checkbox id="group-fuji" value="fuji" label="Fuji" />
-              <Checkbox id="group-gala" value="gala" label="Gala" />
-              <Checkbox id="group-granny-smith" value="granny-smith" label="Granny Smith" />
-              <Checkbox id="group-honeycrisp" value="honeycrisp" label="Honeycrisp" />
+              <Checkbox value="email" label="Email" />
+              <Checkbox value="sms" label="SMS" />
+              <Checkbox value="whatsapp" label="WhatsApp" />
             </CheckboxGroup>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={groupSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="as-button" label="As button">
-          <h2 className="text-lg font-semibold">As button</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code>asButton</Code> prop to
-            render the checkbox as an outline-style button. Checked state uses a
-            darker border and gray-100 background; hover state is applied.
-          </p>
-          <h3 id="as-button-basic" className="mb-3 text-base font-semibold">Basic</h3>
-          <ComponentExample className="mb-8">
-            <CheckboxGroup horizontal defaultValue={["checked"]}>
-              <Checkbox asButton id="as-button-basic" value="basic" label="Checkbox as button" />
-              <Checkbox asButton id="as-button-checked" value="checked" label="Checked button" />
+      <PageSection id="as-button" label="As button">
+        <PageSectionHeader
+          title="As button"
+          description={
+            <>
+              Renders the option as a button using the <Code>asButton</Code>{" "}
+              prop. Use this when the choices should feel like selectable chips
+              rather than a list of ticks. A checkbox remains visible at the
+              start of every option, so selection never moves its content.
+            </>
+          }
+        />
+
+        <PageSubsectionHeader
+          id="as-button-basic"
+          title="Basic"
+          description={
+            <>
+              Button-style options in a <Code>CheckboxGroup</Code> with{" "}
+              <Code>horizontal</Code>. Use this for a short row of choices.
+            </>
+          }
+        />
+        <ComponentExample className="mb-8">
+          <div className="space-y-6">
+            <CheckboxGroup
+              horizontal
+              label="Preferred contact methods"
+              defaultValue={["email"]}
+            >
+              <Checkbox asButton value="email" label="Email" />
+              <Checkbox asButton value="sms" label="SMS" />
+              <Checkbox asButton value="phone" label="Phone" />
             </CheckboxGroup>
-          </ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={asButtonBasicSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
 
-          <h3 id="as-button-with-description" className="mb-3 text-base font-semibold">With description</h3>
-          <ComponentExample className="mb-8">
-            <div className="max-w-sm">
-              <Checkbox
-                asButton
-                id="as-button-desc"
-                name="as-button-desc"
-                label="Accept terms and conditions"
-                description="By clicking this checkbox, you agree to the terms and conditions."
-              />
+        <PageSubsectionHeader
+          id="as-button-with-description"
+          title="With description"
+          description={
+            <>
+              Button-style options with descriptions. Use these for a short set
+              of choices that need supporting context.
+            </>
+          }
+        />
+        <ComponentExample className="mb-8">
+          <div className="space-y-6">
+            <div className="max-w-xl">
+              <CheckboxGroup
+                horizontal
+                label="Event formats"
+                defaultValue={["online"]}
+              >
+                <Checkbox
+                  asButton
+                  value="in-person"
+                  label="In person"
+                  description="Attend the event on campus."
+                />
+                <Checkbox
+                  asButton
+                  value="online"
+                  label="Online"
+                  description="Join the event remotely."
+                />
+              </CheckboxGroup>
             </div>
-          </ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={asButtonDescriptionSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
 
-          <h3 id="as-button-disabled" className="mb-3 text-base font-semibold">Disabled</h3>
-          <ComponentExample className="mb-8">
-            <CheckboxGroup horizontal defaultValue={["checked"]}>
-              <Checkbox
-                asButton
-                id="as-button-disabled-unchecked"
-                value="basic"
-                label="Checkbox as button"
-                disabled
-              />
-              <Checkbox
-                asButton
-                id="as-button-disabled-checked"
-                value="checked"
-                label="Checked button"
-                disabled
-              />
+        <PageSubsectionHeader
+          id="as-button-disabled"
+          title="Disabled"
+          description={
+            <>
+              Set <Code>disabled</Code> on CheckboxGroup when the complete set
+              is unavailable. The group applies the state to every option and
+              its legend.
+            </>
+          }
+        />
+        <ComponentExample className="mb-8">
+          <div className="space-y-6">
+            <CheckboxGroup
+              horizontal
+              label="Event formats"
+              defaultValue={["online"]}
+              disabled
+            >
+              <Checkbox asButton value="in-person" label="In person" />
+              <Checkbox asButton value="online" label="Online" />
             </CheckboxGroup>
-          </ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={asButtonDisabledSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
 
-          <h3 id="as-button-error" className="mb-3 text-base font-semibold">Error</h3>
-          <ComponentExample className="mb-8">
+        <PageSubsectionHeader
+          id="as-button-error"
+          title="Error"
+          description={
+            <>
+              Put <Code>aria-invalid</Code> and the error description on
+              CheckboxGroup. The group applies the invalid treatment to every
+              option, so individual checkboxes need no error styling props.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Field data-invalid className="w-fit max-w-full">
               <FieldContent>
-                <CheckboxGroup horizontal aria-invalid aria-describedby="as-button-error-group-msg" label="Select an option">
-                  <Checkbox
-                    asButton
-                    id="as-button-error-basic"
-                    value="basic"
-                    label="Checkbox as button"
-                    aria-invalid
-                    aria-describedby="as-button-error-group-msg"
-                  />
-                  <Checkbox
-                    asButton
-                    id="as-button-error-checked"
-                    value="checked"
-                    label="Checked button"
-                    aria-invalid
-                    aria-describedby="as-button-error-group-msg"
-                  />
+                <CheckboxGroup
+                  horizontal
+                  aria-invalid
+                  aria-describedby="event-formats-error"
+                  label="Event formats"
+                >
+                  <Checkbox asButton value="in-person" label="In person" />
+                  <Checkbox asButton value="online" label="Online" />
                 </CheckboxGroup>
-                <FieldError id="as-button-error-group-msg">
-                  This field is required—select at least one option before continuing.
+                <FieldError id="event-formats-error">
+                  Select at least one event format.
                 </FieldError>
               </FieldContent>
             </Field>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={asButtonErrorSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="within-form" label="Within form">
+        <PageSectionHeader
+          title="Within form"
+          description="Place Checkbox inside the form flow and give it a submitted name. Keep the action at its default width."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <form
+              className="space-y-6"
+              onSubmit={(event) => event.preventDefault()}
+            >
+              <FieldGroup>
+                <Checkbox
+                  id="product-updates"
+                  name="productUpdates"
+                  label="Send me product updates"
+                />
+              </FieldGroup>
+              <Button type="submit">Save preferences</Button>
+            </form>
+            <Code
+              variant="block"
+              language="tsx"
+              code={withinFormSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Use label for the option name. Do not restyle the checkbox chrome."
+        />
+        <DocsDoDont
+          doItems={[
+            <>
+              Name the option with the <Code>label</Code> prop. Add{" "}
+              <Code>description</Code> when it needs a short explanation.
+            </>,
+            <>
+              Wrap related choices in <Code>CheckboxGroup</Code> with a{" "}
+              <Code>value</Code> on each <Code>Checkbox</Code>.
+            </>,
+            <>
+              Set <Code>asButton</Code> and <Code>horizontal</Code> when the
+              choices should feel like selectable chips.
+            </>,
+            <>
+              Put <Code>aria-invalid</Code> and <Code>aria-describedby</Code> on
+              CheckboxGroup when validation belongs to the complete choice.
+            </>,
+            <>
+              Use <Code>parent</Code> and <Code>allValues</Code> for a
+              select-all option. CheckboxGroup derives its indeterminate state.
+            </>,
+          ]}
+          dontItems={[
+            <>
+              Don’t override size, radius, or colour with <Code>className</Code>
+              .
+            </>,
+            <>
+              Don’t use a Checkbox when only one choice is allowed. Use a{" "}
+              <DocsPageLink to="/components/radio-group">
+                Radio group
+              </DocsPageLink>
+              .
+            </>,
+            <>
+              Don’t use it as an on/off setting that takes effect immediately.
+              Use a <DocsPageLink to="/components/switch">Switch</DocsPageLink>.
+            </>,
+            <>
+              Don’t omit <Code>value</Code> on options inside a group.
+            </>,
+            <>Don’t preselect consent or marketing choices.</>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Behaviour props on Checkbox."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "label",
+              type: "React.ReactNode",
+              description: "Visible name of the option.",
+            },
+            {
+              name: "description",
+              type: "React.ReactNode",
+              description:
+                "Helper text automatically connected to the Checkbox or CheckboxGroup.",
+            },
+            {
+              name: "asButton",
+              type: "boolean",
+              defaultValue: "false",
+              description:
+                "Uses the approved selectable-card treatment with a checkbox fixed at the start. Selection semantics remain Checkbox.",
+            },
+            {
+              name: "horizontal",
+              type: "boolean",
+              defaultValue: "false",
+              description:
+                "On CheckboxGroup. Lays options out in a wrapping row.",
+            },
+            {
+              name: "indeterminate",
+              type: "boolean",
+              defaultValue: "false",
+              description:
+                "Explicit mixed state. Prefer parent with CheckboxGroup allValues when the state represents child options.",
+            },
+            {
+              name: "parent",
+              type: "boolean",
+              defaultValue: "false",
+              description:
+                "Makes a Checkbox control every value listed in CheckboxGroup allValues.",
+            },
+            {
+              name: "allValues",
+              type: "string[]",
+              description:
+                "On CheckboxGroup. Values controlled by its parent Checkbox.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Prevents interaction.",
+            },
+            {
+              name: "value",
+              type: "string",
+              description:
+                "On Checkbox inside a group. Identifies the option in value and onValueChange.",
+            },
+            {
+              name: "value / defaultValue",
+              type: "string[]",
+              description:
+                "On CheckboxGroup. Controlled or initial selected option values.",
+            },
+            {
+              name: "onValueChange",
+              type: "(value: string[]) => void",
+              description:
+                "On CheckboxGroup. Reports the complete selected value array.",
+            },
+            {
+              name: "checked / defaultChecked",
+              type: "boolean",
+              description:
+                "Controlled or initial state for an independent Checkbox.",
+            },
+            {
+              name: "onCheckedChange",
+              type: "(checked: boolean) => void",
+              description: "Reports an independent Checkbox state change.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-reference"
+          className="mt-6"
+          title="API reference"
+          description={
+            <>
+              See the{" "}
+              <DocsExternalLink href="https://base-ui.com/react/components/checkbox">
+                Base UI Checkbox API
+              </DocsExternalLink>
+              {", the "}
+              <DocsExternalLink href="https://base-ui.com/react/components/checkbox-group">
+                Base UI Checkbox Group API
+              </DocsExternalLink>{" "}
+              and the{" "}
+              <DocsExternalLink href="https://ui.shadcn.com/docs/components/base/checkbox">
+                Shadcn Checkbox documentation
+              </DocsExternalLink>{" "}
+              for the underlying APIs and source composition.
+            </>
+          }
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Use a different control when the Checkbox is the wrong shape for the job."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/radio-group">
+              Radio group
+            </DocsPageLink>{" "}
+            — when only one choice is allowed.
+          </li>
+          <li>
+            <DocsPageLink to="/components/switch">Switch</DocsPageLink> — when
+            the setting takes effect immediately.
+          </li>
+          <li>
+            <DocsPageLink to="/components/field">Field</DocsPageLink> — when the
+            option needs an error, help text, or form layout.
+          </li>
+        </ul>
+      </PageSection>
     </div>
-  )
+  );
 }

@@ -31,7 +31,7 @@ export function StepCampusTours() {
             updateBooking({ campusOfInterest: value ?? null })
           }
         >
-          <SelectTrigger id="campus-of-interest" className="w-full">
+          <SelectTrigger id="campus-of-interest">
             <SelectValue placeholder="Select a campus" />
           </SelectTrigger>
           <SelectContent>

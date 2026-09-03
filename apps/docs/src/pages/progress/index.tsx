@@ -1,151 +1,413 @@
-import { ComponentExample } from "@/components/layout/component-example"
-import { PageSection } from "@/components/layout/page-section"
-import { Progress } from "@gecko/ui/components/progress"
-import { Code } from "@gecko/ui/components/code"
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsExternalLink } from "@/components/layout/docs-external-link";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import {
+  PageOverviewHeader,
+  PageSectionHeader,
+  PageSubsectionHeader,
+} from "@/components/layout/page-section-header";
+import { PageSection } from "@/components/layout/page-section";
+import { Progress } from "@gecko/ui/components/progress";
+import { Code } from "@gecko/ui/components/code";
 
 export function ProgressPage() {
+  const importSnippet = `import {
+  Progress,
+  ProgressIndicator,
+  ProgressLabel,
+  ProgressTrack,
+  ProgressValue,
+} from "@gecko/ui/components/progress"`;
+
+  const compositionSnippet = `Progress
+├── ProgressLabel
+├── ProgressValue
+└── ProgressTrack
+    └── ProgressIndicator`;
+
+  const progressBarSnippet = `<Progress value={50} aria-label="Export progress" />`;
+
+  const withValueSnippet = `<Progress
+  value={65}
+  valueLabel="65%"
+  aria-label="Export progress"
+/>`;
+
+  const withLabelSnippet = `<Progress value={40} label="Uploading..." />`;
+
+  const sizeSmallSnippet = `<Progress
+  value={60}
+  size="sm"
+  label="Small"
+  valueLabel="60%"
+/>`;
+
+  const sizeMediumSnippet = `<Progress
+  value={60}
+  size="default"
+  label="Medium"
+  valueLabel="60%"
+/>`;
+
+  const sizeLargeSnippet = `<Progress
+  value={60}
+  size="lg"
+  label="Large"
+  valueLabel="60%"
+/>`;
+
+  const colourBarSnippet = `<Progress value={20} valueLabel="20%" showValueColors aria-label="Export progress" />
+<Progress value={45} valueLabel="45%" showValueColors aria-label="Export progress" />
+<Progress value={65} valueLabel="65%" showValueColors aria-label="Export progress" />
+<Progress value={90} valueLabel="90%" showValueColors aria-label="Export progress" />`;
+
+  const progressRingSnippet = `<Progress type="ring" value={55} aria-label="Export progress" />`;
+
+  const withValueRingSnippet = `<Progress
+  type="ring"
+  value={75}
+  valueLabel="75%"
+  aria-label="Export progress"
+/>`;
+
+  const withLabelRingSnippet = `<Progress
+  type="ring"
+  value={30}
+  label="Storage used"
+/>`;
+
+  const ringSizeSmallSnippet = `<Progress
+  type="ring"
+  value={40}
+  size="sm"
+  label="Small"
+  valueLabel="40%"
+/>`;
+
+  const ringSizeMediumSnippet = `<Progress
+  type="ring"
+  value={40}
+  size="default"
+  label="Medium"
+  valueLabel="40%"
+/>`;
+
+  const ringSizeLargeSnippet = `<Progress
+  type="ring"
+  value={40}
+  size="lg"
+  label="Large"
+  valueLabel="40%"
+/>`;
+
+  const colourRingSnippet = `<Progress type="ring" value={20} valueLabel="20%" showValueColors aria-label="Export progress" />
+<Progress type="ring" value={45} valueLabel="45%" showValueColors aria-label="Export progress" />
+<Progress type="ring" value={65} valueLabel="65%" showValueColors aria-label="Export progress" />
+<Progress type="ring" value={90} valueLabel="90%" showValueColors aria-label="Export progress" />`;
+
   return (
     <div className="space-y-12">
-        <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Progress</h1>
-          <p className="text-sm text-muted-foreground">
-            Displays the status of a task that takes a long time. Use the bar
-            type for horizontal progress or the ring type for circular progress.
-            Optional <Code>label</Code> and{" "}
-            <Code>valueLabel</Code> props
-            provide accessible labeling and value display.
-          </p>
-        </PageSection>
+      <PageSection id="overview" label="Overview">
+        <PageOverviewHeader
+          title="Progress"
+          description="Progress shows completion state for a task. It supports bar and ring presentations."
+        />
+      </PageSection>
 
-        <PageSection id="progress-bar" label="Progress bar">
-          <h2 className="text-lg font-semibold">Progress bar</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            A basic horizontal progress bar. Set <Code>value</Code> between 0 and 100.
-          </p>
-          <ComponentExample>
-            <Progress value={50} />
-          </ComponentExample>
-        </PageSection>
+      <PageSection id="usage" label="Usage">
+        <PageSectionHeader
+          title="Usage"
+          description={
+            <>
+              Use Progress for data and reporting displays where completion is
+              measurable — for example a percentage complete on a report or
+              metric. Communicate it as a value from 0 to 100.
+              <br />
+              <br />
+              Avoid using Progress as the primary loading pattern for page or
+              panel waits — that is a{" "}
+              <DocsPageLink to="/components/spinner">Spinner</DocsPageLink>.
+            </>
+          }
+        />
+        <PageSubsectionHeader
+          id="usage-import"
+          title="Import"
+          description="Import Progress for bar or ring displays."
+        />
+        <ComponentExample className="mb-6">
+          <Code
+            variant="block"
+            language="tsx"
+            code={importSnippet}
+            showCopyButton
+            copyLabel="Copy import"
+          />
+        </ComponentExample>
+        <PageSubsectionHeader
+          id="usage-composition"
+          title="Composition"
+          description="Progress contains its track and indicator. Add a label and formatted value when they help identify the task and its state."
+        />
+        <ComponentExample>
+          <Code
+            variant="block"
+            language="text"
+            code={compositionSnippet}
+            showCopyButton
+            copyLabel="Copy composition"
+          />
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="with-value" label="With value">
-          <h2 className="text-lg font-semibold">With value</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code>valueLabel</Code> prop to show the current value beside the bar.
-          </p>
-          <ComponentExample>
-            <Progress value={65} valueLabel="65%" />
-          </ComponentExample>
-        </PageSection>
-
-        <PageSection id="with-label" label="With label">
-          <h2 className="text-lg font-semibold">With label</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code>label</Code> prop to show an accessible label above the bar.
-          </p>
-          <ComponentExample>
-            <Progress
-              value={40}
-              label="Uploading..."
+      <PageSection id="progress-bar" label="Progress bar">
+        <PageSectionHeader
+          title="Progress bar"
+          description="A horizontal indicator for completion across the available width."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Progress value={50} aria-label="Export progress" />
+            <Code
+              variant="block"
+              language="tsx"
+              code={progressBarSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
-          </ComponentExample>
-        </PageSection>
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="progress-bar-sizes" label="Progress bar sizes">
-          <h2 className="text-lg font-semibold">Progress bar sizes</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code>size</Code> prop to set the bar height: <Code>sm</Code>, <Code>default</Code>, or <Code>lg</Code>.
-          </p>
-
-          <h3 id="progress-bar-sizes-small" className="mb-3 text-base font-semibold">Small</h3>
-          <ComponentExample className="mb-8">
+      <PageSection id="with-value" label="With value">
+        <PageSectionHeader
+          title="With value"
+          description="Show the current percentage when people need the precise completion state."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Progress
-              value={60}
-              size="sm"
-              label="Small"
-              valueLabel="60%"
+              value={65}
+              valueLabel="65%"
+              aria-label="Export progress"
             />
-          </ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={withValueSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-          <h3 id="progress-bar-sizes-medium" className="mb-3 text-base font-semibold">Medium</h3>
-          <ComponentExample className="mb-8">
+      <PageSection id="with-label" label="With label">
+        <PageSectionHeader
+          title="With label"
+          description="Name the task when the surrounding context does not identify it clearly."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Progress value={40} label="Uploading..." />
+            <Code
+              variant="block"
+              language="tsx"
+              code={withLabelSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="progress-bar-sizes" label="Progress bar sizes">
+        <PageSectionHeader
+          title="Progress bar sizes"
+          description="Choose a bar height that matches the surrounding layout."
+        />
+
+        <PageSubsectionHeader
+          id="progress-bar-sizes-small"
+          title="Small"
+          description="A compact bar for dense layouts."
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
+            <Progress value={60} size="sm" label="Small" valueLabel="60%" />
+            <Code
+              variant="block"
+              language="tsx"
+              code={sizeSmallSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="progress-bar-sizes-medium"
+          title="Medium"
+          description="The standard bar height for most layouts."
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Progress
               value={60}
               size="default"
               label="Medium"
               valueLabel="60%"
             />
-          </ComponentExample>
-
-          <h3 id="progress-bar-sizes-large" className="mb-3 text-base font-semibold">Large</h3>
-          <ComponentExample>
-            <Progress
-              value={60}
-              size="lg"
-              label="Large"
-              valueLabel="60%"
+            <Code
+              variant="block"
+              language="tsx"
+              code={sizeMediumSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
-          </ComponentExample>
-        </PageSection>
+          </div>
+        </ComponentExample>
 
-        <PageSection id="progress-colour-bar" label="Progress colour (bar)">
-          <h2 className="text-lg font-semibold">Progress colour (bar)</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code>showValueColors</Code> to colour the bar by value tier: low (red), mid (warning/chart-4), high (success).
-          </p>
-          <ComponentExample className="flex flex-col gap-4">
-            <Progress value={20} showValueColors />
-            <Progress value={45} showValueColors />
-            <Progress value={65} showValueColors />
-            <Progress value={90} showValueColors />
-          </ComponentExample>
-        </PageSection>
+        <PageSubsectionHeader
+          id="progress-bar-sizes-large"
+          title="Large"
+          description="A taller bar for prominent progress displays."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Progress value={60} size="lg" label="Large" valueLabel="60%" />
+            <Code
+              variant="block"
+              language="tsx"
+              code={sizeLargeSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="progress-ring" label="Progress ring">
-          <h2 className="text-lg font-semibold">Progress ring</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Set <Code>type="ring"</Code> for a circular progress indicator.
-          </p>
-          <ComponentExample>
-            <Progress type="ring" value={55} />
-          </ComponentExample>
-        </PageSection>
+      <PageSection id="progress-colour-bar" label="Progress colour (bar)">
+        <PageSectionHeader
+          title="Progress colour (bar)"
+          description="Use tiered colour only when the thresholds communicate meaningful status or urgency."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <div className="flex flex-col gap-4">
+              <Progress
+                value={20}
+                valueLabel="20%"
+                showValueColors
+                aria-label="Export progress"
+              />
+              <Progress
+                value={45}
+                valueLabel="45%"
+                showValueColors
+                aria-label="Export progress"
+              />
+              <Progress
+                value={65}
+                valueLabel="65%"
+                showValueColors
+                aria-label="Export progress"
+              />
+              <Progress
+                value={90}
+                valueLabel="90%"
+                showValueColors
+                aria-label="Export progress"
+              />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={colourBarSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="with-value-ring" label="With value (ring)">
-          <h2 className="text-lg font-semibold">With value (ring)</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code>valueLabel</Code> to show the value centered inside the ring.
-          </p>
-          <ComponentExample>
+      <PageSection id="progress-ring" label="Progress ring">
+        <PageSectionHeader
+          title="Progress ring"
+          description="A circular indicator for completion in a compact square footprint."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Progress type="ring" value={55} aria-label="Export progress" />
+            <Code
+              variant="block"
+              language="tsx"
+              code={progressRingSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="with-value-ring" label="With value (ring)">
+        <PageSectionHeader
+          title="With value (ring)"
+          description="Centre the percentage when it should be read as part of the ring."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Progress
               type="ring"
               value={75}
               valueLabel="75%"
+              aria-label="Export progress"
             />
-          </ComponentExample>
-        </PageSection>
-
-        <PageSection id="with-label-ring" label="With label (ring)">
-          <h2 className="text-lg font-semibold">With label (ring)</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code>label</Code> prop to show a label below the ring.
-          </p>
-          <ComponentExample>
-            <Progress
-              type="ring"
-              value={30}
-              label="Storage used"
+            <Code
+              variant="block"
+              language="tsx"
+              code={withValueRingSnippet}
+              showCopyButton
+              copyLabel="Copy example"
             />
-          </ComponentExample>
-        </PageSection>
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="progress-ring-sizes" label="Progress ring sizes">
-          <h2 className="text-lg font-semibold">Progress ring sizes</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code>size</Code> prop with ring type: <Code>sm</Code>, <Code>default</Code>, or <Code>lg</Code>.
-          </p>
+      <PageSection id="with-label-ring" label="With label (ring)">
+        <PageSectionHeader
+          title="With label (ring)"
+          description="Add a short caption when the ring needs to identify its metric."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Progress type="ring" value={30} label="Storage used" />
+            <Code
+              variant="block"
+              language="tsx"
+              code={withLabelRingSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-          <h3 id="progress-ring-sizes-small" className="mb-3 text-base font-semibold">Small</h3>
-          <ComponentExample className="mb-8">
+      <PageSection id="progress-ring-sizes" label="Progress ring sizes">
+        <PageSectionHeader
+          title="Progress ring sizes"
+          description="Choose a ring diameter that matches the surrounding layout."
+        />
+
+        <PageSubsectionHeader
+          id="progress-ring-sizes-small"
+          title="Small"
+          description="A compact ring for dense dashboards or table cells."
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Progress
               type="ring"
               value={40}
@@ -153,10 +415,23 @@ export function ProgressPage() {
               label="Small"
               valueLabel="40%"
             />
-          </ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={ringSizeSmallSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
 
-          <h3 id="progress-ring-sizes-medium" className="mb-3 text-base font-semibold">Medium</h3>
-          <ComponentExample className="mb-8">
+        <PageSubsectionHeader
+          id="progress-ring-sizes-medium"
+          title="Medium"
+          description="The standard ring size for most layouts."
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Progress
               type="ring"
               value={40}
@@ -164,10 +439,23 @@ export function ProgressPage() {
               label="Medium"
               valueLabel="40%"
             />
-          </ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={ringSizeMediumSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
 
-          <h3 id="progress-ring-sizes-large" className="mb-3 text-base font-semibold">Large</h3>
-          <ComponentExample>
+        <PageSubsectionHeader
+          id="progress-ring-sizes-large"
+          title="Large"
+          description="A larger ring for a prominent progress display."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Progress
               type="ring"
               value={40}
@@ -175,21 +463,184 @@ export function ProgressPage() {
               label="Large"
               valueLabel="40%"
             />
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={ringSizeLargeSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="progress-colour-ring" label="Progress colour (ring)">
-          <h2 className="text-lg font-semibold">Progress colour (ring)</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code>showValueColors</Code> with <Code>type="ring"</Code> to colour the ring by value tier.
-          </p>
-          <ComponentExample className="flex flex-wrap gap-8">
-            <Progress type="ring" value={20} showValueColors />
-            <Progress type="ring" value={45} showValueColors />
-            <Progress type="ring" value={65} showValueColors />
-            <Progress type="ring" value={90} showValueColors />
-          </ComponentExample>
-        </PageSection>
+      <PageSection id="progress-colour-ring" label="Progress colour (ring)">
+        <PageSectionHeader
+          title="Progress colour (ring)"
+          description="Use tiered colour only when the thresholds communicate meaningful status or urgency."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <div className="flex flex-wrap gap-8">
+              <Progress
+                type="ring"
+                value={20}
+                valueLabel="20%"
+                showValueColors
+                aria-label="Export progress"
+              />
+              <Progress
+                type="ring"
+                value={45}
+                valueLabel="45%"
+                showValueColors
+                aria-label="Export progress"
+              />
+              <Progress
+                type="ring"
+                value={65}
+                valueLabel="65%"
+                showValueColors
+                aria-label="Export progress"
+              />
+              <Progress
+                type="ring"
+                value={90}
+                valueLabel="90%"
+                showValueColors
+                aria-label="Export progress"
+              />
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={colourRingSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Use Progress for measurable completion and show only the detail people need."
+        />
+        <DocsDoDont
+          doItems={[
+            <>Set the task’s current completion from 0 to 100.</>,
+            <>Add a label when the task needs a visible name.</>,
+            <>Show the exact percentage when it helps people.</>,
+            <>Use a ring when progress needs a compact square footprint.</>,
+          ]}
+          dontItems={[
+            <>
+              Don’t use Progress for page or panel loading waits. Use a{" "}
+              <DocsPageLink to="/components/spinner">Spinner</DocsPageLink>.
+            </>,
+            <>Don’t show a percentage that does not match the value.</>,
+            <>Don’t use tiered colours unless their thresholds have meaning.</>,
+            <>Don’t mix bar and ring presentations for the same task.</>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Behaviour props on Progress."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "type",
+              type: '"default" | "ring"',
+              defaultValue: '"default"',
+              description:
+                "Displays progress as a horizontal bar or circular ring.",
+            },
+            {
+              name: "size",
+              type: '"sm" | "default" | "lg"',
+              defaultValue: '"default"',
+              description: "Controls the bar height or ring diameter.",
+            },
+            {
+              name: "label",
+              type: "string",
+              description: "Visible accessible name for the task.",
+            },
+            {
+              name: "valueLabel",
+              type: "string",
+              description:
+                "Formatted value shown beside a bar or inside a ring.",
+            },
+            {
+              name: "showValueColors",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Colours the indicator by value tier.",
+            },
+            {
+              name: "value",
+              type: "number | null",
+              description: "Current completion value, normally from 0 to 100.",
+            },
+            {
+              name: "min",
+              type: "number",
+              defaultValue: "0",
+              description: "Minimum value in the progress range.",
+            },
+            {
+              name: "max",
+              type: "number",
+              defaultValue: "100",
+              description: "Maximum value in the progress range.",
+            },
+            {
+              name: "aria-valuetext",
+              type: "string",
+              defaultValue: "—",
+              description:
+                "Human-readable accessible value when the numeric value needs explanation.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-reference"
+          className="mt-6"
+          title="API reference"
+          description={
+            <>
+              See the{" "}
+              <DocsExternalLink href="https://ui.shadcn.com/docs/components/base/progress">
+                Shadcn Progress documentation
+              </DocsExternalLink>{" "}
+              and{" "}
+              <DocsExternalLink href="https://base-ui.com/react/components/progress">
+                Base UI Progress API
+              </DocsExternalLink>{" "}
+              for the source composition and underlying behaviour.
+            </>
+          }
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Use an indeterminate indicator when completion is unknown."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/spinner">Spinner</DocsPageLink> — for
+            page and panel loading waits.
+          </li>
+        </ul>
+      </PageSection>
     </div>
-  )
+  );
 }

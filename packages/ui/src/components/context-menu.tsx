@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu"
 
@@ -129,7 +131,7 @@ function ContextMenuSubTrigger({
       {...props}
     >
       {children}
-      <ChevronRightIcon className="rtl:rotate-180 ms-auto" />
+      <ChevronRightIcon className="rtl:rotate-180 ms-auto" aria-hidden="true" />
     </ContextMenuPrimitive.SubmenuTrigger>
   )
 }
@@ -169,8 +171,7 @@ function ContextMenuCheckboxItem({
     >
       <span className="absolute end-2 pointer-events-none">
         <ContextMenuPrimitive.CheckboxItemIndicator>
-          <CheckIcon
-          />
+          <CheckIcon aria-hidden="true" />
         </ContextMenuPrimitive.CheckboxItemIndicator>
       </span>
       {children}
@@ -209,8 +210,7 @@ function ContextMenuRadioItem({
     >
       <span className="absolute end-2 pointer-events-none">
         <ContextMenuPrimitive.RadioItemIndicator>
-          <CheckIcon
-          />
+          <CheckIcon aria-hidden="true" />
         </ContextMenuPrimitive.RadioItemIndicator>
       </span>
       {children}

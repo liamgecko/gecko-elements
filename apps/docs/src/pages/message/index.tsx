@@ -1,14 +1,18 @@
-import type { ReactNode } from "react"
-import { Reply, SmilePlus } from "lucide-react"
+import type { ReactNode } from "react";
+import { Reply, SmilePlus } from "lucide-react";
 
-import { ComponentExample } from "@/components/layout/component-example"
-import { PageSection } from "@/components/layout/page-section"
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsExternalLink } from "@/components/layout/docs-external-link";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import { PageSection } from "@/components/layout/page-section";
 import {
   PageOverviewHeader,
   PageSectionHeader,
   PageSubsectionHeader,
-} from "@/components/layout/page-section-header"
-import { Avatar, AvatarFallback, AvatarImage } from "@gecko/ui/components/avatar"
+} from "@/components/layout/page-section-header";
+import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
 import {
   Bubble,
   BubbleActions,
@@ -17,14 +21,14 @@ import {
   BubbleHeader,
   BubbleReactions,
   BubbleTimestamp,
-} from "@gecko/ui/components/bubble"
-import { Button } from "@gecko/ui/components/button"
-import { Code } from "@gecko/ui/components/code"
+} from "@gecko/ui/components/bubble";
+import { Button } from "@gecko/ui/components/button";
+import { Code } from "@gecko/ui/components/code";
 import {
   EmojiPicker,
   EmojiPickerContent,
   EmojiPickerTrigger,
-} from "@gecko/ui/components/emoji-picker"
+} from "@gecko/ui/components/emoji-picker";
 import {
   Message,
   MessageAiActions,
@@ -34,21 +38,19 @@ import {
   MessageGroup,
   MessageInfo,
   MessageMeta,
-} from "@gecko/ui/components/message"
+} from "@gecko/ui/components/message";
 
 const userAvatar = {
   src: "",
-  alt: "User",
-  fallback: "U",
-}
+  name: "User",
+};
 
 const agentAvatar = {
   src: "",
-  alt: "Agent",
-  fallback: "A",
-}
+  name: "Agent",
+};
 
-const exampleTimestamp = new Date("2026-03-24T04:00:00")
+const exampleTimestamp = new Date("2026-03-24T04:00:00");
 
 const userMessageInfo = {
   channel: "Admissions live chat",
@@ -59,7 +61,7 @@ const userMessageInfo = {
   receivedAt: "08/01/2024 @ 15:54",
   sentTo: ["info@geckouniversity.ac.uk", "admissions@geckouniversity.ac.uk"],
   cc: ["finance@geckouniversity.ac.uk", "support@geckouniversity.ac.uk"],
-}
+};
 
 const agentMessageInfo = {
   source: {
@@ -81,23 +83,14 @@ const agentMessageInfo = {
   },
   channel: "Admissions live chat",
   receivedAt: "08/01/2024 @ 15:54",
-}
+};
 
-function MessageDemoAvatar({
-  src,
-  alt,
-  fallback,
-}: {
-  src: string
-  alt: string
-  fallback: string
-}) {
+function MessageDemoAvatar({ src, name }: { src: string; name: string }) {
   return (
-    <Avatar size="md">
-      {src ? <AvatarImage src={src} alt={alt} /> : null}
-      <AvatarFallback>{fallback}</AvatarFallback>
+    <Avatar name={name} size="md">
+      {src ? <AvatarImage src={src} /> : null}
     </Avatar>
-  )
+  );
 }
 
 function MessageExample({
@@ -110,17 +103,17 @@ function MessageExample({
   fullWidth = false,
   showMeta = true,
 }: {
-  variant: "user" | "agent" | "ai" | "note"
-  children: ReactNode
-  status?: "sent" | "delivered" | "read" | "failed"
-  info?: ReactNode
-  showAvatar?: boolean
-  onResend?: () => void
-  fullWidth?: boolean
-  showMeta?: boolean
+  variant: "user" | "agent" | "ai" | "note";
+  children: ReactNode;
+  status?: "sent" | "delivered" | "read" | "failed";
+  info?: ReactNode;
+  showAvatar?: boolean;
+  onResend?: () => void;
+  fullWidth?: boolean;
+  showMeta?: boolean;
 }) {
-  const avatar = variant === "user" ? userAvatar : agentAvatar
-  const showFailedFooter = status === "failed" && variant === "agent"
+  const avatar = variant === "user" ? userAvatar : agentAvatar;
+  const showFailedFooter = status === "failed" && variant === "agent";
 
   return (
     <Message variant={variant}>
@@ -168,7 +161,7 @@ function MessageExample({
         ) : null}
       </MessageContent>
     </Message>
-  )
+  );
 }
 
 function LiveChatExample() {
@@ -214,11 +207,11 @@ function LiveChatExample() {
         </Bubble>
       </MessageContent>
     </Message>
-  )
+  );
 }
 
 export function MessagePage() {
-  const importSnippet = `import { Avatar, AvatarFallback } from "@gecko/ui/components/avatar"
+  const importSnippet = `import { Avatar } from "@gecko/ui/components/avatar"
 import {
   Bubble,
   BubbleActions,
@@ -235,13 +228,15 @@ import {
   MessageContent,
   MessageFooter,
   MessageGroup,
+  MessageHeader,
   MessageInfo,
   MessageMeta,
-} from "@gecko/ui/components/message"`
+} from "@gecko/ui/components/message"`;
 
   const compositionSnippet = `Message
 ├── MessageAvatar
 └── MessageContent
+    ├── MessageHeader
     ├── Bubble
     │   ├── BubbleContent
     │   │   ├── BubbleHeader
@@ -251,17 +246,15 @@ import {
     │   │   └── MessageMeta
     │   ├── BubbleActions
     │   └── BubbleReactions
-    └── MessageFooter`
+    └── MessageFooter`;
 
   const groupCompositionSnippet = `MessageGroup
 ├── Message
-└── Message`
+└── Message`;
 
   const userSnippet = `<Message variant="user">
   <MessageAvatar>
-    <Avatar size="md">
-      <AvatarFallback>U</AvatarFallback>
-    </Avatar>
+    <Avatar name="User" size="md" />
   </MessageAvatar>
   <MessageContent>
     <Bubble>
@@ -271,13 +264,11 @@ import {
       </BubbleContent>
     </Bubble>
   </MessageContent>
-</Message>`
+</Message>`;
 
   const agentSnippet = `<Message variant="agent">
   <MessageAvatar>
-    <Avatar size="md">
-      <AvatarFallback>A</AvatarFallback>
-    </Avatar>
+    <Avatar name="Agent" size="md" />
   </MessageAvatar>
   <MessageContent>
     <Bubble>
@@ -287,7 +278,7 @@ import {
       </BubbleContent>
     </Bubble>
   </MessageContent>
-</Message>`
+</Message>`;
 
   const aiSnippet = `<Message variant="ai">
   <MessageContent>
@@ -301,13 +292,11 @@ import {
       </BubbleContent>
     </Bubble>
   </MessageContent>
-</Message>`
+</Message>`;
 
   const noteSnippet = `<Message variant="note">
   <MessageAvatar>
-    <Avatar size="md">
-      <AvatarFallback>A</AvatarFallback>
-    </Avatar>
+    <Avatar name="Agent" size="md" />
   </MessageAvatar>
   <MessageContent>
     <Bubble>
@@ -317,13 +306,11 @@ import {
       </BubbleContent>
     </Bubble>
   </MessageContent>
-</Message>`
+</Message>`;
 
   const inboxSnippet = `<Message variant="agent">
   <MessageAvatar>
-    <Avatar size="md">
-      <AvatarFallback>A</AvatarFallback>
-    </Avatar>
+    <Avatar name="Agent" size="md" />
   </MessageAvatar>
   <MessageContent>
     <Bubble>
@@ -333,13 +320,11 @@ import {
       </BubbleContent>
     </Bubble>
   </MessageContent>
-</Message>`
+</Message>`;
 
   const chatWidgetSnippet = `<Message variant="agent">
   <MessageAvatar>
-    <Avatar size="md">
-      <AvatarFallback>A</AvatarFallback>
-    </Avatar>
+    <Avatar name="Agent" size="md" />
   </MessageAvatar>
   <MessageContent>
     <Bubble>
@@ -348,7 +333,7 @@ import {
       </BubbleContent>
     </Bubble>
   </MessageContent>
-</Message>`
+</Message>`;
 
   const liveChatSnippet = `<Message>
   <MessageContent>
@@ -378,13 +363,11 @@ import {
       </BubbleReactions>
     </Bubble>
   </MessageContent>
-</Message>`
+</Message>`;
 
   const fullWidthSnippet = `<Message variant="agent">
   <MessageAvatar>
-    <Avatar size="md">
-      <AvatarFallback>A</AvatarFallback>
-    </Avatar>
+    <Avatar name="Agent" size="md" />
   </MessageAvatar>
   <MessageContent>
     <Bubble>
@@ -398,9 +381,7 @@ import {
 
 <Message variant="agent">
   <MessageAvatar>
-    <Avatar size="md">
-      <AvatarFallback>A</AvatarFallback>
-    </Avatar>
+    <Avatar name="Agent" size="md" />
   </MessageAvatar>
   <MessageContent>
     <Bubble fullWidth>
@@ -410,13 +391,11 @@ import {
       </BubbleContent>
     </Bubble>
   </MessageContent>
-</Message>`
+</Message>`;
 
   const statusSentSnippet = `<Message variant="agent">
   <MessageAvatar>
-    <Avatar size="md">
-      <AvatarFallback>A</AvatarFallback>
-    </Avatar>
+    <Avatar name="Agent" size="md" />
   </MessageAvatar>
   <MessageContent>
     <Bubble>
@@ -426,13 +405,11 @@ import {
       </BubbleContent>
     </Bubble>
   </MessageContent>
-</Message>`
+</Message>`;
 
   const statusDeliveredSnippet = `<Message variant="agent">
   <MessageAvatar>
-    <Avatar size="md">
-      <AvatarFallback>A</AvatarFallback>
-    </Avatar>
+    <Avatar name="Agent" size="md" />
   </MessageAvatar>
   <MessageContent>
     <Bubble>
@@ -442,13 +419,11 @@ import {
       </BubbleContent>
     </Bubble>
   </MessageContent>
-</Message>`
+</Message>`;
 
   const statusReadSnippet = `<Message variant="agent">
   <MessageAvatar>
-    <Avatar size="md">
-      <AvatarFallback>A</AvatarFallback>
-    </Avatar>
+    <Avatar name="Agent" size="md" />
   </MessageAvatar>
   <MessageContent>
     <Bubble>
@@ -458,13 +433,11 @@ import {
       </BubbleContent>
     </Bubble>
   </MessageContent>
-</Message>`
+</Message>`;
 
   const statusFailedSnippet = `<Message variant="agent">
   <MessageAvatar>
-    <Avatar size="md">
-      <AvatarFallback>A</AvatarFallback>
-    </Avatar>
+    <Avatar name="Agent" size="md" />
   </MessageAvatar>
   <MessageContent>
     <Bubble variant="destructive">
@@ -480,7 +453,7 @@ import {
       </button>
     </MessageFooter>
   </MessageContent>
-</Message>`
+</Message>`;
 
   const groupSnippet = `<MessageGroup>
   <Message variant="agent">
@@ -496,9 +469,7 @@ import {
   </Message>
   <Message variant="agent">
     <MessageAvatar>
-      <Avatar size="md">
-        <AvatarFallback>A</AvatarFallback>
-      </Avatar>
+      <Avatar name="Agent" size="md" />
     </MessageAvatar>
     <MessageContent>
       <Bubble>
@@ -509,13 +480,11 @@ import {
       </Bubble>
     </MessageContent>
   </Message>
-</MessageGroup>`
+</MessageGroup>`;
 
   const userInfoSnippet = `<Message variant="user">
   <MessageAvatar>
-    <Avatar size="md">
-      <AvatarFallback>U</AvatarFallback>
-    </Avatar>
+    <Avatar name="User" size="md" />
   </MessageAvatar>
   <MessageContent>
     <Bubble>
@@ -528,13 +497,11 @@ import {
       </BubbleContent>
     </Bubble>
   </MessageContent>
-</Message>`
+</Message>`;
 
   const agentInfoSnippet = `<Message variant="agent">
   <MessageAvatar>
-    <Avatar size="md">
-      <AvatarFallback>A</AvatarFallback>
-    </Avatar>
+    <Avatar name="Agent" size="md" />
   </MessageAvatar>
   <MessageContent>
     <Bubble>
@@ -548,7 +515,7 @@ import {
       </BubbleContent>
     </Bubble>
   </MessageContent>
-</Message>`
+</Message>`;
 
   return (
     <div className="space-y-12">
@@ -572,12 +539,17 @@ import {
           title="Usage"
           description={
             <>
-              Message owns the row and type. Bubble inherits surface styling from
-              Message unless you override it (for example{" "}
-              <Code>variant=&quot;destructive&quot;</Code> on failed sends). Put
-              timestamp, status, and info inside the bubble with{" "}
-              <Code>MessageMeta</Code>. Put failed resend in{" "}
-              <Code>MessageFooter</Code> below the bubble.
+              Use Message for a row in a conversation. It keeps the avatar,
+              alignment, and metadata grouped around the visible surface.
+              <br />
+              <br />
+              Avoid using Message for short status rows — use{" "}
+              <DocsPageLink to="/components/marker">Marker</DocsPageLink>{" "}
+              instead. Avoid using Message for the whole transcript — use{" "}
+              <DocsPageLink to="/components/message-scroller">
+                Message scroller
+              </DocsPageLink>{" "}
+              instead.
             </>
           }
         />
@@ -598,7 +570,14 @@ import {
         <PageSubsectionHeader
           id="usage-composition"
           title="Composition"
-          description="Use the following composition to build a message:"
+          description={
+            <>
+              Message owns the row layout. Use <Code>MessageHeader</Code> for
+              content above the visible surface, render the surface with{" "}
+              <Code>Bubble</Code>, and place row-level information below it in{" "}
+              <Code>MessageFooter</Code>.
+            </>
+          }
         />
         <ComponentExample>
           <Code
@@ -625,7 +604,14 @@ import {
         <PageSubsectionHeader
           id="variants-user"
           title="User"
-          description="User messages align to the start (left) and use the secondary bubble."
+          description={
+            <>
+              Use <Code>variant=&quot;user&quot;</Code> for customer or reader
+              messages. It aligns to the start and uses the secondary bubble.
+              Use this when the message is inbound from the person you are
+              helping.
+            </>
+          }
         />
         <ComponentExample className="mb-10">
           <div className="space-y-6">
@@ -649,8 +635,10 @@ import {
           title="Agent"
           description={
             <>
-              Set <Code>variant=&quot;agent&quot;</Code> for operator messages:
-              they align to the end (right) and use the default tinted bubble.
+              Use <Code>variant=&quot;agent&quot;</Code> for admin-side messages
+              sent by human operators. It aligns to the end and uses the default
+              bubble. Use this for operator messages and platform system
+              updates.
             </>
           }
         />
@@ -676,10 +664,11 @@ import {
           title="AI"
           description={
             <>
-              Use <Code>variant=&quot;ai&quot;</Code> for generative replies:
-              ghost bubble (no chrome), no avatar, end-aligned with metadata.
-              Pass <Code>MessageAiActions</Code> into <Code>MessageMeta</Code>{" "}
-              for copy, feedback, and share.
+              Use <Code>variant=&quot;ai&quot;</Code> for generative replies. It
+              hides the avatar and uses the ghost bubble. Pass{" "}
+              <Code>MessageAiActions</Code> into <Code>MessageMeta</Code> for
+              copy, feedback, and share. Use this when the reply is generated
+              rather than sent by a person.
             </>
           }
         />
@@ -707,8 +696,9 @@ import {
           description={
             <>
               Use <Code>variant=&quot;note&quot;</Code> for internal notes.
-              Nested bubbles inherit the note surface — no Bubble variant needed.
-              Status is ignored.
+              Nested bubbles inherit the note surface, and status is ignored.
+              Use this when the row is an internal note rather than something
+              the customer can see.
             </>
           }
         />
@@ -835,16 +825,16 @@ import {
           <div className="space-y-6">
             <div className="flex w-full flex-col gap-6">
               <MessageExample variant="agent">
-                Default: grows with content up to 85% of the container, then wraps.
-                Keep adding copy and the bubble stops expanding once it hits that
-                85% cap — anything longer wraps onto additional lines instead of
-                stretching across the full row.
+                Default: grows with content up to 85% of the container, then
+                wraps. Keep adding copy and the bubble stops expanding once it
+                hits that 85% cap — anything longer wraps onto additional lines
+                instead of stretching across the full row.
               </MessageExample>
               <MessageExample variant="agent" fullWidth>
-                Full width: still sizes to the text, but can grow up to 100% before
-                wrapping. With enough copy the bubble fills the entire row, then
-                wraps onto the next line — useful in tighter layouts like sidebars
-                where the usual 85% gap would leave unused space.
+                Full width: still sizes to the text, but can grow up to 100%
+                before wrapping. With enough copy the bubble fills the entire
+                row, then wraps onto the next line — useful in tighter layouts
+                like sidebars where the usual 85% gap would leave unused space.
               </MessageExample>
             </div>
             <Code
@@ -991,7 +981,10 @@ import {
                     <Bubble>
                       <BubbleContent>
                         <div>I checked the registry addresses.</div>
-                        <MessageMeta timestamp={exampleTimestamp} status="read" />
+                        <MessageMeta
+                          timestamp={exampleTimestamp}
+                          status="read"
+                        />
                       </BubbleContent>
                     </Bubble>
                   </MessageContent>
@@ -1007,7 +1000,10 @@ import {
                           The component and example JSON now live under the UI
                           registry.
                         </div>
-                        <MessageMeta timestamp={exampleTimestamp} status="read" />
+                        <MessageMeta
+                          timestamp={exampleTimestamp}
+                          status="read"
+                        />
                       </BubbleContent>
                     </Bubble>
                   </MessageContent>
@@ -1087,6 +1083,132 @@ import {
           </div>
         </ComponentExample>
       </PageSection>
+
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Use Message for row layout and Bubble for the visible message surface."
+        />
+        <DocsDoDont
+          doItems={[
+            <>
+              Set <Code>variant</Code> to match the sender or note type.
+            </>,
+            <>
+              Render the visible content inside a{" "}
+              <DocsPageLink to="/components/bubble">Bubble</DocsPageLink>.
+            </>,
+            <>
+              Place relative time, delivery status, information, and AI actions
+              in <Code>MessageMeta</Code>.
+            </>,
+            <>
+              Use <Code>MessageGroup</Code> for consecutive messages from the
+              same sender.
+            </>,
+            <>
+              Render an empty <Code>MessageAvatar</Code> before the final row in
+              a grouped run.
+            </>,
+          ]}
+          dontItems={[
+            <>
+              Don’t use Message for a whole transcript; use Message scroller.
+            </>,
+            <>Don’t apply the message surface to Message itself.</>,
+            <>Don’t show delivery status on user, AI, or note variants.</>,
+            <>Don’t repeat the avatar on every row in a grouped run.</>,
+            <>Don’t use Message for a brief inline status; use Marker.</>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Behaviour props on Message."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "Message.variant",
+              type: '"user" | "agent" | "ai" | "note"',
+              defaultValue: '"user"',
+              description:
+                "Sets the message type, inherited bubble treatment, and default alignment.",
+            },
+            {
+              name: "Message.align",
+              type: '"start" | "end"',
+              description: "Overrides the alignment derived from variant.",
+            },
+            {
+              name: "MessageMeta.timestamp",
+              type: "Date | string | number",
+              description: "Required date value rendered as relative time.",
+            },
+            {
+              name: "MessageMeta.status",
+              type: '"sent" | "delivered" | "read" | "failed"',
+              description: "Shows a MessageStatusIndicator for agent messages.",
+            },
+            {
+              name: "MessageMeta.info",
+              type: "React.ReactNode",
+              description: "Adds message information beside the relative time.",
+            },
+            {
+              name: "MessageMeta.actions",
+              type: "React.ReactNode",
+              description:
+                "Adds actions such as MessageAiActions beside the relative time.",
+            },
+            {
+              name: "MessageAiActions.copyText",
+              type: "string",
+              description: "Text copied by the AI response action.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-reference"
+          className="mt-6"
+          title="API reference"
+          description={
+            <>
+              See the{" "}
+              <DocsExternalLink href="https://ui.shadcn.com/docs/components/base/message">
+                Shadcn Message documentation
+              </DocsExternalLink>{" "}
+              for the complete API and source composition, including{" "}
+              <Code>MessageHeader</Code> and <Code>MessageFooter</Code>.
+            </>
+          }
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Compose Message with its surface and transcript container."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/bubble">Bubble</DocsPageLink> — for
+            the visible surface inside a message.
+          </li>
+          <li>
+            <DocsPageLink to="/components/message-scroller">
+              Message scroller
+            </DocsPageLink>{" "}
+            — for a scrollable transcript of messages.
+          </li>
+          <li>
+            <DocsPageLink to="/components/marker">Marker</DocsPageLink> — for a
+            short status or note between messages.
+          </li>
+        </ul>
+      </PageSection>
     </div>
-  )
+  );
 }

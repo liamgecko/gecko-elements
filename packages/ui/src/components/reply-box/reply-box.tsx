@@ -1,3 +1,5 @@
+"use client"
+
 import type { LucideIcon } from "lucide-react"
 import * as React from "react"
 
@@ -11,6 +13,7 @@ import type {
   ReplyBoxTrayItem,
 } from "./reply-box-actions"
 import { ReplyBoxContext } from "./reply-box-context"
+import { ReplyBoxFooter } from "./reply-box-footer"
 
 export type ReplyBoxVariant = "chat" | "textarea" | "basic"
 
@@ -59,14 +62,23 @@ export function ReplyBox({
     onChange: onNoteModeChange,
   })
 
-  const toggleExpanded = React.useCallback(() => setExpanded((v) => !v), [setExpanded])
-  const toggleNoteMode = React.useCallback(() => setNoteMode((v) => !v), [setNoteMode])
+  const toggleExpanded = React.useCallback(
+    () => setExpanded((v) => !v),
+    [setExpanded]
+  )
+  const toggleNoteMode = React.useCallback(
+    () => setNoteMode((v) => !v),
+    [setNoteMode]
+  )
 
-  const [internalChannel, setInternalChannel] = React.useState<ReplyBoxChannel>(() => {
-    return channel ?? { type: "live-chat", label: "Select a channel" }
-  })
+  const [internalChannel, setInternalChannel] = React.useState<ReplyBoxChannel>(
+    () => {
+      return channel ?? { type: "live-chat", label: "Select a channel" }
+    }
+  )
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- channel data is synchronized by the integrating application
     if (channel) setInternalChannel(channel)
   }, [channel])
 
@@ -80,7 +92,9 @@ export function ReplyBox({
 
   const containerClassName = cn(
     "border border-border flex flex-col",
-    useWrappedLayout ? "bg-muted rounded-xl shadow-lg" : "bg-background rounded-md",
+    useWrappedLayout
+      ? "bg-muted rounded-xl shadow-lg"
+      : "bg-background rounded-md",
     variant === "textarea" && "bg-background",
     variant === "basic" &&
       "shadow-md transition-[border-color] has-[[data-slot=reply-box-input]:focus]:border-ring",
@@ -89,14 +103,16 @@ export function ReplyBox({
   )
 
   const childArray = React.Children.toArray(children)
+  const footerIndex = useWrappedLayout
+    ? childArray.findIndex(
+        (child) => React.isValidElement(child) && child.type === ReplyBoxFooter
+      )
+    : -1
   const wrappedMain =
-    useWrappedLayout && childArray.length > 0
-      ? childArray.slice(0, Math.max(1, childArray.length - 1))
+    footerIndex >= 0
+      ? childArray.filter((_, index) => index !== footerIndex)
       : childArray
-  const wrappedFooter =
-    useWrappedLayout && childArray.length > 1
-      ? childArray[childArray.length - 1]
-      : null
+  const wrappedFooter = footerIndex >= 0 ? childArray[footerIndex] : null
 
   return (
     <ReplyBoxContext.Provider
@@ -129,7 +145,7 @@ export function ReplyBox({
               data-slot="reply-box-panel"
               className={cn(
                 "border border-border -mt-px -mx-px rounded-xl",
-                noteMode ? "bg-yellow-50 dark:bg-background" : "bg-background"
+                noteMode ? "bg-warning-muted" : "bg-background"
               )}
             >
               {wrappedMain}
@@ -151,4 +167,3 @@ export type {
   ReplyBoxTrayCustomAction,
   ReplyBoxTrayItem,
 }
-

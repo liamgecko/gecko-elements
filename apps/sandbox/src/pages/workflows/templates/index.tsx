@@ -1,7 +1,7 @@
-import * as React from "react"
-import { useNavigate } from "react-router-dom"
-import { Trash2, X } from "lucide-react"
-import { toast } from "sonner"
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { Trash2, X } from "lucide-react";
+import { toast } from "@gecko/ui/components/toast";
 
 import {
   AlertDialog,
@@ -12,95 +12,99 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@gecko/ui/components/alert-dialog"
+} from "@gecko/ui/components/alert-dialog";
 import {
   DataTableContent,
   DataTableProvider,
-} from "@gecko/ui/components/data-table/data-table"
-import { DataTableColumnToggle } from "@gecko/ui/components/data-table/data-table-column-toggle"
-import { DataTablePagination } from "@gecko/ui/components/data-table/data-table-pagination"
-import { DataTableSearch } from "@gecko/ui/components/data-table/data-table-search"
-import { DataTableSelectActions } from "@gecko/ui/components/data-table/data-table-select-actions"
+} from "@gecko/ui/components/data-table/data-table";
+import { DataTableColumnToggle } from "@gecko/ui/components/data-table/data-table-column-toggle";
+import { DataTablePagination } from "@gecko/ui/components/data-table/data-table-pagination";
+import { DataTableSearch } from "@gecko/ui/components/data-table/data-table-search";
+import { DataTableSelectActions } from "@gecko/ui/components/data-table/data-table-select-actions";
 import {
   DataTableToolbar,
   DataTableToolbarGroup,
   DataTableToolbarSearchRow,
-} from "@gecko/ui/components/data-table/data-table-toolbar"
-import { TooltipProvider } from "@gecko/ui/components/tooltip"
+} from "@gecko/ui/components/data-table/data-table-toolbar";
+import { TooltipProvider } from "@gecko/ui/components/tooltip";
 
-import { SupabaseSetupNotice } from "@/components/supabase-setup-notice"
-import { DataTablePageSkeleton } from "@/components/data-table-page-skeleton"
-import { workflowTemplatesRepository } from "@/data/repositories/workflowTemplatesRepository"
-import { useWorkflowTemplates } from "@/hooks/useWorkflowTemplates"
+import { SupabaseSetupNotice } from "@/components/supabase-setup-notice";
+import { DataTablePageSkeleton } from "@/components/data-table-page-skeleton";
+import { workflowTemplatesRepository } from "@/data/repositories/workflowTemplatesRepository";
+import { useWorkflowTemplates } from "@/hooks/useWorkflowTemplates";
 
-import { createWorkflowTemplateColumns } from "../workflow-templates-columns"
-import { WorkflowTemplatesEmpty } from "../workflow-templates-empty"
+import { createWorkflowTemplateColumns } from "../workflow-templates-columns";
+import { WorkflowTemplatesEmpty } from "../workflow-templates-empty";
 import {
   getWorkflowTemplatePath,
   workflowTemplateRowActions,
   workflowTemplateSelectActions,
   type WorkflowTemplate,
-} from "../workflows-data"
+} from "../workflows-data";
 
 export default function WorkflowTemplatesPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { templates, loading, configured, refetch, removeTemplates } =
-    useWorkflowTemplates()
+    useWorkflowTemplates();
 
   const [templatesToDelete, setTemplatesToDelete] = React.useState<
     WorkflowTemplate[] | null
-  >(null)
-  const [isDeleting, setIsDeleting] = React.useState(false)
+  >(null);
+  const [isDeleting, setIsDeleting] = React.useState(false);
 
-  const columns = React.useMemo(() => createWorkflowTemplateColumns(), [])
+  const columns = React.useMemo(() => createWorkflowTemplateColumns(), []);
 
   const deleteDescription = React.useMemo(() => {
-    if (!templatesToDelete?.length) return null
+    if (!templatesToDelete?.length) return null;
 
     if (templatesToDelete.length === 1) {
-      return `${templatesToDelete[0].name} will be permanently removed. This action cannot be undone.`
+      return `${templatesToDelete[0].name} will be permanently removed. This action cannot be undone.`;
     }
 
-    return `${templatesToDelete.length} templates will be permanently removed. This action cannot be undone.`
-  }, [templatesToDelete])
+    return `${templatesToDelete.length} templates will be permanently removed. This action cannot be undone.`;
+  }, [templatesToDelete]);
 
   const confirmDelete = async () => {
-    if (!templatesToDelete?.length) return
+    if (!templatesToDelete?.length) return;
 
-    setIsDeleting(true)
+    setIsDeleting(true);
 
-    const ids = templatesToDelete.map((template) => template.id)
+    const ids = templatesToDelete.map((template) => template.id);
 
-    removeTemplates(ids)
+    removeTemplates(ids);
 
     try {
-      await workflowTemplatesRepository.deleteTemplates(ids)
-      toast.success(
-        templatesToDelete.length === 1
-          ? "Template deleted successfully"
-          : `${templatesToDelete.length} templates deleted successfully`,
-      )
-      setTemplatesToDelete(null)
+      await workflowTemplatesRepository.deleteTemplates(ids);
+      toast.add({
+        title:
+          templatesToDelete.length === 1
+            ? "Template deleted successfully"
+            : `${templatesToDelete.length} templates deleted successfully`,
+        type: "success",
+      });
+      setTemplatesToDelete(null);
     } catch (err) {
-      refetch()
-      toast.error(
-        err instanceof Error ? err.message : "Failed to delete templates",
-      )
+      refetch();
+      toast.add({
+        title:
+          err instanceof Error ? err.message : "Failed to delete templates",
+        type: "error",
+      });
     } finally {
-      setIsDeleting(false)
+      setIsDeleting(false);
     }
-  }
+  };
 
   if (!configured) {
-    return <SupabaseSetupNotice />
+    return <SupabaseSetupNotice />;
   }
 
   if (loading) {
-    return <DataTablePageSkeleton columnCount={2} />
+    return <DataTablePageSkeleton columnCount={2} />;
   }
 
   if (templates.length === 0) {
-    return <WorkflowTemplatesEmpty />
+    return <WorkflowTemplatesEmpty />;
   }
 
   return (
@@ -114,18 +118,18 @@ export default function WorkflowTemplatesPage() {
           if (actionId === "edit") {
             navigate(getWorkflowTemplatePath(original.id), {
               state: { templateName: original.name },
-            })
-            return
+            });
+            return;
           }
 
           if (actionId === "delete") {
-            setTemplatesToDelete([original])
+            setTemplatesToDelete([original]);
           }
         }}
         selectActions={workflowTemplateSelectActions}
         onSelectAction={(actionId, { selectedRows }) => {
           if (actionId === "delete") {
-            setTemplatesToDelete(selectedRows.map((row) => row.original))
+            setTemplatesToDelete(selectedRows.map((row) => row.original));
           }
         }}
         sorting
@@ -150,7 +154,7 @@ export default function WorkflowTemplatesPage() {
         open={templatesToDelete != null}
         onOpenChange={(open) => {
           if (!open && !isDeleting) {
-            setTemplatesToDelete(null)
+            setTemplatesToDelete(null);
           }
         }}
       >
@@ -181,5 +185,5 @@ export default function WorkflowTemplatesPage() {
         </AlertDialogContent>
       </AlertDialog>
     </TooltipProvider>
-  )
+  );
 }

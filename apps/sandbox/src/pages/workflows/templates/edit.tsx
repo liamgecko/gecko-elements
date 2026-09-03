@@ -1,7 +1,12 @@
-import * as React from "react"
-import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom"
-import { Trash2, X } from "lucide-react"
-import { toast } from "sonner"
+import * as React from "react";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+import { Trash2, X } from "lucide-react";
+import { toast } from "@gecko/ui/components/toast";
 
 import {
   AlertDialog,
@@ -12,92 +17,94 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@gecko/ui/components/alert-dialog"
+} from "@gecko/ui/components/alert-dialog";
 
-import { SupabaseSetupNotice } from "@/components/supabase-setup-notice"
-import { workflowTemplatesRepository } from "@/data/repositories/workflowTemplatesRepository"
-import { useWorkflowTemplate } from "@/hooks/useWorkflowTemplate"
+import { SupabaseSetupNotice } from "@/components/supabase-setup-notice";
+import { workflowTemplatesRepository } from "@/data/repositories/workflowTemplatesRepository";
+import { useWorkflowTemplate } from "@/hooks/useWorkflowTemplate";
 
-import { WorkflowBuilderHeader } from "../builder/workflow-builder-header"
+import { WorkflowBuilderHeader } from "../builder/workflow-builder-header";
 import {
   WorkflowCanvas,
   type WorkflowCanvasRef,
-} from "../builder/workflow-canvas"
+} from "../builder/workflow-canvas";
 import {
   WORKFLOW_TAB_PATHS,
   workflowTemplateHeaderMenuItems,
   type WorkflowHeaderMenuActionId,
   type WorkflowTemplateHeaderMenuActionId,
-} from "../workflows-data"
+} from "../workflows-data";
 
 type WorkflowTemplateEditLocationState = {
-  templateName?: string
-}
+  templateName?: string;
+};
 
 export default function WorkflowTemplateEditPage() {
-  const { templateId = "" } = useParams()
-  const location = useLocation()
-  const navigate = useNavigate()
-  const canvasRef = React.useRef<WorkflowCanvasRef>(null)
-  const { template, loading, configured } = useWorkflowTemplate(templateId)
+  const { templateId = "" } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const canvasRef = React.useRef<WorkflowCanvasRef>(null);
+  const { template, loading, configured } = useWorkflowTemplate(templateId);
 
   const templateNameFromState = (
     location.state as WorkflowTemplateEditLocationState | null
-  )?.templateName
+  )?.templateName;
 
-  const [isSaving, setIsSaving] = React.useState(false)
-  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false)
-  const [isDeleting, setIsDeleting] = React.useState(false)
+  const [isSaving, setIsSaving] = React.useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
+  const [isDeleting, setIsDeleting] = React.useState(false);
 
-  const headerTitle = template?.name ?? templateNameFromState ?? "Template"
-  const canUpdateTemplate = Boolean(template) && !loading
+  const headerTitle = template?.name ?? templateNameFromState ?? "Template";
+  const canUpdateTemplate = Boolean(template) && !loading;
 
   const handleMenuAction = (
     action: WorkflowHeaderMenuActionId | WorkflowTemplateHeaderMenuActionId,
   ) => {
     if (action === "delete" && template) {
-      setDeleteDialogOpen(true)
+      setDeleteDialogOpen(true);
     }
-  }
+  };
 
   const handleDeleteTemplate = async () => {
-    if (!template) return
+    if (!template) return;
 
-    setIsDeleting(true)
+    setIsDeleting(true);
 
     try {
-      await workflowTemplatesRepository.deleteTemplates([template.id])
-      toast.success(`${template.name} deleted`)
-      navigate(WORKFLOW_TAB_PATHS.templates)
+      await workflowTemplatesRepository.deleteTemplates([template.id]);
+      toast.add({ title: `${template.name} deleted`, type: "success" });
+      navigate(WORKFLOW_TAB_PATHS.templates);
     } catch (err) {
-      toast.error(
-        err instanceof Error ? err.message : "Failed to delete template",
-      )
+      toast.add({
+        title: err instanceof Error ? err.message : "Failed to delete template",
+        type: "error",
+      });
     } finally {
-      setIsDeleting(false)
+      setIsDeleting(false);
     }
-  }
+  };
 
   const handleUpdate = async () => {
-    if (!template || !canvasRef.current) return
+    if (!template || !canvasRef.current) return;
 
-    setIsSaving(true)
+    setIsSaving(true);
 
     try {
-      const definition = canvasRef.current.getDefinition()
+      const definition = canvasRef.current.getDefinition();
       const updated = await workflowTemplatesRepository.updateTemplate(
         template.id,
         { definition },
-      )
-      toast.success(`${updated.name} updated`)
+      );
+      toast.add({ title: `${updated.name} updated`, type: "success" });
     } catch (err) {
-      toast.error(
-        err instanceof Error ? err.message : "Failed to update template",
-      )
+      toast.add({
+        title: err instanceof Error ? err.message : "Failed to update template",
+        type: "error",
+      });
     } finally {
-      setIsSaving(false)
+      setIsSaving(false);
     }
-  }
+  };
 
   if (!configured) {
     return (
@@ -111,11 +118,11 @@ export default function WorkflowTemplateEditPage() {
           <SupabaseSetupNotice />
         </div>
       </div>
-    )
+    );
   }
 
   if (!loading && !template) {
-    return <Navigate to={WORKFLOW_TAB_PATHS.templates} replace />
+    return <Navigate to={WORKFLOW_TAB_PATHS.templates} replace />;
   }
 
   return (
@@ -146,7 +153,7 @@ export default function WorkflowTemplateEditPage() {
         open={deleteDialogOpen}
         onOpenChange={(open) => {
           if (!open && !isDeleting) {
-            setDeleteDialogOpen(false)
+            setDeleteDialogOpen(false);
           }
         }}
       >
@@ -176,5 +183,5 @@ export default function WorkflowTemplateEditPage() {
         </AlertDialogContent>
       </AlertDialog>
     </div>
-  )
+  );
 }

@@ -1,9 +1,6 @@
-import { Avatar, AvatarFallback, AvatarLabel } from "@gecko/ui/components/avatar"
+import { Avatar, AvatarLabel } from "@gecko/ui/components/avatar";
 
-import {
-  getPersonInitials,
-  LIVE_CHAT_PEOPLE,
-} from "@/components/live-chat/live-chat-people"
+import { LIVE_CHAT_PEOPLE } from "@/components/live-chat/live-chat-people";
 
 export function AttendeesPanel() {
   return (
@@ -11,13 +8,12 @@ export function AttendeesPanel() {
       {LIVE_CHAT_PEOPLE.map((person) => (
         <li key={person.id}>
           <div className="min-w-0 py-2">
-            <Avatar size="md">
-              <AvatarFallback>{getPersonInitials(person.name)}</AvatarFallback>
+            <Avatar name={person.name} size="md">
               <AvatarLabel className="font-normal">{person.name}</AvatarLabel>
             </Avatar>
           </div>
         </li>
       ))}
     </ul>
-  )
+  );
 }

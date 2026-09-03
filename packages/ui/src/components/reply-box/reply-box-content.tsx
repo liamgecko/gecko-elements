@@ -1,8 +1,15 @@
+"use client"
+
 import * as React from "react"
-import { CirclePlus, SendHorizontal } from "lucide-react"
+import { CirclePlus, SendHorizontal, Square } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@gecko/ui/components/tooltip"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@gecko/ui/components/tooltip"
 import { cn } from "@gecko/ui/lib/utils"
 
 import {
@@ -33,18 +40,23 @@ export function ReplyBoxContent({
   inputProps,
   className,
 }: ReplyBoxContentProps) {
-  const { variant, expanded, noteMode, stopEnabled, onSend, onStop } = useReplyBox()
+  const { variant, expanded, noteMode, stopEnabled, onSend, onStop, sendIcon } =
+    useReplyBox()
   const resolvedPlaceholder =
-    placeholder ?? (noteMode ? "Type your note..." : "Type your message...")
+    placeholder ?? (noteMode ? "Type your note…" : "Type your message…")
+  const accessibleLabel = noteMode ? "Internal note" : "Message"
 
   const inputClassName =
-    inputProps && "className" in inputProps ? (inputProps.className as string | undefined) : undefined
+    inputProps && "className" in inputProps
+      ? (inputProps.className as string | undefined)
+      : undefined
 
   if (variant === "basic") {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars -- used for merge order
     const { className: _ignored, ...restInputProps } = inputProps ?? {}
 
     const showStop = !noteMode && Boolean(stopEnabled && onStop)
+    const SendIcon = sendIcon ?? SendHorizontal
 
     return (
       <div
@@ -53,6 +65,7 @@ export function ReplyBoxContent({
       >
         <input
           data-slot="reply-box-input"
+          aria-label={accessibleLabel}
           placeholder={resolvedPlaceholder}
           className={cn(
             "appearance-none w-full min-w-0 bg-transparent border-0 px-2 py-0 text-sm outline-none ring-0 shadow-none focus:outline-none focus:ring-0 placeholder:text-muted-foreground",
@@ -134,8 +147,15 @@ export function ReplyBoxContent({
           >
             {noteMode ? (
               <CirclePlus className="size-4" aria-hidden />
+            ) : showStop ? (
+              <Square
+                className="size-4"
+                fill="currentColor"
+                strokeWidth={0}
+                aria-hidden
+              />
             ) : (
-              <SendHorizontal className="size-4" aria-hidden />
+              <SendIcon className="size-4" aria-hidden />
             )}
           </Button>
         ) : null}
@@ -143,7 +163,8 @@ export function ReplyBoxContent({
     )
   }
 
-  const { className: textareaClassFromProps, ...restTextareaProps } = textareaProps ?? {}
+  const { className: textareaClassFromProps, ...restTextareaProps } =
+    textareaProps ?? {}
 
   return (
     <div
@@ -152,6 +173,7 @@ export function ReplyBoxContent({
     >
       <textarea
         data-slot="reply-box-textarea"
+        aria-label={accessibleLabel}
         placeholder={resolvedPlaceholder}
         className={cn(
           "appearance-none w-full min-w-0 resize-none bg-transparent border-0 text-sm outline-none ring-0 shadow-none focus:outline-none focus:ring-0 placeholder:text-muted-foreground p-4",
@@ -164,4 +186,3 @@ export function ReplyBoxContent({
     </div>
   )
 }
-

@@ -1,31 +1,33 @@
-import * as React from "react"
-import { OTPInput, OTPInputContext } from "input-otp"
+"use client";
 
-import { cn } from "@gecko/ui/lib/utils"
-import { MinusIcon } from "lucide-react"
+import * as React from "react";
+import { OTPInput, OTPInputContext } from "input-otp";
+
+import { cn } from "@gecko/ui/lib/utils";
+import { MinusIcon } from "lucide-react";
 
 function InputOTP({
   className,
   containerClassName,
   ...props
 }: React.ComponentProps<typeof OTPInput> & {
-  containerClassName?: string
+  containerClassName?: string;
 }) {
   return (
     <OTPInput
       data-slot="input-otp"
       containerClassName={cn(
         "cn-input-otp flex items-center has-disabled:opacity-75",
-        containerClassName
+        containerClassName,
       )}
       spellCheck={false}
       className={cn(
         "disabled:pointer-events-none disabled:cursor-not-allowed",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function InputOTPGroup({ className, ...props }: React.ComponentProps<"div">) {
@@ -34,11 +36,11 @@ function InputOTPGroup({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="input-otp-group"
       className={cn(
         "focus-within:has-aria-invalid:ring-input-destructive/20 dark:focus-within:has-aria-invalid:ring-input-destructive/40 has-aria-invalid:border-input-destructive rounded-md focus-within:has-aria-invalid:ring-3 flex items-center gap-1",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function InputOTPSlot({
@@ -46,10 +48,10 @@ function InputOTPSlot({
   className,
   ...props
 }: React.ComponentProps<"div"> & {
-  index: number
+  index: number;
 }) {
-  const inputOTPContext = React.useContext(OTPInputContext)
-  const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[index] ?? {}
+  const inputOTPContext = React.useContext(OTPInputContext);
+  const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[index] ?? {};
 
   return (
     <div
@@ -57,18 +59,18 @@ function InputOTPSlot({
       data-active={isActive}
       className={cn(
         "border-input border rounded-sm data-[active=true]:border-ring data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:ring-input-destructive/20 dark:data-[active=true]:aria-invalid:ring-input-destructive/40 aria-invalid:border-input-destructive data-[active=true]:aria-invalid:border-input-destructive size-9 text-sm transition-all outline-none data-[active=true]:ring-3 relative flex items-center justify-center data-[active=true]:z-10",
-        className
+        className,
       )}
       {...props}
     >
       {char}
       {hasFakeCaret && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="animate-caret-blink bg-foreground h-4 w-px duration-1000" />
+          <div className="animate-caret-blink bg-foreground h-4 w-px duration-1000 motion-reduce:animate-none" />
         </div>
       )}
     </div>
-  )
+  );
 }
 
 function InputOTPSeparator({ ...props }: React.ComponentProps<"div">) {
@@ -79,10 +81,9 @@ function InputOTPSeparator({ ...props }: React.ComponentProps<"div">) {
       role="separator"
       {...props}
     >
-      <MinusIcon
-      />
+      <MinusIcon aria-hidden="true" />
     </div>
-  )
+  );
 }
 
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }
+export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator };

@@ -1,4 +1,4 @@
-import type { DataTableRowAction } from "@gecko/ui/components/data-table/data-table"
+import type { DataTableRowAction } from "@gecko/ui/components/data-table"
 
 export type DemoEventSyncStatus = "synced" | "failed" | "syncing" | "none"
 export type DemoEventIntegration = "dynamics" | "salesforce" | "none"
@@ -74,10 +74,7 @@ function integrationFromIndex(i: number): DemoEventIntegration {
   return "salesforce"
 }
 
-function syncStatusFromIndex(
-  i: number,
-  integration: DemoEventIntegration
-): DemoEventSyncStatus {
+function syncStatusFromIndex(i: number, integration: DemoEventIntegration): DemoEventSyncStatus {
   if (integration === "none") return "none"
   if (i % 7 === 0) return "failed"
   if (i % 5 === 0) return "syncing"
@@ -92,7 +89,7 @@ export const demoEvents: DemoEvent[] = Array.from({ length: 18 }).map((_, i) => 
     eventName: pick(baseEvents, i),
     startsAt,
     timezone: pick(timezones, i),
-    attendees: 40 + (i * 13) % 260,
+    attendees: 40 + ((i * 13) % 260),
     waitlisted: (i * 7) % 48,
     integration,
     syncStatus: syncStatusFromIndex(i, integration),
@@ -172,4 +169,3 @@ export function demoSessionsForEvent(eventId: string): DemoEventSession[] {
     }
   })
 }
-

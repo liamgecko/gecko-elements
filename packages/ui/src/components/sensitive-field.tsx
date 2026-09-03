@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { Eye, EyeOff } from "lucide-react"
 
@@ -89,6 +91,15 @@ const SensitiveField = React.forwardRef<HTMLInputElement, SensitiveFieldProps>(
       }
     }, [visible, setVisible])
 
+    const handleToggleKeyDown = React.useCallback(
+      (event: React.KeyboardEvent<HTMLButtonElement>) => {
+        if (event.key !== "Enter" && event.key !== " ") return
+        event.preventDefault()
+        handleToggleVisible()
+      },
+      [handleToggleVisible]
+    )
+
     const isEditMode = visible
 
     return (
@@ -108,7 +119,7 @@ const SensitiveField = React.forwardRef<HTMLInputElement, SensitiveFieldProps>(
         >
           <InputGroupInput
             ref={mergedRef}
-            type="text"
+            type={visible ? "text" : "password"}
             readOnly={!isEditMode}
             tabIndex={visible ? tabIndex : -1}
             value={value}
@@ -164,19 +175,20 @@ const SensitiveField = React.forwardRef<HTMLInputElement, SensitiveFieldProps>(
                     size={size}
                     disabled={disabled}
                     onClick={handleToggleVisible}
+                    onKeyDown={handleToggleKeyDown}
                     aria-label={
                       visible ? "Hide sensitive value" : "Show sensitive value"
                     }
                     aria-pressed={visible}
-                  >
-                    {visible ? (
-                      <EyeOff className="pointer-events-none" aria-hidden />
-                    ) : (
-                      <Eye className="pointer-events-none" aria-hidden />
-                    )}
-                  </InputGroupButton>
+                  />
                 }
-              />
+              >
+                {visible ? (
+                  <EyeOff className="pointer-events-none" aria-hidden />
+                ) : (
+                  <Eye className="pointer-events-none" aria-hidden />
+                )}
+              </TooltipTrigger>
               <TooltipContent side="top">
                 <p>
                   {visible ? "Hide sensitive value" : "Show sensitive value"}

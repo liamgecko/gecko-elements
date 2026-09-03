@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { CirclePlus, SendHorizontal, Square } from "lucide-react"
 
@@ -60,10 +62,13 @@ export function ReplyBoxFooter({
           variant={showStop ? "ghost" : "default"}
           size="icon-xs"
           className={cn(
-            "transition-colors duration-200 ease-out motion-reduce:transition-none",
-            showStop && "bg-white text-foreground hover:bg-gray-200 hover:text-foreground"
+            "transition-colors duration-150 ease-out motion-reduce:transition-none",
+            showStop &&
+              "bg-background text-foreground hover:bg-muted hover:text-foreground"
           )}
-          aria-label={resolvedNoteMode ? "Add note" : showStop ? "Stop" : "Send"}
+          aria-label={
+            resolvedNoteMode ? "Add note" : showStop ? "Stop" : "Send"
+          }
           onClick={() => {
             if (showStop) {
               ctx.onStop?.()
@@ -79,7 +84,9 @@ export function ReplyBoxFooter({
             <span
               className={cn(
                 "absolute inset-0 flex items-center justify-center transition-opacity duration-200 ease-out motion-reduce:transition-none",
-                resolvedNoteMode ? "opacity-100" : "pointer-events-none opacity-0"
+                resolvedNoteMode
+                  ? "opacity-100"
+                  : "pointer-events-none opacity-0"
               )}
             >
               <CirclePlus className="size-4" />
@@ -90,12 +97,18 @@ export function ReplyBoxFooter({
                 showStop ? "opacity-100" : "pointer-events-none opacity-0"
               )}
             >
-              <Square className="size-4 shrink-0" fill="currentColor" strokeWidth={0} />
+              <Square
+                className="size-4 shrink-0"
+                fill="currentColor"
+                strokeWidth={0}
+              />
             </span>
             <span
               className={cn(
                 "absolute inset-0 flex items-center justify-center transition-opacity duration-200 ease-out motion-reduce:transition-none",
-                !resolvedNoteMode && !showStop ? "opacity-100" : "pointer-events-none opacity-0"
+                !resolvedNoteMode && !showStop
+                  ? "opacity-100"
+                  : "pointer-events-none opacity-0"
               )}
             >
               <SendIcon className="size-4" />
@@ -106,4 +119,3 @@ export function ReplyBoxFooter({
     </div>
   )
 }
-

@@ -1,22 +1,23 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@gecko/ui/lib/utils"
-import { Button } from "@gecko/ui/components/button"
-import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from "lucide-react"
+import { cn } from "@gecko/ui/lib/utils";
+import { Button } from "@gecko/ui/components/button";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  MoreHorizontalIcon,
+} from "lucide-react";
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
     <nav
       role="navigation"
-      aria-label="pagination"
+      aria-label="Pagination"
       data-slot="pagination"
-      className={cn(
-        "mx-auto flex w-full justify-center",
-        className
-      )}
+      className={cn("mx-auto flex w-full justify-center", className)}
       {...props}
     />
-  )
+  );
 }
 
 function PaginationContent({
@@ -29,17 +30,17 @@ function PaginationContent({
       className={cn("gap-1 flex items-center", className)}
       {...props}
     />
-  )
+  );
 }
 
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
-  return <li data-slot="pagination-item" {...props} />
+  return <li data-slot="pagination-item" {...props} />;
 }
 
 type PaginationLinkProps = {
-  isActive?: boolean
+  isActive?: boolean;
 } & Pick<React.ComponentProps<typeof Button>, "size" | "variant"> &
-  React.ComponentProps<"a">
+  React.ComponentProps<"a">;
 
 function PaginationLink({
   className,
@@ -63,7 +64,7 @@ function PaginationLink({
         />
       }
     />
-  )
+  );
 }
 
 function PaginationPrevious({
@@ -72,8 +73,8 @@ function PaginationPrevious({
   iconOnly = false,
   ...props
 }: React.ComponentProps<typeof PaginationLink> & {
-  text?: string
-  iconOnly?: boolean
+  text?: string;
+  iconOnly?: boolean;
 }) {
   return (
     <PaginationLink
@@ -82,12 +83,14 @@ function PaginationPrevious({
       className={cn("ps-2!", className)}
       {...props}
     >
-      <ChevronLeftIcon data-icon="inline-start" className="rtl:rotate-180" />
-      {!iconOnly ? (
-        <span className="hidden sm:block">{text}</span>
-      ) : null}
+      <ChevronLeftIcon
+        data-icon="inline-start"
+        className="rtl:rotate-180"
+        aria-hidden="true"
+      />
+      {!iconOnly ? <span className="hidden sm:block">{text}</span> : null}
     </PaginationLink>
-  )
+  );
 }
 
 function PaginationNext({
@@ -96,8 +99,8 @@ function PaginationNext({
   iconOnly = false,
   ...props
 }: React.ComponentProps<typeof PaginationLink> & {
-  text?: string
-  iconOnly?: boolean
+  text?: string;
+  iconOnly?: boolean;
 }) {
   return (
     <PaginationLink
@@ -106,12 +109,14 @@ function PaginationNext({
       className={cn("pe-2!", className)}
       {...props}
     >
-      {!iconOnly ? (
-        <span className="hidden sm:block">{text}</span>
-      ) : null}
-      <ChevronRightIcon data-icon="inline-end" className="rtl:rotate-180" />
+      {!iconOnly ? <span className="hidden sm:block">{text}</span> : null}
+      <ChevronRightIcon
+        data-icon="inline-end"
+        className="rtl:rotate-180"
+        aria-hidden="true"
+      />
     </PaginationLink>
-  )
+  );
 }
 
 function PaginationEllipsis({
@@ -120,19 +125,17 @@ function PaginationEllipsis({
 }: React.ComponentProps<"span">) {
   return (
     <span
-      aria-hidden
       data-slot="pagination-ellipsis"
       className={cn(
         "size-9 [&_svg:not([class*='size-'])]:size-4 flex items-center justify-center",
-        className
+        className,
       )}
       {...props}
     >
-      <MoreHorizontalIcon
-      />
+      <MoreHorizontalIcon aria-hidden="true" />
       <span className="sr-only">More pages</span>
     </span>
-  )
+  );
 }
 
 export {
@@ -143,4 +146,4 @@ export {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-}
+};

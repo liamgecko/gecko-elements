@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { Ellipsis, MessageSquare } from "lucide-react"
 
@@ -9,7 +11,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@gecko/ui/components/dropdown-menu"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@gecko/ui/components/tooltip"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@gecko/ui/components/tooltip"
 import { cn } from "@gecko/ui/lib/utils"
 
 import {
@@ -101,9 +108,12 @@ export function ReplyBoxButtonTray({
     const gap = Number.parseFloat(style.columnGap || "0") || 0
     const safety = 2
 
-    const pinnedWidths = pinnedMeasureRefs.map((r) => r.current?.offsetWidth ?? 0)
+    const pinnedWidths = pinnedMeasureRefs.map(
+      (r) => r.current?.offsetWidth ?? 0
+    )
     const pinnedTotal =
-      pinnedWidths.reduce((a, b) => a + b, 0) + Math.max(0, pinnedWidths.length - 1) * gap
+      pinnedWidths.reduce((a, b) => a + b, 0) +
+      Math.max(0, pinnedWidths.length - 1) * gap
 
     const candidateWidths: number[] = []
     for (const item of candidates) {
@@ -147,7 +157,13 @@ export function ReplyBoxButtonTray({
 
     setShowOverflow(true)
     setVisibleCandidateCount(fit(true))
-  }, [candidateMeasureRefs, candidates, containerRef, containerWidth, pinnedMeasureRefs])
+  }, [
+    candidateMeasureRefs,
+    candidates,
+    containerRef,
+    containerWidth,
+    pinnedMeasureRefs,
+  ])
 
   React.useLayoutEffect(() => {
     const raf = requestAnimationFrame(() => compute())
@@ -158,10 +174,7 @@ export function ReplyBoxButtonTray({
   const overflow = candidates.slice(visibleCandidateCount)
 
   const renderBuiltinAction = React.useCallback(
-    (
-      id: ReplyBoxActionId,
-      opts: { ref?: React.Ref<HTMLButtonElement> }
-    ) => {
+    (id: ReplyBoxActionId, opts: { ref?: React.Ref<HTMLButtonElement> }) => {
       const action = getReplyBoxAction(id)
       const isNote = id === "note-mode"
       const noteIcon = noteMode ? MessageSquare : action.icon
@@ -226,10 +239,7 @@ export function ReplyBoxButtonTray({
   )
 
   const renderTrayItem = React.useCallback(
-    (
-      item: ReplyBoxTrayItem,
-      opts: { ref?: React.Ref<HTMLButtonElement> }
-    ) => {
+    (item: ReplyBoxTrayItem, opts: { ref?: React.Ref<HTMLButtonElement> }) => {
       if (isReplyBoxTrayBuiltin(item)) {
         return renderBuiltinAction(item, opts)
       }
@@ -266,6 +276,10 @@ export function ReplyBoxButtonTray({
             <span>{label}</span>
           </DropdownMenuItem>
         )
+      }
+
+      if (item.overflowRender) {
+        return <React.Fragment key={key}>{item.overflowRender}</React.Fragment>
       }
 
       const Icon = item.icon
@@ -305,82 +319,96 @@ export function ReplyBoxButtonTray({
       <div
         ref={containerRef}
         data-slot="reply-box-tray"
-        className={cn("relative flex flex-nowrap items-center gap-0.5 overflow-hidden", className)}
+        className={cn(
+          "relative flex flex-nowrap items-center gap-0.5 overflow-hidden",
+          className
+        )}
       >
-      {pinned.map((item, index) => {
-        const key = getReplyBoxTrayItemKey(item)
-        return (
-          <div
-            key={key}
-            ref={pinnedMeasureRefs[index]}
-            className="inline-flex shrink-0 items-center"
-          >
-            {renderTrayItem(item, {})}
-          </div>
-        )
-      })}
-
-      {inline.map((item) => {
-        const key = getReplyBoxTrayItemKey(item)
-        return <React.Fragment key={key}>{renderTrayItem(item, {})}</React.Fragment>
-      })}
-
-      {showOverflow ? (
-        <DropdownMenu>
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <DropdownMenuTrigger
-                  render={
-                    <Button
-                      ref={overflowBtnRef}
-                      type="button"
-                      variant="ghost-light"
-                      size="icon-sm"
-                      aria-label="More actions"
-                    >
-                      <Ellipsis className="size-4" aria-hidden />
-                    </Button>
-                  }
-                />
-              }
-            />
-            <TooltipContent side="top">
-              <p>More actions</p>
-            </TooltipContent>
-          </Tooltip>
-          <DropdownMenuContent side="top" align="end" className="w-56">
-            <DropdownMenuGroup>
-              {overflow.map((item) => renderOverflowMenuItem(item))}
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      ) : null}
-
-      <div
-        className="absolute -z-10 h-0 w-0 overflow-hidden opacity-0 pointer-events-none"
-        aria-hidden
-        inert
-      >
-        <Button ref={overflowMeasureRef} type="button" variant="ghost-light" size="icon-sm" tabIndex={-1}>
-          <Ellipsis className="size-4" aria-hidden />
-        </Button>
-        {candidates.map((item) => {
+        {pinned.map((item, index) => {
           const key = getReplyBoxTrayItemKey(item)
           return (
-            <Button
+            <div
               key={key}
-              ref={candidateMeasureRefs[key]}
-              type="button"
-              variant="ghost-light"
-              size="icon-sm"
-              tabIndex={-1}
+              ref={pinnedMeasureRefs[index]}
+              className="inline-flex shrink-0 items-center"
             >
-              {renderMeasureButton(item)}
-            </Button>
+              {renderTrayItem(item, {})}
+            </div>
           )
         })}
-      </div>
+
+        {inline.map((item) => {
+          const key = getReplyBoxTrayItemKey(item)
+          return (
+            <React.Fragment key={key}>
+              {renderTrayItem(item, {})}
+            </React.Fragment>
+          )
+        })}
+
+        {showOverflow ? (
+          <DropdownMenu>
+            <Tooltip>
+              <DropdownMenuTrigger
+                render={(triggerProps) => (
+                  <TooltipTrigger
+                    {...triggerProps}
+                    render={
+                      <Button
+                        ref={overflowBtnRef}
+                        type="button"
+                        variant="ghost-light"
+                        size="icon-sm"
+                        aria-label="More actions"
+                      >
+                        <Ellipsis className="size-4" aria-hidden />
+                      </Button>
+                    }
+                  />
+                )}
+              />
+              <TooltipContent side="top">
+                <p>More actions</p>
+              </TooltipContent>
+            </Tooltip>
+            <DropdownMenuContent side="top" align="end" className="w-56">
+              <DropdownMenuGroup>
+                {overflow.map((item) => renderOverflowMenuItem(item))}
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : null}
+
+        <div
+          className="absolute -z-10 h-0 w-0 overflow-hidden opacity-0 pointer-events-none"
+          aria-hidden
+          inert
+        >
+          <Button
+            ref={overflowMeasureRef}
+            type="button"
+            variant="ghost-light"
+            size="icon-sm"
+            tabIndex={-1}
+          >
+            <Ellipsis className="size-4" aria-hidden />
+          </Button>
+          {candidates.map((item) => {
+            const key = getReplyBoxTrayItemKey(item)
+            return (
+              <Button
+                key={key}
+                ref={candidateMeasureRefs[key]}
+                type="button"
+                variant="ghost-light"
+                size="icon-sm"
+                tabIndex={-1}
+              >
+                {renderMeasureButton(item)}
+              </Button>
+            )
+          })}
+        </div>
       </div>
     </TooltipProvider>
   )

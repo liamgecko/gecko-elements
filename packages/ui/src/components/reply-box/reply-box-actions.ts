@@ -46,16 +46,32 @@ export type ReplyBoxActionConfig = {
 const actions: Record<ReplyBoxActionId, ReplyBoxActionConfig> = {
   "note-mode": { id: "note-mode", label: "Enable note mode", icon: StickyNote },
   attachment: { id: "attachment", label: "Upload attachment", icon: Paperclip },
-  "saved-reply": { id: "saved-reply", label: "Use a saved reply", icon: Bookmark },
-  "mail-merge-tags": { id: "mail-merge-tags", label: "Insert a mail merge tags", icon: SquareUser },
+  "saved-reply": {
+    id: "saved-reply",
+    label: "Use a saved reply",
+    icon: Bookmark,
+  },
+  "mail-merge-tags": {
+    id: "mail-merge-tags",
+    label: "Insert mail merge tags",
+    icon: SquareUser,
+  },
   emoji: { id: "emoji", label: "Insert an emoji", icon: Smile },
   reply: { id: "reply", label: "Reply", icon: Reply },
   forward: { id: "forward", label: "Forward", icon: Forward },
   cc: { id: "cc", label: "CC", icon: ClosedCaption },
   signature: { id: "signature", label: "Insert a signature", icon: Signature },
-  "suggest-a-reply": { id: "suggest-a-reply", label: "Suggest a reply", icon: WandSparkles },
+  "suggest-a-reply": {
+    id: "suggest-a-reply",
+    label: "Suggest a reply",
+    icon: WandSparkles,
+  },
   image: { id: "image", label: "Upload an image", icon: Image },
-  download: { id: "download", label: "Download conversation", icon: CloudDownload },
+  download: {
+    id: "download",
+    label: "Download conversation",
+    icon: CloudDownload,
+  },
 }
 
 export function getReplyBoxAction(id: ReplyBoxActionId): ReplyBoxActionConfig {
@@ -70,12 +86,16 @@ export type ReplyBoxTrayCustomAction = {
   onClick?: () => void
   /** Replaces the default icon button when shown inline in the tray. */
   render?: React.ReactNode
+  /** Replaces the default menu item when the action moves into the overflow menu. */
+  overflowRender?: React.ReactNode
 }
 
 /** Built-in action id or a custom tray action. */
 export type ReplyBoxTrayItem = ReplyBoxActionId | ReplyBoxTrayCustomAction
 
-export function isReplyBoxTrayBuiltin(item: ReplyBoxTrayItem): item is ReplyBoxActionId {
+export function isReplyBoxTrayBuiltin(
+  item: ReplyBoxTrayItem
+): item is ReplyBoxActionId {
   return typeof item === "string"
 }
 
@@ -83,7 +103,9 @@ export function getReplyBoxTrayItemKey(item: ReplyBoxTrayItem): string {
   return typeof item === "string" ? item : item.id
 }
 
-export function getDefaultReplyBoxItems(channelType: ReplyBoxChannelType): ReplyBoxActionId[] {
+export function getDefaultReplyBoxItems(
+  channelType: ReplyBoxChannelType
+): ReplyBoxActionId[] {
   if (channelType === "email") {
     return [
       "note-mode",
@@ -115,4 +137,3 @@ export const replyBoxActionIconProps: LucideProps = {
   className: "size-3.5",
   "aria-hidden": true,
 }
-

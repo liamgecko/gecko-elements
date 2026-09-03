@@ -1,20 +1,23 @@
-import { ComponentExample } from "@/components/layout/component-example"
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
 import {
   PageOverviewHeader,
   PageSectionHeader,
   PageSubsectionHeader,
-} from "@/components/layout/page-section-header"
-import { PageSection } from "@/components/layout/page-section"
-import { Code } from "@gecko/ui/components/code"
-import { Header } from "@gecko/ui/components/header"
+} from "@/components/layout/page-section-header";
+import { PageSection } from "@/components/layout/page-section";
+import { Code } from "@gecko/ui/components/code";
+import { Header } from "@gecko/ui/components/header";
 
 const demoBreadcrumbs = {
   items: [
-    { label: "Breadcrumb link", href: "#" },
-    { label: "Breadcrumb link", href: "#" },
+    { label: "Home", href: "/" },
+    { label: "Breadcrumb link", href: "/components" },
     { label: "Breadcrumb current", current: true },
   ],
-} as const
+} as const;
 
 const demoTabs = {
   tabsProps: { defaultValue: "one" },
@@ -30,22 +33,25 @@ const demoTabs = {
     { value: "nine", label: "Label" },
     { value: "ten", label: "Label" },
   ],
-} as const
+} as const;
 
 export function StructureHeaderPage() {
-  const importSnippet = `import { Header } from "@gecko/ui/components/header"`
+  const importSnippet = `import { Header } from "@gecko/ui/components/header"`;
 
-  const compositionSnippet = `Header (props)
-├── breadcrumbs
-├── favourite toggle (always; optional favouriteAction props)
-├── title / subheading
-├── secondaryActions / primaryAction
-└── tabs`
+  const compositionSnippet = `Header
+├── Breadcrumb
+├── heading and subheading
+├── actions
+│   ├── Toggle (favourite)
+│   ├── Button or DropdownMenu (secondary)
+│   └── Button (primary)
+└── Tabs (line)`;
 
   const exampleSnippet = `<Header
   breadcrumbs={{
     items: [
-      { label: "Section", href: "#" },
+      { label: "Home", href: "/" },
+      { label: "Section", href: "/section" },
       { label: "Page", current: true },
     ],
   }}
@@ -61,32 +67,35 @@ export function StructureHeaderPage() {
       { value: "two", label: "Label" },
     ],
   }}
-/>`
+/>`;
 
   const examplesBreadcrumbsOnlySnippet = `<Header
   breadcrumbs={{
     items: [
-      { label: "Section", href: "#" },
+      { label: "Home", href: "/" },
+      { label: "Section", href: "/section" },
       { label: "Page", current: true },
     ],
   }}
-/>`
+/>`;
 
   const examplesActionsSnippet = `<Header
   breadcrumbs={{
     items: [
-      { label: "Section", href: "#" },
+      { label: "Home", href: "/" },
+      { label: "Section", href: "/section" },
       { label: "Page", current: true },
     ],
   }}
   secondaryActions={[{ label: "Button" }]}
   primaryAction={{ label: "Button" }}
-/>`
+/>`;
 
   const examplesActionsMultipleSnippet = `<Header
   breadcrumbs={{
     items: [
-      { label: "Section", href: "#" },
+      { label: "Home", href: "/" },
+      { label: "Section", href: "/section" },
       { label: "Page", current: true },
     ],
   }}
@@ -95,33 +104,61 @@ export function StructureHeaderPage() {
     { label: "Share" },
   ]}
   primaryAction={{ label: "Save" }}
-/>`
+/>`;
+
+  const examplesActionsDropdownSnippet = `<Header
+  breadcrumbs={{
+    items: [
+      { label: "Home", href: "/" },
+      { label: "Section", href: "/section" },
+      { label: "Page", current: true },
+    ],
+  }}
+  secondaryActions={[
+    {
+      kind: "menu",
+      label: "Actions",
+      items: [
+        { label: "Edit" },
+        { label: "Duplicate" },
+        {
+          label: "Delete",
+          variant: "destructive",
+          separatorBefore: true,
+        },
+      ],
+    },
+  ]}
+/>`;
 
   const examplesHeadingSnippet = `<Header
   breadcrumbs={{
     items: [
-      { label: "Section", href: "#" },
+      { label: "Home", href: "/" },
+      { label: "Section", href: "/section" },
       { label: "Page", current: true },
     ],
   }}
   title="Heading"
-/>`
+/>`;
 
   const examplesSubHeadingSnippet = `<Header
   breadcrumbs={{
     items: [
-      { label: "Section", href: "#" },
+      { label: "Home", href: "/" },
+      { label: "Section", href: "/section" },
       { label: "Page", current: true },
     ],
   }}
   title="Heading"
   subheading="Sub heading"
-/>`
+/>`;
 
   const examplesTabsSnippet = `<Header
   breadcrumbs={{
     items: [
-      { label: "Section", href: "#" },
+      { label: "Home", href: "/" },
+      { label: "Section", href: "/section" },
       { label: "Page", current: true },
     ],
   }}
@@ -132,22 +169,14 @@ export function StructureHeaderPage() {
       { value: "two", label: "Label" },
     ],
   }}
-/>`
+/>`;
 
   return (
     <div className="space-y-12">
       <PageSection id="overview" label="Overview">
         <PageOverviewHeader
-          title="Header"
-          description={
-            <>
-              Headers communicate page purpose and provide a consistent place
-              for navigation context, titles, and key actions. Use the{" "}
-              <Code>Header</Code> component for top-of-page layout that aligns
-              breadcrumbs, headings, buttons, and tabs without hand-building the
-              grid each time.
-            </>
-          }
+          title="Page header"
+          description="The Header component is the top of a page. It can hold location, a title, a favourite control, actions, and in-page tabs in a single layout."
         />
       </PageSection>
 
@@ -156,15 +185,30 @@ export function StructureHeaderPage() {
           title="Usage"
           description={
             <>
-              Use <Code>Header</Code> on detail or settings views where users
-              need hierarchy (breadcrumbs), a clear page title, optional
-              supporting copy, actions, and in-page navigation tabs. The
-              favourite toggle is always shown; pass only the other props you
-              need so optional regions are not rendered.
+              Use Header as the page-level top bar under the sticky app chrome (
+              <DocsPageLink to="/structure/app-header">App Header</DocsPageLink>{" "}
+              /{" "}
+              <DocsPageLink to="/structure/app-sidebar">
+                App Sidebar
+              </DocsPageLink>
+              ). It shows where you are, the page title, actions, and optional
+              sub-navigation tabs. Every Header includes the favourite control;
+              use <Code>favouriteAction</Code> to configure its state, label, or
+              icon. Pair Header with{" "}
+              <DocsPageLink to="/structure/container">
+                Page Container
+              </DocsPageLink>{" "}
+              for the body below.
               <br />
               <br />
-              When a heading is present, actions align to the heading row. When
-              there is no heading, actions align to the breadcrumbs row.
+              Avoid using it on Inbox — that screen uses a custom layout. Avoid
+              using it for a card title or section heading. Breadcrumbs belong
+              only in Header. For sectioning content inside the page body, use
+              standalone <DocsPageLink to="/components/tabs">
+                Tabs
+              </DocsPageLink>{" "}
+              instead of Header tabs. Start every breadcrumb trail with Home;
+              Header displays that first ancestor using the standard house icon.
             </>
           }
         />
@@ -172,13 +216,7 @@ export function StructureHeaderPage() {
         <PageSubsectionHeader
           id="usage-import"
           title="Import"
-          description={
-            <>
-              Import <Code>Header</Code> from the UI package. It composes
-              breadcrumbs, buttons, toggles, and tabs internally from existing
-              primitives.
-            </>
-          }
+          description="Import Header to add a page header."
         />
         <ComponentExample className="mb-6">
           <Code
@@ -193,19 +231,7 @@ export function StructureHeaderPage() {
         <PageSubsectionHeader
           id="usage-composition"
           title="Composition"
-          description={
-            <>
-              <Code>Header</Code> is a single component configured through props
-              rather than compound children. Breadcrumbs are optional but
-              recommended for nested routes. The favourite star is always
-              rendered; use <Code>favouriteAction</Code> to control pressed state,
-              labels, or icon. Combine <Code>title</Code> and{" "}
-              <Code>subheading</Code> for the main label and supporting line,{" "}
-              <Code>secondaryActions</Code> and <Code>primaryAction</Code> for
-              extra buttons, and <Code>tabs</Code> for line tabs beneath the
-              header block.
-            </>
-          }
+          description="Header is a single public component assembled from the appropriate Gecko primitives. The favourite control is always present; other regions render only when configured."
         />
         <ComponentExample>
           <Code
@@ -221,13 +247,7 @@ export function StructureHeaderPage() {
       <PageSection id="example" label="Example">
         <PageSectionHeader
           title="Example"
-          description={
-            <>
-              A full header with breadcrumbs, title, subheading, favourite
-              toggle, secondary and primary actions, and line tabs—typical for a
-              record or settings screen.
-            </>
-          }
+          description="A full header with breadcrumbs, title, subheading, favourite, actions, and tabs. Use this when the page needs the complete top bar."
         />
         <ComponentExample>
           <div className="space-y-6">
@@ -253,23 +273,20 @@ export function StructureHeaderPage() {
         </ComponentExample>
       </PageSection>
 
-      <PageSection id="variants" label="Variants">
+      <PageSection id="examples" label="Examples">
         <PageSectionHeader
-          title="Variants"
-          description={
-            <>
-              The <Code>Header</Code> component comes in several variants to suit different page layouts and content structures.
-            </>
-          }
+          title="Examples"
+          description="Configure the regions required by the page. Every configuration retains the standard favourite control."
         />
 
         <PageSubsectionHeader
           id="examples-breadcrumbs-only"
-          title="Breadcrumbs only"
+          title="Breadcrumbs"
           description={
             <>
-              Minimal layout: breadcrumbs and the favourite toggle only—no
-              title, extra buttons, or tabs.
+              Pass <Code>breadcrumbs</Code> with no title or additional actions.
+              Use this when the page only needs location context alongside the
+              standard favourite control.
             </>
           }
         />
@@ -291,9 +308,9 @@ export function StructureHeaderPage() {
           title="Actions"
           description={
             <>
-              One secondary outline button and a primary button alongside the
-              default favourite. With no heading, this row sits beside the
-              breadcrumbs.
+              Pass <Code>secondaryActions</Code> and <Code>primaryAction</Code>.
+              Use this when the page has one or two actions and no heading. The
+              favourite control remains first in the action group.
             </>
           }
         />
@@ -319,8 +336,9 @@ export function StructureHeaderPage() {
           title="Multiple actions"
           description={
             <>
-              Pass several entries in <Code>secondaryActions</Code> for multiple
-              outline buttons before the single <Code>primaryAction</Code>.
+              Pass several entries in <Code>secondaryActions</Code> before a
+              single <Code>primaryAction</Code>. Use this when there are extra
+              outline actions alongside the primary.
             </>
           }
         />
@@ -342,12 +360,52 @@ export function StructureHeaderPage() {
         </ComponentExample>
 
         <PageSubsectionHeader
+          id="examples-actions-dropdown"
+          title="Actions dropdown"
+          description={
+            <>
+              Use a menu entry in <Code>secondaryActions</Code> when several
+              related actions belong behind one default-sized Actions button.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
+            <Header
+              breadcrumbs={demoBreadcrumbs}
+              secondaryActions={[
+                {
+                  kind: "menu",
+                  label: "Actions",
+                  items: [
+                    { label: "Edit" },
+                    { label: "Duplicate" },
+                    {
+                      label: "Delete",
+                      variant: "destructive",
+                      separatorBefore: true,
+                    },
+                  ],
+                },
+              ]}
+            />
+            <Code
+              variant="block"
+              language="tsx"
+              code={examplesActionsDropdownSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
           id="examples-heading"
           title="Heading"
           description={
             <>
-              Breadcrumbs and favourite with a single page title—no subheading
-              or extra buttons.
+              Pass <Code>title</Code>. Use this when the page needs a name under
+              the breadcrumbs.
             </>
           }
         />
@@ -366,10 +424,11 @@ export function StructureHeaderPage() {
 
         <PageSubsectionHeader
           id="examples-sub-heading"
-          title="Sub-heading"
+          title="Subheading"
           description={
             <>
-              Title with supporting description line under the heading.
+              Pass <Code>subheading</Code> with <Code>title</Code>. Use this
+              when a short supporting line sits under the heading.
             </>
           }
         />
@@ -395,8 +454,8 @@ export function StructureHeaderPage() {
           title="Tabs"
           description={
             <>
-              Breadcrumbs, favourite, and line tabs with no title—useful when
-              the tab label carries the primary context.
+              Pass <Code>tabs</Code>. Use this when in-page sections sit under
+              the header.
             </>
           }
         />
@@ -413,6 +472,459 @@ export function StructureHeaderPage() {
           </div>
         </ComponentExample>
       </PageSection>
+
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Include only the page-level regions needed to orient people and expose actions."
+        />
+        <DocsDoDont
+          doItems={[
+            <>Use Header once at the top of a page.</>,
+            <>
+              Use <Code>breadcrumbs</Code> to show the page’s location.
+            </>,
+            <>Start the breadcrumb trail with the Home ancestor.</>,
+            <>
+              Pair a concise <Code>subheading</Code> with a clear{" "}
+              <Code>title</Code>.
+            </>,
+            <>
+              Keep one <Code>primaryAction</Code> and place supporting actions
+              in <Code>secondaryActions</Code>.
+            </>,
+            <>
+              Use <Code>tabs</Code> for sub-pages within the current section.
+            </>,
+          ]}
+          dontItems={[
+            <>Don’t use Header on Inbox — that screen uses a custom layout.</>,
+            <>Don’t use Header for card titles or section headings.</>,
+            <>
+              Don’t pass empty optional regions; omit configuration the page
+              does not need.
+            </>,
+            <>Don’t give several actions equal primary emphasis.</>,
+            <>
+              Don’t use Header tabs for sectioning content inside the page body
+              — use standalone{" "}
+              <DocsPageLink to="/components/tabs">Tabs</DocsPageLink>.
+            </>,
+            <>
+              Don’t recreate page padding in Header; pair it with{" "}
+              <DocsPageLink to="/structure/container">
+                Page Container
+              </DocsPageLink>
+              .
+            </>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Props and configuration types for Header."
+        />
+        <PageSubsectionHeader
+          id="api-header"
+          title="Header"
+          description="The complete page-level header. It accepts native div props."
+        />
+        <DocsApiTable
+          aria-label="Header API properties"
+          rows={[
+            {
+              name: "breadcrumbs",
+              type: "HeaderBreadcrumbsProps",
+              description: "Renders the page location trail.",
+            },
+            {
+              name: "title",
+              type: "React.ReactNode",
+              description: "Renders the page heading.",
+            },
+            {
+              name: "subheading",
+              type: "React.ReactNode",
+              description: "Renders supporting text below the title.",
+            },
+            {
+              name: "favouriteAction",
+              type: "HeaderFavouriteActionProps",
+              description:
+                "Configures the standard favourite toggle in the action area.",
+            },
+            {
+              name: "secondaryActions",
+              type: "readonly HeaderSecondaryAction[]",
+              description:
+                "Adds supporting outline actions before the primary action.",
+            },
+            {
+              name: "primaryAction",
+              type: "HeaderActionProps",
+              description: "Adds the main page action.",
+            },
+            {
+              name: "tabs",
+              type: "HeaderTabsProps",
+              description:
+                "Renders in-page tabs along the bottom of the header.",
+            },
+            {
+              name: "className",
+              type: "string",
+              description: "Adds layout classes to the Header root.",
+            },
+          ]}
+        />
+
+        <PageSubsectionHeader
+          id="api-header-breadcrumbs-props"
+          title="HeaderBreadcrumbsProps"
+          description="Configures the breadcrumb region."
+          className="mt-6"
+        />
+        <DocsApiTable
+          aria-label="HeaderBreadcrumbsProps API properties"
+          rows={[
+            {
+              name: "items",
+              type: "readonly HeaderBreadcrumbItem[]",
+              description: "Supplies the ordered location trail.",
+            },
+            {
+              name: "navProps",
+              type: "Breadcrumb props",
+              description: "Passes properties to the breadcrumb navigation.",
+            },
+            {
+              name: "listProps",
+              type: "BreadcrumbList props",
+              description: "Passes properties to the breadcrumb list.",
+            },
+            {
+              name: "separatorProps",
+              type: "BreadcrumbSeparator props",
+              description: "Passes properties to each breadcrumb separator.",
+            },
+          ]}
+        />
+
+        <PageSubsectionHeader
+          id="api-header-breadcrumb-item"
+          title="HeaderBreadcrumbItem"
+          description="Defines an ancestor link or the current page."
+          className="mt-6"
+        />
+        <DocsApiTable
+          aria-label="HeaderBreadcrumbItem API properties"
+          rows={[
+            {
+              name: "label",
+              type: "React.ReactNode",
+              description:
+                "Displays the location label and names the first Home icon.",
+            },
+            {
+              name: "current",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Marks the final item as the current page.",
+            },
+            {
+              name: "href",
+              type: "string",
+              description: "Supplies a native destination for an ancestor.",
+            },
+            {
+              name: "render",
+              type: "React.ReactElement",
+              description: "Supplies a router link for an ancestor.",
+            },
+            {
+              name: "renderLabelOnly",
+              type: "true",
+              description:
+                "Uses an already interactive label as the ancestor link.",
+            },
+          ]}
+        />
+
+        <PageSubsectionHeader
+          id="api-header-favourite-action-props"
+          title="HeaderFavouriteActionProps"
+          description="Configures the favourite control that appears in every Header."
+          className="mt-6"
+        />
+        <DocsApiTable
+          aria-label="HeaderFavouriteActionProps API properties"
+          rows={[
+            {
+              name: "pressed",
+              type: "boolean",
+              description: "Controls the favourite state.",
+            },
+            {
+              name: "defaultPressed",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Sets the initial uncontrolled favourite state.",
+            },
+            {
+              name: "onPressedChange",
+              type: "Toggle change handler",
+              description: "Runs when the favourite state changes.",
+            },
+            {
+              name: "ariaLabel",
+              type: "string",
+              description: "Overrides the favourite control’s accessible name.",
+            },
+            {
+              name: "icon",
+              type: "React.ReactNode",
+              description: "Replaces the standard star icon.",
+            },
+            {
+              name: "tooltipAddLabel",
+              type: "string",
+              defaultValue: '"Add to favourites"',
+              description:
+                "Labels the action when the page is not a favourite.",
+            },
+            {
+              name: "tooltipRemoveLabel",
+              type: "string",
+              defaultValue: '"Remove from favourites"',
+              description: "Labels the action when the page is a favourite.",
+            },
+          ]}
+        />
+
+        <PageSubsectionHeader
+          id="api-header-action-props"
+          title="HeaderActionProps"
+          description="Configures the primary action."
+          className="mt-6"
+        />
+        <DocsApiTable
+          aria-label="HeaderActionProps API properties"
+          rows={[
+            {
+              name: "label",
+              type: "React.ReactNode",
+              description: "Supplies the visible action label.",
+            },
+            {
+              name: "icon",
+              type: "React.ReactNode",
+              description: "Adds an explicit action icon.",
+            },
+          ]}
+        />
+
+        <PageSubsectionHeader
+          id="api-header-secondary-button-action"
+          title="HeaderSecondaryButtonAction"
+          description="Configures a secondary button action."
+          className="mt-6"
+        />
+        <DocsApiTable
+          aria-label="HeaderSecondaryButtonAction API properties"
+          rows={[
+            {
+              name: "kind",
+              type: '"button"',
+              defaultValue: '"button"',
+              description: "Selects the button action shape.",
+            },
+            {
+              name: "label",
+              type: "React.ReactNode",
+              description: "Supplies the visible action label.",
+            },
+            {
+              name: "icon",
+              type: "React.ReactNode",
+              description: "Adds an explicit action icon.",
+            },
+            {
+              name: "ariaLabel",
+              type: "string",
+              description:
+                "Names an icon-only action and is required when label is omitted.",
+            },
+          ]}
+        />
+
+        <PageSubsectionHeader
+          id="api-header-secondary-menu-action"
+          title="HeaderSecondaryMenuAction"
+          description="Configures a secondary dropdown action."
+          className="mt-6"
+        />
+        <DocsApiTable
+          aria-label="HeaderSecondaryMenuAction API properties"
+          rows={[
+            {
+              name: "kind",
+              type: '"menu"',
+              description: "Selects the dropdown action shape.",
+            },
+            {
+              name: "label",
+              type: "React.ReactNode",
+              description: "Supplies the visible trigger label.",
+            },
+            {
+              name: "icon",
+              type: "React.ReactNode",
+              description: "Adds an explicit trigger icon.",
+            },
+            {
+              name: "ariaLabel",
+              type: "string",
+              description: "Names an icon-only menu trigger.",
+            },
+            {
+              name: "items",
+              type: "readonly HeaderMenuItem[]",
+              description: "Supplies the menu actions.",
+            },
+            {
+              name: "align",
+              type: '"start" | "center" | "end"',
+              defaultValue: '"end"',
+              description: "Aligns the menu with its trigger.",
+            },
+            {
+              name: "triggerProps",
+              type: "Button props",
+              description: "Passes properties to the menu trigger Button.",
+            },
+          ]}
+        />
+
+        <PageSubsectionHeader
+          id="api-header-menu-item"
+          title="HeaderMenuItem"
+          description="Defines an action inside a secondary dropdown."
+          className="mt-6"
+        />
+        <DocsApiTable
+          aria-label="HeaderMenuItem API properties"
+          rows={[
+            {
+              name: "label",
+              type: "React.ReactNode",
+              description: "Supplies the visible menu-item label.",
+            },
+            {
+              name: "onSelect",
+              type: "() => void",
+              description: "Runs when the menu item is selected.",
+            },
+            {
+              name: "variant",
+              type: '"default" | "destructive"',
+              defaultValue: '"default"',
+              description: "Sets the menu item’s action treatment.",
+            },
+            {
+              name: "separatorBefore",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Separates the item from the group above it.",
+            },
+          ]}
+        />
+
+        <PageSubsectionHeader
+          id="api-header-tabs-props"
+          title="HeaderTabsProps"
+          description="Configures the line tabs at the bottom of Header."
+          className="mt-6"
+        />
+        <DocsApiTable
+          aria-label="HeaderTabsProps API properties"
+          rows={[
+            {
+              name: "items",
+              type: "readonly HeaderTabsItem[]",
+              description: "Supplies the tab triggers.",
+            },
+            {
+              name: "tabsProps",
+              type: "Tabs props",
+              description: "Configures the Tabs root and selected value.",
+            },
+            {
+              name: "listProps",
+              type: "TabsList props",
+              description: "Passes properties to the tab list.",
+            },
+          ]}
+        />
+
+        <PageSubsectionHeader
+          id="api-header-tabs-item"
+          title="HeaderTabsItem"
+          description="Defines one page-header tab trigger."
+          className="mt-6"
+        />
+        <DocsApiTable
+          aria-label="HeaderTabsItem API properties"
+          rows={[
+            {
+              name: "value",
+              type: "string",
+              description: "Identifies the tab in Header’s selected state.",
+            },
+            {
+              name: "label",
+              type: "React.ReactNode",
+              description: "Supplies the visible tab label.",
+            },
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Compose page-level structure and controls with Header."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/structure/app-header">App Header</DocsPageLink> —
+            sticky product chrome above the page header.
+          </li>
+          <li>
+            <DocsPageLink to="/structure/app-sidebar">App Sidebar</DocsPageLink>{" "}
+            — app-wide navigation beside the page.
+          </li>
+          <li>
+            <DocsPageLink to="/structure/container">
+              Page Container
+            </DocsPageLink>{" "}
+            — for consistent padding around the page content below.
+          </li>
+          <li>
+            <DocsPageLink to="/components/breadcrumb">Breadcrumb</DocsPageLink>{" "}
+            — when only a location trail is needed.
+          </li>
+          <li>
+            <DocsPageLink to="/components/tabs">Tabs</DocsPageLink> — for
+            standalone tabbed content.
+          </li>
+          <li>
+            <DocsPageLink to="/components/button">Button</DocsPageLink> — for
+            actions outside the page header.
+          </li>
+        </ul>
+      </PageSection>
     </div>
-  )
+  );
 }

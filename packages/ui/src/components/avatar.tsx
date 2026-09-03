@@ -1,7 +1,7 @@
-import * as React from "react"
-import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar"
+import * as React from "react";
+import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@gecko/ui/lib/utils";
 
 export type AvatarSize =
   | "xs"
@@ -11,7 +11,7 @@ export type AvatarSize =
   | "xl"
   | "2xl"
   | "3xl"
-  | "default"
+  | "default";
 
 const sizeMap = {
   xs: "xs",
@@ -22,9 +22,9 @@ const sizeMap = {
   "2xl": "2xl",
   "3xl": "3xl",
   default: "xl",
-} as const
+} as const;
 
-type ResolvedAvatarSize = (typeof sizeMap)[AvatarSize]
+type ResolvedAvatarSize = (typeof sizeMap)[AvatarSize];
 
 const textColumnClass: Record<ResolvedAvatarSize, string> = {
   xs: "-space-y-0.5",
@@ -34,7 +34,7 @@ const textColumnClass: Record<ResolvedAvatarSize, string> = {
   xl: "-space-y-1",
   "2xl": "-space-y-1",
   "3xl": "-space-y-1",
-}
+};
 
 const labelClass: Record<ResolvedAvatarSize, string> = {
   xs: "text-3xs/3",
@@ -44,7 +44,7 @@ const labelClass: Record<ResolvedAvatarSize, string> = {
   xl: "text-sm/5",
   "2xl": "text-base/5.5",
   "3xl": "text-lg/6",
-}
+};
 
 const descriptionClass: Record<ResolvedAvatarSize, string> = {
   xs: "text-3xs/2.75",
@@ -54,92 +54,107 @@ const descriptionClass: Record<ResolvedAvatarSize, string> = {
   xl: "text-sm/5",
   "2xl": "text-base/5.5",
   "3xl": "text-lg/6",
-}
+};
 
-export type AvatarStatus = "online" | "unavailable" | "offline"
+export type AvatarStatus = "online" | "unavailable" | "offline";
 
 const statusClass: Record<AvatarStatus, string> = {
   online: "bg-emerald-500 dark:bg-teal-500",
   unavailable: "bg-orange-500",
   offline: "bg-gray-500 dark:bg-gray-400",
-}
+};
 
-const statusSizeClass =
-  "absolute end-0 bottom-0 z-10 rounded-full ring-2 ring-background select-none " +
+const badgeSizeClass =
+  "absolute z-10 rounded-full ring-2 ring-background select-none " +
   "group-data-[size=xs]/avatar:ring-1 group-data-[size=sm]/avatar:ring-1 " +
   "group-data-[size=xs]/avatar:size-1.5 group-data-[size=sm]/avatar:size-1.5 " +
   "group-data-[size=md]/avatar:size-2 group-data-[size=lg]/avatar:size-2 " +
-  "group-data-[size=xl]/avatar:size-2.5 group-data-[size=2xl]/avatar:size-3 group-data-[size=3xl]/avatar:size-3"
+  "group-data-[size=xl]/avatar:size-2.5 group-data-[size=2xl]/avatar:size-3 group-data-[size=3xl]/avatar:size-3";
 
-const notificationSizeClass =
-  "absolute top-0 start-0 z-10 rounded-full bg-red-600 dark:bg-rose-600 ring-2 ring-background " +
-  "group-data-[size=xs]/avatar:ring-1 group-data-[size=sm]/avatar:ring-1 " +
-  "group-data-[size=xs]/avatar:size-1.5 group-data-[size=sm]/avatar:size-1.5 " +
-  "group-data-[size=md]/avatar:size-2 group-data-[size=lg]/avatar:size-2 " +
-  "group-data-[size=xl]/avatar:size-2.5 group-data-[size=2xl]/avatar:size-3 group-data-[size=3xl]/avatar:size-3"
+const badgePositionClass = {
+  status: "end-0 bottom-0",
+  notification: "top-0 start-0",
+} as const;
 
 type AvatarContextValue = {
-  size: AvatarSize
-  resolvedSize: ResolvedAvatarSize
-}
+  size: AvatarSize;
+  resolvedSize: ResolvedAvatarSize;
+};
 
-const AvatarContext = React.createContext<AvatarContextValue | null>(null)
+const AvatarContext = React.createContext<AvatarContextValue | null>(null);
 
 function useAvatarContext() {
-  const context = React.useContext(AvatarContext)
+  const context = React.useContext(AvatarContext);
 
   if (!context) {
-    throw new Error("Avatar compound components must be used within Avatar.")
+    throw new Error("Avatar compound components must be used within Avatar.");
   }
 
-  return context
+  return context;
 }
 
 function isAvatarChild(
   child: React.ReactNode,
   component: { displayName?: string },
 ) {
-  return React.isValidElement(child) && child.type === component
+  return React.isValidElement(child) && child.type === component;
+}
+
+function getInitials(name: string, size: ResolvedAvatarSize) {
+  const words = name.trim().split(/\s+/).filter(Boolean);
+  const firstInitial = Array.from(words[0] ?? "")[0] ?? "?";
+
+  if (size === "xs" || size === "sm" || words.length < 2) {
+    return firstInitial.toUpperCase();
+  }
+
+  const lastInitial = Array.from(words.at(-1) ?? "")[0] ?? "";
+  return `${firstInitial}${lastInitial}`.toUpperCase();
 }
 
 function Avatar({
   className,
+  name,
   size = "default",
   status,
   notification,
   children,
   ...props
-}: AvatarPrimitive.Root.Props & {
-  size?: AvatarSize
-  status?: AvatarStatus
-  notification?: boolean
+}: Omit<AvatarPrimitive.Root.Props, "children" | "role" | "aria-label"> & {
+  name: string;
+  size?: AvatarSize;
+  status?: AvatarStatus;
+  notification?: boolean;
+  children?: React.ReactNode;
 }) {
-  const resolvedSize = sizeMap[size]
-  const childArray = React.Children.toArray(children)
-  const avatarChildren: React.ReactNode[] = []
-  let label: React.ReactNode = null
-  let description: React.ReactNode = null
+  const resolvedSize = sizeMap[size];
+  const childArray = React.Children.toArray(children);
+  const avatarChildren: React.ReactNode[] = [];
+  let label: React.ReactNode = null;
+  let description: React.ReactNode = null;
 
   for (const child of childArray) {
     if (isAvatarChild(child, AvatarLabel)) {
-      label = child
-      continue
+      label = child;
+      continue;
     }
 
     if (isAvatarChild(child, AvatarDescription)) {
-      description = child
-      continue
+      description = child;
+      continue;
     }
 
-    avatarChildren.push(child)
+    avatarChildren.push(child);
   }
 
-  const hasText = label != null || description != null
+  const hasText = label != null || description != null;
 
   const root = (
     <AvatarPrimitive.Root
       data-slot="avatar"
       data-size={resolvedSize}
+      role="img"
+      aria-label={name}
       className={cn(
         "rounded-full group/avatar relative flex shrink-0 select-none ring-2 ring-background data-[size=xs]:ring-1 data-[size=sm]:ring-1",
         "data-[size=xs]:size-4 data-[size=sm]:size-5 data-[size=md]:size-6 data-[size=lg]:size-7 data-[size=xl]:size-8 data-[size=2xl]:size-9 data-[size=3xl]:size-12",
@@ -148,29 +163,35 @@ function Avatar({
       {...props}
     >
       {avatarChildren}
+      <AvatarFallback>{getInitials(name, resolvedSize)}</AvatarFallback>
       {status != null && (
-        <span
-          data-slot="avatar-status"
-          className={cn(statusSizeClass, statusClass[status])}
-          aria-hidden
+        <AvatarBadge
+          position="status"
+          className={statusClass[status]}
+          accessibleLabel={`Status: ${status}`}
         />
       )}
       {notification && (
-        <span
-          data-slot="avatar-notification"
-          className={notificationSizeClass}
-          aria-hidden
+        <AvatarBadge
+          position="notification"
+          className="bg-red-600 dark:bg-rose-600"
+          accessibleLabel="Unread activity"
         />
       )}
     </AvatarPrimitive.Root>
-  )
+  );
 
   return (
     <AvatarContext.Provider value={{ size, resolvedSize }}>
       {hasText ? (
         <div className="flex items-center gap-1.5">
           {root}
-          <div className={cn("flex min-w-0 flex-col", textColumnClass[resolvedSize])}>
+          <div
+            className={cn(
+              "flex min-w-0 flex-col",
+              textColumnClass[resolvedSize],
+            )}
+          >
             {label}
             {description}
           </div>
@@ -179,10 +200,14 @@ function Avatar({
         root
       )}
     </AvatarContext.Provider>
-  )
+  );
 }
 
-function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
+function AvatarImage({
+  className,
+  alt = "",
+  ...props
+}: Omit<AvatarPrimitive.Image.Props, "alt"> & { alt?: string }) {
   return (
     <AvatarPrimitive.Image
       data-slot="avatar-image"
@@ -190,9 +215,10 @@ function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
         "rounded-full aspect-square size-full object-cover",
         className,
       )}
+      alt={alt}
       {...props}
     />
-  )
+  );
 }
 
 function AvatarFallback({
@@ -209,11 +235,11 @@ function AvatarFallback({
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AvatarLabel({ className, ...props }: React.ComponentProps<"span">) {
-  const { resolvedSize } = useAvatarContext()
+  const { resolvedSize } = useAvatarContext();
 
   return (
     <span
@@ -225,12 +251,15 @@ function AvatarLabel({ className, ...props }: React.ComponentProps<"span">) {
       )}
       {...props}
     />
-  )
+  );
 }
-AvatarLabel.displayName = "AvatarLabel"
+AvatarLabel.displayName = "AvatarLabel";
 
-function AvatarDescription({ className, ...props }: React.ComponentProps<"span">) {
-  const { resolvedSize } = useAvatarContext()
+function AvatarDescription({
+  className,
+  ...props
+}: React.ComponentProps<"span">) {
+  const { resolvedSize } = useAvatarContext();
 
   return (
     <span
@@ -242,35 +271,29 @@ function AvatarDescription({ className, ...props }: React.ComponentProps<"span">
       )}
       {...props}
     />
-  )
+  );
 }
-AvatarDescription.displayName = "AvatarDescription"
+AvatarDescription.displayName = "AvatarDescription";
 
-function AvatarBadge({ className, ...props }: React.ComponentProps<"span">) {
+function AvatarBadge({
+  position,
+  accessibleLabel,
+  className,
+  ...props
+}: React.ComponentProps<"span"> & {
+  position: keyof typeof badgePositionClass;
+  accessibleLabel: string;
+}) {
   return (
     <span
       data-slot="avatar-badge"
-      className={cn(
-        "bg-primary text-primary-foreground ring-background absolute end-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full bg-blend-color ring-2 select-none",
-        "group-data-[size=xs]/avatar:size-1 group-data-[size=xs]/avatar:[&>svg]:hidden",
-        "group-data-[size=sm]/avatar:size-1.5 group-data-[size=sm]/avatar:[&>svg]:size-1",
-        "group-data-[size=md]/avatar:size-2 group-data-[size=md]/avatar:[&>svg]:size-1.5",
-        "group-data-[size=lg]/avatar:size-2 group-data-[size=lg]/avatar:[&>svg]:size-1.5",
-        "group-data-[size=xl]/avatar:size-2.5 group-data-[size=xl]/avatar:[&>svg]:size-2",
-        "group-data-[size=2xl]/avatar:size-3 group-data-[size=2xl]/avatar:[&>svg]:size-2",
-        "group-data-[size=3xl]/avatar:size-3.5 group-data-[size=3xl]/avatar:[&>svg]:size-2.5",
-        className,
-      )}
+      data-position={position}
+      className={cn(badgeSizeClass, badgePositionClass[position], className)}
       {...props}
-    />
-  )
+    >
+      <span className="sr-only">{accessibleLabel}</span>
+    </span>
+  );
 }
 
-export {
-  Avatar,
-  AvatarImage,
-  AvatarFallback,
-  AvatarLabel,
-  AvatarDescription,
-  AvatarBadge,
-}
+export { Avatar, AvatarImage, AvatarLabel, AvatarDescription };

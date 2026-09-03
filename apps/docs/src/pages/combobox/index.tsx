@@ -1,4 +1,3 @@
-import * as React from "react"
 import {
   Combobox,
   ComboboxChip,
@@ -14,12 +13,22 @@ import {
   ComboboxList,
   ComboboxSeparator,
   ComboboxValue,
-} from "@gecko/ui/components/combobox"
+  useComboboxAnchor,
+} from "@gecko/ui/components/combobox";
 
-import { Code } from "@gecko/ui/components/code"
-import { ComponentExample } from "@/components/layout/component-example"
-import { PageSection } from "@/components/layout/page-section"
-import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field"
+import { Code } from "@gecko/ui/components/code";
+import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsExternalLink } from "@/components/layout/docs-external-link";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import { PageSection } from "@/components/layout/page-section";
+import {
+  PageOverviewHeader,
+  PageSectionHeader,
+  PageSubsectionHeader,
+} from "@/components/layout/page-section-header";
 
 const frameworks = [
   "Next.js",
@@ -27,253 +36,616 @@ const frameworks = [
   "Nuxt.js",
   "Remix",
   "Astro",
-] as const
-
+] as const;
 const timezones = [
   {
     value: "Americas",
-    items: [
-      "(GMT-5) New York",
-      "(GMT-8) Los Angeles",
-      "(GMT-6) Chicago",
-      "(GMT-5) Toronto",
-      "(GMT-8) Vancouver",
-      "(GMT-3) São Paulo",
-    ],
+    items: ["(GMT-5) New York", "(GMT-8) Los Angeles", "(GMT-6) Chicago"],
   },
   {
     value: "Europe",
-    items: [
-      "(GMT+0) London",
-      "(GMT+1) Paris",
-      "(GMT+1) Berlin",
-      "(GMT+1) Rome",
-      "(GMT+1) Madrid",
-      "(GMT+1) Amsterdam",
-    ],
+    items: ["(GMT+0) London", "(GMT+1) Paris", "(GMT+1) Berlin"],
   },
   {
     value: "Asia/Pacific",
-    items: [
-      "(GMT+9) Tokyo",
-      "(GMT+8) Shanghai",
-      "(GMT+8) Singapore",
-      "(GMT+4) Dubai",
-      "(GMT+11) Sydney",
-      "(GMT+9) Seoul",
-    ],
+    items: ["(GMT+9) Tokyo", "(GMT+8) Singapore", "(GMT+11) Sydney"],
   },
-] as const
+] as const;
 
-type Framework = (typeof frameworks)[number]
-type TimezoneGroup = (typeof timezones)[number]
-type TimezoneItem = TimezoneGroup["items"][number]
+type Framework = (typeof frameworks)[number];
+type TimezoneGroup = (typeof timezones)[number];
+type TimezoneItem = TimezoneGroup["items"][number];
+
+function FrameworkOptions() {
+  return (
+    <>
+      <ComboboxEmpty>No frameworks found.</ComboboxEmpty>
+      <ComboboxList>
+        {(item: Framework) => (
+          <ComboboxItem key={item} value={item}>
+            {item}
+          </ComboboxItem>
+        )}
+      </ComboboxList>
+    </>
+  );
+}
 
 export function ComboboxPage() {
-  const multipleAnchor = React.useRef<HTMLDivElement | null>(null)
+  const multipleAnchor = useComboboxAnchor();
+
+  const importSnippet = `import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "@gecko/ui/components/combobox"`;
+  const compositionSnippet = `Combobox
+├── ComboboxInput
+└── ComboboxContent
+    ├── ComboboxEmpty
+    └── ComboboxList
+        └── ComboboxItem`;
+  const listSnippet = `<ComboboxContent>
+  <ComboboxEmpty>No frameworks found.</ComboboxEmpty>
+  <ComboboxList>
+    {(item) => (
+      <ComboboxItem key={item} value={item}>
+        {item}
+      </ComboboxItem>
+    )}
+  </ComboboxList>
+</ComboboxContent>`;
+  const basicSnippet = `<Field>
+  <FieldLabel htmlFor="framework">Framework</FieldLabel>
+  <Combobox items={frameworks} name="framework">
+    <ComboboxInput id="framework" placeholder="Select a framework" />
+    ${listSnippet}
+  </Combobox>
+</Field>`;
+  const multipleSnippet = `const multipleAnchor = useComboboxAnchor()
+
+<Field>
+  <FieldLabel htmlFor="frameworks">Frameworks</FieldLabel>
+  <Combobox items={frameworks} name="frameworks" multiple>
+    <ComboboxChips ref={multipleAnchor}>
+      <ComboboxValue>
+        {(values) => (
+          <>
+            {values.map((value) => (
+              <ComboboxChip key={value}>{value}</ComboboxChip>
+            ))}
+            <ComboboxChipsInput id="frameworks" placeholder="Select frameworks" />
+          </>
+        )}
+      </ComboboxValue>
+    </ComboboxChips>
+    <ComboboxContent anchor={multipleAnchor}>
+      <ComboboxEmpty>No frameworks found.</ComboboxEmpty>
+      <ComboboxList>
+        {(item) => <ComboboxItem key={item} value={item}>{item}</ComboboxItem>}
+      </ComboboxList>
+    </ComboboxContent>
+  </Combobox>
+</Field>`;
+  const clearSnippet = `<Field>
+  <FieldLabel htmlFor="clear-framework">Framework</FieldLabel>
+  <Combobox items={frameworks} name="framework" defaultValue={frameworks[0]}>
+    <ComboboxInput id="clear-framework" placeholder="Select a framework" showClear />
+    ${listSnippet}
+  </Combobox>
+</Field>`;
+  const groupsSnippet = `<Field>
+  <FieldLabel htmlFor="timezone">Timezone</FieldLabel>
+  <Combobox items={timezones} name="timezone">
+    <ComboboxInput id="timezone" placeholder="Select a timezone" />
+    <ComboboxContent>
+      <ComboboxEmpty>No timezones found.</ComboboxEmpty>
+      <ComboboxList>
+        {(group, index) => (
+          <ComboboxGroup key={group.value} items={group.items}>
+            <ComboboxLabel>{group.value}</ComboboxLabel>
+            <ComboboxCollection>
+              {(item) => <ComboboxItem key={item} value={item}>{item}</ComboboxItem>}
+            </ComboboxCollection>
+            {index < timezones.length - 1 && <ComboboxSeparator />}
+          </ComboboxGroup>
+        )}
+      </ComboboxList>
+    </ComboboxContent>
+  </Combobox>
+</Field>`;
+  const disabledSnippet = `<Field data-disabled>
+  <FieldLabel htmlFor="disabled-framework">Framework</FieldLabel>
+  <Combobox items={frameworks} name="framework" disabled>
+    <ComboboxInput id="disabled-framework" placeholder="Select a framework" />
+    ${listSnippet}
+  </Combobox>
+</Field>`;
+  const errorSnippet = `<Field data-invalid>
+  <FieldLabel htmlFor="required-framework">Framework</FieldLabel>
+  <Combobox items={frameworks} name="framework" required>
+    <ComboboxInput
+      id="required-framework"
+      placeholder="Select a framework"
+      aria-invalid
+      aria-describedby="required-framework-error"
+    />
+    ${listSnippet}
+  </Combobox>
+  <FieldError id="required-framework-error">Choose a framework from the list.</FieldError>
+</Field>`;
 
   return (
     <div className="space-y-12">
-        <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Combobox</h1>
-          <p className="text-sm text-muted-foreground">
-            A combobox combines a text input with a listbox of options.
-          </p>
-        </PageSection>
+      <PageSection id="overview" label="Overview">
+        <PageOverviewHeader
+          title="Combobox"
+          description="A searchable selection field. People type to filter a predefined list, then choose one or more options."
+        />
+      </PageSection>
 
-        <PageSection id="basic" label="Basic">
-          <h2 className="text-lg font-semibold">Basic</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code>Combobox</Code> with{" "}
-            <Code>ComboboxInput</Code> and{" "}
-            <Code>ComboboxList</Code> for a searchable
-            list of options.
-          </p>
-          <ComponentExample>
-            <Combobox items={frameworks}>
-              <ComboboxInput placeholder="Select a framework" />
-              <ComboboxContent>
-                <ComboboxEmpty>No items found.</ComboboxEmpty>
-                <ComboboxList>
-                  {(item: Framework) => (
-                    <ComboboxItem key={item} value={item}>
-                      {item}
-                    </ComboboxItem>
-                  )}
-                </ComboboxList>
-              </ComboboxContent>
-            </Combobox>
-          </ComponentExample>
-        </PageSection>
+      <PageSection id="usage" label="Usage">
+        <PageSectionHeader
+          title="Usage"
+          description={
+            <>
+              Use a Combobox when a predefined list is long enough to benefit
+              from filtering. Use a{" "}
+              <DocsPageLink to="/components/select">Select</DocsPageLink> for a
+              short list, and a text field when people may enter a value outside
+              the list.
+            </>
+          }
+        />
+        <PageSubsectionHeader
+          id="usage-import"
+          title="Import"
+          description="Import the parts needed by the chosen configuration."
+        />
+        <ComponentExample className="mb-6">
+          <Code
+            variant="block"
+            language="tsx"
+            code={importSnippet}
+            showCopyButton
+            copyLabel="Copy import"
+          />
+        </ComponentExample>
+        <PageSubsectionHeader
+          id="usage-composition"
+          title="Composition"
+          description="The input filters the options in the list. An empty state appears when nothing matches."
+        />
+        <ComponentExample>
+          <Code
+            variant="block"
+            language="text"
+            code={compositionSnippet}
+            showCopyButton
+            copyLabel="Copy composition"
+          />
+        </ComponentExample>
+      </PageSection>
 
-        <PageSection id="multiple" label="Multiple">
-          <h2 className="text-lg font-semibold">Multiple</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code>ComboboxChips</Code>,{" "}
-            <Code>ComboboxValue</Code>,{" "}
-            <Code>ComboboxChip</Code>, and{" "}
-            <Code>ComboboxChipsInput</Code> to display and manage multiple selected values.
-          </p>
-          <ComponentExample>
-            <Combobox
-              multiple
-              autoHighlight
-              items={frameworks}
-            >
-              <ComboboxChips ref={multipleAnchor}>
-                <ComboboxValue>
-                  {(values: readonly Framework[]) => (
-                    <>
-                      {values.map((value: string) => (
-                        <ComboboxChip key={value}>{value}</ComboboxChip>
-                      ))}
-                      <ComboboxChipsInput placeholder="Select a framework" />
-                    </>
-                  )}
-                </ComboboxValue>
-              </ComboboxChips>
-              <ComboboxContent anchor={multipleAnchor}>
-                <ComboboxEmpty>No items found.</ComboboxEmpty>
-                <ComboboxList>
-                  {(item: Framework) => (
-                    <ComboboxItem key={item} value={item}>
-                      {item}
-                    </ComboboxItem>
-                  )}
-                </ComboboxList>
-              </ComboboxContent>
-            </Combobox>
-          </ComponentExample>
-        </PageSection>
-
-        <PageSection id="with-clear" label="With clear">
-          <h2 className="text-lg font-semibold">With clear</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use the <Code>showClear</Code> prop on{" "}
-            <Code>ComboboxInput</Code> to show a clear button when a value is selected.
-          </p>
-          <ComponentExample>
-            <Combobox items={frameworks} defaultValue={frameworks[0]}>
-              <ComboboxInput placeholder="Select a framework" showClear />
-              <ComboboxContent>
-                <ComboboxEmpty>No items found.</ComboboxEmpty>
-                <ComboboxList>
-                  {(item: Framework) => (
-                    <ComboboxItem key={item} value={item}>
-                      {item}
-                    </ComboboxItem>
-                  )}
-                </ComboboxList>
-              </ComboboxContent>
-            </Combobox>
-          </ComponentExample>
-        </PageSection>
-
-        <PageSection id="groups" label="Groups">
-          <h2 className="text-lg font-semibold">Groups</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code>ComboboxGroup</Code>,{" "}
-            <Code>ComboboxLabel</Code>,{" "}
-            <Code>ComboboxCollection</Code>, and{" "}
-            <Code>ComboboxSeparator</Code> to organize options into labeled groups.
-          </p>
-          <ComponentExample>
-            <Combobox items={timezones}>
-              <ComboboxInput placeholder="Select a timezone" />
-              <ComboboxContent>
-                <ComboboxEmpty>No timezones found.</ComboboxEmpty>
-                <ComboboxList>
-                  {(group: TimezoneGroup, index: number) => (
-                    <ComboboxGroup key={group.value} items={group.items}>
-                      <ComboboxLabel>{group.value}</ComboboxLabel>
-                      <ComboboxCollection>
-                        {(item: TimezoneItem) => (
-                          <ComboboxItem key={item} value={item}>
-                            {item}
-                          </ComboboxItem>
-                        )}
-                      </ComboboxCollection>
-                      {index < timezones.length - 1 && <ComboboxSeparator />}
-                    </ComboboxGroup>
-                  )}
-                </ComboboxList>
-              </ComboboxContent>
-            </Combobox>
-          </ComponentExample>
-        </PageSection>
-
-        <PageSection id="states" label="States">
-          <h2 className="text-lg font-semibold">States</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
-            Use <Code>disabled</Code> on{" "}
-            <Code>ComboboxInput</Code> to block
-            typing and the chevron trigger, or{" "}
-            <Code>aria-invalid</Code> for
-            validation styling on the input group.
-          </p>
-
-          <h3 id="states-disabled" className="mb-3 text-base font-semibold">
-            Disabled
-          </h3>
-          <ComponentExample className="mb-6">
-            <Field data-disabled>
-              <FieldLabel htmlFor="combobox-states-disabled">
-                Framework
-              </FieldLabel>
-              <Combobox items={frameworks}>
+      <PageSection id="basic" label="Basic">
+        <PageSectionHeader
+          title="Basic"
+          description="The canonical single-selection configuration. Always provide a visible label and put the form name on Combobox."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Field>
+              <FieldLabel htmlFor="combobox-framework">Framework</FieldLabel>
+              <Combobox items={frameworks} name="framework">
                 <ComboboxInput
-                  id="combobox-states-disabled"
-                  name="combobox-states-disabled"
+                  id="combobox-framework"
                   placeholder="Select a framework"
-                  disabled
                 />
                 <ComboboxContent>
-                  <ComboboxEmpty>No items found.</ComboboxEmpty>
+                  <FrameworkOptions />
+                </ComboboxContent>
+              </Combobox>
+            </Field>
+            <Code
+              variant="block"
+              language="tsx"
+              code={basicSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="multiple" label="Multiple">
+        <PageSectionHeader
+          title="Multiple"
+          description="Use chips when people may select more than one option. Chips wrap as selections are added."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Field>
+              <FieldLabel htmlFor="combobox-frameworks">Frameworks</FieldLabel>
+              <Combobox items={frameworks} name="frameworks" multiple>
+                <ComboboxChips ref={multipleAnchor}>
+                  <ComboboxValue>
+                    {(values: readonly Framework[]) => (
+                      <>
+                        {values.map((value) => (
+                          <ComboboxChip key={value}>{value}</ComboboxChip>
+                        ))}
+                        <ComboboxChipsInput
+                          id="combobox-frameworks"
+                          placeholder="Select frameworks"
+                        />
+                      </>
+                    )}
+                  </ComboboxValue>
+                </ComboboxChips>
+                <ComboboxContent anchor={multipleAnchor}>
+                  <FrameworkOptions />
+                </ComboboxContent>
+              </Combobox>
+            </Field>
+            <Code
+              variant="block"
+              language="tsx"
+              code={multipleSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="with-clear" label="With clear">
+        <PageSectionHeader
+          title="With clear"
+          description={
+            <>
+              Set <Code>showClear</Code> when an optional selection should be
+              easy to remove. The component names the control.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Field>
+              <FieldLabel htmlFor="combobox-clear-framework">
+                Framework
+              </FieldLabel>
+              <Combobox
+                items={frameworks}
+                name="framework"
+                defaultValue={frameworks[0]}
+              >
+                <ComboboxInput
+                  id="combobox-clear-framework"
+                  placeholder="Select a framework"
+                  showClear
+                />
+                <ComboboxContent>
+                  <FrameworkOptions />
+                </ComboboxContent>
+              </Combobox>
+            </Field>
+            <Code
+              variant="block"
+              language="tsx"
+              code={clearSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="groups" label="Groups">
+        <PageSectionHeader
+          title="Groups"
+          description="Use labelled groups when categories make a long list easier to scan."
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Field>
+              <FieldLabel htmlFor="combobox-timezone">Timezone</FieldLabel>
+              <Combobox items={timezones} name="timezone">
+                <ComboboxInput
+                  id="combobox-timezone"
+                  placeholder="Select a timezone"
+                />
+                <ComboboxContent>
+                  <ComboboxEmpty>No timezones found.</ComboboxEmpty>
                   <ComboboxList>
-                    {(item: Framework) => (
-                      <ComboboxItem key={item} value={item}>
-                        {item}
-                      </ComboboxItem>
+                    {(group: TimezoneGroup, index: number) => (
+                      <ComboboxGroup key={group.value} items={group.items}>
+                        <ComboboxLabel>{group.value}</ComboboxLabel>
+                        <ComboboxCollection>
+                          {(item: TimezoneItem) => (
+                            <ComboboxItem key={item} value={item}>
+                              {item}
+                            </ComboboxItem>
+                          )}
+                        </ComboboxCollection>
+                        {index < timezones.length - 1 && <ComboboxSeparator />}
+                      </ComboboxGroup>
                     )}
                   </ComboboxList>
                 </ComboboxContent>
               </Combobox>
             </Field>
-          </ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={groupsSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-          <h3 id="states-error" className="mb-3 text-base font-semibold">
-            Error
-          </h3>
-          <ComponentExample>
-            <Field data-invalid>
-              <FieldLabel htmlFor="combobox-states-error">
+      <PageSection id="states" label="States">
+        <PageSectionHeader
+          title="States"
+          description="Set field-wide behaviour on Combobox and reflect validation state on the input and Field."
+        />
+        <PageSubsectionHeader
+          id="states-disabled"
+          title="Disabled"
+          description={
+            <>
+              Set <Code>disabled</Code> on <Code>Combobox</Code> so every
+              related control becomes unavailable together.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
+            <Field data-disabled>
+              <FieldLabel htmlFor="combobox-disabled-framework">
                 Framework
               </FieldLabel>
-              <Combobox items={frameworks}>
+              <Combobox items={frameworks} name="framework" disabled>
                 <ComboboxInput
-                  id="combobox-states-error"
-                  name="combobox-states-error"
+                  id="combobox-disabled-framework"
+                  placeholder="Select a framework"
+                />
+                <ComboboxContent>
+                  <FrameworkOptions />
+                </ComboboxContent>
+              </Combobox>
+            </Field>
+            <Code
+              variant="block"
+              language="tsx"
+              code={disabledSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+        <PageSubsectionHeader
+          id="states-error"
+          title="Error"
+          description={
+            <>
+              Set <Code>required</Code> on <Code>Combobox</Code>. Connect the
+              invalid input to a visible <Code>FieldError</Code>.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Field data-invalid>
+              <FieldLabel htmlFor="combobox-required-framework">
+                Framework
+              </FieldLabel>
+              <Combobox items={frameworks} name="framework" required>
+                <ComboboxInput
+                  id="combobox-required-framework"
                   placeholder="Select a framework"
                   aria-invalid
-                  aria-describedby="combobox-states-error-msg"
+                  aria-describedby="combobox-required-framework-error"
                 />
                 <ComboboxContent>
-                  <ComboboxEmpty>No items found.</ComboboxEmpty>
-                  <ComboboxList>
-                    {(item: Framework) => (
-                      <ComboboxItem key={item} value={item}>
-                        {item}
-                      </ComboboxItem>
-                    )}
-                  </ComboboxList>
+                  <FrameworkOptions />
                 </ComboboxContent>
               </Combobox>
-              <FieldError id="combobox-states-error-msg">
-                Please choose a framework from the list.
+              <FieldError id="combobox-required-framework-error">
+                Choose a framework from the list.
               </FieldError>
             </Field>
-          </ComponentExample>
-        </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={errorSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Keep the field understandable and within the supported contract."
+        />
+        <DocsDoDont
+          doItems={[
+            <>
+              Use a visible <Code>FieldLabel</Code>; a placeholder is not a
+              label.
+            </>,
+            <>
+              Put form and state props on <Code>Combobox</Code>.
+            </>,
+            <>
+              Use chips for multiple selection and write a specific empty
+              message.
+            </>,
+          ]}
+          dontItems={[
+            <>
+              Don’t use Combobox for unrestricted text entry or a palette of
+              actions.
+            </>,
+            <>
+              Don’t replace or restyle its input, trigger, clear control, or
+              selection chrome.
+            </>,
+            <>
+              Don’t enable <Code>autoHighlight</Code> unless highlighting the
+              first match is intentional.
+            </>,
+            <>
+              Don’t add props, variants, or interaction patterns without
+              component-library approval.
+            </>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Behaviour props on Combobox."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "items",
+              type: "Item[]",
+              description: "Supplies the predefined options.",
+            },
+            {
+              name: "name",
+              type: "string",
+              description: "Names the value submitted with a form.",
+            },
+            {
+              name: "defaultValue",
+              type: "Item | Item[]",
+              description: "Sets the initial uncontrolled selection.",
+            },
+            {
+              name: "value",
+              type: "Item | Item[] | null",
+              description: "Controls the current selection.",
+            },
+            {
+              name: "onValueChange",
+              type: "(value) => void",
+              description: "Responds when the selection changes.",
+            },
+            {
+              name: "multiple",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Allows multiple selections.",
+            },
+            {
+              name: "disabled",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Disables the whole Combobox.",
+            },
+            {
+              name: "required",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Marks the form value as required.",
+            },
+            {
+              name: "autoHighlight",
+              type: "boolean",
+              defaultValue: "false",
+              description:
+                "Automatically highlights the first filtered option.",
+            },
+            {
+              name: "itemToStringLabel",
+              type: "(item) => string",
+              description:
+                "Provides an object item’s display and filter label.",
+            },
+            {
+              name: "itemToStringValue",
+              type: "(item) => string",
+              description: "Provides an object item’s submitted value.",
+            },
+            {
+              name: "showTrigger",
+              type: "boolean",
+              defaultValue: "true",
+              description: "Shows the input’s options trigger.",
+            },
+            {
+              name: "showClear",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Shows the input’s clear control.",
+            },
+            {
+              name: "showRemove",
+              type: "boolean",
+              defaultValue: "true",
+              description: "Shows a chip’s remove control.",
+            },
+            {
+              name: "removeLabel",
+              type: "string",
+              description:
+                "Names removal when a chip’s children are not plain text.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-reference"
+          className="mt-6"
+          title="API reference"
+          description={
+            <>
+              See the{" "}
+              <DocsExternalLink href="https://base-ui.com/react/components/combobox">
+                Base UI Combobox API
+              </DocsExternalLink>{" "}
+              and the{" "}
+              <DocsExternalLink href="https://ui.shadcn.com/docs/components/base/combobox">
+                Shadcn Combobox documentation
+              </DocsExternalLink>{" "}
+              for the underlying API and source composition.
+            </>
+          }
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Choose the control that matches the kind of value being entered."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/select">Select</DocsPageLink> — a
+            short predefined list without filtering.
+          </li>
+          <li>
+            <DocsPageLink to="/components/native-select">
+              Native select
+            </DocsPageLink>{" "}
+            — a platform-native selection control.
+          </li>
+          <li>
+            <DocsPageLink to="/components/command">Command</DocsPageLink> — a
+            searchable palette of actions.
+          </li>
+        </ul>
+      </PageSection>
     </div>
-  )
+  );
 }

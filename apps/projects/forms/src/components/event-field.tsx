@@ -9,7 +9,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@gecko/ui/components/pagination";
-import { SearchField } from "@gecko/ui/components/search-field";
+import { Search } from "@gecko/ui/components/search";
 import { cn } from "@gecko/ui/lib/utils";
 import {
   ArrowDownAZ,
@@ -136,10 +136,10 @@ export function EventField({
 
       <div className="overflow-hidden rounded-sm border">
         <div className="flex gap-2 border-b bg-muted p-4">
-          <SearchField
+          <Search
             value={search}
-            onChange={(event) => {
-              setSearch(event.target.value);
+            onValueChange={(nextValue) => {
+              setSearch(nextValue);
               setPage(0);
             }}
             placeholder="Search sessions"

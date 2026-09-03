@@ -1,3 +1,5 @@
+"use client"
+
 import type { Column } from "@tanstack/react-table"
 import { ArrowDown, ArrowUp, ChevronsUpDown, CircleHelp } from "lucide-react"
 
@@ -19,6 +21,13 @@ export function DataTableColumnHeader<TData, TValue>({
   className,
 }: DataTableColumnHeaderProps<TData, TValue>) {
   const canSort = column.getCanSort()
+  const nextSortOrder = column.getNextSortingOrder()
+  const sortLabel =
+    nextSortOrder === "asc"
+      ? `Sort ${title} ascending`
+      : nextSortOrder === "desc"
+        ? `Sort ${title} descending`
+        : `Clear sorting for ${title}`
 
   return (
     <div className={cn("flex items-center gap-1", className)}>
@@ -28,8 +37,14 @@ export function DataTableColumnHeader<TData, TValue>({
         {helpText ? (
           <Tooltip>
             <TooltipTrigger
-              aria-label={`Help: ${title}`}
-              className="inline-flex size-6 items-center justify-center rounded-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              render={
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-xs"
+                  aria-label={`Help: ${title}`}
+                />
+              }
             >
               <CircleHelp className="size-3 shrink-0" />
             </TooltipTrigger>
@@ -43,10 +58,9 @@ export function DataTableColumnHeader<TData, TValue>({
           <Button
             type="button"
             variant="ghost"
-            size="xs"
-            className="h-6 w-6 p-0 hover:bg-gray-200 dark:hover:bg-gray-800"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-            aria-label={`Sort by ${title}`}
+            size="icon-xs"
+            onClick={column.getToggleSortingHandler()}
+            aria-label={sortLabel}
           >
             {column.getIsSorted() === "desc" ? (
               <ArrowDown className="size-3 shrink-0" />

@@ -1,13 +1,15 @@
-import * as React from "react"
-import { Check, PenSquare, X } from "lucide-react"
-import { cva, type VariantProps } from "class-variance-authority"
+"use client";
 
-import { Input } from "@gecko/ui/components/input"
-import { Button } from "@gecko/ui/components/button"
-import { cn } from "@gecko/ui/lib/utils"
+import * as React from "react";
+import { Check, PenSquare, X } from "lucide-react";
+import { cva, type VariantProps } from "class-variance-authority";
+
+import { Input } from "@gecko/ui/components/input";
+import { Button } from "@gecko/ui/components/button";
+import { cn } from "@gecko/ui/lib/utils";
 
 const inlineEditViewRootVariants = cva(
-  "group flex w-full min-w-0 items-center justify-between whitespace-nowrap overflow-hidden rounded-sm border border-transparent bg-transparent hover:bg-muted focus-visible:border-ring focus-visible:ring-0 focus-visible:outline-none text-foreground transition-colors",
+  "group flex w-full min-w-0 items-center justify-between overflow-hidden whitespace-nowrap rounded-sm border border-transparent bg-transparent p-0 text-start font-[inherit] text-foreground transition-colors",
   {
     variants: {
       size: {
@@ -19,8 +21,8 @@ const inlineEditViewRootVariants = cva(
     defaultVariants: {
       size: "md",
     },
-  }
-)
+  },
+);
 
 const inlineEditEditShellVariants = cva(
   "relative flex w-full min-w-0 items-center",
@@ -35,8 +37,8 @@ const inlineEditEditShellVariants = cva(
     defaultVariants: {
       size: "md",
     },
-  }
-)
+  },
+);
 
 const inlineEditViewValueVariants = cva("truncate min-w-0 flex-1", {
   variants: {
@@ -49,7 +51,7 @@ const inlineEditViewValueVariants = cva("truncate min-w-0 flex-1", {
   defaultVariants: {
     size: "md",
   },
-})
+});
 
 const inlineEditGlyphIconVariants = cva("shrink-0", {
   variants: {
@@ -62,7 +64,7 @@ const inlineEditGlyphIconVariants = cva("shrink-0", {
   defaultVariants: {
     size: "md",
   },
-})
+});
 
 const inlineEditActionSlotVariants = cva("flex items-center justify-center", {
   variants: {
@@ -80,11 +82,11 @@ const inlineEditActionSlotVariants = cva("flex items-center justify-center", {
     size: "md",
     interactive: false,
   },
-})
+});
 
 const inlineEditInputControlVariants = cva(
-  "flex-1 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
-)
+  "flex-1 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap",
+);
 
 const inlineEditInputEndPaddingVariants = cva("", {
   variants: {
@@ -97,7 +99,7 @@ const inlineEditInputEndPaddingVariants = cva("", {
   defaultVariants: {
     size: "md",
   },
-})
+});
 
 const inlineEditActionToolbarVariants = cva(
   "absolute flex items-center gap-1",
@@ -112,35 +114,20 @@ const inlineEditActionToolbarVariants = cva(
     defaultVariants: {
       size: "md",
     },
-  }
-)
-
-const inlineEditViewActionsRowVariants = cva("flex items-center")
-
-const inlineEditActionGhostButtonVariants = cva("", {
-  variants: {
-    size: {
-      sm: "size-5",
-      md: "size-5.5",
-      lg: "size-6",
-    },
   },
-  defaultVariants: {
-    size: "md",
-  },
-})
+);
 
-export type InlineEditProps = Omit<
-  React.HTMLAttributes<HTMLDivElement>,
-  "onSubmit"
-> &
+const inlineEditViewActionsRowVariants = cva("flex items-center");
+
+export type InlineEditProps = Omit<React.ComponentProps<"span">, "onSubmit"> &
   VariantProps<typeof inlineEditViewRootVariants> & {
-    value: string
-    onSave: (next: string) => void
-    placeholder?: string
-  }
+    value: string;
+    onSave: (next: string) => void;
+    placeholder?: string;
+    "aria-label": string;
+  };
 
-const InlineEdit = React.forwardRef<HTMLDivElement, InlineEditProps>(
+const InlineEdit = React.forwardRef<HTMLSpanElement, InlineEditProps>(
   function InlineEdit(
     {
       className,
@@ -148,181 +135,171 @@ const InlineEdit = React.forwardRef<HTMLDivElement, InlineEditProps>(
       onSave,
       size = "md",
       placeholder = "",
-      onKeyDown,
+      "aria-label": ariaLabel,
       ...props
     },
-    ref
+    ref,
   ) {
-    const [isEditing, setIsEditing] = React.useState(false)
-    const [draft, setDraft] = React.useState(value)
-    const inputRef = React.useRef<HTMLInputElement | null>(null)
+    const [isEditing, setIsEditing] = React.useState(false);
+    const [draft, setDraft] = React.useState(value);
+    const inputRef = React.useRef<HTMLInputElement | null>(null);
+    const viewButtonRef = React.useRef<HTMLButtonElement | null>(null);
+    const restoreFocusRef = React.useRef(false);
 
-    const resolvedSize = size ?? "md"
-
-    React.useEffect(() => {
-      if (!isEditing) setDraft(value)
-    }, [value, isEditing])
+    const resolvedSize = size ?? "md";
 
     React.useEffect(() => {
-      if (!isEditing) return
-      inputRef.current?.focus()
-      inputRef.current?.select()
-    }, [isEditing])
+      if (isEditing) {
+        inputRef.current?.focus();
+        inputRef.current?.select();
+        return;
+      }
+
+      if (restoreFocusRef.current) {
+        restoreFocusRef.current = false;
+        viewButtonRef.current?.focus();
+      }
+    }, [isEditing]);
 
     const commitSave = React.useCallback(() => {
-      onSave(draft)
-      setIsEditing(false)
-    }, [draft, onSave])
+      onSave(draft);
+      restoreFocusRef.current = true;
+      setIsEditing(false);
+    }, [draft, onSave]);
 
     const cancelEdit = React.useCallback(() => {
-      setDraft(value)
-      setIsEditing(false)
-    }, [value])
+      setDraft(value);
+      restoreFocusRef.current = true;
+      setIsEditing(false);
+    }, [value]);
 
     const openEdit = React.useCallback(() => {
-      setDraft(value)
-      setIsEditing(true)
-    }, [value])
+      setDraft(value);
+      setIsEditing(true);
+    }, [value]);
 
-    if (isEditing) {
-      return (
-        <div
-          ref={ref}
-          data-slot="inline-edit"
-          data-size={resolvedSize}
-          data-editing="true"
-          className={cn(
-            inlineEditEditShellVariants({ size: resolvedSize }),
-            className
-          )}
-          {...props}
-        >
-          <Input
-            ref={inputRef}
-            value={draft}
-            size={resolvedSize}
-            onChange={(e) => setDraft(e.target.value)}
-            placeholder={placeholder}
-            className={cn(
-              inlineEditInputControlVariants(),
-              inlineEditInputEndPaddingVariants({ size: resolvedSize })
-            )}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault()
-                commitSave()
-              }
-              if (e.key === "Escape") {
-                e.preventDefault()
-                cancelEdit()
-              }
-            }}
-          />
-
-          <div
-            className={inlineEditActionToolbarVariants({
-              size: resolvedSize,
-            })}
-          >
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-2xs"
-              className={inlineEditActionGhostButtonVariants({
-                size: resolvedSize,
-              })}
-              aria-label="Cancel edit"
-              onClick={cancelEdit}
-            >
-              <X
-                className={cn(
-                  "pointer-events-none",
-                  inlineEditGlyphIconVariants({ size: resolvedSize })
-                )}
-              />
-            </Button>
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-2xs"
-              className={inlineEditActionGhostButtonVariants({
-                size: resolvedSize,
-              })}
-              aria-label="Save edit"
-              onClick={commitSave}
-            >
-              <Check
-                className={cn(
-                  "pointer-events-none",
-                  inlineEditGlyphIconVariants({ size: resolvedSize })
-                )}
-              />
-            </Button>
-          </div>
-        </div>
-      )
-    }
+    const displayValue = value || placeholder;
 
     return (
-      <div
+      <span
         ref={ref}
-        role="button"
-        tabIndex={0}
-        aria-label="Edit"
         data-slot="inline-edit"
         data-size={resolvedSize}
-        data-editing="false"
+        data-editing={isEditing ? "true" : "false"}
+        className={cn("block w-full min-w-0", className)}
         {...props}
-        onClick={openEdit}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault()
-            openEdit()
-            return
-          }
-          onKeyDown?.(e)
-        }}
-        className={cn(
-          inlineEditViewRootVariants({ size: resolvedSize }),
-          className
-        )}
       >
-        <span
-          className={cn(
-            inlineEditViewValueVariants({ size: resolvedSize })
-          )}
-        >
-          {value}
-        </span>
+        {isEditing ? (
+          <span className={inlineEditEditShellVariants({ size: resolvedSize })}>
+            <Input
+              ref={inputRef}
+              value={draft}
+              size={resolvedSize}
+              aria-label={ariaLabel}
+              onChange={(e) => setDraft(e.target.value)}
+              placeholder={placeholder}
+              className={cn(
+                inlineEditInputControlVariants(),
+                inlineEditInputEndPaddingVariants({ size: resolvedSize }),
+              )}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  commitSave();
+                }
+                if (e.key === "Escape") {
+                  e.preventDefault();
+                  cancelEdit();
+                }
+              }}
+            />
 
-        <div className={inlineEditViewActionsRowVariants()}>
-          <span
-            className={inlineEditActionSlotVariants({
-              size: resolvedSize,
-              interactive: false,
-            })}
-            aria-hidden="true"
-          />
-          <span
-            className={inlineEditActionSlotVariants({
-              size: resolvedSize,
-              interactive: true,
-            })}
-            aria-hidden="true"
-          >
-            <PenSquare
-              className={inlineEditGlyphIconVariants({
+            <span
+              className={inlineEditActionToolbarVariants({
                 size: resolvedSize,
               })}
-              aria-hidden="true"
-            />
+            >
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-xs"
+                aria-label={`Cancel editing ${ariaLabel}`}
+                onClick={cancelEdit}
+              >
+                <X
+                  className={cn(
+                    "pointer-events-none",
+                    inlineEditGlyphIconVariants({ size: resolvedSize }),
+                  )}
+                  aria-hidden="true"
+                />
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-xs"
+                aria-label={`Save ${ariaLabel}`}
+                onClick={commitSave}
+              >
+                <Check
+                  className={cn(
+                    "pointer-events-none",
+                    inlineEditGlyphIconVariants({ size: resolvedSize }),
+                  )}
+                  aria-hidden="true"
+                />
+              </Button>
+            </span>
           </span>
-        </div>
-      </div>
-    )
-  }
-)
+        ) : (
+          <Button
+            ref={viewButtonRef}
+            type="button"
+            variant="ghost"
+            size={resolvedSize === "md" ? "default" : resolvedSize}
+            aria-label={`Edit ${ariaLabel}${value ? `: ${value}` : ""}`}
+            onClick={openEdit}
+            className={inlineEditViewRootVariants({ size: resolvedSize })}
+          >
+            <span
+              className={cn(
+                inlineEditViewValueVariants({ size: resolvedSize }),
+                !value && "text-muted-foreground",
+              )}
+            >
+              {displayValue}
+            </span>
 
-InlineEdit.displayName = "InlineEdit"
+            <span className={inlineEditViewActionsRowVariants()}>
+              <span
+                className={inlineEditActionSlotVariants({
+                  size: resolvedSize,
+                  interactive: false,
+                })}
+                aria-hidden="true"
+              />
+              <span
+                className={inlineEditActionSlotVariants({
+                  size: resolvedSize,
+                  interactive: true,
+                })}
+                aria-hidden="true"
+              >
+                <PenSquare
+                  className={inlineEditGlyphIconVariants({
+                    size: resolvedSize,
+                  })}
+                  aria-hidden="true"
+                />
+              </span>
+            </span>
+          </Button>
+        )}
+      </span>
+    );
+  },
+);
 
-export { InlineEdit }
+InlineEdit.displayName = "InlineEdit";
+
+export { InlineEdit };

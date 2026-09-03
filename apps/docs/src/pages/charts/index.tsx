@@ -1,11 +1,22 @@
-import { ComponentExample } from "@/components/layout/component-example"
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsExternalLink } from "@/components/layout/docs-external-link";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import { PageSection } from "@/components/layout/page-section";
+import {
+  PageOverviewHeader,
+  PageSectionHeader,
+  PageSubsectionHeader,
+} from "@/components/layout/page-section-header";
+import { Code } from "@gecko/ui/components/code";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@gecko/ui/components/card"
+} from "@gecko/ui/components/card";
 import {
   ChartContainer,
   ChartLegend,
@@ -13,8 +24,7 @@ import {
   ChartMetric,
   ChartTooltip,
   ChartTooltipContent,
-} from "@gecko/ui/components/chart"
-import { PageSection } from "@/components/layout/page-section"
+} from "@gecko/ui/components/chart";
 
 import {
   singleBarChartExampleConfig,
@@ -46,7 +56,7 @@ import {
   radialStackedChartExampleConfig,
   radialStackedChartExampleData,
   radialTextChartExampleData,
-} from "./charts-example-data"
+} from "./charts-example-data";
 
 import {
   Area,
@@ -68,33 +78,325 @@ import {
   RadialBarChart,
   XAxis,
   YAxis,
-} from "recharts"
+} from "recharts";
 
 export function ChartsPage() {
+  const importSnippet = `import {
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartMetric,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@gecko/ui/components/chart"`;
+
+  const barSnippet = `<ChartContainer title="Monthly desktop users" config={config}>
+  <BarChart data={data}>
+    <CartesianGrid vertical={false} />
+    <XAxis dataKey="month" />
+    <Bar dataKey="desktop" fill="var(--color-desktop)" />
+  </BarChart>
+</ChartContainer>`;
+
+  const multipleBarSnippet = `<ChartContainer title="Monthly users by device" config={config}>
+  <BarChart data={data}>
+    <CartesianGrid vertical={false} />
+    <XAxis dataKey="month" />
+    <Bar dataKey="desktop" fill="var(--color-desktop)" />
+    <Bar dataKey="mobile" fill="var(--color-mobile)" />
+  </BarChart>
+</ChartContainer>`;
+
+  const stackedBarSnippet = `<ChartContainer title="Monthly users by device" config={config}>
+  <BarChart data={data}>
+    <CartesianGrid vertical={false} />
+    <XAxis dataKey="month" />
+    <Bar dataKey="desktop" stackId="a" fill="var(--color-desktop)" />
+    <Bar dataKey="mobile" stackId="a" fill="var(--color-mobile)" />
+  </BarChart>
+</ChartContainer>`;
+
+  const lineSnippet = `<ChartContainer title="Monthly desktop users" config={config}>
+  <LineChart data={data}>
+    <CartesianGrid vertical={false} />
+    <XAxis dataKey="month" />
+    <Line dataKey="desktop" type="natural" stroke="var(--color-desktop)" dot={false} />
+  </LineChart>
+</ChartContainer>`;
+
+  const multipleLineSnippet = `<ChartContainer title="Monthly users by device" config={config}>
+  <LineChart data={data}>
+    <CartesianGrid vertical={false} />
+    <XAxis dataKey="month" />
+    <Line dataKey="desktop" stroke="var(--color-desktop)" dot={false} />
+    <Line dataKey="mobile" stroke="var(--color-mobile)" dot={false} />
+  </LineChart>
+</ChartContainer>`;
+
+  const lineDotsSnippet = `<ChartContainer title="Monthly desktop users" config={config}>
+  <LineChart data={data}>
+    <CartesianGrid vertical={false} />
+    <XAxis dataKey="month" />
+    <Line
+      dataKey="desktop"
+      stroke="var(--color-desktop)"
+      dot={{ fill: "var(--color-desktop)" }}
+      activeDot={{ r: 6 }}
+    />
+  </LineChart>
+</ChartContainer>`;
+
+  const areaSnippet = `<ChartContainer title="Monthly desktop users" config={config}>
+  <AreaChart data={data}>
+    <CartesianGrid vertical={false} />
+    <XAxis dataKey="month" />
+    <Area dataKey="desktop" type="natural" fill="var(--color-desktop)" stroke="var(--color-desktop)" />
+  </AreaChart>
+</ChartContainer>`;
+
+  const areaMultipleSnippet = `<ChartContainer title="Monthly users by device" config={config}>
+  <AreaChart data={data}>
+    <CartesianGrid vertical={false} />
+    <XAxis dataKey="month" />
+    <Area dataKey="mobile" stackId="a" fill="var(--color-mobile)" stroke="var(--color-mobile)" />
+    <Area dataKey="desktop" stackId="a" fill="var(--color-desktop)" stroke="var(--color-desktop)" />
+  </AreaChart>
+</ChartContainer>`;
+
+  const areaGradientSnippet = `<ChartContainer title="Monthly users by device" config={config}>
+  <AreaChart data={data}>
+    <defs>
+      <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="5%" stopColor="var(--color-desktop)" stopOpacity={0.8} />
+        <stop offset="95%" stopColor="var(--color-desktop)" stopOpacity={0.1} />
+      </linearGradient>
+    </defs>
+    <Area dataKey="desktop" fill="url(#fillDesktop)" stroke="var(--color-desktop)" />
+  </AreaChart>
+</ChartContainer>`;
+
+  const pieSnippet = `<ChartContainer title="Visitors by browser" config={config} layout="polar">
+  <PieChart>
+    <Pie data={data} dataKey="visitors" nameKey="browser" />
+  </PieChart>
+</ChartContainer>`;
+
+  const pieLabelsSnippet = `<ChartContainer title="Visitors by browser" config={config} layout="polar">
+  <PieChart>
+    <Pie data={data} dataKey="visitors" nameKey="browser" label />
+  </PieChart>
+</ChartContainer>`;
+
+  const pieDonutSnippet = `<ChartContainer title="Visitors by browser" config={config} layout="polar">
+  <PieChart>
+    <Pie data={data} dataKey="visitors" nameKey="browser" innerRadius={60} />
+  </PieChart>
+</ChartContainer>`;
+
+  const pieDonutTextSnippet = `<ChartContainer title="Visitors by browser" config={config} layout="polar">
+  <PieChart>
+    <Pie data={data} dataKey="visitors" nameKey="browser" innerRadius={60}>
+      <Label />
+    </Pie>
+  </PieChart>
+</ChartContainer>`;
+
+  const radarSnippet = `<ChartContainer title="Monthly device profile" config={config} layout="polar">
+  <RadarChart data={data}>
+    <PolarAngleAxis dataKey="month" />
+    <PolarGrid />
+    <Radar dataKey="desktop" fill="var(--color-desktop)" fillOpacity={0.6} />
+  </RadarChart>
+</ChartContainer>`;
+
+  const radarDotsSnippet = `<ChartContainer title="Monthly device profile" config={config} layout="polar">
+  <RadarChart data={data}>
+    <PolarAngleAxis dataKey="month" />
+    <PolarGrid />
+    <Radar dataKey="desktop" fill="var(--color-desktop)" fillOpacity={0.6} dot={{ r: 4 }} />
+  </RadarChart>
+</ChartContainer>`;
+
+  const radarLinesSnippet = `<ChartContainer title="Monthly users by device" config={config} layout="polar">
+  <RadarChart data={data}>
+    <PolarAngleAxis dataKey="month" />
+    <PolarGrid radialLines={false} />
+    <Radar dataKey="desktop" fillOpacity={0} stroke="var(--color-desktop)" />
+    <Radar dataKey="mobile" fillOpacity={0} stroke="var(--color-mobile)" />
+  </RadarChart>
+</ChartContainer>`;
+
+  const radarMultipleSnippet = `<ChartContainer title="Monthly users by device" config={config} layout="polar">
+  <RadarChart data={data}>
+    <PolarAngleAxis dataKey="month" />
+    <PolarGrid />
+    <Radar dataKey="desktop" fill="var(--color-desktop)" fillOpacity={0.6} />
+    <Radar dataKey="mobile" fill="var(--color-mobile)" fillOpacity={0.6} />
+  </RadarChart>
+</ChartContainer>`;
+
+  const radialSnippet = `<ChartContainer title="Visitors by browser" config={config} layout="polar">
+  <RadialBarChart data={data} innerRadius={30} outerRadius={110}>
+    <RadialBar dataKey="visitors" background />
+  </RadialBarChart>
+</ChartContainer>`;
+
+  const radialTextSnippet = `<ChartContainer title="Chrome visitors" config={config} layout="polar">
+  <RadialBarChart data={data} innerRadius={80} outerRadius={90}>
+    <RadialBar dataKey="visitors" background />
+    <PolarRadiusAxis tick={false} axisLine={false}>
+      <Label />
+    </PolarRadiusAxis>
+  </RadialBarChart>
+</ChartContainer>`;
+
+  const radialStackedSnippet = `<ChartContainer title="Visitors by device" config={config} layout="polar">
+  <RadialBarChart data={data} endAngle={180} innerRadius={80} outerRadius={110}>
+    <RadialBar dataKey="mobile" stackId="a" fill="var(--color-mobile)" />
+    <RadialBar dataKey="desktop" stackId="a" fill="var(--color-desktop)" />
+  </RadialBarChart>
+</ChartContainer>`;
+
+  const tooltipSnippet = `<ChartTooltip
+  content={<ChartTooltipContent indicator="line" />}
+  cursor={true}
+  defaultIndex={1}
+/>`;
+
+  const legendSnippet = `<ChartLegend content={<ChartLegendContent />} />`;
+
+  const axisXSnippet = `<XAxis
+  dataKey="month"
+  tickLine={false}
+  axisLine={false}
+  tickFormatter={(value) => String(value).slice(0, 3)}
+/>`;
+
+  const axisYSnippet = `<YAxis tickLine={false} axisLine={false} tickMargin={8} />`;
+
+  const gridXSnippet = `<CartesianGrid vertical horizontal={false} />`;
+
+  const gridYSnippet = `<CartesianGrid vertical={false} horizontal />`;
+
+  const gridNoneSnippet = `<CartesianGrid vertical={false} horizontal={false} />`;
+
+  const layoutHeaderSnippet = `<Card>
+  <CardHeader tooltip>
+    <CardTitle>Desktop traffic</CardTitle>
+    <CardDescription>Monthly sessions by device type for the current year.</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <ChartContainer title="Monthly desktop traffic" config={config}>
+      <BarChart data={data}>
+        <Bar dataKey="desktop" fill="var(--color-desktop)" />
+      </BarChart>
+    </ChartContainer>
+  </CardContent>
+</Card>`;
+
+  const layoutMetricSnippet = `<Card>
+  <CardContent>
+    <ChartMetric value={total} label="Total desktop views" />
+    <ChartContainer title="Monthly desktop traffic" config={config}>
+      <BarChart data={data}>
+        <Bar dataKey="desktop" fill="var(--color-desktop)" />
+      </BarChart>
+    </ChartContainer>
+  </CardContent>
+</Card>`;
+
+  const layoutHeaderMetricSnippet = `<Card>
+  <CardHeader tooltip>
+    <CardTitle>Desktop traffic</CardTitle>
+    <CardDescription>Monthly sessions by device type for the current year.</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <ChartMetric value={total} label="Total desktop views" />
+    <ChartContainer title="Monthly desktop traffic" config={config}>
+      <BarChart data={data}>
+        <Bar dataKey="desktop" fill="var(--color-desktop)" />
+      </BarChart>
+    </ChartContainer>
+  </CardContent>
+</Card>`;
+
   return (
     <div className="space-y-12">
-        <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Charts</h1>
-          <p className="text-sm text-muted-foreground text-pretty">
-            Recharts-based charts with shared styling, tooltips, and legends.
-          </p>
-        </PageSection>
+      <PageSection id="overview" label="Overview">
+        <PageOverviewHeader
+          title="Charts"
+          description="The Charts components turn numbers into a picture people can scan — bars, lines, areas, and pies. They sit on Recharts, with Gecko colours, tooltips, and legends."
+        />
+      </PageSection>
 
-        <PageSection id="chart-bar" label="Bar">
-          <h2 className="text-lg font-semibold">Bar</h2>
-          <p className="mb-8 text-sm text-muted-foreground text-pretty">
-            Bar chart examples: single, grouped, stacked, and horizontal variations.
-          </p>
+      <PageSection id="usage" label="Usage">
+        <PageSectionHeader
+          title="Usage"
+          description={
+            <>
+              Use a chart when a trend, comparison, or share of a whole is
+              easier to see than a table — on dashboards, reporting, or inside a{" "}
+              <DocsPageLink to="/components/card">Card</DocsPageLink>. Pick the
+              shape that matches the question: bars to compare, lines for change
+              over time, pies for parts of a whole.
+              <br />
+              <br />
+              Avoid using a chart for a single number — that is a{" "}
+              <DocsPageLink to="/components/metric-card">
+                Metric card
+              </DocsPageLink>
+              . When exact values matter more than shape, use a{" "}
+              <DocsPageLink to="/components/table">Table</DocsPageLink>.
+            </>
+          }
+        />
+        <PageSubsectionHeader
+          id="usage-import"
+          title="Import"
+          description="Import ChartContainer, ChartMetric, and the tooltip or legend parts you need. Chart shapes come from Recharts."
+        />
+        <ComponentExample className="mb-6">
+          <Code
+            variant="block"
+            language="tsx"
+            code={importSnippet}
+            showCopyButton
+            copyLabel="Copy import"
+          />
+        </ComponentExample>
+      </PageSection>
 
-          <h3 id="chart-bar-single" className="mb-3 text-base font-semibold">
-            Single bar
-          </h3>
-          <ComponentExample className="mb-6">
+      <PageSection id="chart-bar" label="Bar">
+        <PageSectionHeader
+          title="Bar"
+          description={
+            <>
+              Compares values using <Code>BarChart</Code> and <Code>Bar</Code>{" "}
+              inside <Code>ChartContainer</Code>. Use this when people need to
+              compare amounts side by side.
+            </>
+          }
+        />
+
+        <PageSubsectionHeader
+          id="chart-bar-single"
+          title="Single bar"
+          description={
+            <>
+              One series using a single <Code>Bar</Code>. Use this when there is
+              one measure per category.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={singleBarChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly desktop users"
+                  config={singleBarChartExampleConfig}
+                >
                   <BarChart
-                    accessibilityLayer
                     data={singleBarChartExampleData}
                     margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
                   >
@@ -119,17 +421,35 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={barSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
 
-          <h3 id="chart-bar-multiple" className="mb-3 text-base font-semibold">
-            Multiple bar
-          </h3>
-          <ComponentExample className="mb-6">
+        <PageSubsectionHeader
+          id="chart-bar-multiple"
+          title="Multiple bar"
+          description={
+            <>
+              Several series using more than one <Code>Bar</Code>. Use this when
+              comparing two or more measures in the same category.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={multipleBarChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly users by device"
+                  config={multipleBarChartExampleConfig}
+                >
                   <BarChart
-                    accessibilityLayer
                     data={multipleBarChartExampleData}
                     margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
                   >
@@ -155,17 +475,36 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-bar-stacked" className="mb-3 text-base font-semibold">
-            Stacked bar
-          </h3>
-          <ComponentExample className="mb-6">
+            <Code
+              variant="block"
+              language="tsx"
+              code={multipleBarSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-bar-stacked"
+          title="Stacked bar"
+          description={
+            <>
+              Stacks series with <Code>stackId</Code> on each <Code>Bar</Code>.
+              Use this when the parts should add up to a total.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={stackedBarChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly users by device"
+                  config={stackedBarChartExampleConfig}
+                >
                   <BarChart
-                    accessibilityLayer
                     data={stackedBarChartExampleData}
                     margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
                   >
@@ -193,24 +532,49 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
-        </PageSection>
 
-        <PageSection id="chart-line" label="Line">
-          <h2 className="text-lg font-semibold">Line</h2>
-          <p className="mb-8 text-sm text-muted-foreground text-pretty">
-            Line charts for trends over time or ordered categories.
-          </p>
+            <Code
+              variant="block"
+              language="tsx"
+              code={stackedBarSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-          <h3 id="chart-line-single" className="mb-3 text-base font-semibold">
-            Single line
-          </h3>
-          <ComponentExample className="mb-6">
+      <PageSection id="chart-line" label="Line">
+        <PageSectionHeader
+          title="Line"
+          description={
+            <>
+              Shows change over time using <Code>LineChart</Code> and{" "}
+              <Code>Line</Code>. Use this when the story is a trend, not a
+              comparison of totals.
+            </>
+          }
+        />
+
+        <PageSubsectionHeader
+          id="chart-line-single"
+          title="Single line"
+          description={
+            <>
+              One series using a single <Code>Line</Code>. Use this when there
+              is one measure over time.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={singleLineChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly desktop users"
+                  config={singleLineChartExampleConfig}
+                >
                   <LineChart
-                    accessibilityLayer
                     data={singleLineChartExampleData}
                     margin={{ left: 12, right: 12 }}
                   >
@@ -233,17 +597,36 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-line-multiple"className="mb-3 text-base font-semibold">
-            Multiple lines
-          </h3>
-          <ComponentExample className="mb-6">
+            <Code
+              variant="block"
+              language="tsx"
+              code={lineSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-line-multiple"
+          title="Multiple lines"
+          description={
+            <>
+              Several series using more than one <Code>Line</Code>. Use this
+              when comparing trends side by side.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={multipleLineChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly users by device"
+                  config={multipleLineChartExampleConfig}
+                >
                   <LineChart
-                    accessibilityLayer
                     data={multipleLineChartExampleData}
                     margin={{ left: 12, right: 12 }}
                   >
@@ -273,17 +656,37 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-line-dots" className="mb-3 text-base font-semibold">
-            Line with dots
-          </h3>
-          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={multipleLineSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-line-dots"
+          title="Line with dots"
+          description={
+            <>
+              Marks each point using the <Code>dot</Code> prop on{" "}
+              <Code>Line</Code>. Use this when the individual values matter as
+              well as the trend.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={lineWithDotsChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly desktop users"
+                  config={lineWithDotsChartExampleConfig}
+                >
                   <LineChart
-                    accessibilityLayer
                     data={lineWithDotsChartExampleData}
                     margin={{ left: 12, right: 12 }}
                   >
@@ -309,24 +712,49 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
-        </PageSection>
 
-        <PageSection id="chart-area" label="Area">
-          <h2 className="text-lg font-semibold">Area</h2>
-          <p className="mb-8 text-sm text-muted-foreground text-pretty">
-            Area chart examples: single, multiple, stacked, and gradient fills.
-          </p>
+            <Code
+              variant="block"
+              language="tsx"
+              code={lineDotsSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-          <h3 id="chart-area-single" className="mb-3 text-base font-semibold">
-            Area single
-          </h3>
-          <ComponentExample className="mb-6">
+      <PageSection id="chart-area" label="Area">
+        <PageSectionHeader
+          title="Area"
+          description={
+            <>
+              Fills the space under a trend using <Code>AreaChart</Code> and{" "}
+              <Code>Area</Code>. Use this when volume over time should feel
+              solid, not just a line.
+            </>
+          }
+        />
+
+        <PageSubsectionHeader
+          id="chart-area-single"
+          title="Area single"
+          description={
+            <>
+              One series using a single <Code>Area</Code>. Use this when there
+              is one measure over time.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={areaSingleChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly desktop users"
+                  config={areaSingleChartExampleConfig}
+                >
                   <AreaChart
-                    accessibilityLayer
                     data={areaSingleChartExampleData}
                     margin={{ left: 12, right: 12 }}
                   >
@@ -349,17 +777,36 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-area-multiple" className="mb-3 text-base font-semibold">
-            Area multiple
-          </h3>
-          <ComponentExample className="mb-6">
+            <Code
+              variant="block"
+              language="tsx"
+              code={areaSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-area-multiple"
+          title="Area multiple"
+          description={
+            <>
+              Several series using more than one <Code>Area</Code>. Use this
+              when comparing overlapping volumes.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={areaMultipleChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly users by device"
+                  config={areaMultipleChartExampleConfig}
+                >
                   <AreaChart
-                    accessibilityLayer
                     data={areaMultipleChartExampleData}
                     margin={{ left: 12, right: 12 }}
                   >
@@ -391,17 +838,36 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-area-stacked" className="mb-3 text-base font-semibold">
-            Area stacked
-          </h3>
-          <ComponentExample className="mb-6">
+            <Code
+              variant="block"
+              language="tsx"
+              code={areaMultipleSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-area-stacked"
+          title="Area stacked"
+          description={
+            <>
+              Stacks series with <Code>stackId</Code> on each <Code>Area</Code>.
+              Use this when the parts should add up to a total over time.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={areaStackedChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly users by device"
+                  config={areaStackedChartExampleConfig}
+                >
                   <AreaChart
-                    accessibilityLayer
                     data={areaStackedChartExampleData}
                     margin={{ left: 12, right: 12 }}
                   >
@@ -433,17 +899,36 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-area-gradient" className="mb-3 text-base font-semibold">
-            Area gradient
-          </h3>
-          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={areaMultipleSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-area-gradient"
+          title="Area gradient"
+          description={
+            <>
+              Fades the fill using a <Code>linearGradient</Code> in{" "}
+              <Code>defs</Code>. Use this when a hard fill would feel too heavy.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={areaGradientChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly users by device"
+                  config={areaGradientChartExampleConfig}
+                >
                   <AreaChart
-                    accessibilityLayer
                     data={areaGradientChartExampleData}
                     margin={{ left: 12, right: 12 }}
                   >
@@ -513,42 +998,88 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
-        </PageSection>
 
-        <PageSection id="chart-pie" label="Pie">
-          <h2 className="text-lg font-semibold">Pie</h2>
-          <p className="mb-8 text-sm text-muted-foreground text-pretty">
-            Pie chart examples: default, labels, donut, and donut with text.
-          </p>
+            <Code
+              variant="block"
+              language="tsx"
+              code={areaGradientSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-          <h3 id="chart-pie-default" className="mb-3 text-base font-semibold">
-            Default
-          </h3>
-          <ComponentExample className="mb-6">
+      <PageSection id="chart-pie" label="Pie">
+        <PageSectionHeader
+          title="Pie"
+          description={
+            <>
+              Shows parts of a whole using <Code>PieChart</Code> and{" "}
+              <Code>Pie</Code>. Use this when the question is share, not change
+              over time.
+            </>
+          }
+        />
+
+        <PageSubsectionHeader
+          id="chart-pie-default"
+          title="Default"
+          description={
+            <>
+              A filled pie using <Code>dataKey</Code> and <Code>nameKey</Code>.
+              Use this for a simple breakdown.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
                 <ChartContainer
+                  title="Visitors by browser"
                   config={pieChartExampleConfig}
-                  className="mx-auto aspect-square max-h-[250px]"
+                  layout="polar"
                 >
                   <PieChart>
-                    <Pie data={pieChartExampleData} dataKey="visitors" nameKey="browser" />
+                    <Pie
+                      data={pieChartExampleData}
+                      dataKey="visitors"
+                      nameKey="browser"
+                    />
                   </PieChart>
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-pie-labels" className="mb-3 text-base font-semibold">
-            With labels
-          </h3>
-          <ComponentExample className="mb-6">
+            <Code
+              variant="block"
+              language="tsx"
+              code={pieSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-pie-labels"
+          title="With labels"
+          description={
+            <>
+              Writes the name on each slice using the <Code>label</Code> prop.
+              Use this when people should read the categories without a legend.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
                 <ChartContainer
+                  title="Visitors by browser"
                   config={pieChartExampleConfig}
-                  className="mx-auto aspect-square max-h-[250px] pb-0 [&_.recharts-pie-label-text]:fill-foreground"
+                  layout="polar"
                 >
                   <PieChart>
                     <Pie
@@ -561,17 +1092,35 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-pie-donut" className="mb-3 text-base font-semibold">
-            Donut
-          </h3>
-          <ComponentExample className="mb-6">
+            <Code
+              variant="block"
+              language="tsx"
+              code={pieLabelsSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-pie-donut"
+          title="Donut"
+          description={
+            <>
+              Opens the centre using <Code>innerRadius</Code>. Use this when a
+              hole in the middle makes the shares easier to scan.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
                 <ChartContainer
+                  title="Visitors by browser"
                   config={pieChartExampleConfig}
-                  className="mx-auto aspect-square max-h-[250px]"
+                  layout="polar"
                 >
                   <PieChart>
                     <Pie
@@ -584,17 +1133,36 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-pie-donut-text" className="mb-3 text-base font-semibold">
-            Donut with text
-          </h3>
-          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={pieDonutSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-pie-donut-text"
+          title="Donut with text"
+          description={
+            <>
+              Places a total in the hole using <Code>Label</Code> inside{" "}
+              <Code>Pie</Code>. Use this when the overall number should sit with
+              the breakdown.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Card>
               <CardContent>
                 <ChartContainer
+                  title="Visitors by browser"
                   config={pieChartExampleConfig}
-                  className="mx-auto aspect-square max-h-[250px]"
+                  layout="polar"
                 >
                   <PieChart>
                     <Pie
@@ -608,8 +1176,8 @@ export function ChartsPage() {
                         content={({ viewBox }) => {
                           const totalVisitors = pieChartExampleData.reduce(
                             (sum, item) => sum + item.visitors,
-                            0
-                          )
+                            0,
+                          );
 
                           if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                             return (
@@ -634,7 +1202,7 @@ export function ChartsPage() {
                                   Visitors
                                 </tspan>
                               </text>
-                            )
+                            );
                           }
                         }}
                       />
@@ -643,24 +1211,48 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
-        </PageSection>
 
-        <PageSection id="chart-radar" label="Radar">
-          <h2 className="text-lg font-semibold">Radar</h2>
-          <p className="mb-8 text-sm text-muted-foreground text-pretty">
-            Radar chart examples (6 data points).
-          </p>
+            <Code
+              variant="block"
+              language="tsx"
+              code={pieDonutTextSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-          <h3 id="chart-radar-default" className="mb-3 text-base font-semibold">
-            Default
-          </h3>
-          <ComponentExample className="mb-6">
+      <PageSection id="chart-radar" label="Radar">
+        <PageSectionHeader
+          title="Radar"
+          description={
+            <>
+              Compares several axes at once using <Code>RadarChart</Code> and{" "}
+              <Code>Radar</Code>. Use this for a profile of scores, not a time
+              series.
+            </>
+          }
+        />
+
+        <PageSubsectionHeader
+          id="chart-radar-default"
+          title="Default"
+          description={
+            <>
+              One filled series using <Code>Radar</Code> with{" "}
+              <Code>PolarGrid</Code>. Use this for a single profile.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
                 <ChartContainer
+                  title="Monthly device profile"
                   config={radarChartExampleConfig}
-                  className="mx-auto aspect-square max-h-[250px]"
+                  layout="polar"
                 >
                   <RadarChart data={radarChartExampleData}>
                     <PolarAngleAxis dataKey="month" />
@@ -674,17 +1266,36 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-radar-dots" className="mb-3 text-base font-semibold">
-            With dots
-          </h3>
-          <ComponentExample className="mb-6">
+            <Code
+              variant="block"
+              language="tsx"
+              code={radarSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-radar-dots"
+          title="With dots"
+          description={
+            <>
+              Marks each axis using the <Code>dot</Code> prop on{" "}
+              <Code>Radar</Code>. Use this when the individual scores should
+              stand out.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
                 <ChartContainer
+                  title="Monthly device profile"
                   config={radarChartExampleConfig}
-                  className="mx-auto aspect-square max-h-[250px]"
+                  layout="polar"
                 >
                   <RadarChart data={radarChartExampleData}>
                     <PolarAngleAxis dataKey="month" />
@@ -699,17 +1310,36 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-radar-lines" className="mb-3 text-base font-semibold">
-            Lines
-          </h3>
-          <ComponentExample className="mb-6">
+            <Code
+              variant="block"
+              language="tsx"
+              code={radarDotsSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-radar-lines"
+          title="Lines"
+          description={
+            <>
+              Outlines the shape with <Code>fillOpacity=&#123;0&#125;</Code> and
+              a <Code>stroke</Code>. Use this when overlapping fills would hide
+              the comparison.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
                 <ChartContainer
+                  title="Monthly users by device"
                   config={radarChartExampleConfig}
-                  className="mx-auto aspect-square max-h-[250px]"
+                  layout="polar"
                 >
                   <RadarChart data={radarChartExampleData}>
                     <PolarAngleAxis dataKey="month" />
@@ -732,20 +1362,35 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3
-            id="chart-radar-multiple"
-            className="mb-3 text-base font-semibold"
-          >
-            Multiple
-          </h3>
-          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={radarLinesSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-radar-multiple"
+          title="Multiple"
+          description={
+            <>
+              Several series using more than one <Code>Radar</Code>. Use this
+              when comparing two profiles on the same axes.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Card>
               <CardContent>
                 <ChartContainer
+                  title="Monthly users by device"
                   config={radarChartExampleConfig}
-                  className="mx-auto aspect-square max-h-[250px]"
+                  layout="polar"
                 >
                   <RadarChart data={radarChartExampleData}>
                     <PolarAngleAxis dataKey="month" />
@@ -764,46 +1409,93 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
-        </PageSection>
 
-        <PageSection id="chart-radial" label="Radial">
-          <h2 className="text-lg font-semibold">Radial</h2>
-          <p className="mb-8 text-sm text-muted-foreground text-pretty">
-            Radial chart examples for progress and stacked totals.
-          </p>
+            <Code
+              variant="block"
+              language="tsx"
+              code={radarMultipleSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-          <h3 id="chart-radial-default" className="mb-3 text-base font-semibold">
-            Default
-          </h3>
-          <ComponentExample className="mb-6">
+      <PageSection id="chart-radial" label="Radial">
+        <PageSectionHeader
+          title="Radial"
+          description={
+            <>
+              Shows a total or progress in a ring using{" "}
+              <Code>RadialBarChart</Code> and <Code>RadialBar</Code>. Use this
+              for a compact score, not a detailed breakdown.
+            </>
+          }
+        />
+
+        <PageSubsectionHeader
+          id="chart-radial-default"
+          title="Default"
+          description={
+            <>
+              A filled ring using <Code>RadialBar</Code> with{" "}
+              <Code>background</Code>. Use this for a simple score or count.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
                 <ChartContainer
+                  title="Visitors by browser"
                   config={radialDefaultChartExampleConfig}
-                  className="mx-auto aspect-square max-h-[250px]"
+                  layout="polar"
                 >
                   <RadialBarChart
                     data={radialDefaultChartExampleData}
                     innerRadius={30}
                     outerRadius={110}
                   >
-                    <RadialBar dataKey="visitors" fill="var(--color-visitors)" background />
+                    <RadialBar
+                      dataKey="visitors"
+                      fill="var(--color-visitors)"
+                      background
+                    />
                   </RadialBarChart>
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-radial-text" className="mb-3 text-base font-semibold">
-            With text
-          </h3>
-          <ComponentExample className="mb-6">
+            <Code
+              variant="block"
+              language="tsx"
+              code={radialSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-radial-text"
+          title="With text"
+          description={
+            <>
+              Places a total in the centre using <Code>Label</Code> inside{" "}
+              <Code>PolarRadiusAxis</Code>. Use this when the number should sit
+              in the hole.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
             <Card>
               <CardContent>
                 <ChartContainer
+                  title="Chrome visitors"
                   config={radialDefaultChartExampleConfig}
-                  className="mx-auto aspect-square max-h-[250px]"
+                  layout="polar"
                 >
                   <RadialBarChart
                     data={radialTextChartExampleData}
@@ -846,7 +1538,10 @@ export function ChartsPage() {
                                   className="fill-foreground text-4xl font-bold"
                                 >
                                   {radialTextChartExampleData
-                                    .reduce((sum, item) => sum + item.visitors, 0)
+                                    .reduce(
+                                      (sum, item) => sum + item.visitors,
+                                      0,
+                                    )
                                     .toLocaleString()}
                                 </tspan>
                                 <tspan
@@ -857,7 +1552,7 @@ export function ChartsPage() {
                                   Visitors
                                 </tspan>
                               </text>
-                            )
+                            );
                           }
                         }}
                       />
@@ -866,17 +1561,36 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-radial-stacked" className="mb-3 text-base font-semibold">
-            Stacked
-          </h3>
-          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={radialTextSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-radial-stacked"
+          title="Stacked"
+          description={
+            <>
+              Stacks series with <Code>stackId</Code> on each{" "}
+              <Code>RadialBar</Code>. Use this when the ring is a total made of
+              parts.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Card>
               <CardContent>
                 <ChartContainer
+                  title="Visitors by device"
                   config={radialStackedChartExampleConfig}
-                  className="mx-auto aspect-square w-full max-w-[250px]"
+                  layout="polar"
                 >
                   <RadialBarChart
                     data={radialStackedChartExampleData}
@@ -905,10 +1619,11 @@ export function ChartsPage() {
                     >
                       <Label
                         content={({ viewBox }) => {
-                          const totalVisitors = radialStackedChartExampleData.reduce(
-                            (sum, item) => sum + item.desktop + item.mobile,
-                            0
-                          )
+                          const totalVisitors =
+                            radialStackedChartExampleData.reduce(
+                              (sum, item) => sum + item.desktop + item.mobile,
+                              0,
+                            );
 
                           if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                             return (
@@ -932,7 +1647,7 @@ export function ChartsPage() {
                                   Visitors
                                 </tspan>
                               </text>
-                            )
+                            );
                           }
                         }}
                       />
@@ -941,19 +1656,40 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
-        </PageSection>
 
-        <PageSection id="chart-tooltip" label="Tooltip">
-          <h2 className="text-lg font-semibold">Tooltip</h2>
-          <p className="mb-8 text-sm text-muted-foreground text-pretty">
-            Tooltip behaviour and content for chart interactions.
-          </p>
-          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={radialStackedSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="chart-tooltip" label="Tooltip">
+        <PageSectionHeader
+          title="Tooltip"
+          description={
+            <>
+              Shows exact values on hover and keyboard navigation using{" "}
+              <Code>ChartTooltip</Code> and <Code>ChartTooltipContent</Code>.
+              This example sets <Code>indicator=&quot;line&quot;</Code> and{" "}
+              <Code>defaultIndex</Code>. Use this when people need the exact
+              number without a table.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={singleBarChartExampleConfig}>
-                  <BarChart accessibilityLayer data={singleBarChartExampleData}>
+                <ChartContainer
+                  title="Monthly desktop users"
+                  config={singleBarChartExampleConfig}
+                >
+                  <BarChart data={singleBarChartExampleData}>
                     <CartesianGrid vertical={false} />
                     <XAxis
                       dataKey="month"
@@ -976,20 +1712,38 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
-        </PageSection>
 
-        <PageSection id="chart-legend" label="Legend">
-          <h2 className="text-lg font-semibold">Legend</h2>
-          <p className="mb-8 text-sm text-muted-foreground text-pretty">
-            Legend layout and series labels.
-          </p>
-          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={tooltipSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="chart-legend" label="Legend">
+        <PageSectionHeader
+          title="Legend"
+          description={
+            <>
+              Names the series using <Code>ChartLegend</Code> and{" "}
+              <Code>ChartLegendContent</Code>. Use this when colour alone is not
+              enough to tell the series apart.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={multipleBarChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly users by device"
+                  config={multipleBarChartExampleConfig}
+                >
                   <BarChart
-                    accessibilityLayer
                     data={multipleBarChartExampleData}
                     margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
                   >
@@ -1016,27 +1770,43 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
-        </PageSection>
 
-        <PageSection id="chart-axis" label="Axis">
-          <h2 className="text-lg font-semibold">Axis</h2>
-          <p className="mb-8 text-sm text-muted-foreground text-pretty">
-            Axis configuration, ticks, and labels.
-          </p>
+            <Code
+              variant="block"
+              language="tsx"
+              code={legendSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-          <h3 id="chart-axis-x" className="text-base font-semibold">
-            X axis
-          </h3>
-          <p className="mb-4 text-sm text-muted-foreground text-pretty">
-            Category axis on the bottom: month labels shortened to three letters.
-          </p>
-          <ComponentExample className="mb-10">
+      <PageSection id="chart-axis" label="Axis">
+        <PageSectionHeader
+          title="Axis"
+          description="Labels the categories and values. Use the axis people need to read the chart; hide the rest."
+        />
+
+        <PageSubsectionHeader
+          id="chart-axis-x"
+          title="X axis"
+          description={
+            <>
+              Category labels using <Code>XAxis</Code>. Use this when the bottom
+              of the chart names the groups or months.
+            </>
+          }
+        />
+        <ComponentExample className="mb-10">
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={singleBarChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly desktop users"
+                  config={singleBarChartExampleConfig}
+                >
                   <BarChart
-                    accessibilityLayer
                     data={singleBarChartExampleData}
                     margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
                   >
@@ -1061,20 +1831,36 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-axis-y" className="text-base font-semibold">
-            Y axis
-          </h3>
-          <p className="mb-4 text-sm text-muted-foreground text-pretty">
-            Value axis on the left: tick styling aligned with the chart container.
-          </p>
-          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={axisXSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-axis-y"
+          title="Y axis"
+          description={
+            <>
+              Value labels using <Code>YAxis</Code>. Use this when people need
+              the scale on the left, not only on hover.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={singleBarChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly desktop users"
+                  config={singleBarChartExampleConfig}
+                >
                   <BarChart
-                    accessibilityLayer
                     data={singleBarChartExampleData}
                     margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
                   >
@@ -1090,11 +1876,7 @@ export function ChartsPage() {
                           : String(value).slice(0, 3)
                       }
                     />
-                    <YAxis
-                      tickLine={false}
-                      axisLine={false}
-                      tickMargin={8}
-                    />
+                    <YAxis tickLine={false} axisLine={false} tickMargin={8} />
                     <Bar
                       dataKey="desktop"
                       fill="var(--color-desktop)"
@@ -1104,27 +1886,49 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
-        </PageSection>
 
-        <PageSection id="chart-grid" label="Grid">
-          <h2 className="text-lg font-semibold">Grid</h2>
-          <p className="mb-8 text-sm text-muted-foreground text-pretty">
-            Grid lines and background reference.
-          </p>
+            <Code
+              variant="block"
+              language="tsx"
+              code={axisYSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
 
-          <h3 id="chart-grid-x" className="text-base font-semibold">
-            X axis grid
-          </h3>
-          <p className="mb-4 text-sm text-muted-foreground text-pretty">
-            Vertical lines only, aligned with the category axis.
-          </p>
-          <ComponentExample className="mb-10">
+      <PageSection id="chart-grid" label="Grid">
+        <PageSectionHeader
+          title="Grid"
+          description={
+            <>
+              Draws reference lines using <Code>CartesianGrid</Code>. Use the
+              lines that help reading; turn off the ones that add noise.
+            </>
+          }
+        />
+
+        <PageSubsectionHeader
+          id="chart-grid-x"
+          title="X axis grid"
+          description={
+            <>
+              Vertical lines using <Code>vertical</Code> with{" "}
+              <Code>horizontal=&#123;false&#125;</Code>. Use this when the
+              categories need a column to sit in.
+            </>
+          }
+        />
+        <ComponentExample className="mb-10">
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={singleBarChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly desktop users"
+                  config={singleBarChartExampleConfig}
+                >
                   <BarChart
-                    accessibilityLayer
                     data={singleBarChartExampleData}
                     margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
                   >
@@ -1140,11 +1944,7 @@ export function ChartsPage() {
                           : String(value).slice(0, 3)
                       }
                     />
-                    <YAxis
-                      tickLine={false}
-                      axisLine={false}
-                      tickMargin={8}
-                    />
+                    <YAxis tickLine={false} axisLine={false} tickMargin={8} />
                     <Bar
                       dataKey="desktop"
                       fill="var(--color-desktop)"
@@ -1154,20 +1954,37 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-grid-y" className="text-base font-semibold">
-            Y axis grid
-          </h3>
-          <p className="mb-4 text-sm text-muted-foreground text-pretty">
-            Horizontal lines only, aligned with the value axis.
-          </p>
-          <ComponentExample className="mb-10">
+            <Code
+              variant="block"
+              language="tsx"
+              code={gridXSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-grid-y"
+          title="Y axis grid"
+          description={
+            <>
+              Horizontal lines using <Code>horizontal</Code> with{" "}
+              <Code>vertical=&#123;false&#125;</Code>. Use this when people are
+              reading values across the chart.
+            </>
+          }
+        />
+        <ComponentExample className="mb-10">
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={singleBarChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly desktop users"
+                  config={singleBarChartExampleConfig}
+                >
                   <BarChart
-                    accessibilityLayer
                     data={singleBarChartExampleData}
                     margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
                   >
@@ -1183,11 +2000,7 @@ export function ChartsPage() {
                           : String(value).slice(0, 3)
                       }
                     />
-                    <YAxis
-                      tickLine={false}
-                      axisLine={false}
-                      tickMargin={8}
-                    />
+                    <YAxis tickLine={false} axisLine={false} tickMargin={8} />
                     <Bar
                       dataKey="desktop"
                       fill="var(--color-desktop)"
@@ -1197,21 +2010,38 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
 
-          <h3 id="chart-grid-none" className="text-base font-semibold">
-            No grid
-          </h3>
-          <p className="mb-4 text-sm text-muted-foreground text-pretty">
-            Grid lines disabled; CartesianGrid remains mounted with both vertical and
-            horizontal lines turned off.
-          </p>
-          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={gridYSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+
+        <PageSubsectionHeader
+          id="chart-grid-none"
+          title="No grid"
+          description={
+            <>
+              Turns both directions off with{" "}
+              <Code>vertical=&#123;false&#125;</Code> and{" "}
+              <Code>horizontal=&#123;false&#125;</Code>. Use this when the chart
+              is already clear without reference lines.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
             <Card>
               <CardContent>
-                <ChartContainer config={singleBarChartExampleConfig}>
+                <ChartContainer
+                  title="Monthly desktop users"
+                  config={singleBarChartExampleConfig}
+                >
                   <BarChart
-                    accessibilityLayer
                     data={singleBarChartExampleData}
                     margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
                   >
@@ -1227,10 +2057,74 @@ export function ChartsPage() {
                           : String(value).slice(0, 3)
                       }
                     />
-                    <YAxis
+                    <YAxis tickLine={false} axisLine={false} tickMargin={8} />
+                    <Bar
+                      dataKey="desktop"
+                      fill="var(--color-desktop)"
+                      radius={8}
+                    />
+                  </BarChart>
+                </ChartContainer>
+              </CardContent>
+            </Card>
+
+            <Code
+              variant="block"
+              language="tsx"
+              code={gridNoneSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="chart-layout" label="Layout">
+        <PageSectionHeader
+          title="Layout"
+          description="Puts the chart in a card with a title or a headline number."
+        />
+
+        <PageSubsectionHeader
+          id="chart-with-header"
+          title="With header"
+          description={
+            <>
+              Names the chart using <Code>CardHeader</Code> with{" "}
+              <Code>tooltip</Code>. Use this when the title should stay visible
+              and the extra copy sits in the help icon.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
+            <Card>
+              <CardHeader tooltip>
+                <CardTitle>Desktop traffic</CardTitle>
+                <CardDescription>
+                  Monthly sessions by device type for the current year.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ChartContainer
+                  title="Monthly desktop traffic"
+                  config={singleBarChartExampleConfig}
+                >
+                  <BarChart
+                    data={singleBarChartExampleData}
+                    margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+                  >
+                    <CartesianGrid vertical={false} />
+                    <XAxis
+                      dataKey="month"
                       tickLine={false}
+                      tickMargin={10}
                       axisLine={false}
-                      tickMargin={8}
+                      tickFormatter={(value) =>
+                        typeof value === "string"
+                          ? value.slice(0, 3)
+                          : String(value).slice(0, 3)
+                      }
                     />
                     <Bar
                       dataKey="desktop"
@@ -1241,164 +2135,281 @@ export function ChartsPage() {
                 </ChartContainer>
               </CardContent>
             </Card>
-          </ComponentExample>
-        </PageSection>
 
-        <PageSection id="chart-layout" label="Layout">
-          <h2 className="text-lg font-semibold">Layout</h2>
-          <p className="mb-8 text-sm text-muted-foreground text-pretty">
-            Combine charts with card headers, metric headlines, and body content for
-            dashboards and detail views.
-          </p>
+            <Code
+              variant="block"
+              language="tsx"
+              code={layoutHeaderSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
 
-          <PageSection id="chart-with-header" label="With header">
-            <h3 className="text-base font-semibold">With header</h3>
-            <p className="mb-4 text-sm text-muted-foreground text-pretty">
-              Place the chart in a card with CardHeader for the title and CardContent for
-              the chart area. Set the tooltip prop on CardHeader to move CardDescription
-              into the help tooltip instead of under the title.
-            </p>
-            <ComponentExample className="mb-6">
-              <Card>
-                <CardHeader tooltip>
-                  <CardTitle>Desktop traffic</CardTitle>
-                  <CardDescription>
-                    Monthly sessions by device type for the current year.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ChartContainer config={singleBarChartExampleConfig}>
-                    <BarChart
-                      accessibilityLayer
-                      data={singleBarChartExampleData}
-                      margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
-                    >
-                      <CartesianGrid vertical={false} />
-                      <XAxis
-                        dataKey="month"
-                        tickLine={false}
-                        tickMargin={10}
-                        axisLine={false}
-                        tickFormatter={(value) =>
-                          typeof value === "string"
-                            ? value.slice(0, 3)
-                            : String(value).slice(0, 3)
-                        }
-                      />
-                      <Bar
-                        dataKey="desktop"
-                        fill="var(--color-desktop)"
-                        radius={8}
-                      />
-                    </BarChart>
-                  </ChartContainer>
-                </CardContent>
-              </Card>
-            </ComponentExample>
-          </PageSection>
+        <PageSubsectionHeader
+          id="chart-with-metric"
+          title="With metric"
+          description={
+            <>
+              A headline number using <Code>ChartMetric</Code> above{" "}
+              <Code>ChartContainer</Code>. Use this when the total should be
+              readable before the chart.
+            </>
+          }
+        />
+        <ComponentExample className="mb-6">
+          <div className="space-y-6">
+            <Card>
+              <CardContent>
+                <ChartMetric
+                  value={singleBarChartExampleData.reduce(
+                    (sum, d) => sum + d.desktop,
+                    0,
+                  )}
+                  label="Total desktop views"
+                />
+                <ChartContainer
+                  title="Monthly desktop traffic"
+                  config={singleBarChartExampleConfig}
+                >
+                  <BarChart
+                    data={singleBarChartExampleData}
+                    margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+                  >
+                    <CartesianGrid vertical={false} />
+                    <XAxis
+                      dataKey="month"
+                      tickLine={false}
+                      tickMargin={10}
+                      axisLine={false}
+                      tickFormatter={(value) =>
+                        typeof value === "string"
+                          ? value.slice(0, 3)
+                          : String(value).slice(0, 3)
+                      }
+                    />
+                    <Bar
+                      dataKey="desktop"
+                      fill="var(--color-desktop)"
+                      radius={8}
+                    />
+                  </BarChart>
+                </ChartContainer>
+              </CardContent>
+            </Card>
 
-          <PageSection id="chart-with-metric" label="With metric">
-            <h3 className="text-base font-semibold">With metric</h3>
-            <p className="mb-4 text-sm text-muted-foreground text-pretty">
-              ChartMetric is a standalone headline above ChartContainer (siblings). Add
-              spacing with the parent (for example CardContent space-y-4). This example
-              reuses the single bar data; swap the value and label for other aggregations.
-            </p>
-            <ComponentExample className="mb-6">
-              <Card>
-                <CardContent>
-                  <ChartMetric
-                    value={singleBarChartExampleData.reduce(
-                      (sum, d) => sum + d.desktop,
-                      0
-                    )}
-                    label="Total desktop views"
-                  />
-                  <ChartContainer config={singleBarChartExampleConfig}>
-                    <BarChart
-                      accessibilityLayer
-                      data={singleBarChartExampleData}
-                      margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
-                    >
-                      <CartesianGrid vertical={false} />
-                      <XAxis
-                        dataKey="month"
-                        tickLine={false}
-                        tickMargin={10}
-                        axisLine={false}
-                        tickFormatter={(value) =>
-                          typeof value === "string"
-                            ? value.slice(0, 3)
-                            : String(value).slice(0, 3)
-                        }
-                      />
-                      <Bar
-                        dataKey="desktop"
-                        fill="var(--color-desktop)"
-                        radius={8}
-                      />
-                    </BarChart>
-                  </ChartContainer>
-                </CardContent>
-              </Card>
-            </ComponentExample>
-          </PageSection>
+            <Code
+              variant="block"
+              language="tsx"
+              code={layoutMetricSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
 
-          <PageSection
-            id="chart-with-header-and-metric"
-            label="With header and metric"
-          >
-            <h3 className="text-base font-semibold">With header and metric</h3>
-            <p className="mb-4 text-sm text-muted-foreground text-pretty">
-              CardHeader for the title (use the tooltip prop to show CardDescription in the
-              help icon), then CardContent with ChartMetric and ChartContainer as siblings.
-            </p>
-            <ComponentExample>
-              <Card>
-                <CardHeader tooltip>
-                  <CardTitle>Desktop traffic</CardTitle>
-                  <CardDescription>
-                    Monthly sessions by device type for the current year.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <ChartMetric
-                    value={singleBarChartExampleData.reduce(
-                      (sum, d) => sum + d.desktop,
-                      0
-                    )}
-                    label="Total desktop views"
-                  />
-                  <ChartContainer config={singleBarChartExampleConfig}>
-                    <BarChart
-                      accessibilityLayer
-                      data={singleBarChartExampleData}
-                      margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
-                    >
-                      <CartesianGrid vertical={false} />
-                      <XAxis
-                        dataKey="month"
-                        tickLine={false}
-                        tickMargin={10}
-                        axisLine={false}
-                        tickFormatter={(value) =>
-                          typeof value === "string"
-                            ? value.slice(0, 3)
-                            : String(value).slice(0, 3)
-                        }
-                      />
-                      <Bar
-                        dataKey="desktop"
-                        fill="var(--color-desktop)"
-                        radius={8}
-                      />
-                    </BarChart>
-                  </ChartContainer>
-                </CardContent>
-              </Card>
-            </ComponentExample>
-          </PageSection>
-        </PageSection>
+        <PageSubsectionHeader
+          id="chart-with-header-and-metric"
+          title="With header and metric"
+          description={
+            <>
+              Combines <Code>CardHeader</Code>, <Code>ChartMetric</Code>, and{" "}
+              <Code>ChartContainer</Code>. Use this when the block needs a name
+              and a headline number.
+            </>
+          }
+        />
+        <ComponentExample>
+          <div className="space-y-6">
+            <Card>
+              <CardHeader tooltip>
+                <CardTitle>Desktop traffic</CardTitle>
+                <CardDescription>
+                  Monthly sessions by device type for the current year.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ChartMetric
+                  value={singleBarChartExampleData.reduce(
+                    (sum, d) => sum + d.desktop,
+                    0,
+                  )}
+                  label="Total desktop views"
+                />
+                <ChartContainer
+                  title="Monthly desktop traffic"
+                  config={singleBarChartExampleConfig}
+                >
+                  <BarChart
+                    data={singleBarChartExampleData}
+                    margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+                  >
+                    <CartesianGrid vertical={false} />
+                    <XAxis
+                      dataKey="month"
+                      tickLine={false}
+                      tickMargin={10}
+                      axisLine={false}
+                      tickFormatter={(value) =>
+                        typeof value === "string"
+                          ? value.slice(0, 3)
+                          : String(value).slice(0, 3)
+                      }
+                    />
+                    <Bar
+                      dataKey="desktop"
+                      fill="var(--color-desktop)"
+                      radius={8}
+                    />
+                  </BarChart>
+                </ChartContainer>
+              </CardContent>
+            </Card>
+
+            <Code
+              variant="block"
+              language="tsx"
+              code={layoutHeaderMetricSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </PageSection>
+
+      <PageSection id="do-dont" label="Do and don’t">
+        <PageSectionHeader
+          title="Do and don’t"
+          description="Use ChartContainer and config for colour. Do not restyle the chart chrome."
+        />
+        <DocsDoDont
+          doItems={[
+            <>
+              Wrap the Recharts chart in <Code>ChartContainer</Code>, give it a
+              concise <Code>title</Code>, and provide labels in{" "}
+              <Code>config</Code>.
+            </>,
+            <>
+              Fill or stroke each series with <Code>var(--color-…)</Code> from
+              its config key. ChartContainer assigns the approved colour.
+            </>,
+            <>
+              Add <Code>ChartTooltip</Code> and <Code>ChartTooltipContent</Code>{" "}
+              so values can be read on hover.
+            </>,
+            <>
+              Use <Code>ChartMetric</Code> when a total should be readable
+              before the chart.
+            </>,
+            <>
+              Pick the shape that matches the question: bars to compare, lines
+              for change over time, pies for parts of a whole.
+            </>,
+          ]}
+          dontItems={[
+            <>
+              Don’t hard-code or select series colours. Their config order
+              assigns the approved palette automatically.
+            </>,
+            <>
+              Don’t use a chart for a single number, or when every figure must
+              be read. Use a{" "}
+              <DocsPageLink to="/components/table">Table</DocsPageLink>.
+            </>,
+            <>
+              Don’t render Recharts without <Code>ChartContainer</Code>.
+            </>,
+            <>Don’t disable Recharts’ accessibility layer.</>,
+            <>
+              Don’t add another chart family or visual treatment without
+              explicit approval.
+            </>,
+          ]}
+        />
+      </PageSection>
+
+      <PageSection id="api" label="API">
+        <PageSectionHeader
+          title="API"
+          description="Behaviour props on Chart."
+        />
+        <DocsApiTable
+          rows={[
+            {
+              name: "config",
+              type: "ChartConfig",
+              description:
+                "On ChartContainer. Labels and optional icons for each series. Approved colours are assigned automatically in config order and exposed as var(--color-key).",
+            },
+            {
+              name: "title",
+              type: "string",
+              description:
+                "On ChartContainer. Required concise accessible name passed to the Recharts chart.",
+            },
+            {
+              name: "layout",
+              type: '"cartesian" | "polar"',
+              defaultValue: '"cartesian"',
+              description:
+                "On ChartContainer. Polar owns the approved square size for pie, radar, and radial charts.",
+            },
+            {
+              name: "value",
+              type: "React.ReactNode",
+              description:
+                "On ChartMetric. Headline number. Numbers are formatted with toLocaleString().",
+            },
+            {
+              name: "label",
+              type: "React.ReactNode",
+              description: "On ChartMetric. Short line beside the number.",
+            },
+            {
+              name: "indicator",
+              type: '"dot" | "line" | "dashed"',
+              defaultValue: '"dot"',
+              description:
+                "On ChartTooltipContent. Marker style in the tooltip.",
+            },
+          ]}
+        />
+        <PageSubsectionHeader
+          id="api-reference"
+          className="mt-6"
+          title="API reference"
+          description={
+            <>
+              See the{" "}
+              <DocsExternalLink href="https://recharts.github.io/en-US/api/">
+                Recharts API
+              </DocsExternalLink>{" "}
+              and{" "}
+              <DocsExternalLink href="https://ui.shadcn.com/docs/components/base/chart">
+                Shadcn Chart documentation
+              </DocsExternalLink>{" "}
+              for the underlying API and source composition.
+            </>
+          }
+        />
+      </PageSection>
+
+      <PageSection id="related" label="Related">
+        <PageSectionHeader
+          title="Related"
+          description="Use a different control when the Chart is the wrong shape for the job."
+        />
+        <ul className="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <DocsPageLink to="/components/table">Table</DocsPageLink> — when
+            people need to read every figure, not the shape of the data.
+          </li>
+          <li>
+            <DocsPageLink to="/components/card">Card</DocsPageLink> — when the
+            chart needs a title, description, or metric around it.
+          </li>
+        </ul>
+      </PageSection>
     </div>
-  )
+  );
 }
