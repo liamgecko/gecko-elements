@@ -1,7 +1,7 @@
-import * as React from "react";
-import { CheckCheck, SquarePen, Trash2, X } from "lucide-react";
-import { useParams } from "react-router-dom";
-import { toast } from "@gecko/ui/components/toast";
+import * as React from "react"
+import { CheckCheck, SquarePen, Trash2, X } from "lucide-react"
+import { useParams } from "react-router-dom"
+import { toast } from "@gecko/ui/components/toast"
 
 import {
   AlertDialog,
@@ -12,8 +12,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@gecko/ui/components/alert-dialog";
-import { Button } from "@gecko/ui/components/button";
+} from "@gecko/ui/components/alert-dialog"
+import { Button } from "@gecko/ui/components/button"
 import {
   Combobox,
   ComboboxChip,
@@ -24,7 +24,7 @@ import {
   ComboboxItem,
   ComboboxList,
   ComboboxValue,
-} from "@gecko/ui/components/combobox";
+} from "@gecko/ui/components/combobox"
 import {
   Dialog,
   DialogBody,
@@ -33,7 +33,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogWrapper,
-} from "@gecko/ui/components/dialog";
+} from "@gecko/ui/components/dialog"
 import {
   Field,
   FieldContent,
@@ -43,8 +43,8 @@ import {
   FieldLabel,
   FieldSeparator,
   FieldSet,
-} from "@gecko/ui/components/field";
-import { Input } from "@gecko/ui/components/input";
+} from "@gecko/ui/components/field"
+import { Input } from "@gecko/ui/components/input"
 import {
   Select,
   SelectContent,
@@ -52,56 +52,56 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select";
-import { Switch } from "@gecko/ui/components/switch";
+} from "@gecko/ui/components/select"
+import { Switch } from "@gecko/ui/components/switch"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
+} from "@gecko/ui/components/tooltip"
 
 import {
   DataLoadErrorAlert,
   SupabaseSetupNotice,
-} from "@/components/supabase-setup-notice";
-import { paymentItemsRepository } from "@/data/repositories/paymentItemsRepository";
-import { useFormPaymentSettings } from "@/hooks/useFormPaymentSettings";
-import { usePaymentItems } from "@/hooks/usePaymentItems";
+} from "@/components/supabase-setup-notice"
+import { paymentItemsRepository } from "@/data/repositories/paymentItemsRepository"
+import { useFormPaymentSettings } from "@/hooks/useFormPaymentSettings"
+import { usePaymentItems } from "@/hooks/usePaymentItems"
 import {
   PAYMENT_PROVIDER_OPTIONS,
   formatPaymentItemAmount,
   type PaymentItem,
   type PaymentProvider,
-} from "@/pages/forms/payment-items/payment-items-data";
+} from "@/pages/forms/payment-items/payment-items-data"
 
 type PaymentItemErrors = {
-  name?: string;
-  amount?: string;
-};
+  name?: string
+  amount?: string
+}
 
 function validatePaymentItem(
   name: string,
-  amount: number | null,
+  amount: number | null
 ): PaymentItemErrors {
-  const errors: PaymentItemErrors = {};
+  const errors: PaymentItemErrors = {}
 
   if (!name.trim()) {
-    errors.name = "Please enter a name for the chargeable item.";
+    errors.name = "Please enter a name for the chargeable item."
   }
 
   if (amount == null) {
-    errors.amount = "Please enter an amount.";
+    errors.amount = "Please enter an amount."
   } else if (!Number.isInteger(amount) || amount <= 0) {
-    errors.amount = "Please enter a whole number greater than zero.";
+    errors.amount = "Please enter a whole number greater than zero."
   }
 
-  return errors;
+  return errors
 }
 
 export default function FormPaymentSettingsPage() {
-  const { formId = "" } = useParams();
-  const paymentItemsAnchor = React.useRef<HTMLDivElement | null>(null);
+  const { formId = "" } = useParams()
+  const paymentItemsAnchor = React.useRef<HTMLDivElement | null>(null)
 
   const {
     paymentItems: catalog,
@@ -109,66 +109,66 @@ export default function FormPaymentSettingsPage() {
     error: catalogError,
     configured,
     refetch: refetchCatalog,
-  } = usePaymentItems();
+  } = usePaymentItems()
   const {
     settings: savedSettings,
     loading: settingsLoading,
     error: settingsError,
     saveSettings,
-  } = useFormPaymentSettings(formId);
+  } = useFormPaymentSettings(formId)
 
   const [selectedProvider, setSelectedProvider] =
-    React.useState<PaymentProvider | null>(null);
-  const [selectedItemIds, setSelectedItemIds] = React.useState<string[]>([]);
-  const [hydrated, setHydrated] = React.useState(false);
+    React.useState<PaymentProvider | null>(null)
+  const [selectedItemIds, setSelectedItemIds] = React.useState<string[]>([])
+  const [hydrated, setHydrated] = React.useState(false)
 
-  const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [editingItemId, setEditingItemId] = React.useState<string | null>(null);
-  const [itemName, setItemName] = React.useState("");
-  const [itemInternalName, setItemInternalName] = React.useState("");
-  const [itemAmount, setItemAmount] = React.useState<number | null>(null);
-  const [minQuantity, setMinQuantity] = React.useState<number | null>(null);
-  const [maxQuantity, setMaxQuantity] = React.useState<number | null>(null);
+  const [dialogOpen, setDialogOpen] = React.useState(false)
+  const [editingItemId, setEditingItemId] = React.useState<string | null>(null)
+  const [itemName, setItemName] = React.useState("")
+  const [itemInternalName, setItemInternalName] = React.useState("")
+  const [itemAmount, setItemAmount] = React.useState<number | null>(null)
+  const [minQuantity, setMinQuantity] = React.useState<number | null>(null)
+  const [maxQuantity, setMaxQuantity] = React.useState<number | null>(null)
   const [availableQuantity, setAvailableQuantity] = React.useState<
     number | null
-  >(null);
-  const [inventoryEnabled, setInventoryEnabled] = React.useState(false);
-  const [errors, setErrors] = React.useState<PaymentItemErrors>({});
-  const [isSavingItem, setIsSavingItem] = React.useState(false);
+  >(null)
+  const [inventoryEnabled, setInventoryEnabled] = React.useState(false)
+  const [errors, setErrors] = React.useState<PaymentItemErrors>({})
+  const [isSavingItem, setIsSavingItem] = React.useState(false)
   const [providerChangeAlertOpen, setProviderChangeAlertOpen] =
-    React.useState(false);
+    React.useState(false)
   const [pendingProvider, setPendingProvider] =
-    React.useState<PaymentProvider | null>(null);
+    React.useState<PaymentProvider | null>(null)
   const [providerRequiredAlertOpen, setProviderRequiredAlertOpen] =
-    React.useState(false);
+    React.useState(false)
 
   const itemById = React.useMemo(
     () => new Map(catalog.map((item) => [item.id, item])),
-    [catalog],
-  );
+    [catalog]
+  )
 
   const providerItemIds = catalog
     .filter((item) => item.provider === selectedProvider)
-    .map((item) => item.id);
+    .map((item) => item.id)
 
   const basketItems = selectedItemIds
     .map((id) => itemById.get(id))
-    .filter((item): item is PaymentItem => item != null);
+    .filter((item): item is PaymentItem => item != null)
 
-  const isLoading = catalogLoading || settingsLoading;
-  const loadError = catalogError ?? settingsError;
+  const isLoading = catalogLoading || settingsLoading
+  const loadError = catalogError ?? settingsError
 
   React.useEffect(() => {
-    if (isLoading || hydrated) return;
-    setSelectedProvider(savedSettings.provider);
-    setSelectedItemIds(savedSettings.paymentItemIds);
-    setHydrated(true);
-  }, [hydrated, isLoading, savedSettings]);
+    if (isLoading || hydrated) return
+    setSelectedProvider(savedSettings.provider)
+    setSelectedItemIds(savedSettings.paymentItemIds)
+    setHydrated(true)
+  }, [hydrated, isLoading, savedSettings])
 
   const persistSettings = React.useCallback(
     async (provider: PaymentProvider | null, paymentItemIds: string[]) => {
       try {
-        await saveSettings({ provider, paymentItemIds });
+        await saveSettings({ provider, paymentItemIds })
       } catch (err) {
         toast.add({
           title:
@@ -176,113 +176,111 @@ export default function FormPaymentSettingsPage() {
               ? err.message
               : "Failed to save payment settings",
           type: "error",
-        });
+        })
       }
     },
-    [saveSettings],
-  );
+    [saveSettings]
+  )
 
   const applyProviderChange = (value: PaymentProvider | null) => {
-    setSelectedProvider(value);
-    setSelectedItemIds([]);
-    void persistSettings(value, []);
-  };
+    setSelectedProvider(value)
+    setSelectedItemIds([])
+    void persistSettings(value, [])
+  }
 
   const handleProviderChange = (value: PaymentProvider | null) => {
-    if (value === selectedProvider) return;
+    if (value === selectedProvider) return
 
     if (selectedProvider != null && selectedItemIds.length > 0) {
-      setPendingProvider(value);
-      setProviderChangeAlertOpen(true);
-      return;
+      setPendingProvider(value)
+      setProviderChangeAlertOpen(true)
+      return
     }
 
-    applyProviderChange(value);
-  };
+    applyProviderChange(value)
+  }
 
   const handleProviderChangeAlertOpenChange = (open: boolean) => {
-    setProviderChangeAlertOpen(open);
+    setProviderChangeAlertOpen(open)
     if (!open) {
-      setPendingProvider(null);
+      setPendingProvider(null)
     }
-  };
+  }
 
   const confirmProviderChange = () => {
-    applyProviderChange(pendingProvider);
-    setPendingProvider(null);
-    setProviderChangeAlertOpen(false);
-  };
+    applyProviderChange(pendingProvider)
+    setPendingProvider(null)
+    setProviderChangeAlertOpen(false)
+  }
 
   const handleSelectedItemsChange = (value: string[]) => {
-    const nextIds = [...value];
-    setSelectedItemIds(nextIds);
-    void persistSettings(selectedProvider, nextIds);
-  };
+    const nextIds = [...value]
+    setSelectedItemIds(nextIds)
+    void persistSettings(selectedProvider, nextIds)
+  }
 
   const handleDialogOpenChange = (open: boolean) => {
-    setDialogOpen(open);
+    setDialogOpen(open)
     if (!open) {
-      setEditingItemId(null);
-      setItemName("");
-      setItemInternalName("");
-      setItemAmount(null);
-      setMinQuantity(null);
-      setMaxQuantity(null);
-      setAvailableQuantity(null);
-      setInventoryEnabled(false);
-      setErrors({});
+      setEditingItemId(null)
+      setItemName("")
+      setItemInternalName("")
+      setItemAmount(null)
+      setMinQuantity(null)
+      setMaxQuantity(null)
+      setAvailableQuantity(null)
+      setInventoryEnabled(false)
+      setErrors({})
     }
-  };
+  }
 
   const openCreateDialog = () => {
     if (!selectedProvider) {
-      setProviderRequiredAlertOpen(true);
-      return;
+      setProviderRequiredAlertOpen(true)
+      return
     }
-    setDialogOpen(true);
-  };
+    setDialogOpen(true)
+  }
 
   const openEditDialog = (item: PaymentItem) => {
-    setEditingItemId(item.id);
-    setItemName(item.name);
-    setItemInternalName(item.internalName ?? "");
-    setItemAmount(item.amount);
-    setMinQuantity(item.minQuantity);
-    setMaxQuantity(item.maxQuantity);
-    setAvailableQuantity(item.availableQuantity);
+    setEditingItemId(item.id)
+    setItemName(item.name)
+    setItemInternalName(item.internalName ?? "")
+    setItemAmount(item.amount)
+    setMinQuantity(item.minQuantity)
+    setMaxQuantity(item.maxQuantity)
+    setAvailableQuantity(item.availableQuantity)
     setInventoryEnabled(
       item.minQuantity != null ||
         item.maxQuantity != null ||
-        item.availableQuantity != null,
-    );
-    setDialogOpen(true);
-  };
+        item.availableQuantity != null
+    )
+    setDialogOpen(true)
+  }
 
   const removeItem = (id: string) => {
-    const nextIds = selectedItemIds.filter((itemId) => itemId !== id);
-    setSelectedItemIds(nextIds);
-    void persistSettings(selectedProvider, nextIds);
-  };
+    const nextIds = selectedItemIds.filter((itemId) => itemId !== id)
+    setSelectedItemIds(nextIds)
+    void persistSettings(selectedProvider, nextIds)
+  }
 
   const handleSave = async () => {
-    const nextErrors = validatePaymentItem(itemName, itemAmount);
-    setErrors(nextErrors);
-    if (Object.keys(nextErrors).length > 0) return;
+    const nextErrors = validatePaymentItem(itemName, itemAmount)
+    setErrors(nextErrors)
+    if (Object.keys(nextErrors).length > 0) return
 
-    const name = itemName.trim();
-    const internalName = itemInternalName.trim() || null;
-    const amount = itemAmount!;
+    const name = itemName.trim()
+    const internalName = itemInternalName.trim() || null
+    const amount = itemAmount!
     const itemProvider =
       editingItemId != null
         ? (itemById.get(editingItemId)?.provider ?? selectedProvider)
-        : selectedProvider;
+        : selectedProvider
 
-    if (!itemProvider) return;
+    if (!itemProvider) return
 
-    const existingItem = editingItemId
-      ? itemById.get(editingItemId)
-      : undefined;
-    const currency = existingItem?.currency ?? "GBP";
+    const existingItem = editingItemId ? itemById.get(editingItemId) : undefined
+    const currency = existingItem?.currency ?? "GBP"
 
     const input = {
       name,
@@ -293,42 +291,42 @@ export default function FormPaymentSettingsPage() {
       minQuantity: inventoryEnabled ? minQuantity : null,
       maxQuantity: inventoryEnabled ? maxQuantity : null,
       availableQuantity: inventoryEnabled ? availableQuantity : null,
-    };
+    }
 
-    setIsSavingItem(true);
+    setIsSavingItem(true)
 
     try {
       if (editingItemId) {
-        await paymentItemsRepository.updatePaymentItem(editingItemId, input);
+        await paymentItemsRepository.updatePaymentItem(editingItemId, input)
         toast.add({
           title: "Chargeable item updated successfully",
           type: "success",
-        });
+        })
       } else {
-        const created = await paymentItemsRepository.createPaymentItem(input);
+        const created = await paymentItemsRepository.createPaymentItem(input)
         const nextIds = selectedItemIds.includes(created.id)
           ? selectedItemIds
-          : [...selectedItemIds, created.id];
-        setSelectedItemIds(nextIds);
-        await persistSettings(selectedProvider, nextIds);
+          : [...selectedItemIds, created.id]
+        setSelectedItemIds(nextIds)
+        await persistSettings(selectedProvider, nextIds)
         toast.add({
           title: "Chargeable item created successfully",
           type: "success",
-        });
+        })
       }
 
-      refetchCatalog();
-      handleDialogOpenChange(false);
+      refetchCatalog()
+      handleDialogOpenChange(false)
     } catch (err) {
       toast.add({
         title:
           err instanceof Error ? err.message : "Failed to save chargeable item",
         type: "error",
-      });
+      })
     } finally {
-      setIsSavingItem(false);
+      setIsSavingItem(false)
     }
-  };
+  }
 
   if (!configured) {
     return (
@@ -338,7 +336,7 @@ export default function FormPaymentSettingsPage() {
         </h2>
         <SupabaseSetupNotice />
       </div>
-    );
+    )
   }
 
   if (isLoading || !hydrated) {
@@ -351,7 +349,7 @@ export default function FormPaymentSettingsPage() {
           Loading payment settings…
         </p>
       </div>
-    );
+    )
   }
 
   if (loadError) {
@@ -365,7 +363,7 @@ export default function FormPaymentSettingsPage() {
           message={loadError}
         />
       </div>
-    );
+    )
   }
 
   return (
@@ -431,12 +429,12 @@ export default function FormPaymentSettingsPage() {
                 <ComboboxEmpty>No items found.</ComboboxEmpty>
                 <ComboboxList>
                   {(id: string) => {
-                    const item = itemById.get(id);
+                    const item = itemById.get(id)
                     return (
                       <ComboboxItem key={id} value={id}>
                         {item?.name ?? id}
                       </ComboboxItem>
-                    );
+                    )
                   }}
                 </ComboboxList>
               </ComboboxContent>
@@ -538,7 +536,7 @@ export default function FormPaymentSettingsPage() {
                                 setItemAmount(
                                   event.target.value === ""
                                     ? null
-                                    : Number(event.target.value),
+                                    : Number(event.target.value)
                                 )
                               }
                               aria-invalid={errors.amount ? true : undefined}
@@ -590,11 +588,11 @@ export default function FormPaymentSettingsPage() {
                         id="payment-item-inventory-enabled"
                         checked={inventoryEnabled}
                         onCheckedChange={(checked) => {
-                          setInventoryEnabled(checked);
+                          setInventoryEnabled(checked)
                           if (!checked) {
-                            setMinQuantity(null);
-                            setMaxQuantity(null);
-                            setAvailableQuantity(null);
+                            setMinQuantity(null)
+                            setMaxQuantity(null)
+                            setAvailableQuantity(null)
                           }
                         }}
                         label="Inventory management"
@@ -618,7 +616,7 @@ export default function FormPaymentSettingsPage() {
                                   setMinQuantity(
                                     event.target.value === ""
                                       ? null
-                                      : Number(event.target.value),
+                                      : Number(event.target.value)
                                   )
                                 }
                               />
@@ -638,7 +636,7 @@ export default function FormPaymentSettingsPage() {
                                   setMaxQuantity(
                                     event.target.value === ""
                                       ? null
-                                      : Number(event.target.value),
+                                      : Number(event.target.value)
                                   )
                                 }
                               />
@@ -659,7 +657,7 @@ export default function FormPaymentSettingsPage() {
                                 setAvailableQuantity(
                                   event.target.value === ""
                                     ? null
-                                    : Number(event.target.value),
+                                    : Number(event.target.value)
                                 )
                               }
                             />
@@ -673,11 +671,7 @@ export default function FormPaymentSettingsPage() {
                   </FieldGroup>
                 </DialogBody>
               </DialogWrapper>
-              <DialogFooter
-                showCloseButton
-                closeButtonText="Cancel"
-                closeButtonIcon={X}
-              >
+              <DialogFooter showCloseButton closeButtonText="Cancel">
                 <Button
                   variant="default"
                   onClick={() => void handleSave()}
@@ -800,5 +794,5 @@ export default function FormPaymentSettingsPage() {
         </section>
       )}
     </div>
-  );
+  )
 }

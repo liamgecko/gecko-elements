@@ -96,11 +96,13 @@ export function EngagementOverTimeChart({
       </CardHeader>
 
       <CardContent className="p-4 group-data-[size=sm]/card:p-4 px-5 pb-5 pt-2">
-        <ChartMetric value={engagementRate} label="engagement rate">
-          <p className="text-muted-foreground text-pretty">{engagementDetail}</p>
-        </ChartMetric>
+        <ChartMetric
+          value={engagementRate}
+          label={`engagement rate · ${engagementDetail}`}
+        />
 
         <ChartContainer
+          title="Engagement over time"
           config={chartConfig}
           className="aspect-auto h-[260px] w-full"
         >
@@ -144,8 +146,14 @@ export function EngagementOverTimeChart({
                   <CampaignStatsGroupedLegend
                     primaryTitle={campaignName}
                     compareTitle={comparison.campaignName}
-                    primaryPayload={createLegendPayload(primaryLegendKeys, "line")}
-                    comparePayload={createLegendPayload(compareLegendKeys, "line")}
+                    primaryPayload={createLegendPayload(
+                      primaryLegendKeys,
+                      "line"
+                    )}
+                    comparePayload={createLegendPayload(
+                      compareLegendKeys,
+                      "line"
+                    )}
                   />
                 ) : (
                   <ChartLegendContent payload={legendPayload} />

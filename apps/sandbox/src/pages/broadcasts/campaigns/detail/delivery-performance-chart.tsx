@@ -98,11 +98,13 @@ export function DeliveryPerformanceChart({
       </CardHeader>
 
       <CardContent className="p-4 group-data-[size=sm]/card:p-4 px-5 pb-5 pt-2">
-        <ChartMetric value={deliveryRate} label="delivery rate">
-          <p className="text-muted-foreground text-pretty">{deliveryDetail}</p>
-        </ChartMetric>
+        <ChartMetric
+          value={deliveryRate}
+          label={`delivery rate · ${deliveryDetail}`}
+        />
 
         <ChartContainer
+          title="Delivery performance"
           config={chartConfig}
           className="aspect-auto h-[260px] w-full"
         >

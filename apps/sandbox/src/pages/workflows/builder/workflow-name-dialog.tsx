@@ -1,4 +1,4 @@
-import { CheckCheck, X } from "lucide-react"
+import { CheckCheck } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"
 import {
@@ -78,7 +78,7 @@ export function WorkflowNameDialog({
             />
           </DialogBody>
         </DialogWrapper>
-        <DialogFooter showCloseButton closeButtonText="Cancel" closeButtonIcon={X}>
+        <DialogFooter showCloseButton closeButtonText="Cancel">
           <Button
             type="button"
             disabled={!canSave}

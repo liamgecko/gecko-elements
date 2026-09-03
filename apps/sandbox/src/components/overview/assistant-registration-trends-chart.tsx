@@ -63,6 +63,7 @@ export function AssistantRegistrationTrendsReply() {
     <div className="w-full min-w-0 max-w-full">
       <p className="mb-0">{AGENT_TRENDS_REPLY_PLAIN}</p>
       <ChartContainer
+        title="Registrations and cancellations over the last 7 days"
         config={registrationTrendsChartConfig}
         className="my-6 aspect-auto h-[220px] w-full min-w-0 max-w-none"
       >
@@ -117,8 +118,9 @@ export function AssistantRegistrationTrendsReply() {
         </LineChart>
       </ChartContainer>
       <p className="mb-0">
-        As you can see, {mostPopularDay} is your most popular day for registrations, with{" "}
-        {mostPopularCount} registrations. Let me know if you want to drill down further.
+        As you can see, {mostPopularDay} is your most popular day for
+        registrations, with {mostPopularCount} registrations. Let me know if you
+        want to drill down further.
       </p>
     </div>
   )

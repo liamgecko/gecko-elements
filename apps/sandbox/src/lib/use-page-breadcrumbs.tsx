@@ -2,7 +2,10 @@ import * as React from "react"
 import { useLocation } from "react-router-dom"
 import { Home } from "lucide-react"
 
-import type { HeaderProps } from "@gecko/ui/components/header"
+import type {
+  HeaderBreadcrumbItem,
+  HeaderProps,
+} from "@gecko/ui/components/header"
 
 import { BreadcrumbRouterLink } from "@/components/breadcrumb-router-link"
 import {
@@ -25,7 +28,7 @@ function titleCaseFromSlug(slug: string) {
 
 function isUuid(segment: string) {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
-    segment,
+    segment
   )
 }
 
@@ -51,7 +54,8 @@ function labelForSegment(segment: string, previousSegment?: string) {
     return "Broadcasts"
   }
   if (segment === "new" && previousSegment === "forms") return "Create form"
-  if (segment === "new" && previousSegment === "campaigns") return "Create broadcast"
+  if (segment === "new" && previousSegment === "campaigns")
+    return "Create broadcast"
   if (segment === "new" && previousSegment === "chargeable-items") {
     return "Create chargeable item"
   }
@@ -79,7 +83,7 @@ function labelForSegment(segment: string, previousSegment?: string) {
 function labelForNavChild(
   items: readonly { label: string; slug?: string }[],
   childSlug: string,
-  parentSlug: string,
+  parentSlug: string
 ) {
   const item = items.find((entry) => getChildSlug(entry) === childSlug)
   const segmentLabel = labelForSegment(childSlug, parentSlug)
@@ -96,12 +100,15 @@ const CONVERSATIONS_PARENT_SLUG = "conversations"
 const CONVERSATIONS_INBOX_PATH = "/conversations/inbox"
 
 function isConversationsInboxPath(path: string) {
-  return path === CONVERSATIONS_INBOX_PATH || path === `/${CONVERSATIONS_PARENT_SLUG}`
+  return (
+    path === CONVERSATIONS_INBOX_PATH ||
+    path === `/${CONVERSATIONS_PARENT_SLUG}`
+  )
 }
 
 function buildConversationsBreadcrumbCrumbs(
   path: string,
-  segments: string[],
+  segments: string[]
 ): BreadcrumbCrumb[] {
   const childSlug = segments[1]
   if (!childSlug || childSlug === "inbox") return []
@@ -117,7 +124,7 @@ function buildConversationsBreadcrumbCrumbs(
   const siblingLabel = labelForNavChild(
     navGroup.items,
     childSlug,
-    CONVERSATIONS_PARENT_SLUG,
+    CONVERSATIONS_PARENT_SLUG
   )
   crumbs.push({ label: siblingLabel, path: siblingPath })
 
@@ -130,7 +137,7 @@ function appendDeeperCrumbs(
   crumbs: BreadcrumbCrumb[],
   segments: string[],
   startIndex: number,
-  pathname: string,
+  pathname: string
 ) {
   const remaining = segments.slice(startIndex)
   if (remaining.length === 0) return crumbs
@@ -166,7 +173,11 @@ export function buildBreadcrumbCrumbs(pathname: string): BreadcrumbCrumb[] {
     return buildConversationsBreadcrumbCrumbs(path, segments)
   }
 
-  if (parentSlug === "workflows" && segments.length >= 2 && isUuid(segments[1] ?? "")) {
+  if (
+    parentSlug === "workflows" &&
+    segments.length >= 2 &&
+    isUuid(segments[1] ?? "")
+  ) {
     return [
       { label: "Workflows", path: "/workflows" },
       { label: "Workflow", path },
@@ -187,7 +198,11 @@ export function buildBreadcrumbCrumbs(pathname: string): BreadcrumbCrumb[] {
   const firstChild = navGroup.items[0]
   const firstChildSlug = getChildSlug(firstChild)
   const firstChildPath = childPath(parentSlug, firstChildSlug)
-  const firstChildLabel = labelForNavChild(navGroup.items, firstChildSlug, parentSlug)
+  const firstChildLabel = labelForNavChild(
+    navGroup.items,
+    firstChildSlug,
+    parentSlug
+  )
 
   const childSlug = segments[1]
   if (!childSlug) {
@@ -230,11 +245,7 @@ export function usePageBreadcrumbs(): NonNullable<HeaderProps["breadcrumbs"]> {
 
   return React.useMemo(() => {
     const crumbs = buildBreadcrumbCrumbs(pathname)
-    const items: {
-      label: React.ReactNode
-      current?: boolean
-      renderLabelOnly?: boolean
-    }[] = [
+    const items: HeaderBreadcrumbItem[] = [
       {
         label: (
           <BreadcrumbRouterLink to="/home">
@@ -253,7 +264,9 @@ export function usePageBreadcrumbs(): NonNullable<HeaderProps["breadcrumbs"]> {
       } else {
         items.push({
           label: (
-            <BreadcrumbRouterLink to={crumb.path}>{crumb.label}</BreadcrumbRouterLink>
+            <BreadcrumbRouterLink to={crumb.path}>
+              {crumb.label}
+            </BreadcrumbRouterLink>
           ),
           renderLabelOnly: true,
         })

@@ -33,12 +33,8 @@ export function ClickPerformanceChart({
       <CardContent className="p-4 group-data-[size=sm]/card:p-4 px-5 pb-5 pt-2">
         <ChartMetric
           value={uniqueClicks.toLocaleString()}
-          label="unique clicks"
-        >
-          <p className="text-muted-foreground text-pretty">
-            {totalClicks.toLocaleString()} total clicks
-          </p>
-        </ChartMetric>
+          label={`unique clicks · ${totalClicks.toLocaleString()} total clicks`}
+        />
 
         <div className="mt-2 overflow-hidden rounded-md border border-border">
           <Table>

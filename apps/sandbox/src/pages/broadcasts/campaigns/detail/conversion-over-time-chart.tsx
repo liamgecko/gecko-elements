@@ -67,13 +67,13 @@ export function ConversionOverTimeChart({
       </CardHeader>
 
       <CardContent className="p-4 group-data-[size=sm]/card:p-4 px-5 pb-5 pt-2">
-        <ChartMetric value={total.toLocaleString()} label="conversions">
-          <p className="text-muted-foreground text-pretty">
-            {conversionRate} conversion rate
-          </p>
-        </ChartMetric>
+        <ChartMetric
+          value={total.toLocaleString()}
+          label={`conversions · ${conversionRate} conversion rate`}
+        />
 
         <ChartContainer
+          title="Conversions over time"
           config={chartConfig}
           className="aspect-auto h-[260px] w-full"
         >
