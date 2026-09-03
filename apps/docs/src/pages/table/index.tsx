@@ -646,7 +646,11 @@ export function TablePage() {
           title="API"
           description="Behaviour props on Table."
         />
-        <PageSubsectionHeader id="api-table" title="Table" />
+        <PageSubsectionHeader
+          id="api-table"
+          title="Table"
+          description="Wraps semantic table content and owns its shared presentation."
+        />
         <DocsApiTable
           aria-label="Table properties"
           rows={[
@@ -683,6 +687,7 @@ export function TablePage() {
           id="api-expandable-row"
           title="TableExpandableRow"
           className="mt-6"
+          description="Adds a disclosure row for subordinate table detail."
         />
         <DocsApiTable
           aria-label="TableExpandableRow properties"
@@ -732,6 +737,7 @@ export function TablePage() {
           id="api-expandable-trigger"
           title="TableExpandableRowTrigger"
           className="mt-6"
+          description="Controls the expanded state for its row."
         />
         <DocsApiTable
           aria-label="TableExpandableRowTrigger properties"

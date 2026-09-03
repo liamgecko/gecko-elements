@@ -582,7 +582,11 @@ export function TabsPage() {
 
       <PageSection id="api" label="API">
         <PageSectionHeader title="API" description="Behaviour props on Tabs." />
-        <PageSubsectionHeader id="api-tabs" title="Tabs" />
+        <PageSubsectionHeader
+          id="api-tabs"
+          title="Tabs"
+          description="Coordinates the active tab and shared presentation."
+        />
         <DocsApiTable
           aria-label="Tabs properties"
           rows={[
@@ -623,6 +627,7 @@ export function TabsPage() {
           id="api-tabs-list"
           title="TabsList"
           className="mt-6"
+          description="Groups the triggers and controls their shared layout."
         />
         <DocsApiTable
           aria-label="TabsList properties"
@@ -653,6 +658,7 @@ export function TabsPage() {
           id="api-tabs-trigger"
           title="TabsTrigger"
           className="mt-6"
+          description="Activates its matching panel."
         />
         <DocsApiTable
           aria-label="TabsTrigger properties"
@@ -682,6 +688,7 @@ export function TabsPage() {
           id="api-tabs-content"
           title="TabsContent"
           className="mt-6"
+          description="Renders the panel associated with a trigger."
         />
         <DocsApiTable
           aria-label="TabsContent properties"
