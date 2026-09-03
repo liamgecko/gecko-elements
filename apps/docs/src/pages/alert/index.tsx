@@ -5,12 +5,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import {
   Alert,
   AlertAction,
@@ -132,53 +131,49 @@ export function AlertPage() {
 </Alert>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Alert"
-          description="Alert is a persistent, non-blocking callout for important information within a page or section."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Alert"
+        description="Alert is a persistent, non-blocking callout for important information within a page or section."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Alert for important information that must remain visible in
-              context until the parent removes it. Make it dismissible only when
-              the message is safe to acknowledge and clear.
-              <br />
-              <br />
-              Use a <DocsPageLink to="/components/toast">
-                Toast
-              </DocsPageLink>{" "}
-              for brief post-action feedback. Use an{" "}
-              <DocsPageLink to="/components/alert-dialog">
-                Alert dialog
-              </DocsPageLink>{" "}
-              when someone must confirm an action before it happens. Use a
-              field-level error for a problem with one form control.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Alert for important information that must remain visible in
+            context until the parent removes it. Make it dismissible only when
+            the message is safe to acknowledge and clear.
+            <br />
+            <br />
+            Use a <DocsPageLink to="/components/toast">Toast</DocsPageLink> for
+            brief post-action feedback. Use an{" "}
+            <DocsPageLink to="/components/alert-dialog">
+              Alert dialog
+            </DocsPageLink>{" "}
+            when someone must confirm an action before it happens. Use a
+            field-level error for a problem with one form control.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Alert and the content parts used by the message. Import Button separately when the alert has an action."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description={
@@ -188,23 +183,24 @@ export function AlertPage() {
               positions one Button or link; it does not create the control.
             </>
           }
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="Use the default variant for an important neutral notice without a more specific status."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="Use the default variant for an important neutral notice without a more specific status."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Alert>
@@ -222,114 +218,113 @@ export function AlertPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="variants" label="Variants">
-        <PageSectionHeader
-          title="Variants"
-          description="Choose a variant for the meaning of the message. A variant does not turn Alert into confirmation or temporary feedback."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="variants"
+        title="Variants"
+        description="Choose a variant for the meaning of the message. A variant does not turn Alert into confirmation or temporary feedback."
+      >
+        <ChildSection
           id="variants-destructive"
           title="Destructive"
           description="Use for an error, failure, or critical state. Give a clear recovery step where one exists. Use Alert dialog—not Alert—to confirm an irreversible action."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Alert variant="destructive">
-              <AlertTitle>Unable to load submissions</AlertTitle>
-              <AlertDescription>
-                Check your connection and try again.
-              </AlertDescription>
-            </Alert>
-            <Code
-              variant="block"
-              language="tsx"
-              code={destructiveExampleSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Alert variant="destructive">
+                <AlertTitle>Unable to load submissions</AlertTitle>
+                <AlertDescription>
+                  Check your connection and try again.
+                </AlertDescription>
+              </Alert>
+              <Code
+                variant="block"
+                language="tsx"
+                code={destructiveExampleSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-info"
           title="Info"
           description="Use for contextual information about the current state or available options when the blue informational treatment is useful."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Alert variant="info">
-              <AlertTitle>New feature available</AlertTitle>
-              <AlertDescription>
-                You can now export this report as a CSV file.
-              </AlertDescription>
-            </Alert>
-            <Code
-              variant="block"
-              language="tsx"
-              code={infoExampleSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Alert variant="info">
+                <AlertTitle>New feature available</AlertTitle>
+                <AlertDescription>
+                  You can now export this report as a CSV file.
+                </AlertDescription>
+              </Alert>
+              <Code
+                variant="block"
+                language="tsx"
+                code={infoExampleSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-success"
           title="Success"
           description="Use for a successful state that must remain visible. Use Toast for ordinary feedback immediately after an action succeeds."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Alert variant="success">
-              <AlertTitle>Integration connected</AlertTitle>
-              <AlertDescription>
-                New submissions will be sent to your connected account.
-              </AlertDescription>
-            </Alert>
-            <Code
-              variant="block"
-              language="tsx"
-              code={successExampleSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Alert variant="success">
+                <AlertTitle>Integration connected</AlertTitle>
+                <AlertDescription>
+                  New submissions will be sent to your connected account.
+                </AlertDescription>
+              </Alert>
+              <Code
+                variant="block"
+                language="tsx"
+                code={successExampleSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-warning"
           title="Warning"
           description="Use for a potential problem that needs attention while the rest of the page remains available."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Alert variant="warning">
-              <AlertTitle>Connection needs attention</AlertTitle>
-              <AlertDescription>
-                Reconnect the integration to continue receiving updates.
-              </AlertDescription>
-            </Alert>
-            <Code
-              variant="block"
-              language="tsx"
-              code={warningExampleSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Alert variant="warning">
+                <AlertTitle>Connection needs attention</AlertTitle>
+                <AlertDescription>
+                  Reconnect the integration to continue receiving updates.
+                </AlertDescription>
+              </Alert>
+              <Code
+                variant="block"
+                language="tsx"
+                code={warningExampleSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="icon" label="Icon">
-        <PageSectionHeader
-          title="Icon"
-          description="Icons support scanning but never carry the meaning alone. The title and description must still explain the message."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="icon"
+        title="Icon"
+        description="Icons support scanning but never carry the meaning alone. The title and description must still explain the message."
+      >
+        <ChildSection
           id="icon-default"
           title="Default icons"
           description={
@@ -338,62 +333,63 @@ export function AlertPage() {
               current variant. Prefer this over choosing an icon manually.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="space-y-3">
-              {variants.map(({ key, title, description, variant }) => (
-                <Alert key={key} variant={variant} icon>
-                  <AlertTitle>{title}</AlertTitle>
-                  <AlertDescription>{description}</AlertDescription>
-                </Alert>
-              ))}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="space-y-3">
+                {variants.map(({ key, title, description, variant }) => (
+                  <Alert key={key} variant={variant} icon>
+                    <AlertTitle>{title}</AlertTitle>
+                    <AlertDescription>{description}</AlertDescription>
+                  </Alert>
+                ))}
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={iconDefaultSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={iconDefaultSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="icon-custom"
           title="Custom icons"
           description="Pass a React node only when an approved, context-specific icon communicates more clearly than the variant default. Agents must not invent or substitute icons without consent."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Alert variant="info" icon={<Sparkles />}>
-              <AlertTitle>New feature available</AlertTitle>
-              <AlertDescription>
-                You can now export this report as a CSV file.
-              </AlertDescription>
-            </Alert>
-            <Code
-              variant="block"
-              language="tsx"
-              code={iconCustomSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Alert variant="info" icon={<Sparkles />}>
+                <AlertTitle>New feature available</AlertTitle>
+                <AlertDescription>
+                  You can now export this report as a CSV file.
+                </AlertDescription>
+              </Alert>
+              <Code
+                variant="block"
+                language="tsx"
+                code={iconCustomSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="action" label="Action">
-        <PageSectionHeader
-          title="Action"
-          description={
-            <>
-              Use <Code>AlertAction</Code> to position one relevant Button or
-              link. The nested control owns its label and behaviour. Use a
-              visible, verb-first label that names the next step.
-            </>
-          }
-        />
+      <MainSection
+        id="action"
+        title="Action"
+        description={
+          <>
+            Use <Code>AlertAction</Code> to position one relevant Button or
+            link. The nested control owns its label and behaviour. Use a
+            visible, verb-first label that names the next step.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Alert variant="warning" icon>
@@ -416,20 +412,20 @@ export function AlertPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="dismissible" label="Dismissible">
-        <PageSectionHeader
-          title="Dismissible"
-          description={
-            <>
-              Set <Code>dismissible</Code> only when the message can be safely
-              acknowledged and removed. Keep unresolved errors, required
-              instructions, and ongoing conditions visible. Use an action or a
-              dismiss control, not both.
-            </>
-          }
-        />
+      <MainSection
+        id="dismissible"
+        title="Dismissible"
+        description={
+          <>
+            Set <Code>dismissible</Code> only when the message can be safely
+            acknowledged and removed. Keep unresolved errors, required
+            instructions, and ongoing conditions visible. Use an action or a
+            dismiss control, not both.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="space-y-3">
@@ -449,13 +445,13 @@ export function AlertPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep the message important, persistent, and focused on one meaning."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep the message important, persistent, and focused on one meaning."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -490,13 +486,9 @@ export function AlertPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Alert."
-        />
+      <MainSection id="api" title="API" description="Behaviour props on Alert.">
         <DocsApiTable
           rows={[
             {
@@ -534,9 +526,8 @@ export function AlertPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -548,13 +539,13 @@ export function AlertPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Choose a different feedback surface when the message should not remain inline."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Choose a different feedback surface when the message should not remain inline."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/toast">Toast</DocsPageLink> — brief
@@ -571,7 +562,7 @@ export function AlertPage() {
             or instruction belonging to one form control.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

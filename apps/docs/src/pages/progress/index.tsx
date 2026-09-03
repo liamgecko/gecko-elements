@@ -4,11 +4,10 @@ import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
-import { PageSection } from "@/components/layout/page-section";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Progress } from "@gecko/ui/components/progress";
 import { Code } from "@gecko/ui/components/code";
 
@@ -108,65 +107,66 @@ export function ProgressPage() {
 <Progress type="ring" value={90} valueLabel="90%" showValueColors aria-label="Export progress" />`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Progress"
-          description="Progress shows completion state for a task. It supports bar and ring presentations."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Progress"
+        description="Progress shows completion state for a task. It supports bar and ring presentations."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Progress for data and reporting displays where completion is
-              measurable — for example a percentage complete on a report or
-              metric. Communicate it as a value from 0 to 100.
-              <br />
-              <br />
-              Avoid using Progress as the primary loading pattern for page or
-              panel waits — that is a{" "}
-              <DocsPageLink to="/components/spinner">Spinner</DocsPageLink>.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Progress for data and reporting displays where completion is
+            measurable — for example a percentage complete on a report or
+            metric. Communicate it as a value from 0 to 100.
+            <br />
+            <br />
+            Avoid using Progress as the primary loading pattern for page or
+            panel waits — that is a{" "}
+            <DocsPageLink to="/components/spinner">Spinner</DocsPageLink>.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Progress for bar or ring displays."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="Progress contains its track and indicator. Add a label and formatted value when they help identify the task and its state."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="progress-bar" label="Progress bar">
-        <PageSectionHeader
-          title="Progress bar"
-          description="A horizontal indicator for completion across the available width."
-        />
+      <MainSection
+        id="progress-bar"
+        title="Progress bar"
+        description="A horizontal indicator for completion across the available width."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Progress value={50} aria-label="Export progress" />
@@ -179,13 +179,13 @@ export function ProgressPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-value" label="With value">
-        <PageSectionHeader
-          title="With value"
-          description="Show the current percentage when people need the precise completion state."
-        />
+      <MainSection
+        id="with-value"
+        title="With value"
+        description="Show the current percentage when people need the precise completion state."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Progress
@@ -202,13 +202,13 @@ export function ProgressPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-label" label="With label">
-        <PageSectionHeader
-          title="With label"
-          description="Name the task when the surrounding context does not identify it clearly."
-        />
+      <MainSection
+        id="with-label"
+        title="With label"
+        description="Name the task when the surrounding context does not identify it clearly."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Progress value={40} label="Uploading..." />
@@ -221,79 +221,79 @@ export function ProgressPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="progress-bar-sizes" label="Progress bar sizes">
-        <PageSectionHeader
-          title="Progress bar sizes"
-          description="Choose a bar height that matches the surrounding layout."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="progress-bar-sizes"
+        title="Progress bar sizes"
+        description="Choose a bar height that matches the surrounding layout."
+      >
+        <ChildSection
           id="progress-bar-sizes-small"
           title="Small"
           description="A compact bar for dense layouts."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Progress value={60} size="sm" label="Small" valueLabel="60%" />
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeSmallSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Progress value={60} size="sm" label="Small" valueLabel="60%" />
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeSmallSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="progress-bar-sizes-medium"
           title="Medium"
           description="The standard bar height for most layouts."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Progress
-              value={60}
-              size="default"
-              label="Medium"
-              valueLabel="60%"
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeMediumSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Progress
+                value={60}
+                size="default"
+                label="Medium"
+                valueLabel="60%"
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeMediumSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="progress-bar-sizes-large"
           title="Large"
           description="A taller bar for prominent progress displays."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Progress value={60} size="lg" label="Large" valueLabel="60%" />
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeLargeSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Progress value={60} size="lg" label="Large" valueLabel="60%" />
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeLargeSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="progress-colour-bar" label="Progress colour (bar)">
-        <PageSectionHeader
-          title="Progress colour (bar)"
-          description="Use tiered colour only when the thresholds communicate meaningful status or urgency."
-        />
+      <MainSection
+        id="progress-colour-bar"
+        title="Progress colour (bar)"
+        description="Use tiered colour only when the thresholds communicate meaningful status or urgency."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-col gap-4">
@@ -331,13 +331,13 @@ export function ProgressPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="progress-ring" label="Progress ring">
-        <PageSectionHeader
-          title="Progress ring"
-          description="A circular indicator for completion in a compact square footprint."
-        />
+      <MainSection
+        id="progress-ring"
+        title="Progress ring"
+        description="A circular indicator for completion in a compact square footprint."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Progress type="ring" value={55} aria-label="Export progress" />
@@ -350,13 +350,13 @@ export function ProgressPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-value-ring" label="With value (ring)">
-        <PageSectionHeader
-          title="With value (ring)"
-          description="Centre the percentage when it should be read as part of the ring."
-        />
+      <MainSection
+        id="with-value-ring"
+        title="With value (ring)"
+        description="Centre the percentage when it should be read as part of the ring."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Progress
@@ -374,13 +374,13 @@ export function ProgressPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-label-ring" label="With label (ring)">
-        <PageSectionHeader
-          title="With label (ring)"
-          description="Add a short caption when the ring needs to identify its metric."
-        />
+      <MainSection
+        id="with-label-ring"
+        title="With label (ring)"
+        description="Add a short caption when the ring needs to identify its metric."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Progress type="ring" value={30} label="Storage used" />
@@ -393,92 +393,92 @@ export function ProgressPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="progress-ring-sizes" label="Progress ring sizes">
-        <PageSectionHeader
-          title="Progress ring sizes"
-          description="Choose a ring diameter that matches the surrounding layout."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="progress-ring-sizes"
+        title="Progress ring sizes"
+        description="Choose a ring diameter that matches the surrounding layout."
+      >
+        <ChildSection
           id="progress-ring-sizes-small"
           title="Small"
           description="A compact ring for dense dashboards or table cells."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Progress
-              type="ring"
-              value={40}
-              size="sm"
-              label="Small"
-              valueLabel="40%"
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={ringSizeSmallSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Progress
+                type="ring"
+                value={40}
+                size="sm"
+                label="Small"
+                valueLabel="40%"
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={ringSizeSmallSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="progress-ring-sizes-medium"
           title="Medium"
           description="The standard ring size for most layouts."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Progress
-              type="ring"
-              value={40}
-              size="default"
-              label="Medium"
-              valueLabel="40%"
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={ringSizeMediumSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Progress
+                type="ring"
+                value={40}
+                size="default"
+                label="Medium"
+                valueLabel="40%"
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={ringSizeMediumSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="progress-ring-sizes-large"
           title="Large"
           description="A larger ring for a prominent progress display."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Progress
-              type="ring"
-              value={40}
-              size="lg"
-              label="Large"
-              valueLabel="40%"
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={ringSizeLargeSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Progress
+                type="ring"
+                value={40}
+                size="lg"
+                label="Large"
+                valueLabel="40%"
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={ringSizeLargeSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="progress-colour-ring" label="Progress colour (ring)">
-        <PageSectionHeader
-          title="Progress colour (ring)"
-          description="Use tiered colour only when the thresholds communicate meaningful status or urgency."
-        />
+      <MainSection
+        id="progress-colour-ring"
+        title="Progress colour (ring)"
+        description="Use tiered colour only when the thresholds communicate meaningful status or urgency."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap gap-8">
@@ -520,13 +520,13 @@ export function ProgressPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use Progress for measurable completion and show only the detail people need."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use Progress for measurable completion and show only the detail people need."
+      >
         <DocsDoDont
           doItems={[
             <>Set the task’s current completion from 0 to 100.</>,
@@ -544,13 +544,13 @@ export function ProgressPage() {
             <>Don’t mix bar and ring presentations for the same task.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Progress."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Progress."
+      >
         <DocsApiTable
           rows={[
             {
@@ -609,9 +609,8 @@ export function ProgressPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -627,20 +626,20 @@ export function ProgressPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use an indeterminate indicator when completion is unknown."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use an indeterminate indicator when completion is unknown."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/spinner">Spinner</DocsPageLink> — for
             page and panel loading waits.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

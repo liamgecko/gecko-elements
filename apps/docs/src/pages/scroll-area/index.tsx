@@ -3,12 +3,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { ScrollArea, ScrollBar } from "@gecko/ui/components/scroll-area";
 import { Separator } from "@gecko/ui/components/separator";
 import { Code } from "@gecko/ui/components/code";
@@ -83,51 +82,50 @@ export function ScrollAreaPage() {
 </ScrollArea>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Scroll area"
-          description="The Scroll area component wraps content that overflows its bounds. It shows a styled scrollbar that matches the rest of the design system."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Scroll area"
+        description="The Scroll area component wraps content that overflows its bounds. It shows a styled scrollbar that matches the rest of the design system."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Scroll area when content must scroll inside a deliberately
-              bounded region such as a sidebar, panel, picker, or constrained
-              list. Keep native document scrolling for the primary page unless
-              the product shell deliberately owns that scroll container.
-              <br />
-              <br />
-              For a simple line between rows inside the scrollable content, use
-              a{" "}
-              <DocsPageLink to="/components/separator">Separator</DocsPageLink>.
-              For conversation transcripts, use{" "}
-              <DocsPageLink to="/components/message-scroller">
-                Message scroller
-              </DocsPageLink>
-              .
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Scroll area when content must scroll inside a deliberately
+            bounded region such as a sidebar, panel, picker, or constrained
+            list. Keep native document scrolling for the primary page unless the
+            product shell deliberately owns that scroll container.
+            <br />
+            <br />
+            For a simple line between rows inside the scrollable content, use a{" "}
+            <DocsPageLink to="/components/separator">Separator</DocsPageLink>.
+            For conversation transcripts, use{" "}
+            <DocsPageLink to="/components/message-scroller">
+              Message scroller
+            </DocsPageLink>
+            .
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import ScrollArea and ScrollBar to create a scrollable region."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description={
@@ -137,29 +135,30 @@ export function ScrollAreaPage() {
               required.
             </>
           }
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic" label="Basic">
-        <PageSectionHeader
-          title="Basic"
-          description={
-            <>
-              A vertically scrollable region using <Code>ScrollArea</Code>. Use
-              this when a list or panel has more content than fits in the
-              available height.
-            </>
-          }
-        />
+      <MainSection
+        id="basic"
+        title="Basic"
+        description={
+          <>
+            A vertically scrollable region using <Code>ScrollArea</Code>. Use
+            this when a list or panel has more content than fits in the
+            available height.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ScrollArea className="h-72 w-48 rounded-md border">
@@ -182,13 +181,13 @@ export function ScrollAreaPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="horizontal" label="Horizontal">
-        <PageSectionHeader
-          title="Horizontal"
-          description="Adds side-to-side scrolling for content that must remain in a row."
-        />
+      <MainSection
+        id="horizontal"
+        title="Horizontal"
+        description="Adds side-to-side scrolling for content that must remain in a row."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ScrollArea className="w-full max-w-96 whitespace-nowrap rounded-md border">
@@ -223,13 +222,13 @@ export function ScrollAreaPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep overflow contained without hiding how the content can be explored."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep overflow contained without hiding how the content can be explored."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -252,55 +251,57 @@ export function ScrollAreaPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Scroll area."
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Scroll area."
+      >
+        <ChildSection
+          id="api-scroll-area"
           title="ScrollArea"
           description="Defines the bounded scroll container."
-        />
-        <DocsApiTable
-          rows={[
-            {
-              name: "children",
-              type: "React.ReactNode",
-              description: "Content rendered inside the scrollable viewport.",
-            },
-            {
-              name: "className",
-              type: "string",
-              description: "Sets the container dimensions and presentation.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
-          className="mt-6"
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "children",
+                type: "React.ReactNode",
+                description: "Content rendered inside the scrollable viewport.",
+              },
+              {
+                name: "className",
+                type: "string",
+                description: "Sets the container dimensions and presentation.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-scroll-bar"
           title="ScrollBar"
           description="Configures an additional scrollbar."
-        />
-        <DocsApiTable
-          rows={[
-            {
-              name: "orientation",
-              type: '"vertical" | "horizontal"',
-              defaultValue: '"vertical"',
-              description: "Sets the direction handled by ScrollBar.",
-            },
-            {
-              name: "keepMounted",
-              type: "boolean",
-              defaultValue: "false",
-              description:
-                "Keeps the scrollbar mounted when its direction does not overflow.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
-          className="mt-6"
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "orientation",
+                type: '"vertical" | "horizontal"',
+                defaultValue: '"vertical"',
+                description: "Sets the direction handled by ScrollBar.",
+              },
+              {
+                name: "keepMounted",
+                type: "boolean",
+                defaultValue: "false",
+                description:
+                  "Keeps the scrollbar mounted when its direction does not overflow.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           title="API reference"
           description={
             <>
@@ -316,13 +317,13 @@ export function ScrollAreaPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a specialised scroller when conversation position must be managed."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a specialised scroller when conversation position must be managed."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/message-scroller">
@@ -331,7 +332,7 @@ export function ScrollAreaPage() {
             — for conversation autoscroll.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

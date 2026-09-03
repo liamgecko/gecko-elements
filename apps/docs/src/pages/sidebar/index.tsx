@@ -4,12 +4,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import {
   Collapsible,
   CollapsibleContent,
@@ -468,81 +467,80 @@ export function SidebarPage() {
 </SidebarMenuItem>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Sidebar"
-          description="Sidebar is the low-level navigation foundation used by App Sidebar. It documents the available structure and behaviour for maintaining the product shell; application teams should normally compose App Sidebar instead."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Sidebar"
+        description="Sidebar is the low-level navigation foundation used by App Sidebar. It documents the available structure and behaviour for maintaining the product shell; application teams should normally compose App Sidebar instead."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use{" "}
-              <DocsPageLink to="/structure/app-sidebar">
-                App Sidebar
-              </DocsPageLink>{" "}
-              for app-wide product navigation alongside{" "}
-              <DocsPageLink to="/structure/app-header">App Header</DocsPageLink>
-              . Sidebar supplies its provider, rail, groups, menus, collapsed
-              behaviour, and layout inset. Treat this page as the maintenance
-              reference for that foundation rather than an alternative product
-              navigation component.
-              <br />
-              <br />
-              Avoid using Sidebar as a conversation list — that is{" "}
-              <DocsPageLink to="/components/chat-head">Chat head</DocsPageLink>.
-              Avoid using it for a page header — use{" "}
-              <DocsPageLink to="/structure/header">Page Header</DocsPageLink>{" "}
-              instead. Each reference example uses its own{" "}
-              <Code>SidebarProvider</Code> so it does not replace the site
-              shell. Product applications should wrap the root layout once.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use{" "}
+            <DocsPageLink to="/structure/app-sidebar">App Sidebar</DocsPageLink>{" "}
+            for app-wide product navigation alongside{" "}
+            <DocsPageLink to="/structure/app-header">App Header</DocsPageLink>
+            . Sidebar supplies its provider, rail, groups, menus, collapsed
+            behaviour, and layout inset. Treat this page as the maintenance
+            reference for that foundation rather than an alternative product
+            navigation component.
+            <br />
+            <br />
+            Avoid using Sidebar as a conversation list — that is{" "}
+            <DocsPageLink to="/components/chat-head">Chat head</DocsPageLink>.
+            Avoid using it for a page header — use{" "}
+            <DocsPageLink to="/structure/header">Page Header</DocsPageLink>{" "}
+            instead. Each reference example uses its own{" "}
+            <Code>SidebarProvider</Code> so it does not replace the site shell.
+            Product applications should wrap the root layout once.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import these parts when maintaining App Sidebar or another approved shell composition."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="The provider holds state. Sidebar contains grouped menus; SidebarInset holds the main page with a trigger to open or collapse the rail."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description={
-            <>
-              A minimal icon-collapsible rail with two destinations and a main
-              content column.
-            </>
-          }
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description={
+          <>
+            A minimal icon-collapsible rail with two destinations and a main
+            content column.
+          </>
+        }
+      >
         <div className="space-y-6">
           <ComponentExample className={exampleShellClassName}>
             <BasicSidebarDemo />
@@ -555,18 +553,18 @@ export function SidebarPage() {
             copyLabel="Copy example"
           />
         </div>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="collapsed-by-default" label="Collapsed by default">
-        <PageSectionHeader
-          title="Collapsed by default"
-          description={
-            <>
-              Starts with the rail collapsed. Sub-menus remain available by
-              hover, click, and keyboard when only their parent icon is visible.
-            </>
-          }
-        />
+      <MainSection
+        id="collapsed-by-default"
+        title="Collapsed by default"
+        description={
+          <>
+            Starts with the rail collapsed. Sub-menus remain available by hover,
+            click, and keyboard when only their parent icon is visible.
+          </>
+        }
+      >
         <div className="space-y-6">
           <ComponentExample className={exampleShellClassName}>
             <CollapsedByDefaultDemo />
@@ -579,20 +577,20 @@ export function SidebarPage() {
             copyLabel="Copy example"
           />
         </div>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sidebar-group" label="Sidebar group">
-        <PageSectionHeader
-          title="Sidebar group"
-          description={
-            <>
-              Sections the menu with <Code>SidebarGroup</Code>,{" "}
-              <Code>SidebarGroupLabel</Code>, and{" "}
-              <Code>SidebarGroupContent</Code>. Use this when navigation should
-              be split into labelled sections such as Platform and Resources.
-            </>
-          }
-        />
+      <MainSection
+        id="sidebar-group"
+        title="Sidebar group"
+        description={
+          <>
+            Sections the menu with <Code>SidebarGroup</Code>,{" "}
+            <Code>SidebarGroupLabel</Code>, and <Code>SidebarGroupContent</Code>
+            . Use this when navigation should be split into labelled sections
+            such as Platform and Resources.
+          </>
+        }
+      >
         <div className="space-y-6">
           <ComponentExample className={exampleShellClassName}>
             <SidebarGroupDemo />
@@ -605,21 +603,21 @@ export function SidebarPage() {
             copyLabel="Copy example"
           />
         </div>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sub-menu" label="Sub-menu">
-        <PageSectionHeader
-          title="Sub-menu"
-          description={
-            <>
-              Nests child links with <Code>SidebarMenuSub</Code> under a{" "}
-              <Code>SidebarMenuItem</Code>. Use{" "}
-              <Code>SidebarMenuSubButton</Code> for indented items. Use this
-              when a top-level item has secondary destinations. Sub-menus hide
-              automatically when the rail is collapsed to icons.
-            </>
-          }
-        />
+      <MainSection
+        id="sub-menu"
+        title="Sub-menu"
+        description={
+          <>
+            Nests child links with <Code>SidebarMenuSub</Code> under a{" "}
+            <Code>SidebarMenuItem</Code>. Use <Code>SidebarMenuSubButton</Code>{" "}
+            for indented items. Use this when a top-level item has secondary
+            destinations. Sub-menus hide automatically when the rail is
+            collapsed to icons.
+          </>
+        }
+      >
         <div className="space-y-6">
           <ComponentExample className={exampleShellClassName}>
             <SidebarSubMenuDemo />
@@ -632,23 +630,23 @@ export function SidebarPage() {
             copyLabel="Copy example"
           />
         </div>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="collapsible-sub-menu" label="Collapsible sub-menu">
-        <PageSectionHeader
-          title="Collapsible sub-menu"
-          description={
-            <>
-              Expands and collapses a section using <Code>Collapsible</Code>{" "}
-              inside <Code>SidebarMenuItem</Code>. Pass a{" "}
-              <Code>SidebarMenuButton</Code> to <Code>CollapsibleTrigger</Code>{" "}
-              via the <Code>render</Code> prop, then place{" "}
-              <Code>SidebarMenuSub</Code> inside <Code>CollapsibleContent</Code>
-              . Use this when a section should expand and collapse in place
-              instead of always showing its children.
-            </>
-          }
-        />
+      <MainSection
+        id="collapsible-sub-menu"
+        title="Collapsible sub-menu"
+        description={
+          <>
+            Expands and collapses a section using <Code>Collapsible</Code>{" "}
+            inside <Code>SidebarMenuItem</Code>. Pass a{" "}
+            <Code>SidebarMenuButton</Code> to <Code>CollapsibleTrigger</Code>{" "}
+            via the <Code>render</Code> prop, then place{" "}
+            <Code>SidebarMenuSub</Code> inside <Code>CollapsibleContent</Code>.
+            Use this when a section should expand and collapse in place instead
+            of always showing its children.
+          </>
+        }
+      >
         <div className="space-y-6">
           <ComponentExample className={exampleShellClassName}>
             <SidebarCollapsibleSubMenuDemo />
@@ -661,13 +659,13 @@ export function SidebarPage() {
             copyLabel="Copy example"
           />
         </div>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep app navigation structured, recognisable, and usable when collapsed."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep app navigation structured, recognisable, and usable when collapsed."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -702,251 +700,261 @@ export function SidebarPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Sidebar."
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Sidebar."
+      >
+        <ChildSection
+          id="api-sidebar-provider"
           title="SidebarProvider"
           description="Owns the shared open state, persistence, and keyboard shortcut."
-        />
-        <div className="mb-6">
+        >
+          <div className="mb-6">
+            <DocsApiTable
+              rows={[
+                {
+                  name: "defaultOpen",
+                  type: "boolean",
+                  defaultValue: "true",
+                  description: "Sets the initial uncontrolled open state.",
+                },
+                {
+                  name: "open",
+                  type: "boolean",
+                  description: "Controls the open state.",
+                },
+                {
+                  name: "onOpenChange",
+                  type: "(open: boolean) => void",
+                  description: "Runs when the open state changes.",
+                },
+                {
+                  name: "persistState",
+                  type: "boolean",
+                  defaultValue: "true",
+                  description:
+                    "Restores and writes the open state using a cookie.",
+                },
+                {
+                  name: "enableKeyboardShortcut",
+                  type: "boolean",
+                  defaultValue: "true",
+                  description:
+                    "Enables the platform shortcut for toggling the rail.",
+                },
+                {
+                  name: "storageKey",
+                  type: "string",
+                  defaultValue: '"sidebar_state"',
+                  description: "Sets the cookie name used for persisted state.",
+                },
+              ]}
+            />
+          </div>
+        </ChildSection>
+        <ChildSection
+          id="api-sidebar"
+          title="Sidebar"
+          description="Places and presents the navigation rail."
+        >
+          <div className="mb-6">
+            <DocsApiTable
+              rows={[
+                {
+                  name: "side",
+                  type: '"left" | "right"',
+                  defaultValue: '"left"',
+                  description:
+                    "Places the navigation on either side of the layout.",
+                },
+                {
+                  name: "variant",
+                  type: '"sidebar" | "floating" | "inset"',
+                  defaultValue: '"sidebar"',
+                  description:
+                    "Controls how the rail sits against the app content.",
+                },
+                {
+                  name: "collapsible",
+                  type: '"offcanvas" | "icon" | "none"',
+                  defaultValue: '"offcanvas"',
+                  description:
+                    "Chooses how the navigation behaves when closed.",
+                },
+              ]}
+            />
+          </div>
+        </ChildSection>
+        <ChildSection
+          id="api-sidebar-menu-button"
+          title="SidebarMenuButton"
+          description="Renders a primary destination or disclosure control."
+        >
+          <div className="mb-6">
+            <DocsApiTable
+              rows={[
+                {
+                  name: "isActive",
+                  type: "boolean",
+                  defaultValue: "false",
+                  description: "Marks the current destination.",
+                },
+                {
+                  name: "variant",
+                  type: '"default" | "outline"',
+                  defaultValue: '"default"',
+                  description: "Sets the approved visual treatment.",
+                },
+                {
+                  name: "size",
+                  type: '"sm" | "default" | "lg"',
+                  defaultValue: '"default"',
+                  description: "Sets the menu row size.",
+                },
+                {
+                  name: "tooltip",
+                  type: "string | TooltipContentProps",
+                  description:
+                    "Labels an icon-only destination while collapsed.",
+                },
+                {
+                  name: "chevron",
+                  type: "boolean",
+                  description:
+                    "Overrides automatic disclosure-chevron visibility.",
+                },
+                {
+                  name: "render",
+                  type: "ReactElement | render callback",
+                  description:
+                    "Renders a destination as a link or router link.",
+                },
+              ]}
+            />
+          </div>
+        </ChildSection>
+        <ChildSection
+          id="api-sidebar-menu-action"
+          title="SidebarMenuAction"
+          description="Places a secondary action beside a menu destination."
+        >
+          <div className="mb-6">
+            <DocsApiTable
+              rows={[
+                {
+                  name: "showOnHover",
+                  type: "boolean",
+                  defaultValue: "false",
+                  description:
+                    "Reveals the action on hover and keyboard focus.",
+                },
+                {
+                  name: "render",
+                  type: "ReactElement | render callback",
+                  description:
+                    "Composes another interactive primitive as the action.",
+                },
+              ]}
+            />
+          </div>
+        </ChildSection>
+        <ChildSection
+          id="api-sidebar-menu-skeleton"
+          title="SidebarMenuSkeleton"
+          description="Represents a loading menu row."
+        >
+          <div className="mb-6">
+            <DocsApiTable
+              rows={[
+                {
+                  name: "showIcon",
+                  type: "boolean",
+                  defaultValue: "false",
+                  description: "Includes an icon placeholder.",
+                },
+              ]}
+            />
+          </div>
+        </ChildSection>
+        <ChildSection
+          id="api-sidebar-menu-sub-button"
+          title="SidebarMenuSubButton"
+          description="Renders a nested destination."
+        >
+          <div className="mb-6">
+            <DocsApiTable
+              rows={[
+                {
+                  name: "size",
+                  type: '"sm" | "md"',
+                  defaultValue: '"md"',
+                  description: "Sets the nested row size.",
+                },
+                {
+                  name: "isActive",
+                  type: "boolean",
+                  defaultValue: "false",
+                  description: "Marks the current nested destination.",
+                },
+                {
+                  name: "render",
+                  type: "ReactElement | render callback",
+                  description:
+                    "Renders a custom link while preserving menu styling.",
+                },
+              ]}
+            />
+          </div>
+        </ChildSection>
+        <ChildSection
+          id="api-use-sidebar"
+          title="useSidebar"
+          description="Reads and controls the nearest provider."
+        >
           <DocsApiTable
             rows={[
               {
-                name: "defaultOpen",
-                type: "boolean",
-                defaultValue: "true",
-                description: "Sets the initial uncontrolled open state.",
+                name: "state",
+                type: '"expanded" | "collapsed"',
+                description: "Current visual state.",
               },
               {
                 name: "open",
                 type: "boolean",
-                description: "Controls the open state.",
+                description: "Whether the desktop rail is open.",
               },
               {
-                name: "onOpenChange",
+                name: "setOpen",
                 type: "(open: boolean) => void",
-                description: "Runs when the open state changes.",
+                description: "Sets the desktop open state.",
               },
               {
-                name: "persistState",
+                name: "openMobile",
                 type: "boolean",
-                defaultValue: "true",
-                description:
-                  "Restores and writes the open state using a cookie.",
+                description: "Whether the compact Sheet is open.",
               },
               {
-                name: "enableKeyboardShortcut",
+                name: "setOpenMobile",
+                type: "(open: boolean) => void",
+                description: "Sets the compact Sheet open state.",
+              },
+              {
+                name: "isMobile",
                 type: "boolean",
-                defaultValue: "true",
-                description:
-                  "Enables the platform shortcut for toggling the rail.",
+                description: "Reports whether the compact layout is active.",
               },
               {
-                name: "storageKey",
-                type: "string",
-                defaultValue: '"sidebar_state"',
-                description: "Sets the cookie name used for persisted state.",
+                name: "toggleSidebar",
+                type: "() => void",
+                description: "Toggles the active desktop or compact rail.",
               },
             ]}
           />
-        </div>
-
-        <PageSubsectionHeader
-          title="Sidebar"
-          description="Places and presents the navigation rail."
-        />
-        <div className="mb-6">
-          <DocsApiTable
-            rows={[
-              {
-                name: "side",
-                type: '"left" | "right"',
-                defaultValue: '"left"',
-                description:
-                  "Places the navigation on either side of the layout.",
-              },
-              {
-                name: "variant",
-                type: '"sidebar" | "floating" | "inset"',
-                defaultValue: '"sidebar"',
-                description:
-                  "Controls how the rail sits against the app content.",
-              },
-              {
-                name: "collapsible",
-                type: '"offcanvas" | "icon" | "none"',
-                defaultValue: '"offcanvas"',
-                description: "Chooses how the navigation behaves when closed.",
-              },
-            ]}
-          />
-        </div>
-
-        <PageSubsectionHeader
-          title="SidebarMenuButton"
-          description="Renders a primary destination or disclosure control."
-        />
-        <div className="mb-6">
-          <DocsApiTable
-            rows={[
-              {
-                name: "isActive",
-                type: "boolean",
-                defaultValue: "false",
-                description: "Marks the current destination.",
-              },
-              {
-                name: "variant",
-                type: '"default" | "outline"',
-                defaultValue: '"default"',
-                description: "Sets the approved visual treatment.",
-              },
-              {
-                name: "size",
-                type: '"sm" | "default" | "lg"',
-                defaultValue: '"default"',
-                description: "Sets the menu row size.",
-              },
-              {
-                name: "tooltip",
-                type: "string | TooltipContentProps",
-                description: "Labels an icon-only destination while collapsed.",
-              },
-              {
-                name: "chevron",
-                type: "boolean",
-                description:
-                  "Overrides automatic disclosure-chevron visibility.",
-              },
-              {
-                name: "render",
-                type: "ReactElement | render callback",
-                description: "Renders a destination as a link or router link.",
-              },
-            ]}
-          />
-        </div>
-
-        <PageSubsectionHeader
-          title="SidebarMenuAction"
-          description="Places a secondary action beside a menu destination."
-        />
-        <div className="mb-6">
-          <DocsApiTable
-            rows={[
-              {
-                name: "showOnHover",
-                type: "boolean",
-                defaultValue: "false",
-                description: "Reveals the action on hover and keyboard focus.",
-              },
-              {
-                name: "render",
-                type: "ReactElement | render callback",
-                description:
-                  "Composes another interactive primitive as the action.",
-              },
-            ]}
-          />
-        </div>
-
-        <PageSubsectionHeader
-          title="SidebarMenuSkeleton"
-          description="Represents a loading menu row."
-        />
-        <div className="mb-6">
-          <DocsApiTable
-            rows={[
-              {
-                name: "showIcon",
-                type: "boolean",
-                defaultValue: "false",
-                description: "Includes an icon placeholder.",
-              },
-            ]}
-          />
-        </div>
-
-        <PageSubsectionHeader
-          title="SidebarMenuSubButton"
-          description="Renders a nested destination."
-        />
-        <div className="mb-6">
-          <DocsApiTable
-            rows={[
-              {
-                name: "size",
-                type: '"sm" | "md"',
-                defaultValue: '"md"',
-                description: "Sets the nested row size.",
-              },
-              {
-                name: "isActive",
-                type: "boolean",
-                defaultValue: "false",
-                description: "Marks the current nested destination.",
-              },
-              {
-                name: "render",
-                type: "ReactElement | render callback",
-                description:
-                  "Renders a custom link while preserving menu styling.",
-              },
-            ]}
-          />
-        </div>
-
-        <PageSubsectionHeader
-          title="useSidebar"
-          description="Reads and controls the nearest provider."
-        />
-        <DocsApiTable
-          rows={[
-            {
-              name: "state",
-              type: '"expanded" | "collapsed"',
-              description: "Current visual state.",
-            },
-            {
-              name: "open",
-              type: "boolean",
-              description: "Whether the desktop rail is open.",
-            },
-            {
-              name: "setOpen",
-              type: "(open: boolean) => void",
-              description: "Sets the desktop open state.",
-            },
-            {
-              name: "openMobile",
-              type: "boolean",
-              description: "Whether the compact Sheet is open.",
-            },
-            {
-              name: "setOpenMobile",
-              type: "(open: boolean) => void",
-              description: "Sets the compact Sheet open state.",
-            },
-            {
-              name: "isMobile",
-              type: "boolean",
-              description: "Reports whether the compact layout is active.",
-            },
-            {
-              name: "toggleSidebar",
-              type: "() => void",
-              description: "Toggles the active desktop or compact rail.",
-            },
-          ]}
-        />
-
-        <PageSubsectionHeader
-          className="mt-6"
+        </ChildSection>
+        <ChildSection
           title="API reference"
           description={
             <>
@@ -958,13 +966,13 @@ export function SidebarPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a temporary panel or contained scroller when persistent navigation is not needed."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a temporary panel or contained scroller when persistent navigation is not needed."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/structure/app-sidebar">App Sidebar</DocsPageLink>{" "}
@@ -985,7 +993,7 @@ export function SidebarPage() {
             — for a bounded scrollable region.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

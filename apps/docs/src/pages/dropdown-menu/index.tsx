@@ -6,12 +6,11 @@ import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
 
 import { Code } from "@gecko/ui/components/code";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -244,76 +243,77 @@ export function DropdownMenuPage() {
 </DropdownMenu>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Dropdown menu"
-          description="The Dropdown menu shows a list of actions from a button. People open it to pick an item, then it closes."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Dropdown menu"
+        description="The Dropdown menu shows a list of actions from a button. People open it to pick an item, then it closes."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Dropdown menu for actions that belong to a visible control —
-              Data table row actions, header menus, and similar. The trigger
-              stays visible; the menu should not.
-              <br />
-              <br />
-              Avoid using it for a choice in a form — that is a{" "}
-              <DocsPageLink to="/components/select">Select</DocsPageLink>. On
-              Data table rows, right-click or long-press actions use the{" "}
-              <DocsPageLink to="/components/context-menu">
-                Context menu
-              </DocsPageLink>{" "}
-              instead.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Dropdown menu for actions that belong to a visible control —
+            Data table row actions, header menus, and similar. The trigger stays
+            visible; the menu should not.
+            <br />
+            <br />
+            Avoid using it for a choice in a form — that is a{" "}
+            <DocsPageLink to="/components/select">Select</DocsPageLink>. On Data
+            table rows, right-click or long-press actions use the{" "}
+            <DocsPageLink to="/components/context-menu">
+              Context menu
+            </DocsPageLink>{" "}
+            instead.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import the Dropdown menu and its parts to compose a list of actions."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="The trigger is the button people click. The content holds the actions, which can be grouped, nested, or marked as destructive."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description={
-            <>
-              A simple menu using <Code>DropdownMenuTrigger</Code> and{" "}
-              <Code>DropdownMenuItem</Code>. The trigger uses{" "}
-              <Code>dropdown</Code> on <Code>Button</Code>. Use this when the
-              actions are a short, flat list.
-            </>
-          }
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description={
+          <>
+            A simple menu using <Code>DropdownMenuTrigger</Code> and{" "}
+            <Code>DropdownMenuItem</Code>. The trigger uses{" "}
+            <Code>dropdown</Code> on <Code>Button</Code>. Use this when the
+            actions are a short, flat list.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <DropdownMenu>
@@ -342,20 +342,20 @@ export function DropdownMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="submenu" label="Submenu">
-        <PageSectionHeader
-          title="Submenu"
-          description={
-            <>
-              Nests more actions using <Code>DropdownMenuSub</Code>,{" "}
-              <Code>DropdownMenuSubTrigger</Code>, and{" "}
-              <Code>DropdownMenuSubContent</Code>. Use this when a parent action
-              has a second list of options.
-            </>
-          }
-        />
+      <MainSection
+        id="submenu"
+        title="Submenu"
+        description={
+          <>
+            Nests more actions using <Code>DropdownMenuSub</Code>,{" "}
+            <Code>DropdownMenuSubTrigger</Code>, and{" "}
+            <Code>DropdownMenuSubContent</Code>. Use this when a parent action
+            has a second list of options.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <DropdownMenu>
@@ -404,18 +404,18 @@ export function DropdownMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="shortcuts" label="Shortcuts">
-        <PageSectionHeader
-          title="Shortcuts"
-          description={
-            <>
-              Shows a keyboard hint using <Code>DropdownMenuShortcut</Code>. Use
-              this when the action also has a shortcut people can learn.
-            </>
-          }
-        />
+      <MainSection
+        id="shortcuts"
+        title="Shortcuts"
+        description={
+          <>
+            Shows a keyboard hint using <Code>DropdownMenuShortcut</Code>. Use
+            this when the action also has a shortcut people can learn.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <DropdownMenu>
@@ -453,13 +453,13 @@ export function DropdownMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="icons" label="Icons">
-        <PageSectionHeader
-          title="Icons"
-          description="Place an icon as the first child of the item. Use this when a symbol helps people recognise the action at a glance."
-        />
+      <MainSection
+        id="icons"
+        title="Icons"
+        description="Place an icon as the first child of the item. Use this when a symbol helps people recognise the action at a glance."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <DropdownMenu>
@@ -494,19 +494,19 @@ export function DropdownMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="avatars" label="Avatars">
-        <PageSectionHeader
-          title="Avatars"
-          description={
-            <>
-              Places a person in the item using <Code>Avatar</Code> with{" "}
-              <Code>size=&quot;md&quot;</Code>. Use this when the item
-              represents a person.
-            </>
-          }
-        />
+      <MainSection
+        id="avatars"
+        title="Avatars"
+        description={
+          <>
+            Places a person in the item using <Code>Avatar</Code> with{" "}
+            <Code>size=&quot;md&quot;</Code>. Use this when the item represents
+            a person.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <DropdownMenu>
@@ -545,20 +545,20 @@ export function DropdownMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="checkbox" label="Checkbox">
-        <PageSectionHeader
-          title="Checkbox"
-          description={
-            <>
-              A toggle in the menu using <Code>DropdownMenuCheckboxItem</Code>.
-              Use this for options that can be on or off independently. A
-              selected item shows a check, changing to a remove icon on hover or
-              keyboard focus.
-            </>
-          }
-        />
+      <MainSection
+        id="checkbox"
+        title="Checkbox"
+        description={
+          <>
+            A toggle in the menu using <Code>DropdownMenuCheckboxItem</Code>.
+            Use this for options that can be on or off independently. A selected
+            item shows a check, changing to a remove icon on hover or keyboard
+            focus.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <DropdownMenu>
@@ -603,19 +603,19 @@ export function DropdownMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="radio-group" label="Radio group">
-        <PageSectionHeader
-          title="Radio group"
-          description={
-            <>
-              A single choice using <Code>DropdownMenuRadioGroup</Code> and{" "}
-              <Code>DropdownMenuRadioItem</Code>. Use this when only one option
-              in the set can be selected.
-            </>
-          }
-        />
+      <MainSection
+        id="radio-group"
+        title="Radio group"
+        description={
+          <>
+            A single choice using <Code>DropdownMenuRadioGroup</Code> and{" "}
+            <Code>DropdownMenuRadioItem</Code>. Use this when only one option in
+            the set can be selected.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <DropdownMenu>
@@ -655,20 +655,20 @@ export function DropdownMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="destructive" label="Destructive">
-        <PageSectionHeader
-          title="Destructive"
-          description={
-            <>
-              A high-risk action using{" "}
-              <Code>variant=&quot;destructive&quot;</Code> on{" "}
-              <Code>DropdownMenuItem</Code>. Use this when the risk should be
-              visible before someone clicks.
-            </>
-          }
-        />
+      <MainSection
+        id="destructive"
+        title="Destructive"
+        description={
+          <>
+            A high-risk action using{" "}
+            <Code>variant=&quot;destructive&quot;</Code> on{" "}
+            <Code>DropdownMenuItem</Code>. Use this when the risk should be
+            visible before someone clicks.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <DropdownMenu>
@@ -708,20 +708,20 @@ export function DropdownMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="search" label="Search">
-        <PageSectionHeader
-          title="Search"
-          description={
-            <>
-              Filters the list using <Code>searchable</Code> and{" "}
-              <Code>searchPlaceholder</Code> on <Code>DropdownMenu</Code>. Pair
-              with <Code>DropdownMenuEmpty</Code> when nothing matches. Use this
-              when the list is long enough to search.
-            </>
-          }
-        />
+      <MainSection
+        id="search"
+        title="Search"
+        description={
+          <>
+            Filters the list using <Code>searchable</Code> and{" "}
+            <Code>searchPlaceholder</Code> on <Code>DropdownMenu</Code>. Pair
+            with <Code>DropdownMenuEmpty</Code> when nothing matches. Use this
+            when the list is long enough to search.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <DropdownMenu searchable searchPlaceholder="Search actions...">
@@ -749,13 +749,13 @@ export function DropdownMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep button-triggered actions concise and scannable. Do not restyle the menu chrome."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep button-triggered actions concise and scannable. Do not restyle the menu chrome."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -789,13 +789,13 @@ export function DropdownMenuPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Dropdown menu."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Dropdown menu."
+      >
         <DocsApiTable
           rows={[
             {
@@ -850,9 +850,8 @@ export function DropdownMenuPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -868,13 +867,13 @@ export function DropdownMenuPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use another list control when the trigger or interaction is different."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use another list control when the trigger or interaction is different."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/context-menu">
@@ -891,7 +890,7 @@ export function DropdownMenuPage() {
             choosing a form value.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

@@ -1,37 +1,43 @@
-import { Button } from "@gecko/ui/components/button"
-import { Code } from "@gecko/ui/components/code"
+import { Button } from "@gecko/ui/components/button";
+import { Code } from "@gecko/ui/components/code";
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from "@gecko/ui/components/field"
-import { SensitiveField } from "@gecko/ui/components/sensitive-field"
+} from "@gecko/ui/components/field";
+import { SensitiveField } from "@gecko/ui/components/sensitive-field";
 
-import { ComponentExample } from "@/components/layout/component-example"
-import { DocsApiTable } from "@/components/layout/docs-api-table"
-import { DocsDoDont } from "@/components/layout/docs-do-dont"
-import { DocsPageLink } from "@/components/layout/docs-page-link"
-import { PageSection } from "@/components/layout/page-section"
+import { ComponentExample } from "@/components/layout/component-example";
+import { RequiredForm } from "@/components/layout/required-form";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header"
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
+import { Controller } from "react-hook-form";
+import { z } from "zod";
+
+const sensitiveFieldFormSchema = z.object({
+  apiKey: z.string().trim().min(1, "Enter an API key."),
+});
 
 export function SensitiveFieldPage() {
-  const importSnippet = `import { SensitiveField } from "@gecko/ui/components/sensitive-field"`
+  const importSnippet = `import { SensitiveField } from "@gecko/ui/components/sensitive-field"`;
 
   const basicExampleSnippet = `<SensitiveField
   aria-label="API key"
   defaultValue="sk_live_example_secret"
-/>`
+/>`;
 
   const sizesSnippet = `<SensitiveField
   aria-label="API key"
   size="sm|md|lg"
   defaultValue="secret"
-/>`
+/>`;
 
   const disabledSnippet = `<Field data-disabled>
   <FieldLabel htmlFor="sensitive-field-disabled">API key</FieldLabel>
@@ -41,7 +47,7 @@ export function SensitiveFieldPage() {
     defaultValue="secret"
     disabled
   />
-</Field>`
+</Field>`;
 
   const errorSnippet = `<Field data-invalid>
   <FieldLabel htmlFor="sensitive-field-error">API key</FieldLabel>
@@ -55,72 +61,76 @@ export function SensitiveFieldPage() {
   <FieldError id="sensitive-field-error-message">
     Check the API key and try again.
   </FieldError>
-</Field>`
+</Field>`;
 
-  const withinFormSnippet = `<form onSubmit={handleSubmit}>
-  <Field>
-    <FieldLabel htmlFor="api-key">API key</FieldLabel>
-    <SensitiveField
-      id="api-key"
-      name="apiKey"
-      defaultValue="sk_live_example_secret"
-      autoComplete="off"
-      aria-describedby="api-key-description"
-    />
-    <FieldDescription id="api-key-description">
-      Used to authenticate requests from this integration.
-    </FieldDescription>
-  </Field>
+  const withinFormSnippet = `const formSchema = z.object({
+  apiKey: z.string().trim().min(1, "Enter an API key."),
+})
+
+const form = useForm<z.infer<typeof formSchema>>({
+  resolver: zodResolver(formSchema),
+  defaultValues: { apiKey: "" },
+})
+
+<form noValidate onSubmit={form.handleSubmit(onSubmit)}>
+  <Controller name="apiKey" control={form.control} render={({ field, fieldState }) => (
+    <Field data-invalid={fieldState.invalid}>
+      <FieldLabel htmlFor={field.name}>API key</FieldLabel>
+      <SensitiveField {...field} id={field.name} required aria-invalid={fieldState.invalid} />
+      <FieldDescription>Used to authenticate requests from this integration.</FieldDescription>
+      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+    </Field>
+  )} />
   <Button type="submit">Save API key</Button>
-</form>`
+</form>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Sensitive field"
-          description="Sensitive field keeps a private value concealed until someone deliberately reveals it. The concealed display always uses ten bullets, so it does not disclose the value’s length."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Sensitive field"
+        description="Sensitive field keeps a private value concealed until someone deliberately reveals it. The concealed display always uses ten bullets, so it does not disclose the value’s length."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Sensitive field for API keys, secrets, and other private
-              values that need to be reviewed or edited in place. Compose it
-              with a <DocsPageLink to="/components/field">Field</DocsPageLink>{" "}
-              when it needs a visible label, supporting text, or validation.
-              <br />
-              <br />
-              Use a dedicated password input for sign-in and account-password
-              flows. For values that do not need concealment, use an{" "}
-              <DocsPageLink to="/components/input">Input field</DocsPageLink>.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Sensitive field for API keys, secrets, and other private values
+            that need to be reviewed or edited in place. Compose it with a{" "}
+            <DocsPageLink to="/components/field">Field</DocsPageLink> when it
+            needs a visible label, supporting text, or validation.
+            <br />
+            <br />
+            Use a dedicated password input for sign-in and account-password
+            flows. For values that do not need concealment, use an{" "}
+            <DocsPageLink to="/components/input">Input field</DocsPageLink>.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import SensitiveField to add a revealable concealed input."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="The value starts concealed. The reveal control makes it visible and editable."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="The value starts concealed. The reveal control makes it visible and editable."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <SensitiveField
@@ -136,13 +146,13 @@ export function SensitiveFieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizing" label="Sizing">
-        <PageSectionHeader
-          title="Sizing"
-          description="Match the field height to neighbouring form controls."
-        />
+      <MainSection
+        id="sizing"
+        title="Sizing"
+        description="Match the field height to neighbouring form controls."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <SensitiveField
@@ -169,99 +179,113 @@ export function SensitiveFieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="states" label="States">
-        <PageSectionHeader
-          title="States"
-          description="Communicate when the value is unavailable or needs attention."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="states"
+        title="States"
+        description="Communicate when the value is unavailable or needs attention."
+      >
+        <ChildSection
           id="states-disabled"
           title="Disabled"
           description="Use this when the value cannot be revealed or changed yet."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field data-disabled>
-              <FieldLabel htmlFor="sensitive-field-disabled">
-                API key
-              </FieldLabel>
-              <SensitiveField
-                id="sensitive-field-disabled"
-                name="apiKey"
-                defaultValue="secret"
-                disabled
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-disabled>
+                <FieldLabel htmlFor="sensitive-field-disabled">
+                  API key
+                </FieldLabel>
+                <SensitiveField
+                  id="sensitive-field-disabled"
+                  name="apiKey"
+                  defaultValue="secret"
+                  disabled
+                />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={disabledSnippet}
+                showCopyButton
+                copyLabel="Copy disabled example"
               />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={disabledSnippet}
-              showCopyButton
-              copyLabel="Copy disabled example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-error"
           title="Error"
           description="Use this when the current value prevents the person from continuing."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field data-invalid>
-              <FieldLabel htmlFor="sensitive-field-error">API key</FieldLabel>
-              <SensitiveField
-                id="sensitive-field-error"
-                name="apiKey"
-                defaultValue="secret"
-                aria-invalid
-                aria-describedby="sensitive-field-error-message"
-              />
-              <FieldError id="sensitive-field-error-message">
-                Check the API key and try again.
-              </FieldError>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={errorSnippet}
-              showCopyButton
-              copyLabel="Copy error example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
-
-      <PageSection id="within-form" label="Within form">
-        <PageSectionHeader
-          title="Within form"
-          description="Give the value a submitted name and identify it with a visible field label."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <form
-              className="space-y-6"
-              onSubmit={(event) => event.preventDefault()}
-            >
-              <Field>
-                <FieldLabel htmlFor="api-key">API key</FieldLabel>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-invalid>
+                <FieldLabel htmlFor="sensitive-field-error">API key</FieldLabel>
                 <SensitiveField
-                  id="api-key"
+                  id="sensitive-field-error"
                   name="apiKey"
-                  defaultValue="sk_live_example_secret"
-                  autoComplete="off"
-                  aria-describedby="api-key-description"
+                  defaultValue="secret"
+                  aria-invalid
+                  aria-describedby="sensitive-field-error-message"
                 />
-                <FieldDescription id="api-key-description">
-                  Used to authenticate requests from this integration.
-                </FieldDescription>
+                <FieldError id="sensitive-field-error-message">
+                  Check the API key and try again.
+                </FieldError>
               </Field>
-              <Button type="submit">Save API key</Button>
-            </form>
+              <Code
+                variant="block"
+                language="tsx"
+                code={errorSnippet}
+                showCopyButton
+                copyLabel="Copy error example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
+
+      <MainSection
+        id="within-form"
+        title="Within form"
+        description="Give the value a submitted name and identify it with a visible field label."
+      >
+        <ComponentExample>
+          <div className="space-y-6">
+            <RequiredForm
+              className="space-y-6"
+              schema={sensitiveFieldFormSchema}
+              defaultValues={{ apiKey: "" }}
+            >
+              {(form) => (
+                <>
+                  <Controller
+                    name="apiKey"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor="api-key">API key</FieldLabel>
+                        <SensitiveField
+                          {...field}
+                          id="api-key"
+                          autoComplete="off"
+                          required
+                          aria-invalid={fieldState.invalid}
+                        />
+                        <FieldDescription>
+                          Used to authenticate requests from this integration.
+                        </FieldDescription>
+                        {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]} />
+                        )}
+                      </Field>
+                    )}
+                  />
+                  <Button type="submit">Save API key</Button>
+                </>
+              )}
+            </RequiredForm>
             <Code
               variant="block"
               language="tsx"
@@ -271,13 +295,13 @@ export function SensitiveFieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep private values concealed until someone deliberately reveals them."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep private values concealed until someone deliberately reveals them."
+      >
         <DocsDoDont
           doItems={[
             <>Use Sensitive field for values that need concealment.</>,
@@ -297,13 +321,13 @@ export function SensitiveFieldPage() {
             <>Don’t mix field sizes in the same form row.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Sensitive field."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Sensitive field."
+      >
         <DocsApiTable
           rows={[
             {
@@ -370,13 +394,13 @@ export function SensitiveFieldPage() {
             },
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use the surrounding form components to identify and validate the value."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use the surrounding form components to identify and validate the value."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/input">Input field</DocsPageLink> —
@@ -387,7 +411,7 @@ export function SensitiveFieldPage() {
             visible label, supporting text, and validation.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
-  )
+  );
 }

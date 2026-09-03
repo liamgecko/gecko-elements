@@ -62,6 +62,7 @@ export type DateInputProps = Omit<
   monthFirst?: boolean
   size?: DateInputSize
   disabled?: boolean
+  required?: boolean
 }
 
 const DateInput = React.forwardRef<HTMLDivElement, DateInputProps>(
@@ -73,6 +74,7 @@ const DateInput = React.forwardRef<HTMLDivElement, DateInputProps>(
       monthFirst = false,
       size = "md",
       disabled = false,
+      required = false,
       className,
       id: idProp,
       "aria-label": ariaLabel,
@@ -205,6 +207,7 @@ const DateInput = React.forwardRef<HTMLDivElement, DateInputProps>(
       inputMode: "numeric" as const,
       size,
       disabled,
+      required,
       "aria-describedby": ariaDescribedBy,
       "aria-invalid": ariaInvalid,
     }

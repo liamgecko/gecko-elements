@@ -8,12 +8,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 
 const sizes = ["xs", "sm", "md", "lg", "xl"] as const;
 
@@ -91,52 +90,51 @@ export function BadgePage() {
 <Badge notificationCount={12}>Messages</Badge>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Badge"
-          description="The Badge component is a short label for status, category, or a count. It helps people scan without reading a full sentence."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Badge"
+        description="The Badge component is a short label for status, category, or a count. It helps people scan without reading a full sentence."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Badge for status in Data table columns (for example a campaign
-              marked Active) and for labels or tags. Keep the wording short.
-              <br />
-              <br />
-              Avoid using it for sentences, instructions, or headings. Prefer
-              these status and tag patterns; expand only when product needs it.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Badge for status in Data table columns (for example a campaign
+            marked Active) and for labels or tags. Keep the wording short.
+            <br />
+            <br />
+            Avoid using it for sentences, instructions, or headings. Prefer
+            these status and tag patterns; expand only when product needs it.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Badge to label a status or category. Badge also owns optional icons, dismissal, and notification counts."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="default" label="Default badge">
-        <PageSectionHeader
-          title="Default badge"
-          description={
-            <>A quiet badge for a short label. This is the default treatment.</>
-          }
-        />
+      <MainSection
+        id="default"
+        title="Default badge"
+        description={
+          <>A quiet badge for a short label. This is the default treatment.</>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Badge>Default badge</Badge>
@@ -149,21 +147,20 @@ export function BadgePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="variants" label="Variants">
-        <PageSectionHeader
-          title="Variants"
-          description={
-            <>
-              Change colour with <Code>variant</Code>, add an outline with{" "}
-              <Code>bordered</Code>, or a pill shape with <Code>rounded</Code>.
-              Choose the look that matches how important the label is.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="variants"
+        title="Variants"
+        description={
+          <>
+            Change colour with <Code>variant</Code>, add an outline with{" "}
+            <Code>bordered</Code>, or a pill shape with <Code>rounded</Code>.
+            Choose the look that matches how important the label is.
+          </>
+        }
+      >
+        <ChildSection
           id="variants-colours"
           title="Colours"
           description={
@@ -173,29 +170,29 @@ export function BadgePage() {
               needs attention, or has gone wrong.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="primary">Primary</Badge>
-              <Badge>Secondary</Badge>
-              <Badge variant="info">Info</Badge>
-              <Badge variant="warning">Warning</Badge>
-              <Badge variant="destructive">Destructive</Badge>
-              <Badge variant="success">Success</Badge>
-              <Badge variant="light">Light</Badge>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="primary">Primary</Badge>
+                <Badge>Secondary</Badge>
+                <Badge variant="info">Info</Badge>
+                <Badge variant="warning">Warning</Badge>
+                <Badge variant="destructive">Destructive</Badge>
+                <Badge variant="success">Success</Badge>
+                <Badge variant="light">Light</Badge>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={coloursSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={coloursSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-bordered"
           title="Bordered"
           description={
@@ -205,41 +202,41 @@ export function BadgePage() {
               background.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="primary" bordered>
-                Primary
-              </Badge>
-              <Badge bordered>Secondary</Badge>
-              <Badge variant="info" bordered>
-                Info
-              </Badge>
-              <Badge variant="warning" bordered>
-                Warning
-              </Badge>
-              <Badge variant="destructive" bordered>
-                Destructive
-              </Badge>
-              <Badge variant="success" bordered>
-                Success
-              </Badge>
-              <Badge variant="light" bordered>
-                Light
-              </Badge>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="primary" bordered>
+                  Primary
+                </Badge>
+                <Badge bordered>Secondary</Badge>
+                <Badge variant="info" bordered>
+                  Info
+                </Badge>
+                <Badge variant="warning" bordered>
+                  Warning
+                </Badge>
+                <Badge variant="destructive" bordered>
+                  Destructive
+                </Badge>
+                <Badge variant="success" bordered>
+                  Success
+                </Badge>
+                <Badge variant="light" bordered>
+                  Light
+                </Badge>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={borderedSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={borderedSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-rounded"
           title="Rounded"
           description={
@@ -248,52 +245,53 @@ export function BadgePage() {
               when the label should feel like a tag rather than a status chip.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="primary" rounded>
-                Primary
-              </Badge>
-              <Badge rounded>Secondary</Badge>
-              <Badge variant="info" rounded>
-                Info
-              </Badge>
-              <Badge variant="warning" rounded>
-                Warning
-              </Badge>
-              <Badge variant="destructive" rounded>
-                Destructive
-              </Badge>
-              <Badge variant="success" rounded>
-                Success
-              </Badge>
-              <Badge variant="light" rounded>
-                Light
-              </Badge>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="primary" rounded>
+                  Primary
+                </Badge>
+                <Badge rounded>Secondary</Badge>
+                <Badge variant="info" rounded>
+                  Info
+                </Badge>
+                <Badge variant="warning" rounded>
+                  Warning
+                </Badge>
+                <Badge variant="destructive" rounded>
+                  Destructive
+                </Badge>
+                <Badge variant="success" rounded>
+                  Success
+                </Badge>
+                <Badge variant="light" rounded>
+                  Light
+                </Badge>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={roundedSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={roundedSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="sizes" label="Sizes">
-        <PageSectionHeader
-          title="Sizes"
-          description={
-            <>
-              Set the size with the <Code>size</Code> prop. Use a smaller size
-              in dense tables and lists, and a larger size when the label is a
-              focus of the layout.
-            </>
-          }
-        />
+      <MainSection
+        id="sizes"
+        title="Sizes"
+        description={
+          <>
+            Set the size with the <Code>size</Code> prop. Use a smaller size in
+            dense tables and lists, and a larger size when the label is a focus
+            of the layout.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap items-center gap-2">
@@ -312,15 +310,14 @@ export function BadgePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-icons" label="With icons">
-        <PageSectionHeader
-          title="With icons"
-          description="An icon can sit with the text to make the type of badge easier to recognise."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="with-icons"
+        title="With icons"
+        description="An icon can sit with the text to make the type of badge easier to recognise."
+      >
+        <ChildSection
           id="with-icons-left"
           title="Left icon"
           description={
@@ -330,21 +327,21 @@ export function BadgePage() {
               label at a glance.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Badge leftIcon={<Bell />}>Icon left</Badge>
-            <Code
-              variant="block"
-              language="tsx"
-              code={leftIconSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Badge leftIcon={<Bell />}>Icon left</Badge>
+              <Code
+                variant="block"
+                language="tsx"
+                code={leftIconSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="with-icons-right"
           title="Right icon"
           description={
@@ -353,21 +350,21 @@ export function BadgePage() {
               prop. Use this when a trailing symbol adds meaning to the label.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Badge rightIcon={<ChevronRight />}>Icon right</Badge>
-            <Code
-              variant="block"
-              language="tsx"
-              code={rightIconSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Badge rightIcon={<ChevronRight />}>Icon right</Badge>
+              <Code
+                variant="block"
+                language="tsx"
+                code={rightIconSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="with-icons-both"
           title="Both icons"
           description={
@@ -377,35 +374,35 @@ export function BadgePage() {
               the left and additional context on the right.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Badge leftIcon={<Bell />} rightIcon={<ChevronRight />}>
-              Both icons
-            </Badge>
-            <Code
-              variant="block"
-              language="tsx"
-              code={bothIconsSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Badge leftIcon={<Bell />} rightIcon={<ChevronRight />}>
+                Both icons
+              </Badge>
+              <Code
+                variant="block"
+                language="tsx"
+                code={bothIconsSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="with-avatar" label="With avatar">
-        <PageSectionHeader
-          title="With avatar"
-          description={
-            <>
-              Nest an <Code>Avatar</Code> as a child of the badge. Use this when
-              the label is about a person.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="with-avatar"
+        title="With avatar"
+        description={
+          <>
+            Nest an <Code>Avatar</Code> as a child of the badge. Use this when
+            the label is about a person.
+          </>
+        }
+      >
+        <ChildSection
           id="with-avatar-sizes"
           title="Avatar sizes"
           description={
@@ -414,40 +411,41 @@ export function BadgePage() {
               size that matches the surrounding layout.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="flex flex-wrap items-center gap-2">
-              {sizes.map((size) => (
-                <Badge key={size} size={size}>
-                  <Avatar name="John Doe">
-                    <AvatarImage src={avatarSrc} />
-                  </Avatar>
-                  {sizeLabels[size]}
-                </Badge>
-              ))}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="flex flex-wrap items-center gap-2">
+                {sizes.map((size) => (
+                  <Badge key={size} size={size}>
+                    <Avatar name="John Doe">
+                      <AvatarImage src={avatarSrc} />
+                    </Avatar>
+                    {sizeLabels[size]}
+                  </Badge>
+                ))}
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={avatarSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={avatarSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="dismissible" label="Dismissible">
-        <PageSectionHeader
-          title="Dismissible"
-          description={
-            <>
-              Adds an internal remove control using <Code>dismissible</Code>.
-              Use this when the complete badge can be removed.
-            </>
-          }
-        />
+      <MainSection
+        id="dismissible"
+        title="Dismissible"
+        description={
+          <>
+            Adds an internal remove control using <Code>dismissible</Code>. Use
+            this when the complete badge can be removed.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             {!dismissed ? (
@@ -473,19 +471,19 @@ export function BadgePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="notification" label="Notification indicator">
-        <PageSectionHeader
-          title="Notification indicator"
-          description={
-            <>
-              Set <Code>notificationCount</Code> when the label needs an unread
-              count. Badge creates and positions the Counter automatically.
-              Counts of ten or more show as 9+, and zero is hidden.
-            </>
-          }
-        />
+      <MainSection
+        id="notification"
+        title="Notification indicator"
+        description={
+          <>
+            Set <Code>notificationCount</Code> when the label needs an unread
+            count. Badge creates and positions the Counter automatically. Counts
+            of ten or more show as 9+, and zero is hidden.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap items-center gap-4">
@@ -501,13 +499,13 @@ export function BadgePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use variant, size, and shape for emphasis. Do not restyle the badge chrome."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use variant, size, and shape for emphasis. Do not restyle the badge chrome."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -550,13 +548,9 @@ export function BadgePage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Badge."
-        />
+      <MainSection id="api" title="API" description="Behaviour props on Badge.">
         <DocsApiTable
           rows={[
             {
@@ -612,9 +606,8 @@ export function BadgePage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -626,13 +619,13 @@ export function BadgePage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a different control when the Badge is the wrong shape for the job."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a different control when the Badge is the wrong shape for the job."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/button">Button</DocsPageLink> — when
@@ -648,7 +641,7 @@ export function BadgePage() {
             <Code>notificationCount</Code> is set.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

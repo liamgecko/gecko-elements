@@ -10,12 +10,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 
 const sizes = ["xs", "sm", "md", "lg", "xl", "2xl", "3xl"] as const;
 
@@ -61,77 +60,76 @@ export function AvatarPage() {
 </Avatar>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Avatar"
-          description="The Avatar component represents a person or account. It shows a photo when one is available, and initials when it is not, so people stay identifiable."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Avatar"
+        description="The Avatar component represents a person or account. It shows a photo when one is available, and initials when it is not, so people stay identifiable."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Avatar whenever displaying a user — especially in Data table
-              “created by” columns. Initials are enough when there is no photo.
-              <br />
-              <br />
-              Avoid using it for generic icons, product logos, or decorative
-              images that are not a person. For several people together (for
-              example conversation assignees), use an{" "}
-              <DocsPageLink to="/components/avatar-group">
-                Avatar group
-              </DocsPageLink>
-              .
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Avatar whenever displaying a user — especially in Data table
+            “created by” columns. Initials are enough when there is no photo.
+            <br />
+            <br />
+            Avoid using it for generic icons, product logos, or decorative
+            images that are not a person. For several people together (for
+            example conversation assignees), use an{" "}
+            <DocsPageLink to="/components/avatar-group">
+              Avatar group
+            </DocsPageLink>
+            .
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import the Avatar and its parts to compose a profile image."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="The Avatar owns its automatic fallback. An optional image, name label, and supporting line can be added."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="default" label="Default avatar">
-        <PageSectionHeader
-          title="Default avatar"
-          description={
-            <>
-              Pass the person’s full name and Avatar generates the correct
-              initials automatically. Add <Code>AvatarImage</Code> when a photo
-              is available. Use this as the baseline wherever a person needs to
-              be recognised.
-            </>
-          }
-        />
+      <MainSection
+        id="default"
+        title="Default avatar"
+        description={
+          <>
+            Pass the person’s full name and Avatar generates the correct
+            initials automatically. Add <Code>AvatarImage</Code> when a photo is
+            available. Use this as the baseline wherever a person needs to be
+            recognised.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap items-center gap-6">
@@ -149,20 +147,20 @@ export function AvatarPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizes" label="Sizes">
-        <PageSectionHeader
-          title="Sizes"
-          description={
-            <>
-              Set the size with the <Code>size</Code> prop. Omit it for the
-              standard avatar size. Use a smaller size in dense lists and
-              messages, and reserve the largest sizes for prominent account or
-              profile displays.
-            </>
-          }
-        />
+      <MainSection
+        id="sizes"
+        title="Sizes"
+        description={
+          <>
+            Set the size with the <Code>size</Code> prop. Omit it for the
+            standard avatar size. Use a smaller size in dense lists and
+            messages, and reserve the largest sizes for prominent account or
+            profile displays.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap items-end gap-6">
@@ -179,19 +177,18 @@ export function AvatarPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="image" label="With image">
-        <PageSectionHeader
-          title="With image"
-          description={
-            <>
-              Shows a photo using <Code>AvatarImage</Code> with a{" "}
-              <Code>src</Code>. Avatar automatically shows initials if the photo
-              cannot load.
-            </>
-          }
-        />
+      <MainSection
+        id="image"
+        title="With image"
+        description={
+          <>
+            Shows a photo using <Code>AvatarImage</Code> with a <Code>src</Code>
+            . Avatar automatically shows initials if the photo cannot load.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Avatar name="Gecko Engage">
@@ -206,20 +203,20 @@ export function AvatarPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="status" label="Status">
-        <PageSectionHeader
-          title="Status"
-          description={
-            <>
-              Shows availability using the <Code>status</Code> prop. Avatar
-              automatically renders the approved badge at the bottom right and
-              exposes the status to assistive technology. The example contains
-              every approved status.
-            </>
-          }
-        />
+      <MainSection
+        id="status"
+        title="Status"
+        description={
+          <>
+            Shows availability using the <Code>status</Code> prop. Avatar
+            automatically renders the approved badge at the bottom right and
+            exposes the status to assistive technology. The example contains
+            every approved status.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap items-center gap-8">
@@ -236,19 +233,19 @@ export function AvatarPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="notification" label="Notification">
-        <PageSectionHeader
-          title="Notification"
-          description={
-            <>
-              Shows unread activity using the <Code>notification</Code> prop.
-              Avatar automatically renders its badge at the top left, so it can
-              appear alongside a bottom-right status badge without overlap.
-            </>
-          }
-        />
+      <MainSection
+        id="notification"
+        title="Notification"
+        description={
+          <>
+            Shows unread activity using the <Code>notification</Code> prop.
+            Avatar automatically renders its badge at the top left, so it can
+            appear alongside a bottom-right status badge without overlap.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Avatar name="Gecko Engage" status="online" notification />
@@ -261,18 +258,18 @@ export function AvatarPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="label-only" label="Label">
-        <PageSectionHeader
-          title="Label"
-          description={
-            <>
-              Adds a name beside the avatar using <Code>AvatarLabel</Code>. Use
-              this in lists and headers where the photo alone is not enough.
-            </>
-          }
-        />
+      <MainSection
+        id="label-only"
+        title="Label"
+        description={
+          <>
+            Adds a name beside the avatar using <Code>AvatarLabel</Code>. Use
+            this in lists and headers where the photo alone is not enough.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Avatar name="Gecko Engage">
@@ -287,19 +284,19 @@ export function AvatarPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="label-description" label="Label and description">
-        <PageSectionHeader
-          title="Label and description"
-          description={
-            <>
-              Adds a name and supporting line using <Code>AvatarLabel</Code> and{" "}
-              <Code>AvatarDescription</Code>. Use this when extra context helps
-              someone tell people apart.
-            </>
-          }
-        />
+      <MainSection
+        id="label-description"
+        title="Label and description"
+        description={
+          <>
+            Adds a name and supporting line using <Code>AvatarLabel</Code> and{" "}
+            <Code>AvatarDescription</Code>. Use this when extra context helps
+            someone tell people apart.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-col items-start gap-6">
@@ -319,13 +316,13 @@ export function AvatarPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use the approved properties for identity, availability, unread activity, and scale."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use the approved properties for identity, availability, unread activity, and scale."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -375,68 +372,103 @@ export function AvatarPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Avatar."
-        />
-        <DocsApiTable
-          rows={[
-            {
-              name: "name",
-              type: "string",
-              description:
-                "Required person or account name. Generates the fallback initials and accessible identity.",
-            },
-            {
-              name: "size",
-              type: '"xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "default"',
-              defaultValue: '"default"',
-              description:
-                "Diameter. default maps to xl. Omit for standard use; use md in dense lists and messages.",
-            },
-            {
-              name: "status",
-              type: '"online" | "unavailable" | "offline"',
-              description: "Availability marker on the avatar.",
-            },
-            {
-              name: "notification",
-              type: "boolean",
-              defaultValue: "false",
-              description:
-                "Top-left badge indicating unread activity. May be combined with status.",
-            },
-            {
-              name: "AvatarImage src",
-              type: "string",
-              description: "On AvatarImage. Optional profile-photo URL.",
-            },
-            {
-              name: "AvatarImage alt",
-              type: "string",
-              description:
-                "Optional. Defaults to an empty value because Avatar itself exposes the accessible name.",
-            },
-            {
-              name: "AvatarLabel children",
-              type: "React.ReactNode",
-              description:
-                "Optional primary identity text beside the avatar. Must be a direct child of Avatar.",
-            },
-            {
-              name: "AvatarDescription children",
-              type: "React.ReactNode",
-              description:
-                "Optional supporting identity text beside the avatar. Must be a direct child of Avatar.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Avatar."
+      >
+        <ChildSection
+          id="api-avatar"
+          title="Avatar"
+          description="Props on Avatar."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "name",
+                type: "string",
+                description:
+                  "Required person or account name. Generates the fallback initials and accessible identity.",
+              },
+              {
+                name: "size",
+                type: '"xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "default"',
+                defaultValue: '"default"',
+                description:
+                  "Diameter. default maps to xl. Omit for standard use; use md in dense lists and messages.",
+              },
+              {
+                name: "status",
+                type: '"online" | "unavailable" | "offline"',
+                description: "Availability marker on the avatar.",
+              },
+              {
+                name: "notification",
+                type: "boolean",
+                defaultValue: "false",
+                description:
+                  "Top-left badge indicating unread activity. May be combined with status.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-avatar-image"
+          title="AvatarImage"
+          description="Props on AvatarImage."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "src",
+                type: "string",
+                description: "On AvatarImage. Optional profile-photo URL.",
+              },
+              {
+                name: "alt",
+                type: "string",
+                description:
+                  "Optional. Defaults to an empty value because Avatar itself exposes the accessible name.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-avatar-label"
+          title="AvatarLabel"
+          description="Props on AvatarLabel."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "children",
+                type: "React.ReactNode",
+                description:
+                  "Optional primary identity text beside the avatar. Must be a direct child of Avatar.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-avatar-description"
+          title="AvatarDescription"
+          description="Props on AvatarDescription."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "children",
+                type: "React.ReactNode",
+                description:
+                  "Optional supporting identity text beside the avatar. Must be a direct child of Avatar.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -452,13 +484,13 @@ export function AvatarPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a different control when the Avatar is the wrong shape for the job."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a different control when the Avatar is the wrong shape for the job."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/avatar-group">
@@ -467,7 +499,7 @@ export function AvatarPage() {
             — when several people need to be shown together.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

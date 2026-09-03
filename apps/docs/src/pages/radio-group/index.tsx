@@ -1,24 +1,25 @@
 import { useState } from "react";
 import { ComponentExample } from "@/components/layout/component-example";
+import { RequiredForm } from "@/components/layout/required-form";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Button } from "@gecko/ui/components/button";
-import {
-  Field,
-  FieldContent,
-  FieldError,
-  FieldGroup,
-} from "@gecko/ui/components/field";
+import { Field, FieldContent, FieldError } from "@gecko/ui/components/field";
 import { RadioGroup, RadioGroupItem } from "@gecko/ui/components/radio-group";
 import { Code } from "@gecko/ui/components/code";
+import { Controller } from "react-hook-form";
+import { z } from "zod";
+
+const radioGroupFormSchema = z.object({
+  notificationFrequency: z.string().min(1, "Select a notification frequency."),
+});
 
 export function RadioGroupPage() {
   const [groupValue, setGroupValue] = useState<string>("fuji");
@@ -176,82 +177,102 @@ export function RadioGroupPage() {
   </FieldContent>
 </Field>`;
 
-  const withinFormSnippet = `<form onSubmit={handleSubmit}>
-  <FieldGroup>
-    <RadioGroup
-      name="notificationFrequency"
-      label="Notification frequency"
-      defaultValue="important"
-    >
-      <RadioGroupItem value="all" label="All activity" />
-      <RadioGroupItem value="important" label="Important activity" />
-      <RadioGroupItem value="none" label="No notifications" />
-    </RadioGroup>
-  </FieldGroup>
+  const withinFormSnippet = `const formSchema = z.object({
+  notificationFrequency: z.string().min(1, "Select a notification frequency."),
+})
+
+const form = useForm<z.infer<typeof formSchema>>({
+  resolver: zodResolver(formSchema),
+  defaultValues: { notificationFrequency: "" },
+})
+
+<form noValidate onSubmit={form.handleSubmit(onSubmit)}>
+  <Controller
+    name="notificationFrequency"
+    control={form.control}
+    render={({ field, fieldState }) => (
+      <Field data-invalid={fieldState.invalid}>
+        <RadioGroup
+          name={field.name}
+          value={field.value}
+          onValueChange={field.onChange}
+          label="Notification frequency"
+          required
+          aria-invalid={fieldState.invalid}
+        >
+          <RadioGroupItem value="all" label="All activity" aria-invalid={fieldState.invalid} />
+          <RadioGroupItem value="important" label="Important activity" aria-invalid={fieldState.invalid} />
+          <RadioGroupItem value="none" label="No notifications" aria-invalid={fieldState.invalid} />
+        </RadioGroup>
+        {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+      </Field>
+    )}
+  />
   <Button type="submit">Save preferences</Button>
 </form>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Radio group"
-          description="Radio group lets people choose exactly one option from a list."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Radio group"
+        description="Radio group lets people choose exactly one option from a list."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Radio group when one option must be selected from a known set.
-              Default to a vertical list. Use button-style options for a short,
-              prominent set.
-              <br />
-              <br />
-              Avoid using it for multiple selections — that is{" "}
-              <DocsPageLink to="/components/checkbox">Checkbox</DocsPageLink>.
-              If the set is long or collapsed, consider{" "}
-              <DocsPageLink to="/components/select">Select</DocsPageLink>.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Radio group when one option must be selected from a known set.
+            Default to a vertical list. Use button-style options for a short,
+            prominent set.
+            <br />
+            <br />
+            Avoid using it for multiple selections — that is{" "}
+            <DocsPageLink to="/components/checkbox">Checkbox</DocsPageLink>. If
+            the set is long or collapsed, consider{" "}
+            <DocsPageLink to="/components/select">Select</DocsPageLink>.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import RadioGroup and RadioGroupItem."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="Render one RadioGroupItem for each option."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic" label="Basic">
-        <PageSectionHeader
-          title="Basic"
-          description="A labelled group for choosing exactly one option from a known set."
-        />
+      <MainSection
+        id="basic"
+        title="Basic"
+        description="A labelled group for choosing exactly one option from a known set."
+      >
         <ComponentExample>
           <div className="flex flex-col gap-6">
             <RadioGroup
@@ -281,13 +302,13 @@ export function RadioGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-description" label="With description">
-        <PageSectionHeader
-          title="With description"
-          description="Add supporting text when an option needs more context than its label provides."
-        />
+      <MainSection
+        id="with-description"
+        title="With description"
+        description="Add supporting text when an option needs more context than its label provides."
+      >
         <ComponentExample>
           <div className="flex flex-col gap-6">
             <div className="max-w-sm">
@@ -321,336 +342,362 @@ export function RadioGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="states" label="States">
-        <PageSectionHeader
-          title="States"
-          description="The control can be unselected, selected, unavailable, or invalid. Use the state that matches whether the person can choose an option, and whether the value is valid."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="states"
+        title="States"
+        description="The control can be unselected, selected, unavailable, or invalid. Use the state that matches whether the person can choose an option, and whether the value is valid."
+      >
+        <ChildSection
           id="states-default"
           title="Default"
           description="An unselected radio. Use this when no option has been chosen yet."
-        />
-        <ComponentExample className="mb-6">
-          <div className="flex flex-col gap-6">
-            <Field orientation="horizontal">
-              <FieldContent>
-                <RadioGroup
-                  aria-label="Selection state"
-                  value=""
-                  onValueChange={() => {}}
-                >
-                  <RadioGroupItem
-                    id="states-default"
-                    value="unchecked"
-                    label="Unselected"
-                  />
-                </RadioGroup>
-              </FieldContent>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={statesDefaultSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="flex flex-col gap-6">
+              <Field orientation="horizontal">
+                <FieldContent>
+                  <RadioGroup
+                    aria-label="Selection state"
+                    value=""
+                    onValueChange={() => {}}
+                  >
+                    <RadioGroupItem
+                      id="states-default"
+                      value="unchecked"
+                      label="Unselected"
+                    />
+                  </RadioGroup>
+                </FieldContent>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={statesDefaultSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-checked"
           title="Checked"
           description="A selected radio. Use this when one option is already chosen."
-        />
-        <ComponentExample className="mb-6">
-          <div className="flex flex-col gap-6">
-            <Field orientation="horizontal">
-              <FieldContent>
-                <RadioGroup
-                  aria-label="Selection state"
-                  value="checked"
-                  onValueChange={() => {}}
-                >
-                  <RadioGroupItem
-                    id="states-checked"
+        >
+          <ComponentExample>
+            <div className="flex flex-col gap-6">
+              <Field orientation="horizontal">
+                <FieldContent>
+                  <RadioGroup
+                    aria-label="Selection state"
                     value="checked"
-                    label="Selected"
-                  />
-                </RadioGroup>
-              </FieldContent>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={statesCheckedSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+                    onValueChange={() => {}}
+                  >
+                    <RadioGroupItem
+                      id="states-checked"
+                      value="checked"
+                      label="Selected"
+                    />
+                  </RadioGroup>
+                </FieldContent>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={statesCheckedSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-disabled"
           title="Disabled"
           description="An unavailable option that cannot be selected."
-        />
-        <ComponentExample className="mb-6">
-          <div className="flex flex-col gap-6">
-            <Field orientation="horizontal" data-disabled>
-              <FieldContent>
-                <RadioGroup aria-label="Selection state" defaultValue="">
-                  <RadioGroupItem
-                    value="option1"
-                    id="disabled-1"
-                    disabled
-                    label="Disabled"
-                  />
-                </RadioGroup>
-              </FieldContent>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={statesDisabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="flex flex-col gap-6">
+              <Field orientation="horizontal" data-disabled>
+                <FieldContent>
+                  <RadioGroup aria-label="Selection state" defaultValue="">
+                    <RadioGroupItem
+                      value="option1"
+                      id="disabled-1"
+                      disabled
+                      label="Disabled"
+                    />
+                  </RadioGroup>
+                </FieldContent>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={statesDisabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-error"
           title="Error"
           description="An invalid selection with an associated validation message."
-        />
-        <ComponentExample>
-          <div className="flex flex-col gap-6">
-            <Field orientation="horizontal" data-invalid className="max-w-md">
-              <FieldContent>
-                <RadioGroup
-                  aria-label="Selection state"
-                  aria-invalid
-                  aria-describedby="invalid-email-error"
-                  defaultValue="email"
-                >
-                  <RadioGroupItem
-                    value="email"
-                    id="invalid-email"
+        >
+          <ComponentExample>
+            <div className="flex flex-col gap-6">
+              <Field orientation="horizontal" data-invalid className="max-w-md">
+                <FieldContent>
+                  <RadioGroup
+                    aria-label="Selection state"
                     aria-invalid
                     aria-describedby="invalid-email-error"
-                    label="Email only"
-                  />
-                </RadioGroup>
-                <FieldError id="invalid-email-error">
-                  Choose a valid notification method.
-                </FieldError>
-              </FieldContent>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={statesErrorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+                    defaultValue="email"
+                  >
+                    <RadioGroupItem
+                      value="email"
+                      id="invalid-email"
+                      aria-invalid
+                      aria-describedby="invalid-email-error"
+                      label="Email only"
+                    />
+                  </RadioGroup>
+                  <FieldError id="invalid-email-error">
+                    Choose a valid notification method.
+                  </FieldError>
+                </FieldContent>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={statesErrorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="as-button" label="As button">
-        <PageSectionHeader
-          title="As button"
-          description="Use button-style options for a short, prominent single-choice set."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="as-button"
+        title="As button"
+        description="Use button-style options for a short, prominent single-choice set."
+      >
+        <ChildSection
           id="as-button-basic"
           title="Basic"
           description="A compact set of button-style options."
-        />
-        <ComponentExample className="mb-6">
-          <div className="flex flex-col gap-6">
-            <RadioGroup
-              label="Choose an option"
-              value={asButtonValue}
-              onValueChange={setAsButtonValue}
-            >
-              <RadioGroupItem
-                asButton
-                id="as-button-basic"
-                value="a"
-                label="Option A"
+        >
+          <ComponentExample>
+            <div className="flex flex-col gap-6">
+              <RadioGroup
+                label="Choose an option"
+                value={asButtonValue}
+                onValueChange={setAsButtonValue}
+              >
+                <RadioGroupItem
+                  asButton
+                  id="as-button-basic"
+                  value="a"
+                  label="Option A"
+                />
+                <RadioGroupItem
+                  asButton
+                  id="as-button-checked"
+                  value="b"
+                  label="Option B"
+                />
+              </RadioGroup>
+              <Code
+                variant="block"
+                language="tsx"
+                code={asButtonBasicSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-              <RadioGroupItem
-                asButton
-                id="as-button-checked"
-                value="b"
-                label="Option B"
-              />
-            </RadioGroup>
-            <Code
-              variant="block"
-              language="tsx"
-              code={asButtonBasicSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="as-button-with-description"
           title="With description"
           description="Button-style options with supporting text for additional context."
-        />
-        <ComponentExample className="mb-6">
-          <div className="flex flex-col gap-6">
-            <RadioGroup
-              label="Choose an option"
-              value={asButtonDescValue}
-              onValueChange={setAsButtonDescValue}
-            >
-              <RadioGroupItem
-                asButton
-                id="as-button-desc"
-                value="terms"
-                label="Option A"
-                description="This is a description."
+        >
+          <ComponentExample>
+            <div className="flex flex-col gap-6">
+              <RadioGroup
+                label="Choose an option"
+                value={asButtonDescValue}
+                onValueChange={setAsButtonDescValue}
+              >
+                <RadioGroupItem
+                  asButton
+                  id="as-button-desc"
+                  value="terms"
+                  label="Option A"
+                  description="This is a description."
+                />
+                <RadioGroupItem
+                  asButton
+                  id="as-button-desc-2"
+                  value="decline"
+                  label="Option B"
+                  description="This is a description."
+                />
+              </RadioGroup>
+              <Code
+                variant="block"
+                language="tsx"
+                code={asButtonWithDescriptionSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-              <RadioGroupItem
-                asButton
-                id="as-button-desc-2"
-                value="decline"
-                label="Option B"
-                description="This is a description."
-              />
-            </RadioGroup>
-            <Code
-              variant="block"
-              language="tsx"
-              code={asButtonWithDescriptionSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="as-button-disabled"
           title="Disabled"
           description="An unavailable button-style group that cannot be changed."
-        />
-        <ComponentExample className="mb-6">
-          <div className="flex flex-col gap-6">
-            <RadioGroup
-              label="Choose an option"
-              value="b"
-              onValueChange={() => {}}
-              disabled
-            >
-              <RadioGroupItem
-                asButton
-                id="as-button-disabled-a"
-                value="a"
-                label="Option A"
-              />
-              <RadioGroupItem
-                asButton
-                id="as-button-disabled-b"
+        >
+          <ComponentExample>
+            <div className="flex flex-col gap-6">
+              <RadioGroup
+                label="Choose an option"
                 value="b"
-                label="Option B"
+                onValueChange={() => {}}
+                disabled
+              >
+                <RadioGroupItem
+                  asButton
+                  id="as-button-disabled-a"
+                  value="a"
+                  label="Option A"
+                />
+                <RadioGroupItem
+                  asButton
+                  id="as-button-disabled-b"
+                  value="b"
+                  label="Option B"
+                />
+              </RadioGroup>
+              <Code
+                variant="block"
+                language="tsx"
+                code={asButtonDisabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-            </RadioGroup>
-            <Code
-              variant="block"
-              language="tsx"
-              code={asButtonDisabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="as-button-error"
           title="Error"
           description="A required button-style group with an associated validation message."
-        />
-        <ComponentExample>
-          <div className="flex flex-col gap-6">
-            <Field data-invalid className="w-fit max-w-full">
-              <FieldContent>
-                <RadioGroup
-                  aria-invalid
-                  aria-describedby="as-button-error-msg"
-                  value=""
-                  onValueChange={() => {}}
-                  label="Select an option"
-                >
-                  <RadioGroupItem
-                    asButton
-                    id="as-button-error-a"
-                    value="a"
-                    label="Option A"
+        >
+          <ComponentExample>
+            <div className="flex flex-col gap-6">
+              <Field data-invalid className="w-fit max-w-full">
+                <FieldContent>
+                  <RadioGroup
                     aria-invalid
                     aria-describedby="as-button-error-msg"
-                  />
-                  <RadioGroupItem
-                    asButton
-                    id="as-button-error-b"
-                    value="b"
-                    label="Option B"
-                    aria-invalid
-                    aria-describedby="as-button-error-msg"
-                  />
-                </RadioGroup>
-                <FieldError id="as-button-error-msg">
-                  This field is required—select an option before continuing.
-                </FieldError>
-              </FieldContent>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={asButtonErrorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+                    value=""
+                    onValueChange={() => {}}
+                    label="Select an option"
+                  >
+                    <RadioGroupItem
+                      asButton
+                      id="as-button-error-a"
+                      value="a"
+                      label="Option A"
+                      aria-invalid
+                      aria-describedby="as-button-error-msg"
+                    />
+                    <RadioGroupItem
+                      asButton
+                      id="as-button-error-b"
+                      value="b"
+                      label="Option B"
+                      aria-invalid
+                      aria-describedby="as-button-error-msg"
+                    />
+                  </RadioGroup>
+                  <FieldError id="as-button-error-msg">
+                    This field is required—select an option before continuing.
+                  </FieldError>
+                </FieldContent>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={asButtonErrorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="within-form" label="Within form">
-        <PageSectionHeader
-          title="Within form"
-          description="Give the group a submitted name and keep the form action at its default width."
-        />
+      <MainSection
+        id="within-form"
+        title="Within form"
+        description="Give the group a submitted name and keep the form action at its default width."
+      >
         <ComponentExample>
           <div className="flex flex-col gap-6">
-            <form
+            <RequiredForm
               className="space-y-6"
-              onSubmit={(event) => event.preventDefault()}
+              schema={radioGroupFormSchema}
+              defaultValues={{ notificationFrequency: "" }}
             >
-              <FieldGroup>
-                <RadioGroup
-                  name="notificationFrequency"
-                  label="Notification frequency"
-                  defaultValue="important"
-                >
-                  <RadioGroupItem value="all" label="All activity" />
-                  <RadioGroupItem
-                    value="important"
-                    label="Important activity"
+              {(form) => (
+                <>
+                  <Controller
+                    name="notificationFrequency"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <RadioGroup
+                          name={field.name}
+                          value={field.value}
+                          onValueChange={field.onChange}
+                          label="Notification frequency"
+                          required
+                          aria-invalid={fieldState.invalid}
+                        >
+                          <RadioGroupItem
+                            value="all"
+                            label="All activity"
+                            aria-invalid={fieldState.invalid}
+                          />
+                          <RadioGroupItem
+                            value="important"
+                            label="Important activity"
+                            aria-invalid={fieldState.invalid}
+                          />
+                          <RadioGroupItem
+                            value="none"
+                            label="No notifications"
+                            aria-invalid={fieldState.invalid}
+                          />
+                        </RadioGroup>
+                        {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]} />
+                        )}
+                      </Field>
+                    )}
                   />
-                  <RadioGroupItem value="none" label="No notifications" />
-                </RadioGroup>
-              </FieldGroup>
-              <Button type="submit">Save preferences</Button>
-            </form>
+                  <Button type="submit">Save preferences</Button>
+                </>
+              )}
+            </RequiredForm>
             <Code
               variant="block"
               language="tsx"
@@ -660,13 +707,13 @@ export function RadioGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Group a known set of options and make each choice clear."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Group a known set of options and make each choice clear."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -695,96 +742,111 @@ export function RadioGroupPage() {
             <>Don’t repeat a value across items in the same group.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on RadioGroup and RadioGroupItem."
-        />
-        <DocsApiTable
-          rows={[
-            {
-              name: "RadioGroup.label",
-              type: "React.ReactNode",
-              description: "Visible legend and accessible group name.",
-            },
-            {
-              name: "RadioGroup.description",
-              type: "React.ReactNode",
-              description: "Supporting text connected to the group.",
-            },
-            {
-              name: "RadioGroup.horizontal",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Lays options out in a wrapping row.",
-            },
-            {
-              name: "RadioGroup.name",
-              type: "string",
-              description: "Native form field name shared by the options.",
-            },
-            {
-              name: "RadioGroup.value | defaultValue",
-              type: "string",
-              description: "Controlled value or initial uncontrolled value.",
-            },
-            {
-              name: "RadioGroup.onValueChange",
-              type: "(value: string) => void",
-              description: "Reports the newly selected value.",
-            },
-            {
-              name: "RadioGroup.disabled",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Makes the complete group unavailable.",
-            },
-            {
-              name: "RadioGroup.required",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Requires one option for native form validation.",
-            },
-            {
-              name: "RadioGroup.readOnly",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Prevents the selected value from changing.",
-            },
-            {
-              name: "RadioGroupItem.label",
-              type: "React.ReactNode",
-              description: "Visible and accessible option name.",
-            },
-            {
-              name: "RadioGroupItem.description",
-              type: "React.ReactNode",
-              description: "Supporting text connected to the option.",
-            },
-            {
-              name: "RadioGroupItem.asButton",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Uses the approved button-style treatment.",
-            },
-            {
-              name: "RadioGroupItem.value",
-              type: "string",
-              description: "Unique option value within the group.",
-            },
-            {
-              name: "RadioGroupItem.disabled",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Makes one option unavailable.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on RadioGroup and RadioGroupItem."
+      >
+        <ChildSection
+          id="api-radio-group"
+          title="RadioGroup"
+          description="Props on RadioGroup."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "label",
+                type: "React.ReactNode",
+                description: "Visible legend and accessible group name.",
+              },
+              {
+                name: "description",
+                type: "React.ReactNode",
+                description: "Supporting text connected to the group.",
+              },
+              {
+                name: "horizontal",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Lays options out in a wrapping row.",
+              },
+              {
+                name: "name",
+                type: "string",
+                description: "Native form field name shared by the options.",
+              },
+              {
+                name: "value | defaultValue",
+                type: "string",
+                description: "Controlled value or initial uncontrolled value.",
+              },
+              {
+                name: "onValueChange",
+                type: "(value: string) => void",
+                description: "Reports the newly selected value.",
+              },
+              {
+                name: "disabled",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Makes the complete group unavailable.",
+              },
+              {
+                name: "required",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Requires one option for native form validation.",
+              },
+              {
+                name: "readOnly",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Prevents the selected value from changing.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-radio-group-item"
+          title="RadioGroupItem"
+          description="Props on RadioGroupItem."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "label",
+                type: "React.ReactNode",
+                description: "Visible and accessible option name.",
+              },
+              {
+                name: "description",
+                type: "React.ReactNode",
+                description: "Supporting text connected to the option.",
+              },
+              {
+                name: "asButton",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Uses the approved button-style treatment.",
+              },
+              {
+                name: "value",
+                type: "string",
+                description: "Unique option value within the group.",
+              },
+              {
+                name: "disabled",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Makes one option unavailable.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -800,13 +862,13 @@ export function RadioGroupPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use the control that matches how many choices can be selected."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use the control that matches how many choices can be selected."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/checkbox">Checkbox</DocsPageLink> —
@@ -821,7 +883,7 @@ export function RadioGroupPage() {
             many options.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

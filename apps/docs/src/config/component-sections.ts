@@ -94,7 +94,14 @@ export const componentSections: ComponentSections = {
     { id: "condensed", label: "Condensed" },
     { id: "pagination", label: "Pagination" },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-activity-feed", label: "ActivityFeed" },
+        { id: "api-activity-feed-entry", label: "ActivityFeedEntry" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   "inline-edit": [
@@ -162,7 +169,16 @@ export const componentSections: ComponentSections = {
     { id: "basic-example", label: "Basic example" },
     { id: "positioning", label: "Positioning" },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-provider", label: "TooltipProvider" },
+        { id: "api-tooltip", label: "Tooltip" },
+        { id: "api-trigger", label: "TooltipTrigger" },
+        { id: "api-content", label: "TooltipContent" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   accordion: [
@@ -403,7 +419,15 @@ export const componentSections: ComponentSections = {
     { id: "footer", label: "Footer" },
     { id: "sizing", label: "Sizing" },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-dialog", label: "Dialog" },
+        { id: "api-dialog-content", label: "DialogContent" },
+        { id: "api-dialog-footer", label: "DialogFooter" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   empty: [
@@ -526,7 +550,11 @@ export const componentSections: ComponentSections = {
     {
       id: "api",
       label: "API",
-      children: [{ id: "api-reference", label: "API reference" }],
+      children: [
+        { id: "api-native-select", label: "NativeSelect" },
+        { id: "api-native-select-option", label: "NativeSelectOption" },
+        { id: "api-native-select-opt-group", label: "NativeSelectOptGroup" },
+      ],
     },
     { id: "related", label: "Related" },
   ],
@@ -563,7 +591,15 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-popover", label: "Popover" },
+        { id: "api-popover-trigger", label: "PopoverTrigger" },
+        { id: "api-popover-content", label: "PopoverContent" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   progress: [
@@ -640,7 +676,14 @@ export const componentSections: ComponentSections = {
     },
     { id: "within-form", label: "Within form" },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-radio-group", label: "RadioGroup" },
+        { id: "api-radio-group-item", label: "RadioGroupItem" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   select: [
@@ -720,7 +763,15 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-toast-manager", label: "Toast manager" },
+        { id: "api-toast-options", label: "Toast options" },
+        { id: "api-toaster", label: "Toaster" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   spinner: [
@@ -769,7 +820,31 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-header", label: "Header" },
+        { id: "api-header-breadcrumbs-props", label: "HeaderBreadcrumbsProps" },
+        { id: "api-header-breadcrumb-item", label: "HeaderBreadcrumbItem" },
+        {
+          id: "api-header-favourite-action-props",
+          label: "HeaderFavouriteActionProps",
+        },
+        { id: "api-header-action-props", label: "HeaderActionProps" },
+        {
+          id: "api-header-secondary-button-action",
+          label: "HeaderSecondaryButtonAction",
+        },
+        {
+          id: "api-header-secondary-menu-action",
+          label: "HeaderSecondaryMenuAction",
+        },
+        { id: "api-header-menu-item", label: "HeaderMenuItem" },
+        { id: "api-header-tabs-props", label: "HeaderTabsProps" },
+        { id: "api-header-tabs-item", label: "HeaderTabsItem" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   "structure-app-header": [
@@ -906,6 +981,14 @@ export const componentSections: ComponentSections = {
       ],
     },
     {
+      id: "overflow",
+      label: "Overflow",
+      children: [
+        { id: "overflow-default", label: "Default tabs" },
+        { id: "overflow-line", label: "Line tabs" },
+      ],
+    },
+    {
       id: "badges",
       label: "Badges",
       children: [
@@ -1004,7 +1087,16 @@ export const componentSections: ComponentSections = {
     { id: "label-only", label: "Label" },
     { id: "label-description", label: "Label and description" },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-avatar", label: "Avatar" },
+        { id: "api-avatar-image", label: "AvatarImage" },
+        { id: "api-avatar-label", label: "AvatarLabel" },
+        { id: "api-avatar-description", label: "AvatarDescription" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   "avatar-group": [
@@ -1092,7 +1184,16 @@ export const componentSections: ComponentSections = {
     { id: "example", label: "Example" },
     { id: "trigger", label: "Trigger" },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-command", label: "Command" },
+        { id: "api-command-list", label: "CommandList" },
+        { id: "api-command-item", label: "CommandItem" },
+        { id: "api-command-dialog", label: "CommandDialog" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   "context-menu": [
@@ -1114,7 +1215,21 @@ export const componentSections: ComponentSections = {
     { id: "radio", label: "Radio" },
     { id: "destructive", label: "Destructive" },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-context-menu", label: "ContextMenu" },
+        { id: "api-context-menu-content", label: "ContextMenuContent" },
+        { id: "api-context-menu-item", label: "ContextMenuItem" },
+        { id: "api-context-menu-sub-trigger", label: "ContextMenuSubTrigger" },
+        {
+          id: "api-context-menu-checkbox-item",
+          label: "ContextMenuCheckboxItem",
+        },
+        { id: "api-context-menu-radio-group", label: "ContextMenuRadioGroup" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   "date-field": [
@@ -1226,7 +1341,15 @@ export const componentSections: ComponentSections = {
     },
     { id: "validation", label: "Validation" },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-field", label: "Field" },
+        { id: "api-field-legend", label: "FieldLegend" },
+        { id: "api-field-error", label: "FieldError" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   filters: [
@@ -1251,7 +1374,16 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-filter", label: "Filter" },
+        { id: "api-filter-category", label: "FilterCategory" },
+        { id: "api-sort", label: "Sort" },
+        { id: "api-date-range-filter", label: "DateRangeFilter" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   "otp-field": [
@@ -1281,7 +1413,10 @@ export const componentSections: ComponentSections = {
     {
       id: "api",
       label: "API",
-      children: [{ id: "api-reference", label: "API reference" }],
+      children: [
+        { id: "api-input-otp", label: "InputOTP" },
+        { id: "api-input-otp-slot", label: "InputOTPSlot" },
+      ],
     },
     { id: "related", label: "Related" },
   ],
@@ -1335,7 +1470,15 @@ export const componentSections: ComponentSections = {
     { id: "navigational", label: "Navigational" },
     { id: "table-pagination", label: "Icon only" },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-pagination-link", label: "PaginationLink" },
+        { id: "api-pagination-previous", label: "PaginationPrevious" },
+        { id: "api-pagination-next", label: "PaginationNext" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   "scroll-area": [
@@ -1351,7 +1494,14 @@ export const componentSections: ComponentSections = {
     { id: "basic", label: "Basic" },
     { id: "horizontal", label: "Horizontal" },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-scroll-area", label: "ScrollArea" },
+        { id: "api-scroll-bar", label: "ScrollBar" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   separator: [
@@ -1539,7 +1689,10 @@ export const componentSections: ComponentSections = {
         { id: "api-content", label: "ReplyBoxContent" },
         { id: "api-header", label: "ReplyBoxHeader" },
         { id: "api-footer", label: "ReplyBoxFooter" },
-        { id: "api-custom-action", label: "Custom tray action" },
+        {
+          id: "api-custom-action",
+          label: "ReplyBoxTrayCustomAction",
+        },
       ],
     },
     { id: "related", label: "Related" },
@@ -1583,7 +1736,14 @@ export const componentSections: ComponentSections = {
     { id: "with-icon", label: "With icon" },
     { id: "links-and-buttons", label: "Links and buttons" },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-marker", label: "Marker" },
+        { id: "api-marker-content", label: "MarkerContent" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   message: [
@@ -1636,7 +1796,15 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-message", label: "Message" },
+        { id: "api-message-meta", label: "MessageMeta" },
+        { id: "api-message-ai-actions", label: "MessageAiActions" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   "message-scroller": [
@@ -1656,7 +1824,22 @@ export const componentSections: ComponentSections = {
     { id: "animation", label: "Animating new messages" },
     { id: "scroll-state", label: "Reading scroll state" },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        {
+          id: "api-message-scroller-provider",
+          label: "MessageScrollerProvider",
+        },
+        {
+          id: "api-message-scroller-viewport",
+          label: "MessageScrollerViewport",
+        },
+        { id: "api-message-scroller-item", label: "MessageScrollerItem" },
+        { id: "api-message-scroller-button", label: "MessageScrollerButton" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
   "metric-card": [
@@ -2083,9 +2266,6 @@ export const componentSections: ComponentSections = {
         { id: "api-input-group", label: "InputGroup" },
         { id: "api-input-group-addon", label: "InputGroupAddon" },
         { id: "api-input-group-button", label: "InputGroupButton" },
-        { id: "api-input-group-text", label: "InputGroupText" },
-        { id: "api-input-group-input", label: "InputGroupInput" },
-        { id: "api-input-group-textarea", label: "InputGroupTextarea" },
       ],
     },
     { id: "related", label: "Related" },
@@ -2149,7 +2329,19 @@ export const componentSections: ComponentSections = {
     { id: "sub-menu", label: "Sub-menu" },
     { id: "collapsible-sub-menu", label: "Collapsible sub-menu" },
     { id: "do-dont", label: "Do and don’t" },
-    { id: "api", label: "API" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-sidebar-provider", label: "SidebarProvider" },
+        { id: "api-sidebar", label: "Sidebar" },
+        { id: "api-sidebar-menu-button", label: "SidebarMenuButton" },
+        { id: "api-sidebar-menu-action", label: "SidebarMenuAction" },
+        { id: "api-sidebar-menu-skeleton", label: "SidebarMenuSkeleton" },
+        { id: "api-sidebar-menu-sub-button", label: "SidebarMenuSubButton" },
+        { id: "api-use-sidebar", label: "useSidebar" },
+      ],
+    },
     { id: "related", label: "Related" },
   ],
 };

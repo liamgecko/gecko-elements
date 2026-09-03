@@ -4,12 +4,11 @@ import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Search } from "@gecko/ui/components/search";
 import { Code } from "@gecko/ui/components/code";
 
@@ -32,54 +31,52 @@ export function SearchPage() {
   const disabledSnippet = `<Search placeholder="Search…" disabled />`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Search"
-          description="Search lets people enter a query to filter or find content in a list, table, dashboard, or page."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Search"
+        description="Search lets people enter a query to filter or find content in a list, table, dashboard, or page."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Search when someone enters a query and the results appear
-              elsewhere in the interface. For toolbar filtering with multiple
-              categories and sorting, use{" "}
-              <DocsPageLink to="/components/filters">Filters</DocsPageLink>.
-              <br />
-              <br />
-              Avoid using it for general text entry — use an{" "}
-              <DocsPageLink to="/components/input">
-                Input field
-              </DocsPageLink>{" "}
-              instead.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Search when someone enters a query and the results appear
+            elsewhere in the interface. For toolbar filtering with multiple
+            categories and sorting, use{" "}
+            <DocsPageLink to="/components/filters">Filters</DocsPageLink>.
+            <br />
+            <br />
+            Avoid using it for general text entry — use an{" "}
+            <DocsPageLink to="/components/input">Input field</DocsPageLink>{" "}
+            instead.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Search to add a product search control."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="A search input with a placeholder. Use this when the surrounding layout already names the search area."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="A search input with a placeholder. Use this when the surrounding layout already names the search area."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Search placeholder="Search…" />
@@ -92,13 +89,13 @@ export function SearchPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-clear" label="With clear">
-        <PageSectionHeader
-          title="With clear"
-          description="Shows a contextual action that clears the current query and returns focus to Search."
-        />
+      <MainSection
+        id="with-clear"
+        title="With clear"
+        description="Shows a contextual action that clears the current query and returns focus to Search."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Search
@@ -116,13 +113,13 @@ export function SearchPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizing" label="Sizing">
-        <PageSectionHeader
-          title="Sizing"
-          description="Choose the size that matches the density and prominence of the surrounding interface."
-        />
+      <MainSection
+        id="sizing"
+        title="Sizing"
+        description="Choose the size that matches the density and prominence of the surrounding interface."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="space-y-4">
@@ -148,13 +145,13 @@ export function SearchPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="disabled" label="Disabled">
-        <PageSectionHeader
-          title="Disabled"
-          description="Use the unavailable state only when searching cannot currently be performed."
-        />
+      <MainSection
+        id="disabled"
+        title="Disabled"
+        description="Use the unavailable state only when searching cannot currently be performed."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Search placeholder="Search…" disabled />
@@ -167,21 +164,23 @@ export function SearchPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use Search for queries that filter or find content elsewhere."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use Search for queries that filter or find content elsewhere."
+      >
         <DocsDoDont
           doItems={[
             <>Use a concise placeholder that describes what can be searched.</>,
-            <>Provide a clear action for searches people are likely to reset.</>,
+            <>
+              Provide a clear action for searches people are likely to reset.
+            </>,
             <>Match its size to the surrounding toolbar or interface.</>,
             <>
-              Use a specific accessible name when several searches appear on
-              the same page.
+              Use a specific accessible name when several searches appear on the
+              same page.
             </>,
           ]}
           dontItems={[
@@ -197,13 +196,13 @@ export function SearchPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Search."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Search."
+      >
         <DocsApiTable
           rows={[
             {
@@ -242,17 +241,17 @@ export function SearchPage() {
             },
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use the control that matches how the query affects the interface."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use the control that matches how the query affects the interface."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
-            <DocsPageLink to="/components/input">Input field</DocsPageLink> — for
-            general text entry.
+            <DocsPageLink to="/components/input">Input field</DocsPageLink> —
+            for general text entry.
           </li>
           <li>
             <DocsPageLink to="/components/data-table">Data table</DocsPageLink>{" "}
@@ -263,7 +262,7 @@ export function SearchPage() {
             compound filtering and sorting.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

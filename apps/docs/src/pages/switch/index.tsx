@@ -3,12 +3,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import { Field, FieldContent, FieldError } from "@gecko/ui/components/field";
 import { Switch } from "@gecko/ui/components/switch";
@@ -47,52 +46,52 @@ export function SwitchPage() {
 </Field>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Switch"
-          description="The Switch component lets people turn a setting on or off. It takes effect immediately — the change applies as soon as the switch moves."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Switch"
+        description="The Switch component lets people turn a setting on or off. It takes effect immediately — the change applies as soon as the switch moves."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use a Switch when a setting should turn on or off right away. The
-              label should name what changes.
-              <br />
-              <br />
-              Pair it with a{" "}
-              <DocsPageLink to="/components/field">Field</DocsPageLink> when the
-              control needs an error message or sits in a form layout. Avoid
-              using it when someone can pick more than one option — that is a{" "}
-              <DocsPageLink to="/components/checkbox">Checkbox</DocsPageLink>.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use a Switch when a setting should turn on or off right away. The
+            label should name what changes.
+            <br />
+            <br />
+            Pair it with a{" "}
+            <DocsPageLink to="/components/field">Field</DocsPageLink> when the
+            control needs an error message or sits in a form layout. Avoid using
+            it when someone can pick more than one option — that is a{" "}
+            <DocsPageLink to="/components/checkbox">Checkbox</DocsPageLink>.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Switch to add an on/off toggle."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="A labelled switch for an immediate setting."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="A labelled switch for an immediate setting."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Switch label="Share across devices" />
@@ -105,13 +104,13 @@ export function SwitchPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="size" label="Size">
-        <PageSectionHeader
-          title="Size"
-          description="Choose the size that matches the surrounding interface density."
-        />
+      <MainSection
+        id="size"
+        title="Size"
+        description="Choose the size that matches the surrounding interface density."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-col items-start gap-4">
@@ -128,21 +127,20 @@ export function SwitchPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="label-and-description" label="Label and description">
-        <PageSectionHeader
-          title="Label and description"
-          description={
-            <>
-              Names the setting using the <Code>label</Code> prop, and adds
-              helper text with <Code>description</Code>. Use this when the
-              switch needs a clear name or a short explanation.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="label-and-description"
+        title="Label and description"
+        description={
+          <>
+            Names the setting using the <Code>label</Code> prop, and adds helper
+            text with <Code>description</Code>. Use this when the switch needs a
+            clear name or a short explanation.
+          </>
+        }
+      >
+        <ChildSection
           id="label-and-description-label"
           title="Label"
           description={
@@ -151,21 +149,21 @@ export function SwitchPage() {
               the setting needs a visible name.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Switch id="switch-label" label="Switch with label" />
-            <Code
-              variant="block"
-              language="tsx"
-              code={labelSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Switch id="switch-label" label="Switch with label" />
+              <Code
+                variant="block"
+                language="tsx"
+                code={labelSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="label-and-description-label-desc"
           title="Label and description"
           description={
@@ -174,56 +172,55 @@ export function SwitchPage() {
               this when the setting needs a short explanation under the name.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="max-w-sm">
-              <Switch
-                id="switch-label-desc"
-                label="Switch with label and description"
-                description="Focus is shared across devices, and turns off when you leave the app."
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="max-w-sm">
+                <Switch
+                  id="switch-label-desc"
+                  label="Switch with label and description"
+                  description="Focus is shared across devices, and turns off when you leave the app."
+                />
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={labelAndDescriptionSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={labelAndDescriptionSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="label-and-description-position"
           title="Label position"
           description="Place a label before or after the control when supporting text is not present."
-          className="mt-6"
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="flex flex-col items-start gap-4">
-              <Switch label="Before" labelPosition="before" />
-              <Switch label="After" labelPosition="after" />
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="flex flex-col items-start gap-4">
+                <Switch label="Before" labelPosition="before" />
+                <Switch label="After" labelPosition="after" />
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={labelPositionSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={labelPositionSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="state" label="State">
-        <PageSectionHeader
-          title="State"
-          description="A switch can be unavailable or invalid. Use the state that matches whether the person can change the setting, and whether the value is valid."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="state"
+        title="State"
+        description="A switch can be unavailable or invalid. Use the state that matches whether the person can change the setting, and whether the value is valid."
+      >
+        <ChildSection
           id="state-disabled"
           title="Disabled"
           description={
@@ -232,21 +229,25 @@ export function SwitchPage() {
               this when the setting cannot be changed yet.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Switch id="switch-disabled-unchecked" disabled label="Disabled" />
-            <Code
-              variant="block"
-              language="tsx"
-              code={disabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Switch
+                id="switch-disabled-unchecked"
+                disabled
+                label="Disabled"
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={disabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="state-error"
           title="Error"
           description={
@@ -256,38 +257,39 @@ export function SwitchPage() {
               the setting must be corrected before continuing.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field orientation="horizontal" data-invalid className="max-w-md">
-              <FieldContent>
-                <Switch
-                  id="switch-invalid-unchecked"
-                  label="Invalid"
-                  aria-invalid
-                  aria-describedby="switch-invalid-unchecked-error"
-                />
-                <FieldError id="switch-invalid-unchecked-error">
-                  This setting must be corrected before you can continue.
-                </FieldError>
-              </FieldContent>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={errorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field orientation="horizontal" data-invalid className="max-w-md">
+                <FieldContent>
+                  <Switch
+                    id="switch-invalid-unchecked"
+                    label="Invalid"
+                    aria-invalid
+                    aria-describedby="switch-invalid-unchecked-error"
+                  />
+                  <FieldError id="switch-invalid-unchecked-error">
+                    This setting must be corrected before you can continue.
+                  </FieldError>
+                </FieldContent>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={errorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use Switch for settings that take effect immediately."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use Switch for settings that take effect immediately."
+      >
         <DocsDoDont
           doItems={[
             <>Write a label that names the setting being turned on or off.</>,
@@ -311,13 +313,13 @@ export function SwitchPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Switch."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Switch."
+      >
         <DocsApiTable
           rows={[
             {
@@ -354,10 +356,9 @@ export function SwitchPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
           title="API reference"
-          className="mt-6"
           description={
             <>
               See the{" "}
@@ -372,13 +373,13 @@ export function SwitchPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Choose a form control based on how the choice behaves."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Choose a form control based on how the choice behaves."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/checkbox">Checkbox</DocsPageLink> —
@@ -391,7 +392,7 @@ export function SwitchPage() {
             — for one choice from a set.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

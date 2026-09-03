@@ -3,12 +3,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Button } from "@gecko/ui/components/button";
 import { Code } from "@gecko/ui/components/code";
 import { toast } from "@gecko/ui/components/toast";
@@ -72,56 +71,56 @@ toast.update(id, {
 })`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Toast"
-          description="Accessible, temporary feedback built from Shadcn and Base UI."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Toast"
+        description="Accessible, temporary feedback built from Shadcn and Base UI."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Toast for concise feedback after an action or for the state of
-              short asynchronous work. Keep feedback that requires attention
-              available until it is dismissed.
-              <br />
-              <br />
-              Use an <DocsPageLink to="/components/alert">
-                Alert
-              </DocsPageLink>{" "}
-              when information must remain in the page. Use an{" "}
-              <DocsPageLink to="/components/alert-dialog">
-                Alert dialog
-              </DocsPageLink>{" "}
-              when a decision must block the next action.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Toast for concise feedback after an action or for the state of
+            short asynchronous work. Keep feedback that requires attention
+            available until it is dismissed.
+            <br />
+            <br />
+            Use an <DocsPageLink to="/components/alert">
+              Alert
+            </DocsPageLink>{" "}
+            when information must remain in the page. Use an{" "}
+            <DocsPageLink to="/components/alert-dialog">
+              Alert dialog
+            </DocsPageLink>{" "}
+            when a decision must block the next action.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Render Toaster once near the application root and import the shared manager wherever feedback is triggered."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="Show a brief, neutral confirmation or status update."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="Show a brief, neutral confirmation or status update."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Button
@@ -139,13 +138,13 @@ toast.update(id, {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="description" label="Description">
-        <PageSectionHeader
-          title="Description"
-          description="Add supporting detail when the title alone does not provide enough context."
-        />
+      <MainSection
+        id="description"
+        title="Description"
+        description="Add supporting detail when the title alone does not provide enough context."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Button
@@ -168,13 +167,13 @@ toast.update(id, {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="variants" label="Variants">
-        <PageSectionHeader
-          title="Variants"
-          description="Choose the treatment that matches the meaning of the feedback."
-        />
+      <MainSection
+        id="variants"
+        title="Variants"
+        description="Choose the treatment that matches the meaning of the feedback."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap gap-3">
@@ -234,13 +233,13 @@ toast.update(id, {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="action" label="Action">
-        <PageSectionHeader
-          title="Action"
-          description="Offer one short, directly related action for a reversible outcome. The action replaces the close control."
-        />
+      <MainSection
+        id="action"
+        title="Action"
+        description="Offer one short, directly related action for a reversible outcome. The action replaces the close control."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Button
@@ -272,105 +271,105 @@ toast.update(id, {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="states" label="States">
-        <PageSectionHeader
-          title="States"
-          description="Represent asynchronous work with a single notification that changes as the work progresses."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="states"
+        title="States"
+        description="Represent asynchronous work with a single notification that changes as the work progresses."
+      >
+        <ChildSection
           id="states-promise"
           title="Promise"
           description="Track loading, success, and failure from one promise."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Button
-              variant="outline"
-              onClick={() => {
-                const createProject = () =>
-                  new Promise<{ name: string }>((resolve) => {
-                    window.setTimeout(
-                      () => resolve({ name: "Admissions" }),
-                      1500,
-                    );
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  const createProject = () =>
+                    new Promise<{ name: string }>((resolve) => {
+                      window.setTimeout(
+                        () => resolve({ name: "Admissions" }),
+                        1500,
+                      );
+                    });
+
+                  void toast.promise(createProject(), {
+                    loading: {
+                      title: "Creating project…",
+                    },
+                    success: (project) => ({
+                      title: `${project.name} created`,
+                      type: "success",
+                    }),
+                    error: (error) => ({
+                      title: "Project could not be created",
+                      description:
+                        error instanceof Error ? error.message : undefined,
+                      type: "error",
+                      priority: "high",
+                    }),
                   });
-
-                void toast.promise(createProject(), {
-                  loading: {
-                    title: "Creating project…",
-                  },
-                  success: (project) => ({
-                    title: `${project.name} created`,
-                    type: "success",
-                  }),
-                  error: (error) => ({
-                    title: "Project could not be created",
-                    description:
-                      error instanceof Error ? error.message : undefined,
-                    type: "error",
-                    priority: "high",
-                  }),
-                });
-              }}
-            >
-              Create project
-            </Button>
-            <Code
-              variant="block"
-              language="tsx"
-              code={promiseSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+                }}
+              >
+                Create project
+              </Button>
+              <Code
+                variant="block"
+                language="tsx"
+                code={promiseSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-loading"
           title="Loading"
           description="Add a persistent loading notification and update the same notification when the work completes."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Button
-              variant="outline"
-              onClick={() => {
-                const id = toast.add({
-                  title: "Syncing data…",
-                  type: "loading",
-                  timeout: 0,
-                });
-
-                window.setTimeout(() => {
-                  toast.update(id, {
-                    title: "Data synced",
-                    type: "success",
-                    timeout: 5000,
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  const id = toast.add({
+                    title: "Syncing data…",
+                    type: "loading",
+                    timeout: 0,
                   });
-                }, 1500);
-              }}
-            >
-              Sync data
-            </Button>
-            <Code
-              variant="block"
-              language="tsx"
-              code={loadingSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep feedback concise, timely, and connected to the action that caused it."
-        />
+                  window.setTimeout(() => {
+                    toast.update(id, {
+                      title: "Data synced",
+                      type: "success",
+                      timeout: 5000,
+                    });
+                  }, 1500);
+                }}
+              >
+                Sync data
+              </Button>
+              <Code
+                variant="block"
+                language="tsx"
+                code={loadingSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
+
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep feedback concise, timely, and connected to the action that caused it."
+      >
         <DocsDoDont
           doItems={[
             <>State what happened in a short, specific title.</>,
@@ -386,132 +385,128 @@ toast.update(id, {
             <>Don’t use vague errors without explaining what failed.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Toast."
-        />
-
-        <PageSubsectionHeader
+      <MainSection id="api" title="API" description="Behaviour props on Toast.">
+        <ChildSection
+          id="api-toast-manager"
           title="Toast manager"
           description="The shared manager creates, updates, closes, and tracks notifications outside React components."
-        />
-        <DocsApiTable
-          aria-label="Toast manager API"
-          rows={[
-            {
-              name: "add",
-              type: "(options) => string",
-              description: "Adds a toast and returns its id.",
-            },
-            {
-              name: "update",
-              type: "(id, options) => void",
-              description: "Updates an existing toast and refreshes its timer.",
-            },
-            {
-              name: "close",
-              type: "(id?) => void",
-              description: "Closes one toast or every toast.",
-            },
-            {
-              name: "promise",
-              type: "(promise, options) => Promise",
-              description:
-                "Tracks a promise through loading, success, and error states.",
-            },
-          ]}
-        />
-
-        <PageSubsectionHeader
+        >
+          <DocsApiTable
+            aria-label="Toast manager API"
+            rows={[
+              {
+                name: "add",
+                type: "(options) => string",
+                description: "Adds a toast and returns its id.",
+              },
+              {
+                name: "update",
+                type: "(id, options) => void",
+                description:
+                  "Updates an existing toast and refreshes its timer.",
+              },
+              {
+                name: "close",
+                type: "(id?) => void",
+                description: "Closes one toast or every toast.",
+              },
+              {
+                name: "promise",
+                type: "(promise, options) => Promise",
+                description:
+                  "Tracks a promise through loading, success, and error states.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-toast-options"
           title="Toast options"
           description="Options supplied when a toast is added or updated."
-          className="mt-6"
-        />
-        <DocsApiTable
-          aria-label="Toast options API"
-          rows={[
-            {
-              name: "title",
-              type: "React.ReactNode",
-              description: "Sets the primary message.",
-            },
-            {
-              name: "description",
-              type: "React.ReactNode",
-              description: "Adds supporting detail.",
-            },
-            {
-              name: "type",
-              type: '"success" | "info" | "warning" | "error" | "loading"',
-              description: "Sets the semantic visual treatment.",
-            },
-            {
-              name: "timeout",
-              type: "number",
-              defaultValue: "5000",
-              description:
-                "Sets the auto-dismiss delay in milliseconds. Zero persists.",
-            },
-            {
-              name: "priority",
-              type: '"low" | "high"',
-              defaultValue: '"low"',
-              description: "Sets polite or urgent announcement behaviour.",
-            },
-            {
-              name: "actionProps",
-              type: "ButtonHTMLAttributes",
-              description:
-                "Adds one action and removes the toast close control.",
-            },
-            {
-              name: "onClose",
-              type: "() => void",
-              description: "Runs when closing begins.",
-            },
-            {
-              name: "onRemove",
-              type: "() => void",
-              description: "Runs after exit animation completes.",
-            },
-          ]}
-        />
-
-        <PageSubsectionHeader
+        >
+          <DocsApiTable
+            aria-label="Toast options API"
+            rows={[
+              {
+                name: "title",
+                type: "React.ReactNode",
+                description: "Sets the primary message.",
+              },
+              {
+                name: "description",
+                type: "React.ReactNode",
+                description: "Adds supporting detail.",
+              },
+              {
+                name: "type",
+                type: '"success" | "info" | "warning" | "error" | "loading"',
+                description: "Sets the semantic visual treatment.",
+              },
+              {
+                name: "timeout",
+                type: "number",
+                defaultValue: "5000",
+                description:
+                  "Sets the auto-dismiss delay in milliseconds. Zero persists.",
+              },
+              {
+                name: "priority",
+                type: '"low" | "high"',
+                defaultValue: '"low"',
+                description: "Sets polite or urgent announcement behaviour.",
+              },
+              {
+                name: "actionProps",
+                type: "ButtonHTMLAttributes",
+                description:
+                  "Adds one action and removes the toast close control.",
+              },
+              {
+                name: "onClose",
+                type: "() => void",
+                description: "Runs when closing begins.",
+              },
+              {
+                name: "onRemove",
+                type: "() => void",
+                description: "Runs after exit animation completes.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-toaster"
           title="Toaster"
           description="The application-level provider and viewport."
-          className="mt-6"
-        />
-        <DocsApiTable
-          aria-label="Toaster API"
-          rows={[
-            {
-              name: "timeout",
-              type: "number",
-              defaultValue: "5000",
-              description: "Sets the default auto-dismiss delay.",
-            },
-            {
-              name: "limit",
-              type: "number",
-              defaultValue: "3",
-              description: "Sets the maximum number displayed at once.",
-            },
-            {
-              name: "toastManager",
-              type: "ToastManager",
-              defaultValue: "toast",
-              description: "Supplies the manager used by this provider.",
-            },
-          ]}
-        />
-
-        <PageSubsectionHeader
+        >
+          <DocsApiTable
+            aria-label="Toaster API"
+            rows={[
+              {
+                name: "timeout",
+                type: "number",
+                defaultValue: "5000",
+                description: "Sets the default auto-dismiss delay.",
+              },
+              {
+                name: "limit",
+                type: "number",
+                defaultValue: "3",
+                description: "Sets the maximum number displayed at once.",
+              },
+              {
+                name: "toastManager",
+                type: "ToastManager",
+                defaultValue: "toast",
+                description: "Supplies the manager used by this provider.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -527,13 +522,13 @@ toast.update(id, {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use persistent or blocking feedback when temporary feedback is not enough."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use persistent or blocking feedback when temporary feedback is not enough."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/alert">Alert</DocsPageLink> — feedback
@@ -550,7 +545,7 @@ toast.update(id, {
             indeterminate loading inside an existing interface.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

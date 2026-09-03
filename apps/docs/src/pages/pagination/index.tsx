@@ -4,13 +4,12 @@ import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 
 import { Code } from "@gecko/ui/components/code";
-import { PageSection } from "@/components/layout/page-section";
 import {
   Pagination,
   PaginationContent,
@@ -74,78 +73,77 @@ export function PaginationPage() {
 </Pagination>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Pagination"
-          description="Pagination is a navigation control for moving between pages of results. It can show page links, edge controls, and ellipsis."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Pagination"
+        description="Pagination is a navigation control for moving between pages of results. It can show page links, edge controls, and ellipsis."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Pagination under{" "}
-              <DocsPageLink to="/components/data-table">
-                Data table
-              </DocsPageLink>{" "}
-              results, and on other paginated lists such as{" "}
-              <DocsPageLink to="/components/activity-feed">
-                Activity feed
-              </DocsPageLink>
-              .
-              <br />
-              <br />
-              Avoid putting Pagination in the page{" "}
-              <DocsPageLink to="/structure/header">Page header</DocsPageLink>.
-              Avoid using it for incremental loading in one scroll container.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Pagination under{" "}
+            <DocsPageLink to="/components/data-table">Data table</DocsPageLink>{" "}
+            results, and on other paginated lists such as{" "}
+            <DocsPageLink to="/components/activity-feed">
+              Activity feed
+            </DocsPageLink>
+            .
+            <br />
+            <br />
+            Avoid putting Pagination in the page{" "}
+            <DocsPageLink to="/structure/header">Page header</DocsPageLink>.
+            Avoid using it for incremental loading in one scroll container.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Pagination and its row parts."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="Compose links and controls inside PaginationContent."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="navigational" label="Navigational">
-        <PageSectionHeader
-          title="Navigational"
-          description={
-            <>
-              Full page navigation using <Code>PaginationLink</Code>,{" "}
-              <Code>PaginationPrevious</Code>, <Code>PaginationNext</Code>, and{" "}
-              <Code>PaginationEllipsis</Code>. Use this when people need to jump
-              to a specific page or see where they are in the set.
-            </>
-          }
-        />
+      <MainSection
+        id="navigational"
+        title="Navigational"
+        description={
+          <>
+            Full page navigation using <Code>PaginationLink</Code>,{" "}
+            <Code>PaginationPrevious</Code>, <Code>PaginationNext</Code>, and{" "}
+            <Code>PaginationEllipsis</Code>. Use this when people need to jump
+            to a specific page or see where they are in the set.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Pagination>
@@ -181,20 +179,19 @@ export function PaginationPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="table-pagination" label="Icon only">
-        <PageSectionHeader
-          title="Icon only"
-          description={
-            <>
-              Shows only previous and next controls using <Code>iconOnly</Code>{" "}
-              on <Code>PaginationPrevious</Code> and <Code>PaginationNext</Code>
-              . Use this when page numbers are shown elsewhere or space is
-              limited.
-            </>
-          }
-        />
+      <MainSection
+        id="table-pagination"
+        title="Icon only"
+        description={
+          <>
+            Shows only previous and next controls using <Code>iconOnly</Code> on{" "}
+            <Code>PaginationPrevious</Code> and <Code>PaginationNext</Code>. Use
+            this when page numbers are shown elsewhere or space is limited.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Pagination>
@@ -216,13 +213,13 @@ export function PaginationPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Show where the reader is and provide clear routes through the page set."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Show where the reader is and provide clear routes through the page set."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -259,63 +256,89 @@ export function PaginationPage() {
             <>Don’t leave an unavailable link with a working destination.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Pagination."
-        />
-        <DocsApiTable
-          rows={[
-            {
-              name: "PaginationLink.isActive",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Marks the current page and applies aria-current.",
-            },
-            {
-              name: "PaginationLink.size",
-              type: '"xs" | "sm" | "default" | "lg" | "icon-2xs" | "icon-xs" | "icon-sm" | "icon" | "icon-lg"',
-              defaultValue: '"icon"',
-              description: "Sets the link dimensions using Gecko Button sizes.",
-            },
-            {
-              name: "PaginationLink.variant",
-              type: '"default" | "outline" | "secondary" | "ghost" | "ghost-light" | "ghost-dark" | "ghost-destructive" | "destructive" | "link"',
-              defaultValue: '"ghost"',
-              description:
-                "Sets the Button treatment. The active link always uses outline.",
-            },
-            {
-              name: "PaginationPrevious.text",
-              type: "string",
-              defaultValue: '"Previous"',
-              description: "Sets the visible previous-page label.",
-            },
-            {
-              name: "PaginationPrevious.iconOnly",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Hides the visible previous-page label.",
-            },
-            {
-              name: "PaginationNext.text",
-              type: "string",
-              defaultValue: '"Next"',
-              description: "Sets the visible next-page label.",
-            },
-            {
-              name: "PaginationNext.iconOnly",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Hides the visible next-page label.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Pagination."
+      >
+        <ChildSection
+          id="api-pagination-link"
+          title="PaginationLink"
+          description="Props on PaginationLink."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "isActive",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Marks the current page and applies aria-current.",
+              },
+              {
+                name: "size",
+                type: '"xs" | "sm" | "default" | "lg" | "icon-2xs" | "icon-xs" | "icon-sm" | "icon" | "icon-lg"',
+                defaultValue: '"icon"',
+                description:
+                  "Sets the link dimensions using Gecko Button sizes.",
+              },
+              {
+                name: "variant",
+                type: '"default" | "outline" | "secondary" | "ghost" | "ghost-light" | "ghost-dark" | "ghost-destructive" | "destructive" | "link"',
+                defaultValue: '"ghost"',
+                description:
+                  "Sets the Button treatment. The active link always uses outline.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-pagination-previous"
+          title="PaginationPrevious"
+          description="Props on PaginationPrevious."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "text",
+                type: "string",
+                defaultValue: '"Previous"',
+                description: "Sets the visible previous-page label.",
+              },
+              {
+                name: "iconOnly",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Hides the visible previous-page label.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-pagination-next"
+          title="PaginationNext"
+          description="Props on PaginationNext."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "text",
+                type: "string",
+                defaultValue: '"Next"',
+                description: "Sets the visible next-page label.",
+              },
+              {
+                name: "iconOnly",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Hides the visible next-page label.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -327,13 +350,13 @@ export function PaginationPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Pair Pagination with the content it moves through."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Pair Pagination with the content it moves through."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/data-table">Data table</DocsPageLink>{" "}
@@ -350,7 +373,7 @@ export function PaginationPage() {
             standalone actions that do not navigate between result pages.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

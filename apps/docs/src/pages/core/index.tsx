@@ -1,21 +1,17 @@
-import { Link } from "react-router-dom"
-import { buttonVariants } from "@gecko/ui/components/button"
-import { corePages } from "@/pages/gallery-data"
+import { Link } from "react-router-dom";
+import { buttonVariants } from "@gecko/ui/components/button";
+import { HeaderSection, MainSection } from "@/components/layout/docs-section";
+import { corePages } from "@/pages/gallery-data";
 
 export function CoreIndexPage() {
   return (
-    <div className="space-y-12">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">Core</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Foundations — color, type, spacing, radius, shadows, and icons.
-        </p>
-      </div>
+    <div>
+      <HeaderSection
+        title="Core"
+        description="Foundations — color, type, spacing, radius, shadows, and icons."
+      />
 
-      <section aria-labelledby="core-gallery-heading">
-        <h2 id="core-gallery-heading" className="sr-only">
-          Core topics
-        </h2>
+      <MainSection title="Core topics">
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {corePages.map(({ name, description, path }) => (
             <li key={path}>
@@ -39,7 +35,7 @@ export function CoreIndexPage() {
             </li>
           ))}
         </ul>
-      </section>
+      </MainSection>
     </div>
-  )
+  );
 }

@@ -3,12 +3,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 
 import * as React from "react";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -585,60 +584,60 @@ export function DataTablePage() {
 />`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Data table"
-          description="The Data table shows a list of rows people can scan, sort, and act on. Search, filters, pagination, and row actions sit around a grid of columns."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Data table"
+        description="The Data table shows a list of rows people can scan, sort, and act on. Search, filters, pagination, and row actions sit around a grid of columns."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Data table as the default for product lists — events, forms,
-              broadcasts, and similar listings — where people need to find,
-              filter, sort, or act on rows.
-              <br />
-              <br />
-              Avoid using it for a handful of fields that belong in a form, or
-              for simple non-interactive tabular markup. If the grid is only
-              presentation (for example reporting inside a Metric card), use{" "}
-              <DocsPageLink to="/components/table">Table</DocsPageLink> instead.
-              Pair filtering with{" "}
-              <DocsPageLink to="/components/filters">Filters</DocsPageLink> via
-              the Data table toolbar.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Data table as the default for product lists — events, forms,
+            broadcasts, and similar listings — where people need to find,
+            filter, sort, or act on rows.
+            <br />
+            <br />
+            Avoid using it for a handful of fields that belong in a form, or for
+            simple non-interactive tabular markup. If the grid is only
+            presentation (for example reporting inside a Metric card), use{" "}
+            <DocsPageLink to="/components/table">Table</DocsPageLink> instead.
+            Pair filtering with{" "}
+            <DocsPageLink to="/components/filters">Filters</DocsPageLink> via
+            the Data table toolbar.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import DataTable for the grid. Import DataTableColumnHeader and DataTableMultiLineCell when a column needs a sortable header or stacked cell text."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description={
-            <>
-              A grid using <Code>columns</Code> and <Code>data</Code>. Use this
-              when the list only needs to be read, without search or pagination.
-            </>
-          }
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description={
+          <>
+            A grid using <Code>columns</Code> and <Code>data</Code>. Use this
+            when the list only needs to be read, without search or pagination.
+          </>
+        }
+      >
         <ComponentExample className="overflow-x-auto">
           <div className="space-y-6">
             <DataTable
@@ -661,20 +660,19 @@ export function DataTablePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="table-headers" label="Table headers">
-        <PageSectionHeader
-          title="Table headers"
-          description={
-            <>
-              Column titles using <Code>DataTableColumnHeader</Code>. Use this
-              when a column can be sorted, or needs a short explanation.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="table-headers"
+        title="Table headers"
+        description={
+          <>
+            Column titles using <Code>DataTableColumnHeader</Code>. Use this
+            when a column can be sorted, or needs a short explanation.
+          </>
+        }
+      >
+        <ChildSection
           id="sorting"
           title="Sorting"
           description={
@@ -683,32 +681,32 @@ export function DataTablePage() {
               people need to order the list by a column.
             </>
           }
-        />
-        <ComponentExample className="mb-8 overflow-x-auto">
-          <div className="space-y-6">
-            <DataTable
-              aria-label="Events"
-              columns={baseColumns}
-              data={demoEvents}
-              sorting
-              initialState={{
-                columnVisibility: {
-                  chronology: false,
-                  category: false,
-                },
-              }}
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={sortingSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample className="overflow-x-auto">
+            <div className="space-y-6">
+              <DataTable
+                aria-label="Events"
+                columns={baseColumns}
+                data={demoEvents}
+                sorting
+                initialState={{
+                  columnVisibility: {
+                    chronology: false,
+                    category: false,
+                  },
+                }}
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={sortingSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="help-text"
           title="Help text"
           description={
@@ -718,41 +716,42 @@ export function DataTablePage() {
               is not enough on its own.
             </>
           }
-        />
-        <ComponentExample className="overflow-x-auto">
-          <div className="space-y-6">
-            <DataTable
-              aria-label="Events"
-              columns={headerHelpColumns}
-              data={demoEvents}
-              initialState={{
-                columnVisibility: {
-                  chronology: false,
-                  category: false,
-                },
-              }}
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={helpTextSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample className="overflow-x-auto">
+            <div className="space-y-6">
+              <DataTable
+                aria-label="Events"
+                columns={headerHelpColumns}
+                data={demoEvents}
+                initialState={{
+                  columnVisibility: {
+                    chronology: false,
+                    category: false,
+                  },
+                }}
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={helpTextSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="pagination" label="Pagination">
-        <PageSectionHeader
-          title="Pagination"
-          description={
-            <>
-              Splits the list into pages using the <Code>pagination</Code> prop.
-              Use this when there are too many rows to show at once.
-            </>
-          }
-        />
+      <MainSection
+        id="pagination"
+        title="Pagination"
+        description={
+          <>
+            Splits the list into pages using the <Code>pagination</Code> prop.
+            Use this when there are too many rows to show at once.
+          </>
+        }
+      >
         <ComponentExample className="overflow-x-auto">
           <div className="space-y-6">
             <DataTable
@@ -776,19 +775,18 @@ export function DataTablePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="mass-actions" label="Mass actions">
-        <PageSectionHeader
-          title="Mass actions"
-          description={
-            <>
-              Adds row selection and bulk actions with{" "}
-              <Code>selectActions</Code>. Use this when people need to act on
-              several rows at once.
-            </>
-          }
-        />
+      <MainSection
+        id="mass-actions"
+        title="Mass actions"
+        description={
+          <>
+            Adds row selection and bulk actions with <Code>selectActions</Code>.
+            Use this when people need to act on several rows at once.
+          </>
+        }
+      >
         <ComponentExample className="overflow-x-auto">
           <div className="space-y-6">
             <DataTable
@@ -816,18 +814,18 @@ export function DataTablePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="row-actions" label="Row actions">
-        <PageSectionHeader
-          title="Row actions"
-          description={
-            <>
-              Adds a per-row menu using <Code>rowActions</Code>. Use this for
-              actions that apply to one row.
-            </>
-          }
-        />
+      <MainSection
+        id="row-actions"
+        title="Row actions"
+        description={
+          <>
+            Adds a per-row menu using <Code>rowActions</Code>. Use this for
+            actions that apply to one row.
+          </>
+        }
+      >
         <ComponentExample className="overflow-x-auto">
           <div className="space-y-6">
             <DataTable
@@ -852,20 +850,19 @@ export function DataTablePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="table-toolbar" label="Table toolbar">
-        <PageSectionHeader
-          title="Table toolbar"
-          description={
-            <>
-              Adds search, filters, and column visibility using the{" "}
-              <Code>toolbar</Code> prop. Use the pieces the list actually needs.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="table-toolbar"
+        title="Table toolbar"
+        description={
+          <>
+            Adds search, filters, and column visibility using the{" "}
+            <Code>toolbar</Code> prop. Use the pieces the list actually needs.
+          </>
+        }
+      >
+        <ChildSection
           id="search"
           title="Search"
           description={
@@ -874,34 +871,34 @@ export function DataTablePage() {
               people need to find a row by typing.
             </>
           }
-        />
-        <ComponentExample className="mb-6 overflow-x-auto">
-          <div className="space-y-6">
-            <DataTable
-              aria-label="Events"
-              columns={baseColumns}
-              data={demoEvents}
-              toolbar={{
-                search: { placeholder: "Search events" },
-              }}
-              initialState={{
-                columnVisibility: {
-                  chronology: false,
-                  category: false,
-                },
-              }}
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={searchSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample className="overflow-x-auto">
+            <div className="space-y-6">
+              <DataTable
+                aria-label="Events"
+                columns={baseColumns}
+                data={demoEvents}
+                toolbar={{
+                  search: { placeholder: "Search events" },
+                }}
+                initialState={{
+                  columnVisibility: {
+                    chronology: false,
+                    category: false,
+                  },
+                }}
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={searchSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="filters"
           title="Filters"
           description={
@@ -910,36 +907,36 @@ export function DataTablePage() {
               the list can be narrowed by category.
             </>
           }
-        />
-        <ComponentExample className="mb-6 overflow-x-auto">
-          <div className="space-y-6">
-            <DataTable
-              aria-label="Events"
-              columns={baseColumns}
-              data={demoEvents}
-              toolbar={{
-                filters: {
-                  categories: eventFilterCategories,
-                },
-              }}
-              initialState={{
-                columnVisibility: {
-                  chronology: false,
-                  category: false,
-                },
-              }}
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={filtersSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample className="overflow-x-auto">
+            <div className="space-y-6">
+              <DataTable
+                aria-label="Events"
+                columns={baseColumns}
+                data={demoEvents}
+                toolbar={{
+                  filters: {
+                    categories: eventFilterCategories,
+                  },
+                }}
+                initialState={{
+                  columnVisibility: {
+                    chronology: false,
+                    category: false,
+                  },
+                }}
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={filtersSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="column-toggle"
           title="Column toggle"
           description={
@@ -948,45 +945,46 @@ export function DataTablePage() {
               Use this when people need to choose which columns stay in view.
             </>
           }
-        />
-        <ComponentExample className="overflow-x-auto">
-          <div className="space-y-6">
-            <DataTable
-              aria-label="Events"
-              columns={baseColumns}
-              data={demoEvents}
-              toolbar={{
-                columnToggle: true,
-              }}
-              initialState={{
-                columnVisibility: {
-                  chronology: false,
-                  category: false,
-                },
-              }}
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={columnToggleSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample className="overflow-x-auto">
+            <div className="space-y-6">
+              <DataTable
+                aria-label="Events"
+                columns={baseColumns}
+                data={demoEvents}
+                toolbar={{
+                  columnToggle: true,
+                }}
+                initialState={{
+                  columnVisibility: {
+                    chronology: false,
+                    category: false,
+                  },
+                }}
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={columnToggleSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="multi-line-cells" label="Multi-line cells">
-        <PageSectionHeader
-          title="Multi-line cells"
-          description={
-            <>
-              Stacks two lines in a cell using{" "}
-              <Code>DataTableMultiLineCell</Code> with <Code>primary</Code> and{" "}
-              <Code>secondary</Code>. Use this when a column needs a subtitle.
-            </>
-          }
-        />
+      <MainSection
+        id="multi-line-cells"
+        title="Multi-line cells"
+        description={
+          <>
+            Stacks two lines in a cell using <Code>DataTableMultiLineCell</Code>{" "}
+            with <Code>primary</Code> and <Code>secondary</Code>. Use this when
+            a column needs a subtitle.
+          </>
+        }
+      >
         <ComponentExample className="overflow-x-auto">
           <div className="space-y-6">
             <DataTable
@@ -1009,18 +1007,18 @@ export function DataTablePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="nested-rows" label="Nested rows">
-        <PageSectionHeader
-          title="Nested rows"
-          description={
-            <>
-              Expands a row using <Code>expandable</Code> with{" "}
-              <Code>renderDetail</Code>. Use this when a row has nested content.
-            </>
-          }
-        />
+      <MainSection
+        id="nested-rows"
+        title="Nested rows"
+        description={
+          <>
+            Expands a row using <Code>expandable</Code> with{" "}
+            <Code>renderDetail</Code>. Use this when a row has nested content.
+          </>
+        }
+      >
         <ComponentExample className="overflow-x-auto">
           <div className="space-y-6">
             <DataTable
@@ -1069,20 +1067,20 @@ export function DataTablePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="full-example" label="Full example">
-        <PageSectionHeader
-          title="Full example"
-          description={
-            <>
-              Combines <Code>sorting</Code>, <Code>pagination</Code>,{" "}
-              <Code>rowActions</Code>, <Code>selectActions</Code>, and{" "}
-              <Code>toolbar</Code>. Use this when the list needs the full set of
-              tools.
-            </>
-          }
-        />
+      <MainSection
+        id="full-example"
+        title="Full example"
+        description={
+          <>
+            Combines <Code>sorting</Code>, <Code>pagination</Code>,{" "}
+            <Code>rowActions</Code>, <Code>selectActions</Code>, and{" "}
+            <Code>toolbar</Code>. Use this when the list needs the full set of
+            tools.
+          </>
+        }
+      >
         <ComponentExample className="overflow-x-auto">
           <div className="space-y-6">
             <DataTable
@@ -1119,13 +1117,13 @@ export function DataTablePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Add table behaviour only when it helps people inspect or act on the rows."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Add table behaviour only when it helps people inspect or act on the rows."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -1161,13 +1159,13 @@ export function DataTablePage() {
             <>Don’t put essential row meaning only in colour or an icon.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on DataTable."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on DataTable."
+      >
         <DocsApiTable
           rows={[
             {
@@ -1245,9 +1243,8 @@ export function DataTablePage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -1263,13 +1260,13 @@ export function DataTablePage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use supporting components when the content or navigation is simpler."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use supporting components when the content or navigation is simpler."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/table">Table</DocsPageLink> — when
@@ -1284,7 +1281,7 @@ export function DataTablePage() {
             there are no rows to show.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

@@ -3,12 +3,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Separator } from "@gecko/ui/components/separator";
 import { Code } from "@gecko/ui/components/code";
 
@@ -35,54 +34,53 @@ export function SeparatorPage() {
 </div>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Separator"
-          description="Separator is a thin structural boundary between related groups of content. It clarifies dense layouts without carrying status or adding visual weight."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Separator"
+        description="Separator is a thin structural boundary between related groups of content. It clarifies dense layouts without carrying status or adding visual weight."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Separator between distinct groups of functionality or data —
-              between rows in a list, or between items in a horizontal row. It
-              exposes that structural boundary to assistive technology by
-              default.
-              <br />
-              <br />
-              Avoid using it for semantic status, labelled dividers, or
-              conversation thread markers. For a labelled divider in a message
-              flow, use a{" "}
-              <DocsPageLink to="/components/marker">Marker</DocsPageLink> with
-              the separator variant instead.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Separator between distinct groups of functionality or data —
+            between rows in a list, or between items in a horizontal row. It
+            exposes that structural boundary to assistive technology by default.
+            <br />
+            <br />
+            Avoid using it for semantic status, labelled dividers, or
+            conversation thread markers. For a labelled divider in a message
+            flow, use a{" "}
+            <DocsPageLink to="/components/marker">Marker</DocsPageLink> with the
+            separator variant instead.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Separator to add a dividing line between content."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="orientation" label="Orientation">
-        <PageSectionHeader
-          title="Orientation"
-          description="Use a horizontal boundary between stacked content or a vertical boundary between inline content."
-        />
+      <MainSection
+        id="orientation"
+        title="Orientation"
+        description="Use a horizontal boundary between stacked content or a vertical boundary between inline content."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="space-y-3">
@@ -108,13 +106,13 @@ export function SeparatorPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="list" label="List">
-        <PageSectionHeader
-          title="List"
-          description="A horizontal divider between stacked rows. Use this to separate items in a list or definition group without adding extra spacing."
-        />
+      <MainSection
+        id="list"
+        title="List"
+        description="A horizontal divider between stacked rows. Use this to separate items in a list or definition group without adding extra spacing."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex w-full max-w-sm flex-col gap-2 text-sm">
@@ -142,13 +140,13 @@ export function SeparatorPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use a light divider to clarify groups without adding more content."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use a light divider to clarify groups without adding more content."
+      >
         <DocsDoDont
           doItems={[
             <>Use Separator between distinct groups of related content.</>,
@@ -178,13 +176,13 @@ export function SeparatorPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Separator."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Separator."
+      >
         <DocsApiTable
           rows={[
             {
@@ -195,8 +193,7 @@ export function SeparatorPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
-          className="mt-6"
+        <ChildSection
           title="API reference"
           description={
             <>
@@ -212,20 +209,20 @@ export function SeparatorPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a component-specific divider when it carries extra structure."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a component-specific divider when it carries extra structure."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/field">Field</DocsPageLink> — includes
             FieldSeparator for dividing form content.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

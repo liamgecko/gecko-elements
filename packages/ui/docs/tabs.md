@@ -94,6 +94,29 @@ Set `fullWidth` on TabsList when triggers should share the available width evenl
 </Tabs>
 ```
 
+## Overflow
+
+Set `overflow` on TabsList when a horizontal tab set must fit a constrained width. TabsList keeps as many natural-width triggers visible as possible and moves trailing tabs into an ellipsis menu. Hidden tabs return to the list automatically when space becomes available.
+
+```tsx
+<Tabs defaultValue="inbox" className="w-full max-w-md">
+  <TabsList overflow>
+    <TabsTrigger value="inbox">Inbox</TabsTrigger>
+    <TabsTrigger value="contacts">Contacts</TabsTrigger>
+    <TabsTrigger value="conversations">Conversations</TabsTrigger>
+    <TabsTrigger value="automations">Automations</TabsTrigger>
+    <TabsTrigger value="reports">Reports</TabsTrigger>
+  </TabsList>
+  <TabsContent value="inbox">Manage your inbox.</TabsContent>
+  <TabsContent value="contacts">Manage your contacts.</TabsContent>
+  <TabsContent value="conversations">Review conversations.</TabsContent>
+  <TabsContent value="automations">Manage automations.</TabsContent>
+  <TabsContent value="reports">View reports.</TabsContent>
+</Tabs>
+```
+
+Overflow applies only to horizontal tabs and takes precedence over `fullWidth`. Keep trigger labels concise even when overflow is enabled.
+
 ## Controlled state
 
 Use `value` and `onValueChange` when the active panel must be coordinated with application state.
@@ -150,6 +173,7 @@ Tabs accepts the remaining Base UI Tabs Root properties.
 | Property          | Type      | Default | Meaning                                                   |
 | ----------------- | --------- | ------- | --------------------------------------------------------- |
 | `fullWidth`       | `boolean` | `false` | Fills the container and distributes triggers evenly       |
+| `overflow`        | `boolean` | `false` | Moves trailing horizontal tabs into an ellipsis menu      |
 | `activateOnFocus` | `boolean` | `false` | Activates each tab as arrow-key focus reaches it          |
 | `loopFocus`       | `boolean` | `true`  | Loops arrow-key focus between the first and final trigger |
 
@@ -195,11 +219,12 @@ TabsContent accepts the remaining Base UI Tabs Panel properties.
 4. Give every TabsTrigger a matching TabsContent value.
 5. Set the visual variant once on Tabs; do not add it to TabsList.
 6. Use `fullWidth` only when triggers should divide the available width evenly.
-7. Keep the default manual keyboard activation unless immediate activation is demonstrably better.
-8. Use controlled state only when application logic needs the active value.
-9. Use `keepMounted` deliberately for state retention or integration needs.
-10. Preserve Gecko’s approved tab presentation and Base UI semantics.
-11. Do not import Shadcn or Base UI Tabs directly.
+7. Use `overflow` when horizontal tabs must adapt to a constrained width; do not combine it with `fullWidth`.
+8. Keep the default manual keyboard activation unless immediate activation is demonstrably better.
+9. Use controlled state only when application logic needs the active value.
+10. Use `keepMounted` deliberately for state retention or integration needs.
+11. Preserve Gecko’s approved tab presentation and Base UI semantics.
+12. Do not import Shadcn or Base UI Tabs directly.
 
 ## API reference
 

@@ -3,12 +3,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import {
   Accordion,
@@ -62,43 +61,42 @@ export function AccordionPage() {
    └─ AccordionContent`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Accordion"
-          description={
-            <>
-              The Accordion component allows users to expand and collapse
-              sections of content, helping manage dense or secondary information
-              without overwhelming the page. It groups related content into
-              discrete sections, revealing details only when needed while
-              keeping the interface easy to scan.
-            </>
-          }
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Accordion"
+        description={
+          <>
+            The Accordion component allows users to expand and collapse sections
+            of content, helping manage dense or secondary information without
+            overwhelming the page. It groups related content into discrete
+            sections, revealing details only when needed while keeping the
+            interface easy to scan.
+          </>
+        }
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Accordion sparingly. Prefer{" "}
-              <Code>variant=&quot;sectional&quot;</Code> to break large setup
-              forms into meaningful sections and reduce cognitive load. Page
-              sub-navigation still belongs in Header tabs or standalone{" "}
-              <DocsPageLink to="/components/tabs">Tabs</DocsPageLink>.
-              <br />
-              <br />
-              Use the default variant for related secondary information in a
-              dense panel. An Accordion must contain at least two related
-              sections. Keep a single section visible rather than making it
-              collapsible. Avoid using Accordion as a standard page pattern, or
-              for critical content that must always stay visible.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Accordion sparingly. Prefer{" "}
+            <Code>variant=&quot;sectional&quot;</Code> to break large setup
+            forms into meaningful sections and reduce cognitive load. Page
+            sub-navigation still belongs in Header tabs or standalone{" "}
+            <DocsPageLink to="/components/tabs">Tabs</DocsPageLink>.
+            <br />
+            <br />
+            Use the default variant for related secondary information in a dense
+            panel. An Accordion must contain at least two related sections. Keep
+            a single section visible rather than making it collapsible. Avoid
+            using Accordion as a standard page pattern, or for critical content
+            that must always stay visible.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description={
@@ -108,18 +106,19 @@ export function AccordionPage() {
               part controls a specific piece of behaviour and structure.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
 
-        <PageSubsectionHeader
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description={
@@ -132,24 +131,25 @@ export function AccordionPage() {
               consistently while keeping behaviour predictable.
             </>
           }
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="default" label="Default">
-        <PageSectionHeader
-          title="Default accordion"
-          description="Use the default variant for related secondary information in a dense panel, such as contact details in the Inbox. Sections are independent, so allow more than one to remain open. Start with all sections closed unless one is clearly prioritised, and preserve the open sections for the lifetime of the panel."
-        />
-        <ComponentExample className="mb-6">
+      <MainSection
+        id="default"
+        title="Default accordion"
+        description="Use the default variant for related secondary information in a dense panel, such as contact details in the Inbox. Sections are independent, so allow more than one to remain open. Start with all sections closed unless one is clearly prioritised, and preserve the open sections for the lifetime of the panel."
+      >
+        <ComponentExample>
           <div className="space-y-6">
             <Accordion multiple>
               <AccordionItem value="shipping">
@@ -179,115 +179,121 @@ export function AccordionPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="variants" label="Variants">
-        <PageSectionHeader
-          title="Variants"
-          description="The Accordion supports layout variations to adapt to different interface contexts. Variants affect visual structure and separation rather than behaviour."
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="variants"
+        title="Variants"
+        description="The Accordion supports layout variations to adapt to different interface contexts. Variants affect visual structure and separation rather than behaviour."
+      >
+        <ChildSection
           id="variants-sectional"
           title="Sectional"
           description="Displays accordion items as clearly separated sections. Use this variant for large setup forms. Allow multiple sections to remain open, keep their fields mounted, and open the first or most relevant section initially. When validation fails, open every section containing an error and move focus to the first invalid control or error summary."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Accordion
-              variant="sectional"
-              defaultValue={["shipping"]}
-              multiple
-              keepMounted
-            >
-              <AccordionItem value="shipping">
-                <AccordionTrigger>
-                  What are your shipping options?
-                </AccordionTrigger>
-                <AccordionContent>
-                  We offer standard (5-7 days), express (2-3 days), and
-                  overnight shipping. Free shipping on international orders.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="returns">
-                <AccordionTrigger>What is your return policy?</AccordionTrigger>
-                <AccordionContent>
-                  Returns accepted within 30 days. Items must be unused and in
-                  original packaging. Refunds processed within 5-7 business
-                  days.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="support">
-                <AccordionTrigger>
-                  How can I contact customer support?
-                </AccordionTrigger>
-                <AccordionContent>
-                  Reach us via email, live chat, or phone. We respond within 24
-                  hours during business days.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-            <Code
-              variant="block"
-              language="tsx"
-              code={sectionalExampleSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Accordion
+                variant="sectional"
+                defaultValue={["shipping"]}
+                multiple
+                keepMounted
+              >
+                <AccordionItem value="shipping">
+                  <AccordionTrigger>
+                    What are your shipping options?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    We offer standard (5-7 days), express (2-3 days), and
+                    overnight shipping. Free shipping on international orders.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="returns">
+                  <AccordionTrigger>
+                    What is your return policy?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Returns accepted within 30 days. Items must be unused and in
+                    original packaging. Refunds processed within 5-7 business
+                    days.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="support">
+                  <AccordionTrigger>
+                    How can I contact customer support?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Reach us via email, live chat, or phone. We respond within
+                    24 hours during business days.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+              <Code
+                variant="block"
+                language="tsx"
+                code={sectionalExampleSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="controls" label="Controls">
-        <PageSectionHeader
-          title="Controls"
-          description="Control which items are open by default and whether multiple items can be expanded at the same time. These props define the Accordion’s behaviour rather than its layout, allowing you to tailor how users interact with the content."
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="controls"
+        title="Controls"
+        description="Control which items are open by default and whether multiple items can be expanded at the same time. These props define the Accordion’s behaviour rather than its layout, allowing you to tailor how users interact with the content."
+      >
+        <ChildSection
           id="controls-closed"
           title="Closed"
           description="All items are collapsed by default. Use this when you want users to explicitly choose what to expand, or when no section should be prioritised on initial load."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Accordion>
-              <AccordionItem value="shipping">
-                <AccordionTrigger>
-                  What are your shipping options?
-                </AccordionTrigger>
-                <AccordionContent>
-                  We offer standard (5-7 days), express (2-3 days), and
-                  overnight shipping. Free shipping on international orders.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="returns">
-                <AccordionTrigger>What is your return policy?</AccordionTrigger>
-                <AccordionContent>
-                  Returns accepted within 30 days. Items must be unused and in
-                  original packaging. Refunds processed within 5-7 business
-                  days.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="support">
-                <AccordionTrigger>
-                  How can I contact customer support?
-                </AccordionTrigger>
-                <AccordionContent>
-                  Reach us via email, live chat, or phone. We respond within 24
-                  hours during business days.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-            <Code
-              variant="block"
-              language="tsx"
-              code={getControlsSnippet("")}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Accordion>
+                <AccordionItem value="shipping">
+                  <AccordionTrigger>
+                    What are your shipping options?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    We offer standard (5-7 days), express (2-3 days), and
+                    overnight shipping. Free shipping on international orders.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="returns">
+                  <AccordionTrigger>
+                    What is your return policy?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Returns accepted within 30 days. Items must be unused and in
+                    original packaging. Refunds processed within 5-7 business
+                    days.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="support">
+                  <AccordionTrigger>
+                    How can I contact customer support?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Reach us via email, live chat, or phone. We respond within
+                    24 hours during business days.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+              <Code
+                variant="block"
+                language="tsx"
+                code={getControlsSnippet("")}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
 
-        <PageSubsectionHeader
+        <ChildSection
           id="controls-first-open"
           title="First open"
           description={
@@ -297,48 +303,51 @@ export function AccordionPage() {
               want to guide users toward a recommended starting point.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Accordion defaultValue={["shipping"]}>
-              <AccordionItem value="shipping">
-                <AccordionTrigger>
-                  What are your shipping options?
-                </AccordionTrigger>
-                <AccordionContent>
-                  We offer standard (5-7 days), express (2-3 days), and
-                  overnight shipping. Free shipping on international orders.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="returns">
-                <AccordionTrigger>What is your return policy?</AccordionTrigger>
-                <AccordionContent>
-                  Returns accepted within 30 days. Items must be unused and in
-                  original packaging. Refunds processed within 5-7 business
-                  days.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="support">
-                <AccordionTrigger>
-                  How can I contact customer support?
-                </AccordionTrigger>
-                <AccordionContent>
-                  Reach us via email, live chat, or phone. We respond within 24
-                  hours during business days.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-            <Code
-              variant="block"
-              language="tsx"
-              code={getControlsSnippet(' defaultValue={["shipping"]}')}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Accordion defaultValue={["shipping"]}>
+                <AccordionItem value="shipping">
+                  <AccordionTrigger>
+                    What are your shipping options?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    We offer standard (5-7 days), express (2-3 days), and
+                    overnight shipping. Free shipping on international orders.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="returns">
+                  <AccordionTrigger>
+                    What is your return policy?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Returns accepted within 30 days. Items must be unused and in
+                    original packaging. Refunds processed within 5-7 business
+                    days.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="support">
+                  <AccordionTrigger>
+                    How can I contact customer support?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Reach us via email, live chat, or phone. We respond within
+                    24 hours during business days.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+              <Code
+                variant="block"
+                language="tsx"
+                code={getControlsSnippet(' defaultValue={["shipping"]}')}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
 
-        <PageSubsectionHeader
+        <ChildSection
           id="controls-all-open"
           title="All open"
           description={
@@ -349,53 +358,56 @@ export function AccordionPage() {
               collapsible if needed.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Accordion
-              defaultValue={["shipping", "returns", "support"]}
-              multiple
-            >
-              <AccordionItem value="shipping">
-                <AccordionTrigger>
-                  What are your shipping options?
-                </AccordionTrigger>
-                <AccordionContent>
-                  We offer standard (5-7 days), express (2-3 days), and
-                  overnight shipping. Free shipping on international orders.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="returns">
-                <AccordionTrigger>What is your return policy?</AccordionTrigger>
-                <AccordionContent>
-                  Returns accepted within 30 days. Items must be unused and in
-                  original packaging. Refunds processed within 5-7 business
-                  days.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="support">
-                <AccordionTrigger>
-                  How can I contact customer support?
-                </AccordionTrigger>
-                <AccordionContent>
-                  Reach us via email, live chat, or phone. We respond within 24
-                  hours during business days.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-            <Code
-              variant="block"
-              language="tsx"
-              code={getControlsSnippet(
-                ' defaultValue={["shipping", "returns", "support"]} multiple',
-              )}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Accordion
+                defaultValue={["shipping", "returns", "support"]}
+                multiple
+              >
+                <AccordionItem value="shipping">
+                  <AccordionTrigger>
+                    What are your shipping options?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    We offer standard (5-7 days), express (2-3 days), and
+                    overnight shipping. Free shipping on international orders.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="returns">
+                  <AccordionTrigger>
+                    What is your return policy?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Returns accepted within 30 days. Items must be unused and in
+                    original packaging. Refunds processed within 5-7 business
+                    days.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="support">
+                  <AccordionTrigger>
+                    How can I contact customer support?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Reach us via email, live chat, or phone. We respond within
+                    24 hours during business days.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+              <Code
+                variant="block"
+                language="tsx"
+                code={getControlsSnippet(
+                  ' defaultValue={["shipping", "returns", "support"]} multiple',
+                )}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
 
-        <PageSubsectionHeader
+        <ChildSection
           id="controls-multiple"
           title="Multiple"
           description={
@@ -406,53 +418,58 @@ export function AccordionPage() {
               multiple pieces of content simultaneously.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Accordion defaultValue={["shipping"]} multiple>
-              <AccordionItem value="shipping">
-                <AccordionTrigger>
-                  What are your shipping options?
-                </AccordionTrigger>
-                <AccordionContent>
-                  We offer standard (5-7 days), express (2-3 days), and
-                  overnight shipping. Free shipping on international orders.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="returns">
-                <AccordionTrigger>What is your return policy?</AccordionTrigger>
-                <AccordionContent>
-                  Returns accepted within 30 days. Items must be unused and in
-                  original packaging. Refunds processed within 5-7 business
-                  days.
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="support">
-                <AccordionTrigger>
-                  How can I contact customer support?
-                </AccordionTrigger>
-                <AccordionContent>
-                  Reach us via email, live chat, or phone. We respond within 24
-                  hours during business days.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-            <Code
-              variant="block"
-              language="tsx"
-              code={getControlsSnippet(' defaultValue={["shipping"]} multiple')}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Accordion defaultValue={["shipping"]} multiple>
+                <AccordionItem value="shipping">
+                  <AccordionTrigger>
+                    What are your shipping options?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    We offer standard (5-7 days), express (2-3 days), and
+                    overnight shipping. Free shipping on international orders.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="returns">
+                  <AccordionTrigger>
+                    What is your return policy?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Returns accepted within 30 days. Items must be unused and in
+                    original packaging. Refunds processed within 5-7 business
+                    days.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="support">
+                  <AccordionTrigger>
+                    How can I contact customer support?
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    Reach us via email, live chat, or phone. We respond within
+                    24 hours during business days.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+              <Code
+                variant="block"
+                language="tsx"
+                code={getControlsSnippet(
+                  ' defaultValue={["shipping"]} multiple',
+                )}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use the documented variants and behaviour props. Do not restyle the Accordion chrome or add variants or props without explicit consent."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use the documented variants and behaviour props. Do not restyle the Accordion chrome or add variants or props without explicit consent."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -507,13 +524,13 @@ export function AccordionPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Accordion."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Accordion."
+      >
         <DocsApiTable
           rows={[
             {
@@ -563,9 +580,8 @@ export function AccordionPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -581,20 +597,20 @@ export function AccordionPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a different control when the Accordion is the wrong shape for the job."
-        />
-        <ul className="space-y-2 text-sm text-muted-foreground">
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a different control when the Accordion is the wrong shape for the job."
+      >
+        <ul>
           <li>
             <DocsPageLink to="/components/tabs">Tabs</DocsPageLink> — when
             people choose between views, not extra detail in a list of sections.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

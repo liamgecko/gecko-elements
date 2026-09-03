@@ -1,14 +1,14 @@
 import { ComponentExample } from "@/components/layout/component-example";
+import { RequiredForm } from "@/components/layout/required-form";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Button } from "@gecko/ui/components/button";
 import { Code } from "@gecko/ui/components/code";
 import {
@@ -20,6 +20,7 @@ import {
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldLabel,
 } from "@gecko/ui/components/field";
 import {
@@ -41,6 +42,12 @@ import {
   MoreHorizontal,
   Search,
 } from "lucide-react";
+import { Controller } from "react-hook-form";
+import { z } from "zod";
+
+const inputGroupFormSchema = z.object({
+  domain: z.string().trim().min(1, "Enter a workspace domain."),
+});
 
 export function InputGroupPage() {
   const importSnippet = `import {
@@ -159,84 +166,93 @@ export function InputGroupPage() {
   </InputGroupAddon>
 </InputGroup>`;
 
-  const formSnippet = `<form onSubmit={handleSubmit}>
-  <Field>
-    <FieldLabel htmlFor="workspace-domain">Workspace domain</FieldLabel>
-    <InputGroup>
-      <InputGroupInput
-        id="workspace-domain"
-        name="domain"
-        autoComplete="off"
-      />
-      <InputGroupAddon align="inline-end">
-        <InputGroupText>.gecko.example</InputGroupText>
-      </InputGroupAddon>
-    </InputGroup>
-  </Field>
+  const formSnippet = `const formSchema = z.object({
+  domain: z.string().trim().min(1, "Enter a workspace domain."),
+})
+
+const form = useForm<z.infer<typeof formSchema>>({
+  resolver: zodResolver(formSchema),
+  defaultValues: { domain: "" },
+})
+
+<form noValidate onSubmit={form.handleSubmit(onSubmit)}>
+  <Controller name="domain" control={form.control} render={({ field, fieldState }) => (
+    <Field data-invalid={fieldState.invalid}>
+      <FieldLabel htmlFor={field.name}>Workspace domain</FieldLabel>
+      <InputGroup>
+        <InputGroupInput {...field} id={field.name} required aria-invalid={fieldState.invalid} />
+        <InputGroupAddon align="inline-end">
+          <InputGroupText>.gecko.example</InputGroupText>
+        </InputGroupAddon>
+      </InputGroup>
+      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+    </Field>
+  )} />
   <Button type="submit">Save domain</Button>
 </form>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Input group"
-          description="Input Group places text, icons, or actions inside a shared input boundary. Use it when the added content belongs to the value or directly acts on it."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Input group"
+        description="Input Group places text, icons, or actions inside a shared input boundary. Use it when the added content belongs to the value or directly acts on it."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Input Group for a prefix, suffix, status, or compact action
-              that is inseparable from a text value. Use a standalone{" "}
-              <DocsPageLink to="/components/input">Input field</DocsPageLink>{" "}
-              when no content belongs inside its boundary.
-              <br />
-              <br />
-              Keep the control first in the DOM and place addons after it. The
-              alignment setting changes visual placement without changing the
-              reading or focus order.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Input Group for a prefix, suffix, status, or compact action that
+            is inseparable from a text value. Use a standalone{" "}
+            <DocsPageLink to="/components/input">Input field</DocsPageLink> when
+            no content belongs inside its boundary.
+            <br />
+            <br />
+            Keep the control first in the DOM and place addons after it. The
+            alignment setting changes visual placement without changing the
+            reading or focus order.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import the group and only the parts used by the composition."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="Use one input or textarea, followed by the addons that belong to it."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="A search icon visually placed before a text control."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="A search icon visually placed before a text control."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <InputGroup>
@@ -254,123 +270,125 @@ export function InputGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="alignment" label="Alignment">
-        <PageSectionHeader
-          title="Alignment"
-          description="Place supporting content above or below the control."
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="alignment"
+        title="Alignment"
+        description="Place supporting content above or below the control."
+      >
+        <ChildSection
           id="alignment-block-start"
           title="Block start"
           description="Place a header or compact toolbar above an input or textarea."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="grid gap-6 md:grid-cols-2">
-              <Field>
-                <FieldLabel htmlFor="alignment-name">Input</FieldLabel>
-                <InputGroup>
-                  <InputGroupInput
-                    id="alignment-name"
-                    placeholder="Enter your name"
-                  />
-                  <InputGroupAddon align="block-start">
-                    <InputGroupText>Full name</InputGroupText>
-                  </InputGroupAddon>
-                </InputGroup>
-                <FieldDescription>
-                  Header positioned above the input.
-                </FieldDescription>
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="alignment-script">Textarea</FieldLabel>
-                <InputGroup>
-                  <InputGroupTextarea id="alignment-script" />
-                  <InputGroupAddon align="block-start">
-                    <FileCode aria-hidden="true" />
-                    <InputGroupText>script.js</InputGroupText>
-                    <InputGroupButton
-                      className="ms-auto"
-                      aria-label="Copy script"
-                    >
-                      <Copy aria-hidden="true" />
-                    </InputGroupButton>
-                  </InputGroupAddon>
-                </InputGroup>
-                <FieldDescription>
-                  Header positioned above the textarea.
-                </FieldDescription>
-              </Field>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="grid gap-6 md:grid-cols-2">
+                <Field>
+                  <FieldLabel htmlFor="alignment-name">Input</FieldLabel>
+                  <InputGroup>
+                    <InputGroupInput
+                      id="alignment-name"
+                      placeholder="Enter your name"
+                    />
+                    <InputGroupAddon align="block-start">
+                      <InputGroupText>Full name</InputGroupText>
+                    </InputGroupAddon>
+                  </InputGroup>
+                  <FieldDescription>
+                    Header positioned above the input.
+                  </FieldDescription>
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="alignment-script">Textarea</FieldLabel>
+                  <InputGroup>
+                    <InputGroupTextarea id="alignment-script" />
+                    <InputGroupAddon align="block-start">
+                      <FileCode aria-hidden="true" />
+                      <InputGroupText>script.js</InputGroupText>
+                      <InputGroupButton
+                        className="ms-auto"
+                        aria-label="Copy script"
+                      >
+                        <Copy aria-hidden="true" />
+                      </InputGroupButton>
+                    </InputGroupAddon>
+                  </InputGroup>
+                  <FieldDescription>
+                    Header positioned above the textarea.
+                  </FieldDescription>
+                </Field>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={blockStartSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={blockStartSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="alignment-block-end"
           title="Block end"
           description="Place supporting information or actions below an input or textarea."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="grid gap-6 md:grid-cols-2">
-              <Field>
-                <FieldLabel htmlFor="alignment-amount">Input</FieldLabel>
-                <InputGroup>
-                  <InputGroupInput
-                    id="alignment-amount"
-                    placeholder="Enter amount"
-                  />
-                  <InputGroupAddon align="block-end">
-                    <InputGroupText>USD</InputGroupText>
-                  </InputGroupAddon>
-                </InputGroup>
-                <FieldDescription>
-                  Footer positioned below the input.
-                </FieldDescription>
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="alignment-reply">Textarea</FieldLabel>
-                <InputGroup>
-                  <InputGroupTextarea
-                    id="alignment-reply"
-                    placeholder="Write a reply..."
-                  />
-                  <InputGroupAddon align="block-end">
-                    <InputGroupText>0/500</InputGroupText>
-                    <InputGroupButton className="ms-auto">
-                      Send
-                    </InputGroupButton>
-                  </InputGroupAddon>
-                </InputGroup>
-                <FieldDescription>
-                  Footer positioned below the textarea.
-                </FieldDescription>
-              </Field>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="grid gap-6 md:grid-cols-2">
+                <Field>
+                  <FieldLabel htmlFor="alignment-amount">Input</FieldLabel>
+                  <InputGroup>
+                    <InputGroupInput
+                      id="alignment-amount"
+                      placeholder="Enter amount"
+                    />
+                    <InputGroupAddon align="block-end">
+                      <InputGroupText>USD</InputGroupText>
+                    </InputGroupAddon>
+                  </InputGroup>
+                  <FieldDescription>
+                    Footer positioned below the input.
+                  </FieldDescription>
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="alignment-reply">Textarea</FieldLabel>
+                  <InputGroup>
+                    <InputGroupTextarea
+                      id="alignment-reply"
+                      placeholder="Write a reply..."
+                    />
+                    <InputGroupAddon align="block-end">
+                      <InputGroupText>0/500</InputGroupText>
+                      <InputGroupButton className="ms-auto">
+                        Send
+                      </InputGroupButton>
+                    </InputGroupAddon>
+                  </InputGroup>
+                  <FieldDescription>
+                    Footer positioned below the textarea.
+                  </FieldDescription>
+                </Field>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={blockEndSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={blockEndSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="icon" label="Icon">
-        <PageSectionHeader
-          title="Icon"
-          description="Use icons to reinforce the input’s purpose or communicate a nearby status."
-        />
+      <MainSection
+        id="icon"
+        title="Icon"
+        description="Use icons to reinforce the input’s purpose or communicate a nearby status."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="space-y-3">
@@ -411,13 +429,13 @@ export function InputGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="text" label="Text">
-        <PageSectionHeader
-          title="Text"
-          description="Use short, non-interactive text for units, prefixes, suffixes, and counters."
-        />
+      <MainSection
+        id="text"
+        title="Text"
+        description="Use short, non-interactive text for units, prefixes, suffixes, and counters."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="space-y-3">
@@ -461,13 +479,13 @@ export function InputGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="button" label="Button">
-        <PageSectionHeader
-          title="Button"
-          description="Place a compact action next to the value when it operates on that value directly."
-        />
+      <MainSection
+        id="button"
+        title="Button"
+        description="Place a compact action next to the value when it operates on that value directly."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <InputGroup>
@@ -491,13 +509,13 @@ export function InputGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="kbd" label="Kbd">
-        <PageSectionHeader
-          title="Kbd"
-          description="Show a keyboard shortcut when it activates or focuses the input."
-        />
+      <MainSection
+        id="kbd"
+        title="Kbd"
+        description="Show a keyboard shortcut when it activates or focuses the input."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <InputGroup>
@@ -518,13 +536,13 @@ export function InputGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="dropdown" label="Dropdown">
-        <PageSectionHeader
-          title="Dropdown"
-          description="Use a menu when several actions or scopes operate on the current value."
-        />
+      <MainSection
+        id="dropdown"
+        title="Dropdown"
+        description="Use a menu when several actions or scopes operate on the current value."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="space-y-3">
@@ -580,13 +598,13 @@ export function InputGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="spinner" label="Spinner">
-        <PageSectionHeader
-          title="Spinner"
-          description="Pair a read-only value with a spinner while work is in progress."
-        />
+      <MainSection
+        id="spinner"
+        title="Spinner"
+        description="Pair a read-only value with a spinner while work is in progress."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="space-y-3">
@@ -631,13 +649,13 @@ export function InputGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizes" label="Sizes">
-        <PageSectionHeader
-          title="Sizes"
-          description="Match the group to the density of the surrounding form controls."
-        />
+      <MainSection
+        id="sizes"
+        title="Sizes"
+        description="Match the group to the density of the surrounding form controls."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="space-y-3">
@@ -662,36 +680,52 @@ export function InputGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="within-form" label="Within form">
-        <PageSectionHeader
-          title="Within form"
-          description="Wrap the complete group in Field and connect a visible label to its control."
-        />
+      <MainSection
+        id="within-form"
+        title="Within form"
+        description="Wrap the complete group in Field and connect a visible label to its control."
+      >
         <ComponentExample>
           <div className="space-y-6">
-            <form
+            <RequiredForm
               className="space-y-4"
-              onSubmit={(event) => event.preventDefault()}
+              schema={inputGroupFormSchema}
+              defaultValues={{ domain: "" }}
             >
-              <Field>
-                <FieldLabel htmlFor="workspace-domain">
-                  Workspace domain
-                </FieldLabel>
-                <InputGroup>
-                  <InputGroupInput
-                    id="workspace-domain"
+              {(form) => (
+                <>
+                  <Controller
                     name="domain"
-                    autoComplete="off"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor="workspace-domain">
+                          Workspace domain
+                        </FieldLabel>
+                        <InputGroup>
+                          <InputGroupInput
+                            {...field}
+                            id="workspace-domain"
+                            autoComplete="off"
+                            required
+                            aria-invalid={fieldState.invalid}
+                          />
+                          <InputGroupAddon align="inline-end">
+                            <InputGroupText>.gecko.example</InputGroupText>
+                          </InputGroupAddon>
+                        </InputGroup>
+                        {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]} />
+                        )}
+                      </Field>
+                    )}
                   />
-                  <InputGroupAddon align="inline-end">
-                    <InputGroupText>.gecko.example</InputGroupText>
-                  </InputGroupAddon>
-                </InputGroup>
-              </Field>
-              <Button type="submit">Save domain</Button>
-            </form>
+                  <Button type="submit">Save domain</Button>
+                </>
+              )}
+            </RequiredForm>
             <Code
               variant="block"
               language="tsx"
@@ -701,13 +735,13 @@ export function InputGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep the group focused on one value and the content that directly supports it."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep the group focused on one value and the content that directly supports it."
+      >
         <DocsDoDont
           doItems={[
             <>Place addons after the control in the DOM.</>,
@@ -737,104 +771,77 @@ export function InputGroupPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props for each Input Group part."
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props for each Input Group part."
+      >
+        <ChildSection
           id="api-input-group"
           title="InputGroup"
           description="Owns the shared boundary, size, and compound focus state."
-        />
-        <DocsApiTable
-          aria-label="InputGroup properties"
-          rows={[
-            {
-              name: "size",
-              type: '"sm" | "md" | "lg"',
-              defaultValue: '"md"',
-              description: "Sets the height and inherited content scale.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
-          className="mt-6"
+        >
+          <DocsApiTable
+            aria-label="InputGroup properties"
+            rows={[
+              {
+                name: "size",
+                type: '"sm" | "md" | "lg"',
+                defaultValue: '"md"',
+                description: "Sets the height and inherited content scale.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-input-group-addon"
           title="InputGroupAddon"
           description="Positions supporting content around the control."
-        />
-        <DocsApiTable
-          aria-label="InputGroupAddon properties"
-          rows={[
-            {
-              name: "align",
-              type: '"inline-start" | "inline-end" | "block-start" | "block-end"',
-              defaultValue: '"inline-start"',
-              description: "Sets visual placement without changing DOM order.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
-          className="mt-6"
+        >
+          <DocsApiTable
+            aria-label="InputGroupAddon properties"
+            rows={[
+              {
+                name: "align",
+                type: '"inline-start" | "inline-end" | "block-start" | "block-end"',
+                defaultValue: '"inline-start"',
+                description:
+                  "Sets visual placement without changing DOM order.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-input-group-button"
           title="InputGroupButton"
           description="Adds a compact button that inherits the group scale."
-        />
-        <DocsApiTable
-          aria-label="InputGroupButton properties"
-          rows={[
-            {
-              name: "size",
-              type: '"sm" | "md" | "lg"',
-              description: "Overrides the size inherited from InputGroup.",
-            },
-            {
-              name: "variant",
-              type: "Button variant",
-              defaultValue: '"ghost"',
-              description: "Sets the approved Button treatment.",
-            },
-            {
-              name: "type",
-              type: '"button" | "submit" | "reset"',
-              defaultValue: '"button"',
-              description: "Sets native button form behaviour.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
-          className="mt-6"
-          id="api-input-group-text"
-          title="InputGroupText"
-          description="Provides a non-interactive text prefix, suffix, or supporting value."
-        />
-        <p className="text-sm text-muted-foreground">
-          Accepts the native span element interface.
-        </p>
-        <PageSubsectionHeader
-          className="mt-6"
-          id="api-input-group-input"
-          title="InputGroupInput"
-          description="Provides the single-line control inside the group."
-        />
-        <p className="text-sm text-muted-foreground">
-          Accepts the Input field interface except the native numeric size
-          attribute.
-        </p>
-        <PageSubsectionHeader
-          className="mt-6"
-          id="api-input-group-textarea"
-          title="InputGroupTextarea"
-          description="Provides the multiline control inside the group."
-        />
-        <p className="text-sm text-muted-foreground">
-          Accepts the Textarea field interface.
-        </p>
-        <PageSubsectionHeader
-          className="mt-6"
+        >
+          <DocsApiTable
+            aria-label="InputGroupButton properties"
+            rows={[
+              {
+                name: "size",
+                type: '"sm" | "md" | "lg"',
+                description: "Overrides the size inherited from InputGroup.",
+              },
+              {
+                name: "variant",
+                type: "Button variant",
+                defaultValue: '"ghost"',
+                description: "Sets the approved Button treatment.",
+              },
+              {
+                name: "type",
+                type: '"button" | "submit" | "reset"',
+                defaultValue: '"button"',
+                description: "Sets native button form behaviour.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           title="API reference"
           description={
             <>
@@ -846,13 +853,13 @@ export function InputGroupPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Choose the field or grouping component that matches the interaction."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Choose the field or grouping component that matches the interaction."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/input">Input field</DocsPageLink> — a
@@ -871,7 +878,7 @@ export function InputGroupPage() {
             — related actions joined into one control cluster.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

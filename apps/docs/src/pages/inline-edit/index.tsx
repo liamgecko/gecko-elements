@@ -4,12 +4,11 @@ import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { InlineEdit } from "@gecko/ui/components/inline-edit";
 import { Code } from "@gecko/ui/components/code";
 
@@ -49,63 +48,63 @@ export function InlineEditPage() {
 />`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Inline edit"
-          description="Inline edit changes a short text value in place without moving to a separate form."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Inline edit"
+        description="Inline edit changes a short text value in place without moving to a separate form."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Inline edit for editable headers, short single-line
-              descriptions, and values in table rows. Keep the surrounding
-              heading, paragraph, or table-cell semantics.
-              <br />
-              <br />
-              Use Enter to save and Escape to cancel. Avoid using it for more
-              than one line — that is a{" "}
-              <DocsPageLink to="/components/textarea">
-                Textarea field
-              </DocsPageLink>
-              . If the value needs a label, help text, or validation, use an{" "}
-              <DocsPageLink to="/components/field">Field</DocsPageLink> with an{" "}
-              <DocsPageLink to="/components/input">Input field</DocsPageLink>{" "}
-              instead.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Inline edit for editable headers, short single-line
+            descriptions, and values in table rows. Keep the surrounding
+            heading, paragraph, or table-cell semantics.
+            <br />
+            <br />
+            Use Enter to save and Escape to cancel. Avoid using it for more than
+            one line — that is a{" "}
+            <DocsPageLink to="/components/textarea">
+              Textarea field
+            </DocsPageLink>
+            . If the value needs a label, help text, or validation, use an{" "}
+            <DocsPageLink to="/components/field">Field</DocsPageLink> with an{" "}
+            <DocsPageLink to="/components/input">Input field</DocsPageLink>{" "}
+            instead.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import InlineEdit to add in-place editing."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description={
-            <>
-              A controlled value using <Code>value</Code>, <Code>onSave</Code>,
-              and an accessible name. Selecting the value opens the editor and
-              moves focus to its input.
-            </>
-          }
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description={
+          <>
+            A controlled value using <Code>value</Code>, <Code>onSave</Code>,
+            and an accessible name. Selecting the value opens the editor and
+            moves focus to its input.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="min-w-0 w-full">
@@ -124,20 +123,20 @@ export function InlineEditPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizing" label="Sizing">
-        <PageSectionHeader
-          title="Sizing"
-          description={
-            <>
-              Sets the control height and text size using the <Code>size</Code>{" "}
-              prop. Default is <Code>md</Code>. Use the size that matches the
-              surrounding text.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="sizing"
+        title="Sizing"
+        description={
+          <>
+            Sets the control height and text size using the <Code>size</Code>{" "}
+            prop. Default is <Code>md</Code>. Use the size that matches the
+            surrounding text.
+          </>
+        }
+      >
+        <ChildSection
           id="sizing-small"
           title="Small"
           description={
@@ -146,28 +145,28 @@ export function InlineEditPage() {
               when the value sits in a dense layout.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="min-w-0 w-full">
-              <InlineEdit
-                aria-label="Form title"
-                value={sm}
-                onSave={setSm}
-                size="sm"
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="min-w-0 w-full">
+                <InlineEdit
+                  aria-label="Form title"
+                  value={sm}
+                  onSave={setSm}
+                  size="sm"
+                />
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeSmallSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeSmallSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="sizing-medium"
           title="Medium"
           description={
@@ -176,28 +175,28 @@ export function InlineEditPage() {
               in a standard row or card.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="min-w-0 w-full">
-              <InlineEdit
-                aria-label="Form title"
-                value={md}
-                onSave={setMd}
-                size="md"
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="min-w-0 w-full">
+                <InlineEdit
+                  aria-label="Form title"
+                  value={md}
+                  onSave={setMd}
+                  size="md"
+                />
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeMediumSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeMediumSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="sizing-large"
           title="Large"
           description={
@@ -206,33 +205,34 @@ export function InlineEditPage() {
               when the value is the main focus of the row.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="min-w-0 w-full">
-              <InlineEdit
-                aria-label="Form title"
-                value={lg}
-                onSave={setLg}
-                size="lg"
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="min-w-0 w-full">
+                <InlineEdit
+                  aria-label="Form title"
+                  value={lg}
+                  onSave={setLg}
+                  size="lg"
+                />
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeLargeSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeLargeSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use Inline edit for one short value that can be changed in place."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use Inline edit for one short value that can be changed in place."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -262,13 +262,13 @@ export function InlineEditPage() {
             <>Don’t use a larger size to create visual emphasis.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Inline edit."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Inline edit."
+      >
         <DocsApiTable
           rows={[
             {
@@ -303,13 +303,13 @@ export function InlineEditPage() {
             },
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a form control when editing needs more context."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a form control when editing needs more context."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/input">Input field</DocsPageLink> —
@@ -320,7 +320,7 @@ export function InlineEditPage() {
             value needs a label, help text, or validation.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

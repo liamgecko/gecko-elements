@@ -4,12 +4,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import {
   Field,
@@ -199,111 +198,111 @@ export function FieldPage() {
 </FieldGroup>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Field"
-          description="The Field component groups a label, a control, and optional help or error text so a form row stays together."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Field"
+        description="The Field component groups a label, a control, and optional help or error text so a form row stays together."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Field when composing setup interfaces in Gecko — settings,
-              event creation, and similar forms. Each field needs a label and
-              may also need helper text or a validation message. Wrap the
-              control primitive inside Field.
-              <br />
-              <br />
-              Avoid using it as page layout, or wrapping content that is not a
-              form control. If you only need a caption with no grouping, use a{" "}
-              <DocsPageLink to="/components/label">Label</DocsPageLink> instead.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Field when composing setup interfaces in Gecko — settings, event
+            creation, and similar forms. Each field needs a label and may also
+            need helper text or a validation message. Wrap the control primitive
+            inside Field.
+            <br />
+            <br />
+            Avoid using it as page layout, or wrapping content that is not a
+            form control. If you only need a caption with no grouping, use a{" "}
+            <DocsPageLink to="/components/label">Label</DocsPageLink> instead.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Field and its parts to compose a labelled control."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="composition" label="Composition">
-        <PageSectionHeader
-          title="Composition"
-          description="Choose the smallest composition that correctly represents the form structure."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="composition"
+        title="Composition"
+        description="Choose the smallest composition that correctly represents the form structure."
+      >
+        <ChildSection
           id="composition-field"
           title="Field"
           description="Groups one labelled control with its supporting text and validation message. Use FieldContent for compound layouts. FieldTitle is visual text only; use FieldLabel whenever the text names a control."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="text"
-            code={fieldCompositionSnippet}
-            showCopyButton
-            copyLabel="Copy Field composition"
-          />
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={fieldCompositionSnippet}
+              showCopyButton
+              copyLabel="Copy Field composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="composition-field-group"
           title="Field group"
           description="Arranges adjacent fields and separators. It provides layout, not a shared accessible name."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="text"
-            code={fieldGroupCompositionSnippet}
-            showCopyButton
-            copyLabel="Copy Field group composition"
-          />
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={fieldGroupCompositionSnippet}
+              showCopyButton
+              copyLabel="Copy Field group composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="composition-field-set"
           title="Field set"
           description="Semantically groups related controls under one legend and description."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="text"
-            code={fieldSetCompositionSnippet}
-            showCopyButton
-            copyLabel="Copy Field set composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={fieldSetCompositionSnippet}
+              showCopyButton
+              copyLabel="Copy Field set composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description={
-            <>
-              A single labelled control using <Code>Field</Code> and{" "}
-              <Code>FieldLabel</Code>. Do not add a Field group or Field set
-              when there is only one field.
-            </>
-          }
-        />
-        <ComponentExample className="mb-6">
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description={
+          <>
+            A single labelled control using <Code>Field</Code> and{" "}
+            <Code>FieldLabel</Code>. Do not add a Field group or Field set when
+            there is only one field.
+          </>
+        }
+      >
+        <ComponentExample>
           <div className="space-y-6">
             <Field>
               <FieldLabel htmlFor="username">Username</FieldLabel>
@@ -323,19 +322,19 @@ export function FieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="help-text" label="Help text">
-        <PageSectionHeader
-          title="Help text"
-          description={
-            <>
-              Adds hint text using <Code>FieldDescription</Code>. Use this when
-              the label is not enough on its own.
-            </>
-          }
-        />
-        <ComponentExample className="mb-6">
+      <MainSection
+        id="help-text"
+        title="Help text"
+        description={
+          <>
+            Adds hint text using <Code>FieldDescription</Code>. Use this when
+            the label is not enough on its own.
+          </>
+        }
+      >
+        <ComponentExample>
           <div className="space-y-6">
             <Field>
               <FieldLabel htmlFor="email">Email</FieldLabel>
@@ -359,13 +358,13 @@ export function FieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="field-group" label="Field group">
-        <PageSectionHeader
-          title="Field group"
-          description="Use Field group to apply the standard spacing to adjacent fields. Each field keeps its own label and accessible relationships."
-        />
+      <MainSection
+        id="field-group"
+        title="Field group"
+        description="Use Field group to apply the standard spacing to adjacent fields. Each field keeps its own label and accessible relationships."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <FieldGroup>
@@ -396,40 +395,41 @@ export function FieldPage() {
           </div>
         </ComponentExample>
 
-        <PageSubsectionHeader
+        <ChildSection
           id="field-group-separator"
           title="Separator"
           description="Use Field separator only when it clarifies the relationship between adjoining parts of a Field group. It does not create semantic grouping."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <FieldGroup>
-              <Field>
-                <FieldLabel htmlFor="work-email">Work email</FieldLabel>
-                <Input id="work-email" name="workEmail" type="email" />
-              </Field>
-              <FieldSeparator>Or</FieldSeparator>
-              <Field>
-                <FieldLabel htmlFor="work-phone">Work telephone</FieldLabel>
-                <Input id="work-phone" name="workPhone" type="tel" />
-              </Field>
-            </FieldGroup>
-            <Code
-              variant="block"
-              language="tsx"
-              code={fieldSeparatorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <FieldGroup>
+                <Field>
+                  <FieldLabel htmlFor="work-email">Work email</FieldLabel>
+                  <Input id="work-email" name="workEmail" type="email" />
+                </Field>
+                <FieldSeparator>Or</FieldSeparator>
+                <Field>
+                  <FieldLabel htmlFor="work-phone">Work telephone</FieldLabel>
+                  <Input id="work-phone" name="workPhone" type="tel" />
+                </Field>
+              </FieldGroup>
+              <Code
+                variant="block"
+                language="tsx"
+                code={fieldSeparatorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="field-set" label="Field set">
-        <PageSectionHeader
-          title="Field set"
-          description="Use Field set when several controls answer one related question or form section. Field legend provides the shared name."
-        />
+      <MainSection
+        id="field-set"
+        title="Field set"
+        description="Use Field set when several controls answer one related question or form section. Field legend provides the shared name."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <FieldSet aria-describedby="profile-description">
@@ -457,13 +457,13 @@ export function FieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="orientation" label="Orientation">
-        <PageSectionHeader
-          title="Orientation"
-          description="Vertical is the default. Horizontal and responsive orientations are reserved for compositions that need controls and supporting content beside one another."
-        />
+      <MainSection
+        id="orientation"
+        title="Orientation"
+        description="Vertical is the default. Horizontal and responsive orientations are reserved for compositions that need controls and supporting content beside one another."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <FieldGroup>
@@ -489,15 +489,14 @@ export function FieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="states" label="States">
-        <PageSectionHeader
-          title="States"
-          description="The field can be unavailable or invalid. Use the state that matches whether the person can edit, and whether the value is valid."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="states"
+        title="States"
+        description="The field can be unavailable or invalid. Use the state that matches whether the person can edit, and whether the value is valid."
+      >
+        <ChildSection
           id="states-disabled"
           title="Disabled"
           description={
@@ -507,30 +506,30 @@ export function FieldPage() {
               this when the value cannot be changed temporarily.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field data-disabled>
-              <FieldLabel htmlFor="company-name">Company name</FieldLabel>
-              <Input
-                id="company-name"
-                name="companyName"
-                type="text"
-                defaultValue="Gecko"
-                disabled
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-disabled>
+                <FieldLabel htmlFor="company-name">Company name</FieldLabel>
+                <Input
+                  id="company-name"
+                  name="companyName"
+                  type="text"
+                  defaultValue="Gecko"
+                  disabled
+                />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={disabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={disabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-error"
           title="Error"
           description={
@@ -540,34 +539,34 @@ export function FieldPage() {
               <Code>FieldError</Code>. Use this when the value is not valid.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field data-invalid>
-              <FieldLabel htmlFor="tax-id">Tax ID</FieldLabel>
-              <Input
-                id="tax-id"
-                name="taxId"
-                type="text"
-                placeholder="00-0000000"
-                aria-invalid
-                aria-describedby="tax-id-error"
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-invalid>
+                <FieldLabel htmlFor="tax-id">Tax ID</FieldLabel>
+                <Input
+                  id="tax-id"
+                  name="taxId"
+                  type="text"
+                  placeholder="00-0000000"
+                  aria-invalid
+                  aria-describedby="tax-id-error"
+                />
+                <FieldError id="tax-id-error">
+                  Enter a tax ID in the format 00-0000000.
+                </FieldError>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={errorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-              <FieldError id="tax-id-error">
-                Enter a tax ID in the format 00-0000000.
-              </FieldError>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={errorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-read-only"
           title="Read-only"
           description={
@@ -578,62 +577,63 @@ export function FieldPage() {
               value but cannot change it.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field>
-              <FieldLabel htmlFor="account-id">Account ID</FieldLabel>
-              <Input
-                id="account-id"
-                name="accountId"
-                defaultValue="acct_1234567890"
-                readOnly
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field>
+                <FieldLabel htmlFor="account-id">Account ID</FieldLabel>
+                <Input
+                  id="account-id"
+                  name="accountId"
+                  defaultValue="acct_1234567890"
+                  readOnly
+                />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={readOnlySnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={readOnlySnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-required"
           title="Required"
           description="Set required on the control. Field label detects the native state and displays the library-owned required marker."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field>
-              <FieldLabel htmlFor="full-name">Full name</FieldLabel>
-              <Input id="full-name" name="fullName" required />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={requiredSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field>
+                <FieldLabel htmlFor="full-name">Full name</FieldLabel>
+                <Input id="full-name" name="fullName" required />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={requiredSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="validation" label="Validation">
-        <PageSectionHeader
-          title="Validation"
-          description={
-            <>
-              Shows messages after submit using <Code>FieldError</Code>. This
-              example also sets <Code>data-invalid</Code> and{" "}
-              <Code>aria-invalid</Code> when the form is checked. Use this when
-              errors should appear after the person tries to continue.
-            </>
-          }
-        />
+      <MainSection
+        id="validation"
+        title="Validation"
+        description={
+          <>
+            Shows messages after submit using <Code>FieldError</Code>. This
+            example also sets <Code>data-invalid</Code> and{" "}
+            <Code>aria-invalid</Code> when the form is checked. Use this when
+            errors should appear after the person tries to continue.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <form
@@ -700,13 +700,13 @@ export function FieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep each field’s label, control, help text, and error together."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep each field’s label, control, help text, and error together."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -753,39 +753,60 @@ export function FieldPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Field."
-        />
-        <DocsApiTable
-          rows={[
-            {
-              name: "Field.orientation",
-              type: '"vertical" | "horizontal" | "responsive"',
-              defaultValue: '"vertical"',
-              description:
-                "Sets how the label, control, and supporting text are arranged.",
-            },
-            {
-              name: "FieldLegend.variant",
-              type: '"legend" | "label"',
-              defaultValue: '"legend"',
-              description: "Sets the visual treatment of a fieldset legend.",
-            },
-            {
-              name: "FieldError.errors",
-              type: "Array<{ message?: string } | undefined>",
-              description:
-                "Renders unique validation messages when children are not provided.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
+      <MainSection id="api" title="API" description="Behaviour props on Field.">
+        <ChildSection
+          id="api-field"
+          title="Field"
+          description="Props on Field."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "orientation",
+                type: '"vertical" | "horizontal" | "responsive"',
+                defaultValue: '"vertical"',
+                description:
+                  "Sets how the label, control, and supporting text are arranged.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-field-legend"
+          title="FieldLegend"
+          description="Props on FieldLegend."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "variant",
+                type: '"legend" | "label"',
+                defaultValue: '"legend"',
+                description: "Sets the visual treatment of a fieldset legend.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-field-error"
+          title="FieldError"
+          description="Props on FieldError."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "errors",
+                type: "Array<{ message?: string } | undefined>",
+                description:
+                  "Renders unique validation messages when children are not provided.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -797,13 +818,13 @@ export function FieldPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Compose Field with the control or message the form needs."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Compose Field with the control or message the form needs."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/label">Label</DocsPageLink> — for a
@@ -818,7 +839,7 @@ export function FieldPage() {
             page-level message rather than a field error.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

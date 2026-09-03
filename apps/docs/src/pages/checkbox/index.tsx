@@ -9,16 +9,24 @@ import {
   FieldGroup,
 } from "@gecko/ui/components/field";
 import { ComponentExample } from "@/components/layout/component-example";
+import { RequiredForm } from "@/components/layout/required-form";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
+import { Controller } from "react-hook-form";
+import { z } from "zod";
+
+const checkboxFormSchema = z.object({
+  productUpdates: z.literal(true, {
+    errorMap: () => ({ message: "Confirm that you want product updates." }),
+  }),
+});
 
 export function CheckboxPage() {
   const [groupValue, setGroupValue] = useState<string[]>(["email"]);
@@ -178,93 +186,116 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
   </FieldContent>
 </Field>`;
 
-  const withinFormSnippet = `<form onSubmit={handleSubmit}>
-  <FieldGroup>
-    <Checkbox
-      id="product-updates"
-      name="productUpdates"
-      label="Send me product updates"
-    />
-  </FieldGroup>
+  const withinFormSnippet = `const formSchema = z.object({
+  productUpdates: z.literal(true, {
+    errorMap: () => ({ message: "Confirm that you want product updates." }),
+  }),
+})
+
+const form = useForm<z.infer<typeof formSchema>>({
+  resolver: zodResolver(formSchema),
+  defaultValues: { productUpdates: false },
+})
+
+<form noValidate onSubmit={form.handleSubmit(onSubmit)}>
+  <Controller
+    name="productUpdates"
+    control={form.control}
+    render={({ field, fieldState }) => (
+      <Field data-invalid={fieldState.invalid}>
+        <Checkbox
+          id={field.name}
+          name={field.name}
+          checked={field.value}
+          onCheckedChange={field.onChange}
+          label="Send me product updates"
+          required
+          aria-invalid={fieldState.invalid}
+        />
+        {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+      </Field>
+    )}
+  />
   <Button type="submit">Save preferences</Button>
 </form>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Checkbox"
-          description="The Checkbox component lets people turn an option on or off. It is for choices that can sit together — more than one can be selected at a time."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Checkbox"
+        description="The Checkbox component lets people turn an option on or off. It is for choices that can sit together — more than one can be selected at a time."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use a Checkbox when someone can select one or more options from a
-              list. Use <Code>CheckboxGroup</Code> when related options make up
-              one multiple-choice value.
-              <br />
-              <br />
-              Use the button variant (<Code>asButton</Code>) with{" "}
-              <Code>horizontal</Code> when the choices should draw more
-              attention — for example, a short set of selectable options. This
-              changes presentation only; every option remains a Checkbox and
-              multiple options may be selected.
-              <br />
-              <br />
-              Avoid using it when only one choice is allowed; use a{" "}
-              <DocsPageLink to="/components/radio-group">
-                Radio group
-              </DocsPageLink>{" "}
-              instead. Do not use it as an on/off setting that takes effect
-              immediately — that is a{" "}
-              <DocsPageLink to="/components/switch">Switch</DocsPageLink>.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use a Checkbox when someone can select one or more options from a
+            list. Use <Code>CheckboxGroup</Code> when related options make up
+            one multiple-choice value.
+            <br />
+            <br />
+            Use the button variant (<Code>asButton</Code>) with{" "}
+            <Code>horizontal</Code> when the choices should draw more attention
+            — for example, a short set of selectable options. This changes
+            presentation only; every option remains a Checkbox and multiple
+            options may be selected.
+            <br />
+            <br />
+            Avoid using it when only one choice is allowed; use a{" "}
+            <DocsPageLink to="/components/radio-group">
+              Radio group
+            </DocsPageLink>{" "}
+            instead. Do not use it as an on/off setting that takes effect
+            immediately — that is a{" "}
+            <DocsPageLink to="/components/switch">Switch</DocsPageLink>.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Checkbox for a single option, and CheckboxGroup for a list."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="A group holds the shared label and state. Each option is a Checkbox."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic" label="Basic">
-        <PageSectionHeader
-          title="Basic"
-          description={
-            <>
-              A labelled checkbox using the <Code>label</Code> prop. Use this
-              for one independent boolean choice.
-            </>
-          }
-        />
+      <MainSection
+        id="basic"
+        title="Basic"
+        description={
+          <>
+            A labelled checkbox using the <Code>label</Code> prop. Use this for
+            one independent boolean choice.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Checkbox
@@ -282,18 +313,18 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-description" label="With description">
-        <PageSectionHeader
-          title="With description"
-          description={
-            <>
-              Adds helper text using the <Code>description</Code> prop. Checkbox
-              automatically connects it to the control for assistive technology.
-            </>
-          }
-        />
+      <MainSection
+        id="with-description"
+        title="With description"
+        description={
+          <>
+            Adds helper text using the <Code>description</Code> prop. Checkbox
+            automatically connects it to the control for assistive technology.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="max-w-sm">
@@ -313,37 +344,36 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="states" label="States">
-        <PageSectionHeader
-          title="States"
-          description="A checkbox can be empty, selected, mixed, unavailable, or invalid. Use the state that matches where the option is."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="states"
+        title="States"
+        description="A checkbox can be empty, selected, mixed, unavailable, or invalid. Use the state that matches where the option is."
+      >
+        <ChildSection
           id="states-default"
           title="Default"
           description="The empty checkbox. Use this before the person has made a choice."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Checkbox
-              id="states-default"
-              name="archived"
-              label="Show archived conversations"
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={defaultStateSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Checkbox
+                id="states-default"
+                name="archived"
+                label="Show archived conversations"
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={defaultStateSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-checked"
           title="Checked"
           description={
@@ -353,26 +383,26 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
               safe product default. Consent choices start unchecked.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Checkbox
-              id="states-checked"
-              name="archived"
-              defaultChecked
-              label="Show archived conversations"
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={checkedSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Checkbox
+                id="states-checked"
+                name="archived"
+                defaultChecked
+                label="Show archived conversations"
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={checkedSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-indeterminate"
           title="Indeterminate"
           description={
@@ -383,31 +413,31 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
               parent Checkbox.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <CheckboxGroup
-              label="Communication channels"
-              value={channelValue}
-              onValueChange={setChannelValue}
-              allValues={["email", "sms", "whatsapp"]}
-            >
-              <Checkbox parent label="Select all channels" />
-              <Checkbox value="email" label="Email" />
-              <Checkbox value="sms" label="SMS" />
-              <Checkbox value="whatsapp" label="WhatsApp" />
-            </CheckboxGroup>
-            <Code
-              variant="block"
-              language="tsx"
-              code={indeterminateSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <CheckboxGroup
+                label="Communication channels"
+                value={channelValue}
+                onValueChange={setChannelValue}
+                allValues={["email", "sms", "whatsapp"]}
+              >
+                <Checkbox parent label="Select all channels" />
+                <Checkbox value="email" label="Email" />
+                <Checkbox value="sms" label="SMS" />
+                <Checkbox value="whatsapp" label="WhatsApp" />
+              </CheckboxGroup>
+              <Code
+                variant="block"
+                language="tsx"
+                code={indeterminateSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-disabled"
           title="Disabled"
           description={
@@ -416,30 +446,30 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
               this when the option is not available yet.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <FieldGroup>
-              <Field orientation="horizontal" data-disabled>
-                <Checkbox
-                  id="sms-notifications"
-                  name="sms-notifications"
-                  disabled
-                  label="Enable SMS notifications"
-                />
-              </Field>
-            </FieldGroup>
-            <Code
-              variant="block"
-              language="tsx"
-              code={disabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <FieldGroup>
+                <Field orientation="horizontal" data-disabled>
+                  <Checkbox
+                    id="sms-notifications"
+                    name="sms-notifications"
+                    disabled
+                    label="Enable SMS notifications"
+                  />
+                </Field>
+              </FieldGroup>
+              <Code
+                variant="block"
+                language="tsx"
+                code={disabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-error"
           title="Error"
           description={
@@ -449,47 +479,52 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
               the option must be selected before continuing.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <FieldGroup>
-              <Field orientation="horizontal" data-invalid className="max-w-md">
-                <FieldContent>
-                  <Checkbox
-                    id="terms-checkbox-invalid"
-                    name="terms-checkbox-invalid"
-                    aria-invalid
-                    aria-describedby="terms-checkbox-invalid-error"
-                    label="Accept terms and conditions"
-                  />
-                  <FieldError id="terms-checkbox-invalid-error">
-                    You must accept the terms and conditions to continue.
-                  </FieldError>
-                </FieldContent>
-              </Field>
-            </FieldGroup>
-            <Code
-              variant="block"
-              language="tsx"
-              code={errorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <FieldGroup>
+                <Field
+                  orientation="horizontal"
+                  data-invalid
+                  className="max-w-md"
+                >
+                  <FieldContent>
+                    <Checkbox
+                      id="terms-checkbox-invalid"
+                      name="terms-checkbox-invalid"
+                      aria-invalid
+                      aria-describedby="terms-checkbox-invalid-error"
+                      label="Accept terms and conditions"
+                    />
+                    <FieldError id="terms-checkbox-invalid-error">
+                      You must accept the terms and conditions to continue.
+                    </FieldError>
+                  </FieldContent>
+                </Field>
+              </FieldGroup>
+              <Code
+                variant="block"
+                language="tsx"
+                code={errorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="checkbox-group" label="Checkbox group">
-        <PageSectionHeader
-          title="Checkbox group"
-          description={
-            <>
-              Related options represented by one shared array value. The group
-              owns its legend, description, orientation and disabled state; each
-              Checkbox supplies one unique <Code>value</Code>.
-            </>
-          }
-        />
+      <MainSection
+        id="checkbox-group"
+        title="Checkbox group"
+        description={
+          <>
+            Related options represented by one shared array value. The group
+            owns its legend, description, orientation and disabled state; each
+            Checkbox supplies one unique <Code>value</Code>.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <CheckboxGroup
@@ -511,22 +546,21 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="as-button" label="As button">
-        <PageSectionHeader
-          title="As button"
-          description={
-            <>
-              Renders the option as a button using the <Code>asButton</Code>{" "}
-              prop. Use this when the choices should feel like selectable chips
-              rather than a list of ticks. A checkbox remains visible at the
-              start of every option, so selection never moves its content.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="as-button"
+        title="As button"
+        description={
+          <>
+            Renders the option as a button using the <Code>asButton</Code> prop.
+            Use this when the choices should feel like selectable chips rather
+            than a list of ticks. A checkbox remains visible at the start of
+            every option, so selection never moves its content.
+          </>
+        }
+      >
+        <ChildSection
           id="as-button-basic"
           title="Basic"
           description={
@@ -535,29 +569,29 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
               <Code>horizontal</Code>. Use this for a short row of choices.
             </>
           }
-        />
-        <ComponentExample className="mb-8">
-          <div className="space-y-6">
-            <CheckboxGroup
-              horizontal
-              label="Preferred contact methods"
-              defaultValue={["email"]}
-            >
-              <Checkbox asButton value="email" label="Email" />
-              <Checkbox asButton value="sms" label="SMS" />
-              <Checkbox asButton value="phone" label="Phone" />
-            </CheckboxGroup>
-            <Code
-              variant="block"
-              language="tsx"
-              code={asButtonBasicSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <CheckboxGroup
+                horizontal
+                label="Preferred contact methods"
+                defaultValue={["email"]}
+              >
+                <Checkbox asButton value="email" label="Email" />
+                <Checkbox asButton value="sms" label="SMS" />
+                <Checkbox asButton value="phone" label="Phone" />
+              </CheckboxGroup>
+              <Code
+                variant="block"
+                language="tsx"
+                code={asButtonBasicSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="as-button-with-description"
           title="With description"
           description={
@@ -566,40 +600,40 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
               of choices that need supporting context.
             </>
           }
-        />
-        <ComponentExample className="mb-8">
-          <div className="space-y-6">
-            <div className="max-w-xl">
-              <CheckboxGroup
-                horizontal
-                label="Event formats"
-                defaultValue={["online"]}
-              >
-                <Checkbox
-                  asButton
-                  value="in-person"
-                  label="In person"
-                  description="Attend the event on campus."
-                />
-                <Checkbox
-                  asButton
-                  value="online"
-                  label="Online"
-                  description="Join the event remotely."
-                />
-              </CheckboxGroup>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="max-w-xl">
+                <CheckboxGroup
+                  horizontal
+                  label="Event formats"
+                  defaultValue={["online"]}
+                >
+                  <Checkbox
+                    asButton
+                    value="in-person"
+                    label="In person"
+                    description="Attend the event on campus."
+                  />
+                  <Checkbox
+                    asButton
+                    value="online"
+                    label="Online"
+                    description="Join the event remotely."
+                  />
+                </CheckboxGroup>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={asButtonDescriptionSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={asButtonDescriptionSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="as-button-disabled"
           title="Disabled"
           description={
@@ -609,29 +643,29 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
               its legend.
             </>
           }
-        />
-        <ComponentExample className="mb-8">
-          <div className="space-y-6">
-            <CheckboxGroup
-              horizontal
-              label="Event formats"
-              defaultValue={["online"]}
-              disabled
-            >
-              <Checkbox asButton value="in-person" label="In person" />
-              <Checkbox asButton value="online" label="Online" />
-            </CheckboxGroup>
-            <Code
-              variant="block"
-              language="tsx"
-              code={asButtonDisabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <CheckboxGroup
+                horizontal
+                label="Event formats"
+                defaultValue={["online"]}
+                disabled
+              >
+                <Checkbox asButton value="in-person" label="In person" />
+                <Checkbox asButton value="online" label="Online" />
+              </CheckboxGroup>
+              <Code
+                variant="block"
+                language="tsx"
+                code={asButtonDisabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="as-button-error"
           title="Error"
           description={
@@ -641,56 +675,75 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
               option, so individual checkboxes need no error styling props.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field data-invalid className="w-fit max-w-full">
-              <FieldContent>
-                <CheckboxGroup
-                  horizontal
-                  aria-invalid
-                  aria-describedby="event-formats-error"
-                  label="Event formats"
-                >
-                  <Checkbox asButton value="in-person" label="In person" />
-                  <Checkbox asButton value="online" label="Online" />
-                </CheckboxGroup>
-                <FieldError id="event-formats-error">
-                  Select at least one event format.
-                </FieldError>
-              </FieldContent>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={asButtonErrorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-invalid className="w-fit max-w-full">
+                <FieldContent>
+                  <CheckboxGroup
+                    horizontal
+                    aria-invalid
+                    aria-describedby="event-formats-error"
+                    label="Event formats"
+                  >
+                    <Checkbox asButton value="in-person" label="In person" />
+                    <Checkbox asButton value="online" label="Online" />
+                  </CheckboxGroup>
+                  <FieldError id="event-formats-error">
+                    Select at least one event format.
+                  </FieldError>
+                </FieldContent>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={asButtonErrorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="within-form" label="Within form">
-        <PageSectionHeader
-          title="Within form"
-          description="Place Checkbox inside the form flow and give it a submitted name. Keep the action at its default width."
-        />
+      <MainSection
+        id="within-form"
+        title="Within form"
+        description="Place Checkbox inside the form flow and give it a submitted name. Keep the action at its default width."
+      >
         <ComponentExample>
           <div className="space-y-6">
-            <form
+            <RequiredForm
               className="space-y-6"
-              onSubmit={(event) => event.preventDefault()}
+              schema={checkboxFormSchema}
+              defaultValues={{ productUpdates: false }}
             >
-              <FieldGroup>
-                <Checkbox
-                  id="product-updates"
-                  name="productUpdates"
-                  label="Send me product updates"
-                />
-              </FieldGroup>
-              <Button type="submit">Save preferences</Button>
-            </form>
+              {(form) => (
+                <>
+                  <Controller
+                    name="productUpdates"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <Checkbox
+                          id={field.name}
+                          name={field.name}
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          label="Send me product updates"
+                          required
+                          aria-invalid={fieldState.invalid}
+                        />
+                        {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]} />
+                        )}
+                      </Field>
+                    )}
+                  />
+                  <Button type="submit">Save preferences</Button>
+                </>
+              )}
+            </RequiredForm>
             <Code
               variant="block"
               language="tsx"
@@ -700,13 +753,13 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use label for the option name. Do not restyle the checkbox chrome."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use label for the option name. Do not restyle the checkbox chrome."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -752,13 +805,13 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
             <>Don’t preselect consent or marketing choices.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Checkbox."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Checkbox."
+      >
         <DocsApiTable
           rows={[
             {
@@ -843,9 +896,8 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -865,13 +917,13 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a different control when the Checkbox is the wrong shape for the job."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a different control when the Checkbox is the wrong shape for the job."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/radio-group">
@@ -888,7 +940,7 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
             option needs an error, help text, or form layout.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

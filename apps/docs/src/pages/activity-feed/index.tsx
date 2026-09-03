@@ -4,12 +4,11 @@ import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import {
   ActivityFeed,
   type ActivityFeedEntry,
@@ -107,58 +106,57 @@ export function ActivityFeedPage() {
 />`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Activity feed"
-          description="Activity feed displays a chronological history of actions. Each entry has a decorative activity icon, a label that describes what happened, and supporting metadata such as a timestamp or attribution."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Activity feed"
+        description="Activity feed displays a chronological history of actions. Each entry has a decorative activity icon, a label that describes what happened, and supporting metadata such as a timestamp or attribution."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Activity feed for a history of actions on a contact view or in
-              the Inbox contact-details sidebar. Supply entries newest first and
-              use the default variant unless condensed is explicitly required.
-              The parent surface supplies loading, empty, and error states.
-              <br />
-              <br />
-              Avoid using Activity feed for a conversation transcript — use{" "}
-              <DocsPageLink to="/components/message">
-                Message
-              </DocsPageLink> and{" "}
-              <DocsPageLink to="/components/message-scroller">
-                Message scroller
-              </DocsPageLink>{" "}
-              instead.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Activity feed for a history of actions on a contact view or in
+            the Inbox contact-details sidebar. Supply entries newest first and
+            use the default variant unless condensed is explicitly required. The
+            parent surface supplies loading, empty, and error states.
+            <br />
+            <br />
+            Avoid using Activity feed for a conversation transcript — use{" "}
+            <DocsPageLink to="/components/message">
+              Message
+            </DocsPageLink> and{" "}
+            <DocsPageLink to="/components/message-scroller">
+              Message scroller
+            </DocsPageLink>{" "}
+            instead.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Activity feed and pass it the current activity entries."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="Pass activities in newest-first order. Activity feed maps each approved activity type to its icon and renders the label and metadata consistently."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="Pass activities in newest-first order. Activity feed maps each approved activity type to its icon and renders the label and metadata consistently."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ActivityFeed items={sampleItems} />
@@ -171,19 +169,19 @@ export function ActivityFeedPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="condensed" label="Condensed">
-        <PageSectionHeader
-          title="Condensed"
-          description={
-            <>
-              Set <Code>variant=&quot;condensed&quot;</Code> only when the
-              denser treatment is explicitly required. Otherwise use the default
-              variant, including in constrained layouts.
-            </>
-          }
-        />
+      <MainSection
+        id="condensed"
+        title="Condensed"
+        description={
+          <>
+            Set <Code>variant=&quot;condensed&quot;</Code> only when the denser
+            treatment is explicitly required. Otherwise use the default variant,
+            including in constrained layouts.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ActivityFeed items={sampleItems} variant="condensed" />
@@ -196,20 +194,20 @@ export function ActivityFeedPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="pagination" label="Pagination">
-        <PageSectionHeader
-          title="Pagination"
-          description={
-            <>
-              Activity feed renders its own accessible pagination controls. The
-              parent fetches and supplies only the current page of entries, plus
-              the current page, page size, total item count, and page-change
-              callback. Pages are one-based: the first page is <Code>1</Code>.
-            </>
-          }
-        />
+      <MainSection
+        id="pagination"
+        title="Pagination"
+        description={
+          <>
+            Activity feed renders its own accessible pagination controls. The
+            parent fetches and supplies only the current page of entries, plus
+            the current page, page size, total item count, and page-change
+            callback. Pages are one-based: the first page is <Code>1</Code>.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="w-full min-w-0 space-y-6">
             <div className="w-80 rounded-md border border-border p-6">
@@ -232,13 +230,13 @@ export function ActivityFeedPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Supply approved activity data and let Activity feed own its rows and pagination interface. Do not extend or restyle the module without consent."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Supply approved activity data and let Activity feed own its rows and pagination interface. Do not extend or restyle the module without consent."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -280,49 +278,65 @@ export function ActivityFeedPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Activity feed."
-        />
-        <DocsApiTable
-          rows={[
-            {
-              name: "items",
-              type: "readonly ActivityFeedEntry[]",
-              description:
-                "The current entries to render, ordered newest first. Each entry contains id, type, label, and meta.",
-            },
-            {
-              name: "variant",
-              type: '"default" | "condensed"',
-              defaultValue: '"default"',
-              description:
-                "Density. Use default unless condensed is explicitly requested.",
-            },
-            {
-              name: "pagination",
-              type: "{ page: number; pageSize: number; totalItems: number; onPageChange: (page: number) => void }",
-              description:
-                "Controlled, one-based pagination. Activity feed renders the controls; the parent supplies the requested page of items.",
-            },
-            {
-              name: "ActivityFeedEntry.type",
-              type: '"conversation-started" | "conversation-closed" | "form-submission" | "email-sent" | "sms-sent" | "added-to-campaign" | "call-made" | "added-to-event" | "system-alert"',
-              description:
-                "The approved closed set of activity types. Determines the decorative icon.",
-            },
-          ]}
-        />
-      </PageSection>
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Activity feed."
+      >
+        <ChildSection
+          id="api-activity-feed"
+          title="ActivityFeed"
+          description="Props on ActivityFeed."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "items",
+                type: "readonly ActivityFeedEntry[]",
+                description:
+                  "The current entries to render, ordered newest first. Each entry contains id, type, label, and meta.",
+              },
+              {
+                name: "variant",
+                type: '"default" | "condensed"',
+                defaultValue: '"default"',
+                description:
+                  "Density. Use default unless condensed is explicitly requested.",
+              },
+              {
+                name: "pagination",
+                type: "{ page: number; pageSize: number; totalItems: number; onPageChange: (page: number) => void }",
+                description:
+                  "Controlled, one-based pagination. Activity feed renders the controls; the parent supplies the requested page of items.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-activity-feed-entry"
+          title="ActivityFeedEntry"
+          description="Props on ActivityFeedEntry."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "type",
+                type: '"conversation-started" | "conversation-closed" | "form-submission" | "email-sent" | "sms-sent" | "added-to-campaign" | "call-made" | "added-to-event" | "system-alert"',
+                description:
+                  "The approved closed set of activity types. Determines the decorative icon.",
+              },
+            ]}
+          />
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use another module when the content is not a chronological history of actions."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use another module when the content is not a chronological history of actions."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/message">Message</DocsPageLink> — when
@@ -340,7 +354,7 @@ export function ActivityFeedPage() {
             these at the parent surface for empty, loading, and error states.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

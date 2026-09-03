@@ -1,14 +1,14 @@
 import { ComponentExample } from "@/components/layout/component-example";
+import { RequiredForm } from "@/components/layout/required-form";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import { Button } from "@gecko/ui/components/button";
 import {
@@ -28,6 +28,17 @@ import {
   InputGroupInput,
 } from "@gecko/ui/components/input-group";
 import { Copy, Search } from "lucide-react";
+import { Controller } from "react-hook-form";
+import { z } from "zod";
+
+const inputFormSchema = z.object({
+  name: z.string().trim().min(1, "Enter your name."),
+  email: z
+    .string()
+    .trim()
+    .min(1, "Enter your email address.")
+    .email("Enter a valid email address."),
+});
 
 export function InputPage() {
   const importSnippet = `import { Input } from "@gecko/ui/components/input"`;
@@ -40,30 +51,42 @@ export function InputPage() {
   placeholder="name@example.com"
 />`;
 
-  const formSnippet = `<form onSubmit={handleSubmit}>
-  <FieldSet aria-describedby="account-details-description">
-    <FieldLegend>Account details</FieldLegend>
-    <FieldDescription id="account-details-description">
-      Used to identify and contact the account owner.
-    </FieldDescription>
-    <FieldGroup>
-      <Field>
-        <FieldLabel htmlFor="account-name">Name</FieldLabel>
-        <Input id="account-name" name="name" autoComplete="name" />
-      </Field>
-      <Field>
-        <FieldLabel htmlFor="account-email">Email address</FieldLabel>
-        <Input
-          id="account-email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          placeholder="name@example.com"
-        />
-      </Field>
-    </FieldGroup>
-    <Button type="submit">Save details</Button>
-  </FieldSet>
+  const formSnippet = `const formSchema = z.object({
+  name: z.string().trim().min(1, "Enter your name."),
+  email: z.string().trim().email("Enter a valid email address."),
+})
+
+const form = useForm<z.infer<typeof formSchema>>({
+  resolver: zodResolver(formSchema),
+  defaultValues: { name: "", email: "" },
+})
+
+<form noValidate onSubmit={form.handleSubmit(onSubmit)}>
+  <FieldGroup>
+    <Controller
+      name="name"
+      control={form.control}
+      render={({ field, fieldState }) => (
+        <Field data-invalid={fieldState.invalid}>
+          <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+          <Input {...field} id={field.name} required aria-invalid={fieldState.invalid} />
+          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+        </Field>
+      )}
+    />
+    <Controller
+      name="email"
+      control={form.control}
+      render={({ field, fieldState }) => (
+        <Field data-invalid={fieldState.invalid}>
+          <FieldLabel htmlFor={field.name}>Email address</FieldLabel>
+          <Input {...field} id={field.name} type="email" required aria-invalid={fieldState.invalid} />
+          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+        </Field>
+      )}
+    />
+  </FieldGroup>
+  <Button type="submit">Save details</Button>
 </form>`;
 
   const disabledSnippet = `<Field data-disabled>
@@ -159,60 +182,59 @@ export function InputPage() {
 </Field>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Input field"
-          description="The Input field is a single-line text control. People type a short value; it belongs next to a label, like any other field."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Input field"
+        description="The Input field is a single-line text control. People type a short value; it belongs next to a label, like any other field."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use an Input field when someone needs to type a short value. Pair
-              it with a{" "}
-              <DocsPageLink to="/components/field">Field</DocsPageLink> when the
-              control needs a name, help text, or an error.
-              <br />
-              <br />
-              Avoid using it for more than one line; that is a{" "}
-              <DocsPageLink to="/components/textarea">
-                Textarea field
-              </DocsPageLink>
-              . Do not use it as a labelled group on its own — wrap it in Field.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use an Input field when someone needs to type a short value. Pair it
+            with a <DocsPageLink to="/components/field">Field</DocsPageLink>{" "}
+            when the control needs a name, help text, or an error.
+            <br />
+            <br />
+            Avoid using it for more than one line; that is a{" "}
+            <DocsPageLink to="/components/textarea">
+              Textarea field
+            </DocsPageLink>
+            . Do not use it as a labelled group on its own — wrap it in Field.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Input to add a single-line text field."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description={
-            <>
-              The default Input rendered on its own. Its accessible name is
-              provided with <Code>aria-label</Code> because this visual example
-              does not include a visible label.
-            </>
-          }
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description={
+          <>
+            The default Input rendered on its own. Its accessible name is
+            provided with <Code>aria-label</Code> because this visual example
+            does not include a visible label.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Input
@@ -231,15 +253,14 @@ export function InputPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="states" label="States">
-        <PageSectionHeader
-          title="States"
-          description="The field can be unavailable or invalid. Use the state that matches whether the person can type, and whether the value is valid."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="states"
+        title="States"
+        description="The field can be unavailable or invalid. Use the state that matches whether the person can type, and whether the value is valid."
+      >
+        <ChildSection
           id="states-disabled"
           title="Disabled"
           description={
@@ -248,30 +269,30 @@ export function InputPage() {
               when the value cannot be changed yet.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field data-disabled>
-              <FieldLabel htmlFor="input-states-disabled">Label</FieldLabel>
-              <Input
-                id="input-states-disabled"
-                name="input-states-disabled"
-                type="text"
-                placeholder="Disabled input"
-                disabled
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-disabled>
+                <FieldLabel htmlFor="input-states-disabled">Label</FieldLabel>
+                <Input
+                  id="input-states-disabled"
+                  name="input-states-disabled"
+                  type="text"
+                  placeholder="Disabled input"
+                  disabled
+                />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={disabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={disabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-error"
           title="Error"
           description={
@@ -281,46 +302,46 @@ export function InputPage() {
               the value is not valid.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field data-invalid>
-              <FieldLabel htmlFor="input-states-invalid">Label</FieldLabel>
-              <Input
-                id="input-states-invalid"
-                name="input-states-invalid"
-                type="text"
-                placeholder="Invalid input"
-                aria-invalid
-                aria-describedby="input-states-invalid-error"
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-invalid>
+                <FieldLabel htmlFor="input-states-invalid">Label</FieldLabel>
+                <Input
+                  id="input-states-invalid"
+                  name="input-states-invalid"
+                  type="text"
+                  placeholder="Invalid input"
+                  aria-invalid
+                  aria-describedby="input-states-invalid-error"
+                />
+                <FieldError id="input-states-invalid-error">
+                  This value is not valid. Try again with a different entry.
+                </FieldError>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={errorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-              <FieldError id="input-states-invalid-error">
-                This value is not valid. Try again with a different entry.
-              </FieldError>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={errorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="read-only" label="Read-only">
-        <PageSectionHeader
-          title="Read-only"
-          description={
-            <>
-              Prevents editing using the <Code>readOnly</Code> prop while
-              keeping the value focusable, selectable, and available for
-              copying. Use this when the value should be visible but not
-              changed.
-            </>
-          }
-        />
+      <MainSection
+        id="read-only"
+        title="Read-only"
+        description={
+          <>
+            Prevents editing using the <Code>readOnly</Code> prop while keeping
+            the value focusable, selectable, and available for copying. Use this
+            when the value should be visible but not changed.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -341,19 +362,19 @@ export function InputPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="required" label="Required">
-        <PageSectionHeader
-          title="Required"
-          description={
-            <>
-              Marks the control with the <Code>required</Code> attribute. Pair
-              it with <Code>FieldLabel</Code> so the required marker is visible.
-              Use this when the field must be completed before continuing.
-            </>
-          }
-        />
+      <MainSection
+        id="required"
+        title="Required"
+        description={
+          <>
+            Marks the control with the <Code>required</Code> attribute. Pair it
+            with <Code>FieldLabel</Code> so the required marker is visible. Use
+            this when the field must be completed before continuing.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -376,20 +397,19 @@ export function InputPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizing" label="Sizing">
-        <PageSectionHeader
-          title="Sizing"
-          description={
-            <>
-              Sets the field size using the <Code>size</Code> prop. Default is{" "}
-              <Code>md</Code>. Use the size that matches the form around it.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="sizing"
+        title="Sizing"
+        description={
+          <>
+            Sets the field size using the <Code>size</Code> prop. Default is{" "}
+            <Code>md</Code>. Use the size that matches the form around it.
+          </>
+        }
+      >
+        <ChildSection
           id="sizing-small"
           title="Small"
           description={
@@ -398,27 +418,27 @@ export function InputPage() {
               when space is tight.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Input
-              aria-label="Small input example"
-              id="input-size-sm"
-              size="sm"
-              type="text"
-              placeholder="Small"
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeSmallSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Input
+                aria-label="Small input example"
+                id="input-size-sm"
+                size="sm"
+                type="text"
+                placeholder="Small"
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeSmallSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="sizing-medium"
           title="Medium"
           description={
@@ -427,27 +447,27 @@ export function InputPage() {
               in a standard form.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Input
-              aria-label="Medium input example"
-              id="input-size-md"
-              size="md"
-              type="text"
-              placeholder="Medium"
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeMediumSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Input
+                aria-label="Medium input example"
+                id="input-size-md"
+                size="md"
+                type="text"
+                placeholder="Medium"
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeMediumSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="sizing-large"
           title="Large"
           description={
@@ -456,41 +476,41 @@ export function InputPage() {
               when the field is the focus of the layout.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Input
-              aria-label="Large input example"
-              id="input-size-lg"
-              size="lg"
-              type="text"
-              placeholder="Large"
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeLargeSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Input
+                aria-label="Large input example"
+                id="input-size-lg"
+                size="lg"
+                type="text"
+                placeholder="Large"
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeLargeSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="icons" label="Icons">
-        <PageSectionHeader
-          title="Icons"
-          description={
-            <>
-              Places an icon in the field using <Code>InputGroup</Code> and{" "}
-              <Code>InputGroupAddon</Code>. Set <Code>align</Code> to{" "}
-              <Code>inline-start</Code> or <Code>inline-end</Code>. Use this
-              when a symbol belongs inside the field.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="icons"
+        title="Icons"
+        description={
+          <>
+            Places an icon in the field using <Code>InputGroup</Code> and{" "}
+            <Code>InputGroupAddon</Code>. Set <Code>align</Code> to{" "}
+            <Code>inline-start</Code> or <Code>inline-end</Code>. Use this when
+            a symbol belongs inside the field.
+          </>
+        }
+      >
+        <ChildSection
           id="icons-left"
           title="Left aligned"
           description={
@@ -500,40 +520,49 @@ export function InputPage() {
               icon introduces the field.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="flex flex-col gap-4">
-              <InputGroup size="sm">
-                <InputGroupAddon align="inline-start">
-                  <Search aria-hidden="true" />
-                </InputGroupAddon>
-                <InputGroupInput aria-label="Search" placeholder="Search..." />
-              </InputGroup>
-              <InputGroup size="md">
-                <InputGroupAddon align="inline-start">
-                  <Search aria-hidden="true" />
-                </InputGroupAddon>
-                <InputGroupInput aria-label="Search" placeholder="Search..." />
-              </InputGroup>
-              <InputGroup size="lg">
-                <InputGroupAddon align="inline-start">
-                  <Search aria-hidden="true" />
-                </InputGroupAddon>
-                <InputGroupInput aria-label="Search" placeholder="Search..." />
-              </InputGroup>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="flex flex-col gap-4">
+                <InputGroup size="sm">
+                  <InputGroupAddon align="inline-start">
+                    <Search aria-hidden="true" />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    aria-label="Search"
+                    placeholder="Search..."
+                  />
+                </InputGroup>
+                <InputGroup size="md">
+                  <InputGroupAddon align="inline-start">
+                    <Search aria-hidden="true" />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    aria-label="Search"
+                    placeholder="Search..."
+                  />
+                </InputGroup>
+                <InputGroup size="lg">
+                  <InputGroupAddon align="inline-start">
+                    <Search aria-hidden="true" />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    aria-label="Search"
+                    placeholder="Search..."
+                  />
+                </InputGroup>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={iconsLeftSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={iconsLeftSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="icons-right"
           title="Right aligned"
           description={
@@ -542,98 +571,117 @@ export function InputPage() {
               . Use this when the icon sits after the value.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="flex flex-col gap-4">
-              <InputGroup size="sm">
-                <InputGroupInput aria-label="Search" placeholder="Search..." />
-                <InputGroupAddon align="inline-end">
-                  <Search aria-hidden="true" />
-                </InputGroupAddon>
-              </InputGroup>
-              <InputGroup size="md">
-                <InputGroupInput aria-label="Search" placeholder="Search..." />
-                <InputGroupAddon align="inline-end">
-                  <Search aria-hidden="true" />
-                </InputGroupAddon>
-              </InputGroup>
-              <InputGroup size="lg">
-                <InputGroupInput aria-label="Search" placeholder="Search..." />
-                <InputGroupAddon align="inline-end">
-                  <Search aria-hidden="true" />
-                </InputGroupAddon>
-              </InputGroup>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="flex flex-col gap-4">
+                <InputGroup size="sm">
+                  <InputGroupInput
+                    aria-label="Search"
+                    placeholder="Search..."
+                  />
+                  <InputGroupAddon align="inline-end">
+                    <Search aria-hidden="true" />
+                  </InputGroupAddon>
+                </InputGroup>
+                <InputGroup size="md">
+                  <InputGroupInput
+                    aria-label="Search"
+                    placeholder="Search..."
+                  />
+                  <InputGroupAddon align="inline-end">
+                    <Search aria-hidden="true" />
+                  </InputGroupAddon>
+                </InputGroup>
+                <InputGroup size="lg">
+                  <InputGroupInput
+                    aria-label="Search"
+                    placeholder="Search..."
+                  />
+                  <InputGroupAddon align="inline-end">
+                    <Search aria-hidden="true" />
+                  </InputGroupAddon>
+                </InputGroup>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={iconsRightSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={iconsRightSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="icons-left-and-right"
           title="Left and right aligned"
           description="Icons on both sides of the field. Use this when the field needs a symbol at each end."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="flex flex-col gap-4">
-              <InputGroup size="sm">
-                <InputGroupAddon align="inline-start">
-                  <Search aria-hidden="true" />
-                </InputGroupAddon>
-                <InputGroupInput aria-label="Search" placeholder="Search..." />
-                <InputGroupAddon align="inline-end">
-                  <Search aria-hidden="true" />
-                </InputGroupAddon>
-              </InputGroup>
-              <InputGroup size="md">
-                <InputGroupAddon align="inline-start">
-                  <Search aria-hidden="true" />
-                </InputGroupAddon>
-                <InputGroupInput aria-label="Search" placeholder="Search..." />
-                <InputGroupAddon align="inline-end">
-                  <Search aria-hidden="true" />
-                </InputGroupAddon>
-              </InputGroup>
-              <InputGroup size="lg">
-                <InputGroupAddon align="inline-start">
-                  <Search aria-hidden="true" />
-                </InputGroupAddon>
-                <InputGroupInput aria-label="Search" placeholder="Search..." />
-                <InputGroupAddon align="inline-end">
-                  <Search aria-hidden="true" />
-                </InputGroupAddon>
-              </InputGroup>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="flex flex-col gap-4">
+                <InputGroup size="sm">
+                  <InputGroupAddon align="inline-start">
+                    <Search aria-hidden="true" />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    aria-label="Search"
+                    placeholder="Search..."
+                  />
+                  <InputGroupAddon align="inline-end">
+                    <Search aria-hidden="true" />
+                  </InputGroupAddon>
+                </InputGroup>
+                <InputGroup size="md">
+                  <InputGroupAddon align="inline-start">
+                    <Search aria-hidden="true" />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    aria-label="Search"
+                    placeholder="Search..."
+                  />
+                  <InputGroupAddon align="inline-end">
+                    <Search aria-hidden="true" />
+                  </InputGroupAddon>
+                </InputGroup>
+                <InputGroup size="lg">
+                  <InputGroupAddon align="inline-start">
+                    <Search aria-hidden="true" />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    aria-label="Search"
+                    placeholder="Search..."
+                  />
+                  <InputGroupAddon align="inline-end">
+                    <Search aria-hidden="true" />
+                  </InputGroupAddon>
+                </InputGroup>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={iconsBothSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={iconsBothSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="button" label="Button">
-        <PageSectionHeader
-          title="Button"
-          description={
-            <>
-              Adds a control at the end using <Code>InputGroupButton</Code>{" "}
-              inside <Code>InputGroupAddon</Code>. Button size follows the group{" "}
-              <Code>size</Code>. Use this when the field has an action next to
-              the value.
-            </>
-          }
-        />
+      <MainSection
+        id="button"
+        title="Button"
+        description={
+          <>
+            Adds a control at the end using <Code>InputGroupButton</Code> inside{" "}
+            <Code>InputGroupAddon</Code>. Button size follows the group{" "}
+            <Code>size</Code>. Use this when the field has an action next to the
+            value.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-col gap-4">
@@ -680,20 +728,20 @@ export function InputPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="inline" label="Inline">
-        <PageSectionHeader
-          title="Inline"
-          description={
-            <>
-              Places the field beside a button using{" "}
-              <Code>orientation=&quot;horizontal&quot;</Code> on{" "}
-              <Code>Field</Code>. Use this when the input and action should sit
-              on one row.
-            </>
-          }
-        />
+      <MainSection
+        id="inline"
+        title="Inline"
+        description={
+          <>
+            Places the field beside a button using{" "}
+            <Code>orientation=&quot;horizontal&quot;</Code> on{" "}
+            <Code>Field</Code>. Use this when the input and action should sit on
+            one row.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field orientation="horizontal">
@@ -713,42 +761,73 @@ export function InputPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="within-form" label="Within form">
-        <PageSectionHeader
-          title="Within form"
-          description="Compose Input with Field for its visible label and FieldSet for a related form section."
-        />
+      <MainSection
+        id="within-form"
+        title="Within form"
+        description="Compose Input with Field for its visible label and FieldSet for a related form section."
+      >
         <ComponentExample>
           <div className="space-y-6">
-            <form onSubmit={(event) => event.preventDefault()}>
-              <FieldSet aria-describedby="account-details-description">
-                <FieldLegend>Account details</FieldLegend>
-                <FieldDescription id="account-details-description">
-                  Used to identify and contact the account owner.
-                </FieldDescription>
-                <FieldGroup>
-                  <Field>
-                    <FieldLabel htmlFor="account-name">Name</FieldLabel>
-                    <Input id="account-name" name="name" autoComplete="name" />
-                  </Field>
-                  <Field>
-                    <FieldLabel htmlFor="account-email">
-                      Email address
-                    </FieldLabel>
-                    <Input
-                      id="account-email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      placeholder="name@example.com"
+            <RequiredForm
+              schema={inputFormSchema}
+              defaultValues={{ name: "", email: "" }}
+            >
+              {(form) => (
+                <FieldSet aria-describedby="account-details-description">
+                  <FieldLegend>Account details</FieldLegend>
+                  <FieldDescription id="account-details-description">
+                    Used to identify and contact the account owner.
+                  </FieldDescription>
+                  <FieldGroup>
+                    <Controller
+                      name="name"
+                      control={form.control}
+                      render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
+                          <FieldLabel htmlFor="account-name">Name</FieldLabel>
+                          <Input
+                            {...field}
+                            id="account-name"
+                            autoComplete="name"
+                            required
+                            aria-invalid={fieldState.invalid}
+                          />
+                          {fieldState.invalid && (
+                            <FieldError errors={[fieldState.error]} />
+                          )}
+                        </Field>
+                      )}
                     />
-                  </Field>
-                </FieldGroup>
-                <Button type="submit">Save details</Button>
-              </FieldSet>
-            </form>
+                    <Controller
+                      name="email"
+                      control={form.control}
+                      render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
+                          <FieldLabel htmlFor="account-email">
+                            Email address
+                          </FieldLabel>
+                          <Input
+                            {...field}
+                            id="account-email"
+                            type="email"
+                            autoComplete="email"
+                            placeholder="name@example.com"
+                            required
+                            aria-invalid={fieldState.invalid}
+                          />
+                          {fieldState.invalid && (
+                            <FieldError errors={[fieldState.error]} />
+                          )}
+                        </Field>
+                      )}
+                    />
+                  </FieldGroup>
+                  <Button type="submit">Save details</Button>
+                </FieldSet>
+              )}
+            </RequiredForm>
             <Code
               variant="block"
               language="tsx"
@@ -758,13 +837,13 @@ export function InputPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use Input for short, single-line values and keep its state clear."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use Input for short, single-line values and keep its state clear."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -812,13 +891,9 @@ export function InputPage() {
             <>Don’t mix sizes within the same form without a layout reason.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Input."
-        />
+      <MainSection id="api" title="API" description="Behaviour props on Input.">
         <DocsApiTable
           rows={[
             {
@@ -836,9 +911,8 @@ export function InputPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -854,13 +928,13 @@ export function InputPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Choose the field that matches the value and interaction."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Choose the field that matches the value and interaction."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/textarea">
@@ -869,15 +943,15 @@ export function InputPage() {
             — for values that need more than one line.
           </li>
           <li>
-            <DocsPageLink to="/components/search">Search</DocsPageLink>{" "}
-            — for a dedicated search control.
+            <DocsPageLink to="/components/search">Search</DocsPageLink> — for a
+            dedicated search control.
           </li>
           <li>
             <DocsPageLink to="/components/field">Field</DocsPageLink> — to
             compose a label, Input, help text, and error.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

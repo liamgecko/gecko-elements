@@ -5,12 +5,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import { Marker, MarkerContent, MarkerIcon } from "@gecko/ui/components/marker";
 import { Spinner } from "@gecko/ui/components/spinner";
@@ -91,54 +90,54 @@ export function MarkerPage() {
 </Marker>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Marker"
-          description="The Marker component is a short inline note. It can sit as a status, a bordered row, or a labelled divider."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Marker"
+        description="The Marker component is a short inline note. It can sit as a status, a bordered row, or a labelled divider."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Marker in a conversation thread for brief status notes —
-              someone typing or AI composing, assignment system messages, or a
-              labelled separator in chat. Pair it with{" "}
-              <DocsPageLink to="/components/message">Message</DocsPageLink> when
-              the note sits among messages. Related to{" "}
-              <DocsPageLink to="/components/typing-indicator">
-                Typing indicator
-              </DocsPageLink>
-              .
-              <br />
-              <br />
-              Avoid using it as a product-wide status label — that is a{" "}
-              <DocsPageLink to="/components/badge">Badge</DocsPageLink>. If the
-              note needs attention as a warning, use an{" "}
-              <DocsPageLink to="/components/alert">Alert</DocsPageLink>. For a
-              divider with no meaning of its own, use a{" "}
-              <DocsPageLink to="/components/separator">Separator</DocsPageLink>.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Marker in a conversation thread for brief status notes — someone
+            typing or AI composing, assignment system messages, or a labelled
+            separator in chat. Pair it with{" "}
+            <DocsPageLink to="/components/message">Message</DocsPageLink> when
+            the note sits among messages. Related to{" "}
+            <DocsPageLink to="/components/typing-indicator">
+              Typing indicator
+            </DocsPageLink>
+            .
+            <br />
+            <br />
+            Avoid using it as a product-wide status label — that is a{" "}
+            <DocsPageLink to="/components/badge">Badge</DocsPageLink>. If the
+            note needs attention as a warning, use an{" "}
+            <DocsPageLink to="/components/alert">Alert</DocsPageLink>. For a
+            divider with no meaning of its own, use a{" "}
+            <DocsPageLink to="/components/separator">Separator</DocsPageLink>.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Marker and its parts to compose an inline note."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description={
@@ -147,29 +146,30 @@ export function MarkerPage() {
               in <Code>MarkerContent</Code>.
             </>
           }
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="variants" label="Variants">
-        <PageSectionHeader
-          title="Variants"
-          description={
-            <>
-              Set the layout with the <Code>variant</Code> prop. Use the layout
-              that matches how the note should sit in the thread.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="variants"
+        title="Variants"
+        description={
+          <>
+            Set the layout with the <Code>variant</Code> prop. Use the layout
+            that matches how the note should sit in the thread.
+          </>
+        }
+      >
+        <ChildSection
           id="variants-default"
           title="Default"
           description={
@@ -178,26 +178,27 @@ export function MarkerPage() {
               status or action in the flow.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="w-full max-w-md">
-              <Marker>
-                <MarkerContent>
-                  A default marker for inline notes.
-                </MarkerContent>
-              </Marker>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full max-w-md">
+                <Marker>
+                  <MarkerContent>
+                    A default marker for inline notes.
+                  </MarkerContent>
+                </Marker>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={variantDefaultSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={variantDefaultSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-separator"
           title="Separator"
           description={
@@ -207,24 +208,25 @@ export function MarkerPage() {
               splits two groups of content.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="w-full max-w-md">
-              <Marker variant="separator">
-                <MarkerContent>A separator marker</MarkerContent>
-              </Marker>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full max-w-md">
+                <Marker variant="separator">
+                  <MarkerContent>A separator marker</MarkerContent>
+                </Marker>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={variantSeparatorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={variantSeparatorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-border"
           title="Border"
           description={
@@ -233,39 +235,40 @@ export function MarkerPage() {
               this when the row should separate from what follows.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="w-full max-w-md">
-              <Marker variant="border">
-                <MarkerContent>
-                  A border marker for row boundaries.
-                </MarkerContent>
-              </Marker>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full max-w-md">
+                <Marker variant="border">
+                  <MarkerContent>
+                    A border marker for row boundaries.
+                  </MarkerContent>
+                </Marker>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={variantBorderSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={variantBorderSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="status" label="Status">
-        <PageSectionHeader
-          title="Status"
-          description={
-            <>
-              Announces an in-progress update using{" "}
-              <Code>role=&quot;status&quot;</Code> and a{" "}
-              <DocsPageLink to="/components/spinner">Spinner</DocsPageLink> in{" "}
-              <Code>MarkerIcon</Code>. Use this when the note is still changing.
-            </>
-          }
-        />
+      <MainSection
+        id="status"
+        title="Status"
+        description={
+          <>
+            Announces an in-progress update using{" "}
+            <Code>role=&quot;status&quot;</Code> and a{" "}
+            <DocsPageLink to="/components/spinner">Spinner</DocsPageLink> in{" "}
+            <Code>MarkerIcon</Code>. Use this when the note is still changing.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex w-full max-w-md flex-col gap-3">
@@ -291,19 +294,19 @@ export function MarkerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="shimmer" label="Shimmer">
-        <PageSectionHeader
-          title="Shimmer"
-          description={
-            <>
-              Applies Shadcn’s shimmer utility using the <Code>shimmer</Code>{" "}
-              prop on <Code>MarkerContent</Code>. Use this when the note is
-              streaming in.
-            </>
-          }
-        />
+      <MainSection
+        id="shimmer"
+        title="Shimmer"
+        description={
+          <>
+            Applies Shadcn’s shimmer utility using the <Code>shimmer</Code> prop
+            on <Code>MarkerContent</Code>. Use this when the note is streaming
+            in.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex w-full max-w-md flex-col gap-3">
@@ -323,18 +326,18 @@ export function MarkerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-icon" label="With icon">
-        <PageSectionHeader
-          title="With icon"
-          description={
-            <>
-              Adds a decorative icon using <Code>MarkerIcon</Code>. Use this
-              when a symbol helps people recognise the kind of note.
-            </>
-          }
-        />
+      <MainSection
+        id="with-icon"
+        title="With icon"
+        description={
+          <>
+            Adds a decorative icon using <Code>MarkerIcon</Code>. Use this when
+            a symbol helps people recognise the kind of note.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex w-full max-w-md flex-col gap-3">
@@ -366,19 +369,19 @@ export function MarkerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="links-and-buttons" label="Links and buttons">
-        <PageSectionHeader
-          title="Links and buttons"
-          description={
-            <>
-              Renders the marker as a link or button using the{" "}
-              <Code>render</Code> prop. Use this when choosing the note should
-              go somewhere or run an action.
-            </>
-          }
-        />
+      <MainSection
+        id="links-and-buttons"
+        title="Links and buttons"
+        description={
+          <>
+            Renders the marker as a link or button using the <Code>render</Code>{" "}
+            prop. Use this when choosing the note should go somewhere or run an
+            action.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex w-full max-w-md flex-col gap-3">
@@ -404,13 +407,13 @@ export function MarkerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep markers brief and match their semantics to their behaviour."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep markers brief and match their semantics to their behaviour."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -449,40 +452,55 @@ export function MarkerPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Marker."
-        />
-        <DocsApiTable
-          rows={[
-            {
-              name: "Marker.variant",
-              type: '"default" | "separator" | "border"',
-              defaultValue: '"default"',
-              description:
-                "Sets the inline, labelled-divider, or bordered-row treatment.",
-            },
-            {
-              name: "Marker.render",
-              type: "ReactElement",
-              description:
-                "Replaces the default div with an element such as a link or button.",
-            },
-            {
-              name: "MarkerContent.shimmer",
-              type: "boolean",
-              defaultValue: "false",
-              description:
-                "Applies Shadcn’s animated shimmer utility to streaming text.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Marker."
+      >
+        <ChildSection
+          id="api-marker"
+          title="Marker"
+          description="Props on Marker."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "variant",
+                type: '"default" | "separator" | "border"',
+                defaultValue: '"default"',
+                description:
+                  "Sets the inline, labelled-divider, or bordered-row treatment.",
+              },
+              {
+                name: "render",
+                type: "ReactElement",
+                description:
+                  "Replaces the default div with an element such as a link or button.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-marker-content"
+          title="MarkerContent"
+          description="Props on MarkerContent."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "shimmer",
+                type: "boolean",
+                defaultValue: "false",
+                description:
+                  "Applies Shadcn’s animated shimmer utility to streaming text.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -498,13 +516,13 @@ export function MarkerPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Choose the component that matches the note’s role."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Choose the component that matches the note’s role."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/message">Message</DocsPageLink> — for
@@ -519,7 +537,7 @@ export function MarkerPage() {
             for a divider without a label or status.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

@@ -3,12 +3,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import { FileTree } from "@gecko/ui/components/file-tree";
 import type { FileTreeNode } from "@gecko/ui/components/file-tree";
@@ -58,63 +57,63 @@ import type { FileTreeNode } from "@gecko/ui/components/file-tree"`;
 />`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="File tree"
-          description="The File tree shows folders and files in a nested list. Folders expand and collapse; files sit at the leaves."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="File tree"
+        description="The File tree shows folders and files in a nested list. Folders expand and collapse; files sit at the leaves."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use File tree when people need to scan a nested folder structure —
-              for example a website map for AI scraping. Pass a tree of nodes
-              with folder and file types.
-              <br />
-              <br />
-              File tree is not currently used in Gecko product UI; adopt it only
-              for nested structure browsing. Avoid using it for a flat list, or
-              when people need to pick a file to upload — that is{" "}
-              <DocsPageLink to="/components/attachment">
-                Attachment
-              </DocsPageLink>{" "}
-              or{" "}
-              <DocsPageLink to="/components/drop-zone">Drop zone</DocsPageLink>.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use File tree when people need to scan a nested folder structure —
+            for example a website map for AI scraping. Pass a tree of nodes with
+            folder and file types.
+            <br />
+            <br />
+            File tree is not currently used in Gecko product UI; adopt it only
+            for nested structure browsing. Avoid using it for a flat list, or
+            when people need to pick a file to upload — that is{" "}
+            <DocsPageLink to="/components/attachment">
+              Attachment
+            </DocsPageLink>{" "}
+            or <DocsPageLink to="/components/drop-zone">Drop zone</DocsPageLink>
+            .
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import FileTree and the node type to render a hierarchy."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description={
-            <>
-              A nested list using the <Code>nodes</Code> prop. Each node has an{" "}
-              <Code>id</Code>, <Code>label</Code>, and <Code>type</Code> of{" "}
-              <Code>folder</Code> or <Code>file</Code>. Use this when the
-              hierarchy is already known.
-            </>
-          }
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description={
+          <>
+            A nested list using the <Code>nodes</Code> prop. Each node has an{" "}
+            <Code>id</Code>, <Code>label</Code>, and <Code>type</Code> of{" "}
+            <Code>folder</Code> or <Code>file</Code>. Use this when the
+            hierarchy is already known.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="max-w-md">
@@ -133,13 +132,13 @@ import type { FileTreeNode } from "@gecko/ui/components/file-tree"`;
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use a clear node hierarchy and preserve the meaning of folders and files."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use a clear node hierarchy and preserve the meaning of folders and files."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -172,13 +171,13 @@ import type { FileTreeNode } from "@gecko/ui/components/file-tree"`;
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on File tree."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on File tree."
+      >
         <DocsApiTable
           rows={[
             {
@@ -195,9 +194,8 @@ import type { FileTreeNode } from "@gecko/ui/components/file-tree"`;
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -213,20 +211,20 @@ import type { FileTreeNode } from "@gecko/ui/components/file-tree"`;
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a different component when the task is choosing a local file."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a different component when the task is choosing a local file."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/file-field">File field</DocsPageLink>{" "}
             — when someone needs to choose a file from their device.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

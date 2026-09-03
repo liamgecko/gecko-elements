@@ -5,12 +5,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 
 const sampleItems = [
   {
@@ -80,60 +79,59 @@ ${itemsSnippet(sampleItems.slice(0, 4))}
 />`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Avatar group"
-          description="The Avatar group shows several people as overlapping avatars. Use it when more than one person is involved."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Avatar group"
+        description="The Avatar group shows several people as overlapping avatars. Use it when more than one person is involved."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Avatar group when more than one person must show together —
-              for example assignees on a conversation. Do not use it for a
-              single person.
-              <br />
-              <br />
-              Avoid using it for one person; use an{" "}
-              <DocsPageLink to="/components/avatar">Avatar</DocsPageLink>{" "}
-              instead. Do not use it as a cluster of icons or logos that are not
-              people. Omit <Code>size</Code> for standard use and follow the
-              same size conventions as{" "}
-              <DocsPageLink to="/components/avatar">Avatar</DocsPageLink>.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Avatar group when more than one person must show together — for
+            example assignees on a conversation. Do not use it for a single
+            person.
+            <br />
+            <br />
+            Avoid using it for one person; use an{" "}
+            <DocsPageLink to="/components/avatar">Avatar</DocsPageLink> instead.
+            Do not use it as a cluster of icons or logos that are not people.
+            Omit <Code>size</Code> for standard use and follow the same size
+            conventions as{" "}
+            <DocsPageLink to="/components/avatar">Avatar</DocsPageLink>.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import AvatarGroup to show several people together."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description={
-            <>
-              Pass people in the <Code>items</Code> array. Use this when
-              everyone in the group should be visible.
-            </>
-          }
-        />
+      <MainSection
+        id="basic"
+        title="Basic example"
+        description={
+          <>
+            Pass people in the <Code>items</Code> array. Use this when everyone
+            in the group should be visible.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <AvatarGroup items={sampleItems.slice(0, 4)} />
@@ -146,19 +144,19 @@ ${itemsSnippet(sampleItems.slice(0, 4))}
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-overflow" label="With overflow">
-        <PageSectionHeader
-          title="With overflow"
-          description={
-            <>
-              Set <Code>maxVisible</Code> when the group is too large to show in
-              full. Avatar group adds the count automatically and lists the
-              extra people in a popover.
-            </>
-          }
-        />
+      <MainSection
+        id="with-overflow"
+        title="With overflow"
+        description={
+          <>
+            Set <Code>maxVisible</Code> when the group is too large to show in
+            full. Avatar group adds the count automatically and lists the extra
+            people in a popover.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <AvatarGroup items={sampleItems} maxVisible={3} />
@@ -171,19 +169,19 @@ ${itemsSnippet(sampleItems.slice(0, 4))}
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizes" label="Sizes">
-        <PageSectionHeader
-          title="Sizes"
-          description={
-            <>
-              Set the size with the <Code>size</Code> prop. Use a size that
-              matches the surrounding layout — smaller in dense lists, larger in
-              headers and summaries.
-            </>
-          }
-        />
+      <MainSection
+        id="sizes"
+        title="Sizes"
+        description={
+          <>
+            Set the size with the <Code>size</Code> prop. Use a size that
+            matches the surrounding layout — smaller in dense lists, larger in
+            headers and summaries.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-col gap-6">
@@ -205,19 +203,19 @@ ${itemsSnippet(sampleItems.slice(0, 4))}
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-tooltips" label="With tooltips">
-        <PageSectionHeader
-          title="With tooltips"
-          description={
-            <>
-              Shows each visible person’s name on hover and keyboard focus using
-              the <Code>tooltips</Code> prop. Tooltips are supplementary: Avatar
-              group always exposes each person’s name to assistive technology.
-            </>
-          }
-        />
+      <MainSection
+        id="with-tooltips"
+        title="With tooltips"
+        description={
+          <>
+            Shows each visible person’s name on hover and keyboard focus using
+            the <Code>tooltips</Code> prop. Tooltips are supplementary: Avatar
+            group always exposes each person’s name to assistive technology.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <AvatarGroup items={sampleItems.slice(0, 4)} tooltips />
@@ -230,13 +228,13 @@ ${itemsSnippet(sampleItems.slice(0, 4))}
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Provide people and let Avatar group own identity, overlap, tooltips, and overflow."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Provide people and let Avatar group own identity, overlap, tooltips, and overflow."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -281,13 +279,13 @@ ${itemsSnippet(sampleItems.slice(0, 4))}
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Avatar group."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Avatar group."
+      >
         <DocsApiTable
           rows={[
             {
@@ -318,9 +316,8 @@ ${itemsSnippet(sampleItems.slice(0, 4))}
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -336,13 +333,13 @@ ${itemsSnippet(sampleItems.slice(0, 4))}
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a different control when the Avatar group is the wrong shape for the job."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a different control when the Avatar group is the wrong shape for the job."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/avatar">Avatar</DocsPageLink> — when
@@ -354,7 +351,7 @@ ${itemsSnippet(sampleItems.slice(0, 4))}
             with <Code>tooltips</Code> instead of wrapping each face yourself.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

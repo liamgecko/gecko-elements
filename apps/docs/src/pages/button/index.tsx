@@ -3,12 +3,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Button } from "@gecko/ui/components/button";
 import { Code } from "@gecko/ui/components/code";
 import {
@@ -129,61 +128,60 @@ export function SaveChangesButton({
   }
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Button"
-          description="The Button component starts an action. The label should say what will happen so people know what they are about to do."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Button"
+        description="The Button component starts an action. The label should say what will happen so people know what they are about to do."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Button when someone needs to take an action. Prefer one
-              primary action per Header or area. Use the outline treatment for
-              secondary actions, and the soft-filled treatment only in
-              documented component compositions. Use quiet treatments for
-              toolbar and icon chrome, and destructive treatments for delete or
-              remove controls. Confirm irreversible deletes with Alert dialog.
-              <br />
-              <br />
-              Avoid using a button for something that is not an action, or for
-              navigation that is really a page link. Do not place several
-              primary buttons next to each other.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Button when someone needs to take an action. Prefer one primary
+            action per Header or area. Use the outline treatment for secondary
+            actions, and the soft-filled treatment only in documented component
+            compositions. Use quiet treatments for toolbar and icon chrome, and
+            destructive treatments for delete or remove controls. Confirm
+            irreversible deletes with Alert dialog.
+            <br />
+            <br />
+            Avoid using a button for something that is not an action, or for
+            navigation that is really a page link. Do not place several primary
+            buttons next to each other.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Button to start an action."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="default" label="Default button">
-        <PageSectionHeader
-          title="Default button"
-          description={
-            <>
-              The default Button, which uses{" "}
-              <Code>variant=&quot;default&quot;</Code>. Use this as the main
-              action on a page or in a dialog.
-            </>
-          }
-        />
+      <MainSection
+        id="default"
+        title="Default button"
+        description={
+          <>
+            The default Button, which uses{" "}
+            <Code>variant=&quot;default&quot;</Code>. Use this as the main
+            action on a page or in a dialog.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Button>Save changes</Button>
@@ -196,21 +194,19 @@ export function SaveChangesButton({
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="variants" label="Variants">
-        <PageSectionHeader
-          title="Variants"
-          description={
-            <>
-              Set emphasis with the <Code>variant</Code> prop. Use a strong
-              style for the main action, and a quieter style for everything
-              else.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="variants"
+        title="Variants"
+        description={
+          <>
+            Set emphasis with the <Code>variant</Code> prop. Use a strong style
+            for the main action, and a quieter style for everything else.
+          </>
+        }
+      >
+        <ChildSection
           id="variants-primary"
           title="Primary"
           description={
@@ -220,21 +216,21 @@ export function SaveChangesButton({
               do.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Button>Primary</Button>
-            <Code
-              variant="block"
-              language="tsx"
-              code={primarySnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Button>Primary</Button>
+              <Code
+                variant="block"
+                language="tsx"
+                code={primarySnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-secondary"
           title="Secondary"
           description={
@@ -245,21 +241,21 @@ export function SaveChangesButton({
               Outline for a normal secondary action.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Button variant="secondary">Secondary</Button>
-            <Code
-              variant="block"
-              language="tsx"
-              code={secondarySnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Button variant="secondary">Secondary</Button>
+              <Code
+                variant="block"
+                language="tsx"
+                code={secondarySnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-outline"
           title="Outline"
           description={
@@ -268,21 +264,21 @@ export function SaveChangesButton({
               Use this when a solid button would be too loud.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Button variant="outline">Outline</Button>
-            <Code
-              variant="block"
-              language="tsx"
-              code={outlineSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Button variant="outline">Outline</Button>
+              <Code
+                variant="block"
+                language="tsx"
+                code={outlineSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-destructive"
           title="Destructive"
           description={
@@ -292,21 +288,21 @@ export function SaveChangesButton({
               risk should be visible before someone clicks.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Button variant="destructive">Destructive</Button>
-            <Code
-              variant="block"
-              language="tsx"
-              code={destructiveSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Button variant="destructive">Destructive</Button>
+              <Code
+                variant="block"
+                language="tsx"
+                code={destructiveSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-ghost"
           title="Ghost"
           description={
@@ -316,21 +312,21 @@ export function SaveChangesButton({
               would take too much attention.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Button variant="ghost">Ghost</Button>
-            <Code
-              variant="block"
-              language="tsx"
-              code={ghostSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Button variant="ghost">Ghost</Button>
+              <Code
+                variant="block"
+                language="tsx"
+                code={ghostSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-ghost-destructive"
           title="Ghost destructive"
           description={
@@ -340,33 +336,34 @@ export function SaveChangesButton({
               list or menu where a red button would dominate the row.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Button variant="ghost-destructive">Remove</Button>
-            <Code
-              variant="block"
-              language="tsx"
-              code={ghostDestructiveSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Button variant="ghost-destructive">Remove</Button>
+              <Code
+                variant="block"
+                language="tsx"
+                code={ghostDestructiveSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="disabled" label="Disabled">
-        <PageSectionHeader
-          title="Disabled"
-          description={
-            <>
-              Prevents interaction using the <Code>disabled</Code> prop. Use
-              this only when the action is genuinely unavailable because of
-              permissions or context. Keep form submission available before
-              validation so submitting can reveal and focus errors.
-            </>
-          }
-        />
+      <MainSection
+        id="disabled"
+        title="Disabled"
+        description={
+          <>
+            Prevents interaction using the <Code>disabled</Code> prop. Use this
+            only when the action is genuinely unavailable because of permissions
+            or context. Keep form submission available before validation so
+            submitting can reveal and focus errors.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap items-center gap-3">
@@ -399,19 +396,19 @@ export function SaveChangesButton({
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="dropdown" label="Dropdown">
-        <PageSectionHeader
-          title="Dropdown"
-          description={
-            <>
-              Appends the approved chevron using the <Code>dropdown</Code> prop.
-              Use it on the Button rendered by <Code>DropdownMenuTrigger</Code>;
-              the trigger supplies the menu behaviour and expanded state.
-            </>
-          }
-        />
+      <MainSection
+        id="dropdown"
+        title="Dropdown"
+        description={
+          <>
+            Appends the approved chevron using the <Code>dropdown</Code> prop.
+            Use it on the Button rendered by <Code>DropdownMenuTrigger</Code>;
+            the trigger supplies the menu behaviour and expanded state.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <DropdownMenu>
@@ -436,19 +433,19 @@ export function SaveChangesButton({
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="link-button" label="Link button">
-        <PageSectionHeader
-          title="Link button"
-          description={
-            <>
-              Looks like a link using <Code>variant=&quot;link&quot;</Code>. Use
-              this for a low-emphasis action in a sentence, a footer, or
-              anywhere a filled button would be too strong.
-            </>
-          }
-        />
+      <MainSection
+        id="link-button"
+        title="Link button"
+        description={
+          <>
+            Looks like a link using <Code>variant=&quot;link&quot;</Code>. Use
+            this for a low-emphasis action in a sentence, a footer, or anywhere
+            a filled button would be too strong.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Button variant="link">View documentation</Button>
@@ -461,20 +458,20 @@ export function SaveChangesButton({
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizes" label="Sizes">
-        <PageSectionHeader
-          title="Sizes"
-          description={
-            <>
-              Set the size with the <Code>size</Code> prop. Each standard size
-              has a matching square size for icon-only controls. Use a smaller
-              size in a dense toolbar, and a larger size when the action is the
-              focus of the layout.
-            </>
-          }
-        />
+      <MainSection
+        id="sizes"
+        title="Sizes"
+        description={
+          <>
+            Set the size with the <Code>size</Code> prop. Each standard size has
+            a matching square size for icon-only controls. Use a smaller size in
+            a dense toolbar, and a larger size when the action is the focus of
+            the layout.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap items-center gap-4">
@@ -512,23 +509,21 @@ export function SaveChangesButton({
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="icons" label="Icons">
-        <PageSectionHeader
-          title="Icons"
-          description={
-            <>
-              Place the icon as a child and use <Code>data-icon</Code> to
-              describe whether it appears before or after the label. The
-              examples show both positions. Keep the wording clear; the icon
-              should support the label, not replace it, unless the button is
-              icon-only.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="icons"
+        title="Icons"
+        description={
+          <>
+            Place the icon as a child and use <Code>data-icon</Code> to describe
+            whether it appears before or after the label. The examples show both
+            positions. Keep the wording clear; the icon should support the
+            label, not replace it, unless the button is icon-only.
+          </>
+        }
+      >
+        <ChildSection
           id="icons-left"
           title="Icon left"
           description={
@@ -538,24 +533,24 @@ export function SaveChangesButton({
               symbol helps people recognise the action.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Button>
-              <Settings data-icon="inline-start" />
-              Icon left
-            </Button>
-            <Code
-              variant="block"
-              language="tsx"
-              code={iconLeftSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Button>
+                <Settings data-icon="inline-start" />
+                Icon left
+              </Button>
+              <Code
+                variant="block"
+                language="tsx"
+                code={iconLeftSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="icons-right"
           title="Icon right"
           description={
@@ -565,24 +560,24 @@ export function SaveChangesButton({
               button points somewhere or suggests there is more to do.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Button>
-              Icon right
-              <Settings data-icon="inline-end" />
-            </Button>
-            <Code
-              variant="block"
-              language="tsx"
-              code={iconRightSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Button>
+                Icon right
+                <Settings data-icon="inline-end" />
+              </Button>
+              <Code
+                variant="block"
+                language="tsx"
+                code={iconRightSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="icons-only"
           title="Icon only"
           description={
@@ -592,34 +587,35 @@ export function SaveChangesButton({
               action is already clear from the symbol.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Button size="icon" aria-label="Open settings">
-              <Settings />
-            </Button>
-            <Code
-              variant="block"
-              language="tsx"
-              code={iconOnlySnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Button size="icon" aria-label="Open settings">
+                <Settings />
+              </Button>
+              <Code
+                variant="block"
+                language="tsx"
+                code={iconOnlySnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="loading" label="Loading button">
-        <PageSectionHeader
-          title="Loading button"
-          description={
-            <>
-              Click either example to see the full flow. The Button supplies the
-              Loader, prevents repeated activation, retains focus, and keeps
-              action wording visible while work is in progress.
-            </>
-          }
-        />
+      <MainSection
+        id="loading"
+        title="Loading button"
+        description={
+          <>
+            Click either example to see the full flow. The Button supplies the
+            Loader, prevents repeated activation, retains focus, and keeps
+            action wording visible while work is in progress.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap items-center gap-3">
@@ -647,13 +643,13 @@ export function SaveChangesButton({
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use variant and size for emphasis. Do not restyle the button chrome."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use variant and size for emphasis. Do not restyle the button chrome."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -716,13 +712,13 @@ export function SaveChangesButton({
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Button."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Button."
+      >
         <DocsApiTable
           rows={[
             {
@@ -776,9 +772,8 @@ export function SaveChangesButton({
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -794,13 +789,13 @@ export function SaveChangesButton({
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a different control when the Button is the wrong shape for the job."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a different control when the Button is the wrong shape for the job."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/dropdown-menu">
@@ -821,7 +816,7 @@ export function SaveChangesButton({
             — when the action is destructive and needs a clear yes or no.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

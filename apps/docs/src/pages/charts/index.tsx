@@ -3,12 +3,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import {
   Card,
@@ -321,64 +320,63 @@ export function ChartsPage() {
 </Card>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Charts"
-          description="The Charts components turn numbers into a picture people can scan — bars, lines, areas, and pies. They sit on Recharts, with Gecko colours, tooltips, and legends."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Charts"
+        description="The Charts components turn numbers into a picture people can scan — bars, lines, areas, and pies. They sit on Recharts, with Gecko colours, tooltips, and legends."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use a chart when a trend, comparison, or share of a whole is
-              easier to see than a table — on dashboards, reporting, or inside a{" "}
-              <DocsPageLink to="/components/card">Card</DocsPageLink>. Pick the
-              shape that matches the question: bars to compare, lines for change
-              over time, pies for parts of a whole.
-              <br />
-              <br />
-              Avoid using a chart for a single number — that is a{" "}
-              <DocsPageLink to="/components/metric-card">
-                Metric card
-              </DocsPageLink>
-              . When exact values matter more than shape, use a{" "}
-              <DocsPageLink to="/components/table">Table</DocsPageLink>.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use a chart when a trend, comparison, or share of a whole is easier
+            to see than a table — on dashboards, reporting, or inside a{" "}
+            <DocsPageLink to="/components/card">Card</DocsPageLink>. Pick the
+            shape that matches the question: bars to compare, lines for change
+            over time, pies for parts of a whole.
+            <br />
+            <br />
+            Avoid using a chart for a single number — that is a{" "}
+            <DocsPageLink to="/components/metric-card">
+              Metric card
+            </DocsPageLink>
+            . When exact values matter more than shape, use a{" "}
+            <DocsPageLink to="/components/table">Table</DocsPageLink>.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import ChartContainer, ChartMetric, and the tooltip or legend parts you need. Chart shapes come from Recharts."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="chart-bar" label="Bar">
-        <PageSectionHeader
-          title="Bar"
-          description={
-            <>
-              Compares values using <Code>BarChart</Code> and <Code>Bar</Code>{" "}
-              inside <Code>ChartContainer</Code>. Use this when people need to
-              compare amounts side by side.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="chart-bar"
+        title="Bar"
+        description={
+          <>
+            Compares values using <Code>BarChart</Code> and <Code>Bar</Code>{" "}
+            inside <Code>ChartContainer</Code>. Use this when people need to
+            compare amounts side by side.
+          </>
+        }
+      >
+        <ChildSection
           id="chart-bar-single"
           title="Single bar"
           description={
@@ -387,51 +385,51 @@ export function ChartsPage() {
               one measure per category.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly desktop users"
-                  config={singleBarChartExampleConfig}
-                >
-                  <BarChart
-                    data={singleBarChartExampleData}
-                    margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly desktop users"
+                    config={singleBarChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      tickMargin={10}
-                      axisLine={false}
-                      tickFormatter={(value) =>
-                        typeof value === "string"
-                          ? value.slice(0, 3)
-                          : String(value).slice(0, 3)
-                      }
-                    />
-                    <Bar
-                      dataKey="desktop"
-                      fill="var(--color-desktop)"
-                      radius={8}
-                    />
-                  </BarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
-            <Code
-              variant="block"
-              language="tsx"
-              code={barSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+                    <BarChart
+                      data={singleBarChartExampleData}
+                      margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
+                        tickFormatter={(value) =>
+                          typeof value === "string"
+                            ? value.slice(0, 3)
+                            : String(value).slice(0, 3)
+                        }
+                      />
+                      <Bar
+                        dataKey="desktop"
+                        fill="var(--color-desktop)"
+                        radius={8}
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
+              <Code
+                variant="block"
+                language="tsx"
+                code={barSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-bar-multiple"
           title="Multiple bar"
           description={
@@ -440,53 +438,53 @@ export function ChartsPage() {
               comparing two or more measures in the same category.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly users by device"
-                  config={multipleBarChartExampleConfig}
-                >
-                  <BarChart
-                    data={multipleBarChartExampleData}
-                    margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly users by device"
+                    config={multipleBarChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      tickMargin={10}
-                      axisLine={false}
-                      tickFormatter={(value) => String(value).slice(0, 3)}
-                    />
-                    <Bar
-                      dataKey="desktop"
-                      fill="var(--color-desktop)"
-                      radius={4}
-                    />
-                    <Bar
-                      dataKey="mobile"
-                      fill="var(--color-mobile)"
-                      radius={4}
-                    />
-                  </BarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <BarChart
+                      data={multipleBarChartExampleData}
+                      margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
+                        tickFormatter={(value) => String(value).slice(0, 3)}
+                      />
+                      <Bar
+                        dataKey="desktop"
+                        fill="var(--color-desktop)"
+                        radius={4}
+                      />
+                      <Bar
+                        dataKey="mobile"
+                        fill="var(--color-mobile)"
+                        radius={4}
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={multipleBarSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={multipleBarSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-bar-stacked"
           title="Stacked bar"
           description={
@@ -495,68 +493,68 @@ export function ChartsPage() {
               Use this when the parts should add up to a total.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly users by device"
-                  config={stackedBarChartExampleConfig}
-                >
-                  <BarChart
-                    data={stackedBarChartExampleData}
-                    margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly users by device"
+                    config={stackedBarChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      tickMargin={10}
-                      axisLine={false}
-                      tickFormatter={(value) => String(value).slice(0, 3)}
-                    />
-                    <Bar
-                      dataKey="desktop"
-                      stackId="a"
-                      fill="var(--color-desktop)"
-                      radius={[0, 0, 4, 4]}
-                    />
-                    <Bar
-                      dataKey="mobile"
-                      stackId="a"
-                      fill="var(--color-mobile)"
-                      radius={[4, 4, 0, 0]}
-                    />
-                  </BarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <BarChart
+                      data={stackedBarChartExampleData}
+                      margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
+                        tickFormatter={(value) => String(value).slice(0, 3)}
+                      />
+                      <Bar
+                        dataKey="desktop"
+                        stackId="a"
+                        fill="var(--color-desktop)"
+                        radius={[0, 0, 4, 4]}
+                      />
+                      <Bar
+                        dataKey="mobile"
+                        stackId="a"
+                        fill="var(--color-mobile)"
+                        radius={[4, 4, 0, 0]}
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={stackedBarSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+              <Code
+                variant="block"
+                language="tsx"
+                code={stackedBarSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="chart-line" label="Line">
-        <PageSectionHeader
-          title="Line"
-          description={
-            <>
-              Shows change over time using <Code>LineChart</Code> and{" "}
-              <Code>Line</Code>. Use this when the story is a trend, not a
-              comparison of totals.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="chart-line"
+        title="Line"
+        description={
+          <>
+            Shows change over time using <Code>LineChart</Code> and{" "}
+            <Code>Line</Code>. Use this when the story is a trend, not a
+            comparison of totals.
+          </>
+        }
+      >
+        <ChildSection
           id="chart-line-single"
           title="Single line"
           description={
@@ -565,50 +563,50 @@ export function ChartsPage() {
               is one measure over time.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly desktop users"
-                  config={singleLineChartExampleConfig}
-                >
-                  <LineChart
-                    data={singleLineChartExampleData}
-                    margin={{ left: 12, right: 12 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly desktop users"
+                    config={singleLineChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      axisLine={false}
-                      tickMargin={8}
-                      tickFormatter={(value) => String(value).slice(0, 3)}
-                    />
-                    <Line
-                      dataKey="desktop"
-                      type="natural"
-                      stroke="var(--color-desktop)"
-                      strokeWidth={2}
-                      dot={false}
-                    />
-                  </LineChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <LineChart
+                      data={singleLineChartExampleData}
+                      margin={{ left: 12, right: 12 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                        tickFormatter={(value) => String(value).slice(0, 3)}
+                      />
+                      <Line
+                        dataKey="desktop"
+                        type="natural"
+                        stroke="var(--color-desktop)"
+                        strokeWidth={2}
+                        dot={false}
+                      />
+                    </LineChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={lineSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={lineSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-line-multiple"
           title="Multiple lines"
           description={
@@ -617,57 +615,57 @@ export function ChartsPage() {
               when comparing trends side by side.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly users by device"
-                  config={multipleLineChartExampleConfig}
-                >
-                  <LineChart
-                    data={multipleLineChartExampleData}
-                    margin={{ left: 12, right: 12 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly users by device"
+                    config={multipleLineChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      axisLine={false}
-                      tickMargin={8}
-                      tickFormatter={(value) => String(value).slice(0, 3)}
-                    />
-                    <Line
-                      dataKey="desktop"
-                      type="monotone"
-                      stroke="var(--color-desktop)"
-                      strokeWidth={2}
-                      dot={false}
-                    />
-                    <Line
-                      dataKey="mobile"
-                      type="monotone"
-                      stroke="var(--color-mobile)"
-                      strokeWidth={2}
-                      dot={false}
-                    />
-                  </LineChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <LineChart
+                      data={multipleLineChartExampleData}
+                      margin={{ left: 12, right: 12 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                        tickFormatter={(value) => String(value).slice(0, 3)}
+                      />
+                      <Line
+                        dataKey="desktop"
+                        type="monotone"
+                        stroke="var(--color-desktop)"
+                        strokeWidth={2}
+                        dot={false}
+                      />
+                      <Line
+                        dataKey="mobile"
+                        type="monotone"
+                        stroke="var(--color-mobile)"
+                        strokeWidth={2}
+                        dot={false}
+                      />
+                    </LineChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={multipleLineSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={multipleLineSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-line-dots"
           title="Line with dots"
           description={
@@ -677,66 +675,66 @@ export function ChartsPage() {
               well as the trend.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly desktop users"
-                  config={lineWithDotsChartExampleConfig}
-                >
-                  <LineChart
-                    data={lineWithDotsChartExampleData}
-                    margin={{ left: 12, right: 12 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly desktop users"
+                    config={lineWithDotsChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      axisLine={false}
-                      tickMargin={8}
-                      tickFormatter={(value) => String(value).slice(0, 3)}
-                    />
-                    <Line
-                      dataKey="desktop"
-                      type="natural"
-                      stroke="var(--color-desktop)"
-                      strokeWidth={2}
-                      dot={{
-                        fill: "var(--color-desktop)",
-                      }}
-                      activeDot={{ r: 6 }}
-                    />
-                  </LineChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <LineChart
+                      data={lineWithDotsChartExampleData}
+                      margin={{ left: 12, right: 12 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                        tickFormatter={(value) => String(value).slice(0, 3)}
+                      />
+                      <Line
+                        dataKey="desktop"
+                        type="natural"
+                        stroke="var(--color-desktop)"
+                        strokeWidth={2}
+                        dot={{
+                          fill: "var(--color-desktop)",
+                        }}
+                        activeDot={{ r: 6 }}
+                      />
+                    </LineChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={lineDotsSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+              <Code
+                variant="block"
+                language="tsx"
+                code={lineDotsSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="chart-area" label="Area">
-        <PageSectionHeader
-          title="Area"
-          description={
-            <>
-              Fills the space under a trend using <Code>AreaChart</Code> and{" "}
-              <Code>Area</Code>. Use this when volume over time should feel
-              solid, not just a line.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="chart-area"
+        title="Area"
+        description={
+          <>
+            Fills the space under a trend using <Code>AreaChart</Code> and{" "}
+            <Code>Area</Code>. Use this when volume over time should feel solid,
+            not just a line.
+          </>
+        }
+      >
+        <ChildSection
           id="chart-area-single"
           title="Area single"
           description={
@@ -745,50 +743,50 @@ export function ChartsPage() {
               is one measure over time.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly desktop users"
-                  config={areaSingleChartExampleConfig}
-                >
-                  <AreaChart
-                    data={areaSingleChartExampleData}
-                    margin={{ left: 12, right: 12 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly desktop users"
+                    config={areaSingleChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      axisLine={false}
-                      tickMargin={8}
-                      tickFormatter={(value) => String(value).slice(0, 3)}
-                    />
-                    <Area
-                      dataKey="desktop"
-                      type="natural"
-                      fill="var(--color-desktop)"
-                      fillOpacity={0.4}
-                      stroke="var(--color-desktop)"
-                    />
-                  </AreaChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <AreaChart
+                      data={areaSingleChartExampleData}
+                      margin={{ left: 12, right: 12 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                        tickFormatter={(value) => String(value).slice(0, 3)}
+                      />
+                      <Area
+                        dataKey="desktop"
+                        type="natural"
+                        fill="var(--color-desktop)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-desktop)"
+                      />
+                    </AreaChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={areaSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={areaSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-area-multiple"
           title="Area multiple"
           description={
@@ -797,59 +795,59 @@ export function ChartsPage() {
               when comparing overlapping volumes.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly users by device"
-                  config={areaMultipleChartExampleConfig}
-                >
-                  <AreaChart
-                    data={areaMultipleChartExampleData}
-                    margin={{ left: 12, right: 12 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly users by device"
+                    config={areaMultipleChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      axisLine={false}
-                      tickMargin={8}
-                      tickFormatter={(value) => String(value).slice(0, 3)}
-                    />
-                    <Area
-                      dataKey="mobile"
-                      type="natural"
-                      fill="var(--color-mobile)"
-                      fillOpacity={0.4}
-                      stroke="var(--color-mobile)"
-                      stackId="a"
-                    />
-                    <Area
-                      dataKey="desktop"
-                      type="natural"
-                      fill="var(--color-desktop)"
-                      fillOpacity={0.4}
-                      stroke="var(--color-desktop)"
-                      stackId="a"
-                    />
-                  </AreaChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <AreaChart
+                      data={areaMultipleChartExampleData}
+                      margin={{ left: 12, right: 12 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                        tickFormatter={(value) => String(value).slice(0, 3)}
+                      />
+                      <Area
+                        dataKey="mobile"
+                        type="natural"
+                        fill="var(--color-mobile)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-mobile)"
+                        stackId="a"
+                      />
+                      <Area
+                        dataKey="desktop"
+                        type="natural"
+                        fill="var(--color-desktop)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-desktop)"
+                        stackId="a"
+                      />
+                    </AreaChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={areaMultipleSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={areaMultipleSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-area-stacked"
           title="Area stacked"
           description={
@@ -858,59 +856,59 @@ export function ChartsPage() {
               Use this when the parts should add up to a total over time.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly users by device"
-                  config={areaStackedChartExampleConfig}
-                >
-                  <AreaChart
-                    data={areaStackedChartExampleData}
-                    margin={{ left: 12, right: 12 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly users by device"
+                    config={areaStackedChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      axisLine={false}
-                      tickMargin={8}
-                      tickFormatter={(value) => String(value).slice(0, 3)}
-                    />
-                    <Area
-                      dataKey="mobile"
-                      type="natural"
-                      fill="var(--color-mobile)"
-                      fillOpacity={0.4}
-                      stroke="var(--color-mobile)"
-                      stackId="a"
-                    />
-                    <Area
-                      dataKey="desktop"
-                      type="natural"
-                      fill="var(--color-desktop)"
-                      fillOpacity={0.4}
-                      stroke="var(--color-desktop)"
-                      stackId="a"
-                    />
-                  </AreaChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <AreaChart
+                      data={areaStackedChartExampleData}
+                      margin={{ left: 12, right: 12 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                        tickFormatter={(value) => String(value).slice(0, 3)}
+                      />
+                      <Area
+                        dataKey="mobile"
+                        type="natural"
+                        fill="var(--color-mobile)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-mobile)"
+                        stackId="a"
+                      />
+                      <Area
+                        dataKey="desktop"
+                        type="natural"
+                        fill="var(--color-desktop)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-desktop)"
+                        stackId="a"
+                      />
+                    </AreaChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={areaMultipleSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={areaMultipleSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-area-gradient"
           title="Area gradient"
           description={
@@ -919,110 +917,110 @@ export function ChartsPage() {
               <Code>defs</Code>. Use this when a hard fill would feel too heavy.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly users by device"
-                  config={areaGradientChartExampleConfig}
-                >
-                  <AreaChart
-                    data={areaGradientChartExampleData}
-                    margin={{ left: 12, right: 12 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly users by device"
+                    config={areaGradientChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      axisLine={false}
-                      tickMargin={8}
-                      tickFormatter={(value) => String(value).slice(0, 3)}
-                    />
-                    <defs>
-                      <linearGradient
-                        id="fillDesktopArea"
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop
-                          offset="5%"
-                          stopColor="var(--color-desktop)"
-                          stopOpacity={0.8}
-                        />
-                        <stop
-                          offset="95%"
-                          stopColor="var(--color-desktop)"
-                          stopOpacity={0.1}
-                        />
-                      </linearGradient>
-                      <linearGradient
-                        id="fillMobileArea"
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop
-                          offset="5%"
-                          stopColor="var(--color-mobile)"
-                          stopOpacity={0.8}
-                        />
-                        <stop
-                          offset="95%"
-                          stopColor="var(--color-mobile)"
-                          stopOpacity={0.1}
-                        />
-                      </linearGradient>
-                    </defs>
-                    <Area
-                      dataKey="mobile"
-                      type="natural"
-                      fill="url(#fillMobileArea)"
-                      fillOpacity={0.4}
-                      stroke="var(--color-mobile)"
-                      stackId="a"
-                    />
-                    <Area
-                      dataKey="desktop"
-                      type="natural"
-                      fill="url(#fillDesktopArea)"
-                      fillOpacity={0.4}
-                      stroke="var(--color-desktop)"
-                      stackId="a"
-                    />
-                  </AreaChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <AreaChart
+                      data={areaGradientChartExampleData}
+                      margin={{ left: 12, right: 12 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                        tickFormatter={(value) => String(value).slice(0, 3)}
+                      />
+                      <defs>
+                        <linearGradient
+                          id="fillDesktopArea"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop
+                            offset="5%"
+                            stopColor="var(--color-desktop)"
+                            stopOpacity={0.8}
+                          />
+                          <stop
+                            offset="95%"
+                            stopColor="var(--color-desktop)"
+                            stopOpacity={0.1}
+                          />
+                        </linearGradient>
+                        <linearGradient
+                          id="fillMobileArea"
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="1"
+                        >
+                          <stop
+                            offset="5%"
+                            stopColor="var(--color-mobile)"
+                            stopOpacity={0.8}
+                          />
+                          <stop
+                            offset="95%"
+                            stopColor="var(--color-mobile)"
+                            stopOpacity={0.1}
+                          />
+                        </linearGradient>
+                      </defs>
+                      <Area
+                        dataKey="mobile"
+                        type="natural"
+                        fill="url(#fillMobileArea)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-mobile)"
+                        stackId="a"
+                      />
+                      <Area
+                        dataKey="desktop"
+                        type="natural"
+                        fill="url(#fillDesktopArea)"
+                        fillOpacity={0.4}
+                        stroke="var(--color-desktop)"
+                        stackId="a"
+                      />
+                    </AreaChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={areaGradientSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+              <Code
+                variant="block"
+                language="tsx"
+                code={areaGradientSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="chart-pie" label="Pie">
-        <PageSectionHeader
-          title="Pie"
-          description={
-            <>
-              Shows parts of a whole using <Code>PieChart</Code> and{" "}
-              <Code>Pie</Code>. Use this when the question is share, not change
-              over time.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="chart-pie"
+        title="Pie"
+        description={
+          <>
+            Shows parts of a whole using <Code>PieChart</Code> and{" "}
+            <Code>Pie</Code>. Use this when the question is share, not change
+            over time.
+          </>
+        }
+      >
+        <ChildSection
           id="chart-pie-default"
           title="Default"
           description={
@@ -1031,38 +1029,38 @@ export function ChartsPage() {
               Use this for a simple breakdown.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Visitors by browser"
-                  config={pieChartExampleConfig}
-                  layout="polar"
-                >
-                  <PieChart>
-                    <Pie
-                      data={pieChartExampleData}
-                      dataKey="visitors"
-                      nameKey="browser"
-                    />
-                  </PieChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Visitors by browser"
+                    config={pieChartExampleConfig}
+                    layout="polar"
+                  >
+                    <PieChart>
+                      <Pie
+                        data={pieChartExampleData}
+                        dataKey="visitors"
+                        nameKey="browser"
+                      />
+                    </PieChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={pieSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={pieSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-pie-labels"
           title="With labels"
           description={
@@ -1071,39 +1069,39 @@ export function ChartsPage() {
               Use this when people should read the categories without a legend.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Visitors by browser"
-                  config={pieChartExampleConfig}
-                  layout="polar"
-                >
-                  <PieChart>
-                    <Pie
-                      data={pieChartExampleData}
-                      dataKey="visitors"
-                      label
-                      nameKey="browser"
-                    />
-                  </PieChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Visitors by browser"
+                    config={pieChartExampleConfig}
+                    layout="polar"
+                  >
+                    <PieChart>
+                      <Pie
+                        data={pieChartExampleData}
+                        dataKey="visitors"
+                        label
+                        nameKey="browser"
+                      />
+                    </PieChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={pieLabelsSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={pieLabelsSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-pie-donut"
           title="Donut"
           description={
@@ -1112,39 +1110,39 @@ export function ChartsPage() {
               hole in the middle makes the shares easier to scan.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Visitors by browser"
-                  config={pieChartExampleConfig}
-                  layout="polar"
-                >
-                  <PieChart>
-                    <Pie
-                      data={pieChartExampleData}
-                      dataKey="visitors"
-                      nameKey="browser"
-                      innerRadius={60}
-                    />
-                  </PieChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Visitors by browser"
+                    config={pieChartExampleConfig}
+                    layout="polar"
+                  >
+                    <PieChart>
+                      <Pie
+                        data={pieChartExampleData}
+                        dataKey="visitors"
+                        nameKey="browser"
+                        innerRadius={60}
+                      />
+                    </PieChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={pieDonutSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={pieDonutSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-pie-donut-text"
           title="Donut with text"
           description={
@@ -1154,88 +1152,88 @@ export function ChartsPage() {
               the breakdown.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Visitors by browser"
-                  config={pieChartExampleConfig}
-                  layout="polar"
-                >
-                  <PieChart>
-                    <Pie
-                      data={pieChartExampleData}
-                      dataKey="visitors"
-                      nameKey="browser"
-                      innerRadius={60}
-                      strokeWidth={5}
-                    >
-                      <Label
-                        content={({ viewBox }) => {
-                          const totalVisitors = pieChartExampleData.reduce(
-                            (sum, item) => sum + item.visitors,
-                            0,
-                          );
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Visitors by browser"
+                    config={pieChartExampleConfig}
+                    layout="polar"
+                  >
+                    <PieChart>
+                      <Pie
+                        data={pieChartExampleData}
+                        dataKey="visitors"
+                        nameKey="browser"
+                        innerRadius={60}
+                        strokeWidth={5}
+                      >
+                        <Label
+                          content={({ viewBox }) => {
+                            const totalVisitors = pieChartExampleData.reduce(
+                              (sum, item) => sum + item.visitors,
+                              0,
+                            );
 
-                          if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                            return (
-                              <text
-                                x={viewBox.cx}
-                                y={viewBox.cy}
-                                textAnchor="middle"
-                                dominantBaseline="middle"
-                              >
-                                <tspan
+                            if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                              return (
+                                <text
                                   x={viewBox.cx}
                                   y={viewBox.cy}
-                                  className="fill-foreground text-3xl font-bold"
+                                  textAnchor="middle"
+                                  dominantBaseline="middle"
                                 >
-                                  {totalVisitors.toLocaleString()}
-                                </tspan>
-                                <tspan
-                                  x={viewBox.cx}
-                                  y={(viewBox.cy || 0) + 24}
-                                  className="fill-muted-foreground"
-                                >
-                                  Visitors
-                                </tspan>
-                              </text>
-                            );
-                          }
-                        }}
-                      />
-                    </Pie>
-                  </PieChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                                  <tspan
+                                    x={viewBox.cx}
+                                    y={viewBox.cy}
+                                    className="fill-foreground text-3xl font-bold"
+                                  >
+                                    {totalVisitors.toLocaleString()}
+                                  </tspan>
+                                  <tspan
+                                    x={viewBox.cx}
+                                    y={(viewBox.cy || 0) + 24}
+                                    className="fill-muted-foreground"
+                                  >
+                                    Visitors
+                                  </tspan>
+                                </text>
+                              );
+                            }
+                          }}
+                        />
+                      </Pie>
+                    </PieChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={pieDonutTextSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+              <Code
+                variant="block"
+                language="tsx"
+                code={pieDonutTextSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="chart-radar" label="Radar">
-        <PageSectionHeader
-          title="Radar"
-          description={
-            <>
-              Compares several axes at once using <Code>RadarChart</Code> and{" "}
-              <Code>Radar</Code>. Use this for a profile of scores, not a time
-              series.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="chart-radar"
+        title="Radar"
+        description={
+          <>
+            Compares several axes at once using <Code>RadarChart</Code> and{" "}
+            <Code>Radar</Code>. Use this for a profile of scores, not a time
+            series.
+          </>
+        }
+      >
+        <ChildSection
           id="chart-radar-default"
           title="Default"
           description={
@@ -1244,40 +1242,40 @@ export function ChartsPage() {
               <Code>PolarGrid</Code>. Use this for a single profile.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly device profile"
-                  config={radarChartExampleConfig}
-                  layout="polar"
-                >
-                  <RadarChart data={radarChartExampleData}>
-                    <PolarAngleAxis dataKey="month" />
-                    <PolarGrid />
-                    <Radar
-                      dataKey="desktop"
-                      fill="var(--color-desktop)"
-                      fillOpacity={0.6}
-                    />
-                  </RadarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly device profile"
+                    config={radarChartExampleConfig}
+                    layout="polar"
+                  >
+                    <RadarChart data={radarChartExampleData}>
+                      <PolarAngleAxis dataKey="month" />
+                      <PolarGrid />
+                      <Radar
+                        dataKey="desktop"
+                        fill="var(--color-desktop)"
+                        fillOpacity={0.6}
+                      />
+                    </RadarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={radarSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={radarSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-radar-dots"
           title="With dots"
           description={
@@ -1287,41 +1285,41 @@ export function ChartsPage() {
               stand out.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly device profile"
-                  config={radarChartExampleConfig}
-                  layout="polar"
-                >
-                  <RadarChart data={radarChartExampleData}>
-                    <PolarAngleAxis dataKey="month" />
-                    <PolarGrid />
-                    <Radar
-                      dataKey="desktop"
-                      fill="var(--color-desktop)"
-                      fillOpacity={0.6}
-                      dot={{ r: 4, fillOpacity: 1 }}
-                    />
-                  </RadarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly device profile"
+                    config={radarChartExampleConfig}
+                    layout="polar"
+                  >
+                    <RadarChart data={radarChartExampleData}>
+                      <PolarAngleAxis dataKey="month" />
+                      <PolarGrid />
+                      <Radar
+                        dataKey="desktop"
+                        fill="var(--color-desktop)"
+                        fillOpacity={0.6}
+                        dot={{ r: 4, fillOpacity: 1 }}
+                      />
+                    </RadarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={radarDotsSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={radarDotsSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-radar-lines"
           title="Lines"
           description={
@@ -1331,49 +1329,49 @@ export function ChartsPage() {
               the comparison.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly users by device"
-                  config={radarChartExampleConfig}
-                  layout="polar"
-                >
-                  <RadarChart data={radarChartExampleData}>
-                    <PolarAngleAxis dataKey="month" />
-                    <PolarGrid radialLines={false} />
-                    <Radar
-                      dataKey="desktop"
-                      fill="var(--color-desktop)"
-                      fillOpacity={0}
-                      stroke="var(--color-desktop)"
-                      strokeWidth={2}
-                    />
-                    <Radar
-                      dataKey="mobile"
-                      fill="var(--color-mobile)"
-                      fillOpacity={0}
-                      stroke="var(--color-mobile)"
-                      strokeWidth={2}
-                    />
-                  </RadarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly users by device"
+                    config={radarChartExampleConfig}
+                    layout="polar"
+                  >
+                    <RadarChart data={radarChartExampleData}>
+                      <PolarAngleAxis dataKey="month" />
+                      <PolarGrid radialLines={false} />
+                      <Radar
+                        dataKey="desktop"
+                        fill="var(--color-desktop)"
+                        fillOpacity={0}
+                        stroke="var(--color-desktop)"
+                        strokeWidth={2}
+                      />
+                      <Radar
+                        dataKey="mobile"
+                        fill="var(--color-mobile)"
+                        fillOpacity={0}
+                        stroke="var(--color-mobile)"
+                        strokeWidth={2}
+                      />
+                    </RadarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={radarLinesSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={radarLinesSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-radar-multiple"
           title="Multiple"
           description={
@@ -1382,58 +1380,58 @@ export function ChartsPage() {
               when comparing two profiles on the same axes.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly users by device"
-                  config={radarChartExampleConfig}
-                  layout="polar"
-                >
-                  <RadarChart data={radarChartExampleData}>
-                    <PolarAngleAxis dataKey="month" />
-                    <PolarGrid />
-                    <Radar
-                      dataKey="desktop"
-                      fill="var(--color-desktop)"
-                      fillOpacity={0.6}
-                    />
-                    <Radar
-                      dataKey="mobile"
-                      fill="var(--color-mobile)"
-                      fillOpacity={0.6}
-                    />
-                  </RadarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly users by device"
+                    config={radarChartExampleConfig}
+                    layout="polar"
+                  >
+                    <RadarChart data={radarChartExampleData}>
+                      <PolarAngleAxis dataKey="month" />
+                      <PolarGrid />
+                      <Radar
+                        dataKey="desktop"
+                        fill="var(--color-desktop)"
+                        fillOpacity={0.6}
+                      />
+                      <Radar
+                        dataKey="mobile"
+                        fill="var(--color-mobile)"
+                        fillOpacity={0.6}
+                      />
+                    </RadarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={radarMultipleSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+              <Code
+                variant="block"
+                language="tsx"
+                code={radarMultipleSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="chart-radial" label="Radial">
-        <PageSectionHeader
-          title="Radial"
-          description={
-            <>
-              Shows a total or progress in a ring using{" "}
-              <Code>RadialBarChart</Code> and <Code>RadialBar</Code>. Use this
-              for a compact score, not a detailed breakdown.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="chart-radial"
+        title="Radial"
+        description={
+          <>
+            Shows a total or progress in a ring using{" "}
+            <Code>RadialBarChart</Code> and <Code>RadialBar</Code>. Use this for
+            a compact score, not a detailed breakdown.
+          </>
+        }
+      >
+        <ChildSection
           id="chart-radial-default"
           title="Default"
           description={
@@ -1442,42 +1440,42 @@ export function ChartsPage() {
               <Code>background</Code>. Use this for a simple score or count.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Visitors by browser"
-                  config={radialDefaultChartExampleConfig}
-                  layout="polar"
-                >
-                  <RadialBarChart
-                    data={radialDefaultChartExampleData}
-                    innerRadius={30}
-                    outerRadius={110}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Visitors by browser"
+                    config={radialDefaultChartExampleConfig}
+                    layout="polar"
                   >
-                    <RadialBar
-                      dataKey="visitors"
-                      fill="var(--color-visitors)"
-                      background
-                    />
-                  </RadialBarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <RadialBarChart
+                      data={radialDefaultChartExampleData}
+                      innerRadius={30}
+                      outerRadius={110}
+                    >
+                      <RadialBar
+                        dataKey="visitors"
+                        fill="var(--color-visitors)"
+                        background
+                      />
+                    </RadialBarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={radialSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={radialSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-radial-text"
           title="With text"
           description={
@@ -1487,92 +1485,92 @@ export function ChartsPage() {
               in the hole.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Chrome visitors"
-                  config={radialDefaultChartExampleConfig}
-                  layout="polar"
-                >
-                  <RadialBarChart
-                    data={radialTextChartExampleData}
-                    startAngle={0}
-                    endAngle={250}
-                    outerRadius={90}
-                    innerRadius={80}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Chrome visitors"
+                    config={radialDefaultChartExampleConfig}
+                    layout="polar"
                   >
-                    <PolarGrid
-                      gridType="circle"
-                      radialLines={false}
-                      stroke="none"
-                      className="first:fill-muted last:fill-background"
-                      polarRadius={[90, 80]}
-                    />
-                    <RadialBar
-                      dataKey="visitors"
-                      fill="var(--color-visitors)"
-                      background
-                      cornerRadius={10}
-                    />
-                    <PolarRadiusAxis
-                      tick={false}
-                      tickLine={false}
-                      axisLine={false}
+                    <RadialBarChart
+                      data={radialTextChartExampleData}
+                      startAngle={0}
+                      endAngle={250}
+                      outerRadius={90}
+                      innerRadius={80}
                     >
-                      <Label
-                        content={({ viewBox }) => {
-                          if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                            return (
-                              <text
-                                x={viewBox.cx}
-                                y={viewBox.cy}
-                                textAnchor="middle"
-                                dominantBaseline="middle"
-                              >
-                                <tspan
+                      <PolarGrid
+                        gridType="circle"
+                        radialLines={false}
+                        stroke="none"
+                        className="first:fill-muted last:fill-background"
+                        polarRadius={[90, 80]}
+                      />
+                      <RadialBar
+                        dataKey="visitors"
+                        fill="var(--color-visitors)"
+                        background
+                        cornerRadius={10}
+                      />
+                      <PolarRadiusAxis
+                        tick={false}
+                        tickLine={false}
+                        axisLine={false}
+                      >
+                        <Label
+                          content={({ viewBox }) => {
+                            if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                              return (
+                                <text
                                   x={viewBox.cx}
                                   y={viewBox.cy}
-                                  className="fill-foreground text-4xl font-bold"
+                                  textAnchor="middle"
+                                  dominantBaseline="middle"
                                 >
-                                  {radialTextChartExampleData
-                                    .reduce(
-                                      (sum, item) => sum + item.visitors,
-                                      0,
-                                    )
-                                    .toLocaleString()}
-                                </tspan>
-                                <tspan
-                                  x={viewBox.cx}
-                                  y={(viewBox.cy || 0) + 24}
-                                  className="fill-muted-foreground"
-                                >
-                                  Visitors
-                                </tspan>
-                              </text>
-                            );
-                          }
-                        }}
-                      />
-                    </PolarRadiusAxis>
-                  </RadialBarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                                  <tspan
+                                    x={viewBox.cx}
+                                    y={viewBox.cy}
+                                    className="fill-foreground text-4xl font-bold"
+                                  >
+                                    {radialTextChartExampleData
+                                      .reduce(
+                                        (sum, item) => sum + item.visitors,
+                                        0,
+                                      )
+                                      .toLocaleString()}
+                                  </tspan>
+                                  <tspan
+                                    x={viewBox.cx}
+                                    y={(viewBox.cy || 0) + 24}
+                                    className="fill-muted-foreground"
+                                  >
+                                    Visitors
+                                  </tspan>
+                                </text>
+                              );
+                            }
+                          }}
+                        />
+                      </PolarRadiusAxis>
+                    </RadialBarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={radialTextSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={radialTextSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-radial-stacked"
           title="Stacked"
           description={
@@ -1582,105 +1580,106 @@ export function ChartsPage() {
               parts.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Visitors by device"
-                  config={radialStackedChartExampleConfig}
-                  layout="polar"
-                >
-                  <RadialBarChart
-                    data={radialStackedChartExampleData}
-                    endAngle={180}
-                    innerRadius={80}
-                    outerRadius={110}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Visitors by device"
+                    config={radialStackedChartExampleConfig}
+                    layout="polar"
                   >
-                    <RadialBar
-                      dataKey="mobile"
-                      fill="var(--color-mobile)"
-                      stackId="a"
-                      cornerRadius={5}
-                      className="stroke-transparent stroke-2"
-                    />
-                    <RadialBar
-                      dataKey="desktop"
-                      stackId="a"
-                      cornerRadius={5}
-                      fill="var(--color-desktop)"
-                      className="stroke-transparent stroke-2"
-                    />
-                    <PolarRadiusAxis
-                      tick={false}
-                      tickLine={false}
-                      axisLine={false}
+                    <RadialBarChart
+                      data={radialStackedChartExampleData}
+                      endAngle={180}
+                      innerRadius={80}
+                      outerRadius={110}
                     >
-                      <Label
-                        content={({ viewBox }) => {
-                          const totalVisitors =
-                            radialStackedChartExampleData.reduce(
-                              (sum, item) => sum + item.desktop + item.mobile,
-                              0,
-                            );
-
-                          if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                            return (
-                              <text
-                                x={viewBox.cx}
-                                y={viewBox.cy}
-                                textAnchor="middle"
-                              >
-                                <tspan
-                                  x={viewBox.cx}
-                                  y={(viewBox.cy || 0) - 16}
-                                  className="fill-foreground text-2xl font-bold"
-                                >
-                                  {totalVisitors.toLocaleString()}
-                                </tspan>
-                                <tspan
-                                  x={viewBox.cx}
-                                  y={(viewBox.cy || 0) + 4}
-                                  className="fill-muted-foreground"
-                                >
-                                  Visitors
-                                </tspan>
-                              </text>
-                            );
-                          }
-                        }}
+                      <RadialBar
+                        dataKey="mobile"
+                        fill="var(--color-mobile)"
+                        stackId="a"
+                        cornerRadius={5}
+                        className="stroke-transparent stroke-2"
                       />
-                    </PolarRadiusAxis>
-                  </RadialBarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                      <RadialBar
+                        dataKey="desktop"
+                        stackId="a"
+                        cornerRadius={5}
+                        fill="var(--color-desktop)"
+                        className="stroke-transparent stroke-2"
+                      />
+                      <PolarRadiusAxis
+                        tick={false}
+                        tickLine={false}
+                        axisLine={false}
+                      >
+                        <Label
+                          content={({ viewBox }) => {
+                            const totalVisitors =
+                              radialStackedChartExampleData.reduce(
+                                (sum, item) => sum + item.desktop + item.mobile,
+                                0,
+                              );
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={radialStackedSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+                            if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                              return (
+                                <text
+                                  x={viewBox.cx}
+                                  y={viewBox.cy}
+                                  textAnchor="middle"
+                                >
+                                  <tspan
+                                    x={viewBox.cx}
+                                    y={(viewBox.cy || 0) - 16}
+                                    className="fill-foreground text-2xl font-bold"
+                                  >
+                                    {totalVisitors.toLocaleString()}
+                                  </tspan>
+                                  <tspan
+                                    x={viewBox.cx}
+                                    y={(viewBox.cy || 0) + 4}
+                                    className="fill-muted-foreground"
+                                  >
+                                    Visitors
+                                  </tspan>
+                                </text>
+                              );
+                            }
+                          }}
+                        />
+                      </PolarRadiusAxis>
+                    </RadialBarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-      <PageSection id="chart-tooltip" label="Tooltip">
-        <PageSectionHeader
-          title="Tooltip"
-          description={
-            <>
-              Shows exact values on hover and keyboard navigation using{" "}
-              <Code>ChartTooltip</Code> and <Code>ChartTooltipContent</Code>.
-              This example sets <Code>indicator=&quot;line&quot;</Code> and{" "}
-              <Code>defaultIndex</Code>. Use this when people need the exact
-              number without a table.
-            </>
-          }
-        />
+              <Code
+                variant="block"
+                language="tsx"
+                code={radialStackedSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
+
+      <MainSection
+        id="chart-tooltip"
+        title="Tooltip"
+        description={
+          <>
+            Shows exact values on hover and keyboard navigation using{" "}
+            <Code>ChartTooltip</Code> and <Code>ChartTooltipContent</Code>. This
+            example sets <Code>indicator=&quot;line&quot;</Code> and{" "}
+            <Code>defaultIndex</Code>. Use this when people need the exact
+            number without a table.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Card>
@@ -1722,19 +1721,19 @@ export function ChartsPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="chart-legend" label="Legend">
-        <PageSectionHeader
-          title="Legend"
-          description={
-            <>
-              Names the series using <Code>ChartLegend</Code> and{" "}
-              <Code>ChartLegendContent</Code>. Use this when colour alone is not
-              enough to tell the series apart.
-            </>
-          }
-        />
+      <MainSection
+        id="chart-legend"
+        title="Legend"
+        description={
+          <>
+            Names the series using <Code>ChartLegend</Code> and{" "}
+            <Code>ChartLegendContent</Code>. Use this when colour alone is not
+            enough to tell the series apart.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Card>
@@ -1780,15 +1779,14 @@ export function ChartsPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="chart-axis" label="Axis">
-        <PageSectionHeader
-          title="Axis"
-          description="Labels the categories and values. Use the axis people need to read the chart; hide the rest."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="chart-axis"
+        title="Axis"
+        description="Labels the categories and values. Use the axis people need to read the chart; hide the rest."
+      >
+        <ChildSection
           id="chart-axis-x"
           title="X axis"
           description={
@@ -1797,52 +1795,52 @@ export function ChartsPage() {
               of the chart names the groups or months.
             </>
           }
-        />
-        <ComponentExample className="mb-10">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly desktop users"
-                  config={singleBarChartExampleConfig}
-                >
-                  <BarChart
-                    data={singleBarChartExampleData}
-                    margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly desktop users"
+                    config={singleBarChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      tickMargin={10}
-                      axisLine={false}
-                      tickFormatter={(value) =>
-                        typeof value === "string"
-                          ? value.slice(0, 3)
-                          : String(value).slice(0, 3)
-                      }
-                    />
-                    <Bar
-                      dataKey="desktop"
-                      fill="var(--color-desktop)"
-                      radius={8}
-                    />
-                  </BarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <BarChart
+                      data={singleBarChartExampleData}
+                      margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
+                        tickFormatter={(value) =>
+                          typeof value === "string"
+                            ? value.slice(0, 3)
+                            : String(value).slice(0, 3)
+                        }
+                      />
+                      <Bar
+                        dataKey="desktop"
+                        fill="var(--color-desktop)"
+                        radius={8}
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={axisXSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={axisXSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-axis-y"
           title="Y axis"
           description={
@@ -1851,65 +1849,65 @@ export function ChartsPage() {
               the scale on the left, not only on hover.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly desktop users"
-                  config={singleBarChartExampleConfig}
-                >
-                  <BarChart
-                    data={singleBarChartExampleData}
-                    margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly desktop users"
+                    config={singleBarChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      tickMargin={10}
-                      axisLine={false}
-                      tickFormatter={(value) =>
-                        typeof value === "string"
-                          ? value.slice(0, 3)
-                          : String(value).slice(0, 3)
-                      }
-                    />
-                    <YAxis tickLine={false} axisLine={false} tickMargin={8} />
-                    <Bar
-                      dataKey="desktop"
-                      fill="var(--color-desktop)"
-                      radius={8}
-                    />
-                  </BarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <BarChart
+                      data={singleBarChartExampleData}
+                      margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
+                        tickFormatter={(value) =>
+                          typeof value === "string"
+                            ? value.slice(0, 3)
+                            : String(value).slice(0, 3)
+                        }
+                      />
+                      <YAxis tickLine={false} axisLine={false} tickMargin={8} />
+                      <Bar
+                        dataKey="desktop"
+                        fill="var(--color-desktop)"
+                        radius={8}
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={axisYSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+              <Code
+                variant="block"
+                language="tsx"
+                code={axisYSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="chart-grid" label="Grid">
-        <PageSectionHeader
-          title="Grid"
-          description={
-            <>
-              Draws reference lines using <Code>CartesianGrid</Code>. Use the
-              lines that help reading; turn off the ones that add noise.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="chart-grid"
+        title="Grid"
+        description={
+          <>
+            Draws reference lines using <Code>CartesianGrid</Code>. Use the
+            lines that help reading; turn off the ones that add noise.
+          </>
+        }
+      >
+        <ChildSection
           id="chart-grid-x"
           title="X axis grid"
           description={
@@ -1919,53 +1917,53 @@ export function ChartsPage() {
               categories need a column to sit in.
             </>
           }
-        />
-        <ComponentExample className="mb-10">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly desktop users"
-                  config={singleBarChartExampleConfig}
-                >
-                  <BarChart
-                    data={singleBarChartExampleData}
-                    margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly desktop users"
+                    config={singleBarChartExampleConfig}
                   >
-                    <CartesianGrid vertical horizontal={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      tickMargin={10}
-                      axisLine={false}
-                      tickFormatter={(value) =>
-                        typeof value === "string"
-                          ? value.slice(0, 3)
-                          : String(value).slice(0, 3)
-                      }
-                    />
-                    <YAxis tickLine={false} axisLine={false} tickMargin={8} />
-                    <Bar
-                      dataKey="desktop"
-                      fill="var(--color-desktop)"
-                      radius={8}
-                    />
-                  </BarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <BarChart
+                      data={singleBarChartExampleData}
+                      margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
+                    >
+                      <CartesianGrid vertical horizontal={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
+                        tickFormatter={(value) =>
+                          typeof value === "string"
+                            ? value.slice(0, 3)
+                            : String(value).slice(0, 3)
+                        }
+                      />
+                      <YAxis tickLine={false} axisLine={false} tickMargin={8} />
+                      <Bar
+                        dataKey="desktop"
+                        fill="var(--color-desktop)"
+                        radius={8}
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={gridXSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={gridXSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-grid-y"
           title="Y axis grid"
           description={
@@ -1975,53 +1973,53 @@ export function ChartsPage() {
               reading values across the chart.
             </>
           }
-        />
-        <ComponentExample className="mb-10">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly desktop users"
-                  config={singleBarChartExampleConfig}
-                >
-                  <BarChart
-                    data={singleBarChartExampleData}
-                    margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly desktop users"
+                    config={singleBarChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} horizontal />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      tickMargin={10}
-                      axisLine={false}
-                      tickFormatter={(value) =>
-                        typeof value === "string"
-                          ? value.slice(0, 3)
-                          : String(value).slice(0, 3)
-                      }
-                    />
-                    <YAxis tickLine={false} axisLine={false} tickMargin={8} />
-                    <Bar
-                      dataKey="desktop"
-                      fill="var(--color-desktop)"
-                      radius={8}
-                    />
-                  </BarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <BarChart
+                      data={singleBarChartExampleData}
+                      margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
+                    >
+                      <CartesianGrid vertical={false} horizontal />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
+                        tickFormatter={(value) =>
+                          typeof value === "string"
+                            ? value.slice(0, 3)
+                            : String(value).slice(0, 3)
+                        }
+                      />
+                      <YAxis tickLine={false} axisLine={false} tickMargin={8} />
+                      <Bar
+                        dataKey="desktop"
+                        fill="var(--color-desktop)"
+                        radius={8}
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={gridYSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={gridYSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-grid-none"
           title="No grid"
           description={
@@ -2032,60 +2030,60 @@ export function ChartsPage() {
               is already clear without reference lines.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly desktop users"
-                  config={singleBarChartExampleConfig}
-                >
-                  <BarChart
-                    data={singleBarChartExampleData}
-                    margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly desktop users"
+                    config={singleBarChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} horizontal={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      tickMargin={10}
-                      axisLine={false}
-                      tickFormatter={(value) =>
-                        typeof value === "string"
-                          ? value.slice(0, 3)
-                          : String(value).slice(0, 3)
-                      }
-                    />
-                    <YAxis tickLine={false} axisLine={false} tickMargin={8} />
-                    <Bar
-                      dataKey="desktop"
-                      fill="var(--color-desktop)"
-                      radius={8}
-                    />
-                  </BarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <BarChart
+                      data={singleBarChartExampleData}
+                      margin={{ top: 8, right: 8, bottom: 0, left: 0 }}
+                    >
+                      <CartesianGrid vertical={false} horizontal={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
+                        tickFormatter={(value) =>
+                          typeof value === "string"
+                            ? value.slice(0, 3)
+                            : String(value).slice(0, 3)
+                        }
+                      />
+                      <YAxis tickLine={false} axisLine={false} tickMargin={8} />
+                      <Bar
+                        dataKey="desktop"
+                        fill="var(--color-desktop)"
+                        radius={8}
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={gridNoneSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+              <Code
+                variant="block"
+                language="tsx"
+                code={gridNoneSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="chart-layout" label="Layout">
-        <PageSectionHeader
-          title="Layout"
-          description="Puts the chart in a card with a title or a headline number."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="chart-layout"
+        title="Layout"
+        description="Puts the chart in a card with a title or a headline number."
+      >
+        <ChildSection
           id="chart-with-header"
           title="With header"
           description={
@@ -2095,58 +2093,58 @@ export function ChartsPage() {
               and the extra copy sits in the help icon.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardHeader tooltip>
-                <CardTitle>Desktop traffic</CardTitle>
-                <CardDescription>
-                  Monthly sessions by device type for the current year.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ChartContainer
-                  title="Monthly desktop traffic"
-                  config={singleBarChartExampleConfig}
-                >
-                  <BarChart
-                    data={singleBarChartExampleData}
-                    margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardHeader tooltip>
+                  <CardTitle>Desktop traffic</CardTitle>
+                  <CardDescription>
+                    Monthly sessions by device type for the current year.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ChartContainer
+                    title="Monthly desktop traffic"
+                    config={singleBarChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      tickMargin={10}
-                      axisLine={false}
-                      tickFormatter={(value) =>
-                        typeof value === "string"
-                          ? value.slice(0, 3)
-                          : String(value).slice(0, 3)
-                      }
-                    />
-                    <Bar
-                      dataKey="desktop"
-                      fill="var(--color-desktop)"
-                      radius={8}
-                    />
-                  </BarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <BarChart
+                      data={singleBarChartExampleData}
+                      margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
+                        tickFormatter={(value) =>
+                          typeof value === "string"
+                            ? value.slice(0, 3)
+                            : String(value).slice(0, 3)
+                        }
+                      />
+                      <Bar
+                        dataKey="desktop"
+                        fill="var(--color-desktop)"
+                        radius={8}
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={layoutHeaderSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={layoutHeaderSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-with-metric"
           title="With metric"
           description={
@@ -2156,59 +2154,59 @@ export function ChartsPage() {
               readable before the chart.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Card>
-              <CardContent>
-                <ChartMetric
-                  value={singleBarChartExampleData.reduce(
-                    (sum, d) => sum + d.desktop,
-                    0,
-                  )}
-                  label="Total desktop views"
-                />
-                <ChartContainer
-                  title="Monthly desktop traffic"
-                  config={singleBarChartExampleConfig}
-                >
-                  <BarChart
-                    data={singleBarChartExampleData}
-                    margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardContent>
+                  <ChartMetric
+                    value={singleBarChartExampleData.reduce(
+                      (sum, d) => sum + d.desktop,
+                      0,
+                    )}
+                    label="Total desktop views"
+                  />
+                  <ChartContainer
+                    title="Monthly desktop traffic"
+                    config={singleBarChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      tickMargin={10}
-                      axisLine={false}
-                      tickFormatter={(value) =>
-                        typeof value === "string"
-                          ? value.slice(0, 3)
-                          : String(value).slice(0, 3)
-                      }
-                    />
-                    <Bar
-                      dataKey="desktop"
-                      fill="var(--color-desktop)"
-                      radius={8}
-                    />
-                  </BarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <BarChart
+                      data={singleBarChartExampleData}
+                      margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
+                        tickFormatter={(value) =>
+                          typeof value === "string"
+                            ? value.slice(0, 3)
+                            : String(value).slice(0, 3)
+                        }
+                      />
+                      <Bar
+                        dataKey="desktop"
+                        fill="var(--color-desktop)"
+                        radius={8}
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={layoutMetricSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+              <Code
+                variant="block"
+                language="tsx"
+                code={layoutMetricSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="chart-with-header-and-metric"
           title="With header and metric"
           description={
@@ -2218,70 +2216,71 @@ export function ChartsPage() {
               and a headline number.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Card>
-              <CardHeader tooltip>
-                <CardTitle>Desktop traffic</CardTitle>
-                <CardDescription>
-                  Monthly sessions by device type for the current year.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ChartMetric
-                  value={singleBarChartExampleData.reduce(
-                    (sum, d) => sum + d.desktop,
-                    0,
-                  )}
-                  label="Total desktop views"
-                />
-                <ChartContainer
-                  title="Monthly desktop traffic"
-                  config={singleBarChartExampleConfig}
-                >
-                  <BarChart
-                    data={singleBarChartExampleData}
-                    margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Card>
+                <CardHeader tooltip>
+                  <CardTitle>Desktop traffic</CardTitle>
+                  <CardDescription>
+                    Monthly sessions by device type for the current year.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ChartMetric
+                    value={singleBarChartExampleData.reduce(
+                      (sum, d) => sum + d.desktop,
+                      0,
+                    )}
+                    label="Total desktop views"
+                  />
+                  <ChartContainer
+                    title="Monthly desktop traffic"
+                    config={singleBarChartExampleConfig}
                   >
-                    <CartesianGrid vertical={false} />
-                    <XAxis
-                      dataKey="month"
-                      tickLine={false}
-                      tickMargin={10}
-                      axisLine={false}
-                      tickFormatter={(value) =>
-                        typeof value === "string"
-                          ? value.slice(0, 3)
-                          : String(value).slice(0, 3)
-                      }
-                    />
-                    <Bar
-                      dataKey="desktop"
-                      fill="var(--color-desktop)"
-                      radius={8}
-                    />
-                  </BarChart>
-                </ChartContainer>
-              </CardContent>
-            </Card>
+                    <BarChart
+                      data={singleBarChartExampleData}
+                      margin={{ top: 8, right: 0, bottom: 0, left: 0 }}
+                    >
+                      <CartesianGrid vertical={false} />
+                      <XAxis
+                        dataKey="month"
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
+                        tickFormatter={(value) =>
+                          typeof value === "string"
+                            ? value.slice(0, 3)
+                            : String(value).slice(0, 3)
+                        }
+                      />
+                      <Bar
+                        dataKey="desktop"
+                        fill="var(--color-desktop)"
+                        radius={8}
+                      />
+                    </BarChart>
+                  </ChartContainer>
+                </CardContent>
+              </Card>
 
-            <Code
-              variant="block"
-              language="tsx"
-              code={layoutHeaderMetricSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+              <Code
+                variant="block"
+                language="tsx"
+                code={layoutHeaderMetricSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use ChartContainer and config for colour. Do not restyle the chart chrome."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use ChartContainer and config for colour. Do not restyle the chart chrome."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -2326,13 +2325,9 @@ export function ChartsPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Chart."
-        />
+      <MainSection id="api" title="API" description="Behaviour props on Chart.">
         <DocsApiTable
           rows={[
             {
@@ -2374,9 +2369,8 @@ export function ChartsPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -2392,13 +2386,13 @@ export function ChartsPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a different control when the Chart is the wrong shape for the job."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a different control when the Chart is the wrong shape for the job."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/table">Table</DocsPageLink> — when
@@ -2409,7 +2403,7 @@ export function ChartsPage() {
             chart needs a title, description, or metric around it.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

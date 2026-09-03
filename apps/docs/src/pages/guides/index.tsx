@@ -1,21 +1,17 @@
-import { Link } from "react-router-dom"
-import { buttonVariants } from "@gecko/ui/components/button"
-import { guidesPages } from "@/pages/gallery-data"
+import { Link } from "react-router-dom";
+import { buttonVariants } from "@gecko/ui/components/button";
+import { HeaderSection, MainSection } from "@/components/layout/docs-section";
+import { guidesPages } from "@/pages/gallery-data";
 
 export function GuidesIndexPage() {
   return (
-    <div className="space-y-12">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">Guides</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          How to style, choose, and compose Gecko Elements components.
-        </p>
-      </div>
+    <div>
+      <HeaderSection
+        title="Guides"
+        description="How to style, choose, and compose Gecko Elements components."
+      />
 
-      <section aria-labelledby="guides-gallery-heading">
-        <h2 id="guides-gallery-heading" className="sr-only">
-          Available guides
-        </h2>
+      <MainSection title="Available guides">
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {guidesPages.map(({ name, description, path }) => (
             <li key={path}>
@@ -27,7 +23,10 @@ export function GuidesIndexPage() {
                 <p className="mt-3">
                   <Link
                     to={path}
-                    className={buttonVariants({ variant: "secondary", size: "sm" })}
+                    className={buttonVariants({
+                      variant: "secondary",
+                      size: "sm",
+                    })}
                   >
                     View
                   </Link>
@@ -36,7 +35,7 @@ export function GuidesIndexPage() {
             </li>
           ))}
         </ul>
-      </section>
+      </MainSection>
     </div>
-  )
+  );
 }

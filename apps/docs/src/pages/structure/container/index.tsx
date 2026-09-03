@@ -1,10 +1,9 @@
-import { PageSection } from "@/components/layout/page-section";
-import { DocsApiTable } from "@/components/layout/docs-api-table";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
@@ -19,60 +18,58 @@ export function StructureContainerPage() {
 </Container>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Page container"
-          description="Container wraps the body of a standard page with consistent outer padding and background."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Page container"
+        description="Container wraps the body of a standard page with consistent outer padding and background."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Container around the main body of each standard page so
-              padding and background stay consistent. Place it below the{" "}
-              <DocsPageLink to="/structure/header">Page Header</DocsPageLink>.
-              Prefer a{" "}
-              <DocsPageLink to="/components/scroll-area">
-                Scroll area
-              </DocsPageLink>{" "}
-              for overflow inside constrained layouts rather than native page
-              scroll.
-              <br />
-              <br />
-              Avoid using it on Inbox — that screen uses a custom layout. Avoid
-              using it inside a{" "}
-              <DocsPageLink to="/components/card">Card</DocsPageLink>, a sheet,
-              or a dialog. Those regions already own their own spacing.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Container around the main body of each standard page so padding
+            and background stay consistent. Place it below the{" "}
+            <DocsPageLink to="/structure/header">Page Header</DocsPageLink>.
+            Prefer a{" "}
+            <DocsPageLink to="/components/scroll-area">
+              Scroll area
+            </DocsPageLink>{" "}
+            for overflow inside constrained layouts rather than native page
+            scroll.
+            <br />
+            <br />
+            Avoid using it on Inbox — that screen uses a custom layout. Avoid
+            using it inside a{" "}
+            <DocsPageLink to="/components/card">Card</DocsPageLink>, a sheet, or
+            a dialog. Those regions already own their own spacing.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Container to wrap page content."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="example" label="Example">
-        <PageSectionHeader
-          title="Example"
-          description="A Container wrapping typical page content. Use this when the page needs standard outer padding and background."
-        />
-
+      <MainSection
+        id="example"
+        title="Example"
+        description="A Container wrapping typical page content. Use this when the page needs standard outer padding and background."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Container className="border border-border">
@@ -96,13 +93,13 @@ export function StructureContainerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use Container for consistent page-level spacing, not component styling."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use Container for consistent page-level spacing, not component styling."
+      >
         <DocsDoDont
           doItems={[
             <>Wrap the main body of every standard page in one Container.</>,
@@ -123,38 +120,38 @@ export function StructureContainerPage() {
             <>Don’t duplicate its outer padding on child content.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader title="API" description="Props for Container." />
-        <PageSubsectionHeader
+      <MainSection id="api" title="API" description="Props for Container.">
+        <ChildSection
           id="api-container"
           title="Container"
           description="The standard page-body wrapper. It accepts native div props."
-        />
-        <DocsApiTable
-          aria-label="Container API properties"
-          rows={[
-            {
-              name: "children",
-              type: "React.ReactNode",
-              description: "Supplies the page sections and content layouts.",
-            },
-            {
-              name: "className",
-              type: "string",
-              description:
-                "Adds layout classes without replacing the standard page padding and background.",
-            },
-          ]}
-        />
-      </PageSection>
+        >
+          <DocsApiTable
+            aria-label="Container API properties"
+            rows={[
+              {
+                name: "children",
+                type: "React.ReactNode",
+                description: "Supplies the page sections and content layouts.",
+              },
+              {
+                name: "className",
+                type: "string",
+                description:
+                  "Adds layout classes without replacing the standard page padding and background.",
+              },
+            ]}
+          />
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Pair Container with the page structure above it."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Pair Container with the page structure above it."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/structure/app-header">App Header</DocsPageLink> —
@@ -169,7 +166,7 @@ export function StructureContainerPage() {
             for the page title, location, actions, and tabs.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

@@ -1,48 +1,47 @@
-import { ComponentExample } from "@/components/layout/component-example"
-import { DocsApiTable } from "@/components/layout/docs-api-table"
-import { DocsDoDont } from "@/components/layout/docs-do-dont"
-import { DocsExternalLink } from "@/components/layout/docs-external-link"
-import { DocsPageLink } from "@/components/layout/docs-page-link"
-import { PageSection } from "@/components/layout/page-section"
+import { ComponentExample } from "@/components/layout/component-example";
+import { DocsApiTable } from "@/components/layout/docs-api-table";
+import { DocsDoDont } from "@/components/layout/docs-do-dont";
+import { DocsExternalLink } from "@/components/layout/docs-external-link";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header"
-import { Code } from "@gecko/ui/components/code"
-import { MetricCard } from "@gecko/ui/components/metric-card"
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
+import { Code } from "@gecko/ui/components/code";
+import { MetricCard } from "@gecko/ui/components/metric-card";
 
 export function MetricCardPage() {
-  const baseTitle = "Median first response time"
-  const baseValue = "1m 28s"
-  const baseSeconds = 88
+  const baseTitle = "Median first response time";
+  const baseValue = "1m 28s";
+  const baseSeconds = 88;
 
   const formatSeconds = (seconds: number) => {
-    const s = Math.max(0, Math.round(seconds))
-    const m = Math.floor(s / 60)
-    const rem = s % 60
-    return `${m}m ${String(rem).padStart(2, "0")}s`
-  }
+    const s = Math.max(0, Math.round(seconds));
+    const m = Math.floor(s / 60);
+    const rem = s % 60;
+    return `${m}m ${String(rem).padStart(2, "0")}s`;
+  };
 
   const ordinal = (day: number) => {
-    const mod100 = day % 100
-    if (mod100 >= 11 && mod100 <= 13) return `${day}th`
-    const mod10 = day % 10
-    if (mod10 === 1) return `${day}st`
-    if (mod10 === 2) return `${day}nd`
-    if (mod10 === 3) return `${day}rd`
-    return `${day}th`
-  }
+    const mod100 = day % 100;
+    if (mod100 >= 11 && mod100 <= 13) return `${day}th`;
+    const mod10 = day % 10;
+    if (mod10 === 1) return `${day}st`;
+    if (mod10 === 2) return `${day}nd`;
+    if (mod10 === 3) return `${day}rd`;
+    return `${day}th`;
+  };
 
   const formatLongDate = (x: string | number) => {
-    const iso = typeof x === "string" ? x : String(x)
-    const d = new Date(`${iso}T00:00:00`)
+    const iso = typeof x === "string" ? x : String(x);
+    const d = new Date(`${iso}T00:00:00`);
     // Example: "Monday, 30th March"
-    const weekday = d.toLocaleDateString("en-GB", { weekday: "long" })
-    const day = ordinal(d.getDate())
-    const month = d.toLocaleDateString("en-GB", { month: "long" })
-    return `${weekday}, ${day} ${month}`
-  }
+    const weekday = d.toLocaleDateString("en-GB", { weekday: "long" });
+    const day = ordinal(d.getDate());
+    const month = d.toLocaleDateString("en-GB", { month: "long" });
+    return `${weekday}, ${day} ${month}`;
+  };
 
   // Week starting Monday 30th March 2026
   const week = [
@@ -53,11 +52,11 @@ export function MetricCardPage() {
     "2026-04-03",
     "2026-04-04",
     "2026-04-05",
-  ] as const
+  ] as const;
 
-  const importSnippet = `import { MetricCard } from "@gecko/ui/components/metric-card"`
+  const importSnippet = `import { MetricCard } from "@gecko/ui/components/metric-card"`;
 
-  const basicSnippet = `<MetricCard title="Median first response time" value="1m 28s" />`
+  const basicSnippet = `<MetricCard title="Median first response time" value="1m 28s" />`;
 
   const trendSnippet = `<MetricCard
   title="Median first response time"
@@ -68,7 +67,7 @@ export function MetricCardPage() {
     label: "3s",
     compareTo: "vs last week",
   }}
-/>`
+/>`;
 
   const sparklineSnippet = `<MetricCard
   title="Median first response time"
@@ -87,7 +86,7 @@ export function MetricCardPage() {
       { x: "2026-04-05", y: 79 },
     ],
   }}
-/>`
+/>`;
 
   const menuSnippet = `<MetricCard
   title="Median first response time"
@@ -96,80 +95,79 @@ export function MetricCardPage() {
     { id: "view", label: "View details" },
     { id: "export", label: "Export" },
   ]}
-/>`
+/>`;
 
   const helpSnippet = `<MetricCard
   title="Median first response time"
   value="1m 28s"
   helpText="The median time from the first inbound message to the first agent response in new conversations."
-/>`
+/>`;
 
   const detailSnippet = `<MetricCard
   title="Open rate"
   value="74%"
   detail="123 unique opens"
   description="% of delivered recipients who opened the message."
-/>`
+/>`;
 
   const descriptionSnippet = `<MetricCard
   title="Median first response time"
   value="1m 28s"
   description="The median time of your first response in new conversations, from the first inbound message to the first agent response."
-/>`
+/>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Metric card"
-          description="The Metric card shows a single headline number with optional trend, sparkline, help text, and actions. Use it on dashboards and summary views where one KPI needs quick context."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Metric card"
+        description="The Metric card shows a single headline number with optional trend, sparkline, help text, and actions. Use it on dashboards and summary views where one KPI needs quick context."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Metric card for a single KPI on dashboards, reporting, or an
-              individual product screen (for example an event’s success
-              metrics). Lay metric cards out in <strong>rows of three</strong>{" "}
-              inside{" "}
-              <DocsPageLink to="/structure/container">
-                Page container
-              </DocsPageLink>
-              . Add a trend,{" "}
-              <DocsPageLink to="/components/charts">Charts</DocsPageLink>{" "}
-              sparkline, or help when people need comparison or definition.
-              <br />
-              <br />
-              Avoid packing unrelated metrics into one card, or using Metric
-              card for detailed analysis — use a full chart or{" "}
-              <DocsPageLink to="/components/table">Table</DocsPageLink> instead.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Metric card for a single KPI on dashboards, reporting, or an
+            individual product screen (for example an event’s success metrics).
+            Lay metric cards out in <strong>rows of three</strong> inside{" "}
+            <DocsPageLink to="/structure/container">
+              Page container
+            </DocsPageLink>
+            . Add a trend,{" "}
+            <DocsPageLink to="/components/charts">Charts</DocsPageLink>{" "}
+            sparkline, or help when people need comparison or definition.
+            <br />
+            <br />
+            Avoid packing unrelated metrics into one card, or using Metric card
+            for detailed analysis — use a full chart or{" "}
+            <DocsPageLink to="/components/table">Table</DocsPageLink> instead.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import MetricCard to add a KPI summary card."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic" label="Basic">
-        <PageSectionHeader
-          title="Basic"
-          description="Title and value only. Use this when the number speaks for itself and no trend or extra context is needed."
-        />
+      <MainSection
+        id="basic"
+        title="Basic"
+        description="Title and value only. Use this when the number speaks for itself and no trend or extra context is needed."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="max-w-sm">
@@ -184,20 +182,20 @@ export function MetricCardPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="trend" label="Trend">
-        <PageSectionHeader
-          title="Trend"
-          description={
-            <>
-              Adds a directional indicator and comparison label using the{" "}
-              <Code>trend</Code> prop. Set <Code>direction</Code>,{" "}
-              <Code>sentiment</Code>, and <Code>label</Code> to show whether the
-              change is good or bad for this metric.
-            </>
-          }
-        />
+      <MainSection
+        id="trend"
+        title="Trend"
+        description={
+          <>
+            Adds a directional indicator and comparison label using the{" "}
+            <Code>trend</Code> prop. Set <Code>direction</Code>,{" "}
+            <Code>sentiment</Code>, and <Code>label</Code> to show whether the
+            change is good or bad for this metric.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-3">
@@ -240,20 +238,20 @@ export function MetricCardPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sparkline" label="Sparkline">
-        <PageSectionHeader
-          title="Sparkline"
-          description={
-            <>
-              Adds a small area chart using the <Code>sparkline</Code> prop.
-              Pass daily or periodic <Code>data</Code> points and optional{" "}
-              <Code>formatLabel</Code> / <Code>formatValue</Code> formatters for
-              the chart tooltip.
-            </>
-          }
-        />
+      <MainSection
+        id="sparkline"
+        title="Sparkline"
+        description={
+          <>
+            Adds a small area chart using the <Code>sparkline</Code> prop. Pass
+            daily or periodic <Code>data</Code> points and optional{" "}
+            <Code>formatLabel</Code> / <Code>formatValue</Code> formatters for
+            the chart tooltip.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-3">
@@ -324,19 +322,19 @@ export function MetricCardPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="menu" label="Options menu">
-        <PageSectionHeader
-          title="Options menu"
-          description={
-            <>
-              Adds a kebab menu using <Code>menuItems</Code>. Use this when
-              people need secondary actions such as export or drill-down without
-              leaving the dashboard.
-            </>
-          }
-        />
+      <MainSection
+        id="menu"
+        title="Options menu"
+        description={
+          <>
+            Adds a kebab menu using <Code>menuItems</Code>. Use this when people
+            need secondary actions such as export or drill-down without leaving
+            the dashboard.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="max-w-sm">
@@ -358,18 +356,18 @@ export function MetricCardPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="help" label="Help tooltip">
-        <PageSectionHeader
-          title="Help tooltip"
-          description={
-            <>
-              Adds a help icon with a <Code>helpText</Code> tooltip. Use this
-              when the metric name alone may not explain how it is calculated.
-            </>
-          }
-        />
+      <MainSection
+        id="help"
+        title="Help tooltip"
+        description={
+          <>
+            Adds a help icon with a <Code>helpText</Code> tooltip. Use this when
+            the metric name alone may not explain how it is calculated.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="max-w-sm">
@@ -388,19 +386,19 @@ export function MetricCardPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="detail" label="Detail">
-        <PageSectionHeader
-          title="Detail"
-          description={
-            <>
-              Adds supporting text beside the value using <Code>detail</Code>.
-              Use this for counts, units, or a secondary figure that sits next
-              to the headline number.
-            </>
-          }
-        />
+      <MainSection
+        id="detail"
+        title="Detail"
+        description={
+          <>
+            Adds supporting text beside the value using <Code>detail</Code>. Use
+            this for counts, units, or a secondary figure that sits next to the
+            headline number.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="max-w-sm">
@@ -420,19 +418,18 @@ export function MetricCardPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="description" label="Description">
-        <PageSectionHeader
-          title="Description"
-          description={
-            <>
-              Adds supporting text below the value using{" "}
-              <Code>description</Code>. Use this when the metric needs a short
-              explanation under the number.
-            </>
-          }
-        />
+      <MainSection
+        id="description"
+        title="Description"
+        description={
+          <>
+            Adds supporting text below the value using <Code>description</Code>.
+            Use this when the metric needs a short explanation under the number.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="max-w-sm">
@@ -451,13 +448,13 @@ export function MetricCardPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep each card focused on one metric and only add context that helps interpret it."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep each card focused on one metric and only add context that helps interpret it."
+      >
         <DocsDoDont
           doItems={[
             <>Lay Metric cards in rows of three on dashboards and reporting.</>,
@@ -492,13 +489,13 @@ export function MetricCardPage() {
             <>Don’t hide the primary metric action inside the options menu.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Metric card."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Metric card."
+      >
         <DocsApiTable
           rows={[
             {
@@ -640,9 +637,8 @@ export function MetricCardPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -655,13 +651,13 @@ export function MetricCardPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a related component when the content needs a different level of detail."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a related component when the content needs a different level of detail."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/card">Card</DocsPageLink> — for
@@ -672,7 +668,7 @@ export function MetricCardPage() {
             detailed trends, comparisons, and analysis.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
-  )
+  );
 }

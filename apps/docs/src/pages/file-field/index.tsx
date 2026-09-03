@@ -1,13 +1,13 @@
 import { ComponentExample } from "@/components/layout/component-example";
+import { RequiredForm } from "@/components/layout/required-form";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import {
   Field,
   FieldDescription,
@@ -17,6 +17,14 @@ import {
 import { FileInput } from "@gecko/ui/components/file-input";
 import { Code } from "@gecko/ui/components/code";
 import { Button } from "@gecko/ui/components/button";
+import { Controller } from "react-hook-form";
+import { z } from "zod";
+
+const fileFieldFormSchema = z.object({
+  supportingDocument: z.instanceof(File, {
+    message: "Choose a PDF to continue.",
+  }),
+});
 
 export function FileFieldPage() {
   const importSnippet = `import { FileInput } from "@gecko/ui/components/file-input"`;
@@ -81,74 +89,85 @@ export function FileFieldPage() {
   </FieldDescription>
 </Field>`;
 
-  const withinFormSnippet = `<form onSubmit={handleSubmit}>
-  <Field>
-    <FieldLabel htmlFor="form-supporting-document">
-      Supporting document
-    </FieldLabel>
-    <FileInput
-      id="form-supporting-document"
-      name="supportingDocument"
-      accept=".pdf"
-      aria-describedby="form-supporting-document-description"
-    />
-    <FieldDescription id="form-supporting-document-description">
-      PDF, up to 10 MB.
-    </FieldDescription>
-  </Field>
+  const withinFormSnippet = `const formSchema = z.object({
+  supportingDocument: z.instanceof(File, { message: "Choose a PDF to continue." }),
+})
+
+const form = useForm<z.infer<typeof formSchema>>({
+  resolver: zodResolver(formSchema),
+  defaultValues: { supportingDocument: undefined },
+})
+
+<form noValidate onSubmit={form.handleSubmit(onSubmit)}>
+  <Controller name="supportingDocument" control={form.control} render={({ field, fieldState }) => (
+    <Field data-invalid={fieldState.invalid}>
+      <FieldLabel htmlFor={field.name}>Supporting document</FieldLabel>
+      <FileInput
+        id={field.name}
+        name={field.name}
+        ref={field.ref}
+        onBlur={field.onBlur}
+        onChange={(event) => field.onChange(event.target.files?.[0])}
+        accept=".pdf"
+        required
+        aria-invalid={fieldState.invalid}
+      />
+      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+    </Field>
+  )} />
   <Button type="submit">Submit document</Button>
 </form>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="File field"
-          description="The File field is a native file picker. People choose a file from their device; it belongs in a form like any other field."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="File field"
+        description="The File field is a native file picker. People choose a file from their device; it belongs in a form like any other field."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use File field for basic native file selection inside a form. The
-              product owns validation and what happens to the selected files.
-              <br />
-              <br />
-              Use{" "}
-              <DocsPageLink to="/components/attachment">
-                Attachment
-              </DocsPageLink>{" "}
-              when upload progress, retry, completion, or removal belong in the
-              interface. Use{" "}
-              <DocsPageLink to="/components/drop-zone">Drop zone</DocsPageLink>{" "}
-              when dragging files into a larger surface is the main interaction.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use File field for basic native file selection inside a form. The
+            product owns validation and what happens to the selected files.
+            <br />
+            <br />
+            Use{" "}
+            <DocsPageLink to="/components/attachment">
+              Attachment
+            </DocsPageLink>{" "}
+            when upload progress, retry, completion, or removal belong in the
+            interface. Use{" "}
+            <DocsPageLink to="/components/drop-zone">Drop zone</DocsPageLink>{" "}
+            when dragging files into a larger surface is the main interaction.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import FileInput to add a file picker."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="A labelled native file picker with its accepted format and size explained before selection."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="A labelled native file picker with its accepted format and size explained before selection."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -174,15 +193,14 @@ export function FileFieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="states" label="States">
-        <PageSectionHeader
-          title="States"
-          description="The field can be unavailable or invalid. Use the state that matches whether the person can choose a file, and whether the value is valid."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="states"
+        title="States"
+        description="The field can be unavailable or invalid. Use the state that matches whether the person can choose a file, and whether the value is valid."
+      >
+        <ChildSection
           id="states-disabled"
           title="Disabled"
           description={
@@ -191,30 +209,30 @@ export function FileFieldPage() {
               when a file cannot be chosen yet.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field data-disabled>
-              <FieldLabel htmlFor="file-field-states-disabled">
-                Supporting document
-              </FieldLabel>
-              <FileInput
-                id="file-field-states-disabled"
-                name="supportingDocument"
-                disabled
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-disabled>
+                <FieldLabel htmlFor="file-field-states-disabled">
+                  Supporting document
+                </FieldLabel>
+                <FileInput
+                  id="file-field-states-disabled"
+                  name="supportingDocument"
+                  disabled
+                />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={disabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={disabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-error"
           title="Error"
           description={
@@ -224,46 +242,46 @@ export function FileFieldPage() {
               the chosen file is not valid.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field data-invalid>
-              <FieldLabel htmlFor="file-field-states-error">
-                Supporting document
-              </FieldLabel>
-              <FileInput
-                id="file-field-states-error"
-                name="supportingDocument"
-                aria-invalid
-                aria-describedby="file-field-states-error-message"
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-invalid>
+                <FieldLabel htmlFor="file-field-states-error">
+                  Supporting document
+                </FieldLabel>
+                <FileInput
+                  id="file-field-states-error"
+                  name="supportingDocument"
+                  aria-invalid
+                  aria-describedby="file-field-states-error-message"
+                />
+                <FieldError id="file-field-states-error-message">
+                  Choose a PDF smaller than 10 MB.
+                </FieldError>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={errorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-              <FieldError id="file-field-states-error-message">
-                Choose a PDF smaller than 10 MB.
-              </FieldError>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={errorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="sizing" label="Sizing">
-        <PageSectionHeader
-          title="Sizing"
-          description={
-            <>
-              Sets the field size using the <Code>size</Code> prop. Default is{" "}
-              <Code>md</Code>. Use the size that matches the form around it.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="sizing"
+        title="Sizing"
+        description={
+          <>
+            Sets the field size using the <Code>size</Code> prop. Default is{" "}
+            <Code>md</Code>. Use the size that matches the form around it.
+          </>
+        }
+      >
+        <ChildSection
           id="sizing-small"
           title="Small"
           description={
@@ -272,26 +290,26 @@ export function FileFieldPage() {
               when space is tight.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field>
-              <FieldLabel htmlFor="file-field-size-sm">
-                Small file field
-              </FieldLabel>
-              <FileInput id="file-field-size-sm" name="smallFile" size="sm" />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeSmallSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field>
+                <FieldLabel htmlFor="file-field-size-sm">
+                  Small file field
+                </FieldLabel>
+                <FileInput id="file-field-size-sm" name="smallFile" size="sm" />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeSmallSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="sizing-medium"
           title="Medium"
           description={
@@ -300,26 +318,30 @@ export function FileFieldPage() {
               in a standard form.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field>
-              <FieldLabel htmlFor="file-field-size-md">
-                Medium file field
-              </FieldLabel>
-              <FileInput id="file-field-size-md" name="mediumFile" size="md" />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeMediumSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field>
+                <FieldLabel htmlFor="file-field-size-md">
+                  Medium file field
+                </FieldLabel>
+                <FileInput
+                  id="file-field-size-md"
+                  name="mediumFile"
+                  size="md"
+                />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeMediumSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="sizing-large"
           title="Large"
           description={
@@ -328,37 +350,38 @@ export function FileFieldPage() {
               when the field is the focus of the layout.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field>
-              <FieldLabel htmlFor="file-field-size-lg">
-                Large file field
-              </FieldLabel>
-              <FileInput id="file-field-size-lg" name="largeFile" size="lg" />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeLargeSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field>
+                <FieldLabel htmlFor="file-field-size-lg">
+                  Large file field
+                </FieldLabel>
+                <FileInput id="file-field-size-lg" name="largeFile" size="lg" />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeLargeSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="required" label="Required">
-        <PageSectionHeader
-          title="Required"
-          description={
-            <>
-              Marks the control with the <Code>required</Code> attribute. Pair
-              it with <Code>FieldLabel</Code> so the required marker is visible.
-              Use this when a file must be chosen before continuing.
-            </>
-          }
-        />
+      <MainSection
+        id="required"
+        title="Required"
+        description={
+          <>
+            Marks the control with the <Code>required</Code> attribute. Pair it
+            with <Code>FieldLabel</Code> so the required marker is visible. Use
+            this when a file must be chosen before continuing.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -385,35 +408,56 @@ export function FileFieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="within-form" label="Within form">
-        <PageSectionHeader
-          title="Within form"
-          description="Use File field as a named native form control and keep its requirements beside it."
-        />
+      <MainSection
+        id="within-form"
+        title="Within form"
+        description="Use File field as a named native form control and keep its requirements beside it."
+      >
         <ComponentExample>
           <div className="space-y-6">
-            <form
+            <RequiredForm
               className="space-y-6"
-              onSubmit={(event) => event.preventDefault()}
+              schema={fileFieldFormSchema}
+              defaultValues={{ supportingDocument: undefined }}
             >
-              <Field>
-                <FieldLabel htmlFor="form-supporting-document">
-                  Supporting document
-                </FieldLabel>
-                <FileInput
-                  id="form-supporting-document"
-                  name="supportingDocument"
-                  accept=".pdf"
-                  aria-describedby="form-supporting-document-description"
-                />
-                <FieldDescription id="form-supporting-document-description">
-                  PDF, up to 10 MB.
-                </FieldDescription>
-              </Field>
-              <Button type="submit">Submit document</Button>
-            </form>
+              {(form) => (
+                <>
+                  <Controller
+                    name="supportingDocument"
+                    control={form.control}
+                    render={({
+                      field: { name, onBlur, onChange, ref },
+                      fieldState,
+                    }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor="form-supporting-document">
+                          Supporting document
+                        </FieldLabel>
+                        <FileInput
+                          id="form-supporting-document"
+                          name={name}
+                          ref={ref}
+                          onBlur={onBlur}
+                          onChange={(event) =>
+                            onChange(event.target.files?.[0])
+                          }
+                          accept=".pdf"
+                          required
+                          aria-invalid={fieldState.invalid}
+                        />
+                        <FieldDescription>PDF, up to 10 MB.</FieldDescription>
+                        {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]} />
+                        )}
+                      </Field>
+                    )}
+                  />
+                  <Button type="submit">Submit document</Button>
+                </>
+              )}
+            </RequiredForm>
             <Code
               variant="block"
               language="tsx"
@@ -423,13 +467,13 @@ export function FileFieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Treat the File field as a form control and explain its requirements."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Treat the File field as a form control and explain its requirements."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -467,13 +511,13 @@ export function FileFieldPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on File field."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on File field."
+      >
         <DocsApiTable
           rows={[
             {
@@ -530,13 +574,13 @@ export function FileFieldPage() {
             },
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Choose a related component for richer upload or form behavior."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Choose a related component for richer upload or form behavior."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/drop-zone">Drop zone</DocsPageLink> —
@@ -551,7 +595,7 @@ export function FileFieldPage() {
             label, help text, and validation.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

@@ -60,6 +60,8 @@ type DatePickerSharedProps = {
    */
   trigger?: "input" | "button"
   disabled?: boolean
+  /** Marks input-trigger date values as required. */
+  required?: boolean
   /** Open state */
   open?: boolean
   defaultOpen?: boolean
@@ -256,6 +258,7 @@ function DatePicker(props: DatePickerProps) {
     "aria-label": ariaLabel,
     calendarButtonAriaLabel,
     disabled = false,
+    required = false,
     open: openProp,
     defaultOpen,
     onOpenChange,
@@ -578,6 +581,7 @@ function DatePicker(props: DatePickerProps) {
                   if (next) handleMonthChange(next)
                 }}
                 disabled={disabled}
+                required={required}
                 aria-invalid={timeProps["aria-invalid"]}
                 aria-describedby={ariaDescribedBy}
                 aria-label={ariaLabel}
@@ -666,6 +670,7 @@ function DatePicker(props: DatePickerProps) {
             id={timeId}
             step={timeStep}
             disabled={disabled}
+            required={required}
             value={singleValue ? formatTimeHmForInput(singleValue) : ""}
             onChange={onTimeInputChange}
             aria-describedby={ariaDescribedBy}
@@ -711,6 +716,7 @@ function DatePicker(props: DatePickerProps) {
                 if (next) handleMonthChange(next)
               }}
               disabled={disabled}
+              required={required}
               aria-invalid={seg["aria-invalid"]}
               aria-describedby={ariaDescribedBy}
               aria-label={ariaLabel}
@@ -757,6 +763,7 @@ function DatePicker(props: DatePickerProps) {
                 textProps.textPlaceholder ?? textProps.inputPlaceholder
               }
               disabled={disabled}
+              required={required}
               aria-label={ariaLabel}
               aria-invalid={textProps["aria-invalid"]}
               aria-describedby={ariaDescribedBy}

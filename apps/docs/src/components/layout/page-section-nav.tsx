@@ -11,7 +11,22 @@ type PageSectionNavProps = {
 function scrollToSection(id: string) {
   const el = document.getElementById(id)
   if (el) {
-    el.scrollIntoView({ behavior: "smooth", block: "start" })
+    const viewport = el.closest<HTMLElement>(
+      '[data-app-main="true"] [data-slot="scroll-area-viewport"]'
+    )
+
+    if (viewport) {
+      const viewportRect = viewport.getBoundingClientRect()
+      const targetRect = el.getBoundingClientRect()
+
+      viewport.scrollTo({
+        top: viewport.scrollTop + targetRect.top - viewportRect.top,
+        behavior: "smooth",
+      })
+    } else {
+      el.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+
     window.history.replaceState(null, "", `#${id}`)
   }
 }

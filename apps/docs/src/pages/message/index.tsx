@@ -6,12 +6,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
 import {
   Bubble,
@@ -518,56 +517,56 @@ import {
 </Message>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Message"
-          description={
-            <>
-              Lays out a single message in a conversation — avatar, alignment,
-              types, and in-bubble metadata. Render the visible surface with{" "}
-              <Code>Bubble</Code>. Set <Code>variant</Code> on{" "}
-              <Code>Message</Code> and nested bubbles inherit the matching
-              surface. Compose differently for inbox, chat widget, or live chat.
-            </>
-          }
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Message"
+        description={
+          <>
+            Lays out a single message in a conversation — avatar, alignment,
+            types, and in-bubble metadata. Render the visible surface with{" "}
+            <Code>Bubble</Code>. Set <Code>variant</Code> on{" "}
+            <Code>Message</Code> and nested bubbles inherit the matching
+            surface. Compose differently for inbox, chat widget, or live chat.
+          </>
+        }
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Message for a row in a conversation. It keeps the avatar,
-              alignment, and metadata grouped around the visible surface.
-              <br />
-              <br />
-              Avoid using Message for short status rows — use{" "}
-              <DocsPageLink to="/components/marker">Marker</DocsPageLink>{" "}
-              instead. Avoid using Message for the whole transcript — use{" "}
-              <DocsPageLink to="/components/message-scroller">
-                Message scroller
-              </DocsPageLink>{" "}
-              instead.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Message for a row in a conversation. It keeps the avatar,
+            alignment, and metadata grouped around the visible surface.
+            <br />
+            <br />
+            Avoid using Message for short status rows — use{" "}
+            <DocsPageLink to="/components/marker">Marker</DocsPageLink> instead.
+            Avoid using Message for the whole transcript — use{" "}
+            <DocsPageLink to="/components/message-scroller">
+              Message scroller
+            </DocsPageLink>{" "}
+            instead.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Message primitives alongside Bubble."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description={
@@ -578,30 +577,30 @@ import {
               <Code>MessageFooter</Code>.
             </>
           }
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="variants" label="Variants">
-        <PageSectionHeader
-          title="Variants"
-          description={
-            <>
-              Set <Code>variant</Code> on <Code>Message</Code> for the sender
-              type. Alignment and bubble surface inherit from that variant.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="variants"
+        title="Variants"
+        description={
+          <>
+            Set <Code>variant</Code> on <Code>Message</Code> for the sender
+            type. Alignment and bubble surface inherit from that variant.
+          </>
+        }
+      >
+        <ChildSection
           id="variants-user"
           title="User"
           description={
@@ -612,25 +611,25 @@ import {
               helping.
             </>
           }
-        />
-        <ComponentExample className="mb-10">
-          <div className="space-y-6">
-            <div className="w-full">
-              <MessageExample variant="user">
-                Hello, this is a chat message
-              </MessageExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <MessageExample variant="user">
+                  Hello, this is a chat message
+                </MessageExample>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={userSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={userSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-agent"
           title="Agent"
           description={
@@ -641,25 +640,25 @@ import {
               updates.
             </>
           }
-        />
-        <ComponentExample className="mb-10">
-          <div className="space-y-6">
-            <div className="w-full">
-              <MessageExample variant="agent">
-                Hello, I&apos;m an agent. How can I help you today?
-              </MessageExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <MessageExample variant="agent">
+                  Hello, I&apos;m an agent. How can I help you today?
+                </MessageExample>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={agentSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={agentSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-ai"
           title="AI"
           description={
@@ -671,26 +670,26 @@ import {
               rather than sent by a person.
             </>
           }
-        />
-        <ComponentExample className="mb-10">
-          <div className="space-y-6">
-            <div className="w-full">
-              <MessageExample variant="ai" showAvatar={false}>
-                Here is a concise answer based on your question—no padded bubble
-                chrome.
-              </MessageExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <MessageExample variant="ai" showAvatar={false}>
+                  Here is a concise answer based on your question—no padded
+                  bubble chrome.
+                </MessageExample>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={aiSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={aiSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-note"
           title="Note"
           description={
@@ -701,37 +700,37 @@ import {
               the customer can see.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="w-full">
-              <MessageExample variant="note">
-                This isn&apos;t a message, it&apos;s a note!
-              </MessageExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <MessageExample variant="note">
+                  This isn&apos;t a message, it&apos;s a note!
+                </MessageExample>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={noteSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={noteSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="types" label="Types">
-        <PageSectionHeader
-          title="Types"
-          description={
-            <>
-              The same Message and Bubble primitives support different product
-              layouts. These are compositions, not separate components.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="types"
+        title="Types"
+        description={
+          <>
+            The same Message and Bubble primitives support different product
+            layouts. These are compositions, not separate components.
+          </>
+        }
+      >
+        <ChildSection
           id="types-inbox"
           title="Inbox"
           description={
@@ -741,47 +740,47 @@ import {
               info.
             </>
           }
-        />
-        <ComponentExample className="mb-10">
-          <div className="space-y-6">
-            <div className="w-full">
-              <MessageExample variant="agent" status="read">
-                The component and example JSON now live under the UI registry.
-              </MessageExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <MessageExample variant="agent" status="read">
+                  The component and example JSON now live under the UI registry.
+                </MessageExample>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={inboxSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={inboxSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="types-chat-widget"
           title="Chat widget"
           description="Minimal message: avatar and bubble body only — no metadata row."
-        />
-        <ComponentExample className="mb-10">
-          <div className="space-y-6">
-            <div className="w-full">
-              <MessageExample variant="agent" showMeta={false}>
-                The component and example JSON now live under the UI registry.
-              </MessageExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <MessageExample variant="agent" showMeta={false}>
+                  The component and example JSON now live under the UI registry.
+                </MessageExample>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={chatWidgetSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={chatWidgetSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="types-live-chat"
           title="Live chat"
           description={
@@ -792,35 +791,36 @@ import {
               reactions use <Code>BubbleReactions</Code>.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="w-full max-w-sm">
-              <LiveChatExample />
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full max-w-sm">
+                <LiveChatExample />
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={liveChatSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={liveChatSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="full-width" label="Full width">
-        <PageSectionHeader
-          title="Full width"
-          description={
-            <>
-              Bubbles always size to their content and wrap when needed. By
-              default the max-width is <Code>85%</Code>. Pass{" "}
-              <Code>fullWidth</Code> on <Code>Bubble</Code> to raise that cap to{" "}
-              <Code>100%</Code> — useful in tight sidebars and narrow panels.
-            </>
-          }
-        />
+      <MainSection
+        id="full-width"
+        title="Full width"
+        description={
+          <>
+            Bubbles always size to their content and wrap when needed. By
+            default the max-width is <Code>85%</Code>. Pass{" "}
+            <Code>fullWidth</Code> on <Code>Bubble</Code> to raise that cap to{" "}
+            <Code>100%</Code> — useful in tight sidebars and narrow panels.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex w-full flex-col gap-6">
@@ -846,120 +846,120 @@ import {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="status" label="Status">
-        <PageSectionHeader
-          title="Status"
-          description={
-            <>
-              Use <Code>status</Code> on <Code>MessageMeta</Code> for agent
-              messages to show delivery indicators inside the bubble.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="status"
+        title="Status"
+        description={
+          <>
+            Use <Code>status</Code> on <Code>MessageMeta</Code> for agent
+            messages to show delivery indicators inside the bubble.
+          </>
+        }
+      >
+        <ChildSection
           id="status-sent"
           title="Sent"
           description="Single check when the message has left the client."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="w-full">
-              <MessageExample variant="agent" status="sent">
-                This message has been sent.
-              </MessageExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <MessageExample variant="agent" status="sent">
+                  This message has been sent.
+                </MessageExample>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={statusSentSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={statusSentSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="status-delivered"
           title="Delivered"
           description="Double check when the message reaches the recipient."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="w-full">
-              <MessageExample variant="agent" status="delivered">
-                This message has been delivered.
-              </MessageExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <MessageExample variant="agent" status="delivered">
+                  This message has been delivered.
+                </MessageExample>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={statusDeliveredSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={statusDeliveredSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="status-read"
           title="Read"
           description="Highlighted double check when the message has been read."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="w-full">
-              <MessageExample variant="agent" status="read">
-                This message has been read.
-              </MessageExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <MessageExample variant="agent" status="read">
+                  This message has been read.
+                </MessageExample>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={statusReadSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={statusReadSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="status-failed"
           title="Failed"
           description="Override the inherited bubble with variant destructive; resend copy lives in MessageFooter below the bubble."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="w-full">
-              <MessageExample variant="agent" status="failed">
-                Oops, something went wrong. This message wasn&apos;t sent.
-              </MessageExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <MessageExample variant="agent" status="failed">
+                  Oops, something went wrong. This message wasn&apos;t sent.
+                </MessageExample>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={statusFailedSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={statusFailedSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="group" label="Group">
-        <PageSectionHeader
-          title="Group"
-          description={
-            <>
-              Use <Code>MessageGroup</Code> for consecutive messages from the
-              same sender. Render an empty <Code>MessageAvatar</Code> on earlier
-              messages so the avatar sits on the last message only.
-            </>
-          }
-        />
-        <ComponentExample className="mb-6">
+      <MainSection
+        id="group"
+        title="Group"
+        description={
+          <>
+            Use <Code>MessageGroup</Code> for consecutive messages from the same
+            sender. Render an empty <Code>MessageAvatar</Code> on earlier
+            messages so the avatar sits on the last message only.
+          </>
+        }
+      >
+        <ComponentExample>
           <Code
             variant="block"
             language="text"
@@ -1019,76 +1019,76 @@ import {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="info-popover" label="Info popover">
-        <PageSectionHeader
-          title="Info popover"
-          description={
-            <>
-              Add <Code>MessageInfo</Code> to <Code>MessageMeta</Code> for
-              message metadata. User and agent messages render different grids.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="info-popover"
+        title="Info popover"
+        description={
+          <>
+            Add <Code>MessageInfo</Code> to <Code>MessageMeta</Code> for message
+            metadata. User and agent messages render different grids.
+          </>
+        }
+      >
+        <ChildSection
           id="info-popover-user-message"
           title="User message"
           description="Channel, page, recipients, and received time for inbound messages."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="w-full">
-              <MessageExample
-                variant="user"
-                info={<MessageInfo userInfo={userMessageInfo} />}
-              >
-                I have a question about entry requirements.
-              </MessageExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <MessageExample
+                  variant="user"
+                  info={<MessageInfo userInfo={userMessageInfo} />}
+                >
+                  I have a question about entry requirements.
+                </MessageExample>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={userInfoSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={userInfoSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="info-popover-agent-message"
           title="Agent message"
           description="Source references, channel, and sent time for outbound replies."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="w-full">
-              <MessageExample
-                variant="agent"
-                status="read"
-                info={<MessageInfo agentInfo={agentMessageInfo} />}
-              >
-                I have pulled this from the admissions guidance.
-              </MessageExample>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <MessageExample
+                  variant="agent"
+                  status="read"
+                  info={<MessageInfo agentInfo={agentMessageInfo} />}
+                >
+                  I have pulled this from the admissions guidance.
+                </MessageExample>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={agentInfoSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={agentInfoSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use Message for row layout and Bubble for the visible message surface."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use Message for row layout and Bubble for the visible message surface."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -1121,58 +1121,85 @@ import {
             <>Don’t use Message for a brief inline status; use Marker.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Message."
-        />
-        <DocsApiTable
-          rows={[
-            {
-              name: "Message.variant",
-              type: '"user" | "agent" | "ai" | "note"',
-              defaultValue: '"user"',
-              description:
-                "Sets the message type, inherited bubble treatment, and default alignment.",
-            },
-            {
-              name: "Message.align",
-              type: '"start" | "end"',
-              description: "Overrides the alignment derived from variant.",
-            },
-            {
-              name: "MessageMeta.timestamp",
-              type: "Date | string | number",
-              description: "Required date value rendered as relative time.",
-            },
-            {
-              name: "MessageMeta.status",
-              type: '"sent" | "delivered" | "read" | "failed"',
-              description: "Shows a MessageStatusIndicator for agent messages.",
-            },
-            {
-              name: "MessageMeta.info",
-              type: "React.ReactNode",
-              description: "Adds message information beside the relative time.",
-            },
-            {
-              name: "MessageMeta.actions",
-              type: "React.ReactNode",
-              description:
-                "Adds actions such as MessageAiActions beside the relative time.",
-            },
-            {
-              name: "MessageAiActions.copyText",
-              type: "string",
-              description: "Text copied by the AI response action.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Message."
+      >
+        <ChildSection
+          id="api-message"
+          title="Message"
+          description="Props on Message."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "variant",
+                type: '"user" | "agent" | "ai" | "note"',
+                defaultValue: '"user"',
+                description:
+                  "Sets the message type, inherited bubble treatment, and default alignment.",
+              },
+              {
+                name: "align",
+                type: '"start" | "end"',
+                description: "Overrides the alignment derived from variant.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-message-meta"
+          title="MessageMeta"
+          description="Props on MessageMeta."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "timestamp",
+                type: "Date | string | number",
+                description: "Required date value rendered as relative time.",
+              },
+              {
+                name: "status",
+                type: '"sent" | "delivered" | "read" | "failed"',
+                description:
+                  "Shows a MessageStatusIndicator for agent messages.",
+              },
+              {
+                name: "info",
+                type: "React.ReactNode",
+                description:
+                  "Adds message information beside the relative time.",
+              },
+              {
+                name: "actions",
+                type: "React.ReactNode",
+                description:
+                  "Adds actions such as MessageAiActions beside the relative time.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-message-ai-actions"
+          title="MessageAiActions"
+          description="Props on MessageAiActions."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "copyText",
+                type: "string",
+                description: "Text copied by the AI response action.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -1185,13 +1212,13 @@ import {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Compose Message with its surface and transcript container."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Compose Message with its surface and transcript container."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/bubble">Bubble</DocsPageLink> — for
@@ -1208,7 +1235,7 @@ import {
             short status or note between messages.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

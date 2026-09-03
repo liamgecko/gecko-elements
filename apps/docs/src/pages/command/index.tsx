@@ -25,12 +25,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 
 export function CommandPage() {
   const [open, setOpen] = React.useState(false);
@@ -142,76 +141,77 @@ export function CommandPage() {
 </CommandDialog>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Command"
-          description="The Command component is a searchable list of actions. People type to find a command, then run it."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Command"
+        description="The Command component is a searchable list of actions. People type to find a command, then run it."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Command when someone needs to find an action by typing. It is
-              faster than hunting through menus.
-              <br />
-              <br />
-              Command is not shipped as a product-wide palette in Gecko yet —
-              adopt it only when that pattern lands. Avoid using it as a form
-              select, or as the only way to reach important actions. If the list
-              is short and always visible, use a{" "}
-              <DocsPageLink to="/components/dropdown-menu">
-                Dropdown menu
-              </DocsPageLink>{" "}
-              instead.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Command when someone needs to find an action by typing. It is
+            faster than hunting through menus.
+            <br />
+            <br />
+            Command is not shipped as a product-wide palette in Gecko yet —
+            adopt it only when that pattern lands. Avoid using it as a form
+            select, or as the only way to reach important actions. If the list
+            is short and always visible, use a{" "}
+            <DocsPageLink to="/components/dropdown-menu">
+              Dropdown menu
+            </DocsPageLink>{" "}
+            instead.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import the Command and its parts to compose a searchable list."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="The command holds a search field and a list. Items sit in groups, with an empty state when nothing matches."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="example" label="Example">
-        <PageSectionHeader
-          title="Example"
-          description={
-            <>
-              A searchable list using <Code>CommandInput</Code>,{" "}
-              <Code>CommandList</Code>, and <Code>CommandItem</Code>. Use this
-              to understand the inline composition. It is not the canonical
-              Gecko configuration.
-            </>
-          }
-        />
+      <MainSection
+        id="example"
+        title="Example"
+        description={
+          <>
+            A searchable list using <Code>CommandInput</Code>,{" "}
+            <Code>CommandList</Code>, and <Code>CommandItem</Code>. Use this to
+            understand the inline composition. It is not the canonical Gecko
+            configuration.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Command
@@ -264,20 +264,20 @@ export function CommandPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="trigger" label="Trigger">
-        <PageSectionHeader
-          title="Trigger"
-          description={
-            <>
-              Opens the palette in a dialog using <Code>CommandDialog</Code>{" "}
-              with <Code>open</Code> and <Code>onOpenChange</Code>. Use this as
-              the canonical starting configuration after Command has been
-              approved for the product.
-            </>
-          }
-        />
+      <MainSection
+        id="trigger"
+        title="Trigger"
+        description={
+          <>
+            Opens the palette in a dialog using <Code>CommandDialog</Code> with{" "}
+            <Code>open</Code> and <Code>onOpenChange</Code>. Use this as the
+            canonical starting configuration after Command has been approved for
+            the product.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-col gap-4">
@@ -338,13 +338,13 @@ export function CommandPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Compose a searchable, keyboard-friendly list. Do not restyle the command chrome."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Compose a searchable, keyboard-friendly list. Do not restyle the command chrome."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -379,95 +379,131 @@ export function CommandPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Command."
-        />
-        <DocsApiTable
-          rows={[
-            {
-              name: "Command: label",
-              type: "string",
-              defaultValue: '"Command menu"',
-              description:
-                "Provides the accessible name for the searchable command menu.",
-            },
-            {
-              name: "Command: value",
-              type: "string",
-              description: "Controls the currently selected command value.",
-            },
-            {
-              name: "Command: onValueChange",
-              type: "(value: string) => void",
-              description:
-                "Runs when keyboard or pointer navigation changes the selected value.",
-            },
-            {
-              name: "Command: loop",
-              type: "boolean",
-              defaultValue: "false",
-              description:
-                "Moves from the final item to the first, and vice versa, during keyboard navigation.",
-            },
-            {
-              name: "CommandList: label",
-              type: "string",
-              defaultValue: '"Suggestions"',
-              description: "Provides the accessible name for the results list.",
-            },
-            {
-              name: "CommandItem: value",
-              type: "string",
-              description: "Provides the item’s stable searchable value.",
-            },
-            {
-              name: "CommandItem: keywords",
-              type: "string[]",
-              description: "Adds alternative terms that can match the item.",
-            },
-            {
-              name: "CommandItem: onSelect",
-              type: "(value: string) => void",
-              description:
-                "Runs the product-owned action when the item is selected.",
-            },
-            {
-              name: "CommandDialog: title",
-              type: "string",
-              defaultValue: '"Command Palette"',
-              description: "Provides the accessible dialog title.",
-            },
-            {
-              name: "CommandDialog: description",
-              type: "string",
-              defaultValue: '"Search for a command to run..."',
-              description: "Provides the accessible dialog description.",
-            },
-            {
-              name: "CommandDialog: showCloseButton",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Shows the dialog close button.",
-            },
-            {
-              name: "CommandDialog: open",
-              type: "boolean",
-              description: "Controls whether the command dialog is open.",
-            },
-            {
-              name: "CommandDialog: onOpenChange",
-              type: "(open: boolean) => void",
-              description: "Runs when the command dialog opens or closes.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Command."
+      >
+        <ChildSection
+          id="api-command"
+          title="Command"
+          description="Props on Command."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "label",
+                type: "string",
+                defaultValue: '"Command menu"',
+                description:
+                  "Provides the accessible name for the searchable command menu.",
+              },
+              {
+                name: "value",
+                type: "string",
+                description: "Controls the currently selected command value.",
+              },
+              {
+                name: "onValueChange",
+                type: "(value: string) => void",
+                description:
+                  "Runs when keyboard or pointer navigation changes the selected value.",
+              },
+              {
+                name: "loop",
+                type: "boolean",
+                defaultValue: "false",
+                description:
+                  "Moves from the final item to the first, and vice versa, during keyboard navigation.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-command-list"
+          title="CommandList"
+          description="Props on CommandList."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "label",
+                type: "string",
+                defaultValue: '"Suggestions"',
+                description:
+                  "Provides the accessible name for the results list.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-command-item"
+          title="CommandItem"
+          description="Props on CommandItem."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "value",
+                type: "string",
+                description: "Provides the item’s stable searchable value.",
+              },
+              {
+                name: "keywords",
+                type: "string[]",
+                description: "Adds alternative terms that can match the item.",
+              },
+              {
+                name: "onSelect",
+                type: "(value: string) => void",
+                description:
+                  "Runs the product-owned action when the item is selected.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-command-dialog"
+          title="CommandDialog"
+          description="Props on CommandDialog."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "title",
+                type: "string",
+                defaultValue: '"Command Palette"',
+                description: "Provides the accessible dialog title.",
+              },
+              {
+                name: "description",
+                type: "string",
+                defaultValue: '"Search for a command to run..."',
+                description: "Provides the accessible dialog description.",
+              },
+              {
+                name: "showCloseButton",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Shows the dialog close button.",
+              },
+              {
+                name: "open",
+                type: "boolean",
+                description: "Controls whether the command dialog is open.",
+              },
+              {
+                name: "onOpenChange",
+                type: "(open: boolean) => void",
+                description: "Runs when the command dialog opens or closes.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -483,13 +519,13 @@ export function CommandPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use another component when the content is not a searchable action list."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use another component when the content is not a searchable action list."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/combobox">Combobox</DocsPageLink> —
@@ -500,7 +536,7 @@ export function CommandPage() {
             modal content is not a searchable list.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

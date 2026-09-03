@@ -8,12 +8,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 
 export function CalendarPage() {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -69,62 +68,60 @@ export function CalendarPage() {
 />`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Calendar"
-          description="The Calendar component lets people pick a day, or a stretch of days, from a month view. It is the calendar itself — not a field in a form."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Calendar"
+        description="The Calendar component lets people pick a day, or a stretch of days, from a month view. It is the calendar itself — not a field in a form."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Calendar inside a{" "}
-              <DocsPageLink to="/components/date-picker">
-                Date picker
-              </DocsPageLink>{" "}
-              for choosing future or general dates. Standalone Calendar on a
-              page is uncommon in Gecko today.
-              <br />
-              <br />
-              Avoid using it for date of birth — use a{" "}
-              <DocsPageLink to="/components/date-field">
-                Date field
-              </DocsPageLink>
-              . Avoid using it to display a schedule.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Calendar inside a{" "}
+            <DocsPageLink to="/components/date-picker">
+              Date picker
+            </DocsPageLink>{" "}
+            for choosing future or general dates. Standalone Calendar on a page
+            is uncommon in Gecko today.
+            <br />
+            <br />
+            Avoid using it for date of birth — use a{" "}
+            <DocsPageLink to="/components/date-field">Date field</DocsPageLink>.
+            Avoid using it to display a schedule.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Calendar to show a month people can pick from."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description={
-            <>
-              A single date using <Code>mode=&quot;single&quot;</Code> with{" "}
-              <Code>selected</Code> and <Code>onSelect</Code>. Use this when the
-              person is choosing one day.
-            </>
-          }
-        />
+      <MainSection
+        id="basic"
+        title="Basic example"
+        description={
+          <>
+            A single date using <Code>mode=&quot;single&quot;</Code> with{" "}
+            <Code>selected</Code> and <Code>onSelect</Code>. Use this when the
+            person is choosing one day.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Calendar mode="single" selected={date} onSelect={setDate} />
@@ -137,19 +134,19 @@ export function CalendarPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="date-range" label="Date range">
-        <PageSectionHeader
-          title="Date range"
-          description={
-            <>
-              A start and end date using <Code>mode=&quot;range&quot;</Code>.
-              This example also sets <Code>numberOfMonths=&#123;2&#125;</Code>.
-              Use this when the person is choosing a start and end date.
-            </>
-          }
-        />
+      <MainSection
+        id="date-range"
+        title="Date range"
+        description={
+          <>
+            A start and end date using <Code>mode=&quot;range&quot;</Code>. This
+            example also sets <Code>numberOfMonths=&#123;2&#125;</Code>. Use
+            this when the person is choosing a start and end date.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Calendar
@@ -168,20 +165,20 @@ export function CalendarPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="month-year" label="Month and year selector">
-        <PageSectionHeader
-          title="Month and year selector"
-          description={
-            <>
-              Month and year dropdowns using{" "}
-              <Code>captionLayout=&quot;dropdown&quot;</Code>. Always set{" "}
-              <Code>startMonth</Code> and <Code>endMonth</Code> to boundaries
-              that match the task.
-            </>
-          }
-        />
+      <MainSection
+        id="month-year"
+        title="Month and year selector"
+        description={
+          <>
+            Month and year dropdowns using{" "}
+            <Code>captionLayout=&quot;dropdown&quot;</Code>. Always set{" "}
+            <Code>startMonth</Code> and <Code>endMonth</Code> to boundaries that
+            match the task.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Calendar
@@ -201,18 +198,18 @@ export function CalendarPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="booked-dates" label="Booked dates">
-        <PageSectionHeader
-          title="Booked dates"
-          description={
-            <>
-              Pass booked days to <Code>bookedDates</Code>. Calendar disables
-              them and applies the approved booked treatment automatically.
-            </>
-          }
-        />
+      <MainSection
+        id="booked-dates"
+        title="Booked dates"
+        description={
+          <>
+            Pass booked days to <Code>bookedDates</Code>. Calendar disables them
+            and applies the approved booked treatment automatically.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Calendar
@@ -231,13 +228,13 @@ export function CalendarPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use mode for one day or a range. Do not restyle the calendar cells."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use mode for one day or a range. Do not restyle the calendar cells."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -280,13 +277,13 @@ export function CalendarPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Calendar."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Calendar."
+      >
         <DocsApiTable
           rows={[
             {
@@ -351,9 +348,8 @@ export function CalendarPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -369,13 +365,13 @@ export function CalendarPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a different control when the Calendar is the wrong shape for the job."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a different control when the Calendar is the wrong shape for the job."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/date-picker">
@@ -388,7 +384,7 @@ export function CalendarPage() {
             — when the person only needs to type a date.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

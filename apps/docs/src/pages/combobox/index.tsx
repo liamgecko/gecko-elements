@@ -23,12 +23,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 
 const frameworks = [
   "Next.js",
@@ -179,62 +178,63 @@ export function ComboboxPage() {
 </Field>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Combobox"
-          description="A searchable selection field. People type to filter a predefined list, then choose one or more options."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Combobox"
+        description="A searchable selection field. People type to filter a predefined list, then choose one or more options."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use a Combobox when a predefined list is long enough to benefit
-              from filtering. Use a{" "}
-              <DocsPageLink to="/components/select">Select</DocsPageLink> for a
-              short list, and a text field when people may enter a value outside
-              the list.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use a Combobox when a predefined list is long enough to benefit from
+            filtering. Use a{" "}
+            <DocsPageLink to="/components/select">Select</DocsPageLink> for a
+            short list, and a text field when people may enter a value outside
+            the list.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import the parts needed by the chosen configuration."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="The input filters the options in the list. An empty state appears when nothing matches."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic" label="Basic">
-        <PageSectionHeader
-          title="Basic"
-          description="The canonical single-selection configuration. Always provide a visible label and put the form name on Combobox."
-        />
+      <MainSection
+        id="basic"
+        title="Basic"
+        description="The canonical single-selection configuration. Always provide a visible label and put the form name on Combobox."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -258,13 +258,13 @@ export function ComboboxPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="multiple" label="Multiple">
-        <PageSectionHeader
-          title="Multiple"
-          description="Use chips when people may select more than one option. Chips wrap as selections are added."
-        />
+      <MainSection
+        id="multiple"
+        title="Multiple"
+        description="Use chips when people may select more than one option. Chips wrap as selections are added."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -299,18 +299,18 @@ export function ComboboxPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-clear" label="With clear">
-        <PageSectionHeader
-          title="With clear"
-          description={
-            <>
-              Set <Code>showClear</Code> when an optional selection should be
-              easy to remove. The component names the control.
-            </>
-          }
-        />
+      <MainSection
+        id="with-clear"
+        title="With clear"
+        description={
+          <>
+            Set <Code>showClear</Code> when an optional selection should be easy
+            to remove. The component names the control.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -341,13 +341,13 @@ export function ComboboxPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="groups" label="Groups">
-        <PageSectionHeader
-          title="Groups"
-          description="Use labelled groups when categories make a long list easier to scan."
-        />
+      <MainSection
+        id="groups"
+        title="Groups"
+        description="Use labelled groups when categories make a long list easier to scan."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -386,14 +386,14 @@ export function ComboboxPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="states" label="States">
-        <PageSectionHeader
-          title="States"
-          description="Set field-wide behaviour on Combobox and reflect validation state on the input and Field."
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="states"
+        title="States"
+        description="Set field-wide behaviour on Combobox and reflect validation state on the input and Field."
+      >
+        <ChildSection
           id="states-disabled"
           title="Disabled"
           description={
@@ -402,33 +402,34 @@ export function ComboboxPage() {
               related control becomes unavailable together.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field data-disabled>
-              <FieldLabel htmlFor="combobox-disabled-framework">
-                Framework
-              </FieldLabel>
-              <Combobox items={frameworks} name="framework" disabled>
-                <ComboboxInput
-                  id="combobox-disabled-framework"
-                  placeholder="Select a framework"
-                />
-                <ComboboxContent>
-                  <FrameworkOptions />
-                </ComboboxContent>
-              </Combobox>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={disabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-disabled>
+                <FieldLabel htmlFor="combobox-disabled-framework">
+                  Framework
+                </FieldLabel>
+                <Combobox items={frameworks} name="framework" disabled>
+                  <ComboboxInput
+                    id="combobox-disabled-framework"
+                    placeholder="Select a framework"
+                  />
+                  <ComboboxContent>
+                    <FrameworkOptions />
+                  </ComboboxContent>
+                </Combobox>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={disabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-error"
           title="Error"
           description={
@@ -437,44 +438,45 @@ export function ComboboxPage() {
               invalid input to a visible <Code>FieldError</Code>.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field data-invalid>
-              <FieldLabel htmlFor="combobox-required-framework">
-                Framework
-              </FieldLabel>
-              <Combobox items={frameworks} name="framework" required>
-                <ComboboxInput
-                  id="combobox-required-framework"
-                  placeholder="Select a framework"
-                  aria-invalid
-                  aria-describedby="combobox-required-framework-error"
-                />
-                <ComboboxContent>
-                  <FrameworkOptions />
-                </ComboboxContent>
-              </Combobox>
-              <FieldError id="combobox-required-framework-error">
-                Choose a framework from the list.
-              </FieldError>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={errorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-invalid>
+                <FieldLabel htmlFor="combobox-required-framework">
+                  Framework
+                </FieldLabel>
+                <Combobox items={frameworks} name="framework" required>
+                  <ComboboxInput
+                    id="combobox-required-framework"
+                    placeholder="Select a framework"
+                    aria-invalid
+                    aria-describedby="combobox-required-framework-error"
+                  />
+                  <ComboboxContent>
+                    <FrameworkOptions />
+                  </ComboboxContent>
+                </Combobox>
+                <FieldError id="combobox-required-framework-error">
+                  Choose a framework from the list.
+                </FieldError>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={errorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep the field understandable and within the supported contract."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep the field understandable and within the supported contract."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -508,13 +510,13 @@ export function ComboboxPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Combobox."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Combobox."
+      >
         <DocsApiTable
           rows={[
             {
@@ -604,9 +606,8 @@ export function ComboboxPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -622,13 +623,13 @@ export function ComboboxPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Choose the control that matches the kind of value being entered."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Choose the control that matches the kind of value being entered."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/select">Select</DocsPageLink> — a
@@ -645,7 +646,7 @@ export function ComboboxPage() {
             searchable palette of actions.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

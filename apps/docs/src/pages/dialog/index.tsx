@@ -4,12 +4,11 @@ import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
 import { Code } from "@gecko/ui/components/code";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import {
   Dialog,
   DialogWrapper,
@@ -100,75 +99,76 @@ export function DialogPage() {
 </DialogContent>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Dialog"
-          description="The Dialog component is a window over the page. It holds a task that needs attention while the rest of the screen waits."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Dialog"
+        description="The Dialog component is a window over the page. It holds a task that needs attention while the rest of the screen waits."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Dialog for focused setup tasks — create/edit forms and similar
-              flows where the person must finish before returning to the page.
-              <br />
-              <br />
-              Avoid using it for action confirmation (delete, unsaved changes,
-              confirm save) — that is an{" "}
-              <DocsPageLink to="/components/alert-dialog">
-                Alert dialog
-              </DocsPageLink>
-              . If the content should slide in from the side while keeping page
-              context, use a{" "}
-              <DocsPageLink to="/components/sheet">Sheet</DocsPageLink>.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Dialog for focused setup tasks — create/edit forms and similar
+            flows where the person must finish before returning to the page.
+            <br />
+            <br />
+            Avoid using it for action confirmation (delete, unsaved changes,
+            confirm save) — that is an{" "}
+            <DocsPageLink to="/components/alert-dialog">
+              Alert dialog
+            </DocsPageLink>
+            . If the content should slide in from the side while keeping page
+            context, use a{" "}
+            <DocsPageLink to="/components/sheet">Sheet</DocsPageLink>.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import the Dialog and its parts to compose an overlay."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="The trigger opens the overlay. Content sits in a wrapper with its required title, optional description and body, followed by an optional footer."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description={
-            <>
-              A titled Dialog using <Code>DialogHeader</Code> and{" "}
-              <Code>DialogBody</Code>. Every Dialog needs a clear{" "}
-              <Code>DialogTitle</Code>; the description is optional.
-            </>
-          }
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description={
+          <>
+            A titled Dialog using <Code>DialogHeader</Code> and{" "}
+            <Code>DialogBody</Code>. Every Dialog needs a clear{" "}
+            <Code>DialogTitle</Code>; the description is optional.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Dialog>
@@ -206,14 +206,14 @@ export function DialogPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="footer" label="Footer">
-        <PageSectionHeader
-          title="Footer"
-          description="Add a footer when the task has actions. The product owns the primary action; DialogFooter owns the standard dismissal treatment."
-        />
-        <ComponentExample className="mb-6">
+      <MainSection
+        id="footer"
+        title="Footer"
+        description="Add a footer when the task has actions. The product owns the primary action; DialogFooter owns the standard dismissal treatment."
+      >
+        <ComponentExample>
           <div className="space-y-6">
             <Dialog>
               <DialogTrigger
@@ -253,20 +253,19 @@ export function DialogPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizing" label="Sizing">
-        <PageSectionHeader
-          title="Sizing"
-          description={
-            <>
-              Sets the width using <Code>size</Code> on{" "}
-              <Code>DialogContent</Code>. Choose the smallest size that fits the
-              task without crowding its content. The example contains every
-              available size.
-            </>
-          }
-        />
+      <MainSection
+        id="sizing"
+        title="Sizing"
+        description={
+          <>
+            Sets the width using <Code>size</Code> on <Code>DialogContent</Code>
+            . Choose the smallest size that fits the task without crowding its
+            content. The example contains every available size.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap gap-4">
@@ -364,13 +363,13 @@ export function DialogPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Give modal content a clear structure and accessible name. Do not restyle the dialog chrome."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Give modal content a clear structure and accessible name. Do not restyle the dialog chrome."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -414,44 +413,69 @@ export function DialogPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Dialog."
-        />
-        <DocsApiTable
-          rows={[
-            {
-              name: "size",
-              type: '"xs" | "sm" | "md" | "lg" | "xl"',
-              defaultValue: '"md"',
-              description: "Sets the width of DialogContent.",
-            },
-            {
-              name: "DialogContent.showCloseButton",
-              type: "boolean",
-              defaultValue: "true",
-              description: "Shows the corner close action.",
-            },
-            {
-              name: "DialogFooter.showCloseButton",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Adds a close action to DialogFooter.",
-            },
-            {
-              name: "closeButtonText",
-              type: "string",
-              defaultValue: '"Close"',
-              description: "Sets the footer close action label.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Dialog."
+      >
+        <ChildSection
+          id="api-dialog"
+          title="Dialog"
+          description="Props on Dialog."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "size",
+                type: '"xs" | "sm" | "md" | "lg" | "xl"',
+                defaultValue: '"md"',
+                description: "Sets the width of DialogContent.",
+              },
+              {
+                name: "closeButtonText",
+                type: "string",
+                defaultValue: '"Close"',
+                description: "Sets the footer close action label.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-dialog-content"
+          title="DialogContent"
+          description="Props on DialogContent."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "showCloseButton",
+                type: "boolean",
+                defaultValue: "true",
+                description: "Shows the corner close action.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-dialog-footer"
+          title="DialogFooter"
+          description="Props on DialogFooter."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "showCloseButton",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Adds a close action to DialogFooter.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -467,13 +491,13 @@ export function DialogPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a more specific overlay when the interaction calls for one."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a more specific overlay when the interaction calls for one."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/alert-dialog">
@@ -486,7 +510,7 @@ export function DialogPage() {
             content should enter from the edge of the screen.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

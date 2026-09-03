@@ -3,20 +3,26 @@ import { addDays } from "date-fns";
 import type { DateRange } from "react-day-picker";
 
 import { ComponentExample } from "@/components/layout/component-example";
+import { RequiredForm } from "@/components/layout/required-form";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import { Button } from "@gecko/ui/components/button";
 import { DatePicker } from "@gecko/ui/components/date-picker";
 import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";
+import { Controller } from "react-hook-form";
+import { z } from "zod";
+
+const datePickerFormSchema = z.object({
+  subscriptionDate: z.date({ required_error: "Select a subscription date." }),
+});
 
 export function DatePickerPage() {
   const [basicDate, setBasicDate] = useState<Date | undefined>();
@@ -25,9 +31,7 @@ export function DatePickerPage() {
     to: addDays(new Date(new Date().getFullYear(), 0, 20), 20),
   });
   const [dobDate, setDobDate] = useState<Date | undefined>(undefined);
-  const [subscriptionDate, setSubscriptionDate] = useState<Date | undefined>(
-    new Date("2025-06-01"),
-  );
+  const [subscriptionDate, setSubscriptionDate] = useState<Date | undefined>();
   const [timeDate, setTimeDate] = useState<Date | undefined>(undefined);
 
   const importSnippet = `import { DatePicker } from "@gecko/ui/components/date-picker"`;
@@ -94,76 +98,89 @@ export function DatePickerPage() {
   </FieldError>
 </Field>`;
 
-  const withinFormSnippet = `<form onSubmit={handleSubmit}>
-  <Field>
-    <FieldLabel htmlFor="form-subscription-date">Subscription date</FieldLabel>
-    <DatePicker
-      id="form-subscription-date"
-      value={subscriptionDate}
-      onChange={setSubscriptionDate}
-      aria-label="Subscription date"
-    />
-  </Field>
+  const withinFormSnippet = `const formSchema = z.object({
+  subscriptionDate: z.date({ required_error: "Select a subscription date." }),
+})
+
+const form = useForm<z.infer<typeof formSchema>>({
+  resolver: zodResolver(formSchema),
+  defaultValues: { subscriptionDate: undefined },
+})
+
+<form noValidate onSubmit={form.handleSubmit(onSubmit)}>
+  <Controller name="subscriptionDate" control={form.control} render={({ field, fieldState }) => (
+    <Field data-invalid={fieldState.invalid}>
+      <FieldLabel htmlFor={field.name}>Subscription date</FieldLabel>
+      <DatePicker
+        id={field.name}
+        value={field.value}
+        onChange={field.onChange}
+        required
+        aria-invalid={fieldState.invalid}
+      />
+      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+    </Field>
+  )} />
   <Button type="submit">Save subscription</Button>
 </form>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Date picker"
-          description="The Date picker is a field for choosing a day — or a stretch of days — from a calendar. People can type a date or open the calendar."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Date picker"
+        description="The Date picker is a field for choosing a day — or a stretch of days — from a calendar. People can type a date or open the calendar."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use a Date picker for date fields that typically involve future
-              dates — event dates, deadlines, and similar. It belongs next to a
-              label, like any other field.
-              <br />
-              <br />
-              Avoid using it for date of birth — use a{" "}
-              <DocsPageLink to="/components/date-field">
-                Date field
-              </DocsPageLink>{" "}
-              instead. Avoid using it to display a schedule on the page without
-              a field — use a{" "}
-              <DocsPageLink to="/components/calendar">Calendar</DocsPageLink>{" "}
-              instead.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use a Date picker for date fields that typically involve future
+            dates — event dates, deadlines, and similar. It belongs next to a
+            label, like any other field.
+            <br />
+            <br />
+            Avoid using it for date of birth — use a{" "}
+            <DocsPageLink to="/components/date-field">
+              Date field
+            </DocsPageLink>{" "}
+            instead. Avoid using it to display a schedule on the page without a
+            field — use a{" "}
+            <DocsPageLink to="/components/calendar">Calendar</DocsPageLink>{" "}
+            instead.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import DatePicker to add a date field with a calendar."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic" label="Basic">
-        <PageSectionHeader
-          title="Basic"
-          description={
-            <>
-              A single date using <Code>value</Code> and <Code>onChange</Code>.
-              The default trigger is a native date field. Use this when the
-              person is choosing one day.
-            </>
-          }
-        />
+      <MainSection
+        id="basic"
+        title="Basic"
+        description={
+          <>
+            A single date using <Code>value</Code> and <Code>onChange</Code>.
+            The default trigger is a native date field. Use this when the person
+            is choosing one day.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field className="w-44">
@@ -184,19 +201,19 @@ export function DatePickerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="range" label="Range picker">
-        <PageSectionHeader
-          title="Range picker"
-          description={
-            <>
-              A start and end date using <Code>mode=&quot;range&quot;</Code>.
-              This example also sets <Code>numberOfMonths=&#123;2&#125;</Code>.
-              Use this when the person is choosing a start and end date.
-            </>
-          }
-        />
+      <MainSection
+        id="range"
+        title="Range picker"
+        description={
+          <>
+            A start and end date using <Code>mode=&quot;range&quot;</Code>. This
+            example also sets <Code>numberOfMonths=&#123;2&#125;</Code>. Use
+            this when the person is choosing a start and end date.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field className="w-60">
@@ -219,23 +236,21 @@ export function DatePickerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="dob" label="Date of birth">
-        <PageSectionHeader
-          title="Date of birth"
-          description={
-            <>
-              Month and year dropdowns in the calendar using{" "}
-              <Code>variant=&quot;dob&quot;</Code>. In Gecko, prefer a{" "}
-              <DocsPageLink to="/components/date-field">
-                Date field
-              </DocsPageLink>{" "}
-              for date of birth. Use this variant only when a calendar-based
-              picker is required.
-            </>
-          }
-        />
+      <MainSection
+        id="dob"
+        title="Date of birth"
+        description={
+          <>
+            Month and year dropdowns in the calendar using{" "}
+            <Code>variant=&quot;dob&quot;</Code>. In Gecko, prefer a{" "}
+            <DocsPageLink to="/components/date-field">Date field</DocsPageLink>{" "}
+            for date of birth. Use this variant only when a calendar-based
+            picker is required.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field className="w-44">
@@ -257,19 +272,19 @@ export function DatePickerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="button-trigger" label="Button trigger">
-        <PageSectionHeader
-          title="Button trigger"
-          description={
-            <>
-              Opens the calendar from a button using{" "}
-              <Code>trigger=&quot;button&quot;</Code>. Use this when a native
-              date field is not the right control.
-            </>
-          }
-        />
+      <MainSection
+        id="button-trigger"
+        title="Button trigger"
+        description={
+          <>
+            Opens the calendar from a button using{" "}
+            <Code>trigger=&quot;button&quot;</Code>. Use this when a native date
+            field is not the right control.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field className="w-56">
@@ -291,19 +306,19 @@ export function DatePickerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-time" label="With time">
-        <PageSectionHeader
-          title="With time"
-          description={
-            <>
-              A date and a time together using{" "}
-              <Code>variant=&quot;time&quot;</Code>. Use this when the person
-              must choose both the day and the clock time.
-            </>
-          }
-        />
+      <MainSection
+        id="with-time"
+        title="With time"
+        description={
+          <>
+            A date and a time together using{" "}
+            <Code>variant=&quot;time&quot;</Code>. Use this when the person must
+            choose both the day and the clock time.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <DatePicker
@@ -323,15 +338,14 @@ export function DatePickerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="states" label="States">
-        <PageSectionHeader
-          title="States"
-          description="The field can be unavailable or invalid. Use the state that matches whether the person can choose, and whether the date is required."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="states"
+        title="States"
+        description="The field can be unavailable or invalid. Use the state that matches whether the person can choose, and whether the date is required."
+      >
+        <ChildSection
           id="states-disabled"
           title="Disabled"
           description={
@@ -340,31 +354,31 @@ export function DatePickerPage() {
               when the date cannot be changed yet.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field data-disabled>
-              <FieldLabel htmlFor="date-picker-states-disabled">
-                Date
-              </FieldLabel>
-              <DatePicker
-                id="date-picker-states-disabled"
-                disabled
-                aria-label="Date (disabled)"
-                className="w-full max-w-48"
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-disabled>
+                <FieldLabel htmlFor="date-picker-states-disabled">
+                  Date
+                </FieldLabel>
+                <DatePicker
+                  id="date-picker-states-disabled"
+                  disabled
+                  aria-label="Date (disabled)"
+                  className="w-full max-w-48"
+                />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={disabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={disabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-error"
           title="Error"
           description={
@@ -374,58 +388,76 @@ export function DatePickerPage() {
               date is required before continuing.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field data-invalid>
-              <FieldLabel htmlFor="date-picker-states-error">Date</FieldLabel>
-              <DatePicker
-                id="date-picker-states-error"
-                aria-invalid
-                aria-label="Date (invalid)"
-                className="w-full max-w-48"
-                aria-describedby="date-picker-states-error-msg"
-              />
-              <FieldError id="date-picker-states-error-msg">
-                Choose a valid date using the calendar or type a correct value.
-              </FieldError>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={errorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
-
-      <PageSection id="within-form" label="Within form">
-        <PageSectionHeader
-          title="Within form"
-          description="Use a controlled Date picker inside the form and submit its Date value with the rest of the form state."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <form
-              className="space-y-6"
-              onSubmit={(event) => event.preventDefault()}
-            >
-              <Field>
-                <FieldLabel htmlFor="form-subscription-date">
-                  Subscription date
-                </FieldLabel>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-invalid>
+                <FieldLabel htmlFor="date-picker-states-error">Date</FieldLabel>
                 <DatePicker
-                  id="form-subscription-date"
-                  value={subscriptionDate}
-                  onChange={setSubscriptionDate}
-                  aria-label="Subscription date"
+                  id="date-picker-states-error"
+                  aria-invalid
+                  aria-label="Date (invalid)"
                   className="w-full max-w-48"
+                  aria-describedby="date-picker-states-error-msg"
                 />
+                <FieldError id="date-picker-states-error-msg">
+                  Choose a valid date using the calendar or type a correct
+                  value.
+                </FieldError>
               </Field>
-              <Button type="submit">Save subscription</Button>
-            </form>
+              <Code
+                variant="block"
+                language="tsx"
+                code={errorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
+
+      <MainSection
+        id="within-form"
+        title="Within form"
+        description="Use a controlled Date picker inside the form and submit its Date value with the rest of the form state."
+      >
+        <ComponentExample>
+          <div className="space-y-6">
+            <RequiredForm
+              className="space-y-6"
+              schema={datePickerFormSchema}
+              defaultValues={{ subscriptionDate: undefined }}
+            >
+              {(form) => (
+                <>
+                  <Controller
+                    name="subscriptionDate"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor="form-subscription-date">
+                          Subscription date
+                        </FieldLabel>
+                        <DatePicker
+                          id="form-subscription-date"
+                          value={field.value}
+                          onChange={field.onChange}
+                          aria-label="Subscription date"
+                          required
+                          aria-invalid={fieldState.invalid}
+                          className="w-full max-w-48"
+                        />
+                        {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]} />
+                        )}
+                      </Field>
+                    )}
+                  />
+                  <Button type="submit">Save subscription</Button>
+                </>
+              )}
+            </RequiredForm>
             <Code
               variant="block"
               language="tsx"
@@ -435,13 +467,13 @@ export function DatePickerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Choose the picker variant that matches the date format. Do not restyle the field or calendar chrome."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Choose the picker variant that matches the date format. Do not restyle the field or calendar chrome."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -482,13 +514,13 @@ export function DatePickerPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on DatePicker."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on DatePicker."
+      >
         <DocsApiTable
           rows={[
             {
@@ -526,6 +558,12 @@ export function DatePickerPage() {
               description: "Makes the picker unavailable.",
             },
             {
+              name: "required",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Marks an input-trigger date value as required.",
+            },
+            {
               name: "placeholder",
               type: "string",
               defaultValue: '"Select a date"',
@@ -551,9 +589,8 @@ export function DatePickerPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -577,13 +614,13 @@ export function DatePickerPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a simpler date control when a composed picker is not needed."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a simpler date control when a composed picker is not needed."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/calendar">Calendar</DocsPageLink> —
@@ -594,7 +631,7 @@ export function DatePickerPage() {
             — when direct date entry is enough.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

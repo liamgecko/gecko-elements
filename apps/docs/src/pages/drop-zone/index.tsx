@@ -4,12 +4,11 @@ import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import { DropZone } from "@gecko/ui/components/drop-zone";
 
@@ -34,64 +33,63 @@ export function DropZonePage() {
   const errorSnippet = `<DropZone error="PDF files must be 10 MB or smaller." />`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Drop zone"
-          description="Drop zone is a large surface for selecting one or more files by dropping them or browsing. Selected files appear below the surface and can be removed."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Drop zone"
+        description="Drop zone is a large surface for selecting one or more files by dropping them or browsing. Selected files appear below the surface and can be removed."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Drop zone when selecting files is the only purpose of a large
-              surface — for example, a hero image inside a dialog. The drop area
-              and the file list stay together so it is clear what has been
-              chosen.
-              <br />
-              <br />
-              Avoid using it inside a fieldset where each file needs its own
-              upload row, progress, and error state — use{" "}
-              <DocsPageLink to="/components/attachment">
-                Attachment
-              </DocsPageLink>{" "}
-              instead. Avoid using it to reorder items; that is{" "}
-              <DocsPageLink to="/components/sortable-list">
-                Sortable list
-              </DocsPageLink>
-              .
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Drop zone when selecting files is the only purpose of a large
+            surface — for example, a hero image inside a dialog. The drop area
+            and the file list stay together so it is clear what has been chosen.
+            <br />
+            <br />
+            Avoid using it inside a fieldset where each file needs its own
+            upload row, progress, and error state — use{" "}
+            <DocsPageLink to="/components/attachment">
+              Attachment
+            </DocsPageLink>{" "}
+            instead. Avoid using it to reorder items; that is{" "}
+            <DocsPageLink to="/components/sortable-list">
+              Sortable list
+            </DocsPageLink>
+            .
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import DropZone to add a file drop area."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description={
-            <>
-              A controlled list using <Code>value</Code> and{" "}
-              <Code>onValueChange</Code>. Drop zone selects one file by default.
-            </>
-          }
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description={
+          <>
+            A controlled list using <Code>value</Code> and{" "}
+            <Code>onValueChange</Code>. Drop zone selects one file by default.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <DropZone value={files} onValueChange={setFiles} />
@@ -104,22 +102,19 @@ export function DropZonePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection
+      <MainSection
         id="custom-label-description"
-        label="Custom label and description"
+        title="Custom label and description"
+        description={
+          <>
+            Overrides the default copy using <Code>label</Code> and{" "}
+            <Code>description</Code>. Use this when the drop area needs its own
+            prompt.
+          </>
+        }
       >
-        <PageSectionHeader
-          title="Custom label and description"
-          description={
-            <>
-              Overrides the default copy using <Code>label</Code> and{" "}
-              <Code>description</Code>. Use this when the drop area needs its
-              own prompt.
-            </>
-          }
-        />
         <ComponentExample>
           <div className="space-y-6">
             <DropZone
@@ -136,15 +131,14 @@ export function DropZonePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="states" label="States">
-        <PageSectionHeader
-          title="States"
-          description="The drop area can be unavailable or invalid. Use the state that matches whether files can be added, and whether the current choice is valid."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="states"
+        title="States"
+        description="The drop area can be unavailable or invalid. Use the state that matches whether files can be added, and whether the current choice is valid."
+      >
+        <ChildSection
           id="states-disabled"
           title="Disabled"
           description={
@@ -153,21 +147,21 @@ export function DropZonePage() {
               Use this when files cannot be added yet.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <DropZone disabled />
-            <Code
-              variant="block"
-              language="tsx"
-              code={disabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <DropZone disabled />
+              <Code
+                variant="block"
+                language="tsx"
+                code={disabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-error"
           title="Error"
           description={
@@ -177,26 +171,27 @@ export function DropZonePage() {
               selected files cannot be accepted.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <DropZone error="PDF files must be 10 MB or smaller." />
-            <Code
-              variant="block"
-              language="tsx"
-              code={errorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <DropZone error="PDF files must be 10 MB or smaller." />
+              <Code
+                variant="block"
+                language="tsx"
+                code={errorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep file selection, guidance, and validation together."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep file selection, guidance, and validation together."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -234,13 +229,13 @@ export function DropZonePage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Drop zone."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Drop zone."
+      >
         <DocsApiTable
           rows={[
             {
@@ -314,13 +309,13 @@ export function DropZonePage() {
             },
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use these components for other file-selection layouts."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use these components for other file-selection layouts."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/file-field">File field</DocsPageLink>{" "}
@@ -331,7 +326,7 @@ export function DropZonePage() {
             — for a compact file row.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

@@ -3,12 +3,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 
 export function CodeSnippetPage() {
@@ -51,57 +50,56 @@ markdown`;
 />`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Code snippet"
-          description="The Code snippet shows source in the page — a short token in a sentence, or a block people can read and copy. It is for documentation and examples, not for editing code."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Code snippet"
+        description="The Code snippet shows source in the page — a short token in a sentence, or a block people can read and copy. It is for documentation and examples, not for editing code."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Code snippet for read-only technical content. Inline is for a
-              short token in a sentence. Block is for source, configuration,
-              commands, plain-text output, or customer-facing snippets such as
-              website embed code.
-              <br />
-              <br />
-              Avoid using it as a text field. If people need to edit the value,
-              use an{" "}
-              <DocsPageLink to="/components/input">Input field</DocsPageLink> or
-              a{" "}
-              <DocsPageLink to="/components/textarea">
-                Textarea field
-              </DocsPageLink>{" "}
-              instead.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Code snippet for read-only technical content. Inline is for a
+            short token in a sentence. Block is for source, configuration,
+            commands, plain-text output, or customer-facing snippets such as
+            website embed code.
+            <br />
+            <br />
+            Avoid using it as a text field. If people need to edit the value,
+            use an{" "}
+            <DocsPageLink to="/components/input">Input field</DocsPageLink> or a{" "}
+            <DocsPageLink to="/components/textarea">
+              Textarea field
+            </DocsPageLink>{" "}
+            instead.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Code to show a token in prose or a block of source."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="inline" label="Inline">
-        <PageSectionHeader
-          title="Inline"
-          description="The default Code, with no variant. Use this to highlight a short token inside a sentence."
-        />
+      <MainSection
+        id="inline"
+        title="Inline"
+        description="The default Code, with no variant. Use this to highlight a short token inside a sentence."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <p className="text-sm text-foreground">
@@ -116,22 +114,20 @@ markdown`;
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="block" label="Block">
-        <PageSectionHeader
-          title="Block"
-          description={
-            <>
-              A multiline example using <Code>variant=&quot;block&quot;</Code>{" "}
-              with <Code>code</Code> and the required <Code>language</Code>. Use
-              this when the example needs its own space, not a word in a
-              sentence.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="block"
+        title="Block"
+        description={
+          <>
+            A multiline example using <Code>variant=&quot;block&quot;</Code>{" "}
+            with <Code>code</Code> and the required <Code>language</Code>. Use
+            this when the example needs its own space, not a word in a sentence.
+          </>
+        }
+      >
+        <ChildSection
           id="block-basic"
           title="Basic"
           description={
@@ -140,21 +136,21 @@ markdown`;
               Use this for a read-only example.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Code variant="block" language="tsx" code={blockExample} />
-            <Code
-              variant="block"
-              language="tsx"
-              code={blockSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Code variant="block" language="tsx" code={blockExample} />
+              <Code
+                variant="block"
+                language="tsx"
+                code={blockSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="block-languages"
           title="Supported languages"
           description={
@@ -164,15 +160,15 @@ markdown`;
               highlighting.
             </>
           }
-        />
-        <Code
-          variant="block"
-          language="text"
-          code={supportedLanguages}
-          className="mb-6"
-        />
-
-        <PageSubsectionHeader
+        >
+          <Code
+            variant="block"
+            language="text"
+            code={supportedLanguages}
+            className="mb-6"
+          />
+        </ChildSection>
+        <ChildSection
           id="block-with-copy"
           title="With copy button"
           description={
@@ -182,32 +178,33 @@ markdown`;
               copy the example in one click.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Code
-              variant="block"
-              language="tsx"
-              code={blockExample}
-              showCopyButton
-              copyLabel="Copy code"
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={blockWithCopySnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Code
+                variant="block"
+                language="tsx"
+                code={blockExample}
+                showCopyButton
+                copyLabel="Copy code"
+              />
+              <Code
+                variant="block"
+                language="tsx"
+                code={blockWithCopySnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Choose inline or block Code to match the amount of source."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Choose inline or block Code to match the amount of source."
+      >
         <DocsDoDont
           doItems={[
             <>Use inline Code for a short token within a sentence.</>,
@@ -238,10 +235,9 @@ markdown`;
             <>Don’t add a copy button when the source is only for reading.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader title="API" description="Behaviour props on Code." />
+      <MainSection id="api" title="API" description="Behaviour props on Code.">
         <DocsApiTable
           rows={[
             {
@@ -276,9 +272,8 @@ markdown`;
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -290,13 +285,13 @@ markdown`;
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use an editable field when people need to change the value."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use an editable field when people need to change the value."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/input">Input field</DocsPageLink> —
@@ -309,7 +304,7 @@ markdown`;
             — editable multiline plain text.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

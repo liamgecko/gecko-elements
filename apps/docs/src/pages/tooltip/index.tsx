@@ -3,12 +3,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Button } from "@gecko/ui/components/button";
 import { Code } from "@gecko/ui/components/code";
 import {
@@ -56,76 +55,78 @@ export function TooltipPage() {
 </TooltipContent>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Tooltip"
-          description="The Tooltip component shows a short, supplementary label when a trigger is hovered or focused."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Tooltip"
+        description="The Tooltip component shows a short, supplementary label when a trigger is hovered or focused."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Tooltip to clarify icon-only controls and unfamiliar actions.
-              Keep the copy brief and ensure the interface remains
-              understandable without it. Use a{" "}
-              <DocsPageLink to="/components/popover">Popover</DocsPageLink> for
-              interactive or longer content.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Tooltip to clarify icon-only controls and unfamiliar actions.
+            Keep the copy brief and ensure the interface remains understandable
+            without it. Use a{" "}
+            <DocsPageLink to="/components/popover">Popover</DocsPageLink> for
+            interactive or longer content.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import the provider and the parts required by the interface."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-provider"
           title="Provider"
           description="Place one provider near the application root to share timing behaviour."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={providerSnippet}
-            showCopyButton
-            copyLabel="Copy provider"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={providerSnippet}
+              showCopyButton
+              copyLabel="Copy provider"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="The trigger opens the supplementary content."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="Give an icon-only trigger an accessible name that matches its tooltip."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="Give an icon-only trigger an accessible name that matches its tooltip."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Tooltip>
@@ -151,13 +152,13 @@ export function TooltipPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="positioning" label="Positioning">
-        <PageSectionHeader
-          title="Positioning"
-          description="Choose a preferred placement when the surrounding layout requires it. Collision handling may adjust the final position."
-        />
+      <MainSection
+        id="positioning"
+        title="Positioning"
+        description="Choose a preferred placement when the surrounding layout requires it. Collision handling may adjust the final position."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap gap-4">
@@ -183,13 +184,13 @@ export function TooltipPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use Tooltip for brief, non-interactive supporting text."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use Tooltip for brief, non-interactive supporting text."
+      >
         <DocsDoDont
           doItems={[
             <>Keep the copy short and direct.</>,
@@ -204,145 +205,141 @@ export function TooltipPage() {
             <>Don’t recreate placement with margins or transforms.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Tooltip."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Tooltip."
+      >
+        <ChildSection
           id="api-provider"
           title="TooltipProvider"
           description="Shares timing behaviour between descendant tooltips."
-        />
-        <DocsApiTable
-          aria-label="TooltipProvider API properties"
-          rows={[
-            {
-              name: "delay",
-              type: "number",
-              defaultValue: "150",
-              description: "Sets the delay before a tooltip opens.",
-            },
-            {
-              name: "closeDelay",
-              type: "number",
-              defaultValue: "0",
-              description: "Sets the delay before a tooltip closes.",
-            },
-            {
-              name: "timeout",
-              type: "number",
-              defaultValue: "400",
-              description: "Sets the warm-up window shared by nearby tooltips.",
-            },
-          ]}
-        />
-
-        <PageSubsectionHeader
+        >
+          <DocsApiTable
+            aria-label="TooltipProvider API properties"
+            rows={[
+              {
+                name: "delay",
+                type: "number",
+                defaultValue: "150",
+                description: "Sets the delay before a tooltip opens.",
+              },
+              {
+                name: "closeDelay",
+                type: "number",
+                defaultValue: "0",
+                description: "Sets the delay before a tooltip closes.",
+              },
+              {
+                name: "timeout",
+                type: "number",
+                defaultValue: "400",
+                description:
+                  "Sets the warm-up window shared by nearby tooltips.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-tooltip"
           title="Tooltip"
           description="Owns the open state for one tooltip."
-          className="mt-6"
-        />
-        <DocsApiTable
-          aria-label="Tooltip API properties"
-          rows={[
-            {
-              name: "open",
-              type: "boolean",
-              description: "Controls whether the tooltip is open.",
-            },
-            {
-              name: "defaultOpen",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Sets the initial uncontrolled open state.",
-            },
-            {
-              name: "onOpenChange",
-              type: "(open: boolean, eventDetails) => void",
-              description: "Runs when the open state changes.",
-            },
-            {
-              name: "disabled",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Prevents the tooltip from opening.",
-            },
-          ]}
-        />
-
-        <PageSubsectionHeader
+        >
+          <DocsApiTable
+            aria-label="Tooltip API properties"
+            rows={[
+              {
+                name: "open",
+                type: "boolean",
+                description: "Controls whether the tooltip is open.",
+              },
+              {
+                name: "defaultOpen",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Sets the initial uncontrolled open state.",
+              },
+              {
+                name: "onOpenChange",
+                type: "(open: boolean, eventDetails) => void",
+                description: "Runs when the open state changes.",
+              },
+              {
+                name: "disabled",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Prevents the tooltip from opening.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-trigger"
           title="TooltipTrigger"
           description="Connects the tooltip to its trigger element."
-          className="mt-6"
-        />
-        <DocsApiTable
-          aria-label="TooltipTrigger API properties"
-          rows={[
-            {
-              name: "render",
-              type: "ReactElement | function",
-              description: "Uses another element as the trigger.",
-            },
-            {
-              name: "delay",
-              type: "number",
-              description: "Overrides the provider’s opening delay.",
-            },
-            {
-              name: "closeDelay",
-              type: "number",
-              defaultValue: "0",
-              description: "Overrides the provider’s closing delay.",
-            },
-          ]}
-        />
-
-        <PageSubsectionHeader
+        >
+          <DocsApiTable
+            aria-label="TooltipTrigger API properties"
+            rows={[
+              {
+                name: "render",
+                type: "ReactElement | function",
+                description: "Uses another element as the trigger.",
+              },
+              {
+                name: "delay",
+                type: "number",
+                description: "Overrides the provider’s opening delay.",
+              },
+              {
+                name: "closeDelay",
+                type: "number",
+                defaultValue: "0",
+                description: "Overrides the provider’s closing delay.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-content"
           title="TooltipContent"
           description="Renders and positions the supplementary label."
-          className="mt-6"
-        />
-        <DocsApiTable
-          aria-label="TooltipContent API properties"
-          rows={[
-            {
-              name: "side",
-              type: '"top" | "right" | "bottom" | "left" | logical sides',
-              defaultValue: '"top"',
-              description: "Sets the preferred side of the trigger.",
-            },
-            {
-              name: "sideOffset",
-              type: "number",
-              defaultValue: "4",
-              description: "Sets the distance from the trigger.",
-            },
-            {
-              name: "align",
-              type: '"start" | "center" | "end"',
-              defaultValue: '"center"',
-              description: "Aligns the content along its selected side.",
-            },
-            {
-              name: "alignOffset",
-              type: "number",
-              defaultValue: "0",
-              description: "Shifts the content along its alignment axis.",
-            },
-          ]}
-        />
-
-        <PageSubsectionHeader
+        >
+          <DocsApiTable
+            aria-label="TooltipContent API properties"
+            rows={[
+              {
+                name: "side",
+                type: '"top" | "right" | "bottom" | "left" | logical sides',
+                defaultValue: '"top"',
+                description: "Sets the preferred side of the trigger.",
+              },
+              {
+                name: "sideOffset",
+                type: "number",
+                defaultValue: "4",
+                description: "Sets the distance from the trigger.",
+              },
+              {
+                name: "align",
+                type: '"start" | "center" | "end"',
+                defaultValue: '"center"',
+                description: "Aligns the content along its selected side.",
+              },
+              {
+                name: "alignOffset",
+                type: "number",
+                defaultValue: "0",
+                description: "Shifts the content along its alignment axis.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-reference"
           title="API reference"
-          className="mt-6"
           description={
             <>
               See the{" "}
@@ -357,20 +354,20 @@ export function TooltipPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a richer overlay when the content needs more room or interaction."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a richer overlay when the content needs more room or interaction."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/popover">Popover</DocsPageLink> — for
             richer or interactive content.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

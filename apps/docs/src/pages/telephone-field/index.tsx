@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { ComponentExample } from "@/components/layout/component-example";
+import { RequiredForm } from "@/components/layout/required-form";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Button } from "@gecko/ui/components/button";
 import { Code } from "@gecko/ui/components/code";
 import {
@@ -19,6 +19,12 @@ import {
   FieldLabel,
 } from "@gecko/ui/components/field";
 import { TelephoneField } from "@gecko/ui/components/telephone-field";
+import { Controller } from "react-hook-form";
+import { z } from "zod";
+
+const telephoneFormSchema = z.object({
+  telephone: z.string().trim().min(1, "Enter a telephone number."),
+});
 
 export function TelephoneFieldPage() {
   const [value, setValue] = useState<string>("");
@@ -84,78 +90,83 @@ export function TelephoneFieldPage() {
   </FieldError>
 </Field>`;
 
-  const withinFormSnippet = `<form onSubmit={handleSubmit}>
-  <Field>
-    <FieldLabel htmlFor="contact-telephone">Telephone number</FieldLabel>
-    <TelephoneField
-      id="contact-telephone"
-      name="telephone"
-      autoComplete="tel"
-      defaultCountry="GB"
-      placeholder="Enter a phone number"
-      aria-describedby="contact-telephone-description"
-      required
-    />
-    <FieldDescription id="contact-telephone-description">
-      Include a number where the contact can be reached.
-    </FieldDescription>
-  </Field>
+  const withinFormSnippet = `const formSchema = z.object({
+  telephone: z.string().trim().min(1, "Enter a telephone number."),
+})
+
+const form = useForm<z.infer<typeof formSchema>>({
+  resolver: zodResolver(formSchema),
+  defaultValues: { telephone: "" },
+})
+
+<form noValidate onSubmit={form.handleSubmit(onSubmit)}>
+  <Controller name="telephone" control={form.control} render={({ field, fieldState }) => (
+    <Field data-invalid={fieldState.invalid}>
+      <FieldLabel htmlFor={field.name}>Telephone number</FieldLabel>
+      <TelephoneField
+        {...field}
+        id={field.name}
+        defaultCountry="GB"
+        required
+        aria-invalid={fieldState.invalid}
+      />
+      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+    </Field>
+  )} />
   <Button type="submit">Save contact details</Button>
 </form>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Telephone field"
-          description="A Gecko phone number control combining Input and Dropdown menu with react-phone-number-input formatting and country metadata."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Telephone field"
+        description="A Gecko phone number control combining Input and Dropdown menu with react-phone-number-input formatting and country metadata."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Telephone field when a form needs a phone number with country
-              selection. Pair it with a{" "}
-              <DocsPageLink to="/components/field">Field</DocsPageLink> for
-              labels and validation. The country list opens in a{" "}
-              <DocsPageLink to="/components/dropdown-menu">
-                Dropdown menu
-              </DocsPageLink>
-              .
-              <br />
-              <br />
-              Use an{" "}
-              <DocsPageLink to="/components/input">
-                Input field
-              </DocsPageLink>{" "}
-              for values that are not telephone numbers.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Telephone field when a form needs a phone number with country
+            selection. Pair it with a{" "}
+            <DocsPageLink to="/components/field">Field</DocsPageLink> for labels
+            and validation. The country list opens in a{" "}
+            <DocsPageLink to="/components/dropdown-menu">
+              Dropdown menu
+            </DocsPageLink>
+            .
+            <br />
+            <br />
+            Use an{" "}
+            <DocsPageLink to="/components/input">Input field</DocsPageLink> for
+            values that are not telephone numbers.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import the telephone control required by the interface."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="A telephone number input with an international country selector."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="A telephone number input with an international country selector."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <TelephoneField
@@ -173,13 +184,13 @@ export function TelephoneFieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="default-country" label="Default country">
-        <PageSectionHeader
-          title="Default country"
-          description="Preselect a country when the form has a reliable regional default."
-        />
+      <MainSection
+        id="default-country"
+        title="Default country"
+        description="Preselect a country when the form has a reliable regional default."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <TelephoneField
@@ -198,16 +209,13 @@ export function TelephoneFieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection
+      <MainSection
         id="force-international-format"
-        label="Force international format"
+        title="Force international format"
+        description="Keep the country calling code visible when the stored or displayed value must use international format."
       >
-        <PageSectionHeader
-          title="Force international format"
-          description="Keep the country calling code visible when the stored or displayed value must use international format."
-        />
         <ComponentExample>
           <div className="space-y-6">
             <TelephoneField
@@ -227,13 +235,13 @@ export function TelephoneFieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizes" label="Sizes">
-        <PageSectionHeader
-          title="Sizes"
-          description="Telephone field is available in three sizes. Match the surrounding controls."
-        />
+      <MainSection
+        id="sizes"
+        title="Sizes"
+        description="Telephone field is available in three sizes. Match the surrounding controls."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="space-y-3">
@@ -265,105 +273,123 @@ export function TelephoneFieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="states" label="States">
-        <PageSectionHeader
-          title="States"
-          description="Demonstrate unavailable and validation states."
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="states"
+        title="States"
+        description="Demonstrate unavailable and validation states."
+      >
+        <ChildSection
           id="states-disabled"
           title="Disabled"
           description="Use this when the telephone number cannot be edited."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field data-disabled>
-              <FieldLabel htmlFor="telephone-field-states-disabled">
-                Phone
-              </FieldLabel>
-              <TelephoneField
-                id="telephone-field-states-disabled"
-                name="telephone-field-states-disabled"
-                defaultCountry="GB"
-                placeholder="Enter a phone number"
-                disabled
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-disabled>
+                <FieldLabel htmlFor="telephone-field-states-disabled">
+                  Phone
+                </FieldLabel>
+                <TelephoneField
+                  id="telephone-field-states-disabled"
+                  name="telephone-field-states-disabled"
+                  defaultCountry="GB"
+                  placeholder="Enter a phone number"
+                  disabled
+                />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={disabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={disabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-error"
           title="Error"
           description="Connect the invalid control to a clear validation message."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field data-invalid>
-              <FieldLabel htmlFor="telephone-field-states-error">
-                Phone
-              </FieldLabel>
-              <TelephoneField
-                id="telephone-field-states-error"
-                name="telephone-field-states-error"
-                defaultCountry="GB"
-                placeholder="Enter a phone number"
-                aria-invalid
-                aria-describedby="telephone-field-states-error-msg"
-              />
-              <FieldError id="telephone-field-states-error-msg">
-                Enter a valid phone number for the selected country.
-              </FieldError>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={errorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
-
-      <PageSection id="within-form" label="Within form">
-        <PageSectionHeader
-          title="Within form"
-          description="Give the control a submitted name, a visible label, and telephone autocomplete."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <form
-              className="space-y-6"
-              onSubmit={(event) => event.preventDefault()}
-            >
-              <Field>
-                <FieldLabel htmlFor="contact-telephone">
-                  Telephone number
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-invalid>
+                <FieldLabel htmlFor="telephone-field-states-error">
+                  Phone
                 </FieldLabel>
                 <TelephoneField
-                  id="contact-telephone"
-                  name="telephone"
-                  autoComplete="tel"
+                  id="telephone-field-states-error"
+                  name="telephone-field-states-error"
                   defaultCountry="GB"
                   placeholder="Enter a phone number"
-                  aria-describedby="contact-telephone-description"
-                  required
+                  aria-invalid
+                  aria-describedby="telephone-field-states-error-msg"
                 />
-                <FieldDescription id="contact-telephone-description">
-                  Include a number where the contact can be reached.
-                </FieldDescription>
+                <FieldError id="telephone-field-states-error-msg">
+                  Enter a valid phone number for the selected country.
+                </FieldError>
               </Field>
-              <Button type="submit">Save contact details</Button>
-            </form>
+              <Code
+                variant="block"
+                language="tsx"
+                code={errorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
+
+      <MainSection
+        id="within-form"
+        title="Within form"
+        description="Give the control a submitted name, a visible label, and telephone autocomplete."
+      >
+        <ComponentExample>
+          <div className="space-y-6">
+            <RequiredForm
+              className="space-y-6"
+              schema={telephoneFormSchema}
+              defaultValues={{ telephone: "" }}
+            >
+              {(form) => (
+                <>
+                  <Controller
+                    name="telephone"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor="contact-telephone">
+                          Telephone number
+                        </FieldLabel>
+                        <TelephoneField
+                          id="contact-telephone"
+                          name={field.name}
+                          value={field.value}
+                          onChange={field.onChange}
+                          autoComplete="tel"
+                          defaultCountry="GB"
+                          placeholder="Enter a phone number"
+                          required
+                          aria-invalid={fieldState.invalid}
+                        />
+                        <FieldDescription>
+                          Include a number where the contact can be reached.
+                        </FieldDescription>
+                        {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]} />
+                        )}
+                      </Field>
+                    )}
+                  />
+                  <Button type="submit">Save contact details</Button>
+                </>
+              )}
+            </RequiredForm>
             <Code
               variant="block"
               language="tsx"
@@ -373,13 +399,13 @@ export function TelephoneFieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Collect telephone numbers with the country context needed to interpret them."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Collect telephone numbers with the country context needed to interpret them."
+      >
         <DocsDoDont
           doItems={[
             <>Choose a sensible regional default when one is known.</>,
@@ -402,13 +428,13 @@ export function TelephoneFieldPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Telephone field."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Telephone field."
+      >
         <DocsApiTable
           rows={[
             {
@@ -496,9 +522,8 @@ export function TelephoneFieldPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -510,13 +535,13 @@ export function TelephoneFieldPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use standard form components around the telephone control."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use standard form components around the telephone control."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/input">Input field</DocsPageLink> —
@@ -533,7 +558,7 @@ export function TelephoneFieldPage() {
             — for the searchable country selector.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

@@ -4,12 +4,11 @@ import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
 import { Code } from "@gecko/ui/components/code";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import {
   Sheet,
   SheetBody,
@@ -90,74 +89,75 @@ export function SheetPage() {
 </SheetContent>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Sheet"
-          description="The Sheet component is a panel that slides in from the edge of the screen. It holds secondary content or a short task without leaving the page."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Sheet"
+        description="The Sheet component is a panel that slides in from the edge of the screen. It holds secondary content or a short task without leaving the page."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Sheet for detail or side tasks that should keep the page
-              behind visible — secondary context without taking over the screen.
-              <br />
-              <br />
-              Avoid using it for focused setup forms — that is a{" "}
-              <DocsPageLink to="/components/dialog">Dialog</DocsPageLink>. Avoid
-              using it for action confirmation — that is an{" "}
-              <DocsPageLink to="/components/alert-dialog">
-                Alert dialog
-              </DocsPageLink>
-              .
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Sheet for detail or side tasks that should keep the page behind
+            visible — secondary context without taking over the screen.
+            <br />
+            <br />
+            Avoid using it for focused setup forms — that is a{" "}
+            <DocsPageLink to="/components/dialog">Dialog</DocsPageLink>. Avoid
+            using it for action confirmation — that is an{" "}
+            <DocsPageLink to="/components/alert-dialog">
+              Alert dialog
+            </DocsPageLink>
+            .
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import the Sheet and its parts to compose a sliding panel."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="The trigger opens the panel. Every Sheet includes a header and title; add a body and footer when the task needs them."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic" label="Basic">
-        <PageSectionHeader
-          title="Basic"
-          description={
-            <>
-              A minimal panel using <Code>SheetTrigger</Code> and{" "}
-              <Code>SheetContent</Code> with a <Code>SheetHeader</Code>. Use
-              this for a short message or detail panel.
-            </>
-          }
-        />
+      <MainSection
+        id="basic"
+        title="Basic"
+        description={
+          <>
+            A minimal panel using <Code>SheetTrigger</Code> and{" "}
+            <Code>SheetContent</Code> with a <Code>SheetHeader</Code>. Use this
+            for a short message or detail panel.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Sheet>
@@ -183,19 +183,19 @@ export function SheetPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sides" label="Sides">
-        <PageSectionHeader
-          title="Sides"
-          description={
-            <>
-              Sets the entry edge using <Code>side</Code> on{" "}
-              <Code>SheetContent</Code>. Use the edge that matches where the
-              content belongs in the layout.
-            </>
-          }
-        />
+      <MainSection
+        id="sides"
+        title="Sides"
+        description={
+          <>
+            Sets the entry edge using <Code>side</Code> on{" "}
+            <Code>SheetContent</Code>. Use the edge that matches where the
+            content belongs in the layout.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap gap-3">
@@ -262,19 +262,19 @@ export function SheetPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizes" label="Sizes">
-        <PageSectionHeader
-          title="Sizes"
-          description={
-            <>
-              Controls the width of side sheets using <Code>size</Code> on{" "}
-              <Code>SheetContent</Code>. Use a narrower size for quick actions
-              and a wider size for denser content.
-            </>
-          }
-        />
+      <MainSection
+        id="sizes"
+        title="Sizes"
+        description={
+          <>
+            Controls the width of side sheets using <Code>size</Code> on{" "}
+            <Code>SheetContent</Code>. Use a narrower size for quick actions and
+            a wider size for denser content.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap gap-3">
@@ -357,19 +357,19 @@ export function SheetPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="footer" label="Footer">
-        <PageSectionHeader
-          title="Footer"
-          description={
-            <>
-              Add <Code>SheetFooter</Code> when the task has an action. Keep the
-              required title in <Code>SheetHeader</Code> and the scrollable
-              content in <Code>SheetBody</Code>.
-            </>
-          }
-        />
+      <MainSection
+        id="footer"
+        title="Footer"
+        description={
+          <>
+            Add <Code>SheetFooter</Code> when the task has an action. Keep the
+            required title in <Code>SheetHeader</Code> and the scrollable
+            content in <Code>SheetBody</Code>.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Sheet>
@@ -401,19 +401,19 @@ export function SheetPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="overlay" label="Overlay">
-        <PageSectionHeader
-          title="Overlay"
-          description={
-            <>
-              Hides the backdrop using <Code>hideOverlay</Code> on{" "}
-              <Code>SheetContent</Code>. This changes the visual treatment only;
-              the Sheet remains modal and the page behind stays unavailable.
-            </>
-          }
-        />
+      <MainSection
+        id="overlay"
+        title="Overlay"
+        description={
+          <>
+            Hides the backdrop using <Code>hideOverlay</Code> on{" "}
+            <Code>SheetContent</Code>. This changes the visual treatment only;
+            the Sheet remains modal and the page behind stays unavailable.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Sheet>
@@ -439,13 +439,13 @@ export function SheetPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep side tasks contained and choose the edge and width deliberately."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep side tasks contained and choose the edge and width deliberately."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -486,13 +486,9 @@ export function SheetPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Sheet."
-        />
+      <MainSection id="api" title="API" description="Behaviour props on Sheet.">
         <DocsApiTable
           rows={[
             {
@@ -525,8 +521,7 @@ export function SheetPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
-          className="mt-6"
+        <ChildSection
           title="API reference"
           description={
             <>
@@ -542,13 +537,13 @@ export function SheetPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Choose between a temporary edge panel and persistent app chrome."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Choose between a temporary edge panel and persistent app chrome."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/dialog">Dialog</DocsPageLink> — for a
@@ -559,7 +554,7 @@ export function SheetPage() {
             app chrome.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

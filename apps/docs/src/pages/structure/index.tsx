@@ -1,21 +1,17 @@
-import { Link } from "react-router-dom"
-import { buttonVariants } from "@gecko/ui/components/button"
-import { structurePages } from "@/pages/gallery-data"
+import { Link } from "react-router-dom";
+import { buttonVariants } from "@gecko/ui/components/button";
+import { HeaderSection, MainSection } from "@/components/layout/docs-section";
+import { structurePages } from "@/pages/gallery-data";
 
 export function StructureIndexPage() {
   return (
-    <div className="space-y-12">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">Structure</h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Layout and composition building blocks for consistent screens — app chrome and page structure.
-        </p>
-      </div>
+    <div>
+      <HeaderSection
+        title="Structure"
+        description="Layout and composition building blocks for consistent screens — app chrome and page structure."
+      />
 
-      <section aria-labelledby="structure-gallery-heading">
-        <h2 id="structure-gallery-heading" className="sr-only">
-          Structure topics
-        </h2>
+      <MainSection title="Structure topics">
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {structurePages.map(({ name, description, path }) => (
             <li key={path}>
@@ -27,7 +23,10 @@ export function StructureIndexPage() {
                 <p className="mt-3">
                   <Link
                     to={path}
-                    className={buttonVariants({ variant: "secondary", size: "sm" })}
+                    className={buttonVariants({
+                      variant: "secondary",
+                      size: "sm",
+                    })}
                   >
                     View
                   </Link>
@@ -36,8 +35,7 @@ export function StructureIndexPage() {
             </li>
           ))}
         </ul>
-      </section>
+      </MainSection>
     </div>
-  )
+  );
 }
-

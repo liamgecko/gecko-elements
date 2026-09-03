@@ -1,14 +1,14 @@
 import { ComponentExample } from "@/components/layout/component-example";
+import { RequiredForm } from "@/components/layout/required-form";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import { NumberField } from "@gecko/ui/components/number-field";
 import {
@@ -22,6 +22,15 @@ import {
   FieldSet,
 } from "@gecko/ui/components/field";
 import { Button } from "@gecko/ui/components/button";
+import { Controller } from "react-hook-form";
+import { z } from "zod";
+
+const numberFieldFormSchema = z.object({
+  tickets: z
+    .number({ required_error: "Enter the number of tickets." })
+    .min(1)
+    .max(10),
+});
 
 export function NumberFieldPage() {
   const importSnippet = `import { NumberField } from "@gecko/ui/components/number-field"`;
@@ -59,81 +68,83 @@ export function NumberFieldPage() {
   </FieldError>
 </Field>`;
 
-  const withinFormSnippet = `<form onSubmit={handleSubmit}>
-  <FieldSet>
-    <FieldLegend>Booking details</FieldLegend>
-    <FieldGroup>
-      <Field>
-        <FieldLabel htmlFor="tickets">Tickets</FieldLabel>
-        <FieldContent>
-          <NumberField
-            id="tickets"
-            name="tickets"
-            defaultValue={2}
-            min={1}
-            max={10}
-            required
-          />
-          <FieldDescription>
-            Choose between 1 and 10 tickets.
-          </FieldDescription>
-        </FieldContent>
-      </Field>
-    </FieldGroup>
-    <Button type="submit">Save booking</Button>
-  </FieldSet>
+  const withinFormSnippet = `const formSchema = z.object({
+  tickets: z.number({ required_error: "Enter the number of tickets." }).min(1).max(10),
+})
+
+const form = useForm<z.infer<typeof formSchema>>({
+  resolver: zodResolver(formSchema),
+  defaultValues: { tickets: undefined },
+})
+
+<form noValidate onSubmit={form.handleSubmit(onSubmit)}>
+  <Controller name="tickets" control={form.control} render={({ field, fieldState }) => (
+    <Field data-invalid={fieldState.invalid}>
+      <FieldLabel htmlFor={field.name}>Tickets</FieldLabel>
+      <NumberField
+        id={field.name}
+        name={field.name}
+        value={field.value}
+        onValueChange={field.onChange}
+        min={1}
+        max={10}
+        required
+        aria-invalid={fieldState.invalid}
+      />
+      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+    </Field>
+  )} />
+  <Button type="submit">Save booking</Button>
 </form>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Number field"
-          description="The Number field is a numeric input with increment and decrement controls. People can type a value or step it up and down."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Number field"
+        description="The Number field is a numeric input with increment and decrement controls. People can type a value or step it up and down."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use a Number field exclusively for numeric quantities — counts and
-              amounts where stepper controls help. Pair it with a{" "}
-              <DocsPageLink to="/components/field">Field</DocsPageLink> when the
-              control needs a label, help text, or validation.
-              <br />
-              <br />
-              Avoid using it for free-form text or values that are not numeric —
-              use an{" "}
-              <DocsPageLink to="/components/input">
-                Input field
-              </DocsPageLink>{" "}
-              instead.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use a Number field exclusively for numeric quantities — counts and
+            amounts where stepper controls help. Pair it with a{" "}
+            <DocsPageLink to="/components/field">Field</DocsPageLink> when the
+            control needs a label, help text, or validation.
+            <br />
+            <br />
+            Avoid using it for free-form text or values that are not numeric —
+            use an{" "}
+            <DocsPageLink to="/components/input">Input field</DocsPageLink>{" "}
+            instead.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import NumberField to add a numeric input with steppers."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="The default Number field allows direct entry or stepper controls."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="The default Number field allows direct entry or stepper controls."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <NumberField
@@ -151,13 +162,13 @@ export function NumberFieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizes" label="Sizes">
-        <PageSectionHeader
-          title="Sizes"
-          description="Choose the size that matches the surrounding form controls. Medium is the default."
-        />
+      <MainSection
+        id="sizes"
+        title="Sizes"
+        description="Choose the size that matches the surrounding form controls. Medium is the default."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-col items-start gap-4">
@@ -186,15 +197,14 @@ export function NumberFieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="states" label="States">
-        <PageSectionHeader
-          title="States"
-          description="The field can be unavailable or invalid. Use the state that matches whether the person can change the value, and whether it is valid."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="states"
+        title="States"
+        description="The field can be unavailable or invalid. Use the state that matches whether the person can change the value, and whether it is valid."
+      >
+        <ChildSection
           id="states-disabled"
           title="Disabled"
           description={
@@ -203,31 +213,31 @@ export function NumberFieldPage() {
               when the value cannot be changed yet.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field data-disabled>
-              <FieldLabel htmlFor="number-field-states-disabled">
-                Amount
-              </FieldLabel>
-              <NumberField
-                id="number-field-states-disabled"
-                name="number-field-states-disabled"
-                defaultValue={10}
-                disabled
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-disabled>
+                <FieldLabel htmlFor="number-field-states-disabled">
+                  Amount
+                </FieldLabel>
+                <NumberField
+                  id="number-field-states-disabled"
+                  name="number-field-states-disabled"
+                  defaultValue={10}
+                  disabled
+                />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={disabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={disabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-error"
           title="Error"
           description={
@@ -237,66 +247,83 @@ export function NumberFieldPage() {
               the value is out of range or otherwise invalid.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field data-invalid>
-              <FieldLabel htmlFor="number-field-states-error">
-                Amount
-              </FieldLabel>
-              <NumberField
-                id="number-field-states-error"
-                name="number-field-states-error"
-                defaultValue={10}
-                aria-invalid
-                aria-describedby="number-field-states-error-msg"
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-invalid>
+                <FieldLabel htmlFor="number-field-states-error">
+                  Amount
+                </FieldLabel>
+                <NumberField
+                  id="number-field-states-error"
+                  name="number-field-states-error"
+                  defaultValue={10}
+                  aria-invalid
+                  aria-describedby="number-field-states-error-msg"
+                />
+                <FieldError id="number-field-states-error-msg">
+                  Enter a valid amount within the allowed range.
+                </FieldError>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={errorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-              <FieldError id="number-field-states-error-msg">
-                Enter a valid amount within the allowed range.
-              </FieldError>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={errorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="within-form" label="Within form">
-        <PageSectionHeader
-          title="Within form"
-          description="Compose Number field with Field when its value needs a visible label, guidance, or constraints."
-        />
+      <MainSection
+        id="within-form"
+        title="Within form"
+        description="Compose Number field with Field when its value needs a visible label, guidance, or constraints."
+      >
         <ComponentExample>
           <div className="space-y-6">
-            <form onSubmit={(event) => event.preventDefault()}>
-              <FieldSet>
-                <FieldLegend>Booking details</FieldLegend>
-                <FieldGroup>
-                  <Field>
-                    <FieldLabel htmlFor="tickets">Tickets</FieldLabel>
-                    <FieldContent>
-                      <NumberField
-                        id="tickets"
-                        name="tickets"
-                        defaultValue={2}
-                        min={1}
-                        max={10}
-                        required
-                      />
-                      <FieldDescription>
-                        Choose between 1 and 10 tickets.
-                      </FieldDescription>
-                    </FieldContent>
-                  </Field>
-                </FieldGroup>
-                <Button type="submit">Save booking</Button>
-              </FieldSet>
-            </form>
+            <RequiredForm
+              schema={numberFieldFormSchema}
+              defaultValues={{ tickets: undefined }}
+            >
+              {(form) => (
+                <FieldSet>
+                  <FieldLegend>Booking details</FieldLegend>
+                  <FieldGroup>
+                    <Controller
+                      name="tickets"
+                      control={form.control}
+                      render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
+                          <FieldLabel htmlFor="tickets">Tickets</FieldLabel>
+                          <FieldContent>
+                            <NumberField
+                              id="tickets"
+                              name={field.name}
+                              value={field.value}
+                              onValueChange={field.onChange}
+                              min={1}
+                              max={10}
+                              required
+                              aria-invalid={fieldState.invalid}
+                            />
+                            <FieldDescription>
+                              Choose between 1 and 10 tickets.
+                            </FieldDescription>
+                            {fieldState.invalid && (
+                              <FieldError errors={[fieldState.error]} />
+                            )}
+                          </FieldContent>
+                        </Field>
+                      )}
+                    />
+                  </FieldGroup>
+                  <Button type="submit">Save booking</Button>
+                </FieldSet>
+              )}
+            </RequiredForm>
             <Code
               variant="block"
               language="tsx"
@@ -306,13 +333,13 @@ export function NumberFieldPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use the Number field for numeric values that benefit from stepper controls."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use the Number field for numeric values that benefit from stepper controls."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -346,13 +373,13 @@ export function NumberFieldPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Number field."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Number field."
+      >
         <DocsApiTable
           rows={[
             {
@@ -470,9 +497,8 @@ export function NumberFieldPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -484,13 +510,13 @@ export function NumberFieldPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a related form component when the value or context differs."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a related form component when the value or context differs."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/input">Input field</DocsPageLink> —
@@ -501,7 +527,7 @@ export function NumberFieldPage() {
             label, help text, and validation.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

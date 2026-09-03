@@ -1,5 +1,4 @@
 import { cn } from "@gecko/ui/lib/utils";
-import { Loader2Icon } from "lucide-react";
 
 type SpinnerSize = "xs" | "sm" | "md" | "lg" | "xl";
 
@@ -17,13 +16,26 @@ type SpinnerProps = React.ComponentProps<"svg"> & {
 
 function Spinner({ className, size = "md", ...props }: SpinnerProps) {
   return (
-    <Loader2Icon
+    <svg
       data-slot="spinner"
       role="status"
       aria-label="Loading"
-      className={cn("animate-spin", sizeClasses[size], className)}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={cn(
+        "animate-spin [animation-duration:1.25s]",
+        sizeClasses[size],
+        className,
+      )}
       {...props}
-    />
+    >
+      <circle cx="12" cy="12" r="9" className="opacity-20" />
+      <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+    </svg>
   );
 }
 

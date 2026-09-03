@@ -1,26 +1,30 @@
-import { ComponentExample } from "@/components/layout/component-example"
-import { PageSection } from "@/components/layout/page-section"
+import { ComponentExample } from "@/components/layout/component-example";
+import {
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import {
   ChatBubble,
   ChatBubbleAvatar,
   ChatBubbleInfo,
   ChatBubbleMessage,
-} from "@gecko/ui/components/chat-bubble"
-import { Code } from "@gecko/ui/components/code"
+} from "@gecko/ui/components/chat-bubble";
+import { Code } from "@gecko/ui/components/code";
 
 const defaultAvatar = {
   src: "",
   alt: "",
   fallback: "U",
-}
+};
 
 const agentAvatar = {
   src: "",
   alt: "",
-  fallback: "A"
-}
+  fallback: "A",
+};
 
-const exampleTimestamp = new Date("2026-03-24T04:00:00")
+const exampleTimestamp = new Date("2026-03-24T04:00:00");
 
 const userMessageInfo = {
   channel: "Admissions live chat",
@@ -31,7 +35,7 @@ const userMessageInfo = {
   receivedAt: "08/01/2024 @ 15:54",
   sentTo: ["info@geckouniversity.ac.uk", "admissions@geckouniversity.ac.uk"],
   cc: ["finance@geckouniversity.ac.uk", "support@geckouniversity.ac.uk"],
-}
+};
 
 const agentMessageInfo = {
   source: {
@@ -61,87 +65,104 @@ const agentMessageInfo = {
   },
   channel: "Admissions live chat",
   receivedAt: "08/01/2024 @ 15:54",
-}
+};
 
 export function ChatBubblePage() {
   return (
-    <div className="space-y-12">
-        <PageSection id="overview" label="Overview">
-          <h1 className="text-2xl font-bold text-foreground">Chat bubble</h1>
-          <p className="text-sm text-muted-foreground">
+    <div>
+      <HeaderSection
+        id="overview"
+        title={<>Chat bubble</>}
+        description={
+          <>
             <span className="text-destructive font-medium">Deprecated.</span>{" "}
             Prefer <Code>Message</Code> + <Code>Bubble</Code> for new work. This
             page is kept as a reference while apps migrate.
-          </p>
-          <p className="text-sm text-muted-foreground">
-            A simple message bubble with avatar, body text, and relative time
-            metadata.
-          </p>
-        </PageSection>
+          </>
+        }
+      >
+        <p className="text-sm text-muted-foreground">
+          A simple message bubble with avatar, body text, and relative time
+          metadata.
+        </p>
+      </HeaderSection>
 
-        <PageSection id="basic-example" label="Basic example">
-          <h2 className="text-lg font-semibold">Basic example</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
+      <MainSection
+        id="basic-example"
+        title={<>Basic example</>}
+        description={
+          <>
             The base <Code>ChatBubble</Code> includes an avatar, message body,
             and a relative timestamp. User messages use a muted bubble aligned
             to the end (right).
-          </p>
-          <ComponentExample>
-            <ChatBubble>
-              <ChatBubbleAvatar {...defaultAvatar} />
-              <ChatBubbleMessage timestamp={exampleTimestamp}>
-                Hello, this is a chat message
-              </ChatBubbleMessage>
-            </ChatBubble>
-          </ComponentExample>
-        </PageSection>
+          </>
+        }
+      >
+        <ComponentExample>
+          <ChatBubble>
+            <ChatBubbleAvatar {...defaultAvatar} />
+            <ChatBubbleMessage timestamp={exampleTimestamp}>
+              Hello, this is a chat message
+            </ChatBubbleMessage>
+          </ChatBubble>
+        </ComponentExample>
+      </MainSection>
 
-        <PageSection id="agent" label="Agent">
-          <h2 className="text-lg font-semibold">Agent</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
+      <MainSection
+        id="agent"
+        title={<>Agent</>}
+        description={
+          <>
             Set <Code>agent</Code> on <Code>ChatBubble</Code> for operator or
-            assistant messages: they align to the start (left) and use the tinted
-            background by default.
-          </p>
-          <ComponentExample>
-            <ChatBubble agent>
-              <ChatBubbleAvatar {...agentAvatar} />
-              <ChatBubbleMessage timestamp={exampleTimestamp}>
-                Hello, I'm an agent. How can I help you today?
-              </ChatBubbleMessage>
-            </ChatBubble>
-          </ComponentExample>
-        </PageSection>
+            assistant messages: they align to the start (left) and use the
+            tinted background by default.
+          </>
+        }
+      >
+        <ComponentExample>
+          <ChatBubble agent>
+            <ChatBubbleAvatar {...agentAvatar} />
+            <ChatBubbleMessage timestamp={exampleTimestamp}>
+              Hello, I'm an agent. How can I help you today?
+            </ChatBubbleMessage>
+          </ChatBubble>
+        </ComponentExample>
+      </MainSection>
 
-        <PageSection id="ai-agent" label="AI agent">
-          <h2 className="text-lg font-semibold">AI agent</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
+      <MainSection
+        id="ai-agent"
+        title={<>AI agent</>}
+        description={
+          <>
             Use <Code>variant="ai-agent"</Code> with <Code>agent</Code> for
             generative assistant replies: no bubble background or padding, no
             avatar (even if <Code>ChatBubbleAvatar</Code> is present—it renders
             nothing), still start-aligned with metadata.
-          </p>
-          <ComponentExample>
-            <ChatBubble agent variant="ai-agent">
-              <ChatBubbleMessage timestamp={exampleTimestamp}>
-                Here is a concise answer based on your question—no padded bubble
-                chrome.
-              </ChatBubbleMessage>
-            </ChatBubble>
-          </ComponentExample>
-        </PageSection>
+          </>
+        }
+      >
+        <ComponentExample>
+          <ChatBubble agent variant="ai-agent">
+            <ChatBubbleMessage timestamp={exampleTimestamp}>
+              Here is a concise answer based on your question—no padded bubble
+              chrome.
+            </ChatBubbleMessage>
+          </ChatBubble>
+        </ComponentExample>
+      </MainSection>
 
-        <PageSection id="status" label="Status">
-          <h2 className="text-lg font-semibold">Status</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
+      <MainSection
+        id="status"
+        title={<>Status</>}
+        description={
+          <>
             Use <Code>status</Code> on <Code>ChatBubbleMessage</Code> for agent
             messages to show read-state indicators.
-          </p>
-
-          <h3 id="status-sent" className="mb-3 text-base font-semibold">
-            Sent
-          </h3>
-          <ComponentExample className="mb-6">
+          </>
+        }
+      >
+        <ChildSection id="status-sent" title={<>Sent</>}>
+          <ComponentExample>
             <ChatBubble agent>
               <ChatBubbleAvatar {...agentAvatar} />
               <ChatBubbleMessage timestamp={exampleTimestamp} status="sent">
@@ -149,23 +170,22 @@ export function ChatBubblePage() {
               </ChatBubbleMessage>
             </ChatBubble>
           </ComponentExample>
-
-          <h3 id="status-delivered" className="mb-3 text-base font-semibold">
-            Delivered
-          </h3>
-          <ComponentExample className="mb-6">
+        </ChildSection>
+        <ChildSection id="status-delivered" title={<>Delivered</>}>
+          <ComponentExample>
             <ChatBubble agent>
               <ChatBubbleAvatar {...agentAvatar} />
-              <ChatBubbleMessage timestamp={exampleTimestamp} status="delivered">
+              <ChatBubbleMessage
+                timestamp={exampleTimestamp}
+                status="delivered"
+              >
                 This message has been delivered.
               </ChatBubbleMessage>
             </ChatBubble>
           </ComponentExample>
-
-          <h3 id="status-read" className="mb-3 text-base font-semibold">
-            Read
-          </h3>
-          <ComponentExample className="mb-6">
+        </ChildSection>
+        <ChildSection id="status-read" title={<>Read</>}>
+          <ComponentExample>
             <ChatBubble agent>
               <ChatBubbleAvatar {...agentAvatar} />
               <ChatBubbleMessage timestamp={exampleTimestamp} status="read">
@@ -173,10 +193,8 @@ export function ChatBubblePage() {
               </ChatBubbleMessage>
             </ChatBubble>
           </ComponentExample>
-
-          <h3 id="status-failed" className="mb-3 text-base font-semibold">
-            Failed
-          </h3>
+        </ChildSection>
+        <ChildSection id="status-failed" title={<>Failed</>}>
           <ComponentExample>
             <ChatBubble agent>
               <ChatBubbleAvatar {...agentAvatar} />
@@ -185,36 +203,42 @@ export function ChatBubblePage() {
               </ChatBubbleMessage>
             </ChatBubble>
           </ComponentExample>
-        </PageSection>
+        </ChildSection>
+      </MainSection>
 
-        <PageSection id="note" label="Note">
-          <h2 className="text-lg font-semibold">Note</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
+      <MainSection
+        id="note"
+        title={<>Note</>}
+        description={
+          <>
             Use <Code>variant="note"</Code> for conversation notes. Notes
             default to agent alignment and only display the timestamp (status is
             ignored).
-          </p>
-          <ComponentExample>
-            <ChatBubble variant="note">
-              <ChatBubbleAvatar {...agentAvatar} />
-              <ChatBubbleMessage timestamp={exampleTimestamp}>
-                This isn&apos;t a message, it&apos;s a note!
-              </ChatBubbleMessage>
-            </ChatBubble>
-          </ComponentExample>
-        </PageSection>
+          </>
+        }
+      >
+        <ComponentExample>
+          <ChatBubble variant="note">
+            <ChatBubbleAvatar {...agentAvatar} />
+            <ChatBubbleMessage timestamp={exampleTimestamp}>
+              This isn&apos;t a message, it&apos;s a note!
+            </ChatBubbleMessage>
+          </ChatBubble>
+        </ComponentExample>
+      </MainSection>
 
-        <PageSection id="info-popover" label="Info popover">
-          <h2 className="text-lg font-semibold">Info popover</h2>
-          <p className="mb-8 text-sm text-muted-foreground">
+      <MainSection
+        id="info-popover"
+        title={<>Info popover</>}
+        description={
+          <>
             Add <Code>ChatBubbleInfo</Code> to show a message-information
             popover. User and agent messages render different grid content.
-          </p>
-
-          <h3 id="info-popover-user-message" className="mb-3 text-base font-semibold">
-            User message
-          </h3>
-          <ComponentExample className="mb-6">
+          </>
+        }
+      >
+        <ChildSection id="info-popover-user-message" title={<>User message</>}>
+          <ComponentExample>
             <ChatBubble>
               <ChatBubbleAvatar {...defaultAvatar} />
               <ChatBubbleMessage
@@ -225,10 +249,11 @@ export function ChatBubblePage() {
               </ChatBubbleMessage>
             </ChatBubble>
           </ComponentExample>
-
-          <h3 id="info-popover-agent-message" className="mb-3 text-base font-semibold">
-            Agent message
-          </h3>
+        </ChildSection>
+        <ChildSection
+          id="info-popover-agent-message"
+          title={<>Agent message</>}
+        >
           <ComponentExample>
             <ChatBubble agent>
               <ChatBubbleAvatar {...agentAvatar} />
@@ -240,8 +265,8 @@ export function ChatBubblePage() {
               </ChatBubbleMessage>
             </ChatBubble>
           </ComponentExample>
-        </PageSection>
+        </ChildSection>
+      </MainSection>
     </div>
-  )
+  );
 }
-

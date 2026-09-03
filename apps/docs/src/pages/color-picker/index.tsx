@@ -1,20 +1,28 @@
 import * as React from "react";
 
 import { ComponentExample } from "@/components/layout/component-example";
+import { RequiredForm } from "@/components/layout/required-form";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import { Button } from "@gecko/ui/components/button";
 import { ColorPicker } from "@gecko/ui/components/color-picker";
 import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";
+import { Controller } from "react-hook-form";
+import { z } from "zod";
+
+const colorPickerFormSchema = z.object({
+  accentColour: z
+    .string()
+    .regex(/^#[0-9A-F]{6}$/i, "Enter a six-character hex colour."),
+});
 
 export function ColorPickerPage() {
   const [controlledColour, setControlledColour] = React.useState("#6366F1");
@@ -116,70 +124,85 @@ export function ColorPickerPage() {
   </FieldError>
 </Field>`;
 
-  const withinFormSnippet = `<form onSubmit={handleSubmit}>
-  <Field>
-    <FieldLabel htmlFor="form-accent-colour">Accent colour</FieldLabel>
-    <ColorPicker
-      id="form-accent-colour"
-      name="accentColour"
-      defaultValue="#6366F1"
-    />
-  </Field>
+  const withinFormSnippet = `const formSchema = z.object({
+  accentColour: z.string().regex(/^#[0-9A-F]{6}$/i, "Enter a six-character hex colour."),
+})
+
+const form = useForm<z.infer<typeof formSchema>>({
+  resolver: zodResolver(formSchema),
+  defaultValues: { accentColour: "" },
+})
+
+<form noValidate onSubmit={form.handleSubmit(onSubmit)}>
+  <Controller name="accentColour" control={form.control} render={({ field, fieldState }) => (
+    <Field data-invalid={fieldState.invalid}>
+      <FieldLabel htmlFor={field.name}>Accent colour</FieldLabel>
+      <ColorPicker
+        id={field.name}
+        name={field.name}
+        value={field.value}
+        onValueChange={field.onChange}
+        required
+        aria-invalid={fieldState.invalid}
+      />
+      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+    </Field>
+  )} />
   <Button type="submit">Save colour</Button>
 </form>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Colour field"
-          description="The Colour field is a text input with a colour swatch. People can type a hex value or open a picker."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Colour field"
+        description="The Colour field is a text input with a colour swatch. People can type a hex value or open a picker."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use a Colour field for brand elements — account colour, heading
-              colour, widget colour, and similar settings. The swatch shows the
-              current value; the field holds the hex.
-              <br />
-              <br />
-              Avoid using it for a fixed palette of a few named options; use a{" "}
-              <DocsPageLink to="/components/select">Select</DocsPageLink> or a
-              set of swatches instead. Do not use it as a general text field.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use a Colour field for brand elements — account colour, heading
+            colour, widget colour, and similar settings. The swatch shows the
+            current value; the field holds the hex.
+            <br />
+            <br />
+            Avoid using it for a fixed palette of a few named options; use a{" "}
+            <DocsPageLink to="/components/select">Select</DocsPageLink> or a set
+            of swatches instead. Do not use it as a general text field.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import ColorPicker to add a colour field."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description={
-            <>
-              An empty field with a <Code>placeholder</Code>. Use this when the
-              person is choosing a colour for the first time. The neutral swatch
-              shows that no valid colour is selected yet.
-            </>
-          }
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description={
+          <>
+            An empty field with a <Code>placeholder</Code>. Use this when the
+            person is choosing a colour for the first time. The neutral swatch
+            shows that no valid colour is selected yet.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -199,20 +222,19 @@ export function ColorPickerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizing" label="Sizing">
-        <PageSectionHeader
-          title="Sizing"
-          description={
-            <>
-              Sets the field size using the <Code>size</Code> prop. Default is{" "}
-              <Code>md</Code>. Use the size that matches the form around it.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="sizing"
+        title="Sizing"
+        description={
+          <>
+            Sets the field size using the <Code>size</Code> prop. Default is{" "}
+            <Code>md</Code>. Use the size that matches the form around it.
+          </>
+        }
+      >
+        <ChildSection
           id="sizing-small"
           title="Small"
           description={
@@ -221,31 +243,31 @@ export function ColorPickerPage() {
               when space is tight.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field>
-              <FieldLabel htmlFor="account-colour-small">
-                Account colour
-              </FieldLabel>
-              <ColorPicker
-                id="account-colour-small"
-                name="account-colour-small"
-                size="sm"
-                defaultValue="#0EA5E9"
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field>
+                <FieldLabel htmlFor="account-colour-small">
+                  Account colour
+                </FieldLabel>
+                <ColorPicker
+                  id="account-colour-small"
+                  name="account-colour-small"
+                  size="sm"
+                  defaultValue="#0EA5E9"
+                />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeSmallSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeSmallSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="sizing-medium"
           title="Medium"
           description={
@@ -254,30 +276,30 @@ export function ColorPickerPage() {
               in a standard form.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field>
-              <FieldLabel htmlFor="account-colour-medium">
-                Account colour
-              </FieldLabel>
-              <ColorPicker
-                id="account-colour-medium"
-                name="account-colour-medium"
-                defaultValue="#6366F1"
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field>
+                <FieldLabel htmlFor="account-colour-medium">
+                  Account colour
+                </FieldLabel>
+                <ColorPicker
+                  id="account-colour-medium"
+                  name="account-colour-medium"
+                  defaultValue="#6366F1"
+                />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeMediumSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeMediumSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="sizing-large"
           title="Large"
           description={
@@ -286,41 +308,42 @@ export function ColorPickerPage() {
               when the colour is a primary choice on the page.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field>
-              <FieldLabel htmlFor="account-colour-large">
-                Account colour
-              </FieldLabel>
-              <ColorPicker
-                id="account-colour-large"
-                name="account-colour-large"
-                size="lg"
-                defaultValue="#22C55E"
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field>
+                <FieldLabel htmlFor="account-colour-large">
+                  Account colour
+                </FieldLabel>
+                <ColorPicker
+                  id="account-colour-large"
+                  name="account-colour-large"
+                  size="lg"
+                  defaultValue="#22C55E"
+                />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={sizeLargeSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={sizeLargeSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="with-default-value" label="With default value">
-        <PageSectionHeader
-          title="With default value"
-          description={
-            <>
-              Starts with a colour using <Code>defaultValue</Code>. Use this
-              when the field should already have a colour chosen.
-            </>
-          }
-        />
+      <MainSection
+        id="with-default-value"
+        title="With default value"
+        description={
+          <>
+            Starts with a colour using <Code>defaultValue</Code>. Use this when
+            the field should already have a colour chosen.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -340,19 +363,19 @@ export function ColorPickerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="controlled-value" label="Controlled value">
-        <PageSectionHeader
-          title="Controlled value"
-          description={
-            <>
-              Use <Code>value</Code> and <Code>onValueChange</Code> when product
-              state owns the colour. The callback receives typed and picker
-              changes through one interface.
-            </>
-          }
-        />
+      <MainSection
+        id="controlled-value"
+        title="Controlled value"
+        description={
+          <>
+            Use <Code>value</Code> and <Code>onValueChange</Code> when product
+            state owns the colour. The callback receives typed and picker
+            changes through one interface.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -373,19 +396,19 @@ export function ColorPickerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="direct-hex-input" label="Direct HEX input">
-        <PageSectionHeader
-          title="Direct HEX input"
-          description={
-            <>
-              The field accepts a typed <Code>#RRGGBB</Code> value as well as a
-              picker. Use this when people already know the hex, or want to
-              confirm what they picked.
-            </>
-          }
-        />
+      <MainSection
+        id="direct-hex-input"
+        title="Direct HEX input"
+        description={
+          <>
+            The field accepts a typed <Code>#RRGGBB</Code> value as well as a
+            picker. Use this when people already know the hex, or want to
+            confirm what they picked.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -405,15 +428,14 @@ export function ColorPickerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="states" label="States">
-        <PageSectionHeader
-          title="States"
-          description="The field can be unavailable or invalid. Use the state that matches whether the person can choose, and whether the colour is valid."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="states"
+        title="States"
+        description="The field can be unavailable or invalid. Use the state that matches whether the person can choose, and whether the colour is valid."
+      >
+        <ChildSection
           id="states-disabled"
           title="Disabled"
           description={
@@ -422,31 +444,31 @@ export function ColorPickerPage() {
               prop. Use this when the colour cannot be changed yet.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field data-disabled>
-              <FieldLabel htmlFor="color-picker-states-disabled">
-                Accent colour
-              </FieldLabel>
-              <ColorPicker
-                id="color-picker-states-disabled"
-                name="color-picker-states-disabled"
-                defaultValue="#6366F1"
-                disabled
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-disabled>
+                <FieldLabel htmlFor="color-picker-states-disabled">
+                  Accent colour
+                </FieldLabel>
+                <ColorPicker
+                  id="color-picker-states-disabled"
+                  name="color-picker-states-disabled"
+                  defaultValue="#6366F1"
+                  disabled
+                />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={disabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={disabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-error"
           title="Error"
           description={
@@ -456,58 +478,76 @@ export function ColorPickerPage() {
               the value is not a valid hex colour.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field data-invalid>
-              <FieldLabel htmlFor="color-picker-states-error">
-                Accent colour
-              </FieldLabel>
-              <ColorPicker
-                id="color-picker-states-error"
-                name="color-picker-states-error"
-                defaultValue="#GGGGGG"
-                aria-invalid
-                aria-describedby="color-picker-states-error-msg"
-              />
-              <FieldError id="color-picker-states-error-msg">
-                Use a six-character hex colour, such as #6366F1.
-              </FieldError>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={errorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
-
-      <PageSection id="within-form" label="Within form">
-        <PageSectionHeader
-          title="Within form"
-          description="Use Colour field as a named form control with a visible label and a separate submit action."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <form
-              className="space-y-6"
-              onSubmit={(event) => event.preventDefault()}
-            >
-              <Field>
-                <FieldLabel htmlFor="form-accent-colour">
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-invalid>
+                <FieldLabel htmlFor="color-picker-states-error">
                   Accent colour
                 </FieldLabel>
                 <ColorPicker
-                  id="form-accent-colour"
-                  name="accentColour"
-                  defaultValue="#6366F1"
+                  id="color-picker-states-error"
+                  name="color-picker-states-error"
+                  defaultValue="#GGGGGG"
+                  aria-invalid
+                  aria-describedby="color-picker-states-error-msg"
                 />
+                <FieldError id="color-picker-states-error-msg">
+                  Use a six-character hex colour, such as #6366F1.
+                </FieldError>
               </Field>
-              <Button type="submit">Save colour</Button>
-            </form>
+              <Code
+                variant="block"
+                language="tsx"
+                code={errorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
+
+      <MainSection
+        id="within-form"
+        title="Within form"
+        description="Use Colour field as a named form control with a visible label and a separate submit action."
+      >
+        <ComponentExample>
+          <div className="space-y-6">
+            <RequiredForm
+              className="space-y-6"
+              schema={colorPickerFormSchema}
+              defaultValues={{ accentColour: "" }}
+            >
+              {(form) => (
+                <>
+                  <Controller
+                    name="accentColour"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor="form-accent-colour">
+                          Accent colour
+                        </FieldLabel>
+                        <ColorPicker
+                          id="form-accent-colour"
+                          name={field.name}
+                          value={field.value}
+                          onValueChange={field.onChange}
+                          required
+                          aria-invalid={fieldState.invalid}
+                        />
+                        {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]} />
+                        )}
+                      </Field>
+                    )}
+                  />
+                  <Button type="submit">Save colour</Button>
+                </>
+              )}
+            </RequiredForm>
             <Code
               variant="block"
               language="tsx"
@@ -517,13 +557,13 @@ export function ColorPickerPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use the Colour field’s value, size, and states consistently."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use the Colour field’s value, size, and states consistently."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -558,13 +598,13 @@ export function ColorPickerPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Colour field."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Colour field."
+      >
         <DocsApiTable
           rows={[
             {
@@ -610,9 +650,8 @@ export function ColorPickerPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -624,13 +663,13 @@ export function ColorPickerPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use these components for text entry and form structure."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use these components for text entry and form structure."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/input">Input field</DocsPageLink> —
@@ -641,7 +680,7 @@ export function ColorPickerPage() {
             label, description, and validation message around a Colour field.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

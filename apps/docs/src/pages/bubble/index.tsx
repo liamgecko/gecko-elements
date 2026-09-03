@@ -6,12 +6,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import {
   Bubble,
@@ -203,73 +202,74 @@ export function BubblePage() {
 </Bubble>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Bubble"
-          description="The Bubble component is the speech in a conversation — the framed text of a message. It holds the words, and can sit with hover actions and reactions, without the avatar or name."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Bubble"
+        description="The Bubble component is the speech in a conversation — the framed text of a message. It holds the words, and can sit with hover actions and reactions, without the avatar or name."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use a Bubble for the words in a conversation. Compose it inside a{" "}
-              <DocsPageLink to="/components/message">Message</DocsPageLink> for
-              application conversations so speaker, alignment and treatment stay
-              coordinated.
-              <br />
-              <br />
-              Use Bubble directly only for a deliberately lightweight
-              conversation that does not need message identity or metadata.
-              Avoid using it as a card, a tooltip, or a page notice.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use a Bubble for the words in a conversation. Compose it inside a{" "}
+            <DocsPageLink to="/components/message">Message</DocsPageLink> for
+            application conversations so speaker, alignment and treatment stay
+            coordinated.
+            <br />
+            <br />
+            Use Bubble directly only for a deliberately lightweight conversation
+            that does not need message identity or metadata. Avoid using it as a
+            card, a tooltip, or a page notice.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import the Bubble and its parts to compose a message."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="The bubble holds the text. Hover actions and reactions sit beside it or on the edge."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="variants" label="Variants">
-        <PageSectionHeader
-          title="Variants"
-          description={
-            <>
-              Set the look with the <Code>variant</Code> prop. Use a stronger
-              style for the person speaking, and a quieter style for everyone
-              else.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="variants"
+        title="Variants"
+        description={
+          <>
+            Set the look with the <Code>variant</Code> prop. Use a stronger
+            style for the person speaking, and a quieter style for everyone
+            else.
+          </>
+        }
+      >
+        <ChildSection
           id="variants-default"
           title="Default"
           description={
@@ -278,24 +278,25 @@ export function BubblePage() {
               Message selects this automatically for team or agent messages.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="w-full">
-              <Bubble align="end">
-                <BubbleContent>This is a team message.</BubbleContent>
-              </Bubble>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <Bubble align="end">
+                  <BubbleContent>This is a team message.</BubbleContent>
+                </Bubble>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={defaultSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={defaultSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-secondary"
           title="Secondary"
           description={
@@ -305,24 +306,25 @@ export function BubblePage() {
               messages.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="w-full">
-              <Bubble variant="secondary">
-                <BubbleContent>This is a customer message.</BubbleContent>
-              </Bubble>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <Bubble variant="secondary">
+                  <BubbleContent>This is a customer message.</BubbleContent>
+                </Bubble>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={secondarySnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={secondarySnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-outline"
           title="Outline"
           description={
@@ -332,26 +334,27 @@ export function BubblePage() {
               background.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="w-full">
-              <Bubble variant="outline">
-                <BubbleContent>
-                  We can also use an outlined variant.
-                </BubbleContent>
-              </Bubble>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <Bubble variant="outline">
+                  <BubbleContent>
+                    We can also use an outlined variant.
+                  </BubbleContent>
+                </Bubble>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={outlineSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={outlineSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-ghost"
           title="Ghost"
           description={
@@ -360,27 +363,28 @@ export function BubblePage() {
               Use this when the content should not look like a framed chip.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <div className="w-full">
-              <Bubble variant="ghost">
-                <BubbleContent>
-                  Ghost bubbles are unframed for assistant text and rich
-                  content.
-                </BubbleContent>
-              </Bubble>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <Bubble variant="ghost">
+                  <BubbleContent>
+                    Ghost bubbles are unframed for assistant text and rich
+                    content.
+                  </BubbleContent>
+                </Bubble>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={ghostSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={ghostSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-        <PageSubsectionHeader
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-destructive"
           title="Destructive"
           description={
@@ -389,37 +393,40 @@ export function BubblePage() {
               . Use this when an action in the thread failed.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <div className="w-full">
-              <Bubble variant="destructive" align="end">
-                <BubbleContent>A destructive variant for errors.</BubbleContent>
-              </Bubble>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="w-full">
+                <Bubble variant="destructive" align="end">
+                  <BubbleContent>
+                    A destructive variant for errors.
+                  </BubbleContent>
+                </Bubble>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={destructiveSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
             </div>
-            <Code
-              variant="block"
-              language="tsx"
-              code={destructiveSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="alignment" label="Alignment">
-        <PageSectionHeader
-          title="Alignment"
-          description={
-            <>
-              Positions a standalone bubble with the <Code>align</Code> prop.
-              Customer messages align to the start; team, agent, AI and note
-              messages align to the end. Message applies this mapping
-              automatically.
-            </>
-          }
-        />
+      <MainSection
+        id="alignment"
+        title="Alignment"
+        description={
+          <>
+            Positions a standalone bubble with the <Code>align</Code> prop.
+            Customer messages align to the start; team, agent, AI and note
+            messages align to the end. Message applies this mapping
+            automatically.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex w-full flex-col gap-8">
@@ -441,19 +448,18 @@ export function BubblePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="full-width" label="Full width">
-        <PageSectionHeader
-          title="Full width"
-          description={
-            <>
-              Raises the max width using the <Code>fullWidth</Code> prop. Use
-              this in a tight layout, where the usual gap would leave unused
-              space.
-            </>
-          }
-        />
+      <MainSection
+        id="full-width"
+        title="Full width"
+        description={
+          <>
+            Raises the max width using the <Code>fullWidth</Code> prop. Use this
+            in a tight layout, where the usual gap would leave unused space.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex w-full flex-col gap-8">
@@ -485,20 +491,20 @@ export function BubblePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="group" label="Group">
-        <PageSectionHeader
-          title="Group"
-          description={
-            <>
-              Stacks consecutive bubbles from the same person using{" "}
-              <Code>BubbleGroup</Code>. Set <Code>align</Code> on each{" "}
-              <Code>Bubble</Code>, not the group. Use this when someone sends
-              several messages in a row.
-            </>
-          }
-        />
+      <MainSection
+        id="group"
+        title="Group"
+        description={
+          <>
+            Stacks consecutive bubbles from the same person using{" "}
+            <Code>BubbleGroup</Code>. Set <Code>align</Code> on each{" "}
+            <Code>Bubble</Code>, not the group. Use this when someone sends
+            several messages in a row.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex w-full flex-col gap-8">
@@ -530,18 +536,18 @@ export function BubblePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="reactions" label="Reactions">
-        <PageSectionHeader
-          title="Reactions"
-          description={
-            <>
-              Adds applied emoji using <Code>BubbleReactions</Code>. Use this
-              when people have reacted to the message.
-            </>
-          }
-        />
+      <MainSection
+        id="reactions"
+        title="Reactions"
+        description={
+          <>
+            Adds applied emoji using <Code>BubbleReactions</Code>. Use this when
+            people have reacted to the message.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex w-full flex-col gap-12">
@@ -580,19 +586,19 @@ export function BubblePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="actions" label="Actions">
-        <PageSectionHeader
-          title="Actions"
-          description={
-            <>
-              Adds hover controls using <Code>BubbleActions</Code>. Place it
-              after <Code>BubbleContent</Code>. Use this for reply or react
-              without crowding the text.
-            </>
-          }
-        />
+      <MainSection
+        id="actions"
+        title="Actions"
+        description={
+          <>
+            Adds hover controls using <Code>BubbleActions</Code>. Place it after{" "}
+            <Code>BubbleContent</Code>. Use this for reply or react without
+            crowding the text.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex w-full flex-col gap-8">
@@ -651,18 +657,18 @@ export function BubblePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="show-more" label="Show more">
-        <PageSectionHeader
-          title="Show more"
-          description={
-            <>
-              Compose long text with <Code>Collapsible</Code>. Use this when the
-              message is too long to show in full at first.
-            </>
-          }
-        />
+      <MainSection
+        id="show-more"
+        title="Show more"
+        description={
+          <>
+            Compose long text with <Code>Collapsible</Code>. Use this when the
+            message is too long to show in full at first.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex w-full flex-col gap-8">
@@ -680,13 +686,13 @@ export function BubblePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use variant and align for who is speaking. Do not restyle the bubble chrome."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use variant and align for who is speaking. Do not restyle the bubble chrome."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -732,13 +738,13 @@ export function BubblePage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Bubble."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Bubble."
+      >
         <DocsApiTable
           rows={[
             {
@@ -770,9 +776,8 @@ export function BubblePage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -788,20 +793,20 @@ export function BubblePage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a different control when the Bubble is the wrong shape for the job."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a different control when the Bubble is the wrong shape for the job."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/message">Message</DocsPageLink> — when
             you need a face, a name, or a timestamp beside the words.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

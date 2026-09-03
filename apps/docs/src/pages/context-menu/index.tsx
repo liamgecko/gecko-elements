@@ -6,12 +6,11 @@ import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
 
 import { Code } from "@gecko/ui/components/code";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import {
   ContextMenu,
   ContextMenuCheckboxItem,
@@ -284,79 +283,77 @@ export function ContextMenuPage() {
 </ContextMenu>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Context menu"
-          description="The Context menu shows actions for whatever someone right-clicked or long-pressed. It stays out of the way until it is needed."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Context menu"
+        description="The Context menu shows actions for whatever someone right-clicked or long-pressed. It stays out of the way until it is needed."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Context menu exclusively on{" "}
-              <DocsPageLink to="/components/data-table">
-                Data table
-              </DocsPageLink>{" "}
-              rows — right-click or long-press reveals row actions for that
-              item.
-              <br />
-              <br />
-              Avoid using it elsewhere in the product, or as the only way to
-              reach important actions. For actions on a visible button, use a{" "}
-              <DocsPageLink to="/components/dropdown-menu">
-                Dropdown menu
-              </DocsPageLink>
-              . The examples below demonstrate the available Context menu parts
-              against a neutral trigger; they are capability references, not
-              Gecko application recipes.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Context menu exclusively on{" "}
+            <DocsPageLink to="/components/data-table">Data table</DocsPageLink>{" "}
+            rows — right-click or long-press reveals row actions for that item.
+            <br />
+            <br />
+            Avoid using it elsewhere in the product, or as the only way to reach
+            important actions. For actions on a visible button, use a{" "}
+            <DocsPageLink to="/components/dropdown-menu">
+              Dropdown menu
+            </DocsPageLink>
+            . The examples below demonstrate the available Context menu parts
+            against a neutral trigger; they are capability references, not Gecko
+            application recipes.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import the Context menu and its parts to compose a right-click menu."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="The trigger is the thing people click. The content holds the actions, which can be grouped, nested, or marked as destructive."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic" label="Basic">
-        <PageSectionHeader
-          title="Basic"
-          description={
-            <>
-              A simple menu using <Code>ContextMenuTrigger</Code> and{" "}
-              <Code>ContextMenuItem</Code>. A short, flat list is the canonical
-              menu structure for an approved Data table row integration.
-            </>
-          }
-        />
+      <MainSection
+        id="basic"
+        title="Basic"
+        description={
+          <>
+            A simple menu using <Code>ContextMenuTrigger</Code> and{" "}
+            <Code>ContextMenuItem</Code>. A short, flat list is the canonical
+            menu structure for an approved Data table row integration.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ContextMenu>
@@ -379,20 +376,20 @@ export function ContextMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="submenu" label="Submenu">
-        <PageSectionHeader
-          title="Submenu"
-          description={
-            <>
-              Nests more actions using <Code>ContextMenuSub</Code>,{" "}
-              <Code>ContextMenuSubTrigger</Code>, and{" "}
-              <Code>ContextMenuSubContent</Code>. Use this when a parent action
-              has a second list of options.
-            </>
-          }
-        />
+      <MainSection
+        id="submenu"
+        title="Submenu"
+        description={
+          <>
+            Nests more actions using <Code>ContextMenuSub</Code>,{" "}
+            <Code>ContextMenuSubTrigger</Code>, and{" "}
+            <Code>ContextMenuSubContent</Code>. Use this when a parent action
+            has a second list of options.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ContextMenu>
@@ -441,19 +438,19 @@ export function ContextMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="shortcuts" label="Shortcuts">
-        <PageSectionHeader
-          title="Shortcuts"
-          description={
-            <>
-              Shows a keyboard hint using <Code>ContextMenuShortcut</Code>. Use
-              this only when the product already implements that shortcut; this
-              component displays the hint but does not register it.
-            </>
-          }
-        />
+      <MainSection
+        id="shortcuts"
+        title="Shortcuts"
+        description={
+          <>
+            Shows a keyboard hint using <Code>ContextMenuShortcut</Code>. Use
+            this only when the product already implements that shortcut; this
+            component displays the hint but does not register it.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ContextMenu>
@@ -497,20 +494,19 @@ export function ContextMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="groups" label="Groups">
-        <PageSectionHeader
-          title="Groups"
-          description={
-            <>
-              Groups related actions with <Code>ContextMenuGroup</Code>,{" "}
-              <Code>ContextMenuLabel</Code>, and{" "}
-              <Code>ContextMenuSeparator</Code>. Use this when the menu has more
-              than one kind of action.
-            </>
-          }
-        />
+      <MainSection
+        id="groups"
+        title="Groups"
+        description={
+          <>
+            Groups related actions with <Code>ContextMenuGroup</Code>,{" "}
+            <Code>ContextMenuLabel</Code>, and <Code>ContextMenuSeparator</Code>
+            . Use this when the menu has more than one kind of action.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ContextMenu>
@@ -578,13 +574,13 @@ export function ContextMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="icons" label="Icons">
-        <PageSectionHeader
-          title="Icons"
-          description="Place an icon as the first child of the item. Use this when a symbol helps people recognise the action at a glance."
-        />
+      <MainSection
+        id="icons"
+        title="Icons"
+        description="Place an icon as the first child of the item. Use this when a symbol helps people recognise the action at a glance."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ContextMenu>
@@ -619,18 +615,18 @@ export function ContextMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="checkbox" label="Checkbox">
-        <PageSectionHeader
-          title="Checkbox"
-          description={
-            <>
-              A toggle in the menu using <Code>ContextMenuCheckboxItem</Code>.
-              Use this for options that can be on or off independently.
-            </>
-          }
-        />
+      <MainSection
+        id="checkbox"
+        title="Checkbox"
+        description={
+          <>
+            A toggle in the menu using <Code>ContextMenuCheckboxItem</Code>. Use
+            this for options that can be on or off independently.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ContextMenu>
@@ -660,19 +656,19 @@ export function ContextMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="radio" label="Radio">
-        <PageSectionHeader
-          title="Radio"
-          description={
-            <>
-              A single choice using <Code>ContextMenuRadioGroup</Code> and{" "}
-              <Code>ContextMenuRadioItem</Code>. Use this when only one option
-              in the set can be selected.
-            </>
-          }
-        />
+      <MainSection
+        id="radio"
+        title="Radio"
+        description={
+          <>
+            A single choice using <Code>ContextMenuRadioGroup</Code> and{" "}
+            <Code>ContextMenuRadioItem</Code>. Use this when only one option in
+            the set can be selected.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ContextMenu>
@@ -717,22 +713,22 @@ export function ContextMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="destructive" label="Destructive">
-        <PageSectionHeader
-          title="Destructive"
-          description={
-            <>
-              A high-risk action using{" "}
-              <Code>variant=&quot;destructive&quot;</Code> on{" "}
-              <Code>ContextMenuItem</Code>. Use this when the risk should be
-              visible before someone clicks. Selecting an irreversible action
-              opens an Alert dialog for confirmation rather than performing it
-              immediately.
-            </>
-          }
-        />
+      <MainSection
+        id="destructive"
+        title="Destructive"
+        description={
+          <>
+            A high-risk action using{" "}
+            <Code>variant=&quot;destructive&quot;</Code> on{" "}
+            <Code>ContextMenuItem</Code>. Use this when the risk should be
+            visible before someone clicks. Selecting an irreversible action
+            opens an Alert dialog for confirmation rather than performing it
+            immediately.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ContextMenu>
@@ -768,13 +764,13 @@ export function ContextMenuPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep contextual actions scannable and keyboard accessible. Do not restyle the menu chrome."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep contextual actions scannable and keyboard accessible. Do not restyle the menu chrome."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -820,106 +816,162 @@ export function ContextMenuPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Context menu."
-        />
-        <DocsApiTable
-          rows={[
-            {
-              name: "ContextMenu: defaultOpen",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Sets the initial uncontrolled open state.",
-            },
-            {
-              name: "ContextMenu: open",
-              type: "boolean",
-              description: "Controls whether the menu is open.",
-            },
-            {
-              name: "ContextMenu: onOpenChange",
-              type: "(open: boolean, details) => void",
-              description: "Runs when the menu opens or closes.",
-            },
-            {
-              name: "ContextMenu: disabled",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Prevents the complete Context menu from opening.",
-            },
-            {
-              name: "ContextMenuContent: side",
-              type: '"inline-start" | "inline-end" | "top" | "bottom" | "left" | "right"',
-              defaultValue: '"inline-end"',
-              description:
-                "Sets the preferred logical side of the pointer anchor.",
-            },
-            {
-              name: "ContextMenuContent: align",
-              type: '"start" | "center" | "end"',
-              defaultValue: '"start"',
-              description: "Aligns the menu along its preferred side.",
-            },
-            {
-              name: "ContextMenuItem: onClick",
-              type: "(event) => void",
-              description: "Runs the product-owned action for the item.",
-            },
-            {
-              name: "ContextMenuItem: variant",
-              type: '"default" | "destructive"',
-              defaultValue: '"default"',
-              description: "Sets the ContextMenuItem emphasis.",
-            },
-            {
-              name: "ContextMenuItem: inset",
-              type: "boolean",
-              defaultValue: "false",
-              description:
-                "Indents a ContextMenuItem to align with items that have leading content.",
-            },
-            {
-              name: "ContextMenuSubTrigger.inset",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Indents a submenu trigger.",
-            },
-            {
-              name: "ContextMenuItem: disabled",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Makes an item unavailable.",
-            },
-            {
-              name: "ContextMenuCheckboxItem: checked",
-              type: "boolean",
-              description: "Controls whether an independent option is enabled.",
-            },
-            {
-              name: "ContextMenuCheckboxItem: onCheckedChange",
-              type: "(checked: boolean) => void",
-              description: "Reports changes to an independent option.",
-            },
-            {
-              name: "ContextMenuRadioGroup: value",
-              type: "unknown",
-              description:
-                "Controls the selected value in a single-choice group.",
-            },
-            {
-              name: "ContextMenuRadioGroup: onValueChange",
-              type: "(value: unknown) => void",
-              description: "Reports changes to a single-choice group.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Context menu."
+      >
+        <ChildSection
+          id="api-context-menu"
+          title="ContextMenu"
+          description="Props on ContextMenu."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "defaultOpen",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Sets the initial uncontrolled open state.",
+              },
+              {
+                name: "open",
+                type: "boolean",
+                description: "Controls whether the menu is open.",
+              },
+              {
+                name: "onOpenChange",
+                type: "(open: boolean, details) => void",
+                description: "Runs when the menu opens or closes.",
+              },
+              {
+                name: "disabled",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Prevents the complete Context menu from opening.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-context-menu-content"
+          title="ContextMenuContent"
+          description="Props on ContextMenuContent."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "side",
+                type: '"inline-start" | "inline-end" | "top" | "bottom" | "left" | "right"',
+                defaultValue: '"inline-end"',
+                description:
+                  "Sets the preferred logical side of the pointer anchor.",
+              },
+              {
+                name: "align",
+                type: '"start" | "center" | "end"',
+                defaultValue: '"start"',
+                description: "Aligns the menu along its preferred side.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-context-menu-item"
+          title="ContextMenuItem"
+          description="Props on ContextMenuItem."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "onClick",
+                type: "(event) => void",
+                description: "Runs the product-owned action for the item.",
+              },
+              {
+                name: "variant",
+                type: '"default" | "destructive"',
+                defaultValue: '"default"',
+                description: "Sets the ContextMenuItem emphasis.",
+              },
+              {
+                name: "inset",
+                type: "boolean",
+                defaultValue: "false",
+                description:
+                  "Indents a ContextMenuItem to align with items that have leading content.",
+              },
+              {
+                name: "disabled",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Makes an item unavailable.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-context-menu-sub-trigger"
+          title="ContextMenuSubTrigger"
+          description="Props on ContextMenuSubTrigger."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "inset",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Indents a submenu trigger.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-context-menu-checkbox-item"
+          title="ContextMenuCheckboxItem"
+          description="Props on ContextMenuCheckboxItem."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "checked",
+                type: "boolean",
+                description:
+                  "Controls whether an independent option is enabled.",
+              },
+              {
+                name: "onCheckedChange",
+                type: "(checked: boolean) => void",
+                description: "Reports changes to an independent option.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-context-menu-radio-group"
+          title="ContextMenuRadioGroup"
+          description="Props on ContextMenuRadioGroup."
+        >
+          <DocsApiTable
+            rows={[
+              {
+                name: "value",
+                type: "unknown",
+                description:
+                  "Controls the selected value in a single-choice group.",
+              },
+              {
+                name: "onValueChange",
+                type: "(value: unknown) => void",
+                description: "Reports changes to a single-choice group.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -935,13 +987,13 @@ export function ContextMenuPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use another overlay when the actions need a visible trigger or more space."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use another overlay when the actions need a visible trigger or more space."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/dropdown-menu">
@@ -954,7 +1006,7 @@ export function ContextMenuPage() {
             the interaction needs explanatory or structured content.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

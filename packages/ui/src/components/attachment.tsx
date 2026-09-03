@@ -32,6 +32,8 @@ type AttachmentBaseProps = Omit<React.ComponentProps<"div">, "onChange"> & {
   /** Called when the retry action is selected in controlled mode. */
   onRetry?: () => void
   disabled?: boolean
+  /** Requires a file while the attachment is empty. */
+  required?: boolean
 }
 
 type ManagedAttachmentProps = AttachmentBaseProps & {
@@ -137,6 +139,7 @@ function Attachment(props: AttachmentProps) {
     onRetry,
     icon,
     disabled,
+    required,
     className,
     ...rootProps
   } = props
@@ -263,6 +266,7 @@ function Attachment(props: AttachmentProps) {
           type="file"
           accept={accept}
           disabled={disabled}
+          required={required}
           aria-label={inputLabel}
           className="absolute inset-0 z-10 size-full cursor-pointer opacity-0 disabled:cursor-not-allowed"
           onChange={(event) => {
@@ -275,7 +279,14 @@ function Attachment(props: AttachmentProps) {
           {media}
         </span>
         <span className="min-w-0 flex-1 leading-tight">
-          <span className="block truncate font-medium">{label}</span>
+          <span className="block truncate font-medium">
+            {label}
+            {required && (
+              <span className="ml-1 text-destructive" aria-hidden>
+                *
+              </span>
+            )}
+          </span>
           {displayDescription != null && (
             <span className="mt-0.5 block truncate text-xs text-muted-foreground">
               {displayDescription}

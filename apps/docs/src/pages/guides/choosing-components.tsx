@@ -1,26 +1,21 @@
-import { PageSection } from "@/components/layout/page-section";
-import {
-  PageOverviewHeader,
-  PageSectionHeader,
-} from "@/components/layout/page-section-header";
+import { HeaderSection, MainSection } from "@/components/layout/docs-section";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
 import { Code } from "@gecko/ui/components/code";
 
 export function GuidesChoosingComponentsPage() {
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Choosing components"
-          description="Start from the task, not the component name. This guide maps common UI tasks to the right Gecko Elements component using confirmed product rules."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Choosing components"
+        description="Start from the task, not the component name. This guide maps common UI tasks to the right Gecko Elements component using confirmed product rules."
+      />
 
-      <PageSection id="actions" label="Actions">
-        <PageSectionHeader
-          title="Actions"
-          description="Triggering something, confirming something, or opening a list of things to do."
-        />
+      <MainSection
+        id="actions"
+        title="Actions"
+        description="Triggering something, confirming something, or opening a list of things to do."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/button">Button</DocsPageLink> — a
@@ -60,13 +55,13 @@ export function GuidesChoosingComponentsPage() {
             until product adopts it.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="text-entry" label="Text entry">
-        <PageSectionHeader
-          title="Text entry"
-          description="Collecting typed values. Wrap controls in Field for labels, help, and errors."
-        />
+      <MainSection
+        id="text-entry"
+        title="Text entry"
+        description="Collecting typed values. Wrap controls in Field for labels, help, and errors."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/input">Input field</DocsPageLink> —
@@ -80,9 +75,9 @@ export function GuidesChoosingComponentsPage() {
             — multiline text inside Field.
           </li>
           <li>
-            <DocsPageLink to="/components/search">Search</DocsPageLink>{" "}
-            — a query that filters results elsewhere (for example a data table),
-            not for picking from a fixed option list.
+            <DocsPageLink to="/components/search">Search</DocsPageLink> — a
+            query that filters results elsewhere (for example a data table), not
+            for picking from a fixed option list.
           </li>
           <li>
             <DocsPageLink to="/components/sensitive-field">
@@ -128,13 +123,13 @@ export function GuidesChoosingComponentsPage() {
             <Code>FieldLabel</Code> inside Field. Never as a page heading.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="selection" label="Selection">
-        <PageSectionHeader
-          title="Selection"
-          description="Choosing from a set of options."
-        />
+      <MainSection
+        id="selection"
+        title="Selection"
+        description="Choosing from a set of options."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/checkbox">Checkbox</DocsPageLink> /
@@ -181,13 +176,13 @@ export function GuidesChoosingComponentsPage() {
             — tray for reactions; panel for inserting an emoji in a composer.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="files" label="Files">
-        <PageSectionHeader
-          title="Files"
-          description="Uploading and displaying files."
-        />
+      <MainSection
+        id="files"
+        title="Files"
+        description="Uploading and displaying files."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/attachment">Attachment</DocsPageLink>{" "}
@@ -215,13 +210,13 @@ export function GuidesChoosingComponentsPage() {
             — reordering only. Not for file upload.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="overlays" label="Overlays">
-        <PageSectionHeader
-          title="Overlays"
-          description="Content that appears above the page."
-        />
+      <MainSection
+        id="overlays"
+        title="Overlays"
+        description="Content that appears above the page."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/dialog">Dialog</DocsPageLink> —
@@ -250,13 +245,13 @@ export function GuidesChoosingComponentsPage() {
             sole place for required instructions.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="feedback" label="Feedback">
-        <PageSectionHeader
-          title="Feedback"
-          description="Telling people what happened or what is happening."
-        />
+      <MainSection
+        id="feedback"
+        title="Feedback"
+        description="Telling people what happened or what is happening."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/toast">Toast</DocsPageLink> —
@@ -283,13 +278,13 @@ export function GuidesChoosingComponentsPage() {
             loading pattern.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="data" label="Data display">
-        <PageSectionHeader
-          title="Data display"
-          description="Showing structured information."
-        />
+      <MainSection
+        id="data"
+        title="Data display"
+        description="Showing structured information."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/data-table">Data table</DocsPageLink>{" "}
@@ -321,13 +316,13 @@ export function GuidesChoosingComponentsPage() {
             wrap Container in a Card.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="indicators" label="Indicators">
-        <PageSectionHeader
-          title="Indicators"
-          description="Compact labels, counts, and people."
-        />
+      <MainSection
+        id="indicators"
+        title="Indicators"
+        description="Compact labels, counts, and people."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/badge">Badge</DocsPageLink> — status
@@ -354,13 +349,13 @@ export function GuidesChoosingComponentsPage() {
             labelled separators — not a product-wide status Badge.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="conversation" label="Conversation">
-        <PageSectionHeader
-          title="Conversation"
-          description="Chat in Inbox and the live chat widget."
-        />
+      <MainSection
+        id="conversation"
+        title="Conversation"
+        description="Chat in Inbox and the live chat widget."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/chat-head">Chat head</DocsPageLink> —
@@ -389,13 +384,13 @@ export function GuidesChoosingComponentsPage() {
             — pinned separately at the bottom of the conversation container.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="navigation" label="Navigation">
-        <PageSectionHeader
-          title="Navigation"
-          description="Moving around the application."
-        />
+      <MainSection
+        id="navigation"
+        title="Navigation"
+        description="Moving around the application."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/structure/app-sidebar">App Sidebar</DocsPageLink>{" "}
@@ -428,13 +423,13 @@ export function GuidesChoosingComponentsPage() {
             primitives for building App Sidebar or custom rails.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="layout" label="Layout">
-        <PageSectionHeader
-          title="Layout"
-          description="Structuring and ordering content on the page."
-        />
+      <MainSection
+        id="layout"
+        title="Layout"
+        description="Structuring and ordering content on the page."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/structure/container">
@@ -474,7 +469,7 @@ export function GuidesChoosingComponentsPage() {
             — customer-facing copyable values such as embed codes.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

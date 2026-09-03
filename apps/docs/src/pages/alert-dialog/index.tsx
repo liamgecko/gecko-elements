@@ -16,12 +16,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 
 export function AlertDialogPage() {
   const importSnippet = `import {
@@ -109,73 +108,71 @@ export function AlertDialogPage() {
 </AlertDialog>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Alert dialog"
-          description="Alert dialog interrupts the page with an important decision that must be answered before the user can continue."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Alert dialog"
+        description="Alert dialog interrupts the page with an important decision that must be answered before the user can continue."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Alert dialog to confirm a consequential action before it
-              happens. Deletion always requires an Alert dialog. It is also the
-              canonical confirmation when leaving would discard unsaved work, or
-              when changes must be confirmed before saving.
-              <br />
-              <br />
-              For reversible actions such as closing a conversation, use a{" "}
-              <DocsPageLink to="/components/toast">Toast</DocsPageLink> with
-              undo. For information that does not require a decision, use an{" "}
-              <DocsPageLink to="/components/alert">Alert</DocsPageLink>. For
-              forms or general content, use a{" "}
-              <DocsPageLink to="/components/dialog">Dialog</DocsPageLink>.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Alert dialog to confirm a consequential action before it
+            happens. Deletion always requires an Alert dialog. It is also the
+            canonical confirmation when leaving would discard unsaved work, or
+            when changes must be confirmed before saving.
+            <br />
+            <br />
+            For reversible actions such as closing a conversation, use a{" "}
+            <DocsPageLink to="/components/toast">Toast</DocsPageLink> with undo.
+            For information that does not require a decision, use an{" "}
+            <DocsPageLink to="/components/alert">Alert</DocsPageLink>. For forms
+            or general content, use a{" "}
+            <DocsPageLink to="/components/dialog">Dialog</DocsPageLink>.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Alert dialog and the parts needed for its confirmation composition."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="The title names the decision, the description explains its consequence, and the footer provides a safe exit and a specific confirmation action."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="examples" label="Examples">
-        <PageSectionHeader
-          title="Examples"
-          description="Use one of these three canonical configurations. They are usage patterns, not additional component variants."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="examples"
+        title="Examples"
+        description="Use one of these three canonical configurations. They are usage patterns, not additional component variants."
+      >
+        <ChildSection
           id="examples-confirm-deletion"
           title="Confirm deletion"
           description={
@@ -184,112 +181,115 @@ export function AlertDialogPage() {
               name the object in both the title and action.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <AlertDialog variant="destructive">
-              <AlertDialogTrigger render={<Button variant="outline" />}>
-                Delete account
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Delete account?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This permanently deletes the account and all of its data.
-                    This action cannot be undone.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Delete account</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-            <Code
-              variant="block"
-              language="tsx"
-              code={confirmDeletionSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <AlertDialog variant="destructive">
+                <AlertDialogTrigger render={<Button variant="outline" />}>
+                  Delete account
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete account?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This permanently deletes the account and all of its data.
+                      This action cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction>Delete account</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+              <Code
+                variant="block"
+                language="tsx"
+                code={confirmDeletionSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="examples-unsaved-changes"
           title="Discard changes"
           description="Use the default treatment when navigation would discard unsaved work. The cancel action keeps the user editing; the confirm action performs the discard and navigation."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <AlertDialog>
-              <AlertDialogTrigger render={<Button variant="outline" />}>
-                Leave page
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Discard unsaved changes?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    If you leave now, the changes you have made will be lost.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Keep editing</AlertDialogCancel>
-                  <AlertDialogAction>Discard changes</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-            <Code
-              variant="block"
-              language="tsx"
-              code={unsavedChangesSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <AlertDialog>
+                <AlertDialogTrigger render={<Button variant="outline" />}>
+                  Leave page
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Discard unsaved changes?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      If you leave now, the changes you have made will be lost.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Keep editing</AlertDialogCancel>
+                    <AlertDialogAction>Discard changes</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+              <Code
+                variant="block"
+                language="tsx"
+                code={unsavedChangesSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="examples-confirm-save"
           title="Confirm save"
           description="Use the default treatment when changes must be confirmed before saving."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <AlertDialog>
-              <AlertDialogTrigger render={<Button variant="outline" />}>
-                Save changes
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Save changes?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    Saving will apply these changes to every active campaign
-                    using this form.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Save changes</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-            <Code
-              variant="block"
-              language="tsx"
-              code={confirmSaveSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <AlertDialog>
+                <AlertDialogTrigger render={<Button variant="outline" />}>
+                  Save changes
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Save changes?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Saving will apply these changes to every active campaign
+                      using this form.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction>Save changes</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+              <Code
+                variant="block"
+                language="tsx"
+                code={confirmSaveSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Make the decision and its consequences clear without inventing new component variants."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Make the decision and its consequences clear without inventing new component variants."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -334,13 +334,13 @@ export function AlertDialogPage() {
             <>Don’t add variants, props, or custom styling without consent.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Alert dialog."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Alert dialog."
+      >
         <DocsApiTable
           rows={[
             {
@@ -352,9 +352,8 @@ export function AlertDialogPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -370,13 +369,13 @@ export function AlertDialogPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a different component when the user does not need to make a blocking decision."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a different component when the user does not need to make a blocking decision."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/dialog">Dialog</DocsPageLink> — forms
@@ -391,7 +390,7 @@ export function AlertDialogPage() {
             feedback and reversible actions that can offer undo.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

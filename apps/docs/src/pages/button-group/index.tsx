@@ -3,12 +3,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Button } from "@gecko/ui/components/button";
 import {
   ButtonGroup,
@@ -113,67 +112,68 @@ export function ButtonGroupPage() {
 </ButtonGroup>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Button group"
-          description="Button Group visually joins related actions into one compact control cluster. Use it when the actions operate on the same object or value."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Button group"
+        description="Button Group visually joins related actions into one compact control cluster. Use it when the actions operate on the same object or value."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Button Group for a short set of closely related actions, a
-              split action, or controls around one value. Use{" "}
-              <DocsPageLink to="/components/toggle-group">
-                Toggle group
-              </DocsPageLink>{" "}
-              when the controls represent persistent selected states.
-              <br />
-              <br />
-              Give the group an accessible name. Every child remains a normal
-              Button or Input and keeps its own keyboard behaviour.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Button Group for a short set of closely related actions, a split
+            action, or controls around one value. Use{" "}
+            <DocsPageLink to="/components/toggle-group">
+              Toggle group
+            </DocsPageLink>{" "}
+            when the controls represent persistent selected states.
+            <br />
+            <br />
+            Give the group an accessible name. Every child remains a normal
+            Button or Input and keeps its own keyboard behaviour.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import the group and any supporting parts used by the composition."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="Place related controls directly inside the group."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="Two equal actions that operate on the same message."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="Two equal actions that operate on the same message."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ButtonGroup aria-label="Message actions">
@@ -189,13 +189,13 @@ export function ButtonGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="orientation" label="Orientation">
-        <PageSectionHeader
-          title="Orientation"
-          description="Lay out the same action set horizontally or vertically."
-        />
+      <MainSection
+        id="orientation"
+        title="Orientation"
+        description="Lay out the same action set horizontally or vertically."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex items-start gap-6">
@@ -228,13 +228,13 @@ export function ButtonGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizes" label="Sizes">
-        <PageSectionHeader
-          title="Sizes"
-          description="Set one Button size consistently across every action in the group."
-        />
+      <MainSection
+        id="sizes"
+        title="Sizes"
+        description="Set one Button size consistently across every action in the group."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-col items-start gap-3">
@@ -258,13 +258,13 @@ export function ButtonGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="split-action" label="Split action">
-        <PageSectionHeader
-          title="Split action"
-          description="Keep the primary action visible and place closely related alternatives behind the adjoining trigger."
-        />
+      <MainSection
+        id="split-action"
+        title="Split action"
+        description="Keep the primary action visible and place closely related alternatives behind the adjoining trigger."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ButtonGroup aria-label="Save options">
@@ -293,13 +293,13 @@ export function ButtonGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-input" label="With input">
-        <PageSectionHeader
-          title="With input"
-          description="Join an action to the value it submits without placing the button inside the field boundary."
-        />
+      <MainSection
+        id="with-input"
+        title="With input"
+        description="Join an action to the value it submits without placing the button inside the field boundary."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ButtonGroup aria-label="Search conversations">
@@ -321,13 +321,13 @@ export function ButtonGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-select" label="With select">
-        <PageSectionHeader
-          title="With select"
-          description="Join a choice to the value it qualifies when both controls form one compact input."
-        />
+      <MainSection
+        id="with-select"
+        title="With select"
+        description="Join a choice to the value it qualifies when both controls form one compact input."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ButtonGroup
@@ -363,13 +363,13 @@ export function ButtonGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Group actions only when their relationship is stronger than their individual meaning."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Group actions only when their relationship is stronger than their individual meaning."
+      >
         <DocsDoDont
           doItems={[
             <>Give every Button Group an accessible name.</>,
@@ -393,64 +393,64 @@ export function ButtonGroupPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props for each Button Group part."
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props for each Button Group part."
+      >
+        <ChildSection
           id="api-button-group"
           title="ButtonGroup"
           description="Owns grouping semantics, orientation, and joined borders."
-        />
-        <DocsApiTable
-          aria-label="ButtonGroup properties"
-          rows={[
-            {
-              name: "orientation",
-              type: '"horizontal" | "vertical"',
-              defaultValue: '"horizontal"',
-              description: "Sets the group layout and joined edges.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
-          className="mt-6"
+        >
+          <DocsApiTable
+            aria-label="ButtonGroup properties"
+            rows={[
+              {
+                name: "orientation",
+                type: '"horizontal" | "vertical"',
+                defaultValue: '"horizontal"',
+                description: "Sets the group layout and joined edges.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-button-group-text"
           title="ButtonGroupText"
           description="Adds non-interactive text or a shared value to the group."
-        />
-        <DocsApiTable
-          aria-label="ButtonGroupText properties"
-          rows={[
-            {
-              name: "render",
-              type: "ReactElement | function",
-              description: "Replaces or composes the rendered element.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
-          className="mt-6"
+        >
+          <DocsApiTable
+            aria-label="ButtonGroupText properties"
+            rows={[
+              {
+                name: "render",
+                type: "ReactElement | function",
+                description: "Replaces or composes the rendered element.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-button-group-separator"
           title="ButtonGroupSeparator"
           description="Adds a structural divider between adjacent controls."
-        />
-        <DocsApiTable
-          aria-label="ButtonGroupSeparator properties"
-          rows={[
-            {
-              name: "orientation",
-              type: '"horizontal" | "vertical"',
-              defaultValue: '"vertical"',
-              description: "Sets the divider direction.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
-          className="mt-6"
+        >
+          <DocsApiTable
+            aria-label="ButtonGroupSeparator properties"
+            rows={[
+              {
+                name: "orientation",
+                type: '"horizontal" | "vertical"',
+                defaultValue: '"vertical"',
+                description: "Sets the divider direction.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           title="API reference"
           description={
             <>
@@ -462,13 +462,13 @@ export function ButtonGroupPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Choose a group based on whether its children act, select, or edit."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Choose a group based on whether its children act, select, or edit."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/button">Button</DocsPageLink> — a
@@ -487,7 +487,7 @@ export function ButtonGroupPage() {
             — content and actions inside one field boundary.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

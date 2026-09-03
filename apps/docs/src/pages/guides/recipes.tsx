@@ -1,29 +1,26 @@
-import { PageSection } from "@/components/layout/page-section"
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header"
-import { DocsPageLink } from "@/components/layout/docs-page-link"
-import { Code } from "@gecko/ui/components/code"
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
+import { DocsPageLink } from "@/components/layout/docs-page-link";
+import { Code } from "@gecko/ui/components/code";
 
 export function GuidesRecipesPage() {
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Recipes"
-          description="Composed patterns that show how to combine several components for common Gecko screens. Each recipe names the components involved and when to reach for the pattern."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Recipes"
+        description="Composed patterns that show how to combine several components for common Gecko screens. Each recipe names the components involved and when to reach for the pattern."
+      />
 
-      <PageSection id="page-shell" label="Page shell">
-        <PageSectionHeader
-          title="Page shell"
-          description="How product chrome and page body stack together."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="page-shell"
+        title="Page shell"
+        description="How product chrome and page body stack together."
+      >
+        <ChildSection
           id="page-shell-standard"
           title="Standard page"
           description={
@@ -32,40 +29,42 @@ export function GuidesRecipesPage() {
               and body spacing — except Inbox.
             </>
           }
-        />
-        <ul className="mb-6 space-y-2 text-sm text-muted-foreground">
-          <li>
-            <DocsPageLink to="/structure/app-header">App Header</DocsPageLink> —
-            account switcher, call / messaging status, user menu.
-          </li>
-          <li>
-            <DocsPageLink to="/structure/app-sidebar">App Sidebar</DocsPageLink>{" "}
-            — app-wide navigation (wrap the layout in{" "}
-            <DocsPageLink to="/components/sidebar">
-              SidebarProvider
-            </DocsPageLink>
-            ; page content sits in <Code>SidebarInset</Code>).
-          </li>
-          <li>
-            <DocsPageLink to="/structure/header">Page Header</DocsPageLink> —
-            breadcrumbs, title, actions, optional Header tabs.
-          </li>
-          <li>
-            <DocsPageLink to="/structure/container">
-              Page Container
-            </DocsPageLink>{" "}
-            — consistent body padding and background.
-          </li>
-          <li>
-            Prefer{" "}
-            <DocsPageLink to="/components/scroll-area">
-              Scroll area
-            </DocsPageLink>{" "}
-            for overflow inside the shell so app chrome stays sticky.
-          </li>
-        </ul>
-
-        <PageSubsectionHeader
+        >
+          <ul className="mb-6 space-y-2 text-sm text-muted-foreground">
+            <li>
+              <DocsPageLink to="/structure/app-header">App Header</DocsPageLink>{" "}
+              — account switcher, call / messaging status, user menu.
+            </li>
+            <li>
+              <DocsPageLink to="/structure/app-sidebar">
+                App Sidebar
+              </DocsPageLink>{" "}
+              — app-wide navigation (wrap the layout in{" "}
+              <DocsPageLink to="/components/sidebar">
+                SidebarProvider
+              </DocsPageLink>
+              ; page content sits in <Code>SidebarInset</Code>).
+            </li>
+            <li>
+              <DocsPageLink to="/structure/header">Page Header</DocsPageLink> —
+              breadcrumbs, title, actions, optional Header tabs.
+            </li>
+            <li>
+              <DocsPageLink to="/structure/container">
+                Page Container
+              </DocsPageLink>{" "}
+              — consistent body padding and background.
+            </li>
+            <li>
+              Prefer{" "}
+              <DocsPageLink to="/components/scroll-area">
+                Scroll area
+              </DocsPageLink>{" "}
+              for overflow inside the shell so app chrome stays sticky.
+            </li>
+          </ul>
+        </ChildSection>
+        <ChildSection
           id="page-shell-inbox"
           title="Inbox exception"
           description={
@@ -74,39 +73,40 @@ export function GuidesRecipesPage() {
               Page Container. The body is a three-column layout.
             </>
           }
-        />
-        <ul className="mb-6 space-y-2 text-sm text-muted-foreground">
-          <li>
-            Left —{" "}
-            <DocsPageLink to="/components/chat-head">Chat head</DocsPageLink>{" "}
-            conversation list (never App Sidebar).
-          </li>
-          <li>
-            Centre — conversation controls,{" "}
-            <DocsPageLink to="/components/message-scroller">
-              Message scroller
-            </DocsPageLink>
-            , <DocsPageLink to="/components/reply-box">Reply box</DocsPageLink>.
-          </li>
-          <li>
-            Right — contact details (default{" "}
-            <DocsPageLink to="/components/accordion">Accordion</DocsPageLink>
-            ), including{" "}
-            <DocsPageLink to="/components/activity-feed">
-              Activity feed
-            </DocsPageLink>
-            .
-          </li>
-        </ul>
-      </PageSection>
+        >
+          <ul className="mb-6 space-y-2 text-sm text-muted-foreground">
+            <li>
+              Left —{" "}
+              <DocsPageLink to="/components/chat-head">Chat head</DocsPageLink>{" "}
+              conversation list (never App Sidebar).
+            </li>
+            <li>
+              Centre — conversation controls,{" "}
+              <DocsPageLink to="/components/message-scroller">
+                Message scroller
+              </DocsPageLink>
+              ,{" "}
+              <DocsPageLink to="/components/reply-box">Reply box</DocsPageLink>.
+            </li>
+            <li>
+              Right — contact details (default{" "}
+              <DocsPageLink to="/components/accordion">Accordion</DocsPageLink>
+              ), including{" "}
+              <DocsPageLink to="/components/activity-feed">
+                Activity feed
+              </DocsPageLink>
+              .
+            </li>
+          </ul>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="forms" label="Forms">
-        <PageSectionHeader
-          title="Forms"
-          description="Setup interfaces use Field as the layout wrapper. Every control sits inside Field with a label, optional helper, and error."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="forms"
+        title="Forms"
+        description="Setup interfaces use Field as the layout wrapper. Every control sits inside Field with a label, optional helper, and error."
+      >
+        <ChildSection
           id="forms-basic"
           title="Basic form"
           description={
@@ -119,41 +119,45 @@ export function GuidesRecipesPage() {
               invalid, the error replaces the helper text.
             </>
           }
-        />
-        <ul className="mb-6 space-y-2 text-sm text-muted-foreground">
-          <li>
-            Prefer{" "}
-            <DocsPageLink to="/components/attachment">Attachment</DocsPageLink>{" "}
-            for in-form uploads;{" "}
-            <DocsPageLink to="/components/drop-zone">Drop zone</DocsPageLink>{" "}
-            for large dedicated upload surfaces.
-          </li>
-          <li>
-            <DocsPageLink to="/components/select">Select</DocsPageLink> for
-            short fixed lists;{" "}
-            <DocsPageLink to="/components/combobox">Combobox</DocsPageLink> when
-            search helps;{" "}
-            <DocsPageLink to="/components/native-select">
-              Native select
-            </DocsPageLink>{" "}
-            on student-facing surfaces.
-          </li>
-          <li>
-            <DocsPageLink to="/components/date-field">Date field</DocsPageLink>{" "}
-            for date of birth;{" "}
-            <DocsPageLink to="/components/date-picker">
-              Date picker
-            </DocsPageLink>{" "}
-            for future dates.
-          </li>
-          <li>
-            <DocsPageLink to="/components/button">Button</DocsPageLink> — one{" "}
-            <Code>default</Code> primary per form area; use <Code>outline</Code>{" "}
-            for secondary.
-          </li>
-        </ul>
-
-        <PageSubsectionHeader
+        >
+          <ul className="mb-6 space-y-2 text-sm text-muted-foreground">
+            <li>
+              Prefer{" "}
+              <DocsPageLink to="/components/attachment">
+                Attachment
+              </DocsPageLink>{" "}
+              for in-form uploads;{" "}
+              <DocsPageLink to="/components/drop-zone">Drop zone</DocsPageLink>{" "}
+              for large dedicated upload surfaces.
+            </li>
+            <li>
+              <DocsPageLink to="/components/select">Select</DocsPageLink> for
+              short fixed lists;{" "}
+              <DocsPageLink to="/components/combobox">Combobox</DocsPageLink>{" "}
+              when search helps;{" "}
+              <DocsPageLink to="/components/native-select">
+                Native select
+              </DocsPageLink>{" "}
+              on student-facing surfaces.
+            </li>
+            <li>
+              <DocsPageLink to="/components/date-field">
+                Date field
+              </DocsPageLink>{" "}
+              for date of birth;{" "}
+              <DocsPageLink to="/components/date-picker">
+                Date picker
+              </DocsPageLink>{" "}
+              for future dates.
+            </li>
+            <li>
+              <DocsPageLink to="/components/button">Button</DocsPageLink> — one{" "}
+              <Code>default</Code> primary per form area; use{" "}
+              <Code>outline</Code> for secondary.
+            </li>
+          </ul>
+        </ChildSection>
+        <ChildSection
           id="forms-sizing"
           title="Sizing"
           description={
@@ -164,8 +168,7 @@ export function GuidesRecipesPage() {
             </>
           }
         />
-
-        <PageSubsectionHeader
+        <ChildSection
           id="forms-validation"
           title="Validation"
           description={
@@ -177,8 +180,7 @@ export function GuidesRecipesPage() {
             </>
           }
         />
-
-        <PageSubsectionHeader
+        <ChildSection
           id="forms-sectional"
           title="Large setup forms"
           description={
@@ -192,15 +194,14 @@ export function GuidesRecipesPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="list-pages" label="List pages">
-        <PageSectionHeader
-          title="List pages"
-          description="Product lists such as events, forms, and broadcasts."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="list-pages"
+        title="List pages"
+        description="Product lists such as events, forms, and broadcasts."
+      >
+        <ChildSection
           id="list-pages-table"
           title="Data table stack"
           description={
@@ -217,80 +218,81 @@ export function GuidesRecipesPage() {
               under the results.
             </>
           }
-        />
-        <ul className="mb-6 space-y-2 text-sm text-muted-foreground">
-          <li>
-            Row actions via{" "}
-            <DocsPageLink to="/components/dropdown-menu">
-              Dropdown menu
-            </DocsPageLink>
-            ; right-click via{" "}
-            <DocsPageLink to="/components/context-menu">
-              Context menu
-            </DocsPageLink>{" "}
-            on Data table only.
-          </li>
-          <li>
-            Status and tags with{" "}
-            <DocsPageLink to="/components/badge">Badge</DocsPageLink>; people
-            with <DocsPageLink to="/components/avatar">Avatar</DocsPageLink>.
-          </li>
-          <li>
-            Empty results with{" "}
-            <DocsPageLink to="/components/empty">Empty</DocsPageLink> (icon +
-            title + CTA).
-          </li>
-          <li>
-            Use <DocsPageLink to="/components/table">Table</DocsPageLink> only
-            for simple non-interactive markup (for example inside a Metric
-            card).
-          </li>
-        </ul>
-      </PageSection>
+        >
+          <ul className="mb-6 space-y-2 text-sm text-muted-foreground">
+            <li>
+              Row actions via{" "}
+              <DocsPageLink to="/components/dropdown-menu">
+                Dropdown menu
+              </DocsPageLink>
+              ; right-click via{" "}
+              <DocsPageLink to="/components/context-menu">
+                Context menu
+              </DocsPageLink>{" "}
+              on Data table only.
+            </li>
+            <li>
+              Status and tags with{" "}
+              <DocsPageLink to="/components/badge">Badge</DocsPageLink>; people
+              with <DocsPageLink to="/components/avatar">Avatar</DocsPageLink>.
+            </li>
+            <li>
+              Empty results with{" "}
+              <DocsPageLink to="/components/empty">Empty</DocsPageLink> (icon +
+              title + CTA).
+            </li>
+            <li>
+              Use <DocsPageLink to="/components/table">Table</DocsPageLink> only
+              for simple non-interactive markup (for example inside a Metric
+              card).
+            </li>
+          </ul>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="overlays" label="Overlays">
-        <PageSectionHeader
-          title="Overlays"
-          description="Match the overlay to the task."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="overlays"
+        title="Overlays"
+        description="Match the overlay to the task."
+      >
+        <ChildSection
           id="overlays-choosing"
           title="Choosing an overlay"
           description="Start from the task, not the component."
-        />
-        <ul className="mb-6 space-y-2 text-sm text-muted-foreground">
-          <li>
-            <DocsPageLink to="/components/dialog">Dialog</DocsPageLink> —
-            focused create / edit setup. Blocks the page.
-          </li>
-          <li>
-            <DocsPageLink to="/components/sheet">Sheet</DocsPageLink> — detail
-            or side task with page context still visible.
-          </li>
-          <li>
-            <DocsPageLink to="/components/alert-dialog">
-              Alert dialog
-            </DocsPageLink>{" "}
-            — confirm deletion or other irreversible / blocking decisions only.
-          </li>
-          <li>
-            <DocsPageLink to="/components/popover">Popover</DocsPageLink> —
-            supporting controls on a trigger (not an action menu).
-          </li>
-          <li>
-            <DocsPageLink to="/components/dropdown-menu">
-              Dropdown menu
-            </DocsPageLink>{" "}
-            — actions from a visible control.
-          </li>
-          <li>
-            <DocsPageLink to="/components/tooltip">Tooltip</DocsPageLink> —
-            short clarification. Never required instructions alone.
-          </li>
-        </ul>
-
-        <PageSubsectionHeader
+        >
+          <ul className="mb-6 space-y-2 text-sm text-muted-foreground">
+            <li>
+              <DocsPageLink to="/components/dialog">Dialog</DocsPageLink> —
+              focused create / edit setup. Blocks the page.
+            </li>
+            <li>
+              <DocsPageLink to="/components/sheet">Sheet</DocsPageLink> — detail
+              or side task with page context still visible.
+            </li>
+            <li>
+              <DocsPageLink to="/components/alert-dialog">
+                Alert dialog
+              </DocsPageLink>{" "}
+              — confirm deletion or other irreversible / blocking decisions
+              only.
+            </li>
+            <li>
+              <DocsPageLink to="/components/popover">Popover</DocsPageLink> —
+              supporting controls on a trigger (not an action menu).
+            </li>
+            <li>
+              <DocsPageLink to="/components/dropdown-menu">
+                Dropdown menu
+              </DocsPageLink>{" "}
+              — actions from a visible control.
+            </li>
+            <li>
+              <DocsPageLink to="/components/tooltip">Tooltip</DocsPageLink> —
+              short clarification. Never required instructions alone.
+            </li>
+          </ul>
+        </ChildSection>
+        <ChildSection
           id="overlays-triggers"
           title="Triggers"
           description={
@@ -302,8 +304,7 @@ export function GuidesRecipesPage() {
             </>
           }
         />
-
-        <PageSubsectionHeader
+        <ChildSection
           id="overlays-destructive"
           title="Destructive actions"
           description={
@@ -321,45 +322,44 @@ export function GuidesRecipesPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="feedback" label="Feedback">
-        <PageSectionHeader
-          title="Feedback"
-          description="Choose the surface that matches urgency and permanence."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="feedback"
+        title="Feedback"
+        description="Choose the surface that matches urgency and permanence."
+      >
+        <ChildSection
           id="feedback-choosing"
           title="Choosing feedback"
           description="Match the message to the right surface."
-        />
-        <ul className="mb-6 space-y-2 text-sm text-muted-foreground">
-          <li>
-            <DocsPageLink to="/components/toast">Toast</DocsPageLink> —
-            ephemeral success, error, or undoable outcomes.
-          </li>
-          <li>
-            <DocsPageLink to="/components/alert">Alert</DocsPageLink> —
-            persistent, non-blocking callout within a page or section. The
-            parent removes it when the condition ends; make it dismissible only
-            when the message is safe to acknowledge and clear.
-          </li>
-          <li>
-            <DocsPageLink to="/components/empty">Empty</DocsPageLink> — no data
-            yet; icon + title + CTA.
-          </li>
-          <li>
-            <DocsPageLink to="/components/spinner">Spinner</DocsPageLink> —
-            indeterminate page or panel load.
-          </li>
-          <li>
-            <DocsPageLink to="/components/progress">Progress</DocsPageLink> —
-            reporting completeness, not primary page loading.
-          </li>
-        </ul>
-
-        <PageSubsectionHeader
+        >
+          <ul className="mb-6 space-y-2 text-sm text-muted-foreground">
+            <li>
+              <DocsPageLink to="/components/toast">Toast</DocsPageLink> —
+              ephemeral success, error, or undoable outcomes.
+            </li>
+            <li>
+              <DocsPageLink to="/components/alert">Alert</DocsPageLink> —
+              persistent, non-blocking callout within a page or section. The
+              parent removes it when the condition ends; make it dismissible
+              only when the message is safe to acknowledge and clear.
+            </li>
+            <li>
+              <DocsPageLink to="/components/empty">Empty</DocsPageLink> — no
+              data yet; icon + title + CTA.
+            </li>
+            <li>
+              <DocsPageLink to="/components/spinner">Spinner</DocsPageLink> —
+              indeterminate page or panel load.
+            </li>
+            <li>
+              <DocsPageLink to="/components/progress">Progress</DocsPageLink> —
+              reporting completeness, not primary page loading.
+            </li>
+          </ul>
+        </ChildSection>
+        <ChildSection
           id="feedback-loading"
           title="Loading states"
           description={
@@ -374,7 +374,7 @@ export function GuidesRecipesPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
     </div>
-  )
+  );
 }

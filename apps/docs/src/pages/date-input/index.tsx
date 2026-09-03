@@ -1,18 +1,24 @@
 import * as React from "react";
 import { ComponentExample } from "@/components/layout/component-example";
+import { RequiredForm } from "@/components/layout/required-form";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { DateInput } from "@gecko/ui/components/date-input";
 import { Button } from "@gecko/ui/components/button";
 import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";
 import { Code } from "@gecko/ui/components/code";
+import { Controller } from "react-hook-form";
+import { z } from "zod";
+
+const dateInputFormSchema = z.object({
+  dateOfBirth: z.date({ required_error: "Enter your date of birth." }),
+});
 
 export function DateInputPage() {
   const [basicDate, setBasicDate] = React.useState<Date | undefined>(undefined);
@@ -70,77 +76,89 @@ export function DateInputPage() {
   </FieldError>
 </Field>`;
 
-  const withinFormSnippet = `<form onSubmit={handleSubmit}>
-  <Field>
-    <FieldLabel htmlFor="form-date-of-birth">Date of birth</FieldLabel>
-    <DateInput
-      id="form-date-of-birth"
-      value={dateOfBirth}
-      onChange={setDateOfBirth}
-      aria-label="Date of birth"
-    />
-  </Field>
+  const withinFormSnippet = `const formSchema = z.object({
+  dateOfBirth: z.date({ required_error: "Enter your date of birth." }),
+})
+
+const form = useForm<z.infer<typeof formSchema>>({
+  resolver: zodResolver(formSchema),
+  defaultValues: { dateOfBirth: undefined },
+})
+
+<form noValidate onSubmit={form.handleSubmit(onSubmit)}>
+  <Controller name="dateOfBirth" control={form.control} render={({ field, fieldState }) => (
+    <Field data-invalid={fieldState.invalid}>
+      <FieldLabel htmlFor={field.name}>Date of birth</FieldLabel>
+      <DateInput
+        id={field.name}
+        value={field.value}
+        onChange={field.onChange}
+        required
+        aria-invalid={fieldState.invalid}
+      />
+      {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+    </Field>
+  )} />
   <Button type="submit">Save date of birth</Button>
 </form>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Date field"
-          description="The Date field is three small inputs for day, month, and year. People type each part in turn; focus moves to the next segment when one is full."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Date field"
+        description="The Date field is three small inputs for day, month, and year. People type each part in turn; focus moves to the next segment when one is full."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use a Date field for date of birth. The segmented day, month, and
-              year inputs let people type a birth date without scrolling back
-              many years in a calendar. Pair it with a{" "}
-              <DocsPageLink to="/components/field">Field</DocsPageLink> when the
-              control needs a label or validation message.
-              <br />
-              <br />
-              Avoid using it for general date selection — especially future
-              dates. Use a{" "}
-              <DocsPageLink to="/components/date-picker">
-                Date picker
-              </DocsPageLink>{" "}
-              instead.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use a Date field for date of birth. The segmented day, month, and
+            year inputs let people type a birth date without scrolling back many
+            years in a calendar. Pair it with a{" "}
+            <DocsPageLink to="/components/field">Field</DocsPageLink> when the
+            control needs a label or validation message.
+            <br />
+            <br />
+            Avoid using it for general date selection — especially future dates.
+            Use a{" "}
+            <DocsPageLink to="/components/date-picker">
+              Date picker
+            </DocsPageLink>{" "}
+            instead.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import DateInput to add a segmented date field."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description={
-            <>
-              A controlled field using <Code>value</Code> and{" "}
-              <Code>onChange</Code>. Default order is day, month, then a
-              four-digit year. Use this when the person is typing a date in
-              parts.
-            </>
-          }
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description={
+          <>
+            A controlled field using <Code>value</Code> and{" "}
+            <Code>onChange</Code>. Default order is day, month, then a
+            four-digit year. Use this when the person is typing a date in parts.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -161,19 +179,19 @@ export function DateInputPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="two-digit-year" label="2-digit year">
-        <PageSectionHeader
-          title="2-digit year"
-          description={
-            <>
-              A shortened year using <Code>yearDigits=&#123;2&#125;</Code>. Use
-              this only when the surrounding product context makes the century
-              unambiguous. Four digits remain the canonical default.
-            </>
-          }
-        />
+      <MainSection
+        id="two-digit-year"
+        title="2-digit year"
+        description={
+          <>
+            A shortened year using <Code>yearDigits=&#123;2&#125;</Code>. Use
+            this only when the surrounding product context makes the century
+            unambiguous. Four digits remain the canonical default.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -195,18 +213,18 @@ export function DateInputPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="american-format" label="American format">
-        <PageSectionHeader
-          title="American format"
-          description={
-            <>
-              Month before day using the <Code>monthFirst</Code> prop. Use this
-              when the date should be typed as month, then day, then year.
-            </>
-          }
-        />
+      <MainSection
+        id="american-format"
+        title="American format"
+        description={
+          <>
+            Month before day using the <Code>monthFirst</Code> prop. Use this
+            when the date should be typed as month, then day, then year.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Field>
@@ -228,15 +246,14 @@ export function DateInputPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="states" label="States">
-        <PageSectionHeader
-          title="States"
-          description="The field can be unavailable or invalid. Use the state that matches whether the person can type, and whether the date is complete."
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="states"
+        title="States"
+        description="The field can be unavailable or invalid. Use the state that matches whether the person can type, and whether the date is complete."
+      >
+        <ChildSection
           id="states-disabled"
           title="Disabled"
           description={
@@ -245,28 +262,30 @@ export function DateInputPage() {
               when the date cannot be changed yet.
             </>
           }
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Field data-disabled>
-              <FieldLabel htmlFor="date-input-states-disabled">Date</FieldLabel>
-              <DateInput
-                id="date-input-states-disabled"
-                disabled
-                aria-label="Date"
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-disabled>
+                <FieldLabel htmlFor="date-input-states-disabled">
+                  Date
+                </FieldLabel>
+                <DateInput
+                  id="date-input-states-disabled"
+                  disabled
+                  aria-label="Date"
+                />
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={disabledSnippet}
+                showCopyButton
+                copyLabel="Copy example"
               />
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={disabledSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-
-        <PageSubsectionHeader
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="states-error"
           title="Error"
           description={
@@ -276,57 +295,74 @@ export function DateInputPage() {
               the date is missing or not valid.
             </>
           }
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Field data-invalid>
-              <FieldLabel htmlFor="date-input-states-error">Date</FieldLabel>
-              <DateInput
-                id="date-input-states-error"
-                aria-invalid
-                aria-label="Date"
-                aria-describedby="date-input-states-error-msg"
-              />
-              <FieldError id="date-input-states-error-msg">
-                Enter a complete valid date using the day, month, and year
-                fields.
-              </FieldError>
-            </Field>
-            <Code
-              variant="block"
-              language="tsx"
-              code={errorSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
-
-      <PageSection id="within-form" label="Within form">
-        <PageSectionHeader
-          title="Within form"
-          description="Use a controlled Date field inside the form and submit its Date value with the rest of the form state."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <form
-              className="space-y-6"
-              onSubmit={(event) => event.preventDefault()}
-            >
-              <Field>
-                <FieldLabel htmlFor="form-date-of-birth">
-                  Date of birth
-                </FieldLabel>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field data-invalid>
+                <FieldLabel htmlFor="date-input-states-error">Date</FieldLabel>
                 <DateInput
-                  id="form-date-of-birth"
-                  value={basicDate}
-                  onChange={setBasicDate}
-                  aria-label="Date of birth"
+                  id="date-input-states-error"
+                  aria-invalid
+                  aria-label="Date"
+                  aria-describedby="date-input-states-error-msg"
                 />
+                <FieldError id="date-input-states-error-msg">
+                  Enter a complete valid date using the day, month, and year
+                  fields.
+                </FieldError>
               </Field>
-              <Button type="submit">Save date of birth</Button>
-            </form>
+              <Code
+                variant="block"
+                language="tsx"
+                code={errorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
+
+      <MainSection
+        id="within-form"
+        title="Within form"
+        description="Use a controlled Date field inside the form and submit its Date value with the rest of the form state."
+      >
+        <ComponentExample>
+          <div className="space-y-6">
+            <RequiredForm
+              className="space-y-6"
+              schema={dateInputFormSchema}
+              defaultValues={{ dateOfBirth: undefined }}
+            >
+              {(form) => (
+                <>
+                  <Controller
+                    name="dateOfBirth"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                      <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor="form-date-of-birth">
+                          Date of birth
+                        </FieldLabel>
+                        <DateInput
+                          id="form-date-of-birth"
+                          value={field.value}
+                          onChange={field.onChange}
+                          aria-label="Date of birth"
+                          required
+                          aria-invalid={fieldState.invalid}
+                        />
+                        {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]} />
+                        )}
+                      </Field>
+                    )}
+                  />
+                  <Button type="submit">Save date of birth</Button>
+                </>
+              )}
+            </RequiredForm>
             <Code
               variant="block"
               language="tsx"
@@ -336,13 +372,13 @@ export function DateInputPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use the four-digit default and change the date order only when the product locale requires it."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use the four-digit default and change the date order only when the product locale requires it."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -375,13 +411,13 @@ export function DateInputPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Date field."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Date field."
+      >
         <DocsApiTable
           rows={[
             {
@@ -422,6 +458,12 @@ export function DateInputPage() {
               description: "Prevents editing every date segment.",
             },
             {
+              name: "required",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Marks every date segment as required.",
+            },
+            {
               name: "id",
               type: "string",
               description:
@@ -447,13 +489,13 @@ export function DateInputPage() {
             },
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use these components for calendar selection and form structure."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use these components for calendar selection and form structure."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/date-picker">
@@ -470,7 +512,7 @@ export function DateInputPage() {
             label and validation message around a Date field.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

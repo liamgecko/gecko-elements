@@ -6,12 +6,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import { Button } from "@gecko/ui/components/button";
 import {
@@ -103,62 +102,58 @@ export function SortableListPage() {
 />`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Sortable list"
-          description="Sortable list lets people change the order of a list using a drag handle. It supports a single sequence or grouped items."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Sortable list"
+        description="Sortable list lets people change the order of a list using a drag handle. It supports a single sequence or grouped items."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Sortable list when reordering elements is essential. The grip
-              is the handle; the rest of the row is the content.
-              <br />
-              <br />
-              Avoid using it to add files from the desktop — use{" "}
-              <DocsPageLink to="/components/drop-zone">
-                Drop zone
-              </DocsPageLink>{" "}
-              or{" "}
-              <DocsPageLink to="/components/attachment">
-                Attachment
-              </DocsPageLink>{" "}
-              instead.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Sortable list when reordering elements is essential. The grip is
+            the handle; the rest of the row is the content.
+            <br />
+            <br />
+            Avoid using it to add files from the desktop — use{" "}
+            <DocsPageLink to="/components/drop-zone">
+              Drop zone
+            </DocsPageLink> or{" "}
+            <DocsPageLink to="/components/attachment">Attachment</DocsPageLink>{" "}
+            instead.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import SortableList to add a reorderable list."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description={
-            <>
-              A flat list using <Code>items</Code> and{" "}
-              <Code>onItemsChange</Code>. Use this when the list is a single
-              sequence.
-            </>
-          }
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description={
+          <>
+            A flat list using <Code>items</Code> and <Code>onItemsChange</Code>.
+            Use this when the list is a single sequence.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <SortableList items={items} onItemsChange={setItems} />
@@ -171,19 +166,19 @@ export function SortableListPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="row-actions" label="Row actions">
-        <PageSectionHeader
-          title="Row actions"
-          description={
-            <>
-              Use <Code>renderRowActions</Code> to place product-owned controls
-              at the end of each row. Use this when a row can be acted on as
-              well as reordered.
-            </>
-          }
-        />
+      <MainSection
+        id="row-actions"
+        title="Row actions"
+        description={
+          <>
+            Use <Code>renderRowActions</Code> to place product-owned controls at
+            the end of each row. Use this when a row can be acted on as well as
+            reordered.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <SortableList
@@ -209,21 +204,21 @@ export function SortableListPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="nested-example" label="Nested lists">
-        <PageSectionHeader
-          title="Nested lists"
-          description={
-            <>
-              Grouped lists use <Code>sections</Code> and{" "}
-              <Code>onSectionsChange</Code>. Sections and their child items can
-              be reordered, and child items can move between sections. Set{" "}
-              <Code>allowCrossSectionMove=false</Code> when items must remain in
-              their original section.
-            </>
-          }
-        />
+      <MainSection
+        id="nested-example"
+        title="Nested lists"
+        description={
+          <>
+            Grouped lists use <Code>sections</Code> and{" "}
+            <Code>onSectionsChange</Code>. Sections and their child items can be
+            reordered, and child items can move between sections. Set{" "}
+            <Code>allowCrossSectionMove=false</Code> when items must remain in
+            their original section.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <SortableList
@@ -240,13 +235,13 @@ export function SortableListPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Choose the list shape and keep every sortable id stable."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Choose the list shape and keep every sortable id stable."
+      >
         <DocsDoDont
           doItems={[
             <>Use the default flat variant for one reorderable sequence.</>,
@@ -271,13 +266,13 @@ export function SortableListPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Sortable list."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Sortable list."
+      >
         <DocsApiTable
           rows={[
             {
@@ -333,9 +328,8 @@ export function SortableListPage() {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -347,13 +341,13 @@ export function SortableListPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a different component when people are adding files or reading structured rows."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a different component when people are adding files or reading structured rows."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/drop-zone">Drop zone</DocsPageLink> —
@@ -364,7 +358,7 @@ export function SortableListPage() {
             — for structured rows with columns and table controls.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

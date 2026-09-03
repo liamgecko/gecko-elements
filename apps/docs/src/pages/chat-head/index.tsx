@@ -4,12 +4,11 @@ import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { ChatHead, type ChatHeadItem } from "@gecko/ui/components/chat-head";
 import { Code } from "@gecko/ui/components/code";
 
@@ -136,56 +135,56 @@ export function ChatHeadPage() {
   };
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Chat head"
-          description="Chat head presents the selectable conversation list in Inbox. It shows who each thread is with, its latest message, presence, unread state, and relative time."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Chat head"
+        description="Chat head presents the selectable conversation list in Inbox. It shows who each thread is with, its latest message, presence, unread state, and relative time."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Chat head for the conversation list in the Inbox left column.
-              Pass conversation data to the component and let the product
-              respond when a conversation is selected.
-              <br />
-              <br />
-              Avoid using it as app navigation, a profile card, or a
-              conversation transcript. Use{" "}
-              <DocsPageLink to="/components/message">Message</DocsPageLink>{" "}
-              inside a{" "}
-              <DocsPageLink to="/components/message-scroller">
-                Message scroller
-              </DocsPageLink>{" "}
-              for the conversation itself.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Chat head for the conversation list in the Inbox left column.
+            Pass conversation data to the component and let the product respond
+            when a conversation is selected.
+            <br />
+            <br />
+            Avoid using it as app navigation, a profile card, or a conversation
+            transcript. Use{" "}
+            <DocsPageLink to="/components/message">Message</DocsPageLink> inside
+            a{" "}
+            <DocsPageLink to="/components/message-scroller">
+              Message scroller
+            </DocsPageLink>{" "}
+            for the conversation itself.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import ChatHead and pass it the current conversations."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="default" label="Default">
-        <PageSectionHeader
-          title="Default"
-          description="The canonical conversation list. Chat head owns row composition, avatar fallback, relative time, and the visual treatment of conversation states."
-        />
+      <MainSection
+        id="default"
+        title="Default"
+        description="The canonical conversation list. Chat head owns row composition, avatar fallback, relative time, and the visual treatment of conversation states."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ChatHead
@@ -202,19 +201,19 @@ export function ChatHeadPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="closed" label="Closed">
-        <PageSectionHeader
-          title="Closed"
-          description={
-            <>
-              Set an item’s <Code>state</Code> to <Code>"closed"</Code> for a
-              finished conversation. Its existing controls change to re-open and
-              delete.
-            </>
-          }
-        />
+      <MainSection
+        id="closed"
+        title="Closed"
+        description={
+          <>
+            Set an item’s <Code>state</Code> to <Code>"closed"</Code> for a
+            finished conversation. Its existing controls change to re-open and
+            delete.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ChatHead
@@ -231,19 +230,19 @@ export function ChatHeadPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="unread-notification" label="Unread notification">
-        <PageSectionHeader
-          title="Unread notification"
-          description={
-            <>
-              Set <Code>unread</Code> while a conversation contains activity the
-              Inbox user has not read. Chat head places the approved
-              notification marker on the avatar.
-            </>
-          }
-        />
+      <MainSection
+        id="unread-notification"
+        title="Unread notification"
+        description={
+          <>
+            Set <Code>unread</Code> while a conversation contains activity the
+            Inbox user has not read. Chat head places the approved notification
+            marker on the avatar.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ChatHead
@@ -260,19 +259,19 @@ export function ChatHeadPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="active-state" label="Active state">
-        <PageSectionHeader
-          title="Active state"
-          description={
-            <>
-              Pass the selected conversation’s ID to <Code>selectedId</Code>.
-              Chat head applies the active treatment and exposes the current
-              selection to assistive technology.
-            </>
-          }
-        />
+      <MainSection
+        id="active-state"
+        title="Active state"
+        description={
+          <>
+            Pass the selected conversation’s ID to <Code>selectedId</Code>. Chat
+            head applies the active treatment and exposes the current selection
+            to assistive technology.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ChatHead
@@ -289,40 +288,37 @@ export function ChatHeadPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="message-preview" label="Message preview">
-        <PageSectionHeader
-          title="Message preview"
-          description={
-            <>
-              Contact messages display without a prefix. Set{" "}
-              <Code>lastMessageSender="agent"</Code> when the latest message was
-              sent by the Inbox user; Chat head adds “You:” automatically.
-            </>
-          }
-        />
-      </PageSection>
+      <MainSection
+        id="message-preview"
+        title="Message preview"
+        description={
+          <>
+            Contact messages display without a prefix. Set{" "}
+            <Code>lastMessageSender="agent"</Code> when the latest message was
+            sent by the Inbox user; Chat head adds “You:” automatically.
+          </>
+        }
+      ></MainSection>
 
-      <PageSection id="controls" label="Controls">
-        <PageSectionHeader
-          title="Controls"
-          description="Open conversations display the existing close control. Closed conversations display the existing re-open and delete controls. Their product behaviour is intentionally outside the current library interface and will be decided during product integration."
-        />
-      </PageSection>
+      <MainSection
+        id="controls"
+        title="Controls"
+        description="Open conversations display the existing close control. Closed conversations display the existing re-open and delete controls. Their product behaviour is intentionally outside the current library interface and will be decided during product integration."
+      ></MainSection>
 
-      <PageSection id="keyboard" label="Keyboard">
-        <PageSectionHeader
-          title="Keyboard"
-          description="Tab moves through each conversation and its visible controls in order. Use Up and Down to move directly between conversations, Home and End to jump to the first or last conversation, and Enter or Space to select. After a row’s final control, Tab continues to the next conversation."
-        />
-      </PageSection>
+      <MainSection
+        id="keyboard"
+        title="Keyboard"
+        description="Tab moves through each conversation and its visible controls in order. Use Up and Down to move directly between conversations, Home and End to jump to the first or last conversation, and Enter or Space to select. After a row’s final control, Tab continues to the next conversation."
+      ></MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Provide conversation data and state; let Chat head render each row consistently."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Provide conversation data and state; let Chat head render each row consistently."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -351,13 +347,13 @@ export function ChatHeadPage() {
             <>Don’t use Chat head for messages inside a conversation.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Chat head."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Chat head."
+      >
         <DocsApiTable
           rows={[
             {
@@ -426,13 +422,13 @@ export function ChatHeadPage() {
             },
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use these components for the selected conversation and identity outside the list."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use these components for the selected conversation and identity outside the list."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/message">Message</DocsPageLink> — a
@@ -449,7 +445,7 @@ export function ChatHeadPage() {
             person’s identity outside a conversation row.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

@@ -3,12 +3,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import {
   ToggleGroup,
@@ -98,68 +97,69 @@ export function ToggleGroupPage() {
 </ToggleGroup>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Toggle group"
-          description="Toggle Group coordinates related two-state buttons. Use it for a compact single or multiple selection where every item controls an immediate local state."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Toggle group"
+        description="Toggle Group coordinates related two-state buttons. Use it for a compact single or multiple selection where every item controls an immediate local state."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Toggle Group for related toolbar states, view modes, or a
-              compact filter. Keep the set short and give the group an
-              accessible name. Use{" "}
-              <DocsPageLink to="/components/radio-group">
-                Radio group
-              </DocsPageLink>{" "}
-              when one choice is submitted in a form, and use{" "}
-              <DocsPageLink to="/components/button-group">
-                Button group
-              </DocsPageLink>{" "}
-              for actions that do not remain selected.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Toggle Group for related toolbar states, view modes, or a
+            compact filter. Keep the set short and give the group an accessible
+            name. Use{" "}
+            <DocsPageLink to="/components/radio-group">
+              Radio group
+            </DocsPageLink>{" "}
+            when one choice is submitted in a form, and use{" "}
+            <DocsPageLink to="/components/button-group">
+              Button group
+            </DocsPageLink>{" "}
+            for actions that do not remain selected.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import the group and item parts together."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="Place every coordinated item directly inside one group."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="A single-selection alignment control. Pressing one item releases the others."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="A single-selection alignment control. Pressing one item releases the others."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ToggleGroup defaultValue={["left"]} aria-label="Text alignment">
@@ -174,13 +174,13 @@ export function ToggleGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="multiple" label="Multiple selection">
-        <PageSectionHeader
-          title="Multiple selection"
-          description="Allow independent pressed states when more than one formatting option may be active."
-        />
+      <MainSection
+        id="multiple"
+        title="Multiple selection"
+        description="Allow independent pressed states when more than one formatting option may be active."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ToggleGroup
@@ -207,13 +207,13 @@ export function ToggleGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizes" label="Sizes">
-        <PageSectionHeader
-          title="Sizes"
-          description="Set size once on the group so every item uses the same dimensions."
-        />
+      <MainSection
+        id="sizes"
+        title="Sizes"
+        description="Set size once on the group so every item uses the same dimensions."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-col items-start gap-3">
@@ -238,13 +238,13 @@ export function ToggleGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="spacing" label="Spacing">
-        <PageSectionHeader
-          title="Spacing"
-          description="Items are separate by default. Set zero spacing only when they should form one connected control."
-        />
+      <MainSection
+        id="spacing"
+        title="Spacing"
+        description="Items are separate by default. Set zero spacing only when they should form one connected control."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-col items-start gap-3">
@@ -273,13 +273,13 @@ export function ToggleGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="vertical" label="Vertical">
-        <PageSectionHeader
-          title="Vertical"
-          description="Arrange items vertically as separate controls or as one connected stack."
-        />
+      <MainSection
+        id="vertical"
+        title="Vertical"
+        description="Arrange items vertically as separate controls or as one connected stack."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex items-start gap-6">
@@ -312,13 +312,13 @@ export function ToggleGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="disabled" label="Disabled">
-        <PageSectionHeader
-          title="Disabled"
-          description="Disable the complete set when none of its options are currently available."
-        />
+      <MainSection
+        id="disabled"
+        title="Disabled"
+        description="Disable the complete set when none of its options are currently available."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <ToggleGroup
@@ -338,13 +338,13 @@ export function ToggleGroupPage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use one clear selection model throughout the complete set."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use one clear selection model throughout the complete set."
+      >
         <DocsDoDont
           doItems={[
             <>Give the group an accessible name.</>,
@@ -362,120 +362,120 @@ export function ToggleGroupPage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props for each Toggle Group part."
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props for each Toggle Group part."
+      >
+        <ChildSection
           id="api-toggle-group"
           title="ToggleGroup"
           description="Coordinates selection, layout, and shared presentation."
-        />
-        <DocsApiTable
-          aria-label="ToggleGroup properties"
-          rows={[
-            {
-              name: "value",
-              type: "readonly string[]",
-              description: "Controls the pressed item values.",
-            },
-            {
-              name: "defaultValue",
-              type: "readonly string[]",
-              description: "Sets the initial uncontrolled pressed values.",
-            },
-            {
-              name: "onValueChange",
-              type: "(value, eventDetails) => void",
-              description: "Runs when the pressed values change.",
-            },
-            {
-              name: "multiple",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Allows more than one item to be pressed.",
-            },
-            {
-              name: "orientation",
-              type: '"horizontal" | "vertical"',
-              defaultValue: '"horizontal"',
-              description: "Sets layout and arrow-key direction.",
-            },
-            {
-              name: "spacing",
-              type: "number",
-              defaultValue: "2",
-              description:
-                "Sets the design-system gap between items. Use zero for connected items.",
-            },
-            {
-              name: "variant",
-              type: "Toggle variant",
-              defaultValue: '"outline"',
-              description: "Sets the shared visual treatment.",
-            },
-            {
-              name: "size",
-              type: "Toggle size",
-              defaultValue: '"default"',
-              description: "Sets the shared control dimensions.",
-            },
-            {
-              name: "disabled",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Prevents interaction with the complete group.",
-            },
-            {
-              name: "loopFocus",
-              type: "boolean",
-              defaultValue: "true",
-              description:
-                "Loops arrow-key focus between the first and final item.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
-          className="mt-6"
+        >
+          <DocsApiTable
+            aria-label="ToggleGroup properties"
+            rows={[
+              {
+                name: "value",
+                type: "readonly string[]",
+                description: "Controls the pressed item values.",
+              },
+              {
+                name: "defaultValue",
+                type: "readonly string[]",
+                description: "Sets the initial uncontrolled pressed values.",
+              },
+              {
+                name: "onValueChange",
+                type: "(value, eventDetails) => void",
+                description: "Runs when the pressed values change.",
+              },
+              {
+                name: "multiple",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Allows more than one item to be pressed.",
+              },
+              {
+                name: "orientation",
+                type: '"horizontal" | "vertical"',
+                defaultValue: '"horizontal"',
+                description: "Sets layout and arrow-key direction.",
+              },
+              {
+                name: "spacing",
+                type: "number",
+                defaultValue: "2",
+                description:
+                  "Sets the design-system gap between items. Use zero for connected items.",
+              },
+              {
+                name: "variant",
+                type: "Toggle variant",
+                defaultValue: '"outline"',
+                description: "Sets the shared visual treatment.",
+              },
+              {
+                name: "size",
+                type: "Toggle size",
+                defaultValue: '"default"',
+                description: "Sets the shared control dimensions.",
+              },
+              {
+                name: "disabled",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Prevents interaction with the complete group.",
+              },
+              {
+                name: "loopFocus",
+                type: "boolean",
+                defaultValue: "true",
+                description:
+                  "Loops arrow-key focus between the first and final item.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-toggle-group-item"
           title="ToggleGroupItem"
           description="Represents one pressed value in the group."
-        />
-        <DocsApiTable
-          aria-label="ToggleGroupItem properties"
-          rows={[
-            {
-              name: "value",
-              type: "string",
-              description: "Identifies the item in the group value array.",
-            },
-            {
-              name: "disabled",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Prevents interaction with this item.",
-            },
-            {
-              name: "variant",
-              type: "Toggle variant",
-              defaultValue: '"outline"',
-              description:
-                "Sets presentation when the group does not provide it.",
-            },
-            {
-              name: "size",
-              type: "Toggle size",
-              defaultValue: '"default"',
-              description:
-                "Sets dimensions when the group does not provide them.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
-          className="mt-6"
+        >
+          <DocsApiTable
+            aria-label="ToggleGroupItem properties"
+            rows={[
+              {
+                name: "value",
+                type: "string",
+                description: "Identifies the item in the group value array.",
+              },
+              {
+                name: "disabled",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Prevents interaction with this item.",
+              },
+              {
+                name: "variant",
+                type: "Toggle variant",
+                defaultValue: '"outline"',
+                description:
+                  "Sets presentation when the group does not provide it.",
+              },
+              {
+                name: "size",
+                type: "Toggle size",
+                defaultValue: '"default"',
+                description:
+                  "Sets dimensions when the group does not provide them.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           title="API reference"
           description={
             <>
@@ -491,13 +491,13 @@ export function ToggleGroupPage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Choose a control based on whether the state is independent, grouped, or submitted."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Choose a control based on whether the state is independent, grouped, or submitted."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/toggle">Toggle</DocsPageLink> — one
@@ -516,7 +516,7 @@ export function ToggleGroupPage() {
             — one submitted choice from a labelled set.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

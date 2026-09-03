@@ -23,12 +23,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 
 export function BreadcrumbPage() {
   const importSnippet = `import { Link } from "react-router-dom"
@@ -122,72 +121,71 @@ import {
 </Breadcrumb>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Breadcrumb"
-          description="The Breadcrumb component shows the path to the current page as a trail of links. It tells people where they are in the product and lets them step back up the tree."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Breadcrumb"
+        description="The Breadcrumb component shows the path to the current page as a trail of links. It tells people where they are in the product and lets them step back up the tree."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Breadcrumb inside the page-level{" "}
-              <DocsPageLink to="/structure/header">Page Header</DocsPageLink>{" "}
-              when the page sits in a hierarchy. Compose ancestor links,
-              separators and the current page in that order.
-              <br />
-              <br />
-              Avoid using breadcrumbs on Inbox, on a page with no hierarchy, or
-              as a substitute for primary navigation.
-            </>
-          }
-        />
-
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Breadcrumb inside the page-level{" "}
+            <DocsPageLink to="/structure/header">Page Header</DocsPageLink> when
+            the page sits in a hierarchy. Compose ancestor links, separators and
+            the current page in that order.
+            <br />
+            <br />
+            Avoid using breadcrumbs on Inbox, on a page with no hierarchy, or as
+            a substitute for primary navigation.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Breadcrumb and its parts to compose the trail. Use the application router’s Link for ancestor navigation."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="The trail is a list of items. Earlier levels are links; the last item is the current page. Separators sit between them."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Canonical use">
-        <PageSectionHeader
-          title="Canonical use"
-          description={
-            <>
-              A simple three-level Breadcrumb with the current page rendered as
-              plain text and previous levels as links.
-            </>
-          }
-        />
+      <MainSection
+        id="basic-example"
+        title="Canonical use"
+        description={
+          <>
+            A simple three-level Breadcrumb with the current page rendered as
+            plain text and previous levels as links.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Breadcrumb>
@@ -218,19 +216,19 @@ import {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-overflow" label="With overflow">
-        <PageSectionHeader
-          title="With overflow"
-          description={
-            <>
-              Tucks middle levels behind <Code>BreadcrumbEllipsis</Code> in a
-              dropdown when the trail would otherwise wrap or crowd the Header.
-              Every hidden level remains a real link.
-            </>
-          }
-        />
+      <MainSection
+        id="with-overflow"
+        title="With overflow"
+        description={
+          <>
+            Tucks middle levels behind <Code>BreadcrumbEllipsis</Code> in a
+            dropdown when the trail would otherwise wrap or crowd the Header.
+            Every hidden level remains a real link.
+          </>
+        }
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Breadcrumb>
@@ -292,13 +290,13 @@ import {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use the canonical trail structure and real links for every ancestor."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use the canonical trail structure and real links for every ancestor."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -335,13 +333,13 @@ import {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Breadcrumb."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour props on Breadcrumb."
+      >
         <DocsApiTable
           rows={[
             {
@@ -364,9 +362,8 @@ import {
             },
           ]}
         />
-        <PageSubsectionHeader
+        <ChildSection
           id="api-reference"
-          className="mt-6"
           title="API reference"
           description={
             <>
@@ -382,13 +379,13 @@ import {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a different control when the Breadcrumb is the wrong shape for the job."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a different control when the Breadcrumb is the wrong shape for the job."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/structure/header">Page Header</DocsPageLink> —
@@ -402,7 +399,7 @@ import {
             <Code>BreadcrumbEllipsis</Code>.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

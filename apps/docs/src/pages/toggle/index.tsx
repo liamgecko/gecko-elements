@@ -4,12 +4,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import { Toggle } from "@gecko/ui/components/toggle";
 import { Bookmark, Bold } from "lucide-react";
@@ -44,53 +43,53 @@ export function TogglePage() {
 </Toggle>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Toggle"
-          description="Toggle is a two-state button for turning a local tool or display mode on and off. Its pressed appearance remains visible until the state changes again."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Toggle"
+        description="Toggle is a two-state button for turning a local tool or display mode on and off. Its pressed appearance remains visible until the state changes again."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Toggle for persistent toolbar state such as bold formatting,
-              bookmarking, or showing a layer. Use{" "}
-              <DocsPageLink to="/components/button">Button</DocsPageLink> for an
-              action that completes immediately, and use{" "}
-              <DocsPageLink to="/components/switch">Switch</DocsPageLink> for an
-              application setting.
-              <br />
-              <br />
-              An icon-only Toggle needs an accessible name. Keep its visible
-              state change as well as the pressed semantics supplied by Base UI.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Toggle for persistent toolbar state such as bold formatting,
+            bookmarking, or showing a layer. Use{" "}
+            <DocsPageLink to="/components/button">Button</DocsPageLink> for an
+            action that completes immediately, and use{" "}
+            <DocsPageLink to="/components/switch">Switch</DocsPageLink> for an
+            application setting.
+            <br />
+            <br />
+            An icon-only Toggle needs an accessible name. Keep its visible state
+            change as well as the pressed semantics supplied by Base UI.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import Toggle for one independent pressed state."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="An uncontrolled icon toggle for bookmarking an item."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="An uncontrolled icon toggle for bookmarking an item."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Toggle aria-label="Bookmark">
@@ -105,13 +104,13 @@ export function TogglePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="sizes" label="Sizes">
-        <PageSectionHeader
-          title="Sizes"
-          description="Match the Toggle to the neighbouring controls and toolbar density."
-        />
+      <MainSection
+        id="sizes"
+        title="Sizes"
+        description="Match the Toggle to the neighbouring controls and toolbar density."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex flex-wrap items-end gap-3">
@@ -139,13 +138,13 @@ export function TogglePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="with-text" label="With text">
-        <PageSectionHeader
-          title="With text"
-          description="Use a concise visible label when an icon alone would be ambiguous."
-        />
+      <MainSection
+        id="with-text"
+        title="With text"
+        description="Use a concise visible label when an icon alone would be ambiguous."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Toggle>
@@ -161,13 +160,13 @@ export function TogglePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="controlled" label="Controlled">
-        <PageSectionHeader
-          title="Controlled"
-          description="Coordinate pressed state with application data only when another part of the interface needs it."
-        />
+      <MainSection
+        id="controlled"
+        title="Controlled"
+        description="Coordinate pressed state with application data only when another part of the interface needs it."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <div className="flex items-center gap-3">
@@ -191,13 +190,13 @@ export function TogglePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="disabled" label="Disabled">
-        <PageSectionHeader
-          title="Disabled"
-          description="Use a disabled state only when the tool is unavailable in the current context."
-        />
+      <MainSection
+        id="disabled"
+        title="Disabled"
+        description="Use a disabled state only when the tool is unavailable in the current context."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Toggle disabled aria-label="Bookmark">
@@ -212,13 +211,13 @@ export function TogglePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Use Toggle for a stateful tool, not as a substitute for every button or field."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Use Toggle for a stateful tool, not as a substitute for every button or field."
+      >
         <DocsDoDont
           doItems={[
             <>Use Toggle for a state that remains on until pressed again.</>,
@@ -237,13 +236,13 @@ export function TogglePage() {
             <>Don’t restyle the pressed treatment in product code.</>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour and presentation props on Toggle."
-        />
+      <MainSection
+        id="api"
+        title="API"
+        description="Behaviour and presentation props on Toggle."
+      >
         <DocsApiTable
           rows={[
             {
@@ -282,8 +281,7 @@ export function TogglePage() {
             },
           ]}
         />
-        <PageSubsectionHeader
-          className="mt-6"
+        <ChildSection
           title="API reference"
           description={
             <>
@@ -299,13 +297,13 @@ export function TogglePage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Choose the control that matches the meaning and scope of the state."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Choose the control that matches the meaning and scope of the state."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/toggle-group">
@@ -326,7 +324,7 @@ export function TogglePage() {
             submitted binary choice.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }

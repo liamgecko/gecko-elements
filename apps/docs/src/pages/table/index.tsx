@@ -3,12 +3,11 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { PageSection } from "@/components/layout/page-section";
 import {
-  PageOverviewHeader,
-  PageSectionHeader,
-  PageSubsectionHeader,
-} from "@/components/layout/page-section-header";
+  ChildSection,
+  HeaderSection,
+  MainSection,
+} from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import {
   Table,
@@ -291,70 +290,70 @@ export function TablePage() {
 </Table>`;
 
   return (
-    <div className="space-y-12">
-      <PageSection id="overview" label="Overview">
-        <PageOverviewHeader
-          title="Table"
-          description="The Table component presents simple, non-interactive data in semantic rows and columns."
-        />
-      </PageSection>
+    <div>
+      <HeaderSection
+        id="overview"
+        title="Table"
+        description="The Table component presents simple, non-interactive data in semantic rows and columns."
+      />
 
-      <PageSection id="usage" label="Usage">
-        <PageSectionHeader
-          title="Usage"
-          description={
-            <>
-              Use Table for simple tabular data, such as reporting detail inside
-              a{" "}
-              <DocsPageLink to="/components/metric-card">
-                Metric card
-              </DocsPageLink>
-              , when sorting, filtering and row actions are not needed.
-              <br />
-              <br />
-              Use{" "}
-              <DocsPageLink to="/components/data-table">
-                Data table
-              </DocsPageLink>{" "}
-              for product lists and expandable application rows.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="usage"
+        title="Usage"
+        description={
+          <>
+            Use Table for simple tabular data, such as reporting detail inside a{" "}
+            <DocsPageLink to="/components/metric-card">
+              Metric card
+            </DocsPageLink>
+            , when sorting, filtering and row actions are not needed.
+            <br />
+            <br />
+            Use{" "}
+            <DocsPageLink to="/components/data-table">
+              Data table
+            </DocsPageLink>{" "}
+            for product lists and expandable application rows.
+          </>
+        }
+      >
+        <ChildSection
           id="usage-import"
           title="Import"
           description="Import the table parts required by the composition."
-        />
-        <ComponentExample className="mb-6">
-          <Code
-            variant="block"
-            language="tsx"
-            code={importSnippet}
-            showCopyButton
-            copyLabel="Copy import"
-          />
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="tsx"
+              code={importSnippet}
+              showCopyButton
+              copyLabel="Copy import"
+            />
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="usage-composition"
           title="Composition"
           description="A table can contain a caption, grouped rows and expandable detail content."
-        />
-        <ComponentExample>
-          <Code
-            variant="block"
-            language="text"
-            code={compositionSnippet}
-            showCopyButton
-            copyLabel="Copy composition"
-          />
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <Code
+              variant="block"
+              language="text"
+              code={compositionSnippet}
+              showCopyButton
+              copyLabel="Copy composition"
+            />
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="basic-example" label="Basic example">
-        <PageSectionHeader
-          title="Basic example"
-          description="A semantic table with a visible caption, column headers and aligned numeric values."
-        />
+      <MainSection
+        id="basic-example"
+        title="Basic example"
+        description="A semantic table with a visible caption, column headers and aligned numeric values."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Table>
@@ -373,13 +372,13 @@ export function TablePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="footer" label="Footer">
-        <PageSectionHeader
-          title="Footer"
-          description="Use the footer for totals, counts and other aggregate values."
-        />
+      <MainSection
+        id="footer"
+        title="Footer"
+        description="Use the footer for totals, counts and other aggregate values."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Table aria-label="Invoice totals">
@@ -407,13 +406,13 @@ export function TablePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="hoverable" label="Hoverable rows">
-        <PageSectionHeader
-          title="Hoverable rows"
-          description="Use row highlighting when it helps people track values across a dense table. It does not make rows interactive."
-        />
+      <MainSection
+        id="hoverable"
+        title="Hoverable rows"
+        description="Use row highlighting when it helps people track values across a dense table. It does not make rows interactive."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Table hoverable aria-label="Invoices">
@@ -431,13 +430,13 @@ export function TablePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="nested" label="Nested table">
-        <PageSectionHeader
-          title="Nested table"
-          description="Use a nested table for tabular detail inside an expandable Data table row. Its title and description are connected automatically."
-        />
+      <MainSection
+        id="nested"
+        title="Nested table"
+        description="Use a nested table for tabular detail inside an expandable Data table row. Its title and description are connected automatically."
+      >
         <ComponentExample>
           <div className="space-y-6">
             <Table
@@ -474,147 +473,147 @@ export function TablePage() {
             />
           </div>
         </ComponentExample>
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="expandable" label="Expandable rows">
-        <PageSectionHeader
-          title="Expandable rows"
-          description={
-            <>
-              These primitives support the expandable interface owned by{" "}
-              <DocsPageLink to="/components/data-table">
-                Data table
-              </DocsPageLink>
-              . Application code should use its expandable configuration.
-            </>
-          }
-        />
-        <PageSubsectionHeader
+      <MainSection
+        id="expandable"
+        title="Expandable rows"
+        description={
+          <>
+            These primitives support the expandable interface owned by{" "}
+            <DocsPageLink to="/components/data-table">Data table</DocsPageLink>.
+            Application code should use its expandable configuration.
+          </>
+        }
+      >
+        <ChildSection
           id="expandable-panel"
           title="Panel"
           description="Use a detail panel when the expanded content has its own layout or nested table."
-        />
-        <ComponentExample className="mb-6">
-          <div className="space-y-6">
-            <Table aria-label="Invoices with line items">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Invoice</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="text-end">Amount</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableExpandableRow
-                  colSpan={3}
-                  detail={
-                    <Table nested title="Line items">
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Item</TableHead>
-                          <TableHead className="text-end">Amount</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell>Registration</TableCell>
-                          <TableCell className="text-end tabular-nums">
-                            $250.00
-                          </TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
-                  }
-                >
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <TableExpandableRowTrigger label="INV001 details" />
-                      INV001
-                    </div>
-                  </TableCell>
-                  <TableCell>Paid</TableCell>
-                  <TableCell className="text-end tabular-nums">
-                    $250.00
-                  </TableCell>
-                </TableExpandableRow>
-              </TableBody>
-            </Table>
-            <Code
-              variant="block"
-              language="tsx"
-              code={expandablePanelSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-        <PageSubsectionHeader
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Table aria-label="Invoices with line items">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Invoice</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead className="text-end">Amount</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableExpandableRow
+                    colSpan={3}
+                    detail={
+                      <Table nested title="Line items">
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Item</TableHead>
+                            <TableHead className="text-end">Amount</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          <TableRow>
+                            <TableCell>Registration</TableCell>
+                            <TableCell className="text-end tabular-nums">
+                              $250.00
+                            </TableCell>
+                          </TableRow>
+                        </TableBody>
+                      </Table>
+                    }
+                  >
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <TableExpandableRowTrigger label="INV001 details" />
+                        INV001
+                      </div>
+                    </TableCell>
+                    <TableCell>Paid</TableCell>
+                    <TableCell className="text-end tabular-nums">
+                      $250.00
+                    </TableCell>
+                  </TableExpandableRow>
+                </TableBody>
+              </Table>
+              <Code
+                variant="block"
+                language="tsx"
+                code={expandablePanelSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="expandable-sibling-rows"
           title="Sibling rows"
           description="Use sibling rows when expanded values must remain aligned with the parent columns."
-        />
-        <ComponentExample>
-          <div className="space-y-6">
-            <Table aria-label="Invoices and instalments">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Invoice</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="text-end">Amount</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableExpandableRow
-                  colSpan={3}
-                  detailLayout="sibling-rows"
-                  detail={
-                    <>
-                      <TableRow>
-                        <TableCell>INV002-A</TableCell>
-                        <TableCell>Paid</TableCell>
-                        <TableCell className="text-end tabular-nums">
-                          $75.00
-                        </TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell>INV002-B</TableCell>
-                        <TableCell>Pending</TableCell>
-                        <TableCell className="text-end tabular-nums">
-                          $75.00
-                        </TableCell>
-                      </TableRow>
-                    </>
-                  }
-                >
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <TableExpandableRowTrigger label="INV002 instalments" />
-                      INV002
-                    </div>
-                  </TableCell>
-                  <TableCell>Part paid</TableCell>
-                  <TableCell className="text-end tabular-nums">
-                    $150.00
-                  </TableCell>
-                </TableExpandableRow>
-              </TableBody>
-            </Table>
-            <Code
-              variant="block"
-              language="tsx"
-              code={expandableSiblingSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
-        </ComponentExample>
-      </PageSection>
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Table aria-label="Invoices and instalments">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Invoice</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead className="text-end">Amount</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableExpandableRow
+                    colSpan={3}
+                    detailLayout="sibling-rows"
+                    detail={
+                      <>
+                        <TableRow>
+                          <TableCell>INV002-A</TableCell>
+                          <TableCell>Paid</TableCell>
+                          <TableCell className="text-end tabular-nums">
+                            $75.00
+                          </TableCell>
+                        </TableRow>
+                        <TableRow>
+                          <TableCell>INV002-B</TableCell>
+                          <TableCell>Pending</TableCell>
+                          <TableCell className="text-end tabular-nums">
+                            $75.00
+                          </TableCell>
+                        </TableRow>
+                      </>
+                    }
+                  >
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <TableExpandableRowTrigger label="INV002 instalments" />
+                        INV002
+                      </div>
+                    </TableCell>
+                    <TableCell>Part paid</TableCell>
+                    <TableCell className="text-end tabular-nums">
+                      $150.00
+                    </TableCell>
+                  </TableExpandableRow>
+                </TableBody>
+              </Table>
+              <Code
+                variant="block"
+                language="tsx"
+                code={expandableSiblingSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
 
-      <PageSection id="do-dont" label="Do and don’t">
-        <PageSectionHeader
-          title="Do and don’t"
-          description="Keep simple tables semantic, readable and easy to scan."
-        />
+      <MainSection
+        id="do-dont"
+        title="Do and don’t"
+        description="Keep simple tables semantic, readable and easy to scan."
+      >
         <DocsDoDont
           doItems={[
             <>
@@ -639,128 +638,124 @@ export function TablePage() {
             </>,
           ]}
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="api" label="API">
-        <PageSectionHeader
-          title="API"
-          description="Behaviour props on Table."
-        />
-        <PageSubsectionHeader
+      <MainSection id="api" title="API" description="Behaviour props on Table.">
+        <ChildSection
           id="api-table"
           title="Table"
           description="Wraps semantic table content and owns its shared presentation."
-        />
-        <DocsApiTable
-          aria-label="Table properties"
-          rows={[
-            {
-              name: "hoverable",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Highlights body rows to aid scanning.",
-            },
-            {
-              name: "nested",
-              type: "boolean",
-              defaultValue: "false",
-              description:
-                "Uses the approved bordered presentation for a table inside detail content.",
-            },
-            {
-              name: "title",
-              type: "React.ReactNode",
-              defaultValue: "—",
-              description:
-                "Names a nested table and connects the text automatically.",
-            },
-            {
-              name: "description",
-              type: "React.ReactNode",
-              defaultValue: "—",
-              description:
-                "Adds supporting context to a nested table and connects it automatically.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
+        >
+          <DocsApiTable
+            aria-label="Table properties"
+            rows={[
+              {
+                name: "hoverable",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Highlights body rows to aid scanning.",
+              },
+              {
+                name: "nested",
+                type: "boolean",
+                defaultValue: "false",
+                description:
+                  "Uses the approved bordered presentation for a table inside detail content.",
+              },
+              {
+                name: "title",
+                type: "React.ReactNode",
+                defaultValue: "—",
+                description:
+                  "Names a nested table and connects the text automatically.",
+              },
+              {
+                name: "description",
+                type: "React.ReactNode",
+                defaultValue: "—",
+                description:
+                  "Adds supporting context to a nested table and connects it automatically.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-expandable-row"
           title="TableExpandableRow"
-          className="mt-6"
           description="Adds a disclosure row for subordinate table detail."
-        />
-        <DocsApiTable
-          aria-label="TableExpandableRow properties"
-          rows={[
-            {
-              name: "colSpan",
-              type: "number",
-              defaultValue: "—",
-              description:
-                "Matches the number of columns occupied by the detail panel.",
-            },
-            {
-              name: "detailLayout",
-              type: '"panel" | "sibling-rows"',
-              defaultValue: '"panel"',
-              description:
-                "Chooses a full-width detail panel or aligned table rows.",
-            },
-            {
-              name: "detail",
-              type: "React.ReactNode",
-              defaultValue: "—",
-              description:
-                "Renders the subordinate content revealed by the trigger.",
-            },
-            {
-              name: "defaultOpen",
-              type: "boolean",
-              defaultValue: "false",
-              description: "Sets the initial uncontrolled expanded state.",
-            },
-            {
-              name: "open",
-              type: "boolean",
-              defaultValue: "—",
-              description: "Controls the expanded state.",
-            },
-            {
-              name: "onOpenChange",
-              type: "(open: boolean) => void",
-              defaultValue: "—",
-              description: "Reports expanded state changes.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
+        >
+          <DocsApiTable
+            aria-label="TableExpandableRow properties"
+            rows={[
+              {
+                name: "colSpan",
+                type: "number",
+                defaultValue: "—",
+                description:
+                  "Matches the number of columns occupied by the detail panel.",
+              },
+              {
+                name: "detailLayout",
+                type: '"panel" | "sibling-rows"',
+                defaultValue: '"panel"',
+                description:
+                  "Chooses a full-width detail panel or aligned table rows.",
+              },
+              {
+                name: "detail",
+                type: "React.ReactNode",
+                defaultValue: "—",
+                description:
+                  "Renders the subordinate content revealed by the trigger.",
+              },
+              {
+                name: "defaultOpen",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Sets the initial uncontrolled expanded state.",
+              },
+              {
+                name: "open",
+                type: "boolean",
+                defaultValue: "—",
+                description: "Controls the expanded state.",
+              },
+              {
+                name: "onOpenChange",
+                type: "(open: boolean) => void",
+                defaultValue: "—",
+                description: "Reports expanded state changes.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-expandable-trigger"
           title="TableExpandableRowTrigger"
-          className="mt-6"
           description="Controls the expanded state for its row."
-        />
-        <DocsApiTable
-          aria-label="TableExpandableRowTrigger properties"
-          rows={[
-            {
-              name: "label",
-              type: "string",
-              defaultValue: '"row"',
-              description:
-                "Adds row context to the generated expand and collapse label.",
-            },
-            {
-              name: "children",
-              type: "React.ReactNode",
-              defaultValue: "Chevron",
-              description: "Replaces the default disclosure icon.",
-            },
-          ]}
-        />
-        <PageSubsectionHeader
+        >
+          <DocsApiTable
+            aria-label="TableExpandableRowTrigger properties"
+            rows={[
+              {
+                name: "label",
+                type: "string",
+                defaultValue: '"row"',
+                description:
+                  "Adds row context to the generated expand and collapse label.",
+              },
+              {
+                name: "children",
+                type: "React.ReactNode",
+                defaultValue: "Chevron",
+                description: "Replaces the default disclosure icon.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
           id="api-reference"
           title="API reference"
-          className="mt-6"
           description={
             <>
               See the{" "}
@@ -771,13 +766,13 @@ export function TablePage() {
             </>
           }
         />
-      </PageSection>
+      </MainSection>
 
-      <PageSection id="related" label="Related">
-        <PageSectionHeader
-          title="Related"
-          description="Use a richer table when people need to work with the data."
-        />
+      <MainSection
+        id="related"
+        title="Related"
+        description="Use a richer table when people need to work with the data."
+      >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/data-table">Data table</DocsPageLink>{" "}
@@ -791,7 +786,7 @@ export function TablePage() {
             — for reporting surfaces that can contain a simple Table.
           </li>
         </ul>
-      </PageSection>
+      </MainSection>
     </div>
   );
 }
