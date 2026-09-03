@@ -50,10 +50,10 @@ const overlapClass: Record<ResolvedAvatarGroupSize, string> = {
 
 const countSizeClass: Record<ResolvedAvatarGroupSize, string> = {
   xs: "size-4 text-[7px]",
-  sm: "size-5 text-[9px]",
-  md: "size-6 text-[10px]",
-  lg: "size-7 text-xs",
-  xl: "size-8 text-xs",
+  sm: "size-5 text-5xs",
+  md: "size-6 text-4xs",
+  lg: "size-7 text-2xs",
+  xl: "size-8 text-2xs",
   "2xl": "size-9 text-sm",
   "3xl": "size-12 text-base",
 };

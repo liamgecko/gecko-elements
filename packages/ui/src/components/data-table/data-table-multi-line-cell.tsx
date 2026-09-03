@@ -24,7 +24,7 @@ export function DataTableMultiLineCell({
       <div className={cn("leading-snug", primaryClassName)}>{primary}</div>
       {secondary != null && secondary !== "" ? (
         <div
-          className={cn("min-w-0 text-xs leading-snug text-muted-foreground", secondaryClassName)}
+          className={cn("min-w-0 text-2xs leading-snug text-muted-foreground", secondaryClassName)}
         >
           {secondary}
         </div>

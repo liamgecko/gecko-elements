@@ -341,7 +341,7 @@ function EmojiPickerPanel({ className, ...props }: EmojiPickerPanelProps) {
                 <div
                   {...categoryProps}
                   className={cn(
-                    "bg-popover text-foreground flex items-center px-3 pt-3 pb-1.5 text-xs font-semibold capitalize",
+                    "bg-popover text-foreground flex items-center px-3 pt-3 pb-1.5 text-2xs font-semibold capitalize",
                     categoryClassName,
                   )}
                   style={style}
@@ -392,12 +392,12 @@ function EmojiPickerPanel({ className, ...props }: EmojiPickerPanelProps) {
               emoji ? (
                 <div className="flex min-w-0 items-center gap-2">
                   <span className="text-2xl leading-none">{emoji.emoji}</span>
-                  <span className="text-muted-foreground truncate text-xs capitalize">
+                  <span className="text-muted-foreground truncate text-2xs capitalize">
                     {emoji.label}
                   </span>
                 </div>
               ) : (
-                <span className="text-muted-foreground text-xs">
+                <span className="text-muted-foreground text-2xs">
                   Select an emoji
                 </span>
               )
@@ -409,7 +409,7 @@ function EmojiPickerPanel({ className, ...props }: EmojiPickerPanelProps) {
               className="text-muted-foreground flex items-center justify-center p-0 text-lg hover:bg-transparent"
               aria-label="Skin tone"
             />
-            <span className="text-muted-foreground text-xs">Skin tone</span>
+            <span className="text-muted-foreground text-2xs">Skin tone</span>
           </div>
         </div>
       </FrimousseEmojiPicker.Root>

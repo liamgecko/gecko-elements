@@ -288,7 +288,7 @@ function Attachment(props: AttachmentProps) {
             )}
           </span>
           {displayDescription != null && (
-            <span className="mt-0.5 block truncate text-xs text-muted-foreground">
+            <span className="mt-0.5 block truncate text-2xs text-muted-foreground">
               {displayDescription}
             </span>
           )}
@@ -330,7 +330,7 @@ function Attachment(props: AttachmentProps) {
             aria-live="polite"
             aria-atomic="true"
             className={cn(
-              "mt-0.5 block truncate text-xs text-muted-foreground",
+              "mt-0.5 block truncate text-2xs text-muted-foreground",
               state === "error" && "text-destructive/80"
             )}
           >

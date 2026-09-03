@@ -384,17 +384,17 @@ export function TypographyPage() {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center min-h-12 text-sm">
-                      Font size: 12px
+                      Font size: 13px
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center min-h-12 text-sm">
-                      Line height: 16px
+                      Line height: 18px
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center min-h-12 text-sm">
-                      Labels and captions
+                      Labels
                     </div>
                   </TableCell>
                   <TableCell>
@@ -411,17 +411,17 @@ export function TypographyPage() {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center min-h-12 text-sm">
-                      Font size: 10px
+                      Font size: 12px
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center min-h-12 text-sm">
-                      Line height: 15px
+                      Line height: 16px
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center min-h-12 text-sm">
-                      Dense UI
+                      Captions
                     </div>
                   </TableCell>
                   <TableCell>
@@ -438,12 +438,12 @@ export function TypographyPage() {
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center min-h-12 text-sm">
-                      Font size: 9px
+                      Font size: 11px
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center min-h-12 text-sm">
-                      Line height: 13px
+                      Line height: 16px
                     </div>
                   </TableCell>
                   <TableCell>
@@ -454,6 +454,60 @@ export function TypographyPage() {
                   <TableCell>
                     <div className="flex items-center min-h-12 text-sm">
                       <Code>text-3xs</Code>
+                    </div>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <div className="flex items-center min-h-12 text-4xs">
+                      Type scale 4xs
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center min-h-12 text-sm">
+                      Font size: 10px
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center min-h-12 text-sm">
+                      Line height: normal
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center min-h-12 text-sm">
+                      Dense UI
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center min-h-12 text-sm">
+                      <Code>text-4xs</Code>
+                    </div>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <div className="flex items-center min-h-12 text-5xs">
+                      Type scale 5xs
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center min-h-12 text-sm">
+                      Font size: 9px
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center min-h-12 text-sm">
+                      Line height: normal
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center min-h-12 text-sm">
+                      Dense UI
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center min-h-12 text-sm">
+                      <Code>text-5xs</Code>
                     </div>
                   </TableCell>
                 </TableRow>
@@ -576,13 +630,13 @@ export function TypographyPage() {
                 </TableRow>
                 <TableRow>
                   <TableCell>
-                    <div className="flex items-center min-h-12 text-xs font-normal text-muted-foreground">
+                    <div className="flex items-center min-h-12 text-2xs font-normal text-muted-foreground">
                       Caption
                     </div>
                   </TableCell>
                   <TableCell>
                     <div className="flex items-center min-h-12 text-sm">
-                      text-xs
+                      text-2xs
                     </div>
                   </TableCell>
                   <TableCell>

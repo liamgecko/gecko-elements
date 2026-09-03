@@ -79,7 +79,7 @@ function ChartContainer({
         data-chart={chartId}
         data-layout={layout}
         className={cn(
-          "flex justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-pie-label-text]:fill-foreground [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden [&_.recharts-tooltip-wrapper]:z-50 [&_.recharts-legend-wrapper]:z-0",
+          "flex justify-center text-2xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-pie-label-text]:fill-foreground [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden [&_.recharts-tooltip-wrapper]:z-50 [&_.recharts-legend-wrapper]:z-0",
           layout === "polar"
             ? "mx-auto aspect-square w-full max-w-[250px]"
             : "aspect-video",
@@ -219,7 +219,7 @@ function ChartXAxisTickLabel({
   if (!label) return null;
 
   const tickWidth = Math.max(48, Math.floor(widthNumber || 84));
-  // Rough heuristic: average glyph width ~6–7px at text-xs.
+  // Rough heuristic: average glyph width ~6–7px at text-3xs.
   const maxCharsPerLine =
     maxCharsPerLineProp ?? Math.max(6, Math.floor(tickWidth / 6.5));
   const lines = wrapTickLabel(label, maxCharsPerLine, maxLines);
@@ -230,8 +230,7 @@ function ChartXAxisTickLabel({
         x={xNumber}
         y={yNumber + 18}
         textAnchor="middle"
-        fontSize={11}
-        className="text-muted-foreground"
+        className="text-3xs text-muted-foreground"
       >
         {lines.map((line, idx) => (
           <tspan key={idx} x={xNumber} dy={idx === 0 ? 0 : lineHeight}>
@@ -317,7 +316,7 @@ function ChartTooltipContent({
       role="status"
       aria-live="polite"
       className={cn(
-        "grid min-w-44 items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl",
+        "grid min-w-44 items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-2xs shadow-xl",
         className,
       )}
     >
@@ -569,7 +568,7 @@ function ChartTooltipGroupedContent({
       role="status"
       aria-live="polite"
       className={cn(
-        "grid min-w-44 items-start gap-2 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl",
+        "grid min-w-44 items-start gap-2 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-2xs shadow-xl",
         className,
       )}
     >
@@ -681,7 +680,7 @@ function ChartLegendGroupedContent({
           key={group.title}
           className="flex w-full max-w-full flex-col items-center gap-1"
         >
-          <p className="max-w-full truncate text-center text-xs font-medium text-foreground">
+          <p className="max-w-full truncate text-center text-2xs font-medium text-foreground">
             {group.title}
           </p>
           <ChartLegendContent
@@ -723,7 +722,7 @@ const ChartMetric = React.forwardRef<
         {displayValue}
       </span>
       {label != null ? (
-        <span className="text-xs text-muted-foreground">{label}</span>
+        <span className="text-2xs text-muted-foreground">{label}</span>
       ) : null}
     </div>
   );

@@ -78,7 +78,7 @@ export function SuggestedPrompts({
                 <CardTitle className="!text-sm font-medium">{item.heading}</CardTitle>
               </CardHeader>
               <CardContent className="!pt-2">
-                <p className="text-xs text-muted-foreground">{item.prompt}</p>
+                <p className="text-2xs text-muted-foreground">{item.prompt}</p>
               </CardContent>
             </Card>
           </button>

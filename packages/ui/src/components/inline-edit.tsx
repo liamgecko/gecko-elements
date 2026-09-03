@@ -13,7 +13,7 @@ const inlineEditViewRootVariants = cva(
   {
     variants: {
       size: {
-        sm: "h-7 text-xs",
+        sm: "h-7 text-2xs",
         md: "h-8 text-sm",
         lg: "h-9 text-base",
       },

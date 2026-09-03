@@ -15,11 +15,11 @@ function BasketLineRow({
   return (
     <div className="flex items-center justify-between gap-4 ">
       <div className="min-w-0">
-        <p className={nested ? "text-xs font-medium" : "text-sm font-medium"}>
+        <p className={nested ? "text-2xs font-medium" : "text-sm font-medium"}>
           {line.name}
         </p>
         {line.description ? (
-          <p className="text-xs text-muted-foreground">{line.description}</p>
+          <p className="text-2xs text-muted-foreground">{line.description}</p>
         ) : null}
       </div>
       <div className="flex shrink-0 items-center gap-3">

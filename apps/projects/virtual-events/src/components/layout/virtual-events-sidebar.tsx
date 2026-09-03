@@ -46,7 +46,7 @@ export function VirtualEventsSidebar({ className }: VirtualEventsSidebarProps) {
           <TabsList fullWidth className="gap-0">
             <TabsTrigger
               value="chat"
-              className={cn(sidebarTabTriggerClassName, "text-[13px]")}
+              className={cn(sidebarTabTriggerClassName, "text-xs")}
             >
               <MessageSquareText />
               Live chat
@@ -54,7 +54,7 @@ export function VirtualEventsSidebar({ className }: VirtualEventsSidebarProps) {
             <TabsTrigger
               value="attendees"
               aria-label={`People, ${attendeeCount} attendees`}
-              className={cn(sidebarTabTriggerClassName, "text-[13px]")}
+              className={cn(sidebarTabTriggerClassName, "text-xs")}
             >
               <Users />
               People

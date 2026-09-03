@@ -38,7 +38,7 @@ export function DocsApiTable({
             <TableCell>
               <Code>{row.name}</Code>
             </TableCell>
-            <TableCell className="whitespace-normal font-mono text-xs text-muted-foreground">
+            <TableCell className="whitespace-normal font-mono text-2xs text-muted-foreground">
               {row.type}
             </TableCell>
             <TableCell>

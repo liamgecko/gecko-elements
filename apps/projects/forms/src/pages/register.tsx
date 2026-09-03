@@ -115,7 +115,7 @@ export function RegisterPage() {
       >
         <Card className="rounded-xl p-6">
           <div className="mb-6">
-            <p className="text-xs font-medium text-muted-foreground">
+            <p className="text-2xs font-medium text-muted-foreground">
               Step {step + 1} of {FORM_STEP_COUNT}
             </p>
             <h1 className="text-balance text-xl font-semibold">

@@ -18,10 +18,10 @@ export function EventScheduleItem({ session }: EventScheduleItemProps) {
   return (
     <article className="border-border flex flex-col border-b pb-4 last:border-b-0 last:pb-0">
       <h3 className="text-sm font-semibold text-foreground mb-1">{session.title}</h3>
-      <EventDateTime dateTime={session.startsAt.toISOString()} className="text-xs mb-3">
+      <EventDateTime dateTime={session.startsAt.toISOString()} className="text-2xs mb-3">
         {formatSessionDateTime(session.startsAt)}
       </EventDateTime>
-      <p className="text-muted-foreground text-xs">{session.excerpt}</p>
+      <p className="text-muted-foreground text-2xs">{session.excerpt}</p>
       <div>
         <Button
           type="button"

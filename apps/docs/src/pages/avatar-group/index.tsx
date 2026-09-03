@@ -187,7 +187,7 @@ ${itemsSnippet(sampleItems.slice(0, 4))}
             <div className="flex flex-col gap-6">
               {sizes.map((size) => (
                 <div key={size} className="flex items-center gap-4">
-                  <span className="w-8 text-xs text-muted-foreground">
+                  <span className="w-8 text-2xs text-muted-foreground">
                     {size}
                   </span>
                   <AvatarGroup items={sampleItems} maxVisible={3} size={size} />

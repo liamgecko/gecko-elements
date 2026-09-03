@@ -22,7 +22,7 @@ export function DecisionNode({ id, data, selected }: NodeProps) {
         <WorkflowNodeBody data={nodeData} kind="decision" invalid={invalid}>
           <div
             className={cn(
-              "mt-3 flex justify-between gap-4 text-xs",
+              "mt-3 flex justify-between gap-4 text-2xs",
               invalid ? "text-destructive" : "text-muted-foreground",
             )}
           >

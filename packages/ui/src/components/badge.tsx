@@ -20,8 +20,8 @@ const badgeVariants = cva(
         light: "border-border bg-white text-foreground dark:bg-gray-950",
       },
       size: {
-        xs: "gap-1 px-1.5 py-0.5 text-2xs leading-3",
-        sm: "gap-1 px-2 py-0.5 text-xs leading-4",
+        xs: "gap-1 px-1.5 py-0.5 text-4xs leading-3",
+        sm: "gap-1 px-2 py-0.5 text-2xs leading-4",
         md: "px-2.5 py-1 text-sm leading-4",
         lg: "gap-2 px-3 py-1.5 text-base leading-5",
         xl: "gap-2 px-4 py-2 text-lg leading-6",

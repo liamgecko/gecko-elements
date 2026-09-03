@@ -233,10 +233,10 @@ export function NodePropertiesPanel({
                 {isDisconnected ? (
                   <div className="border-b border-border p-3">
                     <Alert variant="destructive" icon className="px-3 py-2.5">
-                      <AlertTitle className="text-xs">
+                      <AlertTitle className="text-2xs">
                         Node not connected
                       </AlertTitle>
-                      <AlertDescription className="text-xs">
+                      <AlertDescription className="text-2xs">
                         Connect this node to the workflow to continue.
                       </AlertDescription>
                     </Alert>

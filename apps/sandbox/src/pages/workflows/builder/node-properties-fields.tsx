@@ -149,7 +149,7 @@ export function NodePropertiesFields({
   return (
     <Accordion key={node.id} defaultValue={["settings"]} multiple>
       <AccordionItem value="settings">
-        <AccordionTrigger className="p-3 text-xs font-semibold">
+        <AccordionTrigger className="p-3 text-2xs font-semibold">
           {settingsSectionTitle}
         </AccordionTrigger>
         <AccordionContent className="p-3">
@@ -740,7 +740,7 @@ export function NodePropertiesFields({
         </AccordionContent>
       </AccordionItem>
       <AccordionItem value="general" className="border-b">
-        <AccordionTrigger className="p-3 text-xs font-semibold">
+        <AccordionTrigger className="p-3 text-2xs font-semibold">
           General settings
         </AccordionTrigger>
         <AccordionContent className="space-y-4 p-3">

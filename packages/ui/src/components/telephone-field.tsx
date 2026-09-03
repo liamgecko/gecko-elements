@@ -188,7 +188,7 @@ const CountrySelect = ({
             <FlagComponent country={value} countryName={label} />
             <span className="flex-1 truncate">{label}</span>
             {value && (
-              <span className="text-muted-foreground text-xs">
+              <span className="text-muted-foreground text-2xs">
                 {`+${RPNInput.getCountryCallingCode(value)}`}
               </span>
             )}

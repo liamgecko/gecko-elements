@@ -181,7 +181,7 @@ export function MessageScrollerAnchoringDemo() {
           </Button>
         </CardFooter>
       </Card>
-      <div className="mx-auto max-w-xs px-0.5 text-center text-xs text-muted-foreground">
+      <div className="mx-auto max-w-xs px-0.5 text-center text-2xs text-muted-foreground">
         Toggle the anchor role, then send messages to compare where turns
         settle.
       </div>

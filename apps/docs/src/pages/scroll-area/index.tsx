@@ -69,7 +69,7 @@ export function ScrollAreaPage() {
             loading="lazy"
           />
         </div>
-        <figcaption className="pt-2 text-xs text-muted-foreground">
+        <figcaption className="pt-2 text-2xs text-muted-foreground">
           Photo by{" "}
           <span className="font-semibold text-foreground">
             {artwork.artist}
@@ -202,7 +202,7 @@ export function ScrollAreaPage() {
                         loading="lazy"
                       />
                     </div>
-                    <figcaption className="pt-2 text-xs text-muted-foreground">
+                    <figcaption className="pt-2 text-2xs text-muted-foreground">
                       Photo by{" "}
                       <span className="font-semibold text-foreground">
                         {artwork.artist}

@@ -117,7 +117,7 @@ export function VirtualEventsHeader({ className }: VirtualEventsHeaderProps) {
                 {notifications.length > 0 ? (
                   <button
                     type="button"
-                    className="text-2xs text-muted-foreground hover:text-foreground"
+                    className="text-4xs text-muted-foreground hover:text-foreground"
                     onClick={(event) => {
                       event.preventDefault()
                       clearAllNotifications()
@@ -154,7 +154,7 @@ export function VirtualEventsHeader({ className }: VirtualEventsHeaderProps) {
                       >
                         {notification.authorName} mentioned you in a message
                       </span>
-                      <span className="text-2xs text-muted-foreground">
+                      <span className="text-4xs text-muted-foreground">
                         {notification.timestamp}
                       </span>
                     </span>

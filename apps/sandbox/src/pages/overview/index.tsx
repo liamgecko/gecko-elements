@@ -617,7 +617,7 @@ export default function OverviewPage() {
                 aria-hidden
                 className="size-3.5 shrink-0 animate-[spin_1.25s_linear_infinite] text-muted-foreground motion-reduce:animate-none"
               />
-              <p className="text-xs text-muted-foreground">Thinking…</p>
+              <p className="text-2xs text-muted-foreground">Thinking…</p>
             </div>
           </div>
 

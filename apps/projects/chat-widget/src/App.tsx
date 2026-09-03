@@ -61,7 +61,7 @@ export default function App() {
               ))}
             </SelectContent>
           </Select>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-2xs text-muted-foreground">
             Host-only control for now — visitor selection comes later. Changing
             type resets the in-widget conversation after you re-submit the form.
           </p>

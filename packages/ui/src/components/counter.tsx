@@ -21,9 +21,9 @@ const counterVariants = cva(
           "bg-background text-foreground border border-border",
       },
       size: {
-        sm: "h-4 min-w-4 px-1 text-3xs",
-        md: "h-5 min-w-5 px-1.5 text-2xs",
-        lg: "h-6 min-w-6 px-2 text-xs",
+        sm: "h-4 min-w-4 px-1 text-5xs",
+        md: "h-5 min-w-5 px-1.5 text-4xs",
+        lg: "h-6 min-w-6 px-2 text-2xs",
       },
     },
     defaultVariants: {

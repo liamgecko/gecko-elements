@@ -125,10 +125,10 @@ export function EventField({
 
       <div className="border-t pt-4">
         <h2 className="text-balance font-semibold text-sm">{event.title}</h2>
-        <p className="text-pretty text-xs text-muted-foreground">
+        <p className="text-pretty text-2xs text-muted-foreground">
           {event.dateTime}
         </p>
-        <p className="mt-2 flex items-center gap-1.5 text-xs font-medium">
+        <p className="mt-2 flex items-center gap-1.5 text-2xs font-medium">
           <Ticket className="size-3.5 text-muted-foreground" />
           {formatCost(event.cost)}
         </p>
@@ -181,17 +181,17 @@ export function EventField({
                   <div className="min-w-0">
                     <h3 className="text-sm font-semibold">{session.title}</h3>
                     <div className="mt-1 flex flex-col gap-1">
-                      <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <p className="flex items-center gap-1.5 text-2xs text-muted-foreground">
                         <CalendarDays className="size-3.5 shrink-0" />
                         <span>
                           {session.date}, {session.time}
                         </span>
                       </p>
-                      <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <p className="flex items-center gap-1.5 text-2xs text-muted-foreground">
                         <MapPin className="size-3.5 shrink-0" />
                         <span className="truncate">{session.venue}</span>
                       </p>
-                      <p className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+                      <p className="flex items-center gap-1.5 text-2xs font-medium text-muted-foreground">
                         <Ticket className="size-3.5 shrink-0" />
                         {formatCost(session.cost)}
                       </p>
@@ -278,17 +278,17 @@ export function EventField({
           <h2 className="text-balance text-sm font-semibold">Your event</h2>
           <div className="mt-4">
             <p className="text-sm font-semibold">{event.title}</p>
-            <p className="text-xs font-medium mt-1">{formatCost(event.cost)}</p>
+            <p className="text-2xs font-medium mt-1">{formatCost(event.cost)}</p>
           </div>
 
-          <h3 className="mt-5 text-xs font-semibold">Event itinerary</h3>
+          <h3 className="mt-5 text-2xs font-semibold">Event itinerary</h3>
           <div className="mt-2">
             {selectedSessions.map((session) => (
               <div
                 key={session.id}
                 className="flex items-center justify-between gap-4 border-b py-2 last:border-b-0"
               >
-                <div className="min-w-0 text-xs font-semibold">
+                <div className="min-w-0 text-2xs font-semibold">
                   <p className="truncate">
                     {session.title} - {session.date}, {session.time}
                   </p>

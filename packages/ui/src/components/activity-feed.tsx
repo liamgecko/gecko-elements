@@ -138,7 +138,7 @@ const activityFeedLabelVariants = cva(
     variants: {
       variant: {
         default: "text-sm",
-        condensed: "text-xs",
+        condensed: "text-2xs",
       },
     },
     defaultVariants: {
@@ -150,8 +150,8 @@ const activityFeedLabelVariants = cva(
 const activityFeedMetaVariants = cva("text-muted-foreground", {
   variants: {
     variant: {
-      default: "mt-0.5 text-xs",
-      condensed: "mt-px text-[11px] leading-snug",
+      default: "mt-0.5 text-2xs",
+      condensed: "mt-px text-3xs leading-snug",
     },
   },
   defaultVariants: {

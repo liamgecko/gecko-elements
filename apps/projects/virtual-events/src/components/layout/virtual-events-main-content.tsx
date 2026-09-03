@@ -44,7 +44,7 @@ export function VirtualEventsMainContent({
                 <Avatar name={host.name} size="lg">
                   <AvatarImage src={host.imageSrc} />
                   <AvatarLabel>{host.name}</AvatarLabel>
-                  <AvatarDescription className="text-xs">
+                  <AvatarDescription className="text-2xs">
                     {host.role}
                   </AvatarDescription>
                 </Avatar>

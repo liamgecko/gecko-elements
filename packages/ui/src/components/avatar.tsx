@@ -37,8 +37,8 @@ const textColumnClass: Record<ResolvedAvatarSize, string> = {
 };
 
 const labelClass: Record<ResolvedAvatarSize, string> = {
-  xs: "text-3xs/3",
-  sm: "text-2xs/3.5",
+  xs: "text-5xs/3",
+  sm: "text-4xs/3.5",
   md: "text-sm/4.25",
   lg: "text-sm/4.25",
   xl: "text-sm/5",
@@ -47,9 +47,9 @@ const labelClass: Record<ResolvedAvatarSize, string> = {
 };
 
 const descriptionClass: Record<ResolvedAvatarSize, string> = {
-  xs: "text-3xs/2.75",
-  sm: "text-2xs/3.5",
-  md: "text-xs/3.75",
+  xs: "text-5xs/2.75",
+  sm: "text-4xs/3.5",
+  md: "text-2xs/3.75",
   lg: "text-sm/4.25",
   xl: "text-sm/5",
   "2xl": "text-base/5.5",
@@ -230,7 +230,7 @@ function AvatarFallback({
       data-slot="avatar-fallback"
       className={cn(
         "bg-muted text-foreground rounded-full flex size-full items-center justify-center font-medium uppercase",
-        "group-data-[size=xs]/avatar:text-[8px] group-data-[size=sm]/avatar:text-[9px] group-data-[size=md]/avatar:text-2xs group-data-[size=lg]/avatar:text-xs group-data-[size=xl]/avatar:text-sm group-data-[size=2xl]/avatar:text-base group-data-[size=3xl]/avatar:text-lg",
+        "group-data-[size=xs]/avatar:text-[8px] group-data-[size=sm]/avatar:text-5xs group-data-[size=md]/avatar:text-4xs group-data-[size=lg]/avatar:text-2xs group-data-[size=xl]/avatar:text-sm group-data-[size=2xl]/avatar:text-base group-data-[size=3xl]/avatar:text-lg",
         className,
       )}
       {...props}

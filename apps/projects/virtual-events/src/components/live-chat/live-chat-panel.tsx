@@ -267,7 +267,7 @@ export function LiveChatPanel({
               }}
             />
           </ReplyBox>
-          <p className="text-muted-foreground mt-2 text-2xs">
+          <p className="text-muted-foreground mt-2 text-4xs">
             This chat is moderated.
           </p>
         </div>

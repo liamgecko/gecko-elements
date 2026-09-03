@@ -36,7 +36,7 @@ export function WidgetHeader({
               {agent.avatarSrc ? <AvatarImage src={agent.avatarSrc} /> : null}
             </Avatar>
             <div className="min-w-0">
-              <p className="text-xs text-gray-400">You are speaking with</p>
+              <p className="text-2xs text-gray-400">You are speaking with</p>
               <p className="-mt-0.5 truncate text-sm font-medium text-white">
                 {agent.name}
               </p>

@@ -170,7 +170,7 @@ export function MessageScrollerAnimationDemo() {
           </Button>
         </CardFooter>
       </Card>
-      <div className="mx-auto max-w-sm px-0.5 text-center text-xs text-balance text-muted-foreground">
+      <div className="mx-auto max-w-sm px-0.5 text-center text-2xs text-balance text-muted-foreground">
         Select an animation then click send to see it in action.
       </div>
     </div>

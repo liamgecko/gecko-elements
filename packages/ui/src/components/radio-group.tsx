@@ -167,7 +167,7 @@ function RadioGroupItem({
           )}
           <span
             id={descriptionId}
-            className="text-muted-foreground text-xs leading-normal"
+            className="text-muted-foreground text-2xs leading-normal"
           >
             {description}
           </span>
@@ -239,7 +239,7 @@ function RadioGroupItem({
         {description != null && (
           <p
             id={descriptionId}
-            className="text-muted-foreground text-xs leading-snug"
+            className="text-muted-foreground text-2xs leading-snug"
           >
             {description}
           </p>

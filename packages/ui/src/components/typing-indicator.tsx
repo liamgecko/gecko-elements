@@ -60,7 +60,7 @@ const TypingIndicator = React.forwardRef<HTMLDivElement, TypingIndicatorProps>(
           className="w-fit data-[active=true]:animate-in data-[active=true]:fade-in-0 data-[active=true]:slide-in-from-bottom-2 data-[active=true]:duration-200 data-[active=true]:ease-out motion-reduce:animate-none"
         >
           {variant === "text" ? (
-            <Marker className="w-fit text-xs">
+            <Marker className="w-fit text-2xs">
               {avatarNode ? (
                 <MarkerIcon className="size-auto">{avatarNode}</MarkerIcon>
               ) : null}

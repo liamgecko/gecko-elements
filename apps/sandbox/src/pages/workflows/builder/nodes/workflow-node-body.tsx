@@ -92,7 +92,7 @@ export function WorkflowNodeBody({
           </span>
           <p
             className={cn(
-              "text-xs leading-normal",
+              "text-2xs leading-normal",
               invalid ? "text-destructive" : "text-muted-foreground",
             )}
           >

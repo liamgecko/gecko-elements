@@ -114,7 +114,7 @@ export function Code(props: CodeProps) {
     return (
       <code
         className={cn(
-          "rounded bg-muted text-destructive dark:text-rose-400 px-1.5 py-0.5 font-mono text-xs",
+          "rounded bg-muted text-destructive dark:text-rose-400 px-1.5 py-0.5 font-mono text-2xs",
           className,
         )}
       >
@@ -229,7 +229,7 @@ function CodeBlock({
         className={cn(
           "overflow-auto outline-none focus-visible:ring-3 focus-visible:ring-inset focus-visible:ring-ring/50",
           "[&_.shiki]:m-0 [&_.shiki]:bg-transparent [&_.shiki]:p-4",
-          "[&_.shiki]:font-mono [&_.shiki]:text-xs [&_.shiki_code]:block [&_.shiki_code]:min-w-max",
+          "[&_.shiki]:font-mono [&_.shiki]:text-2xs [&_.shiki_code]:block [&_.shiki_code]:min-w-max",
           showCopyButton && "me-10",
         )}
         tabIndex={0}

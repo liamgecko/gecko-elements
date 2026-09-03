@@ -378,7 +378,7 @@ export function ChatBubbleMessage({
   );
 
   const metaTimeClassName = cn(
-    "text-xs",
+    "text-2xs",
     context.variant === "note"
       ? "text-muted-foreground dark:text-yellow-100"
       : context.variant === "ai-agent"
@@ -570,7 +570,7 @@ export function ChatBubbleMessage({
       status === "failed" &&
       context.variant !== "note" &&
       context.variant !== "ai-agent" ? (
-        <p className="text-red-700 dark:text-rose-200 text-xs">
+        <p className="text-red-700 dark:text-rose-200 text-2xs">
           This message failed to send -{" "}
           <a
             href="#"
@@ -718,7 +718,7 @@ export function ChatBubbleInfo({
         }
       />
       <PopoverContent className="w-auto p-4">
-        <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-xs text-foreground">
+        <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-2xs text-foreground">
           {isAgent ? (
             <>
               <ChatBubbleInfoRow label="Source">

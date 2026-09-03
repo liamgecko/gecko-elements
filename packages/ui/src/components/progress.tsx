@@ -170,7 +170,7 @@ const Progress = React.forwardRef<
         {label != null && (
           <ProgressPrimitive.Label
             data-slot="progress-label"
-            className="text-xs font-medium text-muted-foreground leading-none"
+            className="text-2xs font-medium text-muted-foreground leading-none"
           >
             {label}
           </ProgressPrimitive.Label>

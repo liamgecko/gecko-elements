@@ -73,7 +73,7 @@ function Switch({
           ) : null}
           <p
             id={descriptionId}
-            className="text-muted-foreground text-xs leading-normal"
+            className="text-muted-foreground text-2xs leading-normal"
           >
             {description}
           </p>

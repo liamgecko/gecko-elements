@@ -53,7 +53,7 @@ export function MessageScrollerScrollStateDemo() {
           <ScrollStateFooter />
         </MessageScrollerProvider>
       </Card>
-      <div className="px-0.5 text-center text-xs text-muted-foreground">
+      <div className="px-0.5 text-center text-2xs text-muted-foreground">
         Scroll the transcript to see the footer update.
       </div>
     </div>

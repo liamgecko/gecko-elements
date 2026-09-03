@@ -105,7 +105,7 @@ function PaletteItemRow({
         </span>
         <span className="flex min-w-0 flex-col items-start gap-0.5">
           <span className="font-medium leading-none">{item.title}</span>
-          <p className="text-muted-foreground text-xs leading-normal">
+          <p className="text-muted-foreground text-2xs leading-normal">
             {item.description}
           </p>
         </span>

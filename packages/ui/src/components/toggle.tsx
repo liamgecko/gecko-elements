@@ -33,8 +33,8 @@ const toggleVariants = cva(
       size: {
         default:
           "h-8 min-w-8 gap-2 px-2.5 data-[icon-only=true]:w-8 data-[icon-only=true]:px-0",
-        xs: "h-6 min-w-6 gap-1.5 px-2 text-xs data-[icon-only=true]:w-6 data-[icon-only=true]:px-0 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-7 min-w-7 gap-1.5 px-2.5 text-xs data-[icon-only=true]:w-7 data-[icon-only=true]:px-0 [&_svg:not([class*='size-'])]:size-3.5",
+        xs: "h-6 min-w-6 gap-1.5 px-2 text-2xs data-[icon-only=true]:w-6 data-[icon-only=true]:px-0 [&_svg:not([class*='size-'])]:size-3",
+        sm: "h-7 min-w-7 gap-1.5 px-2.5 text-2xs data-[icon-only=true]:w-7 data-[icon-only=true]:px-0 [&_svg:not([class*='size-'])]:size-3.5",
         lg: "h-9 min-w-9 gap-2 px-3 text-lg data-[icon-only=true]:w-9 data-[icon-only=true]:px-0 [&_svg:not([class*='size-'])]:size-4.5",
         icon: "size-8 p-0",
         "icon-xs": "size-6 p-0 [&_svg:not([class*='size-'])]:size-3",

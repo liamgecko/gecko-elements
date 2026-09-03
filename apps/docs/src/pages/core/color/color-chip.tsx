@@ -86,7 +86,7 @@ export function ColorChip({
           >
             <span
               className={cn(
-                "text-xs font-medium uppercase",
+                "text-2xs font-medium uppercase",
                 contrastClassName
               )}
             >
@@ -113,7 +113,7 @@ export function ColorChip({
           {value != null && (
             <li
               className={cn(
-                "font-mono text-2xs text-muted-foreground",
+                "font-mono text-4xs text-muted-foreground",
                 valueClassName
               )}
             >
@@ -123,7 +123,7 @@ export function ColorChip({
           {value2 != null && (
             <li
               className={cn(
-                "font-mono text-2xs text-muted-foreground",
+                "font-mono text-4xs text-muted-foreground",
                 value2ClassName
               )}
             >

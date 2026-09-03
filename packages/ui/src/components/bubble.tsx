@@ -108,7 +108,7 @@ function BubbleHeader({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="bubble-header"
       className={cn(
-        "flex items-center justify-between gap-3 text-xs",
+        "flex items-center justify-between gap-3 text-2xs",
         className,
       )}
       {...props}
@@ -137,7 +137,7 @@ function BubbleTimestamp({
     <time
       data-slot="bubble-timestamp"
       className={cn(
-        "text-muted-foreground shrink-0 text-2xs font-medium",
+        "text-muted-foreground shrink-0 text-4xs font-medium",
         className,
       )}
       {...props}

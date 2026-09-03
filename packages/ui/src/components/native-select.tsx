@@ -9,7 +9,7 @@ const nativeSelectVariants = cva(
   {
     variants: {
       size: {
-        sm: "h-7 ps-2 text-xs",
+        sm: "h-7 ps-2 text-2xs",
         md: "h-8 ps-2.5 text-sm",
         lg: "h-9 ps-3 text-base",
       },

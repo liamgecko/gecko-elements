@@ -38,7 +38,7 @@ export function ThinkingMarkerSlot({ visible }: ThinkingMarkerSlotProps) {
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
             className="w-full"
           >
-            <Marker role="status" className="text-[13px]">
+            <Marker role="status" className="text-xs">
               <MarkerContent shimmer>Thinking…</MarkerContent>
             </Marker>
           </motion.div>

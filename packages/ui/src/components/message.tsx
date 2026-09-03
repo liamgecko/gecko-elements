@@ -146,7 +146,7 @@ function MessageHeader({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="message-header"
       className={cn(
-        "flex max-w-full min-w-0 items-center px-3 text-xs font-medium text-muted-foreground group-has-data-[variant=ghost]/message:px-0",
+        "flex max-w-full min-w-0 items-center px-3 text-2xs font-medium text-muted-foreground group-has-data-[variant=ghost]/message:px-0",
         className,
       )}
       {...props}
@@ -159,7 +159,7 @@ function MessageFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="message-footer"
       className={cn(
-        "flex max-w-full min-w-0 items-center px-3 text-xs font-medium text-muted-foreground group-has-data-[variant=ghost]/message:px-0 group-data-[align=end]/message:justify-end",
+        "flex max-w-full min-w-0 items-center px-3 text-2xs font-medium text-muted-foreground group-has-data-[variant=ghost]/message:px-0 group-data-[align=end]/message:justify-end",
         className,
       )}
       {...props}
@@ -266,7 +266,7 @@ function MessageMeta({
       data-slot="message-meta"
       data-status={status}
       className={cn(
-        "flex items-center gap-2 text-xs text-muted-foreground",
+        "flex items-center gap-2 text-2xs text-muted-foreground",
         align === "end" ? "justify-end" : "justify-start",
         variant === "note" && "dark:text-yellow-100",
         status === "failed" && "dark:text-rose-200",
@@ -620,7 +620,7 @@ function MessageInfo({ userInfo, agentInfo, className }: MessageInfoProps) {
         }
       />
       <PopoverContent className="w-auto p-4">
-        <div className="text-foreground grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-xs">
+        <div className="text-foreground grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-2xs">
           {isAgentSide ? (
             <>
               <MessageInfoRow label="Source">

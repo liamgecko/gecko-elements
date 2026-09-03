@@ -186,7 +186,7 @@ export function MessageScrollerStreamingDemo() {
             </form>
           </CardFooter>
         </Card>
-        <div className="px-0.5 text-center text-xs text-muted-foreground">
+        <div className="px-0.5 text-center text-2xs text-muted-foreground">
           Streaming is simulated. `autoScroll` is enabled.
         </div>
       </div>

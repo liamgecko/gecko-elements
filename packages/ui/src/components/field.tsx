@@ -141,7 +141,7 @@ function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="field-description"
       className={cn(
-        "text-muted-foreground text-left text-xs [[data-variant=legend]+&]:-mt-1.5 leading-normal font-normal group-has-data-horizontal/field:text-balance",
+        "text-muted-foreground text-left text-2xs [[data-variant=legend]+&]:-mt-1.5 leading-normal font-normal group-has-data-horizontal/field:text-balance",
         "last:mt-0 nth-last-2:-mt-1",
         "[&>a]:underline [&>a]:underline-offset-4 [&>a:hover]:text-primary",
         className,
@@ -225,7 +225,7 @@ function FieldError({
       role="alert"
       data-slot="field-error"
       className={cn(
-        "bg-destructive-muted text-destructive-muted-foreground text-xs font-normal px-2 py-1.5 rounded-xs flex items-center gap-1.5 [&_svg]:shrink-0 [&_svg]:size-3",
+        "bg-destructive-muted text-destructive-muted-foreground text-2xs font-normal px-2 py-1.5 rounded-xs flex items-center gap-1.5 [&_svg]:shrink-0 [&_svg]:size-3",
         className,
       )}
       {...props}

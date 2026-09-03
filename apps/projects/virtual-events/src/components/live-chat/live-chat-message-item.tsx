@@ -85,7 +85,7 @@ export function LiveChatMessageItem({
           >
             <BubbleContent
               className={cn(
-                "min-w-0 text-[13px] transition-shadow duration-200 ease-out motion-reduce:transition-none",
+                "min-w-0 text-xs transition-shadow duration-200 ease-out motion-reduce:transition-none",
                 highlighted && "ring-primary/40 ring-2",
               )}
             >
@@ -157,7 +157,7 @@ export function LiveChatMessageItem({
                   <span key={reaction.emoji} className="inline-flex items-center">
                     {reaction.emoji}
                     {reaction.count > 1 ? (
-                      <span className="text-foreground text-2xs ms-0.5">
+                      <span className="text-foreground text-4xs ms-0.5">
                         {reaction.count}
                       </span>
                     ) : null}

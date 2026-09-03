@@ -112,7 +112,7 @@ function Checkbox({
         {description && (
           <span
             id={descriptionId}
-            className="text-muted-foreground col-start-2 text-xs leading-normal"
+            className="text-muted-foreground col-start-2 text-2xs leading-normal"
           >
             {description}
           </span>
@@ -176,7 +176,7 @@ function Checkbox({
         {description && (
           <p
             id={descriptionId}
-            className="text-muted-foreground text-xs leading-normal"
+            className="text-muted-foreground text-2xs leading-normal"
           >
             {description}
           </p>

@@ -91,7 +91,7 @@ function Table({
                 </p>
               ) : null}
               {description != null ? (
-                <p id={descriptionId} className="text-xs text-muted-foreground">
+                <p id={descriptionId} className="text-2xs text-muted-foreground">
                   {description}
                 </p>
               ) : null}
@@ -402,7 +402,7 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
     <th
       data-slot="table-head"
       className={cn(
-        "text-foreground h-10 px-3 text-start align-middle text-xs font-semibold whitespace-nowrap [&:has([role=checkbox])]:pe-0",
+        "text-foreground h-10 px-3 text-start align-middle text-2xs font-semibold whitespace-nowrap [&:has([role=checkbox])]:pe-0",
         className,
       )}
       {...props}

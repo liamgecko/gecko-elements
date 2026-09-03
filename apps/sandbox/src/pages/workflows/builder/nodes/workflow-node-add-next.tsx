@@ -81,7 +81,7 @@ function NodeLibraryMenuItem({
       />
       <span className="flex min-w-0 flex-col items-start gap-0.5">
         <span className="font-medium leading-none">{item.title}</span>
-        <span className="text-xs text-muted-foreground">{item.description}</span>
+        <span className="text-2xs text-muted-foreground">{item.description}</span>
       </span>
     </DropdownMenuItem>
   )

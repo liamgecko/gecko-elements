@@ -751,7 +751,7 @@ export default function FormPaymentSettingsPage() {
                     <span className="block truncate text-sm text-foreground">
                       {item.name}
                     </span>
-                    <span className="block text-xs font-semibold text-foreground">
+                    <span className="block text-2xs font-semibold text-foreground">
                       {formatPaymentItemAmount(item.amount, item.currency)}
                     </span>
                   </div>

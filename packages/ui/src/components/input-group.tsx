@@ -63,7 +63,7 @@ const inputGroupAddonVariants = cva(
           "px-2.5 pb-2 group-has-[>input]/input-group:pb-2 [.border-t]:pt-2 order-last w-full justify-start",
       },
       size: {
-        sm: "text-[13px] [&>svg:not([class*='size-'])]:size-3.5",
+        sm: "text-xs [&>svg:not([class*='size-'])]:size-3.5",
         md: "text-sm [&>svg:not([class*='size-'])]:size-4",
         lg: "text-base [&>svg:not([class*='size-'])]:size-4.5",
       },
@@ -149,7 +149,7 @@ function InputGroupButton({
 }
 
 const inputGroupTextSizeMap = {
-  sm: "text-[13px] [&_svg:not([class*='size-'])]:size-3.5",
+  sm: "text-xs [&_svg:not([class*='size-'])]:size-3.5",
   md: "text-sm [&_svg:not([class*='size-'])]:size-4",
   lg: "text-base [&_svg:not([class*='size-'])]:size-4.5",
 } as const
@@ -169,7 +169,7 @@ function InputGroupText({ className, ...props }: React.ComponentProps<"span">) {
 }
 
 const inputGroupInputSizeMap = {
-  sm: "h-full min-h-0 px-2 text-[13px]",
+  sm: "h-full min-h-0 px-2 text-xs",
   md: "h-full min-h-0 px-2.5 text-sm",
   lg: "h-full min-h-0 px-3 text-base",
 } as const

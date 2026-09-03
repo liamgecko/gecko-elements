@@ -9,7 +9,7 @@ import { cn } from "@gecko/ui/lib/utils";
 type Size = "sm" | "md" | "lg";
 
 const groupSizeClasses: Record<Size, string> = {
-  sm: "h-7 text-[13px] w-32",
+  sm: "h-7 text-xs w-32",
   md: "h-8 text-sm w-38",
   lg: "h-9 text-base w-44",
 };

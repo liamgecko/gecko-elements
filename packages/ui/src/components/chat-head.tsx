@@ -202,7 +202,7 @@ function ChatHead({
                   <span className="block truncate text-sm font-medium text-foreground">
                     {item.name}
                   </span>
-                  <span className="block truncate text-xs text-muted-foreground">
+                  <span className="block truncate text-2xs text-muted-foreground">
                     {preview}
                   </span>
                   {(item.unread || item.presence) && (
@@ -216,7 +216,7 @@ function ChatHead({
                 <time
                   dateTime={item.timestamp.toISOString()}
                   title={item.timestamp.toLocaleString()}
-                  className="shrink-0 whitespace-nowrap text-xs font-medium text-muted-foreground transition-opacity duration-200 group-hover/chat-head-item:opacity-0 group-focus-within/chat-head-item:opacity-0"
+                  className="shrink-0 whitespace-nowrap text-2xs font-medium text-muted-foreground transition-opacity duration-200 group-hover/chat-head-item:opacity-0 group-focus-within/chat-head-item:opacity-0"
                 >
                   {formatRelativeTime(item.timestamp, now)}
                 </time>

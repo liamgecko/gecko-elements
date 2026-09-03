@@ -170,7 +170,7 @@ export function MessageScrollerContextDemo() {
             </form>
           </CardFooter>
         </Card>
-        <div className="px-0.5 text-center text-xs text-muted-foreground">
+        <div className="px-0.5 text-center text-2xs text-muted-foreground">
           Send messages to observe the previous message peek.
         </div>
       </div>

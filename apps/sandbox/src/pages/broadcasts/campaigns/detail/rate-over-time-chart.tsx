@@ -82,7 +82,7 @@ function ClickThroughTooltipContent({
   const isComparing = Boolean(compareItem && compareName)
 
   return (
-    <div className="grid min-w-52 items-start gap-2 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl">
+    <div className="grid min-w-52 items-start gap-2 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-2xs shadow-xl">
       <div className="border-b border-border pb-1.5 font-medium">
         {typeof label === "string" ? label : String(label ?? "")}
       </div>

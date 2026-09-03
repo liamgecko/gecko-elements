@@ -25,7 +25,7 @@ const MASK_DOT_COUNT = 10
 const MASK_DISPLAY = "•".repeat(MASK_DOT_COUNT)
 
 const maskOverlayPadding = {
-  sm: "px-2 text-[13px]",
+  sm: "px-2 text-xs",
   md: "px-2.5 text-sm",
   lg: "px-3 text-base",
 } as const satisfies Record<SensitiveFieldSize, string>

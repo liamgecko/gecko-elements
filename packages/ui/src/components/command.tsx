@@ -124,7 +124,7 @@ function CommandGroup({
   return (
     <CommandPrimitive.Group
       data-slot="command-group"
-      className={cn("text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium", className)}
+      className={cn("text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-2xs **:[[cmdk-group-heading]]:font-medium", className)}
       {...props}
     />
   )
@@ -173,7 +173,7 @@ function CommandShortcut({
   return (
     <span
       data-slot="command-shortcut"
-      className={cn("text-muted-foreground group-data-selected/command-item:text-foreground ms-auto text-xs tracking-widest", className)}
+      className={cn("text-muted-foreground group-data-selected/command-item:text-foreground ms-auto text-2xs tracking-widest", className)}
       {...props}
     />
   )

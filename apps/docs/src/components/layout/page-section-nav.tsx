@@ -145,7 +145,7 @@ export function PageSectionNav({ className }: PageSectionNavProps) {
         )}
       >
         <nav aria-label="Page sections" className="text-sm text-muted-foreground">
-          <span className="text-xs font-medium text-muted-foreground dark:text-gray-400 mb-4 block">
+          <span className="text-2xs font-medium text-muted-foreground dark:text-gray-400 mb-4 block">
             On this page
           </span>
           <ul className="space-y-1">

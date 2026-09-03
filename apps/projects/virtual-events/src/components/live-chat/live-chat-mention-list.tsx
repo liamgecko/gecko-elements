@@ -43,7 +43,7 @@ export function LiveChatMentionList({
           >
             <span
               aria-hidden
-              className="bg-muted text-muted-foreground flex size-6 shrink-0 items-center justify-center rounded-full text-2xs font-medium"
+              className="bg-muted text-muted-foreground flex size-6 shrink-0 items-center justify-center rounded-full text-4xs font-medium"
             >
               {getPersonInitials(person.name)}
             </span>

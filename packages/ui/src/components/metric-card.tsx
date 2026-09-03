@@ -202,7 +202,7 @@ function MetricCardTitleRow({
 }
 
 const metricCardInlineLabelClassName =
-  "flex items-center gap-1.5 text-xs text-muted-foreground"
+  "flex items-center gap-1.5 text-2xs text-muted-foreground"
 
 function MetricCardDetail({ detail }: { detail: React.ReactNode }) {
   return (
@@ -254,7 +254,7 @@ function MetricCardSparklineTooltip({
   if (typeof v !== "number") return null
 
   return (
-    <div className="rounded-md border border-border bg-popover px-2 py-1 text-xs shadow-md text-foreground">
+    <div className="rounded-md border border-border bg-popover px-2 py-1 text-2xs shadow-md text-foreground">
       {labelText ? (
         <div className="text-muted-foreground">{labelText}</div>
       ) : null}
@@ -376,7 +376,7 @@ export function MetricCard({
             {trend ? <MetricCardTrendRow trend={trend} /> : null}
           </div>
           {description ? (
-            <div className="text-xs text-muted-foreground text-pretty">
+            <div className="text-2xs text-muted-foreground text-pretty">
               {description}
             </div>
           ) : null}

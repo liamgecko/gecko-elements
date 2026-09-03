@@ -43,22 +43,22 @@ export function ShadowsPage() {
         <ComponentExample>
           <div className="grid gap-8">
             <div className="grid grid-cols-4 items-center gap-8">
-              <div className="flex items-center h-24 text-xs justify-center bg-background text-foreground shadow-none rounded-lg border border-border">
+              <div className="flex items-center h-24 text-2xs justify-center bg-background text-foreground shadow-none rounded-lg border border-border">
                 shadow-none
               </div>
-              <div className="flex items-center h-24 text-xs justify-center bg-background text-foreground shadow-xs rounded-lg border border-border">
+              <div className="flex items-center h-24 text-2xs justify-center bg-background text-foreground shadow-xs rounded-lg border border-border">
                 shadow-xs
               </div>
-              <div className="flex items-center h-24 text-xs justify-center bg-background text-foreground shadow-sm rounded-lg border border-border">
+              <div className="flex items-center h-24 text-2xs justify-center bg-background text-foreground shadow-sm rounded-lg border border-border">
                 shadow-sm
               </div>
-              <div className="flex items-center h-24 text-xs justify-center bg-background text-foreground shadow-md rounded-lg border border-border">
+              <div className="flex items-center h-24 text-2xs justify-center bg-background text-foreground shadow-md rounded-lg border border-border">
                 shadow-md
               </div>
-              <div className="flex items-center h-24 text-xs justify-center bg-background text-foreground shadow-lg rounded-lg border border-border">
+              <div className="flex items-center h-24 text-2xs justify-center bg-background text-foreground shadow-lg rounded-lg border border-border">
                 shadow-lg
               </div>
-              <div className="flex items-center h-24 text-xs justify-center bg-background text-foreground shadow-xl rounded-lg border border-border">
+              <div className="flex items-center h-24 text-2xs justify-center bg-background text-foreground shadow-xl rounded-lg border border-border">
                 shadow-xl
               </div>
             </div>

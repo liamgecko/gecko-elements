@@ -408,7 +408,7 @@ export function Filter({
                   key={categoryId}
                   className="bg-background border border-border rounded h-7 flex items-center"
                 >
-                  <span className="text-xs text-muted-foreground border-r border-border px-2 h-full flex items-center rounded-s-[inherit]">
+                  <span className="text-2xs text-muted-foreground border-r border-border px-2 h-full flex items-center rounded-s-[inherit]">
                     {category.label}
                   </span>
 

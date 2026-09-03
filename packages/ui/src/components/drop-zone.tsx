@@ -224,7 +224,7 @@ export function DropZone({
               id={descriptionId}
               aria-live="polite"
               className={cn(
-                "text-xs",
+                "text-2xs",
                 invalid ? "text-destructive" : "text-muted-foreground",
               )}
             >
@@ -262,7 +262,7 @@ export function DropZone({
                 <div className="truncate text-sm font-medium text-foreground">
                   {file.name}
                 </div>
-                <div className="text-xs text-muted-foreground">
+                <div className="text-2xs text-muted-foreground">
                   {formatBytes(file.size)}
                 </div>
               </div>
