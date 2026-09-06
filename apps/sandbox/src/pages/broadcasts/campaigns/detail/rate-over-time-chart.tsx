@@ -90,11 +90,16 @@ function ClickThroughTooltipContent({
       <div className="grid gap-2">
         <div className="grid gap-1">
           {isComparing ? (
-            <p className="truncate font-medium text-foreground">{campaignName}</p>
+            <p className="truncate font-medium text-foreground">
+              {campaignName}
+            </p>
           ) : null}
           <div className="grid gap-1.5">
             {breakdown.slice(0, 4).map((item) => (
-              <div key={item.url} className="flex items-center justify-between gap-4">
+              <div
+                key={item.url}
+                className="flex items-center justify-between gap-4"
+              >
                 <span className="min-w-0 flex-1 truncate text-muted-foreground">
                   {item.url}
                 </span>
@@ -108,10 +113,15 @@ function ClickThroughTooltipContent({
 
         {isComparing ? (
           <div className="grid gap-1">
-            <p className="truncate font-medium text-foreground">{compareName}</p>
+            <p className="truncate font-medium text-foreground">
+              {compareName}
+            </p>
             <div className="grid gap-1.5">
               {compareBreakdown.slice(0, 4).map((item) => (
-                <div key={item.url} className="flex items-center justify-between gap-4">
+                <div
+                  key={item.url}
+                  className="flex items-center justify-between gap-4"
+                >
                   <span className="min-w-0 flex-1 truncate text-muted-foreground">
                     {item.url}
                   </span>
@@ -174,11 +184,10 @@ export function RateOverTimeChart({
       </CardHeader>
 
       <CardContent className="p-4 group-data-[size=sm]/card:p-4 px-5 pb-5 pt-2">
-        <ChartMetric value={value} label={metricLabel}>
-          <p className="text-muted-foreground text-pretty">{detail}</p>
-        </ChartMetric>
+        <ChartMetric value={value} label={`${metricLabel} · ${detail}`} />
 
         <ChartContainer
+          title={title}
           config={chartConfig}
           className="aspect-auto h-[260px] w-full"
         >
@@ -228,8 +237,14 @@ export function RateOverTimeChart({
                   <CampaignStatsGroupedLegend
                     primaryTitle={campaignName}
                     compareTitle={comparison.campaignName}
-                    primaryPayload={createLegendPayload(primaryLegendKeys, "line")}
-                    comparePayload={createLegendPayload(compareLegendKeys, "line")}
+                    primaryPayload={createLegendPayload(
+                      primaryLegendKeys,
+                      "line"
+                    )}
+                    comparePayload={createLegendPayload(
+                      compareLegendKeys,
+                      "line"
+                    )}
                   />
                 ) : (
                   <ChartLegendContent payload={legendPayload} />
@@ -260,4 +275,3 @@ export function RateOverTimeChart({
     </Card>
   )
 }
-

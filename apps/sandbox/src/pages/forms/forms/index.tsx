@@ -25,12 +25,12 @@ export default function FormsFormsPage() {
   const navigate = useNavigate()
   const { forms, groupNames, loading, error, configured, refetch } = useForms()
   const [formsToArchive, setFormsToArchive] = React.useState<Form[] | null>(
-    null,
+    null
   )
 
   const filterCategories = React.useMemo(
     () => createFormFilterCategories(groupNames),
-    [groupNames],
+    [groupNames]
   )
 
   if (!configured) {
@@ -84,7 +84,6 @@ export default function FormsFormsPage() {
             categories: filterCategories,
             triggerLabel: "Filter",
           },
-          selectActions: true,
           columnToggle: true,
         }}
         initialState={{

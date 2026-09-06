@@ -1,5 +1,5 @@
 import * as React from "react"
-import { WandSparkles, X } from "lucide-react"
+import { WandSparkles } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"
 import {
@@ -59,7 +59,7 @@ export function WorkflowDescribeDialog({
             />
           </DialogBody>
         </DialogWrapper>
-        <DialogFooter showCloseButton closeButtonText="Cancel" closeButtonIcon={X}>
+        <DialogFooter showCloseButton closeButtonText="Cancel">
           <Button
             type="button"
             disabled={building || !prompt.trim()}

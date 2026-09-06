@@ -2,7 +2,12 @@ import * as React from "react"
 import { Lightbulb, X } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@gecko/ui/components/card"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@gecko/ui/components/card"
 import { cn } from "@gecko/ui/lib/utils"
 
 import {
@@ -33,7 +38,8 @@ export function SuggestedPrompts({
   className,
 }: SuggestedPromptsProps) {
   const [prompts] = React.useState(
-    () => promptsOverride ?? pickSuggestedPrompts(SUGGESTED_PROMPT_DISPLAY_COUNT)
+    () =>
+      promptsOverride ?? pickSuggestedPrompts(SUGGESTED_PROMPT_DISPLAY_COUNT)
   )
 
   return (
@@ -70,12 +76,11 @@ export function SuggestedPrompts({
             className="rounded-sm text-left outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
             onClick={() => onSelect(item)}
           >
-            <Card
-              size="sm"
-              className="h-full cursor-pointer transition-colors hover:bg-muted/40"
-            >
+            <Card className="h-full cursor-pointer transition-colors hover:bg-muted/40">
               <CardHeader className="border-b-0 !pb-0">
-                <CardTitle className="!text-sm font-medium">{item.heading}</CardTitle>
+                <CardTitle className="!text-sm font-medium">
+                  {item.heading}
+                </CardTitle>
               </CardHeader>
               <CardContent className="!pt-2">
                 <p className="text-2xs text-muted-foreground">{item.prompt}</p>

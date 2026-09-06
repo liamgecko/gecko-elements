@@ -1,6 +1,7 @@
 import { CheckCheck, Cog, Home } from "lucide-react"
 
 import { Header } from "@gecko/ui/components/header"
+import type { HeaderBreadcrumbItem } from "@gecko/ui/components/header"
 
 import { BreadcrumbRouterLink } from "@/components/breadcrumb-router-link"
 import {
@@ -18,11 +19,15 @@ type WorkflowBuilderHeaderProps = {
   title: string
   loading?: boolean
   onMenuAction?: (
-    action: WorkflowHeaderMenuActionId | WorkflowTemplateHeaderMenuActionId,
+    action: WorkflowHeaderMenuActionId | WorkflowTemplateHeaderMenuActionId
   ) => void
   menuItems?: readonly WorkflowBuilderMenuItem[]
   primaryAction?: {
-    label: "Save workflow" | "Update workflow" | "Save workflow template" | "Update workflow template"
+    label:
+      | "Save workflow"
+      | "Update workflow"
+      | "Save workflow template"
+      | "Update workflow template"
     onClick: () => void
     loading?: boolean
   }
@@ -39,7 +44,7 @@ export function WorkflowBuilderHeader({
   showTemplatesBreadcrumb = false,
   showActionsMenu = true,
 }: WorkflowBuilderHeaderProps) {
-  const breadcrumbItems = [
+  const breadcrumbItems: HeaderBreadcrumbItem[] = [
     {
       label: (
         <BreadcrumbRouterLink to="/home">
@@ -55,23 +60,20 @@ export function WorkflowBuilderHeader({
       ),
       renderLabelOnly: true,
     },
-    ...(showTemplatesBreadcrumb
-      ? [
-          {
-            label: (
-              <BreadcrumbRouterLink to="/workflows/templates">
-                Templates
-              </BreadcrumbRouterLink>
-            ),
-            renderLabelOnly: true,
-          },
-        ]
-      : []),
-    {
-      label: title,
-      current: true,
-    },
   ]
+
+  if (showTemplatesBreadcrumb) {
+    breadcrumbItems.push({
+      label: (
+        <BreadcrumbRouterLink to="/workflows/templates">
+          Templates
+        </BreadcrumbRouterLink>
+      ),
+      renderLabelOnly: true,
+    })
+  }
+
+  breadcrumbItems.push({ label: title, current: true })
 
   return (
     <Header
@@ -92,7 +94,9 @@ export function WorkflowBuilderHeader({
                   label: item.label,
                   variant: "variant" in item ? item.variant : undefined,
                   separatorBefore:
-                    "separatorBefore" in item ? item.separatorBefore : undefined,
+                    "separatorBefore" in item
+                      ? item.separatorBefore
+                      : undefined,
                   onSelect: () => onMenuAction?.(item.id),
                 })),
               },

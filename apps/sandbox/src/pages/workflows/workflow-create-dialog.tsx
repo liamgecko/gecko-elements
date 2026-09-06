@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useNavigate } from "react-router-dom"
-import { CheckCheck, ChevronLeft, X } from "lucide-react"
+import { CheckCheck, ChevronLeft } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"
 import {
@@ -53,7 +53,7 @@ export function useWorkflowCreateDialog() {
   const context = React.useContext(WorkflowCreateDialogContext)
   if (!context) {
     throw new Error(
-      "useWorkflowCreateDialog must be used within WorkflowCreateDialogProvider",
+      "useWorkflowCreateDialog must be used within WorkflowCreateDialogProvider"
     )
   }
   return context
@@ -109,18 +109,19 @@ function WorkflowCreateDialog({
   }, [open, resetDialog])
 
   const selectedTemplate = React.useMemo(
-    () => templates.find((template) => template.id === selectedTemplateId) ?? null,
-    [selectedTemplateId, templates],
+    () =>
+      templates.find((template) => template.id === selectedTemplateId) ?? null,
+    [selectedTemplateId, templates]
   )
 
   const choicePanelRef = React.useRef<HTMLDivElement>(null)
   const templatePanelRef = React.useRef<HTMLDivElement>(null)
   const [choiceHeight, setChoiceHeight] = React.useState<number | undefined>(
-    undefined,
+    undefined
   )
-  const [templateHeight, setTemplateHeight] = React.useState<number | undefined>(
-    undefined,
-  )
+  const [templateHeight, setTemplateHeight] = React.useState<
+    number | undefined
+  >(undefined)
 
   const measurePanels = React.useCallback(() => {
     if (choicePanelRef.current) {
@@ -145,7 +146,7 @@ function WorkflowCreateDialog({
     if (!open) return
 
     const nodes = [choicePanelRef.current, templatePanelRef.current].filter(
-      (node): node is HTMLDivElement => node != null,
+      (node): node is HTMLDivElement => node != null
     )
     if (nodes.length === 0) return
 
@@ -214,7 +215,7 @@ function WorkflowCreateDialog({
           <div
             className={cn(
               "flex w-[200%] items-start transition-transform duration-300 ease-in-out",
-              step === "template" && "-translate-x-1/2",
+              step === "template" && "-translate-x-1/2"
             )}
           >
             <div
@@ -319,7 +320,6 @@ function WorkflowCreateDialog({
         <DialogFooter
           showCloseButton={step === "choice"}
           closeButtonText="Cancel"
-          closeButtonIcon={X}
         >
           {step === "template" ? (
             <Button

@@ -1,4 +1,4 @@
-import { MessageCircleCheck, X } from "lucide-react"
+import { MessageCircleCheck } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"
 import {
@@ -54,7 +54,7 @@ export function AssistantNegativeFeedbackDialog({
             />
           </DialogBody>
         </DialogWrapper>
-        <DialogFooter showCloseButton closeButtonText="Cancel" closeButtonIcon={X}>
+        <DialogFooter showCloseButton closeButtonText="Cancel">
           <Button type="button" disabled={!canSubmit} onClick={onSubmit}>
             <MessageCircleCheck data-icon="inline-start" aria-hidden />
             Submit feedback

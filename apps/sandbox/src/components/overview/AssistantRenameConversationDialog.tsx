@@ -1,4 +1,4 @@
-import { CheckCheck, X } from "lucide-react"
+import { CheckCheck } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"
 import {
@@ -38,7 +38,9 @@ export function AssistantRenameConversationDialog({
         <DialogWrapper>
           <DialogHeader>
             <DialogTitle>Rename conversation</DialogTitle>
-            <DialogDescription>Update the name shown in your conversation history.</DialogDescription>
+            <DialogDescription>
+              Update the name shown in your conversation history.
+            </DialogDescription>
           </DialogHeader>
           <DialogBody className="space-y-2">
             <Label htmlFor="rename-conversation-title">Conversation name</Label>
@@ -57,7 +59,7 @@ export function AssistantRenameConversationDialog({
             />
           </DialogBody>
         </DialogWrapper>
-        <DialogFooter showCloseButton closeButtonText="Cancel" closeButtonIcon={X}>
+        <DialogFooter showCloseButton closeButtonText="Cancel">
           <Button type="button" disabled={!canSave} onClick={onSave}>
             <CheckCheck data-icon="inline-start" aria-hidden />
             Save

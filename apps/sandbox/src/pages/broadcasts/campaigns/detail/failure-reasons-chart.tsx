@@ -67,14 +67,11 @@ export function FailureReasonsChart({
       <CardContent className="p-4 group-data-[size=sm]/card:p-4 px-5 pb-5 pt-2">
         <ChartMetric
           value={total.toLocaleString()}
-          label="failed or undelivered"
-        >
-          <p className="text-muted-foreground text-pretty">
-            {percentOfSent} of sent messages
-          </p>
-        </ChartMetric>
+          label={`failed or undelivered · ${percentOfSent} of sent messages`}
+        />
 
         <ChartContainer
+          title="Failure reasons"
           config={chartConfig}
           className="aspect-auto h-[260px] w-full"
         >

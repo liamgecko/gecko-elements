@@ -1,4 +1,4 @@
-import { CheckCheck, X } from "lucide-react"
+import { CheckCheck } from "lucide-react"
 import * as React from "react"
 
 import { Button } from "@gecko/ui/components/button"
@@ -68,13 +68,15 @@ export function WorkflowTemplateSelectorDialog({
           </DialogHeader>
           <DialogBody>
             <Field>
-              <FieldLabel htmlFor="workflow-template-selector">Template</FieldLabel>
+              <FieldLabel htmlFor="workflow-template-selector">
+                Template
+              </FieldLabel>
               <Combobox
                 items={templates}
                 value={
                   selectedTemplateId
                     ? (templates.find(
-                        (template) => template.id === selectedTemplateId,
+                        (template) => template.id === selectedTemplateId
                       ) ?? null)
                     : null
                 }
@@ -89,7 +91,9 @@ export function WorkflowTemplateSelectorDialog({
               >
                 <ComboboxInput
                   id="workflow-template-selector"
-                  placeholder={loading ? "Loading templates…" : "Search templates"}
+                  placeholder={
+                    loading ? "Loading templates…" : "Search templates"
+                  }
                   showClear
                 />
                 <ComboboxContent>
@@ -108,12 +112,8 @@ export function WorkflowTemplateSelectorDialog({
             </Field>
           </DialogBody>
         </DialogWrapper>
-        <DialogFooter showCloseButton closeButtonText="Cancel" closeButtonIcon={X}>
-          <Button
-            type="button"
-            disabled={!canUse}
-            onClick={handleUseTemplate}
-          >
+        <DialogFooter showCloseButton closeButtonText="Cancel">
+          <Button type="button" disabled={!canUse} onClick={handleUseTemplate}>
             <CheckCheck data-icon="inline-start" aria-hidden />
             Use template
           </Button>

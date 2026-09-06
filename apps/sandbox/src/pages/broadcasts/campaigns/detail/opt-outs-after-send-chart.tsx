@@ -64,13 +64,13 @@ export function OptOutsAfterSendChart({
       </CardHeader>
 
       <CardContent className="p-4 group-data-[size=sm]/card:p-4 px-5 pb-5 pt-2">
-        <ChartMetric value={total.toLocaleString()} label="opt-outs within 24h">
-          <p className="text-muted-foreground text-pretty">
-            {percentOfDelivered} of delivered recipients
-          </p>
-        </ChartMetric>
+        <ChartMetric
+          value={total.toLocaleString()}
+          label={`opt-outs within 24h · ${percentOfDelivered} of delivered recipients`}
+        />
 
         <ChartContainer
+          title="Opt-outs after send"
           config={chartConfig}
           className="aspect-auto h-[260px] w-full"
         >
@@ -112,11 +112,7 @@ export function OptOutsAfterSendChart({
                 )}
               />
             ) : null}
-            <Bar
-              dataKey="optOuts"
-              fill="var(--color-optOuts)"
-              radius={4}
-            />
+            <Bar dataKey="optOuts" fill="var(--color-optOuts)" radius={4} />
             {comparison ? (
               <Bar
                 dataKey="compareOptOuts"

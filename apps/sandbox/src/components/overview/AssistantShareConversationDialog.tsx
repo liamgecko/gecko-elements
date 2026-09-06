@@ -1,4 +1,4 @@
-import { Share, X } from "lucide-react"
+import { Share } from "lucide-react"
 
 import { Button } from "@gecko/ui/components/button"
 import {
@@ -64,7 +64,7 @@ export function AssistantShareConversationDialog({
             />
           </DialogBody>
         </DialogWrapper>
-        <DialogFooter showCloseButton closeButtonText="Cancel" closeButtonIcon={X}>
+        <DialogFooter showCloseButton closeButtonText="Cancel">
           <Button type="button" disabled={!canShare} onClick={onShare}>
             <Share data-icon="inline-start" aria-hidden />
             Share
