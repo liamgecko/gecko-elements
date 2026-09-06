@@ -6,7 +6,8 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@gecko/ui/lib/utils";
 import { Label } from "@gecko/ui/components/label";
 import { Separator } from "@gecko/ui/components/separator";
-import { CircleAlert } from "lucide-react";
+import CircleAlert from "@hugeicons/core-free-icons/AlertCircleIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
   return (
@@ -230,7 +231,11 @@ function FieldError({
       )}
       {...props}
     >
-      <CircleAlert aria-hidden className="size-4 shrink-0" />
+      <HugeiconsIcon
+        icon={CircleAlert}
+        aria-hidden
+        className="size-4 shrink-0"
+      />
       <span className="min-w-0">{content}</span>
     </div>
   );

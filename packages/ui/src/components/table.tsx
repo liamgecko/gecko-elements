@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { ChevronDown } from "lucide-react";
+import ChevronDown from "@hugeicons/core-free-icons/ChevronDownIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { Button } from "@gecko/ui/components/button";
 import { cn } from "@gecko/ui/lib/utils";
@@ -91,7 +92,10 @@ function Table({
                 </p>
               ) : null}
               {description != null ? (
-                <p id={descriptionId} className="text-2xs text-muted-foreground">
+                <p
+                  id={descriptionId}
+                  className="text-2xs text-muted-foreground"
+                >
                   {description}
                 </p>
               ) : null}
@@ -385,7 +389,8 @@ function TableExpandableRowTrigger({
       {...props}
     >
       {children ?? (
-        <ChevronDown
+        <HugeiconsIcon
+          icon={ChevronDown}
           className={cn(
             "text-muted-foreground size-4 transition-transform motion-reduce:transition-none",
             ctx.open && "rotate-180",

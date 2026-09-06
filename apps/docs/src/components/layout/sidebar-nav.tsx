@@ -42,7 +42,7 @@ export function SidebarNav() {
         <SidebarGroup key={group.label}>
           <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="gap-px">
+            <SidebarMenu className="gap-0.5">
               {renderNavItems(group.items)}
             </SidebarMenu>
           </SidebarGroupContent>

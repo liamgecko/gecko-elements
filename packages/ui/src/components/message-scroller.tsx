@@ -1,21 +1,22 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   MessageScroller as MessageScrollerPrimitive,
   useMessageScroller,
   useMessageScrollerScrollable,
   useMessageScrollerVisibility,
-} from "@shadcn/react/message-scroller"
-import { ArrowDownIcon } from "lucide-react"
+} from "@shadcn/react/message-scroller";
+import ArrowDownIcon from "@hugeicons/core-free-icons/ArrowDown02Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-import { cn } from "@gecko/ui/lib/utils"
-import { Button } from "@gecko/ui/components/button"
+import { cn } from "@gecko/ui/lib/utils";
+import { Button } from "@gecko/ui/components/button";
 
 function MessageScrollerProvider(
-  props: React.ComponentProps<typeof MessageScrollerPrimitive.Provider>
+  props: React.ComponentProps<typeof MessageScrollerPrimitive.Provider>,
 ) {
-  return <MessageScrollerPrimitive.Provider {...props} />
+  return <MessageScrollerPrimitive.Provider {...props} />;
 }
 
 function MessageScroller({
@@ -27,11 +28,11 @@ function MessageScroller({
       data-slot="message-scroller"
       className={cn(
         "group/message-scroller relative flex size-full min-h-0 flex-col overflow-hidden",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function MessageScrollerViewport({
@@ -43,11 +44,11 @@ function MessageScrollerViewport({
       data-slot="message-scroller-viewport"
       className={cn(
         "scrollbar-scroll-area size-full min-h-0 min-w-0 scroll-fade overflow-y-auto overscroll-contain contain-content data-autoscrolling:scrollbar-scroll-area-hidden",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function MessageScrollerContent({
@@ -60,7 +61,7 @@ function MessageScrollerContent({
       className={cn("flex h-max min-h-full flex-col gap-6", className)}
       {...props}
     />
-  )
+  );
 }
 
 function MessageScrollerItem({
@@ -74,11 +75,11 @@ function MessageScrollerItem({
       scrollAnchor={scrollAnchor}
       className={cn(
         "min-w-0 shrink-0 [contain-intrinsic-size:auto_10rem] [content-visibility:auto]",
-        className
+        className,
       )}
       {...props}
     />
-  )
+  );
 }
 
 function MessageScrollerButton({
@@ -100,7 +101,7 @@ function MessageScrollerButton({
       direction={direction}
       className={cn(
         "absolute inset-s-1/2 -translate-x-1/2 border-border bg-background text-foreground transition-[translate,scale,opacity] duration-200 hover:bg-muted hover:text-foreground data-[active=false]:pointer-events-none data-[active=false]:scale-95 data-[active=false]:opacity-0 data-[active=false]:duration-400 data-[active=false]:ease-[cubic-bezier(0.7,0,0.84,0)] data-[active=true]:translate-y-0 data-[active=true]:scale-100 data-[active=true]:opacity-100 data-[active=true]:ease-[cubic-bezier(0.23,1,0.32,1)] data-[direction=end]:bottom-4 data-[direction=end]:data-[active=false]:translate-y-full data-[direction=start]:top-4 data-[direction=start]:data-[active=false]:-translate-y-full rtl:translate-x-1/2 data-[direction=start]:[&_svg]:rotate-180",
-        className
+        className,
       )}
       render={
         render ?? (
@@ -111,14 +112,14 @@ function MessageScrollerButton({
     >
       {children ?? (
         <>
-          <ArrowDownIcon />
+          <HugeiconsIcon icon={ArrowDownIcon} />
           <span className="sr-only">
             {direction === "end" ? "Scroll to end" : "Scroll to start"}
           </span>
         </>
       )}
     </MessageScrollerPrimitive.Button>
-  )
+  );
 }
 
 export {
@@ -131,4 +132,4 @@ export {
   useMessageScroller,
   useMessageScrollerScrollable,
   useMessageScrollerVisibility,
-}
+};

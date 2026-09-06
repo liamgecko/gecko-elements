@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { X } from "lucide-react";
+import X from "@hugeicons/core-free-icons/XIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { Avatar } from "@gecko/ui/components/avatar";
 import { Counter } from "@gecko/ui/components/counter";
@@ -20,11 +21,11 @@ const badgeVariants = cva(
         light: "border-border bg-white text-foreground dark:bg-gray-950",
       },
       size: {
-        xs: "gap-1 px-1.5 py-0.5 text-4xs leading-3",
-        sm: "gap-1 px-2 py-0.5 text-2xs leading-4",
-        md: "px-2.5 py-1 text-sm leading-4",
-        lg: "gap-2 px-3 py-1.5 text-base leading-5",
-        xl: "gap-2 px-4 py-2 text-lg leading-6",
+        xs: "gap-1 px-1 py-0.5 text-4xs leading-3",
+        sm: "gap-1 px-1.5 py-0.5 text-2xs leading-4",
+        md: "px-2 py-1 text-sm leading-4",
+        lg: "gap-2 px-2.5 py-1.5 text-base leading-5",
+        xl: "gap-2 px-3.5 py-2 text-lg leading-6",
       },
       bordered: {
         true: "",
@@ -63,6 +64,11 @@ const badgeVariants = cva(
         className: "border-success-muted-border",
       },
       { bordered: true, variant: "light", className: "border-border" },
+      { rounded: true, size: "xs", className: "px-1.5" },
+      { rounded: true, size: "sm", className: "px-2" },
+      { rounded: true, size: "md", className: "px-2.5" },
+      { rounded: true, size: "lg", className: "px-3" },
+      { rounded: true, size: "xl", className: "px-4" },
     ],
     defaultVariants: {
       variant: "secondary",
@@ -201,7 +207,8 @@ function Badge({
             setIsDismissed(true);
           }}
         >
-          <X
+          <HugeiconsIcon
+            icon={X}
             aria-hidden="true"
             className={iconSizeMap[resolvedSize]}
             strokeWidth={3}

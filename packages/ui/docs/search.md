@@ -13,7 +13,7 @@ Search is not a form field and does not represent a submitted value. Use Input i
 
 ## Ownership
 
-Search is Gecko-owned. It composes Gecko Input group, Input and Button with approved Lucide icons. Applications use the Search interface rather than recreating its icon, clear action or value handling.
+Search is Gecko-owned. It composes Gecko Input group, Input and Button with approved Hugeicons glyphs. Applications use the Search interface rather than recreating its icon, clear action or value handling.
 
 ## Canonical usage
 
@@ -65,15 +65,15 @@ Place request failures and empty states with the results they describe. Do not p
 
 ## Interface
 
-| Property        | Type                      | Default    | Meaning                                                |
-| --------------- | ------------------------- | ---------- | ------------------------------------------------------ |
-| `size`          | `"sm" \| "md" \| "lg"` | `"md"`     | Sets the control and icon size                         |
-| `showClear`     | `boolean`                 | `false`    | Shows a clear action while the query contains a value  |
-| `value`         | `string`                  | —          | Controls the current query                             |
-| `defaultValue`  | `string`                  | —          | Sets the initial uncontrolled query                    |
-| `onValueChange` | `(value: string) => void` | —          | Reports each query change, including clearing          |
-| `aria-label`    | `string`                  | `"Search"` | Provides the accessible purpose of the control         |
-| `className`     | `string`                  | —          | Extends the outer Input group                          |
+| Property        | Type                      | Default    | Meaning                                               |
+| --------------- | ------------------------- | ---------- | ----------------------------------------------------- |
+| `size`          | `"sm" \| "md" \| "lg"`    | `"md"`     | Sets the control and icon size                        |
+| `showClear`     | `boolean`                 | `false`    | Shows a clear action while the query contains a value |
+| `value`         | `string`                  | —          | Controls the current query                            |
+| `defaultValue`  | `string`                  | —          | Sets the initial uncontrolled query                   |
+| `onValueChange` | `(value: string) => void` | —          | Reports each query change, including clearing         |
+| `aria-label`    | `string`                  | `"Search"` | Provides the accessible purpose of the control        |
+| `className`     | `string`                  | —          | Extends the outer Input group                         |
 
 Search accepts applicable native input properties except the native `size` property.
 

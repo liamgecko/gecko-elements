@@ -134,7 +134,7 @@ Pass MessageAiActions through MessageMeta’s `actions` property on AI responses
 />
 ```
 
-MessageAiActions supplies copy, good-response, bad-response and share controls. Connect the relevant callbacks when the product needs to persist feedback or open sharing. Every icon-only action retains its accessible label and tooltip.
+MessageAiActions supplies copy, good-response, bad-response and share controls using one consistent ghost treatment. Connect the relevant callbacks when the product needs to persist feedback or open sharing. Every icon-only action retains its accessible label and tooltip.
 
 ## Grouping
 

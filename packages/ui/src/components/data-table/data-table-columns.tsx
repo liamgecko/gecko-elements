@@ -59,21 +59,47 @@ export function createExpandColumn<TData>(): ColumnDef<TData> {
   }
 }
 
-export function createSelectionColumn<TData>(): ColumnDef<TData> {
+export function createSelectionColumn<TData>(
+  paginated = true,
+): ColumnDef<TData> {
   return {
     id: "select",
     meta: {
       headerClassName: "w-10",
       cellClassName: "w-10",
     } satisfies DataTableColumnMeta,
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        indeterminate={table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all rows on this page"
-      />
-    ),
+    header: ({ table }) => {
+      const visibleRows = (
+        paginated ? table.getPaginationRowModel() : table.getFilteredRowModel()
+      ).flatRows.filter((row) => row.getCanSelect())
+      const allVisibleRowsSelected =
+        visibleRows.length > 0 &&
+        visibleRows.every((row) => row.getIsSelected())
+      const someVisibleRowsSelected = visibleRows.some((row) =>
+        row.getIsSelected(),
+      )
+
+      return (
+        <Checkbox
+          checked={allVisibleRowsSelected}
+          indeterminate={someVisibleRowsSelected && !allVisibleRowsSelected}
+          onCheckedChange={(value) => {
+            table.setRowSelection((current) => {
+              const next = { ...current }
+              visibleRows.forEach((row) => {
+                if (value) {
+                  next[row.id] = true
+                } else {
+                  delete next[row.id]
+                }
+              })
+              return next
+            })
+          }}
+          aria-label="Select all visible rows"
+        />
+      )
+    },
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}

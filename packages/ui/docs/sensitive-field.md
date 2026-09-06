@@ -15,7 +15,7 @@ Concealment is presentational privacy, not encryption or access control. The app
 
 ## Ownership
 
-Sensitive field is Gecko-owned. It composes Gecko Input group, Button, and Tooltip with approved Lucide icons. It does not expose or require another component library’s API.
+Sensitive field is Gecko-owned. It composes Gecko Input group, Button, and Tooltip with approved Hugeicons glyphs. It does not expose or require another component library’s API.
 
 Applications import SensitiveField rather than rebuilding its mask, reveal action, focus behaviour, or visibility state.
 

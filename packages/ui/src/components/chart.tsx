@@ -68,8 +68,8 @@ function ChartContainer({
   const uniqueId = React.useId();
   const chartId = `chart-${id ?? uniqueId.replace(/:/g, "")}`;
   const accessibleChart = React.cloneElement(
-    children as React.ReactElement<{ title?: string }>,
-    { title },
+    children as React.ReactElement<{ "aria-label"?: string }>,
+    { "aria-label": title },
   );
 
   return (
@@ -79,7 +79,7 @@ function ChartContainer({
         data-chart={chartId}
         data-layout={layout}
         className={cn(
-          "flex justify-center text-2xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-pie-label-text]:fill-foreground [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden [&_.recharts-tooltip-wrapper]:z-50 [&_.recharts-legend-wrapper]:z-0",
+          "flex justify-center text-2xs [&_.recharts-cartesian-axis-tick-value]:fill-chart-tick [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-pie-label-text]:fill-foreground [&_.recharts-polar-angle-axis-tick-value]:fill-chart-tick [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-polar-radius-axis-tick-value]:fill-chart-tick [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden [&_.recharts-tooltip-wrapper]:z-50 [&_.recharts-legend-wrapper]:z-0",
           layout === "polar"
             ? "mx-auto aspect-square w-full max-w-[250px]"
             : "aspect-video",
@@ -225,7 +225,7 @@ function ChartXAxisTickLabel({
   const lines = wrapTickLabel(label, maxCharsPerLine, maxLines);
 
   return (
-    <g className={cn("[&_text]:fill-muted-foreground", className)}>
+    <g className={cn("[&_text]:fill-chart-tick", className)}>
       <text
         x={xNumber}
         y={yNumber + 18}

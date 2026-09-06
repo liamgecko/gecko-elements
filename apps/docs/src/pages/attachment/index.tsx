@@ -1,4 +1,5 @@
-import { ImageUp } from "lucide-react";
+import ImageUp from "@hugeicons/core-free-icons/ImageUpIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { RequiredForm } from "@/components/layout/required-form";
@@ -18,7 +19,7 @@ import {
   Field,
   FieldDescription,
   FieldError,
-  FieldTitle,
+  FieldLabel,
 } from "@gecko/ui/components/field";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
@@ -125,8 +126,9 @@ const form = useForm<z.infer<typeof formSchema>>({
 <form noValidate onSubmit={form.handleSubmit(onSubmit)}>
   <Controller name="attachmentId" control={form.control} render={({ field, fieldState }) => (
     <Field data-invalid={fieldState.invalid}>
-      <FieldTitle>Supporting document</FieldTitle>
+      <FieldLabel htmlFor="supporting-document">Supporting document</FieldLabel>
       <Attachment
+        inputId="supporting-document"
         required
         accept=".pdf"
         onUpload={async (file, onProgress) => {
@@ -378,7 +380,7 @@ const form = useForm<z.infer<typeof formSchema>>({
             <div className="w-full max-w-md">
               <Attachment
                 accept="image/*"
-                icon={<ImageUp />}
+                icon={<HugeiconsIcon icon={ImageUp} />}
                 label="Upload brand assets"
                 description="PNG, JPG or SVG"
                 onUpload={simulateUpload}
@@ -413,14 +415,12 @@ const form = useForm<z.infer<typeof formSchema>>({
                     name="attachmentId"
                     control={form.control}
                     render={({ field, fieldState }) => (
-                      <Field
-                        data-invalid={fieldState.invalid}
-                        aria-labelledby="supporting-document-label"
-                      >
-                        <FieldTitle id="supporting-document-label">
+                      <Field data-invalid={fieldState.invalid}>
+                        <FieldLabel htmlFor="supporting-document">
                           Supporting document
-                        </FieldTitle>
+                        </FieldLabel>
                         <Attachment
+                          inputId="supporting-document"
                           label="Choose a file or drag and drop"
                           description="PDF, up to 10 MB"
                           accept=".pdf"
@@ -536,6 +536,12 @@ const form = useForm<z.infer<typeof formSchema>>({
                 "Required for controlled empty state; optional notification in managed mode.",
             },
             {
+              name: "inputId",
+              type: "string",
+              description:
+                "Identifies the native file input so FieldLabel can provide the field label and required marker.",
+            },
+            {
               name: "accept",
               type: "string",
               description:
@@ -581,7 +587,7 @@ const form = useForm<z.infer<typeof formSchema>>({
               type: "boolean",
               defaultValue: "false",
               description:
-                "Requires a file while empty and shows the required marker.",
+                "Requires a file while empty. Pair inputId with FieldLabel to show the required marker on the field label.",
             },
           ]}
         />

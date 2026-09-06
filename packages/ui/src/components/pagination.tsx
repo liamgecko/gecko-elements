@@ -2,11 +2,10 @@ import * as React from "react";
 
 import { cn } from "@gecko/ui/lib/utils";
 import { Button } from "@gecko/ui/components/button";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  MoreHorizontalIcon,
-} from "lucide-react";
+import ChevronLeftIcon from "@hugeicons/core-free-icons/ChevronLeftIcon";
+import ChevronRightIcon from "@hugeicons/core-free-icons/ChevronRightIcon";
+import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -83,9 +82,10 @@ function PaginationPrevious({
       className={cn("ps-2!", className)}
       {...props}
     >
-      <ChevronLeftIcon
+      <HugeiconsIcon
+        icon={ChevronLeftIcon}
         data-icon="inline-start"
-        className="rtl:rotate-180"
+        className="transition-transform duration-150 ease-out group-active/button:-translate-x-0.5 rtl:rotate-180 rtl:group-active/button:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-active/button:translate-x-0"
         aria-hidden="true"
       />
       {!iconOnly ? <span className="hidden sm:block">{text}</span> : null}
@@ -110,9 +110,10 @@ function PaginationNext({
       {...props}
     >
       {!iconOnly ? <span className="hidden sm:block">{text}</span> : null}
-      <ChevronRightIcon
+      <HugeiconsIcon
+        icon={ChevronRightIcon}
         data-icon="inline-end"
-        className="rtl:rotate-180"
+        className="transition-transform duration-150 ease-out group-active/button:translate-x-0.5 rtl:rotate-180 rtl:group-active/button:-translate-x-0.5 motion-reduce:transition-none motion-reduce:group-active/button:translate-x-0"
         aria-hidden="true"
       />
     </PaginationLink>
@@ -132,7 +133,7 @@ function PaginationEllipsis({
       )}
       {...props}
     >
-      <MoreHorizontalIcon aria-hidden="true" />
+      <HugeiconsIcon icon={EllipsisIcon} aria-hidden="true" />
       <span className="sr-only">More pages</span>
     </span>
   );

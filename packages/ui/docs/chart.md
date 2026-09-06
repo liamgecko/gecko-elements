@@ -144,7 +144,7 @@ Do not put arbitrary children inside ChartMetric or override its value and label
 ## Accessibility
 
 - `title` is required on ChartContainer and must concisely describe the chart’s subject, not its visual appearance.
-- ChartContainer passes the title to the Recharts chart.
+- ChartContainer applies the title as the Recharts chart’s accessible name without rendering a native browser tooltip.
 - Recharts 3 enables its accessibility layer by default. Do not add the redundant prop and never disable it without explicit approval.
 - Keyboard users tab to the chart and use the arrow keys to navigate its data points.
 - Use ChartTooltip so navigated values can be announced.

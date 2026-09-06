@@ -1,4 +1,5 @@
-import { Home } from "lucide-react";
+import Home from "@hugeicons/core-free-icons/Home04Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import { Link } from "react-router-dom";
 import {
   Breadcrumb,
@@ -192,7 +193,11 @@ import {
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbLink render={<Link to="/" />} aria-label="Home">
-                    <Home aria-hidden className="size-3.5" />
+                    <HugeiconsIcon
+                      icon={Home}
+                      aria-hidden
+                      className="size-3.5"
+                    />
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
@@ -235,7 +240,7 @@ import {
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbLink render={<Link to="/" />} aria-label="Home">
-                    <Home className="size-3.5" />
+                    <HugeiconsIcon icon={Home} className="size-3.5" />
                     <span className="sr-only">Home</span>
                   </BreadcrumbLink>
                 </BreadcrumbItem>

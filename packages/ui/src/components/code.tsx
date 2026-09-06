@@ -1,7 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { Check, Copy } from "lucide-react";
+import Check from "@hugeicons/core-free-icons/CheckIcon";
+import Copy from "@hugeicons/core-free-icons/Copy01Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import { toast } from "@gecko/ui/components/toast";
 
 import { cn } from "@gecko/ui/lib/utils";
@@ -214,7 +216,11 @@ function CodeBlock({
                     }
                   }}
                 >
-                  {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
+                  {copied ? (
+                    <HugeiconsIcon icon={Check} aria-hidden />
+                  ) : (
+                    <HugeiconsIcon icon={Copy} aria-hidden />
+                  )}
                 </Button>
               }
             />

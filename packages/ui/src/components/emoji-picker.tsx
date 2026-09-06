@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import { EmojiPicker as FrimousseEmojiPicker } from "frimousse";
-import { SmilePlus } from "lucide-react";
+import SmilePlus from "@hugeicons/core-free-icons/SmilePlusIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { Button } from "@gecko/ui/components/button";
 import {
@@ -262,7 +263,11 @@ function EmojiPickerTray({
                 tabIndex={activeIndex === trayEmojis.length ? 0 : -1}
                 onFocus={() => setActiveIndex(trayEmojis.length)}
               >
-                <SmilePlus strokeWidth={2.25} aria-hidden="true" />
+                <HugeiconsIcon
+                  icon={SmilePlus}
+                  strokeWidth={2.25}
+                  aria-hidden="true"
+                />
               </Button>
             }
           />

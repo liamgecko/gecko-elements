@@ -3,7 +3,8 @@
 import * as React from "react";
 import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
 import { cva, type VariantProps } from "class-variance-authority";
-import { MoreHorizontalIcon } from "lucide-react";
+import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { Button } from "@gecko/ui/components/button";
 import {
@@ -317,7 +318,7 @@ function TabsOverflowList({
                   "after:bg-foreground after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5",
               )}
             >
-              <MoreHorizontalIcon aria-hidden="true" />
+              <HugeiconsIcon icon={EllipsisIcon} aria-hidden="true" />
             </Button>
           }
         />

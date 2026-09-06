@@ -8,6 +8,13 @@ type PageSectionNavProps = {
   className?: string
 }
 
+function flattenSections(sections: Section[]): Section[] {
+  return sections.flatMap((section) => [
+    section,
+    ...flattenSections(section.children ?? []),
+  ])
+}
+
 function scrollToSection(id: string) {
   const el = document.getElementById(id)
   if (el) {
@@ -68,14 +75,17 @@ function SectionLink({
         href={`#${section.id}`}
         className={cn(
           "block py-0.5 text-sm text-muted-foreground hover:text-foreground",
-          "relative before:absolute before:-left-2.5 before:top-0 before:bottom-0 before:w-px before:bg-primary before:opacity-0 hover:before:opacity-100 hover:before:bg-gray-300 data-[active=true]:before:opacity-100 data-[active=true]:hover:before:bg-primary before:transition-[opacity,background-color] before:duration-200",
-          "data-[active=true]:text-foreground transition-colors"
+          "relative data-[active=true]:text-foreground transition-colors",
+          !isActive &&
+            "before:absolute before:-left-2.5 before:inset-y-0 before:w-px before:bg-gray-300 before:opacity-0 before:transition-opacity before:duration-150 hover:before:opacity-100 dark:before:bg-gray-700"
         )}
         data-active={isActive ? "true" : undefined}
+        data-section-id={section.id}
+        aria-current={isActive ? "location" : undefined}
         onClick={(e) => {
           e.preventDefault()
-          scrollToSection(section.id)
           onSelect(section.id)
+          scrollToSection(section.id)
         }}
       >
         {section.label}
@@ -106,6 +116,12 @@ export function PageSectionNav({ className }: PageSectionNavProps) {
   const location = useLocation()
   const key = getComponentKey(location.pathname)
   const sections = key ? componentSections[key] : undefined
+  const sectionListRef = React.useRef<HTMLDivElement>(null)
+  const activeIndicatorRef = React.useRef<HTMLSpanElement>(null)
+  const hasPositionedIndicatorRef = React.useRef(false)
+  const clickScrollTargetRef = React.useRef<string | null>(null)
+  const clickScrollReleaseTimerRef = React.useRef<number | null>(null)
+  const skipIndicatorAnimationRef = React.useRef(false)
 
   const [activeId, setActiveId] = React.useState<string | undefined>(() => {
     if (!sections || sections.length === 0) return undefined
@@ -116,18 +132,186 @@ export function PageSectionNav({ className }: PageSectionNavProps) {
   })
 
   React.useEffect(() => {
-    if (!sections || sections.length === 0) {
-      setActiveId(undefined)
-      return
+    if (!sections || sections.length === 0) return
+
+    const viewport = document.querySelector<HTMLElement>(
+      '[data-app-main="true"] [data-slot="scroll-area-viewport"]'
+    )
+    const anchors = flattenSections(sections)
+      .map(({ id }) => document.getElementById(id))
+      .filter((anchor): anchor is HTMLElement => anchor !== null)
+
+    if (!viewport || anchors.length === 0) return
+
+    let animationFrame: number | null = null
+
+    const updateActiveSection = () => {
+      animationFrame = null
+
+      const viewportRect = viewport.getBoundingClientRect()
+      const activationLine = viewportRect.top + 24
+      const isAtBottom =
+        viewport.scrollTop + viewport.clientHeight >= viewport.scrollHeight - 1
+      let nextActive = anchors[0]
+
+      if (clickScrollTargetRef.current) {
+        const target = anchors.find(
+          (anchor) => anchor.id === clickScrollTargetRef.current
+        )
+        const targetReached =
+          target &&
+          (Math.abs(target.getBoundingClientRect().top - viewportRect.top) <=
+            1 ||
+            (isAtBottom && target === anchors[anchors.length - 1]))
+
+        if (!targetReached) return
+
+        clickScrollTargetRef.current = null
+        if (clickScrollReleaseTimerRef.current !== null) {
+          window.clearTimeout(clickScrollReleaseTimerRef.current)
+          clickScrollReleaseTimerRef.current = null
+        }
+      }
+
+      if (isAtBottom) {
+        nextActive = anchors[anchors.length - 1]
+      } else {
+        for (const anchor of anchors) {
+          if (anchor.getBoundingClientRect().top > activationLine) break
+          nextActive = anchor
+        }
+      }
+
+      setActiveId((currentId) =>
+        currentId === nextActive.id ? currentId : nextActive.id
+      )
     }
 
-    if (typeof window !== "undefined" && window.location.hash) {
-      const fromHash = window.location.hash.replace("#", "")
-      setActiveId(fromHash || sections[0].id)
-    } else {
-      setActiveId(sections[0].id)
+    const scheduleUpdate = () => {
+      if (animationFrame !== null) return
+      animationFrame = window.requestAnimationFrame(updateActiveSection)
+    }
+
+    const handleScroll = () => {
+      if (clickScrollTargetRef.current) {
+        if (clickScrollReleaseTimerRef.current !== null) {
+          window.clearTimeout(clickScrollReleaseTimerRef.current)
+        }
+        clickScrollReleaseTimerRef.current = window.setTimeout(() => {
+          clickScrollTargetRef.current = null
+          clickScrollReleaseTimerRef.current = null
+          scheduleUpdate()
+        }, 120)
+      }
+
+      scheduleUpdate()
+    }
+
+    viewport.addEventListener("scroll", handleScroll, { passive: true })
+    window.addEventListener("resize", scheduleUpdate)
+
+    const resizeObserver = new ResizeObserver(scheduleUpdate)
+    resizeObserver.observe(viewport)
+    anchors.forEach((anchor) => resizeObserver.observe(anchor))
+
+    scheduleUpdate()
+
+    return () => {
+      viewport.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", scheduleUpdate)
+      resizeObserver.disconnect()
+      if (clickScrollReleaseTimerRef.current !== null) {
+        window.clearTimeout(clickScrollReleaseTimerRef.current)
+        clickScrollReleaseTimerRef.current = null
+      }
+      if (animationFrame !== null) {
+        window.cancelAnimationFrame(animationFrame)
+      }
     }
   }, [sections])
+
+  React.useLayoutEffect(() => {
+    const sectionList = sectionListRef.current
+    const activeIndicator = activeIndicatorRef.current
+
+    if (!sectionList || !activeIndicator || !activeId) return
+
+    let animationFrame: number | null = null
+
+    const updateIndicatorPosition = () => {
+      animationFrame = null
+
+      const activeLink = Array.from(
+        sectionList.querySelectorAll<HTMLElement>("[data-section-id]")
+      ).find((link) => link.dataset.sectionId === activeId)
+
+      if (!activeLink) {
+        activeIndicator.style.opacity = "0"
+        hasPositionedIndicatorRef.current = false
+        return
+      }
+
+      const listRect = sectionList.getBoundingClientRect()
+      const linkRect = activeLink.getBoundingClientRect()
+      const x = linkRect.left - listRect.left - 10
+      const y = linkRect.top - listRect.top
+
+      const shouldSnap =
+        !hasPositionedIndicatorRef.current ||
+        skipIndicatorAnimationRef.current
+
+      if (shouldSnap) {
+        activeIndicator.style.transition = "none"
+      }
+
+      activeIndicator.style.height = `${linkRect.height}px`
+      activeIndicator.style.opacity = "1"
+      activeIndicator.style.transform = `translate3d(${x}px, ${y}px, 0)`
+
+      if (shouldSnap) {
+        activeIndicator.getBoundingClientRect()
+        activeIndicator.style.removeProperty("transition")
+        hasPositionedIndicatorRef.current = true
+        skipIndicatorAnimationRef.current = false
+      }
+    }
+
+    const scheduleUpdate = () => {
+      if (animationFrame !== null) return
+      animationFrame = window.requestAnimationFrame(updateIndicatorPosition)
+    }
+
+    const resizeObserver = new ResizeObserver(scheduleUpdate)
+    resizeObserver.observe(sectionList)
+    sectionList
+      .querySelectorAll<HTMLElement>("[data-section-id]")
+      .forEach((link) => resizeObserver.observe(link))
+    window.addEventListener("resize", scheduleUpdate)
+    scheduleUpdate()
+
+    return () => {
+      resizeObserver.disconnect()
+      window.removeEventListener("resize", scheduleUpdate)
+      if (animationFrame !== null) {
+        window.cancelAnimationFrame(animationFrame)
+      }
+    }
+  }, [activeId, sections])
+
+  const handleSectionSelect = React.useCallback((id: string) => {
+    clickScrollTargetRef.current = id
+    skipIndicatorAnimationRef.current = true
+
+    if (clickScrollReleaseTimerRef.current !== null) {
+      window.clearTimeout(clickScrollReleaseTimerRef.current)
+    }
+    clickScrollReleaseTimerRef.current = window.setTimeout(() => {
+      clickScrollTargetRef.current = null
+      clickScrollReleaseTimerRef.current = null
+    }, 200)
+
+    setActiveId(id)
+  }, [])
 
   if (!sections || sections.length === 0) return null
 
@@ -148,16 +332,24 @@ export function PageSectionNav({ className }: PageSectionNavProps) {
           <span className="text-2xs font-medium text-muted-foreground dark:text-gray-400 mb-4 block">
             On this page
           </span>
-          <ul className="space-y-1">
-            {sections.map((section) => (
-              <SectionLink
-                key={section.id}
-                section={section}
-                currentId={activeId}
-                onSelect={setActiveId}
-              />
-            ))}
-          </ul>
+          <div ref={sectionListRef} className="relative">
+            <span
+              ref={activeIndicatorRef}
+              data-slot="page-section-indicator"
+              aria-hidden="true"
+              className="pointer-events-none absolute left-0 top-0 z-10 w-px bg-primary opacity-0 transition-[transform,height,opacity] duration-200 ease-out motion-reduce:transition-none"
+            />
+            <ul className="space-y-1">
+              {sections.map((section) => (
+                <SectionLink
+                  key={section.id}
+                  section={section}
+                  currentId={activeId}
+                  onSelect={handleSectionSelect}
+                />
+              ))}
+            </ul>
+          </div>
         </nav>
       </div>
     </aside>

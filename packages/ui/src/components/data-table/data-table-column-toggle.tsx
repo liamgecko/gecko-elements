@@ -1,32 +1,37 @@
-"use client"
+"use client";
 
-import { Columns3Cog } from "lucide-react"
+import Columns3Cog from "@hugeicons/core-free-icons/ColumnsThreeCogIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@gecko/ui/components/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@gecko/ui/components/tooltip"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@gecko/ui/components/dropdown-menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@gecko/ui/components/tooltip";
+import { cn } from "@gecko/ui/lib/utils";
 
-import { getDataTableColumnToggleLabel } from "./data-table-column-meta"
-import { useDataTableContext } from "./data-table-context"
+import { getDataTableColumnToggleLabel } from "./data-table-column-meta";
+import { useDataTableContext } from "./data-table-context";
 
 export type DataTableColumnToggleProps = {
-  className?: string
+  className?: string;
   /** Accessible name for the icon-only trigger. @default "Customise table view" */
-  triggerLabel?: string
-}
+  triggerLabel?: string;
+};
 
 export function DataTableColumnToggle({
   className,
   triggerLabel = "Customise table view",
 }: DataTableColumnToggleProps) {
-  const { table } = useDataTableContext<unknown>()
+  const { table } = useDataTableContext<unknown>();
 
   return (
     <div className="inline-flex shrink-0 items-center">
@@ -43,7 +48,7 @@ export function DataTableColumnToggle({
                     type="button"
                     aria-label={triggerLabel}
                   >
-                    <Columns3Cog />
+                    <HugeiconsIcon icon={Columns3Cog} />
                   </Button>
                 }
               />
@@ -57,7 +62,11 @@ export function DataTableColumnToggle({
           <DropdownMenuGroup>
             {table
               .getAllColumns()
-              .filter((column) => typeof column.accessorFn !== "undefined" && column.getCanHide())
+              .filter(
+                (column) =>
+                  typeof column.accessorFn !== "undefined" &&
+                  column.getCanHide(),
+              )
               .map((column) => (
                 <DropdownMenuCheckboxItem
                   key={column.id}
@@ -65,12 +74,15 @@ export function DataTableColumnToggle({
                   checked={column.getIsVisible()}
                   onCheckedChange={(value) => column.toggleVisibility(!!value)}
                 >
-                  {getDataTableColumnToggleLabel(column.id, column.columnDef.meta)}
+                  {getDataTableColumnToggleLabel(
+                    column.id,
+                    column.columnDef.meta,
+                  )}
                 </DropdownMenuCheckboxItem>
               ))}
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  )
+  );
 }

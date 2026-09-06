@@ -51,14 +51,11 @@ const TypingIndicator = React.forwardRef<HTMLDivElement, TypingIndicatorProps>(
         aria-atomic="true"
         aria-hidden={active ? undefined : true}
         className={cn(
-          "w-fit data-[active=false]:pointer-events-none data-[active=false]:translate-y-2 data-[active=false]:opacity-0 data-[active=false]:transition-[opacity,transform] data-[active=false]:duration-200 data-[active=false]:ease-in data-[active=true]:translate-y-0 data-[active=true]:opacity-100 data-[active=true]:transition-none motion-reduce:translate-y-0 motion-reduce:transition-none",
+          "w-fit transition-[opacity,translate] duration-200 data-[active=false]:pointer-events-none data-[active=false]:translate-y-2 data-[active=false]:opacity-0 data-[active=false]:ease-in data-[active=true]:translate-y-0 data-[active=true]:opacity-100 data-[active=true]:ease-out motion-reduce:translate-y-0 motion-reduce:transition-none",
           className,
         )}
       >
-        <div
-          data-active={active}
-          className="w-fit data-[active=true]:animate-in data-[active=true]:fade-in-0 data-[active=true]:slide-in-from-bottom-2 data-[active=true]:duration-200 data-[active=true]:ease-out motion-reduce:animate-none"
-        >
+        <div className="w-fit">
           {variant === "text" ? (
             <Marker className="w-fit text-2xs">
               {avatarNode ? (

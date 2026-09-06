@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import type { Row, Table } from "@tanstack/react-table"
-import { MoreHorizontal } from "lucide-react"
+import * as React from "react";
+import type { Row, Table } from "@tanstack/react-table";
+import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import {
   DropdownMenu,
@@ -11,10 +12,13 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"
-import { Button } from "@gecko/ui/components/button"
+} from "@gecko/ui/components/dropdown-menu";
+import { Button } from "@gecko/ui/components/button";
 
-import type { DataTableRowAction, DataTableRowActionContext } from "./data-table"
+import type {
+  DataTableRowAction,
+  DataTableRowActionContext,
+} from "./data-table";
 
 const RowActionsTrigger = React.forwardRef<
   HTMLButtonElement,
@@ -29,50 +33,61 @@ const RowActionsTrigger = React.forwardRef<
       aria-label="Open menu"
       {...props}
     >
-      <MoreHorizontal />
+      <HugeiconsIcon icon={EllipsisIcon} />
     </Button>
-  )
-})
-RowActionsTrigger.displayName = "RowActionsTrigger"
+  );
+});
+RowActionsTrigger.displayName = "RowActionsTrigger";
 
 type DataTableMeta<TData> = {
-  getRowActions?: (original: TData) => DataTableRowAction[]
-  onRowAction?: (actionId: string, context: DataTableRowActionContext<TData>) => void
-}
+  getRowActions?: (original: TData) => DataTableRowAction[];
+  onRowAction?: (
+    actionId: string,
+    context: DataTableRowActionContext<TData>,
+  ) => void;
+};
 
 function getMeta<TData>(table: Table<TData>): DataTableMeta<TData> {
-  return (table.options.meta ?? {}) as DataTableMeta<TData>
+  return (table.options.meta ?? {}) as DataTableMeta<TData>;
 }
 
 type DataTableRowActionsMenuProps<TData> = {
-  row: Row<TData>
-  table: Table<TData>
-}
+  row: Row<TData>;
+  table: Table<TData>;
+};
 
 export function DataTableRowActionsMenu<TData>({
   row,
   table,
 }: DataTableRowActionsMenuProps<TData>) {
-  const { getRowActions, onRowAction } = getMeta(table)
-  const actions = getRowActions?.(row.original) ?? []
+  const { getRowActions, onRowAction } = getMeta(table);
+  const actions = getRowActions?.(row.original) ?? [];
 
   if (actions.length === 0) {
-    return null
+    return null;
   }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        render={<RowActionsTrigger aria-label={`Open actions for row ${row.index + 1}`} />}
+        render={
+          <RowActionsTrigger
+            aria-label={`Open actions for row ${row.index + 1}`}
+          />
+        }
       />
       <DropdownMenuContent align="end" className="w-max min-w-max">
         <DropdownMenuGroup>
           {actions.map((action, index) => (
             <React.Fragment key={action.id}>
-              {action.separatorBefore && index > 0 ? <DropdownMenuSeparator /> : null}
+              {action.separatorBefore && index > 0 ? (
+                <DropdownMenuSeparator />
+              ) : null}
               <DropdownMenuItem
                 variant={action.variant ?? "default"}
-                onClick={() => onRowAction?.(action.id, { row, original: row.original })}
+                onClick={() =>
+                  onRowAction?.(action.id, { row, original: row.original })
+                }
               >
                 {action.label}
               </DropdownMenuItem>
@@ -81,5 +96,5 @@ export function DataTableRowActionsMenu<TData>({
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

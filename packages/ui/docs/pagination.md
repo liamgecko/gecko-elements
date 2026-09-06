@@ -59,6 +59,8 @@ Use real destinations for navigational pagination so links retain browser behavi
 
 PaginationPrevious and PaginationNext provide visible text on wider screens and descriptive accessible names at every width. Use `iconOnly` when the surrounding interface already communicates the page position or available space is limited.
 
+On press, each chevron moves slightly in its navigation direction. The movement follows the writing direction and is disabled when reduced motion is requested.
+
 Use the `text` property to change the visible Previous or Next text. When the wording or language changes, also supply the matching `aria-label` because the default accessible labels remain “Go to previous page” and “Go to next page”.
 
 Omit a previous or next link when that direction is unavailable. Never leave an unavailable link with a working `href`. For stateful client-side controls that must remain visible while unavailable, use a native Gecko Button with `disabled`, as Data table and Activity feed do.

@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Bell, ChevronRight } from "lucide-react";
+import Bell from "@hugeicons/core-free-icons/BellIcon";
+import ChevronRight from "@hugeicons/core-free-icons/ChevronRightIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
 import { Badge } from "@gecko/ui/components/badge";
 import { Code } from "@gecko/ui/components/code";
@@ -330,7 +332,7 @@ export function BadgePage() {
         >
           <ComponentExample>
             <div className="space-y-6">
-              <Badge leftIcon={<Bell />}>Icon left</Badge>
+              <Badge leftIcon={<HugeiconsIcon icon={Bell} />}>Icon left</Badge>
               <Code
                 variant="block"
                 language="tsx"
@@ -353,7 +355,9 @@ export function BadgePage() {
         >
           <ComponentExample>
             <div className="space-y-6">
-              <Badge rightIcon={<ChevronRight />}>Icon right</Badge>
+              <Badge rightIcon={<HugeiconsIcon icon={ChevronRight} />}>
+                Icon right
+              </Badge>
               <Code
                 variant="block"
                 language="tsx"
@@ -377,7 +381,10 @@ export function BadgePage() {
         >
           <ComponentExample>
             <div className="space-y-6">
-              <Badge leftIcon={<Bell />} rightIcon={<ChevronRight />}>
+              <Badge
+                leftIcon={<HugeiconsIcon icon={Bell} />}
+                rightIcon={<HugeiconsIcon icon={ChevronRight} />}
+              >
                 Both icons
               </Badge>
               <Code

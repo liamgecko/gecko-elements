@@ -1,12 +1,11 @@
 import * as React from "react";
-import {
-  Calculator,
-  Calendar,
-  CreditCard,
-  Settings,
-  Smile,
-  User,
-} from "lucide-react";
+import Calculator from "@hugeicons/core-free-icons/Calculator01Icon";
+import Calendar from "@hugeicons/core-free-icons/Calendar03Icon";
+import CreditCard from "@hugeicons/core-free-icons/CreditCardIcon";
+import Settings from "@hugeicons/core-free-icons/Settings01Icon";
+import Smile from "@hugeicons/core-free-icons/SmileIcon";
+import User from "@hugeicons/core-free-icons/User02Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import { Button } from "@gecko/ui/components/button";
 import { Code } from "@gecko/ui/components/code";
 import {
@@ -223,32 +222,32 @@ export function CommandPage() {
                 <CommandEmpty>No results found.</CommandEmpty>
                 <CommandGroup heading="Suggestions">
                   <CommandItem>
-                    <Calendar />
+                    <HugeiconsIcon icon={Calendar} />
                     <span>Calendar</span>
                   </CommandItem>
                   <CommandItem>
-                    <Smile />
+                    <HugeiconsIcon icon={Smile} />
                     <span>Search Emoji</span>
                   </CommandItem>
                   <CommandItem>
-                    <Calculator />
+                    <HugeiconsIcon icon={Calculator} />
                     <span>Calculator</span>
                   </CommandItem>
                 </CommandGroup>
                 <CommandSeparator />
                 <CommandGroup heading="Settings">
                   <CommandItem>
-                    <User />
+                    <HugeiconsIcon icon={User} />
                     <span>Profile</span>
                     <CommandShortcut>⌘P</CommandShortcut>
                   </CommandItem>
                   <CommandItem>
-                    <CreditCard />
+                    <HugeiconsIcon icon={CreditCard} />
                     <span>Billing</span>
                     <CommandShortcut>⌘B</CommandShortcut>
                   </CommandItem>
                   <CommandItem>
-                    <Settings />
+                    <HugeiconsIcon icon={Settings} />
                     <span>Settings</span>
                     <CommandShortcut>⌘S</CommandShortcut>
                   </CommandItem>
@@ -295,32 +294,32 @@ export function CommandPage() {
                     <CommandEmpty>No results found.</CommandEmpty>
                     <CommandGroup heading="Suggestions">
                       <CommandItem>
-                        <Calendar />
+                        <HugeiconsIcon icon={Calendar} />
                         <span>Calendar</span>
                       </CommandItem>
                       <CommandItem>
-                        <Smile />
+                        <HugeiconsIcon icon={Smile} />
                         <span>Search Emoji</span>
                       </CommandItem>
                       <CommandItem>
-                        <Calculator />
+                        <HugeiconsIcon icon={Calculator} />
                         <span>Calculator</span>
                       </CommandItem>
                     </CommandGroup>
                     <CommandSeparator />
                     <CommandGroup heading="Settings">
                       <CommandItem>
-                        <User />
+                        <HugeiconsIcon icon={User} />
                         <span>Profile</span>
                         <CommandShortcut>⌘P</CommandShortcut>
                       </CommandItem>
                       <CommandItem>
-                        <CreditCard />
+                        <HugeiconsIcon icon={CreditCard} />
                         <span>Billing</span>
                         <CommandShortcut>⌘B</CommandShortcut>
                       </CommandItem>
                       <CommandItem>
-                        <Settings />
+                        <HugeiconsIcon icon={Settings} />
                         <span>Settings</span>
                         <CommandShortcut>⌘S</CommandShortcut>
                       </CommandItem>

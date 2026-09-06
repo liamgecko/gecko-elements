@@ -46,7 +46,7 @@ Horizontal is the default. Use vertical only when the action set is intentionall
 
 ## Split action
 
-A split action keeps the primary action visible and places closely related alternatives in a Dropdown Menu opened by the adjoining trigger. ButtonGroupSeparator can distinguish adjacent borderless buttons. Outlined buttons already provide their own boundary and do not need a separator.
+A split action keeps the primary action visible and places closely related alternatives in a Dropdown Menu opened by the adjoining trigger. Set `dropdown` on the icon-only trigger Button so it uses the library-owned animated chevron. ButtonGroupSeparator can distinguish adjacent borderless buttons. Outlined buttons already provide their own boundary and do not need a separator.
 
 ## Inputs and selects
 

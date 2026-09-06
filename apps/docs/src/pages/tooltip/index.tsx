@@ -15,7 +15,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@gecko/ui/components/tooltip";
-import { BookmarkPlusIcon } from "lucide-react";
+import BookmarkPlusIcon from "@hugeicons/core-free-icons/BookmarkPlusIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 const sides = ["left", "top", "bottom", "right"] as const;
 
@@ -139,7 +140,7 @@ export function TooltipPage() {
                   />
                 }
               >
-                <BookmarkPlusIcon />
+                <HugeiconsIcon icon={BookmarkPlusIcon} />
               </TooltipTrigger>
               <TooltipContent>Add to library</TooltipContent>
             </Tooltip>

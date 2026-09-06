@@ -13,6 +13,8 @@ Use Select for a custom popup or richer option content. Use Combobox when people
 
 Native select follows Shadcn’s native component composition. It does not wrap a Base UI primitive, so Base UI Select properties do not apply.
 
+The chevron rotates while the native picker is open and respects reduced-motion preferences.
+
 ## Canonical field
 
 Compose Native select with Field and a visible FieldLabel in product forms:

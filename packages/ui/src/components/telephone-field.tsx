@@ -1,21 +1,24 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as RPNInput from "react-phone-number-input"
-import flags from "react-phone-number-input/flags"
-import { ChevronsUpDown, CheckIcon, Globe2Icon } from "lucide-react"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import * as RPNInput from "react-phone-number-input";
+import flags from "react-phone-number-input/flags";
+import ChevronsLeftRight from "@hugeicons/core-free-icons/ChevronsLeftRightIcon";
+import CheckIcon from "@hugeicons/core-free-icons/CheckIcon";
+import Globe2Icon from "@hugeicons/core-free-icons/Globe02Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@gecko/ui/lib/utils"
-import { Button } from "@gecko/ui/components/button"
+import { cn } from "@gecko/ui/lib/utils";
+import { Button } from "@gecko/ui/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuEmpty,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"
-import { Input } from "@gecko/ui/components/input"
+} from "@gecko/ui/components/dropdown-menu";
+import { Input } from "@gecko/ui/components/input";
 
 const sizeVariants = cva("", {
   variants: {
@@ -26,24 +29,24 @@ const sizeVariants = cva("", {
     },
   },
   defaultVariants: { size: "md" },
-})
+});
 
-type TelephoneFieldSize = VariantProps<typeof sizeVariants>["size"]
-type TelephoneFieldValue = RPNInput.Value | ""
+type TelephoneFieldSize = VariantProps<typeof sizeVariants>["size"];
+type TelephoneFieldValue = RPNInput.Value | "";
 
-const TelephoneFieldSizeContext = React.createContext<TelephoneFieldSize>("md")
-const TelephoneFieldInvalidContext = React.createContext<boolean>(false)
+const TelephoneFieldSizeContext = React.createContext<TelephoneFieldSize>("md");
+const TelephoneFieldInvalidContext = React.createContext<boolean>(false);
 
 type TelephoneFieldProps = Omit<
   React.ComponentProps<"input">,
   "onChange" | "value" | "ref" | "size"
 > &
   Omit<RPNInput.Props<typeof RPNInput.default>, "onChange"> & {
-    onChange?: (value: TelephoneFieldValue) => void
-    size?: TelephoneFieldSize
-  }
+    onChange?: (value: TelephoneFieldValue) => void;
+    size?: TelephoneFieldSize;
+  };
 
-type CountryEntry = { label: string; value: RPNInput.Country | undefined }
+type CountryEntry = { label: string; value: RPNInput.Country | undefined };
 
 const TelephoneField: React.ForwardRefExoticComponent<TelephoneFieldProps> =
   React.forwardRef<
@@ -80,11 +83,11 @@ const TelephoneField: React.ForwardRefExoticComponent<TelephoneFieldProps> =
             />
           </TelephoneFieldInvalidContext.Provider>
         </TelephoneFieldSizeContext.Provider>
-      )
+      );
     },
-  )
+  );
 
-TelephoneField.displayName = "TelephoneField"
+TelephoneField.displayName = "TelephoneField";
 
 const InputComponent = React.forwardRef<
   HTMLInputElement,
@@ -92,7 +95,7 @@ const InputComponent = React.forwardRef<
 >(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- omit size; RPNInput passes numeric size, Input expects sm/md/lg
   ({ className, size: _inputSize, ...props }, ref) => {
-    const size = React.useContext(TelephoneFieldSizeContext)
+    const size = React.useContext(TelephoneFieldSizeContext);
     return (
       <Input
         ref={ref}
@@ -100,27 +103,27 @@ const InputComponent = React.forwardRef<
         className={cn("rounded-e-sm rounded-s-none", className)}
         {...props}
       />
-    )
+    );
   },
-)
+);
 
-InputComponent.displayName = "TelephoneFieldInput"
+InputComponent.displayName = "TelephoneFieldInput";
 
 type CountrySelectProps = {
-  disabled?: boolean
-  readOnly?: boolean
-  value?: RPNInput.Country
-  options: CountryEntry[]
-  onChange: (country?: RPNInput.Country) => void
-  onFocus?: React.FocusEventHandler<HTMLButtonElement>
-  onBlur?: React.FocusEventHandler<HTMLButtonElement>
-  tabIndex?: number
-  className?: string
-  name?: string
-  "aria-label"?: string
-  "aria-labelledby"?: string
-  "aria-describedby"?: string
-}
+  disabled?: boolean;
+  readOnly?: boolean;
+  value?: RPNInput.Country;
+  options: CountryEntry[];
+  onChange: (country?: RPNInput.Country) => void;
+  onFocus?: React.FocusEventHandler<HTMLButtonElement>;
+  onBlur?: React.FocusEventHandler<HTMLButtonElement>;
+  tabIndex?: number;
+  className?: string;
+  name?: string;
+  "aria-label"?: string;
+  "aria-labelledby"?: string;
+  "aria-describedby"?: string;
+};
 
 const CountrySelect = ({
   disabled,
@@ -137,11 +140,11 @@ const CountrySelect = ({
   "aria-labelledby": ariaLabelledBy,
   "aria-describedby": ariaDescribedBy,
 }: CountrySelectProps) => {
-  const size = React.useContext(TelephoneFieldSizeContext)
-  const invalid = React.useContext(TelephoneFieldInvalidContext)
+  const size = React.useContext(TelephoneFieldSizeContext);
+  const invalid = React.useContext(TelephoneFieldInvalidContext);
   const selectedEntry = countryList.find(
     (entry) => entry.value === selectedCountry,
-  )
+  );
 
   return (
     <DropdownMenu searchable searchPlaceholder="Search country...">
@@ -170,7 +173,11 @@ const CountrySelect = ({
               country={selectedCountry}
               countryName={selectedEntry?.label ?? ""}
             />
-            <ChevronsUpDown className="-mr-1 size-3.5 opacity-50" aria-hidden />
+            <HugeiconsIcon
+              icon={ChevronsLeftRight}
+              className="-mr-1 size-3.5 rotate-90 opacity-50"
+              aria-hidden
+            />
           </Button>
         }
       />
@@ -192,7 +199,8 @@ const CountrySelect = ({
                 {`+${RPNInput.getCountryCallingCode(value)}`}
               </span>
             )}
-            <CheckIcon
+            <HugeiconsIcon
+              icon={CheckIcon}
               className={cn(
                 "ml-1 size-4 shrink-0 text-primary",
                 value === selectedCountry ? "opacity-100" : "opacity-0",
@@ -203,30 +211,31 @@ const CountrySelect = ({
         <DropdownMenuEmpty>No country found.</DropdownMenuEmpty>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
-}
+  );
+};
 
 const FlagComponent = ({
   country,
   countryName,
 }: {
-  country?: RPNInput.Country
-  countryName: string
+  country?: RPNInput.Country;
+  countryName: string;
 }) => {
-  const Flag = country ? flags[country] : undefined
+  const Flag = country ? flags[country] : undefined;
 
   return (
     <span className="flex h-4 w-6 overflow-hidden rounded-sm bg-foreground/20 [&_svg:not([class*='size-'])]:size-full">
       {Flag ? (
         <Flag title={countryName} />
       ) : (
-        <Globe2Icon
+        <HugeiconsIcon
+          icon={Globe2Icon}
           className="m-auto size-3.5 text-muted-foreground"
           aria-hidden
         />
       )}
     </span>
-  )
-}
+  );
+};
 
-export { TelephoneField }
+export { TelephoneField };

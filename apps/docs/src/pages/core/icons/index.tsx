@@ -1,10 +1,13 @@
 import { ComponentExample } from "@/components/layout/component-example";
+import { DocsExternalLink } from "@/components/layout/docs-external-link";
 import {
   ChildSection,
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Star, Trash2 } from "lucide-react";
+import Delete02Icon from "@hugeicons/core-free-icons/Delete02Icon";
+import StarIcon from "@hugeicons/core-free-icons/StarIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import { Code } from "@gecko/ui/components/code";
 
 export function IconsPage() {
@@ -46,22 +49,17 @@ export function IconsPage() {
         title={<>Icon library</>}
         description={
           <>
-            We use Lucide as our icon library.{" "}
-            <a
-              href="https://lucide.dev/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground underline hover:text-muted-foreground"
-            >
-              Lucide
-            </a>{" "}
+            We use Hugeicons as our icon library.{" "}
+            <DocsExternalLink href="https://hugeicons.com/">
+              Hugeicons
+            </DocsExternalLink>{" "}
             provides a consistent set of lightweight, open source SVG icons that
             integrate well with modern frontend tooling.
           </>
         }
       >
         <p className="mb-4 text-sm text-muted-foreground">
-          Because Lucide icons are SVG-based, they are:
+          Because Hugeicons are SVG-based, they are:
         </p>
         <ul className="list-disc list-inside text-sm text-muted-foreground pl-4">
           <li className="text-sm">Scalable without loss of quality</li>
@@ -98,22 +96,25 @@ export function IconsPage() {
         </p>
         <ComponentExample>
           <div className="flex flex-wrap gap-2 items-center">
-            <Trash2 className="size-4" />
-            <Trash2 className="size-6" />
-            <Trash2 className="size-8" />
-            <Trash2 className="size-10" />
-            <Trash2 className="size-12" />
-            <Trash2 className="size-14" />
-            <Trash2 className="size-16" />
-            <Trash2 className="size-18" />
-            <Trash2 className="size-20" />
+            <HugeiconsIcon icon={Delete02Icon} className="size-4" />
+            <HugeiconsIcon icon={Delete02Icon} className="size-6" />
+            <HugeiconsIcon icon={Delete02Icon} className="size-8" />
+            <HugeiconsIcon icon={Delete02Icon} className="size-10" />
+            <HugeiconsIcon icon={Delete02Icon} className="size-12" />
+            <HugeiconsIcon icon={Delete02Icon} className="size-14" />
+            <HugeiconsIcon icon={Delete02Icon} className="size-16" />
+            <HugeiconsIcon icon={Delete02Icon} className="size-18" />
+            <HugeiconsIcon icon={Delete02Icon} className="size-20" />
           </div>
           <Code
             variant="block"
             language="tsx"
             showCopyButton
             copyLabel="Copy code"
-            code={`<Trash2 className="size-*" />`}
+            code={`import Delete02Icon from "@hugeicons/core-free-icons/Delete02Icon"
+import { HugeiconsIcon } from "@gecko/ui/lib/icon"
+
+<HugeiconsIcon icon={Delete02Icon} className="size-*" />`}
             className="mt-8"
           />
         </ComponentExample>
@@ -131,24 +132,39 @@ export function IconsPage() {
         }
       >
         <p className="mb-4 text-sm text-muted-foreground">
-          By default, icons use a lighter stroke for better legibility and
-          alignment with our overall UI aesthetic. In cases where a darker
-          stroke is required, it can be overridden using the{" "}
-          <Code>strokeWidth=&#123;&#125;</Code> prop.
+          Gecko renders icons with a consistent 2px stroke by default. In cases
+          where a different optical weight is required, it can be overridden
+          using the <Code>strokeWidth=&#123;&#125;</Code> prop.
         </p>
         <ComponentExample>
           <div className="flex flex-wrap gap-2 items-center">
-            <Trash2 strokeWidth={1} className="size-8" />
-            <Trash2 strokeWidth={1.5} className="size-8" />
-            <Trash2 strokeWidth={2} className="size-8" />
-            <Trash2 strokeWidth={2.5} className="size-8" />
+            <HugeiconsIcon
+              icon={Delete02Icon}
+              strokeWidth={1}
+              className="size-8"
+            />
+            <HugeiconsIcon
+              icon={Delete02Icon}
+              strokeWidth={1.5}
+              className="size-8"
+            />
+            <HugeiconsIcon
+              icon={Delete02Icon}
+              strokeWidth={2}
+              className="size-8"
+            />
+            <HugeiconsIcon
+              icon={Delete02Icon}
+              strokeWidth={2.5}
+              className="size-8"
+            />
           </div>
           <Code
             variant="block"
             language="tsx"
             showCopyButton
             copyLabel="Copy code"
-            code={`<Trash2 strokeWidth={} />`}
+            code={`<HugeiconsIcon icon={Delete02Icon} strokeWidth={} />`}
             className="mt-8"
           />
         </ComponentExample>
@@ -173,17 +189,29 @@ export function IconsPage() {
         </p>
         <ComponentExample>
           <div className="flex flex-wrap gap-2 items-center">
-            <Trash2 className="size-8 text-blue-500" />
-            <Trash2 className="size-8 text-emerald-500" />
-            <Trash2 className="size-8 text-yellow-500" />
-            <Trash2 className="size-8 text-red-500" />
+            <HugeiconsIcon
+              icon={Delete02Icon}
+              className="size-8 text-blue-500"
+            />
+            <HugeiconsIcon
+              icon={Delete02Icon}
+              className="size-8 text-emerald-500"
+            />
+            <HugeiconsIcon
+              icon={Delete02Icon}
+              className="size-8 text-yellow-500"
+            />
+            <HugeiconsIcon
+              icon={Delete02Icon}
+              className="size-8 text-red-500"
+            />
           </div>
           <Code
             variant="block"
             language="tsx"
             showCopyButton
             copyLabel="Copy code"
-            code={`<Trash2 className="text-*" />`}
+            code={`<HugeiconsIcon icon={Delete02Icon} className="text-*" />`}
             className="mt-8"
           />
         </ComponentExample>
@@ -211,7 +239,7 @@ export function IconsPage() {
         title={<>Fill</>}
         description={
           <>
-            Lucide icons are stroke-based by default and are designed to be used
+            Hugeicons are stroke-based by default and are designed to be used
             without fill. This ensures a consistent, lightweight visual style
             across the interface.
           </>
@@ -224,17 +252,29 @@ export function IconsPage() {
         </p>
         <ComponentExample>
           <div className="flex flex-wrap gap-2 items-center">
-            <Star className="size-8 fill-blue-500 stroke-blue-500" />
-            <Star className="size-8 fill-emerald-500 stroke-emerald-500" />
-            <Star className="size-8 fill-yellow-500 stroke-yellow-500" />
-            <Star className="size-8 fill-red-500 stroke-red-500" />
+            <HugeiconsIcon
+              icon={StarIcon}
+              className="size-8 fill-blue-500 stroke-blue-500"
+            />
+            <HugeiconsIcon
+              icon={StarIcon}
+              className="size-8 fill-emerald-500 stroke-emerald-500"
+            />
+            <HugeiconsIcon
+              icon={StarIcon}
+              className="size-8 fill-yellow-500 stroke-yellow-500"
+            />
+            <HugeiconsIcon
+              icon={StarIcon}
+              className="size-8 fill-red-500 stroke-red-500"
+            />
           </div>
           <Code
             variant="block"
             language="tsx"
             showCopyButton
             copyLabel="Copy code"
-            code={`<Star className="fill-* stroke-*" />`}
+            code={`<HugeiconsIcon icon={StarIcon} className="fill-* stroke-*" />`}
             className="mt-8"
           />
         </ComponentExample>
@@ -261,11 +301,10 @@ export function IconsPage() {
         title={<>Accessibility</>}
         description={
           <>
-            Icons are decorative by default and ship with{" "}
+            Treat icons as decorative by default by passing{" "}
             <Code>aria-hidden="true"</Code>. In most cases, this is the correct
-            behaviour, as icons are typically used to support visual scanning or
-            reinforce meaning rather than communicate essential information on
-            their own.
+            behaviour because icons support visual scanning rather than
+            communicating essential information on their own.
           </>
         }
       >
@@ -273,17 +312,19 @@ export function IconsPage() {
           <p className="mb-4 text-sm text-muted-foreground">
             Icons should only be made accessible when they convey important
             meaning independently. In those cases, provide an accessible name
-            using either a <Code>title</Code> element or an{" "}
-            <Code>aria-label</Code> attribute. Doing this removes the default{" "}
-            <Code>aria-hidden</Code> behaviour and exposes the icon to assistive
-            technologies.
+            with <Code>role="img"</Code> and an <Code>aria-label</Code>. Do not
+            also pass <Code>aria-hidden</Code>.
           </p>
           <Code
             variant="block"
             language="tsx"
             showCopyButton
             copyLabel="Copy code"
-            code={`<House aria-label="This is my house" />`}
+            code={`<HugeiconsIcon
+  icon={Home04Icon}
+  role="img"
+  aria-label="Home"
+/>`}
             className="mb-8"
           />
         </ChildSection>
@@ -301,7 +342,7 @@ export function IconsPage() {
             showCopyButton
             copyLabel="Copy code"
             code={`<button aria-label="Open settings">
-  <Cog />
+  <HugeiconsIcon icon={Settings02Icon} aria-hidden="true" />
 </button>`}
             className="mb-4"
           />

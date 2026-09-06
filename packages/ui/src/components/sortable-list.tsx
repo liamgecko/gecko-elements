@@ -1,47 +1,48 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import type { Data, DragOperation, Draggable } from "@dnd-kit/abstract"
-import { Accessibility } from "@dnd-kit/dom"
-import type { SortableDraggable } from "@dnd-kit/dom/sortable"
-import { DragDropProvider } from "@dnd-kit/react"
-import { isSortable, useSortable } from "@dnd-kit/react/sortable"
-import { GripVertical } from "lucide-react"
+import * as React from "react";
+import type { Data, DragOperation, Draggable } from "@dnd-kit/abstract";
+import { Accessibility } from "@dnd-kit/dom";
+import type { SortableDraggable } from "@dnd-kit/dom/sortable";
+import { DragDropProvider } from "@dnd-kit/react";
+import { isSortable, useSortable } from "@dnd-kit/react/sortable";
+import GripVertical from "@hugeicons/core-free-icons/GripVerticalIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-import { Button } from "@gecko/ui/components/button"
-import { cn } from "@gecko/ui/lib/utils"
+import { Button } from "@gecko/ui/components/button";
+import { cn } from "@gecko/ui/lib/utils";
 
-const ROOT_GROUP = "__root__"
-const SECTION_SORTABLE_TYPE = "sortable-section"
-const ITEM_SORTABLE_TYPE = "sortable-item"
-const SECTION_GROUP_PREFIX = "sortable-section:"
-const SECTION_ID_PREFIX = "sortable-section-row:"
-const ITEM_ID_PREFIX = "sortable-item-row:"
+const ROOT_GROUP = "__root__";
+const SECTION_SORTABLE_TYPE = "sortable-section";
+const ITEM_SORTABLE_TYPE = "sortable-item";
+const SECTION_GROUP_PREFIX = "sortable-section:";
+const SECTION_ID_PREFIX = "sortable-section-row:";
+const ITEM_ID_PREFIX = "sortable-item-row:";
 
 function getSectionGroup(sectionId: string) {
-  return `${SECTION_GROUP_PREFIX}${sectionId}`
+  return `${SECTION_GROUP_PREFIX}${sectionId}`;
 }
 
 function getSectionIdFromGroup(group: string | number) {
-  const value = String(group)
+  const value = String(group);
   return value.startsWith(SECTION_GROUP_PREFIX)
     ? value.slice(SECTION_GROUP_PREFIX.length)
-    : null
+    : null;
 }
 
 function getSectionSortableId(sectionId: string) {
-  return `${SECTION_ID_PREFIX}${sectionId}`
+  return `${SECTION_ID_PREFIX}${sectionId}`;
 }
 
 function getItemSortableId(itemId: string) {
-  return `${ITEM_ID_PREFIX}${itemId}`
+  return `${ITEM_ID_PREFIX}${itemId}`;
 }
 
 function isItemFromGroup(source: Draggable, group: string) {
   return (
     source.type === ITEM_SORTABLE_TYPE &&
     (source as SortableDraggable<Data>).group === group
-  )
+  );
 }
 
 const sortableAccessibilityOptions: NonNullable<
@@ -49,76 +50,79 @@ const sortableAccessibilityOptions: NonNullable<
 > = {
   announcements: {
     dragstart({ operation: { source } }) {
-      if (!source) return
-      return `Picked up ${source.data.label ?? source.id}.`
+      if (!source) return;
+      return `Picked up ${source.data.label ?? source.id}.`;
     },
     dragover({ operation: { source, target } }) {
-      if (!source || !target || source.id === target.id) return
-      return `Moved ${source.data.label ?? source.id} over ${target.data.label ?? target.id}.`
+      if (!source || !target || source.id === target.id) return;
+      return `Moved ${source.data.label ?? source.id} over ${target.data.label ?? target.id}.`;
     },
     dragend({ operation: { source, target }, canceled }) {
-      if (!source) return
-      const label = source.data.label ?? source.id
-      if (canceled) return `Cancelled moving ${label}.`
+      if (!source) return;
+      const label = source.data.label ?? source.id;
+      if (canceled) return `Cancelled moving ${label}.`;
       return target
         ? `Dropped ${label} in its new position.`
-        : `Dropped ${label}.`
+        : `Dropped ${label}.`;
     },
   },
-}
+};
 
 const sortableAccessibility = Accessibility.configure(
-  sortableAccessibilityOptions
-)
+  sortableAccessibilityOptions,
+);
 
 /** One section in a {@link SortableList} with `variant="nested"`. Item `id`s must be unique across all sections. */
 export type SortableNestedSection = {
-  id: string
-  title: string
-  items: SortableNestedItem[]
-}
+  id: string;
+  title: string;
+  items: SortableNestedItem[];
+};
 
 export type SortableNestedItem = {
-  id: string
-  label: string
-}
+  id: string;
+  label: string;
+};
 
 export type SortableNestedRowContext =
   | { kind: "section"; sectionId: string; index: number }
-  | { kind: "item"; sectionId: string; itemId: string; index: number }
+  | { kind: "item"; sectionId: string; itemId: string; index: number };
 
 type SortableListBaseProps = Omit<
   React.HTMLAttributes<HTMLDivElement>,
   "children"
->
+>;
 
 type SortableListFlatProps = SortableListBaseProps & {
-  variant?: "flat"
+  variant?: "flat";
   /** Stable unique id per row. */
-  items: string[]
-  onItemsChange: (items: string[]) => void
-  getLabel?: (id: string, index: number) => React.ReactNode
+  items: string[];
+  onItemsChange: (items: string[]) => void;
+  getLabel?: (id: string, index: number) => React.ReactNode;
   /** Supplies the human-readable item name used by the drag handle. Defaults to the item id. */
-  getItemLabel?: (id: string, index: number) => string
+  getItemLabel?: (id: string, index: number) => string;
   /** Renders product-owned controls at the end of a row. */
-  renderRowActions?: (context: { id: string; index: number }) => React.ReactNode
-}
+  renderRowActions?: (context: {
+    id: string;
+    index: number;
+  }) => React.ReactNode;
+};
 
 type SortableListNestedProps = SortableListBaseProps & {
-  variant: "nested"
+  variant: "nested";
   /** Ordered sections; section order follows array order. */
-  sections: SortableNestedSection[]
-  onSectionsChange: (sections: SortableNestedSection[]) => void
+  sections: SortableNestedSection[];
+  onSectionsChange: (sections: SortableNestedSection[]) => void;
   /**
    * Allows child items to move between sections.
    * @default true
    */
-  allowCrossSectionMove?: boolean
+  allowCrossSectionMove?: boolean;
   /** Renders product-owned controls at the end of a section or item row. */
-  renderRowActions?: (context: SortableNestedRowContext) => React.ReactNode
-}
+  renderRowActions?: (context: SortableNestedRowContext) => React.ReactNode;
+};
 
-export type SortableListProps = SortableListFlatProps | SortableListNestedProps
+export type SortableListProps = SortableListFlatProps | SortableListNestedProps;
 
 function SortableFlatRow({
   id,
@@ -127,25 +131,25 @@ function SortableFlatRow({
   itemLabel,
   renderRowActions,
 }: {
-  id: string
-  index: number
-  children: React.ReactNode
-  itemLabel: string
-  renderRowActions?: SortableListFlatProps["renderRowActions"]
+  id: string;
+  index: number;
+  children: React.ReactNode;
+  itemLabel: string;
+  renderRowActions?: SortableListFlatProps["renderRowActions"];
 }) {
   const { ref, handleRef, isDragging } = useSortable({
     id: getItemSortableId(id),
     index,
     data: { itemId: id, label: itemLabel },
-  })
-  const rowActions = renderRowActions?.({ id, index })
+  });
+  const rowActions = renderRowActions?.({ id, index });
 
   return (
     <li
       ref={ref}
       className={cn(
         "flex items-center gap-2 rounded-md border border-border bg-card px-2 py-2 text-sm",
-        isDragging && "shadow-md"
+        isDragging && "shadow-md",
       )}
     >
       <Button
@@ -156,12 +160,16 @@ function SortableFlatRow({
         className="cursor-grab touch-none active:cursor-grabbing"
         aria-label={`Reorder ${itemLabel}`}
       >
-        <GripVertical className="size-4 shrink-0" aria-hidden />
+        <HugeiconsIcon
+          icon={GripVertical}
+          className="size-4 shrink-0"
+          aria-hidden
+        />
       </Button>
       <div className="min-w-0 flex-1">{children}</div>
       {rowActions ? <div className="shrink-0">{rowActions}</div> : null}
     </li>
-  )
+  );
 }
 
 function SortableNestedSectionRow({
@@ -170,10 +178,10 @@ function SortableNestedSectionRow({
   children,
   renderRowActions,
 }: {
-  section: SortableNestedSection
-  index: number
-  children: React.ReactNode
-  renderRowActions?: SortableListNestedProps["renderRowActions"]
+  section: SortableNestedSection;
+  index: number;
+  children: React.ReactNode;
+  renderRowActions?: SortableListNestedProps["renderRowActions"];
 }) {
   const { ref, handleRef, isDragging } = useSortable({
     id: getSectionSortableId(section.id),
@@ -182,19 +190,19 @@ function SortableNestedSectionRow({
     type: SECTION_SORTABLE_TYPE,
     accept: SECTION_SORTABLE_TYPE,
     data: { kind: "section", sectionId: section.id, label: section.title },
-  })
+  });
   const rowActions = renderRowActions?.({
     kind: "section",
     sectionId: section.id,
     index,
-  })
+  });
 
   return (
     <li
       ref={ref}
       className={cn(
         "list-none rounded-md border border-border bg-gray-50 p-3",
-        isDragging && "shadow-md"
+        isDragging && "shadow-md",
       )}
     >
       <div className="flex items-center gap-2">
@@ -206,7 +214,11 @@ function SortableNestedSectionRow({
           className="cursor-grab touch-none active:cursor-grabbing"
           aria-label={`Reorder section ${section.title}`}
         >
-          <GripVertical className="size-4 shrink-0" aria-hidden />
+          <HugeiconsIcon
+            icon={GripVertical}
+            className="size-4 shrink-0"
+            aria-hidden
+          />
         </Button>
         <span className="min-w-0 flex-1 text-sm font-medium text-foreground">
           {section.title}
@@ -215,7 +227,7 @@ function SortableNestedSectionRow({
       </div>
       {children}
     </li>
-  )
+  );
 }
 
 function SortableNestedItemRow({
@@ -226,14 +238,14 @@ function SortableNestedItemRow({
   allowCrossSectionMove,
   renderRowActions,
 }: {
-  itemId: string
-  label: string
-  sectionId: string
-  index: number
-  allowCrossSectionMove: boolean
-  renderRowActions?: SortableListNestedProps["renderRowActions"]
+  itemId: string;
+  label: string;
+  sectionId: string;
+  index: number;
+  allowCrossSectionMove: boolean;
+  renderRowActions?: SortableListNestedProps["renderRowActions"];
 }) {
-  const sectionGroup = getSectionGroup(sectionId)
+  const sectionGroup = getSectionGroup(sectionId);
   const { ref, handleRef, isDragging } = useSortable({
     id: getItemSortableId(itemId),
     index,
@@ -243,20 +255,20 @@ function SortableNestedItemRow({
       ? ITEM_SORTABLE_TYPE
       : (source) => isItemFromGroup(source, sectionGroup),
     data: { kind: "item", sectionId, itemId, label },
-  })
+  });
   const rowActions = renderRowActions?.({
     kind: "item",
     sectionId,
     itemId,
     index,
-  })
+  });
 
   return (
     <li
       ref={ref}
       className={cn(
         "flex list-none items-center gap-2 rounded-md border border-border bg-card px-2 py-2 text-sm",
-        isDragging && "shadow-md"
+        isDragging && "shadow-md",
       )}
     >
       <Button
@@ -267,12 +279,16 @@ function SortableNestedItemRow({
         className="cursor-grab touch-none active:cursor-grabbing"
         aria-label={`Reorder ${label}`}
       >
-        <GripVertical className="size-4 shrink-0" aria-hidden />
+        <HugeiconsIcon
+          icon={GripVertical}
+          className="size-4 shrink-0"
+          aria-hidden
+        />
       </Button>
       <span className="min-w-0 flex-1">{label}</span>
       {rowActions ? <div className="shrink-0">{rowActions}</div> : null}
     </li>
-  )
+  );
 }
 
 function SortableNestedItems({
@@ -280,15 +296,12 @@ function SortableNestedItems({
   allowCrossSectionMove,
   renderRowActions,
 }: {
-  section: SortableNestedSection
-  allowCrossSectionMove: boolean
-  renderRowActions?: SortableListNestedProps["renderRowActions"]
+  section: SortableNestedSection;
+  allowCrossSectionMove: boolean;
+  renderRowActions?: SortableListNestedProps["renderRowActions"];
 }) {
   return (
-    <ul
-      className="m-0 mt-2 flex list-none flex-col gap-2 pt-1"
-      role="list"
-    >
+    <ul className="m-0 mt-2 flex list-none flex-col gap-2 pt-1" role="list">
       {section.items.map((item, itemIndex) => (
         <SortableNestedItemRow
           key={item.id}
@@ -301,7 +314,7 @@ function SortableNestedItems({
         />
       ))}
     </ul>
-  )
+  );
 }
 
 function SortableFlatList({
@@ -318,31 +331,31 @@ function SortableFlatList({
       <DragDropProvider
         plugins={(defaults) =>
           defaults.map((plugin) =>
-            plugin === Accessibility ? sortableAccessibility : plugin
+            plugin === Accessibility ? sortableAccessibility : plugin,
           )
         }
         onDragEnd={(event) => {
-          if (event.canceled) return
+          if (event.canceled) return;
 
-          const { source } = event.operation
+          const { source } = event.operation;
           if (
             !source ||
             !isSortable(source as never) ||
             !("initialIndex" in source)
           ) {
-            return
+            return;
           }
 
-          const { initialIndex, index } = source as SortableDraggable<Data>
-          const itemId = source.data.itemId
+          const { initialIndex, index } = source as SortableDraggable<Data>;
+          const itemId = source.data.itemId;
           const sourceIndex =
-            typeof itemId === "string" ? items.indexOf(itemId) : initialIndex
-          if (sourceIndex === -1 || sourceIndex === index) return
+            typeof itemId === "string" ? items.indexOf(itemId) : initialIndex;
+          if (sourceIndex === -1 || sourceIndex === index) return;
 
-          const next = [...items]
-          const [removed] = next.splice(sourceIndex, 1)
-          next.splice(index, 0, removed)
-          onItemsChange(next)
+          const next = [...items];
+          const [removed] = next.splice(sourceIndex, 1);
+          next.splice(index, 0, removed);
+          onItemsChange(next);
         }}
       >
         <ul className="m-0 list-none flex flex-col gap-2 p-0" role="list">
@@ -360,7 +373,7 @@ function SortableFlatList({
         </ul>
       </DragDropProvider>
     </div>
-  )
+  );
 }
 
 function SortableNestedList(props: SortableListNestedProps) {
@@ -372,114 +385,114 @@ function SortableNestedList(props: SortableListNestedProps) {
     renderRowActions,
     className,
     ...rest
-  } = props
-  void variant
+  } = props;
+  void variant;
 
-  const snapshot = React.useRef(structuredClone(sections))
-  const sectionsRef = React.useRef(sections)
+  const snapshot = React.useRef(structuredClone(sections));
+  const sectionsRef = React.useRef(sections);
   React.useEffect(() => {
-    sectionsRef.current = sections
-  }, [sections])
+    sectionsRef.current = sections;
+  }, [sections]);
 
   const handleDragStart = React.useCallback(() => {
-    snapshot.current = structuredClone(sectionsRef.current)
-  }, [])
+    snapshot.current = structuredClone(sectionsRef.current);
+  }, []);
 
   const handleDragEnd = React.useCallback(
     (event: { canceled: boolean; operation: DragOperation }) => {
       if (event.canceled) {
-        onSectionsChange(snapshot.current)
-        return
+        onSectionsChange(snapshot.current);
+        return;
       }
 
       const { source } = event.operation as DragOperation & {
-        source: Draggable | null
-      }
+        source: Draggable | null;
+      };
       if (
         !source ||
         !isSortable(source as never) ||
         !("initialIndex" in source)
       ) {
-        return
+        return;
       }
 
       const { initialIndex, index, initialGroup, group } =
-        source as SortableDraggable<Data>
-      if (initialGroup == null || group == null) return
+        source as SortableDraggable<Data>;
+      if (initialGroup == null || group == null) return;
 
-      const prev = sectionsRef.current
+      const prev = sectionsRef.current;
 
       if (initialGroup === ROOT_GROUP && group === ROOT_GROUP) {
-        const sectionId = source.data.sectionId
+        const sectionId = source.data.sectionId;
         const sourceIndex =
           typeof sectionId === "string"
             ? prev.findIndex((section) => section.id === sectionId)
-            : initialIndex
-        if (sourceIndex === -1 || sourceIndex === index) return
+            : initialIndex;
+        if (sourceIndex === -1 || sourceIndex === index) return;
 
-        const next = [...prev]
-        const [removed] = next.splice(sourceIndex, 1)
-        next.splice(index, 0, removed)
-        onSectionsChange(next)
-        return
+        const next = [...prev];
+        const [removed] = next.splice(sourceIndex, 1);
+        next.splice(index, 0, removed);
+        onSectionsChange(next);
+        return;
       }
 
-      const initialSectionId = getSectionIdFromGroup(initialGroup)
-      if (!initialSectionId) return
+      const initialSectionId = getSectionIdFromGroup(initialGroup);
+      if (!initialSectionId) return;
 
-      const target = event.operation.target
+      const target = event.operation.target;
       const targetSectionId =
         typeof target?.data?.sectionId === "string"
           ? target.data.sectionId
-          : getSectionIdFromGroup(group)
-      if (!targetSectionId) return
-      if (!allowCrossSectionMove && initialSectionId !== targetSectionId) return
+          : getSectionIdFromGroup(group);
+      if (!targetSectionId) return;
+      if (!allowCrossSectionMove && initialSectionId !== targetSectionId)
+        return;
 
       const sourceSectionIndex = prev.findIndex(
-        (section) => section.id === initialSectionId
-      )
+        (section) => section.id === initialSectionId,
+      );
       const targetSectionIndex = prev.findIndex(
-        (section) => section.id === targetSectionId
-      )
-      if (sourceSectionIndex === -1 || targetSectionIndex === -1) return
+        (section) => section.id === targetSectionId,
+      );
+      if (sourceSectionIndex === -1 || targetSectionIndex === -1) return;
 
-      const itemId = source.data.itemId
+      const itemId = source.data.itemId;
       const sourceItemIndex =
         typeof itemId === "string"
           ? prev[sourceSectionIndex].items.findIndex(
-              (item) => item.id === itemId
+              (item) => item.id === itemId,
             )
-          : initialIndex
-      if (sourceItemIndex === -1) return
+          : initialIndex;
+      if (sourceItemIndex === -1) return;
 
-      const targetIndex =
-        index
+      const targetIndex = index;
 
       if (
         sourceSectionIndex === targetSectionIndex &&
         sourceItemIndex === targetIndex
       ) {
-        return
+        return;
       }
 
-      const next = structuredClone(prev)
+      const next = structuredClone(prev);
       const [removed] = next[sourceSectionIndex].items.splice(
         sourceItemIndex,
-        1
-      )
-      if (!removed) return
-      next[targetSectionIndex].items.splice(targetIndex, 0, removed)
-      onSectionsChange(next)
+        1,
+      );
+      if (!removed) return;
+      next[targetSectionIndex].items.splice(targetIndex, 0, removed);
+      onSectionsChange(next);
     },
-    [allowCrossSectionMove, onSectionsChange]
-  )
+    [allowCrossSectionMove, onSectionsChange],
+  );
 
   return (
     <div data-slot="sortable-list" className={cn(className)} {...rest}>
       <DragDropProvider
         plugins={(defaults) =>
           defaults.map((plugin) =>
-            plugin === Accessibility ? sortableAccessibility : plugin
+            plugin === Accessibility ? sortableAccessibility : plugin,
           )
         }
         onDragEnd={handleDragEnd}
@@ -503,7 +516,7 @@ function SortableNestedList(props: SortableListNestedProps) {
         </ul>
       </DragDropProvider>
     </div>
-  )
+  );
 }
 
 /**
@@ -514,7 +527,7 @@ function SortableNestedList(props: SortableListNestedProps) {
  */
 export function SortableList(props: SortableListProps) {
   if (props.variant === "nested") {
-    return <SortableNestedList {...props} />
+    return <SortableNestedList {...props} />;
   }
-  return <SortableFlatList {...props} />
+  return <SortableFlatList {...props} />;
 }

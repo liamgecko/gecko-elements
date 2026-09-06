@@ -2,7 +2,9 @@
 
 import * as React from "react";
 import { NumberField as NumberFieldPrimitive } from "@base-ui/react/number-field";
-import { Minus, Plus } from "lucide-react";
+import Minus from "@hugeicons/core-free-icons/MinusIcon";
+import Plus from "@hugeicons/core-free-icons/PlusIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { cn } from "@gecko/ui/lib/utils";
 
@@ -86,7 +88,7 @@ export function NumberField({
             "disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-muted disabled:hover:bg-muted",
           )}
         >
-          <Minus className="size-3.5" aria-hidden="true" />
+          <HugeiconsIcon icon={Minus} className="size-3.5" aria-hidden="true" />
         </NumberFieldPrimitive.Decrement>
 
         <NumberFieldPrimitive.Input
@@ -112,7 +114,7 @@ export function NumberField({
             "disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-muted disabled:hover:bg-muted",
           )}
         >
-          <Plus className="size-3.5" aria-hidden="true" />
+          <HugeiconsIcon icon={Plus} className="size-3.5" aria-hidden="true" />
         </NumberFieldPrimitive.Increment>
       </NumberFieldPrimitive.Group>
     </NumberFieldPrimitive.Root>

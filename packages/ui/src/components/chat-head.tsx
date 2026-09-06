@@ -1,5 +1,8 @@
 import * as React from "react";
-import { Check, LockOpen, Trash2 } from "lucide-react";
+import Check from "@hugeicons/core-free-icons/CheckIcon";
+import LockOpen from "@hugeicons/core-free-icons/LockOpenIcon";
+import Trash2 from "@hugeicons/core-free-icons/Delete02Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
 import { Button } from "@gecko/ui/components/button";
@@ -61,7 +64,7 @@ function ChatHeadActions({ state }: { state: ChatHeadState }) {
             <TooltipTrigger
               render={
                 <Button type="button" variant="outline" size="icon-xs">
-                  <LockOpen aria-hidden="true" />
+                  <HugeiconsIcon icon={LockOpen} aria-hidden="true" />
                   <span className="sr-only">Re-open conversation</span>
                 </Button>
               }
@@ -73,8 +76,12 @@ function ChatHeadActions({ state }: { state: ChatHeadState }) {
           <Tooltip>
             <TooltipTrigger
               render={
-                <Button type="button" variant="outline" size="icon-xs">
-                  <Trash2 aria-hidden="true" />
+                <Button
+                  type="button"
+                  variant="outline-destructive"
+                  size="icon-xs"
+                >
+                  <HugeiconsIcon icon={Trash2} aria-hidden="true" />
                   <span className="sr-only">Delete conversation</span>
                 </Button>
               }
@@ -89,7 +96,7 @@ function ChatHeadActions({ state }: { state: ChatHeadState }) {
           <TooltipTrigger
             render={
               <Button type="button" variant="outline" size="icon-xs">
-                <Check aria-hidden="true" />
+                <HugeiconsIcon icon={Check} aria-hidden="true" />
                 <span className="sr-only">Close conversation</span>
               </Button>
             }

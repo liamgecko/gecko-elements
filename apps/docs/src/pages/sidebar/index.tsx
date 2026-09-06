@@ -31,16 +31,15 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@gecko/ui/components/sidebar";
-import {
-  BookOpen,
-  Box,
-  Home,
-  Layers,
-  LifeBuoy,
-  Package,
-  Settings,
-  Wrench,
-} from "lucide-react";
+import BookOpen from "@hugeicons/core-free-icons/BookOpen01Icon";
+import Box from "@hugeicons/core-free-icons/Blockchain01Icon";
+import Home from "@hugeicons/core-free-icons/Home04Icon";
+import Layers from "@hugeicons/core-free-icons/LayerIcon";
+import LifeBuoy from "@hugeicons/core-free-icons/LifebuoyIcon";
+import Package from "@hugeicons/core-free-icons/PackageIcon";
+import Settings from "@hugeicons/core-free-icons/Settings01Icon";
+import Wrench from "@hugeicons/core-free-icons/Wrench01Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 const exampleShellClassName = "h-[420px] overflow-hidden p-0";
 
@@ -82,13 +81,13 @@ function BasicSidebarDemo() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton render={<a href="#home" />} isActive>
-                <Home />
+                <HugeiconsIcon icon={Home} />
                 <span>Home</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton render={<a href="#settings" />}>
-                <Settings />
+                <HugeiconsIcon icon={Settings} />
                 <span>Settings</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -107,14 +106,14 @@ function CollapsedByDefaultDemo() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton render={<a href="#home" />} isActive>
-                <Home />
+                <HugeiconsIcon icon={Home} />
                 <span>Home</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
 
             <SidebarMenuItem>
               <SidebarMenuButton>
-                <Package />
+                <HugeiconsIcon icon={Package} />
                 <span>Products</span>
               </SidebarMenuButton>
               <SidebarMenuSub>
@@ -138,7 +137,7 @@ function CollapsedByDefaultDemo() {
 
             <SidebarMenuItem>
               <SidebarMenuButton render={<a href="#settings" />}>
-                <Settings />
+                <HugeiconsIcon icon={Settings} />
                 <span>Settings</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -158,13 +157,13 @@ function SidebarGroupDemo() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton render={<a href="#overview" />}>
-                <Layers />
+                <HugeiconsIcon icon={Layers} />
                 <span>Overview</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton render={<a href="#design" />}>
-                <Box />
+                <HugeiconsIcon icon={Box} />
                 <span>Design</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -177,13 +176,13 @@ function SidebarGroupDemo() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton render={<a href="#documentation" />}>
-                <BookOpen />
+                <HugeiconsIcon icon={BookOpen} />
                 <span>Documentation</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton render={<a href="#toolbox" />}>
-                <Wrench />
+                <HugeiconsIcon icon={Wrench} />
                 <span>Toolbox</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -202,13 +201,13 @@ function SidebarSubMenuDemo() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton render={<a href="#home" />}>
-                <Home />
+                <HugeiconsIcon icon={Home} />
                 <span>Home</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton>
-                <Package />
+                <HugeiconsIcon icon={Package} />
                 <span>Products</span>
               </SidebarMenuButton>
               <SidebarMenuSub>
@@ -231,7 +230,7 @@ function SidebarSubMenuDemo() {
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton>
-                <Settings />
+                <HugeiconsIcon icon={Settings} />
                 <span>Settings</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -250,7 +249,7 @@ function SidebarCollapsibleSubMenuDemo() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton>
-                <Home />
+                <HugeiconsIcon icon={Home} />
                 <span>Home</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -259,7 +258,7 @@ function SidebarCollapsibleSubMenuDemo() {
                 <CollapsibleTrigger
                   render={
                     <SidebarMenuButton className="group w-full">
-                      <Package />
+                      <HugeiconsIcon icon={Package} />
                       <span>Products</span>
                     </SidebarMenuButton>
                   }
@@ -290,7 +289,7 @@ function SidebarCollapsibleSubMenuDemo() {
                 <CollapsibleTrigger
                   render={
                     <SidebarMenuButton className="group w-full">
-                      <LifeBuoy />
+                      <HugeiconsIcon icon={LifeBuoy} />
                       <span>Support</span>
                     </SidebarMenuButton>
                   }

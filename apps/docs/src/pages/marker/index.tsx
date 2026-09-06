@@ -1,4 +1,8 @@
-import { BookOpenCheck, GitBranch, RotateCcw, Search } from "lucide-react";
+import BookOpenCheck from "@hugeicons/core-free-icons/BookOpenCheckIcon";
+import GitBranch from "@hugeicons/core-free-icons/GitBranchIcon";
+import RotateCcw from "@hugeicons/core-free-icons/RotateCcwIcon";
+import Search from "@hugeicons/core-free-icons/Search01Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -343,19 +347,19 @@ export function MarkerPage() {
             <div className="flex w-full max-w-md flex-col gap-3">
               <Marker>
                 <MarkerIcon>
-                  <GitBranch />
+                  <HugeiconsIcon icon={GitBranch} />
                 </MarkerIcon>
                 <MarkerContent>Switched to a new branch</MarkerContent>
               </Marker>
               <Marker>
                 <MarkerIcon>
-                  <Search />
+                  <HugeiconsIcon icon={Search} />
                 </MarkerIcon>
                 <MarkerContent>Explored 4 files</MarkerContent>
               </Marker>
               <Marker>
                 <MarkerIcon>
-                  <BookOpenCheck />
+                  <HugeiconsIcon icon={BookOpenCheck} />
                 </MarkerIcon>
                 <MarkerContent>Syncing completed</MarkerContent>
               </Marker>
@@ -387,13 +391,13 @@ export function MarkerPage() {
             <div className="flex w-full max-w-md flex-col gap-3">
               <Marker render={<a href="#" />}>
                 <MarkerIcon>
-                  <GitBranch />
+                  <HugeiconsIcon icon={GitBranch} />
                 </MarkerIcon>
                 <MarkerContent>View the pull request</MarkerContent>
               </Marker>
               <Marker render={<button type="button" />}>
                 <MarkerIcon>
-                  <RotateCcw />
+                  <HugeiconsIcon icon={RotateCcw} />
                 </MarkerIcon>
                 <MarkerContent>Revert this change</MarkerContent>
               </Marker>

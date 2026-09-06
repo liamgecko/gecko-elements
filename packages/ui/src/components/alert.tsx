@@ -1,9 +1,14 @@
-import * as React from "react"
-import { AlertTriangle, CheckCircle, Info, X, XCircle } from "lucide-react"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import AlertTriangle from "@hugeicons/core-free-icons/TriangleAlertIcon";
+import CheckCircle from "@hugeicons/core-free-icons/CircleCheckIcon";
+import Info from "@hugeicons/core-free-icons/InfoIcon";
+import X from "@hugeicons/core-free-icons/XIcon";
+import XCircle from "@hugeicons/core-free-icons/CircleXIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@gecko/ui/lib/utils"
-import { Button } from "@gecko/ui/components/button"
+import { cn } from "@gecko/ui/lib/utils";
+import { Button } from "@gecko/ui/components/button";
 
 const alertVariants = cva(
   "grid gap-0.5 rounded-lg border px-4 py-3 text-start text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pe-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4 w-full relative group/alert",
@@ -24,60 +29,60 @@ const alertVariants = cva(
       variant: "default",
     },
   },
-)
-
-type AlertVariant = NonNullable<VariantProps<typeof alertVariants>["variant"]>
-
-const dismissButtonClassNameByVariant: Partial<Record<AlertVariant, string>> = {
-  destructive:
-    "hover:bg-red-900/5 hover:text-destructive focus-visible:bg-destructive-muted focus-visible:text-destructive focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:hover:bg-rose-50/10 dark:hover:text-rose-300 dark:focus-visible:bg-rose-50/10 dark:focus-visible:border-rose-50/50 dark:focus-visible:ring-rose-50/30 dark:focus-visible:text-rose-300",
-  info: "hover:bg-blue-900/5 hover:text-info focus-visible:bg-info-muted focus-visible:text-info focus-visible:border-info/40 focus-visible:ring-info/20 dark:hover:bg-blue-50/10 dark:hover:text-blue-300 dark:focus-visible:bg-blue-900/10 dark:focus-visible:border-blue-50/50 dark:focus-visible:ring-blue-50/30 dark:focus-visible:text-blue-300",
-  success:
-    "hover:bg-emerald-900/5 hover:text-success focus-visible:bg-success-muted focus-visible:text-success focus-visible:border-success/40 focus-visible:ring-success/20 dark:hover:bg-teal-50/10 dark:hover:text-teal-300 dark:focus-visible:bg-teal-900/10 dark:focus-visible:border-teal-50/50 dark:focus-visible:ring-teal-50/30 dark:focus-visible:text-teal-300",
-  warning:
-    "hover:bg-yellow-900/5 hover:text-warning focus-visible:bg-warning-muted focus-visible:text-warning focus-visible:border-warning/40 focus-visible:ring-warning/20 dark:hover:bg-yellow-50/10 dark:hover:text-yellow-300 dark:focus-visible:bg-yellow-900/10 dark:focus-visible:border-yellow-50/50 dark:focus-visible:ring-yellow-50/30 dark:focus-visible:text-yellow-300",
-}
+);
 
 const defaultIcons: Record<
   NonNullable<VariantProps<typeof alertVariants>["variant"]>,
   React.ReactNode
 > = {
-  default: <Info aria-hidden className="size-4 shrink-0" />,
-  destructive: <XCircle aria-hidden className="size-4 shrink-0" />,
-  info: <Info aria-hidden className="size-4 shrink-0" />,
-  success: <CheckCircle aria-hidden className="size-4 shrink-0" />,
-  warning: <AlertTriangle aria-hidden className="size-4 shrink-0" />,
-}
+  default: (
+    <HugeiconsIcon icon={Info} aria-hidden className="size-4 shrink-0" />
+  ),
+  destructive: (
+    <HugeiconsIcon icon={XCircle} aria-hidden className="size-4 shrink-0" />
+  ),
+  info: <HugeiconsIcon icon={Info} aria-hidden className="size-4 shrink-0" />,
+  success: (
+    <HugeiconsIcon icon={CheckCircle} aria-hidden className="size-4 shrink-0" />
+  ),
+  warning: (
+    <HugeiconsIcon
+      icon={AlertTriangle}
+      aria-hidden
+      className="size-4 shrink-0"
+    />
+  ),
+};
 
 function normalizeAlertIcon(icon: React.ReactNode) {
-  if (!React.isValidElement(icon)) return icon
+  if (!React.isValidElement(icon)) return icon;
 
   const el = icon as React.ReactElement<{
-    className?: string
-    "aria-hidden"?: boolean
-  }>
+    className?: string;
+    "aria-hidden"?: boolean;
+  }>;
 
   const existingClassName =
-    typeof el.props.className === "string" ? el.props.className : undefined
-  const hasSizeClass = Boolean(existingClassName?.includes("size-"))
+    typeof el.props.className === "string" ? el.props.className : undefined;
+  const hasSizeClass = Boolean(existingClassName?.includes("size-"));
   const ariaHidden =
     typeof el.props["aria-hidden"] === "boolean"
       ? el.props["aria-hidden"]
-      : true
+      : true;
 
   return React.cloneElement(el, {
     "aria-hidden": ariaHidden,
     className: cn(existingClassName, !hasSizeClass && "size-4", "shrink-0"),
-  })
+  });
 }
 
 type AlertDismissibleProp =
   | boolean
   | {
-      label?: string
-      ariaLabel?: string
-      onDismiss?: () => void
-    }
+      label?: string;
+      ariaLabel?: string;
+      onDismiss?: () => void;
+    };
 
 function Alert({
   className,
@@ -88,55 +93,56 @@ function Alert({
   ...props
 }: React.ComponentProps<"div"> &
   VariantProps<typeof alertVariants> & {
-    icon?: boolean | React.ReactNode
-    dismissible?: AlertDismissibleProp
+    icon?: boolean | React.ReactNode;
+    dismissible?: AlertDismissibleProp;
   }) {
-  const [isDismissing, setIsDismissing] = React.useState(false)
-  const [isDismissed, setIsDismissed] = React.useState(false)
+  const [isDismissing, setIsDismissing] = React.useState(false);
+  const [isDismissed, setIsDismissed] = React.useState(false);
 
   const dismissibleConfig =
-    typeof dismissible === "object" ? dismissible : undefined
-  const isDismissible = Boolean(dismissible)
+    typeof dismissible === "object" ? dismissible : undefined;
+  const isDismissible = Boolean(dismissible);
 
   const hasActionChild = React.useMemo(() => {
-    if (!isDismissible) return false
+    if (!isDismissible) return false;
     return React.Children.toArray(children).some((child) => {
-      if (!React.isValidElement(child)) return false
-      if (child.type === AlertAction) return true
-      return false
-    })
-  }, [children, isDismissible])
+      if (!React.isValidElement(child)) return false;
+      if (child.type === AlertAction) return true;
+      return false;
+    });
+  }, [children, isDismissible]);
 
   const resolvedIcon =
     icon === false
       ? null
       : icon === true
         ? defaultIcons[variant ?? "default"]
-        : normalizeAlertIcon(icon)
+        : normalizeAlertIcon(icon);
 
   React.useEffect(() => {
-    if (!isDismissing) return
+    if (!isDismissing) return;
 
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
-    ).matches
+    ).matches;
     const timeoutId = window.setTimeout(
       () => {
-        setIsDismissed(true)
+        setIsDismissed(true);
       },
       prefersReducedMotion ? 0 : 200,
-    )
+    );
 
     return () => {
-      window.clearTimeout(timeoutId)
-    }
-  }, [isDismissing])
+      window.clearTimeout(timeoutId);
+    };
+  }, [isDismissing]);
 
-  if (isDismissible && isDismissed) return null
+  if (isDismissible && isDismissed) return null;
 
   return (
     <div
       data-slot="alert"
+      data-variant={variant ?? "default"}
       role="alert"
       data-state={isDismissing ? "closed" : "open"}
       className={cn(
@@ -157,25 +163,22 @@ function Alert({
           <Button
             variant="ghost"
             size="icon-sm"
-            className={
-              variant ? dismissButtonClassNameByVariant[variant] : undefined
-            }
             aria-label={
               dismissibleConfig?.ariaLabel ??
               dismissibleConfig?.label ??
               "Dismiss alert"
             }
             onClick={() => {
-              dismissibleConfig?.onDismiss?.()
-              setIsDismissing(true)
+              dismissibleConfig?.onDismiss?.();
+              setIsDismissing(true);
             }}
           >
-            <X aria-hidden="true" />
+            <HugeiconsIcon icon={X} aria-hidden="true" />
           </Button>
         </AlertAction>
       ) : null}
     </div>
-  )
+  );
 }
 
 function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
@@ -188,7 +191,7 @@ function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AlertDescription({
@@ -204,17 +207,25 @@ function AlertDescription({
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AlertAction({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="alert-action"
-      className={cn("absolute top-1/2 -translate-y-1/2 end-3", className)}
+      className={cn(
+        "absolute top-1/2 -translate-y-1/2 end-3",
+        "[&_[data-slot=button]]:border-transparent [&_[data-slot=button]]:bg-transparent [&_[data-slot=button]]:text-current [&_[data-slot=button]:hover]:border-transparent [&_[data-slot=button]:hover]:bg-muted [&_[data-slot=button]:hover]:text-foreground",
+        "group-data-[variant=destructive]/alert:[&_[data-slot=button]:hover]:bg-red-900/5 group-data-[variant=destructive]/alert:[&_[data-slot=button]:hover]:text-destructive group-data-[variant=destructive]/alert:[&_[data-slot=button]:focus-visible]:border-destructive/40 group-data-[variant=destructive]/alert:[&_[data-slot=button]:focus-visible]:bg-destructive-muted group-data-[variant=destructive]/alert:[&_[data-slot=button]:focus-visible]:text-destructive group-data-[variant=destructive]/alert:[&_[data-slot=button]:focus-visible]:ring-destructive/20 dark:group-data-[variant=destructive]/alert:[&_[data-slot=button]:hover]:bg-rose-50/10 dark:group-data-[variant=destructive]/alert:[&_[data-slot=button]:hover]:text-rose-300 dark:group-data-[variant=destructive]/alert:[&_[data-slot=button]:focus-visible]:border-rose-50/50 dark:group-data-[variant=destructive]/alert:[&_[data-slot=button]:focus-visible]:bg-rose-50/10 dark:group-data-[variant=destructive]/alert:[&_[data-slot=button]:focus-visible]:text-rose-300 dark:group-data-[variant=destructive]/alert:[&_[data-slot=button]:focus-visible]:ring-rose-50/30",
+        "group-data-[variant=info]/alert:[&_[data-slot=button]:hover]:bg-blue-900/5 group-data-[variant=info]/alert:[&_[data-slot=button]:hover]:text-info group-data-[variant=info]/alert:[&_[data-slot=button]:focus-visible]:border-info/40 group-data-[variant=info]/alert:[&_[data-slot=button]:focus-visible]:bg-info-muted group-data-[variant=info]/alert:[&_[data-slot=button]:focus-visible]:text-info group-data-[variant=info]/alert:[&_[data-slot=button]:focus-visible]:ring-info/20 dark:group-data-[variant=info]/alert:[&_[data-slot=button]:hover]:bg-blue-50/10 dark:group-data-[variant=info]/alert:[&_[data-slot=button]:hover]:text-blue-300 dark:group-data-[variant=info]/alert:[&_[data-slot=button]:focus-visible]:border-blue-50/50 dark:group-data-[variant=info]/alert:[&_[data-slot=button]:focus-visible]:bg-blue-900/10 dark:group-data-[variant=info]/alert:[&_[data-slot=button]:focus-visible]:text-blue-300 dark:group-data-[variant=info]/alert:[&_[data-slot=button]:focus-visible]:ring-blue-50/30",
+        "group-data-[variant=success]/alert:[&_[data-slot=button]:hover]:bg-emerald-900/5 group-data-[variant=success]/alert:[&_[data-slot=button]:hover]:text-success group-data-[variant=success]/alert:[&_[data-slot=button]:focus-visible]:border-success/40 group-data-[variant=success]/alert:[&_[data-slot=button]:focus-visible]:bg-success-muted group-data-[variant=success]/alert:[&_[data-slot=button]:focus-visible]:text-success group-data-[variant=success]/alert:[&_[data-slot=button]:focus-visible]:ring-success/20 dark:group-data-[variant=success]/alert:[&_[data-slot=button]:hover]:bg-teal-50/10 dark:group-data-[variant=success]/alert:[&_[data-slot=button]:hover]:text-teal-300 dark:group-data-[variant=success]/alert:[&_[data-slot=button]:focus-visible]:border-teal-50/50 dark:group-data-[variant=success]/alert:[&_[data-slot=button]:focus-visible]:bg-teal-900/10 dark:group-data-[variant=success]/alert:[&_[data-slot=button]:focus-visible]:text-teal-300 dark:group-data-[variant=success]/alert:[&_[data-slot=button]:focus-visible]:ring-teal-50/30",
+        "group-data-[variant=warning]/alert:[&_[data-slot=button]:hover]:bg-yellow-900/5 group-data-[variant=warning]/alert:[&_[data-slot=button]:hover]:text-warning group-data-[variant=warning]/alert:[&_[data-slot=button]:focus-visible]:border-warning/40 group-data-[variant=warning]/alert:[&_[data-slot=button]:focus-visible]:bg-warning-muted group-data-[variant=warning]/alert:[&_[data-slot=button]:focus-visible]:text-warning group-data-[variant=warning]/alert:[&_[data-slot=button]:focus-visible]:ring-warning/20 dark:group-data-[variant=warning]/alert:[&_[data-slot=button]:hover]:bg-yellow-50/10 dark:group-data-[variant=warning]/alert:[&_[data-slot=button]:hover]:text-yellow-300 dark:group-data-[variant=warning]/alert:[&_[data-slot=button]:focus-visible]:border-yellow-50/50 dark:group-data-[variant=warning]/alert:[&_[data-slot=button]:focus-visible]:bg-yellow-50/10 dark:group-data-[variant=warning]/alert:[&_[data-slot=button]:focus-visible]:text-yellow-300 dark:group-data-[variant=warning]/alert:[&_[data-slot=button]:focus-visible]:ring-yellow-50/30",
+        className,
+      )}
       {...props}
     />
-  )
+  );
 }
 
-export { Alert, AlertTitle, AlertDescription, AlertAction }
+export { Alert, AlertTitle, AlertDescription, AlertAction };

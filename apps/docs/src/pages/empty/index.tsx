@@ -17,7 +17,8 @@ import {
   EmptyTitle,
 } from "@gecko/ui/components/empty";
 import { Button } from "@gecko/ui/components/button";
-import { InboxIcon } from "lucide-react";
+import InboxIcon from "@hugeicons/core-free-icons/Archive04Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import { Code } from "@gecko/ui/components/code";
 
 export function EmptyPage() {
@@ -198,7 +199,7 @@ export function EmptyPage() {
             <Empty>
               <EmptyHeader>
                 <EmptyMedia variant="icon">
-                  <InboxIcon aria-hidden="true" />
+                  <HugeiconsIcon icon={InboxIcon} aria-hidden="true" />
                 </EmptyMedia>
                 <EmptyTitle>No messages</EmptyTitle>
                 <EmptyDescription>

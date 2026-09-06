@@ -149,6 +149,8 @@ See the [Shadcn Radio group documentation](https://ui.shadcn.com/docs/components
 
 The library owns visual size, radius, colour, indicator, hit area, typography, spacing, orientation, hover, focus, disabled and invalid treatments.
 
+The selected border matches the selected fill, including on hover. On selection, the centred inner indicator shrinks smoothly from the control’s full inner size to its normal size, revealing the selected ring around it. Reduced-motion users receive an opacity-only transition.
+
 Use `className` only to position the complete RadioGroup within its parent layout. Request a library change when a legitimate treatment is missing.
 
 Agents must obtain explicit user consent before adding or changing props, states, variants, behaviours or styling.

@@ -1,97 +1,96 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import {
-  CircleHelp,
-  CircleMinus,
-  MoreHorizontal,
-  TrendingDown,
-  TrendingUp,
-} from "lucide-react"
+import * as React from "react";
+import CircleHelp from "@hugeicons/core-free-icons/HelpCircleIcon";
+import CircleMinus from "@hugeicons/core-free-icons/CircleMinusIcon";
+import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
+import TrendingDown from "@hugeicons/core-free-icons/TrendingDownIcon";
+import TrendingUp from "@hugeicons/core-free-icons/TrendingUpIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import {
   Area,
   AreaChart,
   ResponsiveContainer,
   Tooltip as RechartsTooltip,
   type TooltipContentProps as RechartsTooltipContentProps,
-} from "recharts"
+} from "recharts";
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@gecko/ui/components/button";
 import {
   Card,
   CardAction,
   CardContent,
   CardHeader,
-} from "@gecko/ui/components/card"
+} from "@gecko/ui/components/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"
+} from "@gecko/ui/components/dropdown-menu";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@gecko/ui/components/tooltip";
+import { cn } from "@gecko/ui/lib/utils";
 
-export type MetricCardSentiment = "positive" | "negative" | "neutral"
+export type MetricCardSentiment = "positive" | "negative" | "neutral";
 
 export type MetricCardTrend = {
-  direction: "up" | "down" | "neutral"
-  sentiment: MetricCardSentiment
-  label: React.ReactNode
-  compareTo?: React.ReactNode
-}
+  direction: "up" | "down" | "neutral";
+  sentiment: MetricCardSentiment;
+  label: React.ReactNode;
+  compareTo?: React.ReactNode;
+};
 
 export type MetricCardSparklineDatum = {
-  x: string | number
-  y: number
-}
+  x: string | number;
+  y: number;
+};
 
 export type MetricCardSparkline = {
-  data: MetricCardSparklineDatum[]
-  sentiment: MetricCardSentiment
-  ariaLabel?: string
-  showTooltip?: boolean
-  tooltipLabel?: React.ReactNode
-  formatLabel?: (x: MetricCardSparklineDatum["x"]) => React.ReactNode
-  formatValue?: (value: number) => React.ReactNode
-}
+  data: MetricCardSparklineDatum[];
+  sentiment: MetricCardSentiment;
+  ariaLabel?: string;
+  showTooltip?: boolean;
+  tooltipLabel?: React.ReactNode;
+  formatLabel?: (x: MetricCardSparklineDatum["x"]) => React.ReactNode;
+  formatValue?: (value: number) => React.ReactNode;
+};
 
 export type MetricCardMenuItem = {
-  id: string
-  label: React.ReactNode
-  onSelect?: () => void
-  disabled?: boolean
-}
+  id: string;
+  label: React.ReactNode;
+  onSelect?: () => void;
+  disabled?: boolean;
+};
 
 export type MetricCardProps = React.ComponentProps<"div"> & {
-  title: React.ReactNode
-  value: React.ReactNode
+  title: React.ReactNode;
+  value: React.ReactNode;
   /** Supporting label beside the value (e.g. "123 unique opens"). */
-  detail?: React.ReactNode
-  description?: React.ReactNode
-  helpText?: React.ReactNode
-  helpLabel?: string
-  trend?: MetricCardTrend
-  sparkline?: MetricCardSparkline
-  menuItems?: MetricCardMenuItem[]
-  menuLabel?: string
-}
+  detail?: React.ReactNode;
+  description?: React.ReactNode;
+  helpText?: React.ReactNode;
+  helpLabel?: string;
+  trend?: MetricCardTrend;
+  sparkline?: MetricCardSparkline;
+  menuItems?: MetricCardMenuItem[];
+  menuLabel?: string;
+};
 
 function sentimentTextClass(sentiment: MetricCardSentiment) {
-  if (sentiment === "positive") return "text-success"
-  if (sentiment === "negative") return "text-destructive"
-  return "text-muted-foreground"
+  if (sentiment === "positive") return "text-success";
+  if (sentiment === "negative") return "text-destructive";
+  return "text-muted-foreground";
 }
 
 function sentimentStroke(sentiment: MetricCardSentiment) {
-  if (sentiment === "positive") return "var(--success)"
-  if (sentiment === "negative") return "var(--destructive)"
-  return "var(--muted-foreground)"
+  if (sentiment === "positive") return "var(--success)";
+  if (sentiment === "negative") return "var(--destructive)";
+  return "var(--muted-foreground)";
 }
 
 function metricControlLabel({
@@ -100,14 +99,14 @@ function metricControlLabel({
   action,
   fallback,
 }: {
-  title: React.ReactNode
-  label?: string
-  action: string
-  fallback: string
+  title: React.ReactNode;
+  label?: string;
+  action: string;
+  fallback: string;
 }) {
-  if (label) return label
-  if (typeof title === "string" && title.trim()) return `${action} ${title}`
-  return fallback
+  if (label) return label;
+  if (typeof title === "string" && title.trim()) return `${action} ${title}`;
+  return fallback;
 }
 
 function MetricCardTitleRow({
@@ -117,11 +116,11 @@ function MetricCardTitleRow({
   menuItems,
   menuLabel,
 }: {
-  title: React.ReactNode
-  helpText?: React.ReactNode
-  helpLabel?: string
-  menuItems?: MetricCardMenuItem[]
-  menuLabel?: string
+  title: React.ReactNode;
+  helpText?: React.ReactNode;
+  helpLabel?: string;
+  menuItems?: MetricCardMenuItem[];
+  menuLabel?: string;
 }) {
   return (
     <CardHeader className="border-b-0 px-5 pt-5 pb-0">
@@ -145,7 +144,8 @@ function MetricCardTitleRow({
                           fallback: "Metric help",
                         })}
                       >
-                        <CircleHelp
+                        <HugeiconsIcon
+                          icon={CircleHelp}
                           className="size-3"
                           aria-hidden
                           strokeWidth={2.5}
@@ -178,7 +178,11 @@ function MetricCardTitleRow({
                       fallback: "Metric options",
                     })}
                   >
-                    <MoreHorizontal className="size-4" aria-hidden />
+                    <HugeiconsIcon
+                      icon={EllipsisIcon}
+                      className="size-4"
+                      aria-hidden
+                    />
                   </Button>
                 }
               />
@@ -198,38 +202,38 @@ function MetricCardTitleRow({
         ) : null}
       </div>
     </CardHeader>
-  )
+  );
 }
 
 const metricCardInlineLabelClassName =
-  "flex items-center gap-1.5 text-2xs text-muted-foreground"
+  "flex items-center gap-1.5 text-2xs text-muted-foreground";
 
 function MetricCardDetail({ detail }: { detail: React.ReactNode }) {
   return (
     <div className={metricCardInlineLabelClassName}>
       <span>{detail}</span>
     </div>
-  )
+  );
 }
 
 function MetricCardTrendRow({ trend }: { trend: MetricCardTrend }) {
-  const sentiment = trend.direction === "neutral" ? "neutral" : trend.sentiment
-  const color = sentimentTextClass(sentiment)
+  const sentiment = trend.direction === "neutral" ? "neutral" : trend.sentiment;
+  const color = sentimentTextClass(sentiment);
   const accessibleTrend =
     sentiment === "positive"
       ? `Positive change, ${trend.direction} trend: `
       : sentiment === "negative"
         ? `Negative change, ${trend.direction} trend: `
-        : "No change: "
+        : "No change: ";
 
   return (
     <div className={cn(metricCardInlineLabelClassName, color)}>
       {trend.direction === "up" ? (
-        <TrendingUp className="size-3.5" aria-hidden />
+        <HugeiconsIcon icon={TrendingUp} className="size-3.5" aria-hidden />
       ) : trend.direction === "down" ? (
-        <TrendingDown className="size-3.5" aria-hidden />
+        <HugeiconsIcon icon={TrendingDown} className="size-3.5" aria-hidden />
       ) : (
-        <CircleMinus className="size-3.5" aria-hidden />
+        <HugeiconsIcon icon={CircleMinus} className="size-3.5" aria-hidden />
       )}
       <span className="sr-only">{accessibleTrend}</span>
       <span className="font-medium">{trend.label}</span>
@@ -237,7 +241,7 @@ function MetricCardTrendRow({ trend }: { trend: MetricCardTrend }) {
         <span className="text-muted-foreground">{trend.compareTo}</span>
       ) : null}
     </div>
-  )
+  );
 }
 
 function MetricCardSparklineTooltip({
@@ -246,12 +250,12 @@ function MetricCardSparklineTooltip({
   labelText,
   formatValue,
 }: Pick<RechartsTooltipContentProps, "active" | "payload"> & {
-  labelText?: React.ReactNode
-  formatValue?: (value: number) => React.ReactNode
+  labelText?: React.ReactNode;
+  formatValue?: (value: number) => React.ReactNode;
 }) {
-  if (!active || !payload?.length) return null
-  const v = payload[0]?.value
-  if (typeof v !== "number") return null
+  if (!active || !payload?.length) return null;
+  const v = payload[0]?.value;
+  if (typeof v !== "number") return null;
 
   return (
     <div className="rounded-md border border-border bg-popover px-2 py-1 text-2xs shadow-md text-foreground">
@@ -262,24 +266,24 @@ function MetricCardSparklineTooltip({
         {formatValue ? formatValue(v) : v}
       </div>
     </div>
-  )
+  );
 }
 
 function MetricCardSparklineChart({
   sparkline,
   title,
 }: {
-  sparkline: MetricCardSparkline
-  title: React.ReactNode
+  sparkline: MetricCardSparkline;
+  title: React.ReactNode;
 }) {
-  const stroke = sentimentStroke(sparkline.sentiment)
-  const gradientId = React.useId()
-  const showTooltip = sparkline.showTooltip ?? true
+  const stroke = sentimentStroke(sparkline.sentiment);
+  const gradientId = React.useId();
+  const showTooltip = sparkline.showTooltip ?? true;
   const ariaLabel =
     sparkline.ariaLabel ??
     (typeof title === "string" && title.trim()
       ? `${title} trend`
-      : "Metric trend")
+      : "Metric trend");
 
   return (
     <div className="h-14 w-full">
@@ -309,7 +313,7 @@ function MetricCardSparklineChart({
                             p.payload?.[0]?.payload as
                               | MetricCardSparklineDatum
                               | undefined
-                          )?.x ?? ""
+                          )?.x ?? "",
                         )
                       : sparkline.tooltipLabel
                   }
@@ -339,7 +343,7 @@ function MetricCardSparklineChart({
         </AreaChart>
       </ResponsiveContainer>
     </div>
-  )
+  );
 }
 
 export function MetricCard({
@@ -357,7 +361,10 @@ export function MetricCard({
   ...props
 }: MetricCardProps) {
   return (
-    <Card className={cn("rounded-md", className)} {...props}>
+    <Card
+      className={cn("@container/metric-card rounded-md", className)}
+      {...props}
+    >
       <MetricCardTitleRow
         title={title}
         helpText={helpText}
@@ -368,8 +375,8 @@ export function MetricCard({
 
       <CardContent className={cn("px-5 pb-5 pt-2", sparkline && "pb-4")}>
         <div className="grid gap-4">
-          <div className="flex items-baseline gap-2">
-            <div className="text-3xl font-semibold tracking-tight text-foreground">
+          <div className="flex flex-col items-start gap-2 @3xs/metric-card:flex-row @3xs/metric-card:items-baseline">
+            <div className="whitespace-nowrap text-3xl font-semibold tracking-tight text-foreground">
               {value}
             </div>
             {detail ? <MetricCardDetail detail={detail} /> : null}
@@ -389,5 +396,5 @@ export function MetricCard({
         ) : null}
       </CardContent>
     </Card>
-  )
+  );
 }

@@ -16,7 +16,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@gecko/ui/components/dropdown-menu";
-import { RefreshCw, Settings } from "lucide-react";
+import RefreshCw from "@hugeicons/core-free-icons/RefreshCwIcon";
+import Settings from "@hugeicons/core-free-icons/Settings01Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import { useState } from "react";
 
 export function ButtonPage() {
@@ -33,6 +35,8 @@ export function ButtonPage() {
 
   const outlineSnippet = `<Button variant="outline">Outline</Button>`;
 
+  const outlineDestructiveSnippet = `<Button variant="outline-destructive">Delete</Button>`;
+
   const destructiveSnippet = `<Button variant="destructive">Destructive</Button>`;
 
   const ghostSnippet = `<Button variant="ghost">Ghost</Button>`;
@@ -47,6 +51,9 @@ export function ButtonPage() {
 </Button>
 <Button variant="outline" disabled>
   Outline
+</Button>
+<Button variant="outline-destructive" disabled>
+  Outline destructive
 </Button>
 <Button variant="destructive" disabled>
   Destructive
@@ -279,6 +286,31 @@ export function SaveChangesButton({
           </ComponentExample>
         </ChildSection>
         <ChildSection
+          id="variants-outline-destructive"
+          title="Outline destructive"
+          description={
+            <>
+              A neutral bordered action using{" "}
+              <Code>variant=&quot;outline-destructive&quot;</Code>. It matches
+              Outline at rest, then uses destructive hover, open, and focus
+              states.
+            </>
+          }
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Button variant="outline-destructive">Delete</Button>
+              <Code
+                variant="block"
+                language="tsx"
+                code={outlineDestructiveSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="variants-destructive"
           title="Destructive"
           description={
@@ -373,6 +405,9 @@ export function SaveChangesButton({
               </Button>
               <Button variant="outline" disabled>
                 Outline
+              </Button>
+              <Button variant="outline-destructive" disabled>
+                Outline destructive
               </Button>
               <Button variant="destructive" disabled>
                 Destructive
@@ -478,25 +513,25 @@ export function SaveChangesButton({
               <div className="flex items-center gap-2">
                 <Button size="xs">Extra small</Button>
                 <Button size="icon-xs" aria-label="Settings">
-                  <Settings className="size-3" />
+                  <HugeiconsIcon icon={Settings} className="size-3" />
                 </Button>
               </div>
               <div className="flex items-center gap-2">
                 <Button size="sm">Small</Button>
                 <Button size="icon-sm" aria-label="Settings">
-                  <Settings />
+                  <HugeiconsIcon icon={Settings} />
                 </Button>
               </div>
               <div className="flex items-center gap-2">
                 <Button>Default</Button>
                 <Button size="icon" aria-label="Settings">
-                  <Settings />
+                  <HugeiconsIcon icon={Settings} />
                 </Button>
               </div>
               <div className="flex items-center gap-2">
                 <Button size="lg">Large</Button>
                 <Button size="icon-lg" aria-label="Settings">
-                  <Settings />
+                  <HugeiconsIcon icon={Settings} />
                 </Button>
               </div>
             </div>
@@ -537,7 +572,7 @@ export function SaveChangesButton({
           <ComponentExample>
             <div className="space-y-6">
               <Button>
-                <Settings data-icon="inline-start" />
+                <HugeiconsIcon icon={Settings} data-icon="inline-start" />
                 Icon left
               </Button>
               <Code
@@ -565,7 +600,7 @@ export function SaveChangesButton({
             <div className="space-y-6">
               <Button>
                 Icon right
-                <Settings data-icon="inline-end" />
+                <HugeiconsIcon icon={Settings} data-icon="inline-end" />
               </Button>
               <Code
                 variant="block"
@@ -591,7 +626,7 @@ export function SaveChangesButton({
           <ComponentExample>
             <div className="space-y-6">
               <Button size="icon" aria-label="Open settings">
-                <Settings />
+                <HugeiconsIcon icon={Settings} />
               </Button>
               <Code
                 variant="block"
@@ -631,7 +666,7 @@ export function SaveChangesButton({
                 aria-label={isRefreshing ? "Refreshing" : "Refresh"}
                 onClick={() => void showLoadingState(setIsRefreshing)}
               >
-                <RefreshCw />
+                <HugeiconsIcon icon={RefreshCw} />
               </Button>
             </div>
             <Code
@@ -673,8 +708,10 @@ export function SaveChangesButton({
               when the design explicitly requires a full-width action.
             </>,
             <>
-              Use <Code>ghost-destructive</Code> for icon trash / remove
-              controls (for example deleting a filter row).
+              Use <Code>outline-destructive</Code> when a destructive action
+              should match Outline at rest and reveal its intent through
+              interaction states. Use <Code>ghost-destructive</Code> for quieter
+              trash / remove controls.
             </>,
             <>
               Give icon-only buttons an <Code>aria-label</Code>.
@@ -723,7 +760,7 @@ export function SaveChangesButton({
           rows={[
             {
               name: "variant",
-              type: '"default" | "secondary" | "outline" | "ghost" | "ghost-light" | "ghost-dark" | "ghost-destructive" | "destructive" | "link"',
+              type: '"default" | "secondary" | "outline" | "outline-destructive" | "ghost" | "ghost-light" | "ghost-dark" | "ghost-destructive" | "destructive" | "link"',
               defaultValue: '"default"',
               description:
                 "Visual emphasis. Use default once per area and Outline for the normal secondary action. Secondary and the surface-specific ghost variants require a documented component composition.",

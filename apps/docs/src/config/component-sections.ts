@@ -2246,8 +2246,8 @@ export const componentSections: ComponentSections = {
       id: "alignment",
       label: "Alignment",
       children: [
-        { id: "alignment-block-start", label: "Block start" },
-        { id: "alignment-block-end", label: "Block end" },
+        { id: "alignment-inline-start", label: "Inline start" },
+        { id: "alignment-inline-end", label: "Inline end" },
       ],
     },
     { id: "icon", label: "Icon" },

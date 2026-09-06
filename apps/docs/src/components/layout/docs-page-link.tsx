@@ -10,7 +10,7 @@ export function DocsPageLink({ to, children }: DocsPageLinkProps) {
   return (
     <Link
       to={to}
-      className="font-medium text-primary underline decoration-muted-foreground/50 underline-offset-4 transition-colors hover:decoration-foreground"
+      className="text-foreground underline hover:text-muted-foreground"
     >
       {children}
     </Link>

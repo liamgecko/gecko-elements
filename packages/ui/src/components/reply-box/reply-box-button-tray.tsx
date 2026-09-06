@@ -1,186 +1,190 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Ellipsis, MessageSquare } from "lucide-react"
+import * as React from "react";
+import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
+import MessageSquare from "@hugeicons/core-free-icons/MessageSquareIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@gecko/ui/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"
+} from "@gecko/ui/components/dropdown-menu";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@gecko/ui/components/tooltip";
+import { cn } from "@gecko/ui/lib/utils";
+import { renderGeckoIcon } from "@gecko/ui/lib/icon";
 
 import {
   getReplyBoxAction,
+  getReplyBoxActionIconProps,
   getReplyBoxTrayItemKey,
   isReplyBoxTrayBuiltin,
   replyBoxActionIconProps,
-} from "./reply-box-actions"
+} from "./reply-box-actions";
 import type {
   ReplyBoxActionId,
   ReplyBoxTrayCustomAction,
   ReplyBoxTrayItem,
-} from "./reply-box-actions"
-import { useReplyBox } from "./reply-box-context"
+} from "./reply-box-actions";
+import { useReplyBox } from "./reply-box-context";
 
 function useResizeObserverWidth<T extends HTMLElement>() {
-  const ref = React.useRef<T | null>(null)
-  const [width, setWidth] = React.useState(0)
+  const ref = React.useRef<T | null>(null);
+  const [width, setWidth] = React.useState(0);
 
   React.useLayoutEffect(() => {
-    const el = ref.current
-    if (!el) return
+    const el = ref.current;
+    if (!el) return;
 
     const ro = new ResizeObserver(() => {
-      setWidth(el.clientWidth)
-    })
-    ro.observe(el)
-    setWidth(el.clientWidth)
-    return () => ro.disconnect()
-  }, [])
+      setWidth(el.clientWidth);
+    });
+    ro.observe(el);
+    setWidth(el.clientWidth);
+    return () => ro.disconnect();
+  }, []);
 
-  return { ref, width } as const
+  return { ref, width } as const;
 }
 
 export type ReplyBoxButtonTrayProps = {
-  items: ReplyBoxTrayItem[]
-  className?: string
+  items: ReplyBoxTrayItem[];
+  className?: string;
   /** Shared delay for all tray tooltips. Defaults to 0 for consistent timing. */
-  tooltipDelay?: number
-}
+  tooltipDelay?: number;
+};
 
 export function ReplyBoxButtonTray({
   items,
   className,
   tooltipDelay = 0,
 }: ReplyBoxButtonTrayProps) {
-  const { noteMode, toggleNoteMode } = useReplyBox()
+  const { noteMode, toggleNoteMode } = useReplyBox();
 
   const itemsKey = React.useMemo(
     () => items.map((item) => getReplyBoxTrayItemKey(item)).join("|"),
-    [items]
-  )
-  const pinned = React.useMemo(() => items.slice(0, 2), [items])
-  const candidates = React.useMemo(() => items.slice(2), [items])
+    [items],
+  );
+  const pinned = React.useMemo(() => items.slice(0, 2), [items]);
+  const candidates = React.useMemo(() => items.slice(2), [items]);
 
   const { ref: containerRef, width: containerWidth } =
-    useResizeObserverWidth<HTMLDivElement>()
+    useResizeObserverWidth<HTMLDivElement>();
 
-  const overflowBtnRef = React.useRef<HTMLButtonElement | null>(null)
-  const overflowMeasureRef = React.useRef<HTMLButtonElement | null>(null)
+  const overflowBtnRef = React.useRef<HTMLButtonElement | null>(null);
+  const overflowMeasureRef = React.useRef<HTMLButtonElement | null>(null);
 
   const pinnedMeasureRefs = React.useMemo(
     () => pinned.map(() => React.createRef<HTMLDivElement>()),
-    [pinned]
-  )
+    [pinned],
+  );
   const candidateMeasureRefs = React.useMemo(() => {
-    const refs: Record<string, React.RefObject<HTMLButtonElement | null>> = {}
+    const refs: Record<string, React.RefObject<HTMLButtonElement | null>> = {};
     for (const item of candidates) {
-      refs[getReplyBoxTrayItemKey(item)] = React.createRef<HTMLButtonElement>()
+      refs[getReplyBoxTrayItemKey(item)] = React.createRef<HTMLButtonElement>();
     }
-    return refs
-  }, [candidates])
+    return refs;
+  }, [candidates]);
 
   const [visibleCandidateCount, setVisibleCandidateCount] = React.useState(
-    candidates.length
-  )
-  const [showOverflow, setShowOverflow] = React.useState(false)
+    candidates.length,
+  );
+  const [showOverflow, setShowOverflow] = React.useState(false);
 
   const compute = React.useCallback(() => {
-    const container = containerRef.current
-    if (!container) return
+    const container = containerRef.current;
+    if (!container) return;
 
     const overflowWidth =
       overflowBtnRef.current?.offsetWidth ??
       overflowMeasureRef.current?.offsetWidth ??
-      0
+      0;
 
-    const style = getComputedStyle(container)
-    const gap = Number.parseFloat(style.columnGap || "0") || 0
-    const safety = 2
+    const style = getComputedStyle(container);
+    const gap = Number.parseFloat(style.columnGap || "0") || 0;
+    const safety = 2;
 
     const pinnedWidths = pinnedMeasureRefs.map(
-      (r) => r.current?.offsetWidth ?? 0
-    )
+      (r) => r.current?.offsetWidth ?? 0,
+    );
     const pinnedTotal =
       pinnedWidths.reduce((a, b) => a + b, 0) +
-      Math.max(0, pinnedWidths.length - 1) * gap
+      Math.max(0, pinnedWidths.length - 1) * gap;
 
-    const candidateWidths: number[] = []
+    const candidateWidths: number[] = [];
     for (const item of candidates) {
-      const key = getReplyBoxTrayItemKey(item)
-      const w = candidateMeasureRefs[key]?.current?.offsetWidth ?? 0
-      if (w === 0) return
-      candidateWidths.push(w)
+      const key = getReplyBoxTrayItemKey(item);
+      const w = candidateMeasureRefs[key]?.current?.offsetWidth ?? 0;
+      if (w === 0) return;
+      candidateWidths.push(w);
     }
 
     const fit = (withOverflow: boolean) => {
-      const overflowTotal = withOverflow ? overflowWidth : 0
-      const base = pinnedTotal + (withOverflow ? gap + overflowTotal : 0)
+      const overflowTotal = withOverflow ? overflowWidth : 0;
+      const base = pinnedTotal + (withOverflow ? gap + overflowTotal : 0);
 
-      let used = base
-      let count = 0
+      let used = base;
+      let count = 0;
       for (const w of candidateWidths) {
-        const next = used + gap + w
+        const next = used + gap + w;
         if (next + safety <= containerWidth) {
-          used = next
-          count += 1
+          used = next;
+          count += 1;
         } else {
-          break
+          break;
         }
       }
 
       if (withOverflow && count > 0) {
         if (used + gap + safety > containerWidth) {
-          count -= 1
+          count -= 1;
         }
       }
 
-      return Math.max(0, count)
-    }
+      return Math.max(0, count);
+    };
 
-    const fitNoOverflow = fit(false)
+    const fitNoOverflow = fit(false);
     if (fitNoOverflow >= candidates.length) {
-      setShowOverflow(false)
-      setVisibleCandidateCount(candidates.length)
-      return
+      setShowOverflow(false);
+      setVisibleCandidateCount(candidates.length);
+      return;
     }
 
-    setShowOverflow(true)
-    setVisibleCandidateCount(fit(true))
+    setShowOverflow(true);
+    setVisibleCandidateCount(fit(true));
   }, [
     candidateMeasureRefs,
     candidates,
     containerRef,
     containerWidth,
     pinnedMeasureRefs,
-  ])
+  ]);
 
   React.useLayoutEffect(() => {
-    const raf = requestAnimationFrame(() => compute())
-    return () => cancelAnimationFrame(raf)
-  }, [compute, containerWidth, noteMode, itemsKey])
+    const raf = requestAnimationFrame(() => compute());
+    return () => cancelAnimationFrame(raf);
+  }, [compute, containerWidth, noteMode, itemsKey]);
 
-  const inline = candidates.slice(0, visibleCandidateCount)
-  const overflow = candidates.slice(visibleCandidateCount)
+  const inline = candidates.slice(0, visibleCandidateCount);
+  const overflow = candidates.slice(visibleCandidateCount);
 
   const renderBuiltinAction = React.useCallback(
     (id: ReplyBoxActionId, opts: { ref?: React.Ref<HTMLButtonElement> }) => {
-      const action = getReplyBoxAction(id)
-      const isNote = id === "note-mode"
-      const noteIcon = noteMode ? MessageSquare : action.icon
-      const noteLabel = noteMode ? "Return to chat mode" : action.label
-      const Icon = isNote ? noteIcon : action.icon
-      const onClick = isNote ? toggleNoteMode : undefined
+      const action = getReplyBoxAction(id);
+      const isNote = id === "note-mode";
+      const noteIcon = noteMode ? MessageSquare : action.icon;
+      const noteLabel = noteMode ? "Return to chat mode" : action.label;
+      const Icon = isNote ? noteIcon : action.icon;
+      const onClick = isNote ? toggleNoteMode : undefined;
 
       return (
         <Tooltip>
@@ -193,7 +197,7 @@ export function ReplyBoxButtonTray({
                 size="icon-sm"
                 onClick={onClick}
               >
-                <Icon {...replyBoxActionIconProps} />
+                {renderGeckoIcon(Icon, getReplyBoxActionIconProps(id))}
                 <span className="sr-only">{noteLabel}</span>
               </Button>
             }
@@ -202,17 +206,17 @@ export function ReplyBoxButtonTray({
             <p>{noteLabel}</p>
           </TooltipContent>
         </Tooltip>
-      )
+      );
     },
-    [noteMode, toggleNoteMode]
-  )
+    [noteMode, toggleNoteMode],
+  );
 
   const renderCustomIconButton = React.useCallback(
     (
       action: ReplyBoxTrayCustomAction,
-      opts: { ref?: React.Ref<HTMLButtonElement> }
+      opts: { ref?: React.Ref<HTMLButtonElement> },
     ) => {
-      const Icon = action.icon
+      const Icon = action.icon;
       return (
         <Tooltip>
           <TooltipTrigger
@@ -224,7 +228,7 @@ export function ReplyBoxButtonTray({
                 size="icon-sm"
                 onClick={action.onClick}
               >
-                <Icon {...replyBoxActionIconProps} />
+                {renderGeckoIcon(Icon, replyBoxActionIconProps)}
                 <span className="sr-only">{action.label}</span>
               </Button>
             }
@@ -233,86 +237,86 @@ export function ReplyBoxButtonTray({
             <p>{action.label}</p>
           </TooltipContent>
         </Tooltip>
-      )
+      );
     },
-    []
-  )
+    [],
+  );
 
   const renderTrayItem = React.useCallback(
     (item: ReplyBoxTrayItem, opts: { ref?: React.Ref<HTMLButtonElement> }) => {
       if (isReplyBoxTrayBuiltin(item)) {
-        return renderBuiltinAction(item, opts)
+        return renderBuiltinAction(item, opts);
       }
       if (item.render) {
-        return item.render
+        return item.render;
       }
-      return renderCustomIconButton(item, opts)
+      return renderCustomIconButton(item, opts);
     },
-    [renderBuiltinAction, renderCustomIconButton]
-  )
+    [renderBuiltinAction, renderCustomIconButton],
+  );
 
   const renderOverflowMenuItem = React.useCallback(
     (item: ReplyBoxTrayItem) => {
-      const key = getReplyBoxTrayItemKey(item)
+      const key = getReplyBoxTrayItemKey(item);
 
       if (isReplyBoxTrayBuiltin(item)) {
-        const action = getReplyBoxAction(item)
-        const isNote = item === "note-mode"
+        const action = getReplyBoxAction(item);
+        const isNote = item === "note-mode";
         const Icon = isNote
           ? noteMode
             ? MessageSquare
             : action.icon
-          : action.icon
+          : action.icon;
         const label = isNote
           ? noteMode
             ? "Return to chat mode"
             : action.label
-          : action.label
-        const onClick = isNote ? toggleNoteMode : undefined
+          : action.label;
+        const onClick = isNote ? toggleNoteMode : undefined;
 
         return (
           <DropdownMenuItem key={key} onClick={onClick}>
-            <Icon className="size-4" aria-hidden />
+            {renderGeckoIcon(Icon, getReplyBoxActionIconProps(item, "size-4"))}
             <span>{label}</span>
           </DropdownMenuItem>
-        )
+        );
       }
 
       if (item.overflowRender) {
-        return <React.Fragment key={key}>{item.overflowRender}</React.Fragment>
+        return <React.Fragment key={key}>{item.overflowRender}</React.Fragment>;
       }
 
-      const Icon = item.icon
+      const Icon = item.icon;
       return (
         <DropdownMenuItem key={key} onClick={item.onClick}>
-          <Icon className="size-4" aria-hidden />
+          {renderGeckoIcon(Icon, { className: "size-4", "aria-hidden": true })}
           <span>{item.label}</span>
         </DropdownMenuItem>
-      )
+      );
     },
-    [noteMode, toggleNoteMode]
-  )
+    [noteMode, toggleNoteMode],
+  );
 
   const renderMeasureButton = React.useCallback((item: ReplyBoxTrayItem) => {
     if (isReplyBoxTrayBuiltin(item)) {
-      const action = getReplyBoxAction(item)
-      const Icon = action.icon
+      const action = getReplyBoxAction(item);
+      const Icon = action.icon;
       return (
         <>
-          <Icon {...replyBoxActionIconProps} />
+          {renderGeckoIcon(Icon, getReplyBoxActionIconProps(item))}
           <span className="sr-only">{action.label}</span>
         </>
-      )
+      );
     }
 
-    const Icon = item.icon
+    const Icon = item.icon;
     return (
       <>
-        <Icon {...replyBoxActionIconProps} />
+        {renderGeckoIcon(Icon, replyBoxActionIconProps)}
         <span className="sr-only">{item.label}</span>
       </>
-    )
-  }, [])
+    );
+  }, []);
 
   return (
     <TooltipProvider delay={tooltipDelay}>
@@ -321,11 +325,11 @@ export function ReplyBoxButtonTray({
         data-slot="reply-box-tray"
         className={cn(
           "relative flex flex-nowrap items-center gap-0.5 overflow-hidden",
-          className
+          className,
         )}
       >
         {pinned.map((item, index) => {
-          const key = getReplyBoxTrayItemKey(item)
+          const key = getReplyBoxTrayItemKey(item);
           return (
             <div
               key={key}
@@ -334,16 +338,16 @@ export function ReplyBoxButtonTray({
             >
               {renderTrayItem(item, {})}
             </div>
-          )
+          );
         })}
 
         {inline.map((item) => {
-          const key = getReplyBoxTrayItemKey(item)
+          const key = getReplyBoxTrayItemKey(item);
           return (
             <React.Fragment key={key}>
               {renderTrayItem(item, {})}
             </React.Fragment>
-          )
+          );
         })}
 
         {showOverflow ? (
@@ -361,7 +365,11 @@ export function ReplyBoxButtonTray({
                         size="icon-sm"
                         aria-label="More actions"
                       >
-                        <Ellipsis className="size-4" aria-hidden />
+                        <HugeiconsIcon
+                          icon={EllipsisIcon}
+                          className="size-4"
+                          aria-hidden
+                        />
                       </Button>
                     }
                   />
@@ -391,10 +399,10 @@ export function ReplyBoxButtonTray({
             size="icon-sm"
             tabIndex={-1}
           >
-            <Ellipsis className="size-4" aria-hidden />
+            <HugeiconsIcon icon={EllipsisIcon} className="size-4" aria-hidden />
           </Button>
           {candidates.map((item) => {
-            const key = getReplyBoxTrayItemKey(item)
+            const key = getReplyBoxTrayItemKey(item);
             return (
               <Button
                 key={key}
@@ -406,10 +414,10 @@ export function ReplyBoxButtonTray({
               >
                 {renderMeasureButton(item)}
               </Button>
-            )
+            );
           })}
         </div>
       </div>
     </TooltipProvider>
-  )
+  );
 }

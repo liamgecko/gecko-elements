@@ -1,7 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { CloudUpload, Trash2 } from "lucide-react";
+import Upload01Icon from "@hugeicons/core-free-icons/Upload01Icon";
+import Trash2 from "@hugeicons/core-free-icons/Delete02Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { cn } from "@gecko/ui/lib/utils";
 import { useControllableState } from "@gecko/ui/hooks/use-controllable-state";
@@ -208,7 +210,7 @@ export function DropZone({
 
         <div className="flex flex-col items-center gap-2">
           <div className="bg-background border border-border shadow-md text-foreground flex size-10 shrink-0 items-center justify-center rounded-lg transition-colors">
-            <CloudUpload className="size-6" aria-hidden />
+            <HugeiconsIcon icon={Upload01Icon} className="size-6" aria-hidden />
           </div>
           <div className="flex flex-col items-center gap-1">
             <p
@@ -269,14 +271,14 @@ export function DropZone({
 
               <Button
                 type="button"
-                variant="ghost"
+                variant="ghost-destructive"
                 size="icon"
                 className="size-7"
                 disabled={disabled}
                 onClick={() => removeAtIndex(index)}
                 aria-label={`Remove ${file.name}`}
               >
-                <Trash2 className="size-4" aria-hidden />
+                <HugeiconsIcon icon={Trash2} className="size-4" aria-hidden />
               </Button>
             </li>
           ))}

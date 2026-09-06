@@ -1,5 +1,8 @@
 import * as React from "react";
-import { ChevronDownIcon, ReplyIcon, SmilePlusIcon } from "lucide-react";
+import ChevronDownIcon from "@hugeicons/core-free-icons/ChevronDownIcon";
+import ReplyIcon from "@hugeicons/core-free-icons/ReplyIcon";
+import SmilePlusIcon from "@hugeicons/core-free-icons/SmilePlusIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -36,13 +39,14 @@ const previewLength = 120;
 function BubbleShowMore() {
   const [open, setOpen] = React.useState(false);
   const isLong = showMoreText.length > previewLength;
-  const preview = `${showMoreText.slice(0, previewLength)}...`;
 
   return (
     <Bubble variant="secondary" align="end">
       <BubbleContent className="whitespace-pre-line">
         <Collapsible open={open} onOpenChange={setOpen}>
-          <div>{open || !isLong ? showMoreText : preview}</div>
+          <div className={open || !isLong ? undefined : "line-clamp-3"}>
+            {showMoreText}
+          </div>
           {isLong ? (
             <CollapsibleTrigger
               render={
@@ -54,7 +58,10 @@ function BubbleShowMore() {
               }
             >
               {open ? "Show less" : "Show more"}
-              <ChevronDownIcon className={open ? "rotate-180" : undefined} />
+              <HugeiconsIcon
+                icon={ChevronDownIcon}
+                className="transition-transform duration-200 ease-out group-aria-expanded/button:rotate-180 motion-reduce:transition-none"
+              />
             </CollapsibleTrigger>
           ) : null}
         </Collapsible>
@@ -190,12 +197,12 @@ export function BubblePage() {
   const showMoreSnippet = `<Bubble variant="secondary" align="end">
   <BubbleContent className="whitespace-pre-line">
     <Collapsible open={open} onOpenChange={setOpen}>
-      <div>{open ? fullText : preview}</div>
+      <div className={open ? undefined : "line-clamp-3"}>{fullText}</div>
       <CollapsibleTrigger
         render={<Button variant="link" size="sm" />}
       >
         {open ? "Show less" : "Show more"}
-        <ChevronDownIcon />
+        <ChevronDownIcon className="transition-transform duration-200 ease-out group-aria-expanded/button:rotate-180 motion-reduce:transition-none" />
       </CollapsibleTrigger>
     </Collapsible>
   </BubbleContent>
@@ -611,7 +618,7 @@ export function BubblePage() {
                     size="icon-xs"
                     aria-label="Reply"
                   >
-                    <ReplyIcon />
+                    <HugeiconsIcon icon={ReplyIcon} />
                   </Button>
                   <Button
                     type="button"
@@ -619,7 +626,7 @@ export function BubblePage() {
                     size="icon-xs"
                     aria-label="Add reaction"
                   >
-                    <SmilePlusIcon />
+                    <HugeiconsIcon icon={SmilePlusIcon} />
                   </Button>
                 </BubbleActions>
                 <BubbleReactions role="img" aria-label="Reactions: thumbs up">
@@ -635,7 +642,7 @@ export function BubblePage() {
                     size="icon-xs"
                     aria-label="Reply"
                   >
-                    <ReplyIcon />
+                    <HugeiconsIcon icon={ReplyIcon} />
                   </Button>
                   <Button
                     type="button"
@@ -643,7 +650,7 @@ export function BubblePage() {
                     size="icon-xs"
                     aria-label="Add reaction"
                   >
-                    <SmilePlusIcon />
+                    <HugeiconsIcon icon={SmilePlusIcon} />
                   </Button>
                 </BubbleActions>
               </Bubble>

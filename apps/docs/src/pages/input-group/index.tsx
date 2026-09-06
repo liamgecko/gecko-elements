@@ -29,19 +29,16 @@ import {
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
-  InputGroupTextarea,
 } from "@gecko/ui/components/input-group";
 import { Kbd } from "@gecko/ui/components/kbd";
 import { Spinner } from "@gecko/ui/components/spinner";
-import {
-  Check,
-  Copy,
-  CreditCard,
-  FileCode,
-  Mail,
-  MoreHorizontal,
-  Search,
-} from "lucide-react";
+import Check from "@hugeicons/core-free-icons/CheckIcon";
+import Copy from "@hugeicons/core-free-icons/Copy01Icon";
+import CreditCard from "@hugeicons/core-free-icons/CreditCardIcon";
+import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
+import Mail from "@hugeicons/core-free-icons/Mail01Icon";
+import Search from "@hugeicons/core-free-icons/Search01Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -71,26 +68,26 @@ export function InputGroupPage() {
   </InputGroupAddon>
 </InputGroup>`;
 
-  const blockStartSnippet = `<Field>
-  <FieldLabel htmlFor="alignment-name">Input</FieldLabel>
+  const inlineStartSnippet = `<Field>
+  <FieldLabel htmlFor="alignment-url">Website</FieldLabel>
   <InputGroup>
-    <InputGroupInput id="alignment-name" placeholder="Enter your name" />
-    <InputGroupAddon align="block-start">
-      <InputGroupText>Full name</InputGroupText>
+    <InputGroupInput id="alignment-url" placeholder="example.com" />
+    <InputGroupAddon align="inline-start">
+      <InputGroupText>https://</InputGroupText>
     </InputGroupAddon>
   </InputGroup>
-  <FieldDescription>Header positioned above the input.</FieldDescription>
+  <FieldDescription>The protocol appears before the value.</FieldDescription>
 </Field>`;
 
-  const blockEndSnippet = `<Field>
+  const inlineEndSnippet = `<Field>
   <FieldLabel htmlFor="alignment-amount">Input</FieldLabel>
   <InputGroup>
     <InputGroupInput id="alignment-amount" placeholder="Enter amount" />
-    <InputGroupAddon align="block-end">
+    <InputGroupAddon align="inline-end">
       <InputGroupText>USD</InputGroupText>
     </InputGroupAddon>
   </InputGroup>
-  <FieldDescription>Footer positioned below the input.</FieldDescription>
+  <FieldDescription>The currency appears after the value.</FieldDescription>
 </Field>`;
 
   const iconSnippet = `<InputGroup>
@@ -130,7 +127,7 @@ export function InputGroupPage() {
       <DropdownMenuTrigger
         render={
           <InputGroupButton aria-label="File actions">
-            <MoreHorizontal aria-hidden="true" />
+            <EllipsisIcon aria-hidden="true" />
           </InputGroupButton>
         }
       />
@@ -258,7 +255,7 @@ const form = useForm<z.infer<typeof formSchema>>({
             <InputGroup>
               <InputGroupInput aria-label="Search" placeholder="Search..." />
               <InputGroupAddon align="inline-start">
-                <Search aria-hidden="true" />
+                <HugeiconsIcon icon={Search} aria-hidden="true" />
               </InputGroupAddon>
             </InputGroup>
             <Code
@@ -275,55 +272,34 @@ const form = useForm<z.infer<typeof formSchema>>({
       <MainSection
         id="alignment"
         title="Alignment"
-        description="Place supporting content above or below the control."
+        description="Place supporting content before or after the control."
       >
         <ChildSection
-          id="alignment-block-start"
-          title="Block start"
-          description="Place a header or compact toolbar above an input or textarea."
+          id="alignment-inline-start"
+          title="Inline start"
+          description="Place a prefix or icon before the input value."
         >
           <ComponentExample>
             <div className="space-y-6">
-              <div className="grid gap-6 md:grid-cols-2">
-                <Field>
-                  <FieldLabel htmlFor="alignment-name">Input</FieldLabel>
-                  <InputGroup>
-                    <InputGroupInput
-                      id="alignment-name"
-                      placeholder="Enter your name"
-                    />
-                    <InputGroupAddon align="block-start">
-                      <InputGroupText>Full name</InputGroupText>
-                    </InputGroupAddon>
-                  </InputGroup>
-                  <FieldDescription>
-                    Header positioned above the input.
-                  </FieldDescription>
-                </Field>
-                <Field>
-                  <FieldLabel htmlFor="alignment-script">Textarea</FieldLabel>
-                  <InputGroup>
-                    <InputGroupTextarea id="alignment-script" />
-                    <InputGroupAddon align="block-start">
-                      <FileCode aria-hidden="true" />
-                      <InputGroupText>script.js</InputGroupText>
-                      <InputGroupButton
-                        className="ms-auto"
-                        aria-label="Copy script"
-                      >
-                        <Copy aria-hidden="true" />
-                      </InputGroupButton>
-                    </InputGroupAddon>
-                  </InputGroup>
-                  <FieldDescription>
-                    Header positioned above the textarea.
-                  </FieldDescription>
-                </Field>
-              </div>
+              <Field>
+                <FieldLabel htmlFor="alignment-url">Website</FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    id="alignment-url"
+                    placeholder="example.com"
+                  />
+                  <InputGroupAddon align="inline-start">
+                    <InputGroupText>https://</InputGroupText>
+                  </InputGroupAddon>
+                </InputGroup>
+                <FieldDescription>
+                  The protocol appears before the value.
+                </FieldDescription>
+              </Field>
               <Code
                 variant="block"
                 language="tsx"
-                code={blockStartSnippet}
+                code={inlineStartSnippet}
                 showCopyButton
                 copyLabel="Copy example"
               />
@@ -331,51 +307,31 @@ const form = useForm<z.infer<typeof formSchema>>({
           </ComponentExample>
         </ChildSection>
         <ChildSection
-          id="alignment-block-end"
-          title="Block end"
-          description="Place supporting information or actions below an input or textarea."
+          id="alignment-inline-end"
+          title="Inline end"
+          description="Place a suffix, status, or action after the input value."
         >
           <ComponentExample>
             <div className="space-y-6">
-              <div className="grid gap-6 md:grid-cols-2">
-                <Field>
-                  <FieldLabel htmlFor="alignment-amount">Input</FieldLabel>
-                  <InputGroup>
-                    <InputGroupInput
-                      id="alignment-amount"
-                      placeholder="Enter amount"
-                    />
-                    <InputGroupAddon align="block-end">
-                      <InputGroupText>USD</InputGroupText>
-                    </InputGroupAddon>
-                  </InputGroup>
-                  <FieldDescription>
-                    Footer positioned below the input.
-                  </FieldDescription>
-                </Field>
-                <Field>
-                  <FieldLabel htmlFor="alignment-reply">Textarea</FieldLabel>
-                  <InputGroup>
-                    <InputGroupTextarea
-                      id="alignment-reply"
-                      placeholder="Write a reply..."
-                    />
-                    <InputGroupAddon align="block-end">
-                      <InputGroupText>0/500</InputGroupText>
-                      <InputGroupButton className="ms-auto">
-                        Send
-                      </InputGroupButton>
-                    </InputGroupAddon>
-                  </InputGroup>
-                  <FieldDescription>
-                    Footer positioned below the textarea.
-                  </FieldDescription>
-                </Field>
-              </div>
+              <Field>
+                <FieldLabel htmlFor="alignment-amount">Amount</FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    id="alignment-amount"
+                    placeholder="Enter amount"
+                  />
+                  <InputGroupAddon align="inline-end">
+                    <InputGroupText>USD</InputGroupText>
+                  </InputGroupAddon>
+                </InputGroup>
+                <FieldDescription>
+                  The currency appears after the value.
+                </FieldDescription>
+              </Field>
               <Code
                 variant="block"
                 language="tsx"
-                code={blockEndSnippet}
+                code={inlineEndSnippet}
                 showCopyButton
                 copyLabel="Copy example"
               />
@@ -395,7 +351,7 @@ const form = useForm<z.infer<typeof formSchema>>({
               <InputGroup>
                 <InputGroupInput aria-label="Search" placeholder="Search..." />
                 <InputGroupAddon align="inline-start">
-                  <Search aria-hidden="true" />
+                  <HugeiconsIcon icon={Search} aria-hidden="true" />
                 </InputGroupAddon>
               </InputGroup>
               <InputGroup>
@@ -404,10 +360,10 @@ const form = useForm<z.infer<typeof formSchema>>({
                   placeholder="Enter your email"
                 />
                 <InputGroupAddon align="inline-start">
-                  <Mail aria-hidden="true" />
+                  <HugeiconsIcon icon={Mail} aria-hidden="true" />
                 </InputGroupAddon>
                 <InputGroupAddon align="inline-end">
-                  <Check aria-hidden="true" />
+                  <HugeiconsIcon icon={Check} aria-hidden="true" />
                 </InputGroupAddon>
               </InputGroup>
               <InputGroup>
@@ -416,7 +372,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                   placeholder="Card number"
                 />
                 <InputGroupAddon align="inline-start">
-                  <CreditCard aria-hidden="true" />
+                  <HugeiconsIcon icon={CreditCard} aria-hidden="true" />
                 </InputGroupAddon>
               </InputGroup>
             </div>
@@ -460,15 +416,6 @@ const form = useForm<z.infer<typeof formSchema>>({
                   <InputGroupText>.com</InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
-              <InputGroup>
-                <InputGroupTextarea
-                  aria-label="Biography"
-                  placeholder="Tell us about yourself..."
-                />
-                <InputGroupAddon align="block-end">
-                  <InputGroupText>120 characters left</InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
             </div>
             <Code
               variant="block"
@@ -496,7 +443,7 @@ const form = useForm<z.infer<typeof formSchema>>({
               />
               <InputGroupAddon align="inline-end">
                 <InputGroupButton aria-label="Copy invite link">
-                  <Copy aria-hidden="true" />
+                  <HugeiconsIcon icon={Copy} aria-hidden="true" />
                 </InputGroupButton>
               </InputGroupAddon>
             </InputGroup>
@@ -521,7 +468,7 @@ const form = useForm<z.infer<typeof formSchema>>({
             <InputGroup>
               <InputGroupInput aria-label="Search" placeholder="Search..." />
               <InputGroupAddon align="inline-start">
-                <Search aria-hidden="true" />
+                <HugeiconsIcon icon={Search} aria-hidden="true" />
               </InputGroupAddon>
               <InputGroupAddon align="inline-end">
                 <Kbd>⌘K</Kbd>
@@ -556,7 +503,10 @@ const form = useForm<z.infer<typeof formSchema>>({
                     <DropdownMenuTrigger
                       render={
                         <InputGroupButton aria-label="File actions">
-                          <MoreHorizontal aria-hidden="true" />
+                          <HugeiconsIcon
+                            icon={EllipsisIcon}
+                            aria-hidden="true"
+                          />
                         </InputGroupButton>
                       }
                     />
@@ -628,17 +578,6 @@ const form = useForm<z.infer<typeof formSchema>>({
                   <Spinner size="sm" />
                 </InputGroupAddon>
               </InputGroup>
-              <InputGroup aria-busy="true">
-                <InputGroupInput
-                  aria-label="Save status"
-                  value="Saving changes..."
-                  readOnly
-                />
-                <InputGroupAddon align="block-end">
-                  <Spinner size="sm" />
-                  <InputGroupText>Saving...</InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
             </div>
             <Code
               variant="block"
@@ -666,7 +605,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                     placeholder={`${size.toUpperCase()} search...`}
                   />
                   <InputGroupAddon align="inline-end">
-                    <Search aria-hidden="true" />
+                    <HugeiconsIcon icon={Search} aria-hidden="true" />
                   </InputGroupAddon>
                 </InputGroup>
               ))}

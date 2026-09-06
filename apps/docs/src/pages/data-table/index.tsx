@@ -480,6 +480,9 @@ export function DataTablePage() {
   columns={columns}
   data={data}
   sorting
+  initialState={{
+    sorting: [{ id: "startsAt", desc: false }],
+  }}
 />`;
 
   const helpTextSnippet = `<DataTableColumnHeader
@@ -581,6 +584,9 @@ export function DataTablePage() {
     },
     columnToggle: true,
   }}
+  initialState={{
+    sorting: [{ id: "startsAt", desc: false }],
+  }}
 />`;
 
   return (
@@ -678,7 +684,8 @@ export function DataTablePage() {
           description={
             <>
               Turns sorting on with the <Code>sorting</Code> prop. Use this when
-              people need to order the list by a column.
+              people need to order the list by a column. Declare the initial
+              order so its column shows the active direction immediately.
             </>
           }
         >
@@ -690,6 +697,7 @@ export function DataTablePage() {
                 data={demoEvents}
                 sorting
                 initialState={{
+                  sorting: [{ id: "startsAt", desc: false }],
                   columnVisibility: {
                     chronology: false,
                     category: false,
@@ -1102,6 +1110,7 @@ export function DataTablePage() {
                 columnToggle: true,
               }}
               initialState={{
+                sorting: [{ id: "startsAt", desc: false }],
                 columnVisibility: {
                   chronology: false,
                   category: false,

@@ -110,6 +110,8 @@ The product owns the unread state. Chat head does not infer unread status from t
 
 The library owns the controls’ appearance, placement, tooltips, accessible names, and mapping to conversation state. Their product behaviour is intentionally outside the current interface and will be decided during product integration.
 
+Delete uses Button’s `outline-destructive` treatment. It matches the neutral outline controls at rest, then communicates destructive intent through its interaction states.
+
 Agents must preserve the existing controls and must not add callbacks, action implementations, confirmation flows, permissions, or alternative controls without explicit user consent.
 
 ## Relative time

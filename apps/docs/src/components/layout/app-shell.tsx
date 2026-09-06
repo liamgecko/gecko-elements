@@ -1,24 +1,27 @@
-import { useEffect } from "react"
+import { useEffect } from "react";
 import {
   Sidebar,
   SidebarContent,
   SidebarHeader,
   SidebarProvider,
   SidebarTrigger,
-} from "@gecko/ui/components/sidebar"
+} from "@gecko/ui/components/sidebar";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
-import geckoLogo from "@/assets/gecko-logo.svg"
-import { SidebarNav } from "./sidebar-nav"
-import { ScrollArea } from "@gecko/ui/components/scroll-area"
-import { Link, useLocation } from "react-router-dom"
-import { useTheme } from "@/components/theme-provider"
-import { Home, Moon, Sun } from "lucide-react"
-import { Separator } from "@gecko/ui/components/separator"
+} from "@gecko/ui/components/tooltip";
+import geckoLogo from "@/assets/gecko-logo.svg";
+import { SidebarNav } from "./sidebar-nav";
+import { ScrollArea } from "@gecko/ui/components/scroll-area";
+import { Link, useLocation } from "react-router-dom";
+import { useTheme } from "@/components/theme-provider";
+import Home from "@hugeicons/core-free-icons/Home04Icon";
+import Moon02Icon from "@hugeicons/core-free-icons/Moon02Icon";
+import Sun from "@hugeicons/core-free-icons/Sun01Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { Separator } from "@gecko/ui/components/separator";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -26,121 +29,121 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@gecko/ui/components/breadcrumb"
-import { PageSectionNav } from "./page-section-nav"
-import { Button } from "@gecko/ui/components/button"
-import { structurePages } from "@/pages/gallery-data"
+} from "@gecko/ui/components/breadcrumb";
+import { PageSectionNav } from "./page-section-nav";
+import { Button } from "@gecko/ui/components/button";
+import { structurePages } from "@/pages/gallery-data";
 
-const APP_TITLE = "Gecko Elements"
+const APP_TITLE = "Gecko Elements";
 
 function slugToPageTitle(slug: string): string {
   return slug
     .split("-")
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ")
+    .join(" ");
 }
 
 function structurePageTitle(slug: string): string {
-  const path = `/structure/${slug}`
+  const path = `/structure/${slug}`;
   return (
     structurePages.find((page) => page.path === path)?.name ??
     slugToPageTitle(slug)
-  )
+  );
 }
 
 function structureDocumentTitle(slug: string): string {
   return structurePageTitle(slug)
     .split(" ")
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ")
+    .join(" ");
 }
 
 type AppShellProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
 export function AppShell({ children }: AppShellProps) {
-  const location = useLocation()
-  const { resolvedTheme, setTheme } = useTheme()
+  const location = useLocation();
+  const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
     const viewport = document.querySelector<HTMLElement>(
-      '[data-app-main="true"] [data-slot="scroll-area-viewport"]'
-    )
+      '[data-app-main="true"] [data-slot="scroll-area-viewport"]',
+    );
     if (viewport) {
-      viewport.scrollTo({ top: 0, left: 0, behavior: "auto" })
+      viewport.scrollTo({ top: 0, left: 0, behavior: "auto" });
     }
 
-    const { pathname } = location
+    const { pathname } = location;
     if (pathname === "/") {
-      document.title = `Home | ${APP_TITLE}`
+      document.title = `Home | ${APP_TITLE}`;
     } else if (pathname === "/guides") {
-      document.title = `Guides | ${APP_TITLE}`
+      document.title = `Guides | ${APP_TITLE}`;
     } else if (pathname.startsWith("/guides/")) {
-      const slug = pathname.replace("/guides/", "").replace(/\/$/, "")
+      const slug = pathname.replace("/guides/", "").replace(/\/$/, "");
       document.title = slug
         ? `${slugToPageTitle(slug)} | ${APP_TITLE}`
-        : APP_TITLE
+        : APP_TITLE;
     } else if (pathname === "/core") {
-      document.title = `Core | ${APP_TITLE}`
+      document.title = `Core | ${APP_TITLE}`;
     } else if (pathname === "/components") {
-      document.title = `Components | ${APP_TITLE}`
+      document.title = `Components | ${APP_TITLE}`;
     } else if (pathname.startsWith("/components/")) {
-      const slug = pathname.replace("/components/", "").replace(/\/$/, "")
+      const slug = pathname.replace("/components/", "").replace(/\/$/, "");
       document.title = slug
         ? `${slugToPageTitle(slug)} | ${APP_TITLE}`
-        : APP_TITLE
+        : APP_TITLE;
     } else if (pathname.startsWith("/core/")) {
-      const slug = pathname.replace("/core/", "").replace(/\/$/, "")
+      const slug = pathname.replace("/core/", "").replace(/\/$/, "");
       document.title = slug
         ? `${slugToPageTitle(slug)} | ${APP_TITLE}`
-        : APP_TITLE
+        : APP_TITLE;
     } else if (pathname === "/structure") {
-      document.title = `Structure | ${APP_TITLE}`
+      document.title = `Structure | ${APP_TITLE}`;
     } else if (pathname.startsWith("/structure/")) {
-      const slug = pathname.replace("/structure/", "").replace(/\/$/, "")
+      const slug = pathname.replace("/structure/", "").replace(/\/$/, "");
       document.title = slug
         ? `${structureDocumentTitle(slug)} | ${APP_TITLE}`
-        : APP_TITLE
+        : APP_TITLE;
     } else {
-      document.title = APP_TITLE
+      document.title = APP_TITLE;
     }
-  }, [location.pathname])
+  }, [location.pathname]);
 
-  const pathname = location.pathname
-  const isHome = pathname === "/"
+  const pathname = location.pathname;
+  const isHome = pathname === "/";
   const isComponentsRoute =
-    pathname === "/components" || pathname.startsWith("/components/")
+    pathname === "/components" || pathname.startsWith("/components/");
   const isGuidesRoute =
-    pathname === "/guides" || pathname.startsWith("/guides/")
-  const isCoreRoute = pathname === "/core" || pathname.startsWith("/core/")
+    pathname === "/guides" || pathname.startsWith("/guides/");
+  const isCoreRoute = pathname === "/core" || pathname.startsWith("/core/");
   const isStructureRoute =
-    pathname === "/structure" || pathname.startsWith("/structure/")
+    pathname === "/structure" || pathname.startsWith("/structure/");
   const componentSlug = isComponentsRoute
     ? pathname.replace(/^\/components\/?/, "").replace(/\/$/, "")
-    : null
+    : null;
   const guidesSlug = isGuidesRoute
     ? pathname.replace(/^\/guides\/?/, "").replace(/\/$/, "")
-    : null
+    : null;
   const coreSlug = isCoreRoute
     ? pathname.replace(/^\/core\/?/, "").replace(/\/$/, "")
-    : null
+    : null;
   const structureSlug = isStructureRoute
     ? pathname.replace(/^\/structure\/?/, "").replace(/\/$/, "")
-    : null
+    : null;
 
   const guidesPageName =
-    guidesSlug && guidesSlug.length > 0 ? slugToPageTitle(guidesSlug) : null
+    guidesSlug && guidesSlug.length > 0 ? slugToPageTitle(guidesSlug) : null;
   const componentName =
     componentSlug && componentSlug.length > 0
       ? slugToPageTitle(componentSlug)
-      : null
+      : null;
   const corePageName =
-    coreSlug && coreSlug.length > 0 ? slugToPageTitle(coreSlug) : null
+    coreSlug && coreSlug.length > 0 ? slugToPageTitle(coreSlug) : null;
   const structurePageName =
     structureSlug && structureSlug.length > 0
       ? structurePageTitle(structureSlug)
-      : null
+      : null;
 
   return (
     <TooltipProvider>
@@ -171,132 +174,136 @@ export function AppShell({ children }: AppShellProps) {
                   <>
                     <Separator orientation="vertical" className="shrink-0" />
                     <Breadcrumb className="min-w-0">
-                    <BreadcrumbList>
-                      <BreadcrumbItem>
-                        <BreadcrumbLink
-                          aria-label="Home"
-                          render={<Link to="/" className="text-left" />}
-                        >
-                          <Home className="size-3.5" />
-                          <span className="sr-only">Home</span>
-                        </BreadcrumbLink>
-                      </BreadcrumbItem>
-                      {isGuidesRoute && (
-                        <>
-                          <BreadcrumbSeparator />
-                          <BreadcrumbItem>
-                            {pathname === "/guides" ? (
-                              <BreadcrumbPage>Guides</BreadcrumbPage>
-                            ) : (
-                              <BreadcrumbLink
-                                render={
-                                  <Link to="/guides" className="text-left" />
-                                }
-                              >
-                                Guides
-                              </BreadcrumbLink>
-                            )}
-                          </BreadcrumbItem>
-                          {guidesPageName ? (
-                            <>
-                              <BreadcrumbSeparator />
-                              <BreadcrumbItem>
-                                <BreadcrumbPage>
-                                  {guidesPageName}
-                                </BreadcrumbPage>
-                              </BreadcrumbItem>
-                            </>
-                          ) : null}
-                        </>
-                      )}
-                      {isCoreRoute && (
-                        <>
-                          <BreadcrumbSeparator />
-                          <BreadcrumbItem>
-                            {pathname === "/core" ? (
-                              <BreadcrumbPage>Core</BreadcrumbPage>
-                            ) : (
-                              <BreadcrumbLink
-                                render={
-                                  <Link to="/core" className="text-left" />
-                                }
-                              >
-                                Core
-                              </BreadcrumbLink>
-                            )}
-                          </BreadcrumbItem>
-                          {corePageName ? (
-                            <>
-                              <BreadcrumbSeparator />
-                              <BreadcrumbItem>
-                                <BreadcrumbPage>{corePageName}</BreadcrumbPage>
-                              </BreadcrumbItem>
-                            </>
-                          ) : null}
-                        </>
-                      )}
-                      {isComponentsRoute && (
-                        <>
-                          <BreadcrumbSeparator />
-                          <BreadcrumbItem>
-                            {pathname === "/components" ? (
-                              <BreadcrumbPage>Components</BreadcrumbPage>
-                            ) : (
-                              <BreadcrumbLink
-                                render={
-                                  <Link
-                                    to="/components"
-                                    className="text-left"
-                                  />
-                                }
-                              >
-                                Components
-                              </BreadcrumbLink>
-                            )}
-                          </BreadcrumbItem>
-                          {componentName ? (
-                            <>
-                              <BreadcrumbSeparator />
-                              <BreadcrumbItem>
-                                <BreadcrumbPage>{componentName}</BreadcrumbPage>
-                              </BreadcrumbItem>
-                            </>
-                          ) : null}
-                        </>
-                      )}
-                      {isStructureRoute && (
-                        <>
-                          <BreadcrumbSeparator />
-                          <BreadcrumbItem>
-                            {pathname === "/structure" ? (
-                              <BreadcrumbPage>Structure</BreadcrumbPage>
-                            ) : (
-                              <BreadcrumbLink
-                                render={
-                                  <Link
-                                    to="/structure"
-                                    className="text-left"
-                                  />
-                                }
-                              >
-                                Structure
-                              </BreadcrumbLink>
-                            )}
-                          </BreadcrumbItem>
-                          {structurePageName ? (
-                            <>
-                              <BreadcrumbSeparator />
-                              <BreadcrumbItem>
-                                <BreadcrumbPage>
-                                  {structurePageName}
-                                </BreadcrumbPage>
-                              </BreadcrumbItem>
-                            </>
-                          ) : null}
-                        </>
-                      )}
-                    </BreadcrumbList>
-                  </Breadcrumb>
+                      <BreadcrumbList>
+                        <BreadcrumbItem>
+                          <BreadcrumbLink
+                            aria-label="Home"
+                            render={<Link to="/" className="text-left" />}
+                          >
+                            <HugeiconsIcon icon={Home} className="size-3.5" />
+                            <span className="sr-only">Home</span>
+                          </BreadcrumbLink>
+                        </BreadcrumbItem>
+                        {isGuidesRoute && (
+                          <>
+                            <BreadcrumbSeparator />
+                            <BreadcrumbItem>
+                              {pathname === "/guides" ? (
+                                <BreadcrumbPage>Guides</BreadcrumbPage>
+                              ) : (
+                                <BreadcrumbLink
+                                  render={
+                                    <Link to="/guides" className="text-left" />
+                                  }
+                                >
+                                  Guides
+                                </BreadcrumbLink>
+                              )}
+                            </BreadcrumbItem>
+                            {guidesPageName ? (
+                              <>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem>
+                                  <BreadcrumbPage>
+                                    {guidesPageName}
+                                  </BreadcrumbPage>
+                                </BreadcrumbItem>
+                              </>
+                            ) : null}
+                          </>
+                        )}
+                        {isCoreRoute && (
+                          <>
+                            <BreadcrumbSeparator />
+                            <BreadcrumbItem>
+                              {pathname === "/core" ? (
+                                <BreadcrumbPage>Core</BreadcrumbPage>
+                              ) : (
+                                <BreadcrumbLink
+                                  render={
+                                    <Link to="/core" className="text-left" />
+                                  }
+                                >
+                                  Core
+                                </BreadcrumbLink>
+                              )}
+                            </BreadcrumbItem>
+                            {corePageName ? (
+                              <>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem>
+                                  <BreadcrumbPage>
+                                    {corePageName}
+                                  </BreadcrumbPage>
+                                </BreadcrumbItem>
+                              </>
+                            ) : null}
+                          </>
+                        )}
+                        {isComponentsRoute && (
+                          <>
+                            <BreadcrumbSeparator />
+                            <BreadcrumbItem>
+                              {pathname === "/components" ? (
+                                <BreadcrumbPage>Components</BreadcrumbPage>
+                              ) : (
+                                <BreadcrumbLink
+                                  render={
+                                    <Link
+                                      to="/components"
+                                      className="text-left"
+                                    />
+                                  }
+                                >
+                                  Components
+                                </BreadcrumbLink>
+                              )}
+                            </BreadcrumbItem>
+                            {componentName ? (
+                              <>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem>
+                                  <BreadcrumbPage>
+                                    {componentName}
+                                  </BreadcrumbPage>
+                                </BreadcrumbItem>
+                              </>
+                            ) : null}
+                          </>
+                        )}
+                        {isStructureRoute && (
+                          <>
+                            <BreadcrumbSeparator />
+                            <BreadcrumbItem>
+                              {pathname === "/structure" ? (
+                                <BreadcrumbPage>Structure</BreadcrumbPage>
+                              ) : (
+                                <BreadcrumbLink
+                                  render={
+                                    <Link
+                                      to="/structure"
+                                      className="text-left"
+                                    />
+                                  }
+                                >
+                                  Structure
+                                </BreadcrumbLink>
+                              )}
+                            </BreadcrumbItem>
+                            {structurePageName ? (
+                              <>
+                                <BreadcrumbSeparator />
+                                <BreadcrumbItem>
+                                  <BreadcrumbPage>
+                                    {structurePageName}
+                                  </BreadcrumbPage>
+                                </BreadcrumbItem>
+                              </>
+                            ) : null}
+                          </>
+                        )}
+                      </BreadcrumbList>
+                    </Breadcrumb>
                   </>
                 )}
               </div>
@@ -318,9 +325,17 @@ export function AppShell({ children }: AppShellProps) {
                       }
                     >
                       {resolvedTheme === "dark" ? (
-                        <Sun className="size-4" aria-hidden />
+                        <HugeiconsIcon
+                          icon={Sun}
+                          className="size-4"
+                          aria-hidden
+                        />
                       ) : (
-                        <Moon className="size-4" aria-hidden />
+                        <HugeiconsIcon
+                          icon={Moon02Icon}
+                          className="size-4"
+                          aria-hidden
+                        />
                       )}
                     </Button>
                   }
@@ -357,5 +372,5 @@ export function AppShell({ children }: AppShellProps) {
         </div>
       </SidebarProvider>
     </TooltipProvider>
-  )
+  );
 }

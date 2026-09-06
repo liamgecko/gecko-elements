@@ -1,7 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { Check, PenSquare, X } from "lucide-react";
+import Check from "@hugeicons/core-free-icons/CheckIcon";
+import PenSquare from "@hugeicons/core-free-icons/SquarePenIcon";
+import X from "@hugeicons/core-free-icons/XIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { Input } from "@gecko/ui/components/input";
@@ -226,7 +229,8 @@ const InlineEdit = React.forwardRef<HTMLSpanElement, InlineEditProps>(
                 aria-label={`Cancel editing ${ariaLabel}`}
                 onClick={cancelEdit}
               >
-                <X
+                <HugeiconsIcon
+                  icon={X}
                   className={cn(
                     "pointer-events-none",
                     inlineEditGlyphIconVariants({ size: resolvedSize }),
@@ -241,7 +245,8 @@ const InlineEdit = React.forwardRef<HTMLSpanElement, InlineEditProps>(
                 aria-label={`Save ${ariaLabel}`}
                 onClick={commitSave}
               >
-                <Check
+                <HugeiconsIcon
+                  icon={Check}
                   className={cn(
                     "pointer-events-none",
                     inlineEditGlyphIconVariants({ size: resolvedSize }),
@@ -285,7 +290,8 @@ const InlineEdit = React.forwardRef<HTMLSpanElement, InlineEditProps>(
                 })}
                 aria-hidden="true"
               >
-                <PenSquare
+                <HugeiconsIcon
+                  icon={PenSquare}
                   className={inlineEditGlyphIconVariants({
                     size: resolvedSize,
                   })}

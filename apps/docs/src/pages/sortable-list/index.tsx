@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { MoreHorizontal } from "lucide-react";
+import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -66,7 +67,7 @@ function RowActions({
           />
         }
       >
-        <MoreHorizontal aria-hidden />
+        <HugeiconsIcon icon={EllipsisIcon} aria-hidden />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem variant="destructive" onClick={onDelete}>

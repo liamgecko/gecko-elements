@@ -1,9 +1,11 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Maximize2, Minimize2 } from "lucide-react"
+import * as React from "react";
+import ContractIcon from "@hugeicons/core-free-icons/ArrowShrink02Icon";
+import ExpandIcon from "@hugeicons/core-free-icons/ArrowExpand01Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@gecko/ui/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,23 +13,23 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"
+} from "@gecko/ui/components/dropdown-menu";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
+} from "@gecko/ui/components/tooltip";
 
-import { useReplyBox } from "./reply-box-context"
-import type { ReplyBoxChannel, ReplyBoxChannelType } from "./reply-box-actions"
+import { useReplyBox } from "./reply-box-context";
+import type { ReplyBoxChannel, ReplyBoxChannelType } from "./reply-box-actions";
 
 export type ReplyBoxHeaderProps = React.ComponentProps<"div"> & {
-  showChannelSwitcher?: boolean
-  showExpand?: boolean
-  channels?: { type: ReplyBoxChannelType; label: string }[]
-  channel?: ReplyBoxChannel
-}
+  showChannelSwitcher?: boolean;
+  showExpand?: boolean;
+  channels?: { type: ReplyBoxChannelType; label: string }[];
+  channel?: ReplyBoxChannel;
+};
 
 export function ReplyBoxHeader({
   showChannelSwitcher = false,
@@ -37,13 +39,13 @@ export function ReplyBoxHeader({
   className,
   ...props
 }: ReplyBoxHeaderProps) {
-  const ctx = useReplyBox()
-  const channel = channelProp ?? ctx.channel
-  const expanded = ctx.expanded
-  const toggleExpanded = ctx.toggleExpanded
-  const noteMode = ctx.noteMode
+  const ctx = useReplyBox();
+  const channel = channelProp ?? ctx.channel;
+  const expanded = ctx.expanded;
+  const toggleExpanded = ctx.toggleExpanded;
+  const noteMode = ctx.noteMode;
 
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
 
   const options = React.useMemo(
     () =>
@@ -53,10 +55,10 @@ export function ReplyBoxHeader({
         { type: "email", label: "Email" },
         { type: "live-chat", label: "WhatsApp" },
       ] as const),
-    [channels]
-  )
+    [channels],
+  );
 
-  const selectedKey = `${channel.type}:${channel.label}`
+  const selectedKey = `${channel.type}:${channel.label}`;
 
   return (
     <div
@@ -75,8 +77,8 @@ export function ReplyBoxHeader({
           searchPlaceholder="Search channels…"
           open={noteMode ? false : open}
           onOpenChange={(next) => {
-            if (noteMode) return
-            setOpen(next)
+            if (noteMode) return;
+            setOpen(next);
           }}
         >
           <DropdownMenuTrigger
@@ -106,10 +108,10 @@ export function ReplyBoxHeader({
                 value={selectedKey}
                 onValueChange={(value) => {
                   const next = options.find(
-                    (c) => `${c.type}:${c.label}` === value
-                  )
-                  if (next) ctx.setChannel(next)
-                  setOpen(false)
+                    (c) => `${c.type}:${c.label}` === value,
+                  );
+                  if (next) ctx.setChannel(next);
+                  setOpen(false);
                 }}
               >
                 {options.map((c) => (
@@ -143,9 +145,17 @@ export function ReplyBoxHeader({
                   onClick={toggleExpanded}
                 >
                   {expanded ? (
-                    <Minimize2 className="size-3.5" strokeWidth={2.2} />
+                    <HugeiconsIcon
+                      icon={ContractIcon}
+                      className="size-3.5"
+                      strokeWidth={2.2}
+                    />
                   ) : (
-                    <Maximize2 className="size-3.5" strokeWidth={2.2} />
+                    <HugeiconsIcon
+                      icon={ExpandIcon}
+                      className="size-3.5"
+                      strokeWidth={2.2}
+                    />
                   )}
                 </Button>
               }
@@ -157,5 +167,5 @@ export function ReplyBoxHeader({
         </TooltipProvider>
       ) : null}
     </div>
-  )
+  );
 }

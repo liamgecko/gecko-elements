@@ -32,17 +32,18 @@ Normally use one default Button per Header, dialog footer, form action row, or o
 
 The approved variants are a closed set:
 
-| Variant             | Use                                                                           |
-| ------------------- | ----------------------------------------------------------------------------- |
-| `default`           | Main action; normally one per local decision area                             |
-| `outline`           | Canonical secondary action                                                    |
-| `secondary`         | Soft-filled contextual action used only by a documented component composition |
-| `ghost`             | Low-emphasis toolbar or icon control on a standard surface                    |
-| `ghost-light`       | Contextual control on a light specialised surface, including Reply Box        |
-| `ghost-dark`        | Contextual control on a dark surface, including App Header                    |
-| `destructive`       | Prominent destructive or high-risk action                                     |
-| `ghost-destructive` | Quiet remove action in a row, list, menu, or compact control                  |
-| `link`              | Low-emphasis action that still behaves as a button                            |
+| Variant               | Use                                                                           |
+| --------------------- | ----------------------------------------------------------------------------- |
+| `default`             | Main action; normally one per local decision area                             |
+| `outline`             | Canonical secondary action                                                    |
+| `outline-destructive` | Neutral outline whose interaction states communicate destructive intent       |
+| `secondary`           | Soft-filled contextual action used only by a documented component composition |
+| `ghost`               | Low-emphasis toolbar or icon control on a standard surface                    |
+| `ghost-light`         | Contextual control on a light specialised surface, including Reply Box        |
+| `ghost-dark`          | Contextual control on a dark surface, including App Header                    |
+| `destructive`         | Prominent destructive or high-risk action                                     |
+| `ghost-destructive`   | Quiet remove action in a row, list, menu, or compact control                  |
+| `link`                | Low-emphasis action that still behaves as a button                            |
 
 Choose variants from action hierarchy and context, not colour preference. `ghost-light`, `ghost-dark`, and `secondary` require a documented component recipe. Agents must obtain explicit user consent before adding or changing variants, props, meanings, or visual treatments.
 
@@ -149,6 +150,7 @@ Keep form submission enabled before validation. On submit, show field errors and
 ## Dropdown trigger
 
 Set `dropdown` only on a Button composed with DropdownMenuTrigger. Button supplies the approved chevron; DropdownMenuTrigger supplies menu semantics, state, and interaction.
+The chevron rotates when the trigger opens and returns when it closes. Reduced-motion preferences retain the directional state without the transition.
 
 ```tsx
 <DropdownMenu>
@@ -193,15 +195,15 @@ Base UI safely renders Button with `type="button"` by default. Set `type="submit
 
 ## Interface
 
-| Property                  | Type                                                                                                                                  | Default     | Meaning                                                                                       |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------- |
-| `variant`                 | `"default" \| "outline" \| "secondary" \| "ghost" \| "ghost-light" \| "ghost-dark" \| "ghost-destructive" \| "destructive" \| "link"` | `"default"` | Approved action hierarchy and surface treatment                                               |
-| `size`                    | `"xs" \| "sm" \| "default" \| "lg" \| "icon-2xs" \| "icon-xs" \| "icon-sm" \| "icon" \| "icon-lg"`                                    | `"default"` | Approved labelled or square scale                                                             |
-| `loading`                 | `boolean`                                                                                                                             | `false`     | Owned busy state with Loader, visible action label, activation protection and focus retention |
-| `dropdown`                | `boolean`                                                                                                                             | `false`     | Adds the approved trailing chevron for DropdownMenuTrigger composition                        |
-| `disabled`                | `boolean`                                                                                                                             | `false`     | Makes a genuinely unavailable action inactive                                                 |
-| `focusableWhenDisabled`   | `boolean`                                                                                                                             | `false`     | Advanced Base UI disabled behaviour; loading enables it automatically                         |
-| Base UI Button properties | `ButtonPrimitive.Props`                                                                                                               | —           | Native button behaviour and event integration                                                 |
+| Property                  | Type                                                                                                                                                           | Default     | Meaning                                                                                       |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------- |
+| `variant`                 | `"default" \| "outline" \| "outline-destructive" \| "secondary" \| "ghost" \| "ghost-light" \| "ghost-dark" \| "ghost-destructive" \| "destructive" \| "link"` | `"default"` | Approved action hierarchy and surface treatment                                               |
+| `size`                    | `"xs" \| "sm" \| "default" \| "lg" \| "icon-2xs" \| "icon-xs" \| "icon-sm" \| "icon" \| "icon-lg"`                                                             | `"default"` | Approved labelled or square scale                                                             |
+| `loading`                 | `boolean`                                                                                                                                                      | `false`     | Owned busy state with Loader, visible action label, activation protection and focus retention |
+| `dropdown`                | `boolean`                                                                                                                                                      | `false`     | Adds the approved trailing chevron for DropdownMenuTrigger composition                        |
+| `disabled`                | `boolean`                                                                                                                                                      | `false`     | Makes a genuinely unavailable action inactive                                                 |
+| `focusableWhenDisabled`   | `boolean`                                                                                                                                                      | `false`     | Advanced Base UI disabled behaviour; loading enables it automatically                         |
+| Base UI Button properties | `ButtonPrimitive.Props`                                                                                                                                        | —           | Native button behaviour and event integration                                                 |
 
 `buttonVariants` is exported for applying the approved visual treatment to a real anchor or router Link. Preserve native link behaviour and a real destination.
 
@@ -213,4 +215,4 @@ Use `className` only for documented layout integration such as width or parent a
 
 ## Relationship to Shadcn
 
-Gecko retains Shadcn’s Base UI Button foundation, CVA variant interface, native semantics, render composition, focus treatment, disabled behaviour, and icon-position attributes. Gecko applies its compact radius, spacing and colours; adds contextual ghost treatments, a quiet destructive treatment, `icon-2xs`, the approved dropdown chevron, and an owned loading state. Gecko deliberately uses focused colour transitions rather than `transition-all`.
+Gecko retains Shadcn’s Base UI Button foundation, CVA variant interface, native semantics, render composition, focus treatment, disabled behaviour, and icon-position attributes. Gecko applies its compact radius, spacing and colours; adds contextual ghost treatments, outlined and quiet destructive treatments, `icon-2xs`, the approved dropdown chevron, and an owned loading state. Gecko deliberately uses focused colour transitions rather than `transition-all`.

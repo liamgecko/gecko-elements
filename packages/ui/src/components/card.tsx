@@ -1,7 +1,8 @@
 import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
-import { CircleHelp } from "lucide-react";
+import CircleHelp from "@hugeicons/core-free-icons/HelpCircleIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { cn } from "@gecko/ui/lib/utils";
 import {
@@ -164,7 +165,7 @@ function CardHeader({
         {main}
         <Tooltip>
           <TooltipTrigger aria-label="More information">
-            <CircleHelp className="size-3.5" aria-hidden />
+            <HugeiconsIcon icon={CircleHelp} className="size-3.5" aria-hidden />
           </TooltipTrigger>
           <TooltipContent side="top" className="max-w-xs text-pretty">
             {descriptionTooltipBody}

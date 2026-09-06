@@ -11,7 +11,9 @@ import {
 } from "@/components/layout/docs-section";
 import { Code } from "@gecko/ui/components/code";
 import { Toggle } from "@gecko/ui/components/toggle";
-import { Bookmark, Bold } from "lucide-react";
+import Bookmark from "@hugeicons/core-free-icons/Bookmark02Icon";
+import Bold from "@hugeicons/core-free-icons/BoldIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 export function TogglePage() {
   const [bookmarked, setBookmarked] = useState(false);
@@ -93,7 +95,7 @@ export function TogglePage() {
         <ComponentExample>
           <div className="space-y-6">
             <Toggle aria-label="Bookmark">
-              <Bookmark aria-hidden="true" />
+              <HugeiconsIcon icon={Bookmark} aria-hidden="true" />
             </Toggle>
             <Code
               variant="block"
@@ -124,7 +126,7 @@ export function TogglePage() {
               {(["icon-xs", "icon-sm", "icon", "icon-lg"] as const).map(
                 (size) => (
                   <Toggle key={size} size={size} aria-label={`${size} bold`}>
-                    <Bold aria-hidden="true" />
+                    <HugeiconsIcon icon={Bold} aria-hidden="true" />
                   </Toggle>
                 ),
               )}
@@ -148,7 +150,11 @@ export function TogglePage() {
         <ComponentExample>
           <div className="space-y-6">
             <Toggle>
-              <Bold data-icon="inline-start" aria-hidden="true" />
+              <HugeiconsIcon
+                icon={Bold}
+                data-icon="inline-start"
+                aria-hidden="true"
+              />
               Bold
             </Toggle>
             <Code
@@ -175,7 +181,7 @@ export function TogglePage() {
                 onPressedChange={setBookmarked}
                 aria-label="Bookmark"
               >
-                <Bookmark aria-hidden="true" />
+                <HugeiconsIcon icon={Bookmark} aria-hidden="true" />
               </Toggle>
               <span className="text-sm text-muted-foreground">
                 {bookmarked ? "Bookmarked" : "Not bookmarked"}
@@ -200,7 +206,7 @@ export function TogglePage() {
         <ComponentExample>
           <div className="space-y-6">
             <Toggle disabled aria-label="Bookmark">
-              <Bookmark aria-hidden="true" />
+              <HugeiconsIcon icon={Bookmark} aria-hidden="true" />
             </Toggle>
             <Code
               variant="block"

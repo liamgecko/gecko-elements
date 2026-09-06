@@ -1,22 +1,29 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { CirclePlus, SendHorizontal, Square } from "lucide-react"
+import * as React from "react";
+import CirclePlus from "@hugeicons/core-free-icons/CirclePlusIcon";
+import SendHorizontal from "@hugeicons/core-free-icons/SendHorizontalIcon";
+import Square from "@hugeicons/core-free-icons/SquareIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-import { Button } from "@gecko/ui/components/button"
-import { cn } from "@gecko/ui/lib/utils"
+import { Button } from "@gecko/ui/components/button";
+import { cn } from "@gecko/ui/lib/utils";
+import { renderGeckoIcon } from "@gecko/ui/lib/icon";
 
-import { getDefaultReplyBoxItems } from "./reply-box-actions"
-import { useReplyBox } from "./reply-box-context"
-import type { ReplyBoxChannelType, ReplyBoxTrayItem } from "./reply-box-actions"
-import { ReplyBoxButtonTray } from "./reply-box-button-tray"
+import { getDefaultReplyBoxItems } from "./reply-box-actions";
+import { useReplyBox } from "./reply-box-context";
+import type {
+  ReplyBoxChannelType,
+  ReplyBoxTrayItem,
+} from "./reply-box-actions";
+import { ReplyBoxButtonTray } from "./reply-box-button-tray";
 
 export type ReplyBoxFooterProps = React.ComponentProps<"div"> & {
-  channelType?: ReplyBoxChannelType
-  items?: ReplyBoxTrayItem[]
-  showTray?: boolean
-  showSend?: boolean
-}
+  channelType?: ReplyBoxChannelType;
+  items?: ReplyBoxTrayItem[];
+  showTray?: boolean;
+  showSend?: boolean;
+};
 
 export function ReplyBoxFooter({
   channelType,
@@ -26,19 +33,19 @@ export function ReplyBoxFooter({
   className,
   ...props
 }: ReplyBoxFooterProps) {
-  const ctx = useReplyBox()
+  const ctx = useReplyBox();
 
   const resolvedItems = React.useMemo(() => {
     return (
       items ??
       ctx.itemsOverride ??
       getDefaultReplyBoxItems(channelType ?? ctx.channel.type ?? "live-chat")
-    )
-  }, [channelType, ctx.channel.type, ctx.itemsOverride, items])
+    );
+  }, [channelType, ctx.channel.type, ctx.itemsOverride, items]);
 
-  const resolvedNoteMode = ctx.noteMode
-  const showStop = !resolvedNoteMode && Boolean(ctx.stopEnabled && ctx.onStop)
-  const SendIcon = ctx.sendIcon ?? SendHorizontal
+  const resolvedNoteMode = ctx.noteMode;
+  const showStop = !resolvedNoteMode && Boolean(ctx.stopEnabled && ctx.onStop);
+  const SendIcon = ctx.sendIcon ?? SendHorizontal;
 
   return (
     <div
@@ -46,7 +53,7 @@ export function ReplyBoxFooter({
       className={cn(
         "flex items-center justify-between gap-3 px-2 py-2",
         ctx.variant === "textarea" && "border-t border-border",
-        className
+        className,
       )}
       {...props}
     >
@@ -64,17 +71,17 @@ export function ReplyBoxFooter({
           className={cn(
             "transition-colors duration-150 ease-out motion-reduce:transition-none",
             showStop &&
-              "bg-background text-foreground hover:bg-muted hover:text-foreground"
+              "bg-background text-foreground hover:bg-muted hover:text-foreground",
           )}
           aria-label={
             resolvedNoteMode ? "Add note" : showStop ? "Stop" : "Send"
           }
           onClick={() => {
             if (showStop) {
-              ctx.onStop?.()
-              return
+              ctx.onStop?.();
+              return;
             }
-            ctx.onSend?.()
+            ctx.onSend?.();
           }}
         >
           <span
@@ -86,18 +93,19 @@ export function ReplyBoxFooter({
                 "absolute inset-0 flex items-center justify-center transition-opacity duration-200 ease-out motion-reduce:transition-none",
                 resolvedNoteMode
                   ? "opacity-100"
-                  : "pointer-events-none opacity-0"
+                  : "pointer-events-none opacity-0",
               )}
             >
-              <CirclePlus className="size-4" />
+              <HugeiconsIcon icon={CirclePlus} className="size-4" />
             </span>
             <span
               className={cn(
                 "absolute inset-0 flex items-center justify-center transition-opacity duration-200 ease-out motion-reduce:transition-none",
-                showStop ? "opacity-100" : "pointer-events-none opacity-0"
+                showStop ? "opacity-100" : "pointer-events-none opacity-0",
               )}
             >
-              <Square
+              <HugeiconsIcon
+                icon={Square}
                 className="size-4 shrink-0"
                 fill="currentColor"
                 strokeWidth={0}
@@ -108,14 +116,14 @@ export function ReplyBoxFooter({
                 "absolute inset-0 flex items-center justify-center transition-opacity duration-200 ease-out motion-reduce:transition-none",
                 !resolvedNoteMode && !showStop
                   ? "opacity-100"
-                  : "pointer-events-none opacity-0"
+                  : "pointer-events-none opacity-0",
               )}
             >
-              <SendIcon className="size-4" />
+              {renderGeckoIcon(SendIcon, { className: "size-4" })}
             </span>
           </span>
         </Button>
       ) : null}
     </div>
-  )
+  );
 }

@@ -382,7 +382,7 @@ export function ReplyBoxPage() {
               },
               {
                 name: "sendIcon",
-                type: "LucideIcon",
+                type: "GeckoIcon",
                 description: "Replaces the default send icon.",
               },
               {
@@ -522,7 +522,7 @@ export function ReplyBoxPage() {
               },
               {
                 name: "icon",
-                type: "LucideIcon",
+                type: "GeckoIcon",
                 description: "Provides the default action icon.",
               },
               {

@@ -30,14 +30,13 @@ import {
 } from "@gecko/ui/components/dropdown-menu";
 import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
 import { Button } from "@gecko/ui/components/button";
-import {
-  CreditCardIcon,
-  PencilIcon,
-  SettingsIcon,
-  ShareIcon,
-  TrashIcon,
-  UserIcon,
-} from "lucide-react";
+import CreditCardIcon from "@hugeicons/core-free-icons/CreditCardIcon";
+import PencilIcon from "@hugeicons/core-free-icons/PencilEdit01Icon";
+import SettingsIcon from "@hugeicons/core-free-icons/Settings01Icon";
+import ShareIcon from "@hugeicons/core-free-icons/Share01Icon";
+import TrashIcon from "@hugeicons/core-free-icons/Delete02Icon";
+import UserIcon from "@hugeicons/core-free-icons/User02Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 export function DropdownMenuPage() {
   const [showStatusBar, setShowStatusBar] = React.useState(true);
@@ -472,15 +471,15 @@ export function DropdownMenuPage() {
               />
               <DropdownMenuContent>
                 <DropdownMenuItem>
-                  <UserIcon />
+                  <HugeiconsIcon icon={UserIcon} />
                   Profile
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <CreditCardIcon />
+                  <HugeiconsIcon icon={CreditCardIcon} />
                   Billing
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <SettingsIcon />
+                  <HugeiconsIcon icon={SettingsIcon} />
                   Settings
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -682,18 +681,18 @@ export function DropdownMenuPage() {
               <DropdownMenuContent>
                 <DropdownMenuGroup>
                   <DropdownMenuItem>
-                    <PencilIcon />
+                    <HugeiconsIcon icon={PencilIcon} />
                     Edit
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <ShareIcon />
+                    <HugeiconsIcon icon={ShareIcon} />
                     Share
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                   <DropdownMenuItem variant="destructive">
-                    <TrashIcon />
+                    <HugeiconsIcon icon={TrashIcon} />
                     Delete
                   </DropdownMenuItem>
                 </DropdownMenuGroup>

@@ -1,14 +1,13 @@
-import * as React from "react"
-import { useChat } from "@ai-sdk/react"
-import {
-  ArrowUpIcon,
-  MessageCircleDashedIcon,
-  RotateCwIcon,
-} from "lucide-react"
+import * as React from "react";
+import { useChat } from "@ai-sdk/react";
+import ArrowUpIcon from "@hugeicons/core-free-icons/ArrowUp02Icon";
+import MessageCircleDashedIcon from "@hugeicons/core-free-icons/MessageCircleDashedIcon";
+import RotateCwIcon from "@hugeicons/core-free-icons/RotateCwIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-import { createChat } from "@/lib/ai"
-import { ScrollerDemoMessage } from "./scroller-demo-message"
-import { Button } from "@gecko/ui/components/button"
+import { createChat } from "@/lib/ai";
+import { ScrollerDemoMessage } from "./scroller-demo-message";
+import { Button } from "@gecko/ui/components/button";
 import {
   Card,
   CardAction,
@@ -17,25 +16,25 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@gecko/ui/components/card"
+} from "@gecko/ui/components/card";
 import {
   Empty,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@gecko/ui/components/empty"
+} from "@gecko/ui/components/empty";
 import {
   MESSAGE_ANIMATIONS,
   type MessageAnimationId,
-} from "@gecko/ui/lib/message-animations"
+} from "@gecko/ui/lib/message-animations";
 import {
   MessageScroller,
   MessageScrollerButton,
   MessageScrollerContent,
   MessageScrollerProvider,
   MessageScrollerViewport,
-} from "@gecko/ui/components/message-scroller"
+} from "@gecko/ui/components/message-scroller";
 import {
   Select,
   SelectContent,
@@ -43,37 +42,37 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select"
+} from "@gecko/ui/components/select";
 
 const chat = createChat()
   .user("Can user messages pop in like iMessage without breaking anchoring?")
   .sleep(1000)
   .assistant(
-    "Yes. Animate the user row with transform and opacity, and let the assistant response stream normally below it.\n\nThat keeps the row measurement predictable while still giving the newly sent bubble a more tactile entrance."
+    "Yes. Animate the user row with transform and opacity, and let the assistant response stream normally below it.\n\nThat keeps the row measurement predictable while still giving the newly sent bubble a more tactile entrance.",
   )
   .user("What makes the animation feel more like iMessage?")
   .sleep(1000)
   .assistant(
-    "Use a quick spring from the trailing edge: a little scale, a small upward move, and no layout animation.\n\nThe bubble feels tactile, but the measured row stays predictable, so anchoring and auto-scroll do not have to fight a changing layout."
+    "Use a quick spring from the trailing edge: a little scale, a small upward move, and no layout animation.\n\nThe bubble feels tactile, but the measured row stays predictable, so anchoring and auto-scroll do not have to fight a changing layout.",
   )
   .user("Can I switch between presets while testing the same thread?")
   .sleep(1000)
   .assistant(
-    "Yes. Keep the conversation in place while you change the preset, then send the next message to compare the new entrance against the same context.\n\nThat makes it easier to judge the difference between a subtle fade, a snappy pop, and a more dramatic 3D tilt without rebuilding the scenario each time."
-  )
+    "Yes. Keep the conversation in place while you change the preset, then send the next message to compare the new entrance against the same context.\n\nThat makes it easier to judge the difference between a subtle fade, a snappy pop, and a more dramatic 3D tilt without rebuilding the scenario each time.",
+  );
 
-const initialMessages = chat.get({ count: 0 })
-const transport = chat.transport({ chunkDelayMs: 15 })
+const initialMessages = chat.get({ count: 0 });
+const transport = chat.transport({ chunkDelayMs: 15 });
 
 export function MessageScrollerAnimationDemo() {
   const { messages, sendMessage, setMessages, status } = useChat({
     messages: initialMessages,
     transport,
-  })
-  const [presetId, setPresetId] = React.useState<MessageAnimationId>("fade")
-  const nextMessage = chat.next({ after: messages })
-  const isBusy = status === "submitted" || status === "streaming"
-  const preset = MESSAGE_ANIMATIONS[presetId]
+  });
+  const [presetId, setPresetId] = React.useState<MessageAnimationId>("fade");
+  const nextMessage = chat.next({ after: messages });
+  const isBusy = status === "submitted" || status === "streaming";
+  const preset = MESSAGE_ANIMATIONS[presetId];
 
   return (
     <div className="relative flex flex-col gap-4">
@@ -93,7 +92,7 @@ export function MessageScrollerAnimationDemo() {
               disabled={messages.length === 0 || isBusy}
               onClick={() => setMessages(initialMessages)}
             >
-              <RotateCwIcon />
+              <HugeiconsIcon icon={RotateCwIcon} />
             </Button>
           </CardAction>
         </CardHeader>
@@ -102,7 +101,7 @@ export function MessageScrollerAnimationDemo() {
             <Empty className="h-full">
               <EmptyHeader>
                 <EmptyMedia variant="icon">
-                  <MessageCircleDashedIcon />
+                  <HugeiconsIcon icon={MessageCircleDashedIcon} />
                 </EmptyMedia>
                 <EmptyTitle>No Messages Yet</EmptyTitle>
                 <EmptyDescription>
@@ -114,10 +113,7 @@ export function MessageScrollerAnimationDemo() {
             <MessageScrollerProvider>
               <MessageScroller>
                 <MessageScrollerViewport>
-                  <MessageScrollerContent
-                    aria-busy={isBusy}
-                    className="p-4"
-                  >
+                  <MessageScrollerContent aria-busy={isBusy} className="p-4">
                     {messages.map((message) => (
                       <ScrollerDemoMessage
                         key={message.id}
@@ -136,7 +132,7 @@ export function MessageScrollerAnimationDemo() {
           <Select
             value={presetId}
             onValueChange={(value) => {
-              setPresetId(value as MessageAnimationId)
+              setPresetId(value as MessageAnimationId);
             }}
           >
             <SelectTrigger aria-label="Animation preset">
@@ -159,13 +155,13 @@ export function MessageScrollerAnimationDemo() {
             disabled={!nextMessage || isBusy}
             onClick={() => {
               if (!nextMessage || isBusy) {
-                return
+                return;
               }
 
-              void sendMessage(nextMessage)
+              void sendMessage(nextMessage);
             }}
           >
-            <ArrowUpIcon />
+            <HugeiconsIcon icon={ArrowUpIcon} />
             <span className="sr-only">Send Message</span>
           </Button>
         </CardFooter>
@@ -174,5 +170,5 @@ export function MessageScrollerAnimationDemo() {
         Select an animation then click send to see it in action.
       </div>
     </div>
-  )
+  );
 }

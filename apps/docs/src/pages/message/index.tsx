@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
-import { Reply, SmilePlus } from "lucide-react";
+import Reply from "@hugeicons/core-free-icons/ReplyIcon";
+import SmilePlus from "@hugeicons/core-free-icons/SmilePlusIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -182,7 +184,7 @@ function LiveChatExample() {
               size="icon-sm"
               aria-label="Reply to message"
             >
-              <Reply strokeWidth={2.25} />
+              <HugeiconsIcon icon={Reply} strokeWidth={2.25} />
             </Button>
             <EmojiPicker defaultView="tray">
               <EmojiPickerTrigger
@@ -195,7 +197,7 @@ function LiveChatExample() {
                   />
                 }
               >
-                <SmilePlus strokeWidth={2.25} />
+                <HugeiconsIcon icon={SmilePlus} strokeWidth={2.25} />
               </EmojiPickerTrigger>
               <EmojiPickerContent />
             </EmojiPicker>

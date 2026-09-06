@@ -1,12 +1,11 @@
-import * as React from "react"
-import {
-  ArrowUpIcon,
-  MessageCircleDashedIcon,
-  RotateCwIcon,
-} from "lucide-react"
+import * as React from "react";
+import ArrowUpIcon from "@hugeicons/core-free-icons/ArrowUp02Icon";
+import MessageCircleDashedIcon from "@hugeicons/core-free-icons/MessageCircleDashedIcon";
+import RotateCwIcon from "@hugeicons/core-free-icons/RotateCwIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-import { ScrollerDemoMessage } from "./scroller-demo-message"
-import { Button } from "@gecko/ui/components/button"
+import { ScrollerDemoMessage } from "./scroller-demo-message";
+import { Button } from "@gecko/ui/components/button";
 import {
   Card,
   CardAction,
@@ -15,33 +14,33 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@gecko/ui/components/card"
+} from "@gecko/ui/components/card";
 import {
   Empty,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@gecko/ui/components/empty"
+} from "@gecko/ui/components/empty";
 import {
   MessageScroller,
   MessageScrollerButton,
   MessageScrollerContent,
   MessageScrollerProvider,
   MessageScrollerViewport,
-} from "@gecko/ui/components/message-scroller"
+} from "@gecko/ui/components/message-scroller";
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from "@gecko/ui/components/toggle-group"
+} from "@gecko/ui/components/toggle-group";
 
-type AnchorRole = "user" | "assistant"
+type AnchorRole = "user" | "assistant";
 
 type ChatMessage = {
-  id: string
-  role: AnchorRole
-  text: string
-}
+  id: string;
+  role: AnchorRole;
+  text: string;
+};
 
 const scriptedMessages: ChatMessage[] = [
   {
@@ -74,13 +73,13 @@ const scriptedMessages: ChatMessage[] = [
     role: "assistant",
     text: "Yes. The next appended message with the selected role becomes the anchor, so you can compare user and assistant anchoring without resetting the demo.",
   },
-]
+];
 
 export function MessageScrollerAnchoringDemo() {
-  const [anchorRole, setAnchorRole] = React.useState<AnchorRole>("user")
-  const [messages, setMessages] = React.useState<ChatMessage[]>([])
-  const [messageIndex, setMessageIndex] = React.useState(0)
-  const nextMessage = scriptedMessages[messageIndex]
+  const [anchorRole, setAnchorRole] = React.useState<AnchorRole>("user");
+  const [messages, setMessages] = React.useState<ChatMessage[]>([]);
+  const [messageIndex, setMessageIndex] = React.useState(0);
+  const nextMessage = scriptedMessages[messageIndex];
 
   return (
     <div className="relative flex flex-col gap-4">
@@ -98,11 +97,11 @@ export function MessageScrollerAnchoringDemo() {
               aria-label="Reset anchored turns"
               disabled={messages.length === 0}
               onClick={() => {
-                setMessages([])
-                setMessageIndex(0)
+                setMessages([]);
+                setMessageIndex(0);
               }}
             >
-              <RotateCwIcon />
+              <HugeiconsIcon icon={RotateCwIcon} />
             </Button>
           </CardAction>
         </CardHeader>
@@ -111,7 +110,7 @@ export function MessageScrollerAnchoringDemo() {
             <Empty className="h-full">
               <EmptyHeader>
                 <EmptyMedia variant="icon">
-                  <MessageCircleDashedIcon />
+                  <HugeiconsIcon icon={MessageCircleDashedIcon} />
                 </EmptyMedia>
                 <EmptyTitle>No anchored messages yet</EmptyTitle>
                 <EmptyDescription>
@@ -143,12 +142,12 @@ export function MessageScrollerAnchoringDemo() {
             aria-label="Select scroll anchor role"
             value={[anchorRole]}
             onValueChange={(value) => {
-              const nextValue = value[0]
+              const nextValue = value[0];
 
               if (nextValue === "user" || nextValue === "assistant") {
-                setAnchorRole(nextValue)
-                setMessages([])
-                setMessageIndex(0)
+                setAnchorRole(nextValue);
+                setMessages([]);
+                setMessageIndex(0);
               }
             }}
           >
@@ -169,14 +168,14 @@ export function MessageScrollerAnchoringDemo() {
             disabled={!nextMessage}
             onClick={() => {
               if (!nextMessage) {
-                return
+                return;
               }
 
-              setMessages((current) => [...current, nextMessage])
-              setMessageIndex((index) => index + 1)
+              setMessages((current) => [...current, nextMessage]);
+              setMessageIndex((index) => index + 1);
             }}
           >
-            <ArrowUpIcon />
+            <HugeiconsIcon icon={ArrowUpIcon} />
             <span className="sr-only">Send Message</span>
           </Button>
         </CardFooter>
@@ -186,5 +185,5 @@ export function MessageScrollerAnchoringDemo() {
         settle.
       </div>
     </div>
-  )
+  );
 }

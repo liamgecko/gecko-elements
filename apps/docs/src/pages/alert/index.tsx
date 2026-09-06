@@ -1,4 +1,5 @@
-import { Sparkles } from "lucide-react";
+import Sparkles from "@hugeicons/core-free-icons/SparklesIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -24,29 +25,34 @@ const variants = [
     key: "default",
     title: "Scheduled maintenance",
     description: "Reporting will be unavailable for 15 minutes from 22:00.",
+    actionLabel: "View schedule",
   },
   {
     key: "info",
     title: "New feature available",
     description: "You can now export this report as a CSV file.",
+    actionLabel: "View feature",
     variant: "info" as const,
   },
   {
     key: "success",
     title: "Integration connected",
     description: "New submissions will be sent to your connected account.",
+    actionLabel: "View integration",
     variant: "success" as const,
   },
   {
     key: "warning",
     title: "Connection needs attention",
     description: "Reconnect the integration to continue receiving updates.",
+    actionLabel: "Reconnect",
     variant: "warning" as const,
   },
   {
     key: "destructive",
     title: "Unable to load submissions",
     description: "Check your connection and try again.",
+    actionLabel: "Try again",
     variant: "destructive" as const,
   },
 ];
@@ -111,13 +117,11 @@ export function AlertPage() {
   </AlertDescription>
 </Alert>`;
 
-  const actionSnippet = `<Alert variant="warning" icon>
-  <AlertTitle>Connection needs attention</AlertTitle>
-  <AlertDescription>
-    Reconnect the integration to continue receiving updates.
-  </AlertDescription>
+  const actionSnippet = `<Alert variant="default|info|success|warning|destructive" icon>
+  <AlertTitle>Alert title</AlertTitle>
+  <AlertDescription>Alert description.</AlertDescription>
   <AlertAction>
-    <Button variant="outline" size="sm">Reconnect</Button>
+    <Button size="sm">Action label</Button>
   </AlertAction>
 </Alert>`;
 
@@ -361,7 +365,7 @@ export function AlertPage() {
         >
           <ComponentExample>
             <div className="space-y-6">
-              <Alert variant="info" icon={<Sparkles />}>
+              <Alert variant="info" icon={<HugeiconsIcon icon={Sparkles} />}>
                 <AlertTitle>New feature available</AlertTitle>
                 <AlertDescription>
                   You can now export this report as a CSV file.
@@ -385,24 +389,27 @@ export function AlertPage() {
         description={
           <>
             Use <Code>AlertAction</Code> to position one relevant Button or
-            link. The nested control owns its label and behaviour. Use a
-            visible, verb-first label that names the next step.
+            link. The action automatically inherits the Alert treatment while
+            the nested control owns its label and behaviour. Use a visible,
+            verb-first label that names the next step.
           </>
         }
       >
         <ComponentExample>
           <div className="space-y-6">
-            <Alert variant="warning" icon>
-              <AlertTitle>Connection needs attention</AlertTitle>
-              <AlertDescription>
-                Reconnect the integration to continue receiving updates.
-              </AlertDescription>
-              <AlertAction>
-                <Button variant="outline" size="sm">
-                  Reconnect
-                </Button>
-              </AlertAction>
-            </Alert>
+            <div className="space-y-3">
+              {variants.map(
+                ({ key, title, description, actionLabel, variant }) => (
+                  <Alert key={key} variant={variant} icon>
+                    <AlertTitle>{title}</AlertTitle>
+                    <AlertDescription>{description}</AlertDescription>
+                    <AlertAction>
+                      <Button size="sm">{actionLabel}</Button>
+                    </AlertAction>
+                  </Alert>
+                ),
+              )}
+            </div>
             <Code
               variant="block"
               language="tsx"

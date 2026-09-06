@@ -4,7 +4,8 @@ import * as React from "react";
 import { OTPInput, OTPInputContext } from "input-otp";
 
 import { cn } from "@gecko/ui/lib/utils";
-import { MinusIcon } from "lucide-react";
+import MinusIcon from "@hugeicons/core-free-icons/MinusIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 function InputOTP({
   className,
@@ -81,7 +82,7 @@ function InputOTPSeparator({ ...props }: React.ComponentProps<"div">) {
       role="separator"
       {...props}
     >
-      <MinusIcon aria-hidden="true" />
+      <HugeiconsIcon icon={MinusIcon} aria-hidden="true" />
     </div>
   );
 }

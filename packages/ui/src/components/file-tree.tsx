@@ -2,7 +2,11 @@
 
 import * as React from "react";
 import { cva } from "class-variance-authority";
-import { ChevronRight, FileText, Folder, FolderOpen } from "lucide-react";
+import ChevronRight from "@hugeicons/core-free-icons/ChevronRightIcon";
+import FileText from "@hugeicons/core-free-icons/FileTextIcon";
+import Folder from "@hugeicons/core-free-icons/Folder01Icon";
+import FolderOpen from "@hugeicons/core-free-icons/Folder03Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { Button } from "@gecko/ui/components/button";
 import {
@@ -110,7 +114,8 @@ function FileTreeItems({
             <div data-slot="file-tree-row-wrap" className={rowClasses}>
               <div className={treeRowVariants({ kind: "file" })}>
                 <span className="size-4 shrink-0" aria-hidden="true" />
-                <Folder
+                <HugeiconsIcon
+                  icon={Folder}
                   className="size-4 shrink-0 text-muted-foreground"
                   aria-hidden="true"
                 />
@@ -141,15 +146,18 @@ function FileTreeItems({
                       "group w-full justify-start transition-colors duration-150 hover:bg-muted aria-expanded:bg-transparent aria-expanded:hover:bg-muted",
                     )}
                   >
-                    <ChevronRight
+                    <HugeiconsIcon
+                      icon={ChevronRight}
                       className="size-4 shrink-0 text-muted-foreground motion-safe:transition-transform group-aria-expanded:rotate-90"
                       aria-hidden="true"
                     />
-                    <Folder
+                    <HugeiconsIcon
+                      icon={Folder}
                       className="size-4 shrink-0 text-muted-foreground group-aria-expanded:hidden"
                       aria-hidden="true"
                     />
-                    <FolderOpen
+                    <HugeiconsIcon
+                      icon={FolderOpen}
                       className="hidden size-4 shrink-0 text-muted-foreground group-aria-expanded:inline"
                       aria-hidden="true"
                     />
@@ -182,7 +190,8 @@ function FileTreeItems({
         <div data-slot="file-tree-row-wrap" className={rowClasses}>
           <div className={treeRowVariants({ kind: "file" })}>
             <span className="size-4 shrink-0" aria-hidden="true" />
-            <FileText
+            <HugeiconsIcon
+              icon={FileText}
               className="size-4 shrink-0 text-muted-foreground"
               aria-hidden="true"
             />

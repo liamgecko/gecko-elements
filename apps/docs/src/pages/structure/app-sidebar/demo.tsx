@@ -8,7 +8,10 @@ import {
 } from "@gecko/ui/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@gecko/ui/components/sidebar";
 import geckoLogoUrl from "@/assets/gecko-logo.svg";
-import { Headset, House, Inbox, Settings } from "lucide-react";
+import Headset from "@hugeicons/core-free-icons/HeadsetIcon";
+import House from "@hugeicons/core-free-icons/Home04Icon";
+import Inbox from "@hugeicons/core-free-icons/Archive04Icon";
+import Settings from "@hugeicons/core-free-icons/Settings01Icon";
 
 const favourites = [
   { path: "/conversations/inbox", label: "Inbox" },

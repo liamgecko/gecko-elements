@@ -27,7 +27,7 @@ Each ToggleGroupItem has a unique string `value`. The group value is always an a
 ```tsx
 <ToggleGroup defaultValue={["left"]} aria-label="Text alignment">
   <ToggleGroupItem value="left" aria-label="Align left">
-    <AlignLeft aria-hidden="true" />
+    <TextAlignStart aria-hidden="true" />
   </ToggleGroupItem>
   <ToggleGroupItem value="center" aria-label="Align centre">
     <AlignCenter aria-hidden="true" />

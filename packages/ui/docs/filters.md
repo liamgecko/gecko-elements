@@ -88,6 +88,8 @@ Each active category renders one segmented filter chip. The library owns its cat
 
 Category menus are searchable by default. Set `searchable: false` for a short option list where every choice is immediately visible. Use `searchPlaceholder` when the generated `Search {category}` prompt is not natural or specific enough.
 
+The value menu sizes to the widest option or search placeholder and keeps the placeholder width reserved while filtering.
+
 A category without options is disabled. A Filter without categories has a disabled trigger.
 
 ## Data table composition
@@ -158,7 +160,7 @@ Keep date calculations in the local timezone. The product converts the emitted r
 
 The default trigger displays the library-owned icon and a visible label. `trigger="icon"` is for constrained toolbars; `triggerLabel` then provides its accessible name. The condensed Filter hides active chips and displays the number of selected values on its trigger.
 
-Custom trigger icons are exceptional. Pass a Lucide component or one of the existing curated aliases; an unsupported string falls back to the standard Filter icon. Prefer the defaults so application code does not make local styling decisions.
+Custom trigger icons are exceptional. Pass a Hugeicons glyph, a compatible SVG icon component, or one of the existing curated aliases; an unsupported string falls back to the standard Filter icon. Prefer the defaults so application code does not make local styling decisions.
 
 ## Accessibility
 
@@ -186,7 +188,7 @@ Custom trigger icons are exceptional. Pass a Lucide component or one of the exis
 | `variant`          | `"default" \| "condensed"`       | `"default"` | Active chips or trigger counter                |
 | `trigger`          | `"default" \| "icon"`            | `"default"` | Visible label or icon-only trigger             |
 | `triggerLabel`     | `string`                         | `"Filter"`  | Visible label and icon-trigger accessible name |
-| `triggerIcon`      | `string \| LucideIcon`           | standard    | Exceptional trigger icon override              |
+| `triggerIcon`      | `string \| GeckoIcon`            | standard    | Exceptional trigger icon override              |
 
 ### FilterCategory and FilterOption
 
@@ -209,7 +211,7 @@ Custom trigger icons are exceptional. Pass a Lucide component or one of the exis
 | `onValueChange` | `(value: string) => void` | Required    | Reports the next ordering          |
 | `trigger`       | `"default" \| "icon"`     | `"default"` | Visible label or icon-only trigger |
 | `triggerLabel`  | `string`                  | `"Sort"`    | Visible or accessible name         |
-| `triggerIcon`   | `string \| LucideIcon`    | standard    | Exceptional icon override          |
+| `triggerIcon`   | `string \| GeckoIcon`     | standard    | Exceptional icon override          |
 
 ### DateRangeFilter
 

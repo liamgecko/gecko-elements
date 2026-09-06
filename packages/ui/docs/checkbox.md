@@ -226,7 +226,7 @@ CheckboxGroup also accepts Base UI Checkbox Group properties.
 
 ## Styling contract
 
-The library owns visual size, radius, colour, checked and indeterminate indicators, hit area, typography, spacing, orientation, hover, focus, disabled and invalid treatments.
+The library owns visual size, radius, colour, checked and indeterminate indicators, hit area, typography, spacing, orientation, hover, focus, disabled and invalid treatments. Indicators scale and fade when entering or leaving the selected state; reduced-motion preferences retain only the opacity transition.
 
 Use `className` only to position the complete Checkbox or CheckboxGroup within its parent layout. Request a library change when a legitimate treatment is missing.
 

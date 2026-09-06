@@ -24,7 +24,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@gecko/ui/components/tooltip";
-import { Home, Star } from "lucide-react";
+import Home from "@hugeicons/core-free-icons/Home04Icon";
+import Star from "@hugeicons/core-free-icons/StarIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 type HeaderBreadcrumbItem =
   | {
@@ -153,7 +155,8 @@ type HeaderProps = React.ComponentProps<"div"> & {
 
 function normalizeFavouriteIcon(icon: React.ReactNode, pressed: boolean) {
   const fallback = (
-    <Star
+    <HugeiconsIcon
+      icon={Star}
       aria-hidden
       className="size-4 shrink-0"
       fill={pressed ? "currentColor" : "none"}
@@ -196,7 +199,7 @@ function renderBreadcrumbs(breadcrumbs: HeaderBreadcrumbsProps) {
           const homeLabel =
             typeof item.label === "string" ? item.label : "Home";
           const homeIcon = isHome ? (
-            <Home aria-hidden className="size-3.5" />
+            <HugeiconsIcon icon={Home} aria-hidden className="size-3.5" />
           ) : null;
 
           return (
@@ -395,6 +398,7 @@ function renderTabs(tabs: HeaderTabsProps) {
     <Tabs {...tabsProps} variant="line" className={cn(tabsProps?.className)}>
       <TabsList
         {...listProps}
+        overflow={listProps?.overflow ?? true}
         className={cn(
           "group-data-horizontal/tabs:border-b-0",
           listProps?.className,

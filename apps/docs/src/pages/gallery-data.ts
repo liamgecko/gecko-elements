@@ -51,7 +51,7 @@ export const corePages: readonly GalleryItem[] = [
   },
   {
     name: "Icons",
-    description: "Lucide icons and usage notes.",
+    description: "Hugeicons glyphs and usage notes.",
     path: "/core/icons",
   },
 ] as const;

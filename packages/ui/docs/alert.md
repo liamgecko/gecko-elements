@@ -33,7 +33,7 @@ Alert
 └── AlertAction (optional)
 ```
 
-`AlertAction` is a positioned wrapper. It does not create an interactive control. Put one Button or link inside it and give that control a visible, verb-first label.
+`AlertAction` is a positioned wrapper. It does not create an interactive control. Put one Button or link inside it and give that control a visible, verb-first label. Omit the Button variant: `AlertAction` automatically applies the same contextual treatment as the dismiss control and inherits semantic hover and focus states from the owning Alert.
 
 ```tsx
 <Alert variant="warning" icon>
@@ -42,7 +42,7 @@ Alert
     Reconnect the integration to continue receiving updates.
   </AlertDescription>
   <AlertAction>
-    <Button variant="outline" size="sm">
+    <Button size="sm">
       Reconnect
     </Button>
   </AlertAction>

@@ -1,14 +1,13 @@
 import * as React from "react";
-import {
-  Check,
-  CheckCheck,
-  CircleAlert,
-  Copy,
-  Info,
-  Share,
-  ThumbsDown,
-  ThumbsUp,
-} from "lucide-react";
+import Check from "@hugeicons/core-free-icons/CheckIcon";
+import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
+import CircleAlert from "@hugeicons/core-free-icons/AlertCircleIcon";
+import Copy from "@hugeicons/core-free-icons/Copy01Icon";
+import Info from "@hugeicons/core-free-icons/InfoIcon";
+import Share from "@hugeicons/core-free-icons/Share01Icon";
+import ThumbsDown from "@hugeicons/core-free-icons/ThumbsDownIcon";
+import ThumbsUp from "@hugeicons/core-free-icons/ThumbsUpIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
 import { Button } from "@gecko/ui/components/button";
@@ -276,7 +275,8 @@ function ChatBubbleAiAgentMetaActions({
                 onClick={() => void handleCopyClick()}
               >
                 <span className="relative inline-flex size-3 items-center justify-center">
-                  <Copy
+                  <HugeiconsIcon
+                    icon={Copy}
                     aria-hidden
                     strokeWidth={2}
                     className={cn(
@@ -284,7 +284,8 @@ function ChatBubbleAiAgentMetaActions({
                       copiedIconVisible ? "opacity-0" : "opacity-100",
                     )}
                   />
-                  <Check
+                  <HugeiconsIcon
+                    icon={Check}
                     aria-hidden
                     strokeWidth={2}
                     className={cn(
@@ -316,7 +317,7 @@ function ChatBubbleAiAgentMetaActions({
                       if (next) onPressed();
                     }}
                   >
-                    <Icon aria-hidden strokeWidth={2} />
+                    <HugeiconsIcon icon={Icon} aria-hidden strokeWidth={2} />
                   </Toggle>
                 }
               />
@@ -337,7 +338,7 @@ function ChatBubbleAiAgentMetaActions({
                 aria-label="Share response"
                 onClick={() => onShareResponse?.()}
               >
-                <Share aria-hidden strokeWidth={2} />
+                <HugeiconsIcon icon={Share} aria-hidden strokeWidth={2} />
               </Button>
             }
           />
@@ -401,7 +402,8 @@ export function ChatBubbleMessage({
     const config = {
       sent: {
         icon: (
-          <Check
+          <HugeiconsIcon
+            icon={Check}
             className="text-muted-foreground size-3"
             aria-hidden
             strokeWidth={2.2}
@@ -411,7 +413,8 @@ export function ChatBubbleMessage({
       },
       delivered: {
         icon: (
-          <CheckCheck
+          <HugeiconsIcon
+            icon={CheckCheck}
             className="text-muted-foreground size-3"
             aria-hidden
             strokeWidth={2.2}
@@ -421,7 +424,8 @@ export function ChatBubbleMessage({
       },
       read: {
         icon: (
-          <CheckCheck
+          <HugeiconsIcon
+            icon={CheckCheck}
             className="text-blue-600 dark:text-teal-500 size-3"
             aria-hidden
             strokeWidth={2.2}
@@ -431,7 +435,8 @@ export function ChatBubbleMessage({
       },
       failed: {
         icon: (
-          <CircleAlert
+          <HugeiconsIcon
+            icon={CircleAlert}
             className="text-red-700 dark:text-rose-200 size-3"
             aria-hidden
             strokeWidth={2.2}
@@ -713,7 +718,7 @@ export function ChatBubbleInfo({
             )}
             aria-label="Message information"
           >
-            <Info className="size-3" strokeWidth={2.2} />
+            <HugeiconsIcon icon={Info} className="size-3" strokeWidth={2.2} />
           </button>
         }
       />

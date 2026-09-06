@@ -139,7 +139,7 @@ Tooltip and Popover composition is supported by the open children interface but 
 
 ## Long content
 
-Compose Collapsible inside BubbleContent when a long message needs an explicit Show more and Show less control. Preserve the full message for assistive technology and use a native Button through CollapsibleTrigger.
+Compose Collapsible inside BubbleContent when a long message needs an explicit Show more and Show less control. Keep the full message in the DOM and visually clamp the closed state so the Bubble retains a stable intrinsic width and assistive technology receives the complete message. Use a native Button through CollapsibleTrigger.
 
 ## Accessibility
 

@@ -58,6 +58,9 @@ const columns: ColumnDef<Event>[] = [
   data={events}
   sorting
   pagination
+  initialState={{
+    sorting: [{ id: "startsAt", desc: false }],
+  }}
 />;
 ```
 
@@ -111,7 +114,7 @@ Use `DataTableColumnHeader` for approved header layout and sort controls:
 }
 ```
 
-The global `sorting` prop permits sorting; a column may opt out with `enableSorting: false`. The header exposes the active direction and the next sorting action accessibly.
+The global `sorting` prop permits sorting; a column may opt out with `enableSorting: false`. Always declare the table's initial ordering in `initialState.sorting`. This keeps the active column icon and `aria-sort` aligned with the order shown on first render, including when the supplied data is already ordered. The header exposes the active direction and the next sorting action accessibly.
 
 Use `helpText` only when a concise column title cannot explain unfamiliar data. Do not repeat the title or place essential instructions exclusively in a tooltip.
 
@@ -221,6 +224,8 @@ Use `rowSelection` alone only when an advanced composition consumes selection st
 
 Pagination is opt-in. Without the `pagination` prop, Data table renders every filtered row. With it, Data table owns client-side pagination and displays the approved page-size and page-navigation controls.
 
+Pagination controls remain inline within their leading and trailing groups. Its Select triggers use compact content-appropriate widths rather than the full-width form-field treatment.
+
 This implementation expects the complete client-side dataset in `data`. It does not currently provide controlled server-side sorting, filtering or pagination. When a product list must fetch pages or query results remotely, request a reviewed library extension rather than combining remote fetching with these client-side controls.
 
 Do not pass a page-size value outside the approved 10, 25 and 50 options. Unsupported initial sizes fall back to 10.
@@ -284,33 +289,33 @@ Application code supplies data and filter configuration; it does not replace or 
 
 `DataTableProvider`, `DataTableRoot`, `DataTableToolbar`, `DataTableToolbarSearchRow`, `DataTableToolbarGroup`, `DataTableSearch`, `DataTableFilters`, `DataTableSelectActions`, `DataTableColumnToggle`, `DataTableContent`, `DataTablePagination` and `useDataTableContext` are advanced parts.
 
-Use them only when a reviewed product layout cannot be represented by `DataTable`. Keep them under one `DataTableProvider`. When manually composing without `DataTablePagination`, pass `paginated={false}` to `DataTableContent`; its compatibility default assumes pagination.
+Use them only when a reviewed product layout cannot be represented by `DataTable`. Keep them under one `DataTableProvider`. When manually composing without `DataTablePagination`, pass `paginated={false}` to both `DataTableProvider` and `DataTableContent`; their compatibility defaults assume pagination. This keeps the rendered rows and the header selection control in the same scope.
 
 `createSelectionColumn`, `createExpandColumn`, `createActionsColumn`, `getDataTableColumnToggleLabel` and `DATA_TABLE_PAGE_SIZE_OPTIONS` are implementation helpers exported for compatibility. Do not use them in new application code without explicit review.
 
 ### DataTable props
 
-| Prop               | Type                                    | Default     | Rule                                                      |
-| ------------------ | --------------------------------------- | ----------- | --------------------------------------------------------- |
-| `columns`          | `ColumnDef<TData>[]`                    | required    | Stable or memoised definitions                            |
-| `data`             | `TData[]`                               | required    | Complete client-side dataset                              |
-| `aria-label`       | `string`                                | —           | Required in canonical usage                               |
-| `sorting`          | `boolean`                               | `false`     | Enable only when useful                                   |
-| `rowSelection`     | `boolean`                               | `false`     | Advanced selection without built-in actions               |
-| `getRowId`         | `(row, index) => string`                | row index   | Use a domain id with selection                            |
-| `initialState`     | `InitialTableState`                     | —           | Initial sorting, filtering, visibility, selection or page |
-| `rowActions`       | `false \| true \| DataTableRowAction[]` | `false`     | Prefer a shared action array                              |
-| `getRowActions`    | `(row) => DataTableRowAction[]`         | —           | Per-row action availability                               |
-| `actionsKey`       | `keyof TData`                           | `"actions"` | Compatibility use with `rowActions={true}`                |
-| `onRowAction`      | `(id, context) => void`                 | —           | Required when row actions are supplied                    |
-| `selectActions`    | `DataTableRowAction[]`                  | —           | Automatically enables selection and its toolbar control   |
-| `onSelectAction`   | `(id, context) => void`                 | —           | Required with `selectActions`                             |
-| `expandable`       | `DataTableExpandableConfig<TData>`      | —           | Renders subordinate row detail                            |
-| `toolbar`          | `false \| DataTableToolbarConfig`       | —           | Search, filters and column toggle only                    |
-| `pagination`       | `boolean \| DataTablePaginationProps`   | `false`     | Client-side pagination                                    |
-| `globalFilter`     | `boolean`                               | `true`      | Advanced override; toolbar search normally owns this      |
-| `className`        | `string`                                | —           | Parent layout integration only                            |
-| `contentClassName` | `string`                                | —           | Compatibility escape hatch; do not restyle table chrome   |
+| Prop               | Type                                    | Default     | Rule                                                                                              |
+| ------------------ | --------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------- |
+| `columns`          | `ColumnDef<TData>[]`                    | required    | Stable or memoised definitions                                                                    |
+| `data`             | `TData[]`                               | required    | Complete client-side dataset                                                                      |
+| `aria-label`       | `string`                                | —           | Required in canonical usage                                                                       |
+| `sorting`          | `boolean`                               | `false`     | Enable only when useful                                                                           |
+| `rowSelection`     | `boolean`                               | `false`     | Advanced selection without built-in actions                                                       |
+| `getRowId`         | `(row, index) => string`                | row index   | Use a domain id with selection                                                                    |
+| `initialState`     | `InitialTableState`                     | —           | Initial sorting, filtering, visibility, selection or page; declare any displayed default ordering |
+| `rowActions`       | `false \| true \| DataTableRowAction[]` | `false`     | Prefer a shared action array                                                                      |
+| `getRowActions`    | `(row) => DataTableRowAction[]`         | —           | Per-row action availability                                                                       |
+| `actionsKey`       | `keyof TData`                           | `"actions"` | Compatibility use with `rowActions={true}`                                                        |
+| `onRowAction`      | `(id, context) => void`                 | —           | Required when row actions are supplied                                                            |
+| `selectActions`    | `DataTableRowAction[]`                  | —           | Automatically enables selection and its toolbar control                                           |
+| `onSelectAction`   | `(id, context) => void`                 | —           | Required with `selectActions`                                                                     |
+| `expandable`       | `DataTableExpandableConfig<TData>`      | —           | Renders subordinate row detail                                                                    |
+| `toolbar`          | `false \| DataTableToolbarConfig`       | —           | Search, filters and column toggle only                                                            |
+| `pagination`       | `boolean \| DataTablePaginationProps`   | `false`     | Client-side pagination                                                                            |
+| `globalFilter`     | `boolean`                               | `true`      | Advanced override; toolbar search normally owns this                                              |
+| `className`        | `string`                                | —           | Parent layout integration only                                                                    |
+| `contentClassName` | `string`                                | —           | Compatibility escape hatch; do not restyle table chrome                                           |
 
 ## Styling contract
 

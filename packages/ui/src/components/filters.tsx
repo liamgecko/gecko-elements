@@ -1,14 +1,12 @@
 "use client";
 
 import * as React from "react";
-import {
-  ArrowDownWideNarrow,
-  Check,
-  Funnel,
-  ListFilterPlus,
-  X,
-  type LucideIcon,
-} from "lucide-react";
+import ArrowDownWideNarrow from "@hugeicons/core-free-icons/ArrowDownWideNarrowIcon";
+import Check from "@hugeicons/core-free-icons/CheckIcon";
+import Funnel from "@hugeicons/core-free-icons/FunnelIcon";
+import ListFilterPlus from "@hugeicons/core-free-icons/ListFilterPlusIcon";
+import X from "@hugeicons/core-free-icons/XIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { Button } from "@gecko/ui/components/button";
 import { Counter } from "@gecko/ui/components/counter";
@@ -32,6 +30,7 @@ import {
 } from "@gecko/ui/components/popover";
 import { Separator } from "@gecko/ui/components/separator";
 import { cn } from "@gecko/ui/lib/utils";
+import { renderGeckoIcon, type GeckoIcon } from "@gecko/ui/lib/icon";
 import type { DateRange } from "react-day-picker";
 
 const FILTER_TRIGGER_ICONS = {
@@ -41,7 +40,7 @@ const FILTER_TRIGGER_ICONS = {
   ArrowDownWideNarrow,
   "list-filter-plus": ListFilterPlus,
   ListFilterPlus,
-} as const satisfies Record<string, LucideIcon>;
+} as const satisfies Record<string, GeckoIcon>;
 
 export type FilterOption = {
   value: string;
@@ -70,8 +69,8 @@ export type SortProps = React.ComponentProps<"div"> & {
   triggerLabel?: string;
   /** Default renders icon + label; icon renders an icon-only trigger. */
   trigger?: "default" | "icon";
-  /** Lucide icon component or a curated string alias. */
-  triggerIcon?: string | LucideIcon;
+  /** Hugeicons glyph, compatible SVG icon component, or a curated string alias. */
+  triggerIcon?: string | GeckoIcon;
 };
 
 export type FilterOperator = "is" | "is not" | "is any of";
@@ -82,8 +81,8 @@ export type FilterProps = Omit<React.ComponentProps<"div">, "onChange"> & {
   triggerLabel?: string;
   /** Default renders icon + label; icon renders an icon-only trigger. */
   trigger?: "default" | "icon";
-  /** Lucide icon component or a curated string alias (e.g. `"funnel"`). */
-  triggerIcon?: string | LucideIcon;
+  /** Hugeicons glyph, compatible SVG icon component, or a curated string alias (e.g. `"funnel"`). */
+  triggerIcon?: string | GeckoIcon;
   /**
    * Called when selected values or per-category operators change.
    * Second argument is required for negated filters (`is not`).
@@ -114,11 +113,11 @@ function toPascalCase(input: string) {
     .join("");
 }
 
-function resolveLucideIcon(icon: unknown): LucideIcon {
+function resolveFilterIcon(icon: unknown): GeckoIcon {
   if (!icon) return ListFilterPlus;
 
   if (typeof icon === "function" || typeof icon === "object") {
-    return icon as LucideIcon;
+    return icon as GeckoIcon;
   }
 
   if (typeof icon !== "string") return ListFilterPlus;
@@ -300,9 +299,9 @@ export function Filter({
   );
 
   const triggerIconNode = React.useMemo(() => {
-    const Icon = resolveLucideIcon(triggerIcon);
-    // eslint-disable-next-line -- icon component selected from a stable map; no local state
-    return <Icon aria-hidden="true" />;
+    return renderGeckoIcon(resolveFilterIcon(triggerIcon), {
+      "aria-hidden": true,
+    });
   }, [triggerIcon]);
 
   return (
@@ -507,7 +506,11 @@ export function Filter({
                     className="h-full rounded-none rounded-e-[inherit] hover:bg-muted focus-visible:z-10"
                     aria-label={`Remove ${category.label} filter`}
                   >
-                    <X className="size-3" aria-hidden="true" />
+                    <HugeiconsIcon
+                      icon={X}
+                      className="size-3"
+                      aria-hidden="true"
+                    />
                   </Button>
                 </div>
               );
@@ -533,9 +536,9 @@ export function Sort({
 }: SortProps) {
   const [open, setOpen] = React.useState(false);
   const triggerIconNode = React.useMemo(() => {
-    const Icon = resolveLucideIcon(triggerIcon);
-    // eslint-disable-next-line -- icon component selected from a stable map; no local state
-    return <Icon aria-hidden="true" />;
+    return renderGeckoIcon(resolveFilterIcon(triggerIcon), {
+      "aria-hidden": true,
+    });
   }, [triggerIcon]);
 
   return (
@@ -799,7 +802,11 @@ export function DateRangeFilter({
         <PopoverTrigger
           render={
             <Button variant="outline" size="sm" className="gap-2">
-              <ListFilterPlus aria-hidden="true" className="size-4" />
+              <HugeiconsIcon
+                icon={ListFilterPlus}
+                aria-hidden="true"
+                className="size-4"
+              />
               {resolvedTriggerLabel}
             </Button>
           }
@@ -824,7 +831,8 @@ export function DateRangeFilter({
                       if (closeOnSelect) setOpen(false);
                     }}
                   >
-                    <Check
+                    <HugeiconsIcon
+                      icon={Check}
                       className={cn("size-3.5", !isSelected && "invisible")}
                       aria-hidden="true"
                     />
@@ -853,7 +861,11 @@ export function DateRangeFilter({
                   className="justify-start"
                   onClick={clearRange}
                 >
-                  <X className="size-3.5" aria-hidden="true" />
+                  <HugeiconsIcon
+                    icon={X}
+                    className="size-3.5"
+                    aria-hidden="true"
+                  />
                   Clear date filter
                 </Button>
               )}

@@ -126,6 +126,8 @@ Supply icons explicitly. Header does not infer icons from action wording. An ico
 
 Header tabs are line Tabs used for sub-pages within the current product section. Header supplies their single bottom rule, and the active indicator is centred on that boundary. Use standalone Tabs for switching content within the page body.
 
+Header enables tab overflow by default. When the available width is exhausted, trailing tabs move into the standard ellipsis menu and return to the tab list as space becomes available.
+
 ```tsx
 <Header
   tabs={{

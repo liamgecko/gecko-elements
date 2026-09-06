@@ -2,14 +2,13 @@
 
 import * as React from "react";
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
-import {
-  CircleCheckBig,
-  Info,
-  Loader2,
-  OctagonX,
-  TriangleAlert,
-  XIcon,
-} from "lucide-react";
+import CircleCheckBig from "@hugeicons/core-free-icons/CircleCheckBigIcon";
+import Info from "@hugeicons/core-free-icons/InfoIcon";
+import Loader2 from "@hugeicons/core-free-icons/Loading03Icon";
+import OctagonX from "@hugeicons/core-free-icons/OctagonXIcon";
+import TriangleAlert from "@hugeicons/core-free-icons/TriangleAlertIcon";
+import XIcon from "@hugeicons/core-free-icons/XIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { Button } from "@gecko/ui/components/button";
 import { cn } from "@gecko/ui/lib/utils";
@@ -132,7 +131,7 @@ function ToastClose({
       )}
       {...props}
     >
-      {children ?? <XIcon aria-hidden="true" />}
+      {children ?? <HugeiconsIcon icon={XIcon} aria-hidden="true" />}
     </ToastPrimitive.Close>
   );
 }
@@ -142,7 +141,8 @@ function ToastIcon({ type }: { type: string | undefined }) {
 
   if (type === "success") {
     icon = (
-      <CircleCheckBig
+      <HugeiconsIcon
+        icon={CircleCheckBig}
         className="text-emerald-600 dark:text-teal-600"
         aria-hidden="true"
       />
@@ -150,16 +150,25 @@ function ToastIcon({ type }: { type: string | undefined }) {
   }
 
   if (type === "info") {
-    icon = <Info className="text-blue-600" aria-hidden="true" />;
+    icon = (
+      <HugeiconsIcon icon={Info} className="text-blue-600" aria-hidden="true" />
+    );
   }
 
   if (type === "warning") {
-    icon = <TriangleAlert className="text-yellow-600" aria-hidden="true" />;
+    icon = (
+      <HugeiconsIcon
+        icon={TriangleAlert}
+        className="text-yellow-600"
+        aria-hidden="true"
+      />
+    );
   }
 
   if (type === "error") {
     icon = (
-      <OctagonX
+      <HugeiconsIcon
+        icon={OctagonX}
         className="text-red-600 dark:text-rose-600"
         aria-hidden="true"
       />
@@ -168,7 +177,8 @@ function ToastIcon({ type }: { type: string | undefined }) {
 
   if (type === "loading") {
     icon = (
-      <Loader2
+      <HugeiconsIcon
+        icon={Loader2}
         className="animate-spin text-muted-foreground"
         aria-hidden="true"
       />

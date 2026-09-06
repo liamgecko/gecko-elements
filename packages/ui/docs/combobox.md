@@ -117,9 +117,9 @@ Base UI understands the common `{ value, label }` shape automatically. Still use
 
 ## Clear and trigger controls
 
-ComboboxInput shows the options trigger by default. The component owns its “Show options” accessible name.
+ComboboxInput shows the square options trigger by default. The component owns its “Show options” accessible name. Its chevron rotates when the popup opens and returns when it closes. The popup spans the complete field width, including the trigger area.
 
-Set `showClear` when an optional current selection should be easy to remove. The component owns the clear control and its “Clear selection” accessible name. Do not build a separate clear Button.
+Set `showClear` when an optional current selection should be easy to remove. The component owns the clear control and its “Clear selection” accessible name. Trigger and clear controls occupy the same fixed square slot so the trailing icon remains stationary when the control changes. Do not build a separate clear Button.
 
 Only set `showTrigger={false}` when the design explicitly requires the field to open through typing or focus alone. Do not replace either control with custom chrome.
 

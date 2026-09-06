@@ -33,12 +33,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@gecko/ui/components/dropdown-menu";
-import {
-  ChevronRight,
-  MoreHorizontal,
-  PanelLeftClose,
-  PanelLeftOpen,
-} from "lucide-react";
+import ChevronRight from "@hugeicons/core-free-icons/ChevronRightIcon";
+import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
+import PanelLeftClose from "@hugeicons/core-free-icons/PanelLeftCloseIcon";
+import PanelLeftOpen from "@hugeicons/core-free-icons/PanelLeftOpenIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -300,7 +299,7 @@ function SidebarTrigger({
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar, state } = useSidebar();
   const expanded = state === "expanded";
-  const Icon = expanded ? PanelLeftClose : PanelLeftOpen;
+  const Icon = expanded ? PanelLeftOpen : PanelLeftClose;
   const label = expanded ? "Collapse sidebar" : "Expand sidebar";
   const isMac =
     typeof navigator !== "undefined" &&
@@ -320,7 +319,7 @@ function SidebarTrigger({
       }}
       {...props}
     >
-      <Icon aria-hidden />
+      <HugeiconsIcon icon={Icon} aria-hidden />
       <span className="sr-only">{label}</span>
     </Button>
   );
@@ -867,7 +866,7 @@ function SidebarCollapsedSubMenuItem({
                         />
                       }
                     >
-                      <MoreHorizontal aria-hidden />
+                      <HugeiconsIcon icon={EllipsisIcon} aria-hidden />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
                       align="end"
@@ -956,7 +955,8 @@ function SidebarMenuButton({
         children: shouldShowChevron ? (
           <>
             {children}
-            <ChevronRight
+            <HugeiconsIcon
+              icon={ChevronRight}
               aria-hidden
               className={cn(
                 "ms-auto size-4 shrink-0 text-muted-foreground transition-transform motion-reduce:transition-none",

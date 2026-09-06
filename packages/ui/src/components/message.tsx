@@ -1,16 +1,15 @@
 "use client";
 
 import * as React from "react";
-import {
-  Check,
-  CheckCheck,
-  CircleAlert,
-  Copy,
-  Info,
-  Share,
-  ThumbsDown,
-  ThumbsUp,
-} from "lucide-react";
+import Check from "@hugeicons/core-free-icons/CheckIcon";
+import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
+import CircleAlert from "@hugeicons/core-free-icons/AlertCircleIcon";
+import Copy from "@hugeicons/core-free-icons/Copy01Icon";
+import Info from "@hugeicons/core-free-icons/InfoIcon";
+import Share from "@hugeicons/core-free-icons/Upload06Icon";
+import ThumbsDown from "@hugeicons/core-free-icons/ThumbsDownIcon";
+import ThumbsUp from "@hugeicons/core-free-icons/ThumbsUpIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { Button } from "@gecko/ui/components/button";
 import {
@@ -177,7 +176,8 @@ function MessageStatusIndicator({
   const config = {
     sent: {
       icon: (
-        <Check
+        <HugeiconsIcon
+          icon={Check}
           className="text-muted-foreground size-3"
           aria-hidden
           strokeWidth={2.2}
@@ -187,7 +187,8 @@ function MessageStatusIndicator({
     },
     delivered: {
       icon: (
-        <CheckCheck
+        <HugeiconsIcon
+          icon={CheckCheck}
           className="text-muted-foreground size-3"
           aria-hidden
           strokeWidth={2.2}
@@ -197,7 +198,8 @@ function MessageStatusIndicator({
     },
     read: {
       icon: (
-        <CheckCheck
+        <HugeiconsIcon
+          icon={CheckCheck}
           className="size-3 text-blue-600 dark:text-teal-500"
           aria-hidden
           strokeWidth={2.2}
@@ -207,7 +209,8 @@ function MessageStatusIndicator({
     },
     failed: {
       icon: (
-        <CircleAlert
+        <HugeiconsIcon
+          icon={CircleAlert}
           className="size-3 text-red-700 dark:text-rose-200"
           aria-hidden
           strokeWidth={2.2}
@@ -418,7 +421,8 @@ function MessageAiActions({
                 onClick={() => void handleCopyClick()}
               >
                 <span className="relative inline-flex size-3 items-center justify-center">
-                  <Copy
+                  <HugeiconsIcon
+                    icon={Copy}
                     aria-hidden
                     strokeWidth={2}
                     className={cn(
@@ -426,7 +430,8 @@ function MessageAiActions({
                       copiedIconVisible ? "opacity-0" : "opacity-100",
                     )}
                   />
-                  <Check
+                  <HugeiconsIcon
+                    icon={Check}
                     aria-hidden
                     strokeWidth={2}
                     className={cn(
@@ -450,6 +455,7 @@ function MessageAiActions({
               <TooltipTrigger
                 render={
                   <Toggle
+                    variant="default"
                     size="icon-xs"
                     aria-label={label}
                     pressed={pressed}
@@ -458,7 +464,7 @@ function MessageAiActions({
                       if (next) onPressed();
                     }}
                   >
-                    <Icon aria-hidden strokeWidth={2} />
+                    <HugeiconsIcon icon={Icon} aria-hidden strokeWidth={2} />
                   </Toggle>
                 }
               />
@@ -479,7 +485,7 @@ function MessageAiActions({
                 aria-label="Share response"
                 onClick={() => onShareResponse?.()}
               >
-                <Share aria-hidden strokeWidth={2} />
+                <HugeiconsIcon icon={Share} aria-hidden strokeWidth={2} />
               </Button>
             }
           />
@@ -615,7 +621,12 @@ function MessageInfo({ userInfo, agentInfo, className }: MessageInfoProps) {
             )}
             aria-label="Message information"
           >
-            <Info aria-hidden className="size-3" strokeWidth={2.2} />
+            <HugeiconsIcon
+              icon={Info}
+              aria-hidden
+              className="size-3"
+              strokeWidth={2.2}
+            />
           </button>
         }
       />

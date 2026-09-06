@@ -103,6 +103,8 @@ Set `searchable` on `DropdownMenu` for a long action list. The component inserts
 
 `searchPlaceholder` becomes the search field’s accessible name by default. Set `searchLabel` when the accessible name should differ. Use `searchValue` when visible item content does not provide useful searchable text, particularly for composed content.
 
+Searchable menu content sizes to whichever is wider: the search placeholder or the menu items. The placeholder continues to reserve its width while a query is entered.
+
 `DropdownMenuSubContent` supports its own `searchable`, `searchPlaceholder` and `searchLabel` props. Its query is scoped independently from the parent menu.
 
 ## Keyboard and accessibility

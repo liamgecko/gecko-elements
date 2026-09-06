@@ -1,9 +1,10 @@
-import * as React from "react"
-import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
+import { cva, type VariantProps } from "class-variance-authority";
+import ChevronDownIcon from "@hugeicons/core-free-icons/ChevronDownIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-import { cn } from "@gecko/ui/lib/utils"
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
+import { cn } from "@gecko/ui/lib/utils";
 
 const accordionVariants = cva("flex w-full flex-col", {
   variants: {
@@ -15,7 +16,7 @@ const accordionVariants = cva("flex w-full flex-col", {
   defaultVariants: {
     variant: "default",
   },
-})
+});
 
 const accordionItemVariants = cva("", {
   variants: {
@@ -28,23 +29,23 @@ const accordionItemVariants = cva("", {
   defaultVariants: {
     variant: "default",
   },
-})
+});
 
 const accordionTriggerVariants = cva(
-  "focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring **:data-[slot=accordion-trigger-icon]:text-muted-foreground py-4 text-start text-sm font-medium focus-visible:ring-3 **:data-[slot=accordion-trigger-icon]:ms-auto **:data-[slot=accordion-trigger-icon]:size-4 group/accordion-trigger relative flex flex-1 items-start justify-between items-center border border-transparent transition-all outline-none aria-disabled:pointer-events-none aria-disabled:opacity-75 hover:text-muted-foreground",
+  "focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:after:border-ring **:data-[slot=accordion-trigger-icon]:text-muted-foreground py-4 text-start text-sm font-medium focus-visible:ring-3 **:data-[slot=accordion-trigger-icon]:ms-auto group/accordion-trigger relative flex flex-1 items-start justify-between items-center border border-transparent transition-all outline-none aria-disabled:pointer-events-none aria-disabled:opacity-75 hover:text-muted-foreground",
   {
     variants: {
       variant: {
-        default: "rounded-md",
+        default: "rounded-md **:data-[slot=accordion-trigger-icon]:size-4",
         sectional:
-          "rounded-none border-0 px-4 font-semibold text-foreground text-base", 
+          "rounded-none border-0 px-4 font-semibold text-foreground text-base **:data-[slot=accordion-trigger-icon]:size-5",
       },
     },
     defaultVariants: {
       variant: "default",
     },
-  }
-)
+  },
+);
 
 const accordionContentVariants = cva(
   "data-open:animate-accordion-down data-closed:animate-accordion-up text-sm overflow-hidden",
@@ -58,8 +59,8 @@ const accordionContentVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
-)
+  },
+);
 
 const accordionContentInnerVariants = cva(
   "pt-0 pb-4 [&_a]:hover:text-foreground h-(--accordion-panel-height) data-ending-style:h-0 data-starting-style:h-0 [&_a]:underline [&_a]:underline-offset-3 [&_p:not(:last-child)]:mb-4",
@@ -73,17 +74,18 @@ const accordionContentInnerVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
-)
+  },
+);
 
 type AccordionVariant = NonNullable<
   VariantProps<typeof accordionVariants>["variant"]
->
+>;
 
-const AccordionVariantContext = React.createContext<AccordionVariant>("default")
+const AccordionVariantContext =
+  React.createContext<AccordionVariant>("default");
 
 function useAccordionVariant() {
-  return React.useContext(AccordionVariantContext)
+  return React.useContext(AccordionVariantContext);
 }
 
 function Accordion({
@@ -91,28 +93,30 @@ function Accordion({
   variant = "default",
   ...props
 }: AccordionPrimitive.Root.Props & VariantProps<typeof accordionVariants>) {
-  const resolvedVariant = variant ?? "default"
+  const resolvedVariant = variant ?? "default";
   return (
     <AccordionVariantContext.Provider value={resolvedVariant}>
       <AccordionPrimitive.Root
         data-slot="accordion"
         data-variant={resolvedVariant}
-        className={cn(accordionVariants({ variant: resolvedVariant, className }))}
+        className={cn(
+          accordionVariants({ variant: resolvedVariant, className }),
+        )}
         {...props}
       />
     </AccordionVariantContext.Provider>
-  )
+  );
 }
 
 function AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {
-  const variant = useAccordionVariant() ?? "default"
+  const variant = useAccordionVariant() ?? "default";
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"
       className={cn(accordionItemVariants({ variant }), className)}
       {...props}
     />
-  )
+  );
 }
 
 function AccordionTrigger({
@@ -120,7 +124,7 @@ function AccordionTrigger({
   children,
   ...props
 }: AccordionPrimitive.Trigger.Props) {
-  const variant = useAccordionVariant() ?? "default"
+  const variant = useAccordionVariant() ?? "default";
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
@@ -129,11 +133,15 @@ function AccordionTrigger({
         {...props}
       >
         {children}
-        <ChevronDownIcon data-slot="accordion-trigger-icon" className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden" />
-        <ChevronUpIcon data-slot="accordion-trigger-icon" className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline" />
+        <HugeiconsIcon
+          icon={ChevronDownIcon}
+          color="currentColor"
+          data-slot="accordion-trigger-icon"
+          className="pointer-events-none shrink-0 transition-transform duration-200 ease-out group-aria-expanded/accordion-trigger:rotate-180 motion-reduce:transition-none"
+        />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
-  )
+  );
 }
 
 function AccordionContent({
@@ -141,18 +149,20 @@ function AccordionContent({
   children,
   ...props
 }: AccordionPrimitive.Panel.Props) {
-  const variant = useAccordionVariant() ?? "default"
+  const variant = useAccordionVariant() ?? "default";
   return (
     <AccordionPrimitive.Panel
       data-slot="accordion-content"
       className={cn(accordionContentVariants({ variant }))}
       {...props}
     >
-      <div className={cn(accordionContentInnerVariants({ variant }), className)}>
+      <div
+        className={cn(accordionContentInnerVariants({ variant }), className)}
+      >
         {children}
       </div>
     </AccordionPrimitive.Panel>
-  )
+  );
 }
 
 // eslint-disable-next-line react-refresh/only-export-components -- cva variants are intentionally exported from this module.
@@ -165,4 +175,4 @@ export {
   accordionItemVariants,
   accordionTriggerVariants,
   accordionContentVariants,
-}
+};

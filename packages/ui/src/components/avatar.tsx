@@ -50,10 +50,10 @@ const descriptionClass: Record<ResolvedAvatarSize, string> = {
   xs: "text-5xs/2.75",
   sm: "text-4xs/3.5",
   md: "text-2xs/3.75",
-  lg: "text-sm/4.25",
-  xl: "text-sm/5",
-  "2xl": "text-base/5.5",
-  "3xl": "text-lg/6",
+  lg: "text-xs",
+  xl: "text-xs",
+  "2xl": "text-xs",
+  "3xl": "text-sm",
 };
 
 export type AvatarStatus = "online" | "unavailable" | "offline";

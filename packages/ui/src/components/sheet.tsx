@@ -7,7 +7,8 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@gecko/ui/lib/utils";
 import { Button } from "@gecko/ui/components/button";
 import { ScrollArea } from "@gecko/ui/components/scroll-area";
-import { XIcon } from "lucide-react";
+import XIcon from "@hugeicons/core-free-icons/XIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;
@@ -39,16 +40,16 @@ function SheetOverlay({ className, ...props }: SheetPrimitive.Backdrop.Props) {
 }
 
 const sheetVariants = cva(
-  "fixed z-50 flex flex-col gap-4 overflow-hidden rounded-lg bg-background border border-border text-sm shadow-lg transition duration-200 ease-in-out data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 motion-reduce:animate-none motion-reduce:transition-none pt-4",
+  "fixed z-50 flex flex-col gap-4 overflow-hidden rounded-lg bg-background ring-1 ring-overlay-border text-sm shadow-lg transition duration-200 ease-in-out data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 motion-reduce:animate-none motion-reduce:transition-none pt-4",
   {
     variants: {
       side: {
-        top: "data-[side=top]:inset-x-2 data-[side=top]:top-2 data-[side=top]:h-auto data-[side=top]:max-h-[calc(100dvh-1rem)] data-[side=top]:w-auto data-[side=top]:border-b data-[side=top]:pb-4 data-[side=top]:data-closed:slide-out-to-top-10 data-[side=top]:data-open:slide-in-from-top-10",
+        top: "data-[side=top]:inset-x-2 data-[side=top]:top-2 data-[side=top]:h-auto data-[side=top]:max-h-[calc(100dvh-1rem)] data-[side=top]:w-auto data-[side=top]:pb-4 data-[side=top]:data-closed:slide-out-to-top-10 data-[side=top]:data-open:slide-in-from-top-10",
         bottom:
-          "data-[side=bottom]:inset-x-2 data-[side=bottom]:bottom-2 data-[side=bottom]:h-auto data-[side=bottom]:max-h-[calc(100dvh-1rem)] data-[side=bottom]:w-auto data-[side=bottom]:border-t data-[side=bottom]:pb-4 data-[side=bottom]:data-closed:slide-out-to-bottom-10 data-[side=bottom]:data-open:slide-in-from-bottom-10",
-        left: "data-[side=left]:top-2 data-[side=left]:bottom-2 data-[side=left]:left-2 data-[side=left]:max-h-[calc(100dvh-1rem)] data-[side=left]:w-[calc(100vw-1rem)] data-[side=left]:border-e data-[side=left]:data-closed:slide-out-to-left-10 data-[side=left]:data-open:slide-in-from-left-10",
+          "data-[side=bottom]:inset-x-2 data-[side=bottom]:bottom-2 data-[side=bottom]:h-auto data-[side=bottom]:max-h-[calc(100dvh-1rem)] data-[side=bottom]:w-auto data-[side=bottom]:pb-4 data-[side=bottom]:data-closed:slide-out-to-bottom-10 data-[side=bottom]:data-open:slide-in-from-bottom-10",
+        left: "data-[side=left]:top-2 data-[side=left]:bottom-2 data-[side=left]:left-2 data-[side=left]:max-h-[calc(100dvh-1rem)] data-[side=left]:w-[calc(100vw-1rem)] data-[side=left]:data-closed:slide-out-to-left-10 data-[side=left]:data-open:slide-in-from-left-10",
         right:
-          "data-[side=right]:top-2 data-[side=right]:bottom-2 data-[side=right]:right-2 data-[side=right]:max-h-[calc(100dvh-1rem)] data-[side=right]:w-[calc(100vw-1rem)] data-[side=right]:border-s data-[side=right]:data-closed:slide-out-to-right-10 data-[side=right]:data-open:slide-in-from-right-10",
+          "data-[side=right]:top-2 data-[side=right]:bottom-2 data-[side=right]:right-2 data-[side=right]:max-h-[calc(100dvh-1rem)] data-[side=right]:w-[calc(100vw-1rem)] data-[side=right]:data-closed:slide-out-to-right-10 data-[side=right]:data-open:slide-in-from-right-10",
       },
       size: {
         sm: "data-[side=left]:data-[size=sm]:max-w-sm data-[side=right]:data-[size=sm]:max-w-sm",
@@ -102,7 +103,7 @@ function SheetContent({
               />
             }
           >
-            <XIcon aria-hidden="true" />
+            <HugeiconsIcon icon={XIcon} aria-hidden="true" />
             <span className="sr-only">Close</span>
           </SheetPrimitive.Close>
         )}

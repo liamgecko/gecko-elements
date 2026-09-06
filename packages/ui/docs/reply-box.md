@@ -123,7 +123,9 @@ Applications may provide their own channel options to ReplyBoxHeader. Do not ext
 
 Built-in action identifiers provide Gecko labels and icons. The application connects attachment, emoji, saved reply and other product behaviour when integrating the composer.
 
-Custom actions provide an id, label and Lucide icon. Use onClick for an ordinary action or render for a richer inline control. Provide overflowRender when that rich control needs a different representation inside the responsive overflow menu.
+The Forward action reuses the Reply glyph with a horizontal flip so the two related actions share one visual shape.
+
+Custom actions provide an id, label and Hugeicons glyph. Use onClick for an ordinary action or render for a richer inline control. Provide overflowRender when that rich control needs a different representation inside the responsive overflow menu.
 
 ```tsx
 const actions = [
@@ -160,7 +162,7 @@ The first two tray items remain visible. Remaining actions move into More action
 | defaultNoteMode  | boolean                         | false                 | Initial uncontrolled note state           |
 | onNoteModeChange | (noteMode: boolean) => void     | none                  | Reports note-state changes                |
 | onSend           | () => void                      | none                  | Runs from Send or Add note                |
-| sendIcon         | LucideIcon                      | SendHorizontal        | Send-state icon override                  |
+| sendIcon         | GeckoIcon                       | SendHorizontalIcon    | Send-state icon override                  |
 | stopEnabled      | boolean                         | false                 | Requests the stop state                   |
 | onStop           | () => void                      | none                  | Runs from Stop                            |
 

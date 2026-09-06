@@ -27,7 +27,9 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "@gecko/ui/components/input-group";
-import { Copy, Search } from "lucide-react";
+import Copy from "@hugeicons/core-free-icons/Copy01Icon";
+import Search from "@hugeicons/core-free-icons/Search01Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -526,7 +528,7 @@ const form = useForm<z.infer<typeof formSchema>>({
               <div className="flex flex-col gap-4">
                 <InputGroup size="sm">
                   <InputGroupAddon align="inline-start">
-                    <Search aria-hidden="true" />
+                    <HugeiconsIcon icon={Search} aria-hidden="true" />
                   </InputGroupAddon>
                   <InputGroupInput
                     aria-label="Search"
@@ -535,7 +537,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                 </InputGroup>
                 <InputGroup size="md">
                   <InputGroupAddon align="inline-start">
-                    <Search aria-hidden="true" />
+                    <HugeiconsIcon icon={Search} aria-hidden="true" />
                   </InputGroupAddon>
                   <InputGroupInput
                     aria-label="Search"
@@ -544,7 +546,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                 </InputGroup>
                 <InputGroup size="lg">
                   <InputGroupAddon align="inline-start">
-                    <Search aria-hidden="true" />
+                    <HugeiconsIcon icon={Search} aria-hidden="true" />
                   </InputGroupAddon>
                   <InputGroupInput
                     aria-label="Search"
@@ -581,7 +583,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                     placeholder="Search..."
                   />
                   <InputGroupAddon align="inline-end">
-                    <Search aria-hidden="true" />
+                    <HugeiconsIcon icon={Search} aria-hidden="true" />
                   </InputGroupAddon>
                 </InputGroup>
                 <InputGroup size="md">
@@ -590,7 +592,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                     placeholder="Search..."
                   />
                   <InputGroupAddon align="inline-end">
-                    <Search aria-hidden="true" />
+                    <HugeiconsIcon icon={Search} aria-hidden="true" />
                   </InputGroupAddon>
                 </InputGroup>
                 <InputGroup size="lg">
@@ -599,7 +601,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                     placeholder="Search..."
                   />
                   <InputGroupAddon align="inline-end">
-                    <Search aria-hidden="true" />
+                    <HugeiconsIcon icon={Search} aria-hidden="true" />
                   </InputGroupAddon>
                 </InputGroup>
               </div>
@@ -623,38 +625,38 @@ const form = useForm<z.infer<typeof formSchema>>({
               <div className="flex flex-col gap-4">
                 <InputGroup size="sm">
                   <InputGroupAddon align="inline-start">
-                    <Search aria-hidden="true" />
+                    <HugeiconsIcon icon={Search} aria-hidden="true" />
                   </InputGroupAddon>
                   <InputGroupInput
                     aria-label="Search"
                     placeholder="Search..."
                   />
                   <InputGroupAddon align="inline-end">
-                    <Search aria-hidden="true" />
+                    <HugeiconsIcon icon={Search} aria-hidden="true" />
                   </InputGroupAddon>
                 </InputGroup>
                 <InputGroup size="md">
                   <InputGroupAddon align="inline-start">
-                    <Search aria-hidden="true" />
+                    <HugeiconsIcon icon={Search} aria-hidden="true" />
                   </InputGroupAddon>
                   <InputGroupInput
                     aria-label="Search"
                     placeholder="Search..."
                   />
                   <InputGroupAddon align="inline-end">
-                    <Search aria-hidden="true" />
+                    <HugeiconsIcon icon={Search} aria-hidden="true" />
                   </InputGroupAddon>
                 </InputGroup>
                 <InputGroup size="lg">
                   <InputGroupAddon align="inline-start">
-                    <Search aria-hidden="true" />
+                    <HugeiconsIcon icon={Search} aria-hidden="true" />
                   </InputGroupAddon>
                   <InputGroupInput
                     aria-label="Search"
                     placeholder="Search..."
                   />
                   <InputGroupAddon align="inline-end">
-                    <Search aria-hidden="true" />
+                    <HugeiconsIcon icon={Search} aria-hidden="true" />
                   </InputGroupAddon>
                 </InputGroup>
               </div>
@@ -692,7 +694,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                 />
                 <InputGroupAddon align="inline-end">
                   <InputGroupButton aria-label="Copy value">
-                    <Copy aria-hidden="true" />
+                    <HugeiconsIcon icon={Copy} aria-hidden="true" />
                   </InputGroupButton>
                 </InputGroupAddon>
               </InputGroup>
@@ -703,7 +705,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                 />
                 <InputGroupAddon align="inline-end">
                   <InputGroupButton aria-label="Copy value">
-                    <Copy aria-hidden="true" />
+                    <HugeiconsIcon icon={Copy} aria-hidden="true" />
                   </InputGroupButton>
                 </InputGroupAddon>
               </InputGroup>
@@ -714,7 +716,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                 />
                 <InputGroupAddon align="inline-end">
                   <InputGroupButton aria-label="Copy value">
-                    <Copy aria-hidden="true" />
+                    <HugeiconsIcon icon={Copy} aria-hidden="true" />
                   </InputGroupButton>
                 </InputGroupAddon>
               </InputGroup>

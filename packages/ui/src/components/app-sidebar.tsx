@@ -1,7 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { CheckCheck, MoreHorizontal, Star } from "lucide-react";
+import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
+import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
+import Star from "@hugeicons/core-free-icons/StarIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { Button } from "@gecko/ui/components/button";
 import {
@@ -45,6 +48,7 @@ import {
   useSidebar,
 } from "@gecko/ui/components/sidebar";
 import { cn } from "@gecko/ui/lib/utils";
+import { renderGeckoIcon, type GeckoIcon } from "@gecko/ui/lib/icon";
 
 type AppSidebarProps = {
   children: [
@@ -116,7 +120,7 @@ function AppSidebarFavourites({
         <DropdownMenuTrigger
           render={<SidebarMenuAction aria-label={`Actions for ${fav.label}`} />}
         >
-          <MoreHorizontal />
+          <HugeiconsIcon icon={EllipsisIcon} />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => openRename(fav.path, fav.label)}>
@@ -145,7 +149,7 @@ function AppSidebarFavourites({
             {collapsed ? (
               <SidebarMenuItem>
                 <SidebarMenuButton tooltip="Favourites">
-                  <Star />
+                  <HugeiconsIcon icon={Star} />
                 </SidebarMenuButton>
                 <SidebarMenuSub>
                   {items.map((fav) => {
@@ -222,7 +226,11 @@ function AppSidebarFavourites({
                 setRenameOpen(false);
               }}
             >
-              <CheckCheck data-icon="inline-start" aria-hidden="true" />
+              <HugeiconsIcon
+                icon={CheckCheck}
+                data-icon="inline-start"
+                aria-hidden="true"
+              />
               Rename
             </Button>
           </DialogFooter>
@@ -240,7 +248,7 @@ type AppSidebarNavChild = {
 type AppSidebarNavItemBase = {
   id: string;
   label: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: GeckoIcon;
 };
 
 type AppSidebarNavLeaf = AppSidebarNavItemBase & {
@@ -307,7 +315,7 @@ function AppSidebarNav({ items, activePath, onSelect }: AppSidebarNavProps) {
                           isActive={isGroupActive}
                           tooltip={item.label}
                         >
-                          <Icon />
+                          {renderGeckoIcon(Icon)}
                           <span>{item.label}</span>
                         </SidebarMenuButton>
                       }
@@ -351,7 +359,7 @@ function AppSidebarNav({ items, activePath, onSelect }: AppSidebarNavProps) {
                     onSelect(href);
                   }}
                 >
-                  <Icon />
+                  {renderGeckoIcon(Icon)}
                   {!collapsed ? <span>{item.label}</span> : null}
                 </SidebarMenuButton>
               </SidebarMenuItem>

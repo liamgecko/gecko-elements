@@ -29,7 +29,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@gecko/ui/components/select";
-import { ChevronDown, Minus, Plus, Search } from "lucide-react";
+import Minus from "@hugeicons/core-free-icons/MinusIcon";
+import Plus from "@hugeicons/core-free-icons/PlusIcon";
+import Search from "@hugeicons/core-free-icons/Search01Icon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 const currencies = [
   { label: "GBP", value: "gbp" },
@@ -74,9 +77,7 @@ export function ButtonGroupPage() {
   <DropdownMenu>
     <DropdownMenuTrigger
       render={
-        <Button size="icon" aria-label="More save options">
-          <ChevronDown aria-hidden="true" />
-        </Button>
+        <Button size="icon" dropdown aria-label="More save options" />
       }
     />
     <DropdownMenuContent align="end">
@@ -201,10 +202,10 @@ export function ButtonGroupPage() {
             <div className="flex items-start gap-6">
               <ButtonGroup aria-label="Horizontal zoom controls">
                 <Button variant="outline" size="icon" aria-label="Zoom out">
-                  <Minus aria-hidden="true" />
+                  <HugeiconsIcon icon={Minus} aria-hidden="true" />
                 </Button>
                 <Button variant="outline" size="icon" aria-label="Zoom in">
-                  <Plus aria-hidden="true" />
+                  <HugeiconsIcon icon={Plus} aria-hidden="true" />
                 </Button>
               </ButtonGroup>
               <ButtonGroup
@@ -212,10 +213,10 @@ export function ButtonGroupPage() {
                 aria-label="Vertical zoom controls"
               >
                 <Button variant="outline" size="icon" aria-label="Zoom out">
-                  <Minus aria-hidden="true" />
+                  <HugeiconsIcon icon={Minus} aria-hidden="true" />
                 </Button>
                 <Button variant="outline" size="icon" aria-label="Zoom in">
-                  <Plus aria-hidden="true" />
+                  <HugeiconsIcon icon={Plus} aria-hidden="true" />
                 </Button>
               </ButtonGroup>
             </div>
@@ -273,9 +274,11 @@ export function ButtonGroupPage() {
               <DropdownMenu>
                 <DropdownMenuTrigger
                   render={
-                    <Button size="icon" aria-label="More save options">
-                      <ChevronDown aria-hidden="true" />
-                    </Button>
+                    <Button
+                      size="icon"
+                      dropdown
+                      aria-label="More save options"
+                    />
                   }
                 />
                 <DropdownMenuContent align="end">
@@ -309,7 +312,7 @@ export function ButtonGroupPage() {
                 placeholder="Search..."
               />
               <Button variant="outline" size="icon" aria-label="Search">
-                <Search aria-hidden="true" />
+                <HugeiconsIcon icon={Search} aria-hidden="true" />
               </Button>
             </ButtonGroup>
             <Code

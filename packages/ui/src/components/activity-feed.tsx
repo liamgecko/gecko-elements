@@ -1,19 +1,17 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import {
-  CalendarPlus,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ListTodo,
-  MailCheck,
-  MailPlus,
-  MessageSquareCheck,
-  MessageSquareText,
-  MonitorCog,
-  PhoneForwarded,
-  Smartphone,
-  type LucideIcon,
-} from "lucide-react";
+import CalendarPlus from "@hugeicons/core-free-icons/CalendarPlusIcon";
+import ChevronLeftIcon from "@hugeicons/core-free-icons/ChevronLeftIcon";
+import ChevronRightIcon from "@hugeicons/core-free-icons/ChevronRightIcon";
+import ListTodo from "@hugeicons/core-free-icons/ListTodoIcon";
+import MailCheck from "@hugeicons/core-free-icons/MailCheckIcon";
+import MailPlus from "@hugeicons/core-free-icons/MailPlusIcon";
+import MessageSquareCheck from "@hugeicons/core-free-icons/MessageSquareCheckIcon";
+import MessageSquareText from "@hugeicons/core-free-icons/MessageSquareTextIcon";
+import MonitorCog from "@hugeicons/core-free-icons/MonitorCogIcon";
+import PhoneForwarded from "@hugeicons/core-free-icons/PhoneForwardedIcon";
+import Smartphone from "@hugeicons/core-free-icons/SmartphoneIcon";
+import { HugeiconsIcon, type IconSvgElement } from "@gecko/ui/lib/icon";
 
 import { Button } from "@gecko/ui/components/button";
 import {
@@ -48,7 +46,7 @@ export type ActivityFeedPagination = {
   onPageChange: (page: number) => void;
 };
 
-const ACTIVITY_FEED_ICONS: Record<ActivityFeedType, LucideIcon> = {
+const ACTIVITY_FEED_ICONS: Record<ActivityFeedType, IconSvgElement> = {
   "conversation-started": MessageSquareText,
   "conversation-closed": MessageSquareCheck,
   "form-submission": ListTodo,
@@ -213,7 +211,8 @@ function ActivityFeed({
                 })}
                 aria-hidden="true"
               >
-                <Icon
+                <HugeiconsIcon
+                  icon={Icon}
                   className={activityFeedGlyphVariants({
                     variant: resolvedVariant,
                   })}
@@ -260,7 +259,10 @@ function ActivityFeed({
                 disabled={currentPage === 1}
                 onClick={() => pagination.onPageChange(currentPage - 1)}
               >
-                <ChevronLeftIcon className="rtl:rotate-180" />
+                <HugeiconsIcon
+                  icon={ChevronLeftIcon}
+                  className="rtl:rotate-180"
+                />
               </Button>
             </PaginationItem>
             <PaginationItem>
@@ -272,7 +274,10 @@ function ActivityFeed({
                 disabled={currentPage === totalPages}
                 onClick={() => pagination.onPageChange(currentPage + 1)}
               >
-                <ChevronRightIcon className="rtl:rotate-180" />
+                <HugeiconsIcon
+                  icon={ChevronRightIcon}
+                  className="rtl:rotate-180"
+                />
               </Button>
             </PaginationItem>
           </PaginationContent>

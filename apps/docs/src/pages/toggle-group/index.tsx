@@ -13,26 +13,25 @@ import {
   ToggleGroup,
   ToggleGroupItem,
 } from "@gecko/ui/components/toggle-group";
-import {
-  AlignCenter,
-  AlignLeft,
-  AlignRight,
-  Bold,
-  Italic,
-  Underline,
-} from "lucide-react";
+import AlignCenter from "@hugeicons/core-free-icons/TextAlignCenterIcon";
+import TextAlignStart from "@hugeicons/core-free-icons/TextAlignStartIcon";
+import TextAlignEnd from "@hugeicons/core-free-icons/TextAlignEndIcon";
+import Bold from "@hugeicons/core-free-icons/BoldIcon";
+import Italic from "@hugeicons/core-free-icons/ItalicIcon";
+import Underline from "@hugeicons/core-free-icons/UnderlineIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 function AlignmentIcons() {
   return (
     <>
       <ToggleGroupItem value="left" aria-label="Align left">
-        <AlignLeft aria-hidden="true" />
+        <HugeiconsIcon icon={TextAlignStart} aria-hidden="true" />
       </ToggleGroupItem>
       <ToggleGroupItem value="center" aria-label="Align centre">
-        <AlignCenter aria-hidden="true" />
+        <HugeiconsIcon icon={AlignCenter} aria-hidden="true" />
       </ToggleGroupItem>
       <ToggleGroupItem value="right" aria-label="Align right">
-        <AlignRight aria-hidden="true" />
+        <HugeiconsIcon icon={TextAlignEnd} aria-hidden="true" />
       </ToggleGroupItem>
     </>
   );
@@ -47,13 +46,13 @@ export function ToggleGroupPage() {
 └── ToggleGroupItem`;
   const basicSnippet = `<ToggleGroup defaultValue={["left"]} aria-label="Text alignment">
   <ToggleGroupItem value="left" aria-label="Align left">
-    <AlignLeft aria-hidden="true" />
+    <TextAlignStart aria-hidden="true" />
   </ToggleGroupItem>
   <ToggleGroupItem value="center" aria-label="Align centre">
     <AlignCenter aria-hidden="true" />
   </ToggleGroupItem>
   <ToggleGroupItem value="right" aria-label="Align right">
-    <AlignRight aria-hidden="true" />
+    <TextAlignEnd aria-hidden="true" />
   </ToggleGroupItem>
 </ToggleGroup>`;
   const multipleSnippet = `<ToggleGroup multiple defaultValue={["bold"]} aria-label="Text formatting">
@@ -189,13 +188,13 @@ export function ToggleGroupPage() {
               aria-label="Text formatting"
             >
               <ToggleGroupItem value="bold" aria-label="Bold">
-                <Bold aria-hidden="true" />
+                <HugeiconsIcon icon={Bold} aria-hidden="true" />
               </ToggleGroupItem>
               <ToggleGroupItem value="italic" aria-label="Italic">
-                <Italic aria-hidden="true" />
+                <HugeiconsIcon icon={Italic} aria-hidden="true" />
               </ToggleGroupItem>
               <ToggleGroupItem value="underline" aria-label="Underline">
-                <Underline aria-hidden="true" />
+                <HugeiconsIcon icon={Underline} aria-hidden="true" />
               </ToggleGroupItem>
             </ToggleGroup>
             <Code

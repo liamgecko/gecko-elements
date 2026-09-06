@@ -4,10 +4,15 @@ import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox
 import { cva } from "class-variance-authority";
 
 import { cn } from "@gecko/ui/lib/utils";
-import { CheckIcon, Minus } from "lucide-react";
+import CheckIcon from "@hugeicons/core-free-icons/CheckIcon";
+import Minus from "@hugeicons/core-free-icons/MinusIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 const defaultCheckboxStyles =
-  "border-input hover:border-input-hover group-hover/field:border-input-hover group-hover/checkbox:border-input-hover bg-background data-checked:bg-primary data-checked:text-primary-foreground data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-input-destructive group-aria-invalid/checkbox-group:border-input-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-input-destructive/0 focus-visible:aria-invalid:ring-input-destructive/20 dark:focus-visible:aria-invalid:ring-input-destructive/40 group-aria-invalid/checkbox-group:focus-visible:ring-input-destructive/20 dark:group-aria-invalid/checkbox-group:focus-visible:ring-input-destructive/40 flex size-4 items-center justify-center rounded-sm cursor-pointer border transition-[color,box-shadow,border] focus-visible:ring-3 peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-75 disabled:hover:border-input disabled:group-hover/field:border-input disabled:group-hover/checkbox:border-input";
+  "border-input hover:border-input-hover group-hover/field:border-input-hover group-hover/checkbox:border-input-hover bg-background data-checked:bg-primary data-checked:text-primary-foreground data-checked:border-primary data-checked:hover:border-primary group-hover/field:data-checked:border-primary group-hover/checkbox:data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-input-destructive group-aria-invalid/checkbox-group:border-input-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-input-destructive/0 focus-visible:aria-invalid:ring-input-destructive/20 dark:focus-visible:aria-invalid:ring-input-destructive/40 group-aria-invalid/checkbox-group:focus-visible:ring-input-destructive/20 dark:group-aria-invalid/checkbox-group:focus-visible:ring-input-destructive/40 flex size-4 items-center justify-center rounded-sm cursor-pointer border transition-[color,box-shadow,border] focus-visible:ring-3 peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-75 disabled:hover:border-input disabled:group-hover/field:border-input disabled:group-hover/checkbox:border-input";
+
+const checkboxIndicatorStyles =
+  "group/indicator grid place-content-center text-current transition-[scale,opacity,filter] duration-200 ease-[cubic-bezier(0.2,0,0,1)] data-starting-style:scale-25 data-starting-style:opacity-0 data-starting-style:blur-[4px] data-ending-style:scale-25 data-ending-style:opacity-0 data-ending-style:blur-[4px] motion-reduce:transition-opacity motion-reduce:data-starting-style:scale-100 motion-reduce:data-starting-style:blur-none motion-reduce:data-ending-style:scale-100 motion-reduce:data-ending-style:blur-none [&_svg]:size-3.5";
 
 const asButtonCheckboxVariants = cva(
   "border-border bg-background relative rounded-md border text-sm cursor-pointer p-3 transition-all focus-visible:ring-3 focus-visible:border-ring focus-visible:ring-ring/50 outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-75 data-disabled:cursor-not-allowed data-disabled:pointer-events-none data-disabled:opacity-75 hover:bg-muted hover:border-gray-300 dark:hover:border-gray-700 hover:text-foreground disabled:hover:bg-background disabled:hover:border-border disabled:hover:text-foreground data-disabled:hover:bg-background data-disabled:hover:border-border data-disabled:hover:text-foreground data-checked:border-gray-300 dark:data-checked:border-gray-700 data-checked:bg-muted data-checked:text-foreground disabled:data-checked:hover:bg-muted disabled:data-checked:hover:border-gray-300 dark:disabled:data-checked:hover:border-gray-700 disabled:data-checked:hover:text-foreground data-disabled:data-checked:hover:bg-muted data-disabled:data-checked:hover:border-gray-300 dark:data-disabled:data-checked:hover:border-gray-700 data-disabled:data-checked:hover:text-foreground aria-invalid:border-input-destructive aria-invalid:hover:border-input-destructive aria-invalid:hover:text-destructive aria-invalid:hover:bg-destructive-muted aria-invalid:focus-visible:border-input-destructive focus-visible:aria-invalid:ring-input-destructive/20 dark:focus-visible:aria-invalid:ring-input-destructive/40 aria-invalid:data-checked:border-input-destructive dark:aria-invalid:data-checked:border-input-destructive aria-invalid:data-checked:bg-destructive-muted aria-invalid:data-checked:text-destructive-muted-foreground group-aria-invalid/checkbox-group:border-input-destructive group-aria-invalid/checkbox-group:hover:border-input-destructive group-aria-invalid/checkbox-group:hover:bg-destructive-muted group-aria-invalid/checkbox-group:hover:text-destructive group-aria-invalid/checkbox-group:focus-visible:border-input-destructive group-aria-invalid/checkbox-group:focus-visible:ring-input-destructive/20 dark:group-aria-invalid/checkbox-group:focus-visible:ring-input-destructive/40 group-aria-invalid/checkbox-group:data-checked:border-input-destructive group-aria-invalid/checkbox-group:data-checked:bg-destructive-muted group-aria-invalid/checkbox-group:data-checked:text-destructive-muted-foreground",
@@ -93,9 +98,9 @@ function Checkbox({
         >
           <CheckboxPrimitive.Indicator
             data-slot="checkbox-indicator"
-            className="grid place-content-center text-current [&_svg]:size-3.5"
+            className={checkboxIndicatorStyles}
           >
-            <CheckIcon />
+            <HugeiconsIcon icon={CheckIcon} />
           </CheckboxPrimitive.Indicator>
         </span>
         {labelContent && (
@@ -132,13 +137,13 @@ function Checkbox({
     >
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
-        className="grid place-content-center text-current transition-none group/indicator [&_svg]:size-3.5"
+        className={checkboxIndicatorStyles}
       >
         <span className="grid place-content-center group-data-indeterminate/indicator:hidden">
-          <CheckIcon aria-hidden="true" />
+          <HugeiconsIcon icon={CheckIcon} aria-hidden="true" />
         </span>
         <span className="hidden place-content-center group-data-indeterminate/indicator:grid [&_svg]:size-3.5">
-          <Minus aria-hidden="true" />
+          <HugeiconsIcon icon={Minus} aria-hidden="true" />
         </span>
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>

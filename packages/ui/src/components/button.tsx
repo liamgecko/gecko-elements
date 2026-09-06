@@ -1,6 +1,8 @@
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva, type VariantProps } from "class-variance-authority";
-import { ChevronDownIcon, LoaderIcon } from "lucide-react";
+import ChevronDownIcon from "@hugeicons/core-free-icons/ChevronDownIcon";
+import LoaderIcon from "@hugeicons/core-free-icons/LoaderIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { cn } from "@gecko/ui/lib/utils";
 
@@ -12,6 +14,8 @@ const buttonVariants = cva(
         default: "bg-primary text-primary-foreground hover:bg-primary/85",
         outline:
           "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground disabled:bg-muted data-disabled:bg-muted",
+        "outline-destructive":
+          "border-border bg-background hover:border-destructive/40 hover:bg-destructive/10 hover:text-destructive aria-expanded:border-destructive/40 aria-expanded:bg-destructive/10 aria-expanded:text-destructive focus-visible:border-destructive/40 focus-visible:ring-destructive/20 disabled:bg-muted data-disabled:bg-muted dark:hover:border-destructive-muted-border dark:hover:bg-destructive-muted dark:aria-expanded:border-destructive-muted-border dark:aria-expanded:bg-destructive-muted",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
         ghost:
@@ -67,7 +71,12 @@ function Button({
 }: ButtonProps) {
   const isIconOnly = typeof size === "string" && size.startsWith("icon");
   const dropdownIcon = dropdown ? (
-    <ChevronDownIcon data-icon="inline-end" aria-hidden="true" />
+    <HugeiconsIcon
+      icon={ChevronDownIcon}
+      data-icon="inline-end"
+      className="transition-transform duration-200 ease-out group-aria-expanded/button:rotate-180 motion-reduce:transition-none"
+      aria-hidden="true"
+    />
   ) : null;
 
   return (
@@ -82,7 +91,8 @@ function Button({
     >
       {loading ? (
         <>
-          <LoaderIcon
+          <HugeiconsIcon
+            icon={LoaderIcon}
             data-slot="button-loading-icon"
             data-icon={isIconOnly ? undefined : "inline-start"}
             className="animate-spin [animation-duration:1.25s] motion-reduce:animate-none"

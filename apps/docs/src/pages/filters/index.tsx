@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Funnel } from "lucide-react";
+import Funnel from "@hugeicons/core-free-icons/FunnelIcon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -500,7 +500,7 @@ export function FiltersPage() {
               },
               {
                 name: "triggerIcon",
-                type: "string | LucideIcon",
+                type: "string | GeckoIcon",
                 description: "Changes the icon shown in the filter trigger.",
               },
               {

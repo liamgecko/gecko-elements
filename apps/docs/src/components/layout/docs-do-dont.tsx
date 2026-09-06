@@ -1,19 +1,21 @@
-import { Check, X } from "lucide-react"
-import { cn } from "@gecko/ui/lib/utils"
+import Check from "@hugeicons/core-free-icons/CheckIcon";
+import X from "@hugeicons/core-free-icons/XIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { cn } from "@gecko/ui/lib/utils";
 
 type DocsDoDontProps = {
-  doItems: React.ReactNode[]
-  dontItems: React.ReactNode[]
-}
+  doItems: React.ReactNode[];
+  dontItems: React.ReactNode[];
+};
 
 function ItemList({
   items,
   tone,
 }: {
-  items: React.ReactNode[]
-  tone: "do" | "dont"
+  items: React.ReactNode[];
+  tone: "do" | "dont";
 }) {
-  const Icon = tone === "do" ? Check : X
+  const Icon = tone === "do" ? Check : X;
   return (
     <ul className="space-y-3">
       {items.map((item, index) => (
@@ -24,16 +26,16 @@ function ItemList({
               "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full",
               tone === "do"
                 ? "bg-success-muted text-success"
-                : "bg-destructive-muted text-destructive"
+                : "bg-destructive-muted text-destructive",
             )}
           >
-            <Icon className="size-3" strokeWidth={2.5} />
+            <HugeiconsIcon icon={Icon} className="size-3" strokeWidth={2.5} />
           </span>
           <span className="min-w-0">{item}</span>
         </li>
       ))}
     </ul>
-  )
+  );
 }
 
 export function DocsDoDont({ doItems, dontItems }: DocsDoDontProps) {
@@ -48,5 +50,5 @@ export function DocsDoDont({ doItems, dontItems }: DocsDoDontProps) {
         <ItemList items={dontItems} tone="dont" />
       </div>
     </div>
-  )
+  );
 }

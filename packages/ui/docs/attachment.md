@@ -58,15 +58,14 @@ async function handleUpload(file, onProgress) {
 }
 
 <form onSubmit={(event) => handleSubmit(event, { attachmentId })}>
-  <Field
-    aria-labelledby="supporting-document-label"
-    aria-describedby="supporting-document-description"
-  >
-    <FieldTitle id="supporting-document-label">Supporting document</FieldTitle>
+  <Field aria-describedby="supporting-document-description">
+    <FieldLabel htmlFor="supporting-document">Supporting document</FieldLabel>
     <Attachment
+      inputId="supporting-document"
       label="Choose a file or drag and drop"
       accept=".pdf"
       description="PDF, up to 10 MB"
+      required
       onUpload={handleUpload}
     />
     <FieldDescription id="supporting-document-description">
@@ -170,7 +169,7 @@ Attachment owns this approved icon mapping:
 
 | Purpose       | Library-owned treatment |
 | ------------- | ----------------------- |
-| Empty         | `CloudUpload`           |
+| Empty         | `Upload01Icon`          |
 | Uploading     | Spinner                 |
 | Error         | `FileWarning`           |
 | Done          | `Check`                 |
@@ -217,7 +216,8 @@ Do not add application-specific actions to Attachment without explicit consent.
 ## Accessibility
 
 - The empty state uses a native file input for pointer and keyboard interaction.
-- The visible label provides the file input’s accessible name when it is a string. A non-string label uses “Choose a file” as the accessible fallback.
+- In forms, pair `inputId` with an external `FieldLabel`. The Field label owns the field name and required marker; Attachment never puts the required marker inside its prompt.
+- Without `inputId`, the visible prompt provides the file input’s accessible name when it is a string. A non-string prompt uses “Choose a file” as the accessible fallback.
 - Upload status uses a polite live region and is not communicated by colour or icons alone.
 - Library and custom state icons are decorative and hidden from assistive technology.
 - Retry and remove are native buttons with descriptive accessible names.
@@ -230,6 +230,7 @@ Do not add application-specific actions to Attachment without explicit consent.
 | Property       | Type                           | Default                            | Meaning                                                              |
 | -------------- | ------------------------------ | ---------------------------------- | -------------------------------------------------------------------- |
 | `accept`       | `string`                       | none                               | File-picker hint; not validation                                     |
+| `inputId`      | `string`                       | none                               | Connects the native file input to an external `FieldLabel`           |
 | `label`        | `React.ReactNode`              | `"Choose a file or drag and drop"` | Empty-state instruction                                              |
 | `description`  | `React.ReactNode`              | none                               | Empty-state requirements or controlled status override               |
 | `icon`         | `React.ReactNode`              | mapped state icon                  | Approved custom state icon                                           |
@@ -237,6 +238,7 @@ Do not add application-specific actions to Attachment without explicit consent.
 | `onRemove`     | `() => void`                   | none                               | Removal notification or controlled remove action                     |
 | `onRetry`      | `() => void`                   | none                               | Controlled retry action                                              |
 | `disabled`     | `boolean`                      | `false`                            | Disables selection, retry, and removal                               |
+| `required`     | `boolean`                      | `false`                            | Requires the empty file input; its marker belongs on `FieldLabel`    |
 
 ### Managed mode
 

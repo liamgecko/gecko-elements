@@ -1,7 +1,10 @@
 "use client";
 
 import * as React from "react";
-import { Circle, Headset, MessageSquareText } from "lucide-react";
+import Circle from "@hugeicons/core-free-icons/CircleIcon";
+import Headset from "@hugeicons/core-free-icons/HeadsetIcon";
+import MessageSquareText from "@hugeicons/core-free-icons/MessageSquareTextIcon";
+import { HugeiconsIcon, type IconSvgElement } from "@gecko/ui/lib/icon";
 
 import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
 import { Badge } from "@gecko/ui/components/badge";
@@ -23,11 +26,12 @@ import {
 } from "@gecko/ui/components/tooltip";
 import { cn } from "@gecko/ui/lib/utils";
 
-function SlashedIcon({ icon: Icon }: { icon: typeof Headset }) {
+function SlashedIcon({ icon }: { icon: IconSvgElement }) {
   return (
-    <Icon>
-      <line x1="4" y1="4" x2="20" y2="20" />
-    </Icon>
+    <span className="relative inline-flex">
+      <HugeiconsIcon icon={icon} />
+      <span className="pointer-events-none absolute left-1/2 top-1/2 h-px w-[1.15em] -translate-x-1/2 -translate-y-1/2 rotate-45 bg-current" />
+    </span>
   );
 }
 
@@ -226,7 +230,11 @@ function AppHeaderStatusToggle({
             pressed={isPressed}
             onPressedChange={(next) => handlePressedChange(Boolean(next))}
           >
-            {isPressed ? <Icon /> : <SlashedIcon icon={Icon} />}
+            {isPressed ? (
+              <HugeiconsIcon icon={Icon} />
+            ) : (
+              <SlashedIcon icon={Icon} />
+            )}
           </Toggle>
         }
       />
@@ -235,7 +243,12 @@ function AppHeaderStatusToggle({
         <Badge
           variant={isPressed ? "success" : "destructive"}
           size="xs"
-          leftIcon={<Circle className="size-2 fill-current stroke-none" />}
+          leftIcon={
+            <HugeiconsIcon
+              icon={Circle}
+              className="size-2 fill-current stroke-none"
+            />
+          }
         >
           {isPressed ? onlineLabel : offlineLabel}
         </Badge>

@@ -164,7 +164,7 @@ Each datum contains an `x` value and numeric `y` value.
 
 Metric card owns its surface, hierarchy, spacing, typography, semantic colours, icons, sparkline dimensions and tooltip. Application code controls the surrounding grid, not the card’s internal layout.
 
-Use a row of three cards at normal dashboard widths and let the layout collapse responsively. Do not override sentiment colours or supply arbitrary chart colours.
+Use a row of three cards at normal dashboard widths and let the layout collapse responsively. The headline value remains on one line; when the card itself is too narrow for the value and its supporting detail or trend, the supporting content moves below the value. Do not override sentiment colours or supply arbitrary chart colours.
 
 ## Agent rules
 

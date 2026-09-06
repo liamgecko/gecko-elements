@@ -2,7 +2,8 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@gecko/ui/lib/utils";
-import { ChevronDownIcon } from "lucide-react";
+import ChevronDownIcon from "@hugeicons/core-free-icons/ChevronDownIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 const nativeSelectVariants = cva(
   "border-input hover:border-input-hover focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:focus-visible:ring-input-destructive/20 dark:aria-invalid:focus-visible:ring-input-destructive/40 aria-invalid:border-input-destructive w-full min-w-0 appearance-none rounded-sm border bg-background py-1 pe-8 transition-[color,box-shadow,border] select-none focus-visible:ring-3 aria-invalid:focus-visible:ring-3 outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-muted disabled:hover:border-input cursor-pointer",
@@ -39,8 +40,9 @@ function NativeSelect({ className, size = "md", ...props }: NativeSelectProps) {
         className={cn(nativeSelectVariants({ size }))}
         {...props}
       />
-      <ChevronDownIcon
-        className="text-muted-foreground top-1/2 end-2.5 size-4 -translate-y-1/2 pointer-events-none absolute select-none"
+      <HugeiconsIcon
+        icon={ChevronDownIcon}
+        className="text-muted-foreground top-1/2 end-2.5 size-4 -translate-y-1/2 pointer-events-none absolute select-none transition-transform duration-200 ease-out group-has-[select:open]/native-select:rotate-180 motion-reduce:transition-none"
         aria-hidden="true"
         data-slot="native-select-icon"
       />

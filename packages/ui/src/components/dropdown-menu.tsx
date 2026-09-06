@@ -4,7 +4,11 @@ import * as React from "react";
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 
 import { cn } from "@gecko/ui/lib/utils";
-import { CheckIcon, ChevronRightIcon, SearchIcon, XIcon } from "lucide-react";
+import CheckIcon from "@hugeicons/core-free-icons/CheckIcon";
+import ChevronRightIcon from "@hugeicons/core-free-icons/ChevronRightIcon";
+import SearchIcon from "@hugeicons/core-free-icons/Search01Icon";
+import XIcon from "@hugeicons/core-free-icons/XIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 type DropdownMenuSearchContextValue = {
   query: string;
@@ -119,7 +123,7 @@ function DropdownMenuContent({
         <MenuPrimitive.Popup
           data-slot="dropdown-menu-content"
           className={cn(
-            "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-32 w-max rounded-md shadow-md ring-1 duration-100 data-[side=inline-start]:slide-in-from-end-2 data-[side=inline-end]:slide-in-from-start-2 z-50 max-h-(--available-height) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden transition-none motion-reduce:animate-none",
+            "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-overlay-border bg-popover text-popover-foreground min-w-32 w-max rounded-md shadow-md ring-1 duration-100 data-[side=inline-start]:slide-in-from-end-2 data-[side=inline-end]:slide-in-from-start-2 z-50 max-h-(--available-height) origin-(--transform-origin) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden transition-none motion-reduce:animate-none",
             searchable && "min-w-(--anchor-width)",
             searchable ? "p-0" : "p-1",
             className,
@@ -238,7 +242,11 @@ function DropdownMenuSubTrigger({
       {...props}
     >
       {children}
-      <ChevronRightIcon className="rtl:rotate-180 ms-auto" aria-hidden="true" />
+      <HugeiconsIcon
+        icon={ChevronRightIcon}
+        className="rtl:rotate-180 ms-auto"
+        aria-hidden="true"
+      />
     </MenuPrimitive.SubmenuTrigger>
   );
 }
@@ -284,7 +292,7 @@ function DropdownMenuSubContent({
       data-slot="dropdown-menu-sub-content"
       searchable={false}
       className={cn(
-        "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-foreground/10 bg-popover text-popover-foreground min-w-[96px] w-max rounded-md shadow-lg ring-1 duration-100",
+        "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-overlay-border bg-popover text-popover-foreground min-w-[96px] w-max rounded-md shadow-lg ring-1 duration-100",
         searchable && "min-w-(--anchor-width)",
         searchable ? "p-0" : "p-1",
         className,
@@ -338,11 +346,13 @@ function DropdownMenuCheckboxItem({
         data-slot="dropdown-menu-checkbox-item-indicator"
       >
         <MenuPrimitive.CheckboxItemIndicator>
-          <CheckIcon
+          <HugeiconsIcon
+            icon={CheckIcon}
             className="group-hover/dropdown-menu-checkbox-item:hidden group-focus-visible/dropdown-menu-checkbox-item:hidden"
             aria-hidden="true"
           />
-          <XIcon
+          <HugeiconsIcon
+            icon={XIcon}
             className="hidden group-hover/dropdown-menu-checkbox-item:block group-focus-visible/dropdown-menu-checkbox-item:block"
             aria-hidden="true"
           />
@@ -398,7 +408,11 @@ function DropdownMenuRadioItem({
         data-slot="dropdown-menu-radio-item-indicator"
       >
         <MenuPrimitive.RadioItemIndicator>
-          <CheckIcon className="size-4" aria-hidden="true" />
+          <HugeiconsIcon
+            icon={CheckIcon}
+            className="size-4"
+            aria-hidden="true"
+          />
         </MenuPrimitive.RadioItemIndicator>
       </span>
       {children}
@@ -458,48 +472,61 @@ function DropdownMenuSearch({
     <div
       data-slot="dropdown-menu-search"
       className={cn(
-        "border-border text-muted-foreground flex items-center gap-2 border-b px-2 py-2",
+        "border-border text-muted-foreground grid grid-cols-[auto_1fr] items-center gap-2 border-b px-2 py-2",
         className,
       )}
     >
-      <SearchIcon className="size-4 shrink-0" aria-hidden="true" />
-      <input
-        className="placeholder:text-muted-foreground/80 focus-visible:outline-none flex-1 bg-transparent text-sm"
-        value={search.query}
-        onChange={(event) => {
-          search.setQuery(event.target.value);
-          onChange?.(event);
-        }}
-        onKeyDown={(event) => {
-          onKeyDown?.(event);
-          if (event.defaultPrevented) return;
-
-          if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-            const popup = event.currentTarget.closest(
-              '[data-slot="dropdown-menu-content"], [data-slot="dropdown-menu-sub-content"]',
-            );
-            const items = Array.from(
-              popup?.querySelectorAll<HTMLElement>(
-                '[role^="menuitem"]:not([data-disabled])',
-              ) ?? [],
-            ).filter((item) => item.offsetParent !== null);
-            const item = event.key === "ArrowDown" ? items[0] : items.at(-1);
-
-            if (item) {
-              event.preventDefault();
-              item.focus();
-            }
-          }
-
-          if (event.key !== "Escape" && event.key !== "Tab") {
-            event.stopPropagation();
-          }
-        }}
-        placeholder={placeholder}
-        aria-label={ariaLabel ?? placeholder}
-        autoFocus={autoFocus}
-        {...props}
+      <HugeiconsIcon
+        icon={SearchIcon}
+        className="size-4 shrink-0"
+        aria-hidden="true"
       />
+      <div className="grid">
+        <span
+          aria-hidden="true"
+          className="invisible col-start-1 row-start-1 whitespace-pre text-sm"
+        >
+          {placeholder}
+        </span>
+        <input
+          className="placeholder:text-muted-foreground/80 focus-visible:outline-none col-start-1 row-start-1 min-w-0 bg-transparent text-sm"
+          value={search.query}
+          onChange={(event) => {
+            search.setQuery(event.target.value);
+            onChange?.(event);
+          }}
+          onKeyDown={(event) => {
+            onKeyDown?.(event);
+            if (event.defaultPrevented) return;
+
+            if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+              const popup = event.currentTarget.closest(
+                '[data-slot="dropdown-menu-content"], [data-slot="dropdown-menu-sub-content"]',
+              );
+              const items = Array.from(
+                popup?.querySelectorAll<HTMLElement>(
+                  '[role^="menuitem"]:not([data-disabled])',
+                ) ?? [],
+              ).filter((item) => item.offsetParent !== null);
+              const item =
+                event.key === "ArrowDown" ? items[0] : items.at(-1);
+
+              if (item) {
+                event.preventDefault();
+                item.focus();
+              }
+            }
+
+            if (event.key !== "Escape" && event.key !== "Tab") {
+              event.stopPropagation();
+            }
+          }}
+          placeholder={placeholder}
+          aria-label={ariaLabel ?? placeholder}
+          autoFocus={autoFocus}
+          {...props}
+        />
+      </div>
     </div>
   );
 }

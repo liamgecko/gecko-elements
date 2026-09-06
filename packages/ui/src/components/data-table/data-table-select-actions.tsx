@@ -1,9 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Cog } from "lucide-react"
+import * as React from "react";
+import Cog from "@hugeicons/core-free-icons/CogIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@gecko/ui/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,20 +12,20 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@gecko/ui/components/dropdown-menu";
+import { cn } from "@gecko/ui/lib/utils";
 
-import { useDataTableContext } from "./data-table-context"
+import { useDataTableContext } from "./data-table-context";
 
 export type DataTableSelectActionsProps = {
-  className?: string
+  className?: string;
   /** Local override to hide the control. @default true */
-  enabled?: boolean
+  enabled?: boolean;
   /** @default "Actions on selected" */
-  triggerLabel?: string
+  triggerLabel?: string;
   /** Only used when `selectActions` on the provider is omitted or empty — custom menu body. */
-  children?: React.ReactNode
-}
+  children?: React.ReactNode;
+};
 
 /** Bulk actions on the current selection; menu items come from `selectActions` on the provider. */
 export function DataTableSelectActions({
@@ -33,18 +34,19 @@ export function DataTableSelectActions({
   triggerLabel = "Actions on selected",
   children,
 }: DataTableSelectActionsProps) {
-  const { table, selectActions, onSelectAction } = useDataTableContext<unknown>()
-  const selectedRows = table.getSelectedRowModel().rows
-  const selectedCount = selectedRows.length
+  const { table, selectActions, onSelectAction } =
+    useDataTableContext<unknown>();
+  const selectedRows = table.getSelectedRowModel().rows;
+  const selectedCount = selectedRows.length;
 
-  const fromProvider = selectActions.length > 0
+  const fromProvider = selectActions.length > 0;
 
   if (!enabled || selectedCount === 0) {
-    return null
+    return null;
   }
 
   if (!fromProvider && !children) {
-    return null
+    return null;
   }
 
   return (
@@ -56,7 +58,7 @@ export function DataTableSelectActions({
         <DropdownMenuTrigger
           render={
             <Button variant="outline" size="sm" type="button">
-              <Cog aria-hidden className="shrink-0" />
+              <HugeiconsIcon icon={Cog} aria-hidden className="shrink-0" />
               {triggerLabel}
             </Button>
           }
@@ -66,10 +68,14 @@ export function DataTableSelectActions({
             {fromProvider
               ? selectActions.map((action, index) => (
                   <React.Fragment key={action.id}>
-                    {action.separatorBefore && index > 0 ? <DropdownMenuSeparator /> : null}
+                    {action.separatorBefore && index > 0 ? (
+                      <DropdownMenuSeparator />
+                    ) : null}
                     <DropdownMenuItem
                       variant={action.variant ?? "default"}
-                      onClick={() => onSelectAction?.(action.id, { selectedRows })}
+                      onClick={() =>
+                        onSelectAction?.(action.id, { selectedRows })
+                      }
                     >
                       {action.label}
                     </DropdownMenuItem>
@@ -80,5 +86,5 @@ export function DataTableSelectActions({
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  )
+  );
 }

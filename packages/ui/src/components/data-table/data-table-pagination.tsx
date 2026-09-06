@@ -1,9 +1,15 @@
-"use client"
+"use client";
 
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
+import ChevronLeftIcon from "@hugeicons/core-free-icons/ChevronLeftIcon";
+import ChevronRightIcon from "@hugeicons/core-free-icons/ChevronRightIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-import { Button } from "@gecko/ui/components/button"
-import { Pagination, PaginationContent, PaginationItem } from "@gecko/ui/components/pagination"
+import { Button } from "@gecko/ui/components/button";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+} from "@gecko/ui/components/pagination";
 import {
   Select,
   SelectContent,
@@ -11,43 +17,45 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@gecko/ui/components/select";
+import { cn } from "@gecko/ui/lib/utils";
 
-import { useDataTableContext } from "./data-table-context"
+import { useDataTableContext } from "./data-table-context";
 
-export const DATA_TABLE_PAGE_SIZE_OPTIONS = [10, 25, 50] as const
+export const DATA_TABLE_PAGE_SIZE_OPTIONS = [10, 25, 50] as const;
 
 export type DataTablePaginationProps = {
-  className?: string
-}
+  className?: string;
+};
 
 export function DataTablePagination({ className }: DataTablePaginationProps) {
-  const { table } = useDataTableContext<unknown>()
-  const filteredRows = table.getFilteredRowModel().rows.length
-  const pageCount = Math.max(1, table.getPageCount())
-  const { pageIndex, pageSize } = table.getState().pagination
-  const currentPage = pageIndex + 1
+  const { table } = useDataTableContext<unknown>();
+  const filteredRows = table.getFilteredRowModel().rows.length;
+  const pageCount = Math.max(1, table.getPageCount());
+  const { pageIndex, pageSize } = table.getState().pagination;
+  const currentPage = pageIndex + 1;
 
-  const pageItems = Array.from({ length: pageCount }, (_, i) => i + 1)
+  const pageItems = Array.from({ length: pageCount }, (_, i) => i + 1);
 
   return (
     <div
       data-slot="data-table-pagination"
       className={cn(
         "flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between",
-        className
+        className,
       )}
     >
-      <div className="text-foreground flex flex-wrap items-center gap-x-2 gap-y-2 text-sm">
-        <p className="text-pretty">
-          Found <span className="font-medium">{filteredRows}</span>{" "}
-          {filteredRows === 1 ? "result" : "results"}.
+      <div className="text-foreground flex items-center gap-2 text-sm">
+        <p className="whitespace-nowrap">
+          Found {filteredRows} {filteredRows === 1 ? "result" : "results"}.
         </p>
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex items-center gap-2 whitespace-nowrap">
           <span>Showing:</span>
-          <Select value={String(pageSize)} onValueChange={(v) => table.setPageSize(Number(v))}>
-            <SelectTrigger size="sm">
+          <Select
+            value={String(pageSize)}
+            onValueChange={(v) => table.setPageSize(Number(v))}
+          >
+            <SelectTrigger size="sm" className="w-auto min-w-14">
               <SelectValue />
             </SelectTrigger>
             <SelectContent side="top">
@@ -64,16 +72,17 @@ export function DataTablePagination({ className }: DataTablePaginationProps) {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center justify-end gap-2">
+      <div className="flex items-center justify-end gap-2 whitespace-nowrap">
         <Select
           value={String(currentPage)}
           onValueChange={(v) => table.setPageIndex(Number(v) - 1)}
         >
-          <SelectTrigger size="sm" className="min-w-24">
+          <SelectTrigger size="sm" className="w-auto min-w-24">
             <SelectValue>
               {(value) => {
-                const page = value != null && value !== "" ? Number(value) : currentPage
-                return `Page ${page} of ${pageCount}`
+                const page =
+                  value != null && value !== "" ? Number(value) : currentPage;
+                return `Page ${page} of ${pageCount}`;
               }}
             </SelectValue>
           </SelectTrigger>
@@ -99,7 +108,10 @@ export function DataTablePagination({ className }: DataTablePaginationProps) {
                 disabled={!table.getCanPreviousPage()}
                 onClick={() => table.previousPage()}
               >
-                <ChevronLeftIcon className="size-4 rtl:rotate-180" />
+                <HugeiconsIcon
+                  icon={ChevronLeftIcon}
+                  className="size-4 rtl:rotate-180"
+                />
               </Button>
             </PaginationItem>
             <PaginationItem>
@@ -111,12 +123,15 @@ export function DataTablePagination({ className }: DataTablePaginationProps) {
                 disabled={!table.getCanNextPage()}
                 onClick={() => table.nextPage()}
               >
-                <ChevronRightIcon className="size-4 rtl:rotate-180" />
+                <HugeiconsIcon
+                  icon={ChevronRightIcon}
+                  className="size-4 rtl:rotate-180"
+                />
               </Button>
             </PaginationItem>
           </PaginationContent>
         </Pagination>
       </div>
     </div>
-  )
+  );
 }

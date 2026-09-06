@@ -1,37 +1,37 @@
-"use client"
+"use client";
 
-import type { LucideIcon } from "lucide-react"
-import * as React from "react"
+import * as React from "react";
+import type { GeckoIcon } from "@gecko/ui/lib/icon";
 
-import { cn } from "@gecko/ui/lib/utils"
-import { useControllableState } from "@gecko/ui/hooks/use-controllable-state"
+import { cn } from "@gecko/ui/lib/utils";
+import { useControllableState } from "@gecko/ui/hooks/use-controllable-state";
 import type {
   ReplyBoxActionId,
   ReplyBoxChannel,
   ReplyBoxChannelType,
   ReplyBoxTrayCustomAction,
   ReplyBoxTrayItem,
-} from "./reply-box-actions"
-import { ReplyBoxContext } from "./reply-box-context"
-import { ReplyBoxFooter } from "./reply-box-footer"
+} from "./reply-box-actions";
+import { ReplyBoxContext } from "./reply-box-context";
+import { ReplyBoxFooter } from "./reply-box-footer";
 
-export type ReplyBoxVariant = "chat" | "textarea" | "basic"
+export type ReplyBoxVariant = "chat" | "textarea" | "basic";
 
 export type ReplyBoxProps = React.ComponentProps<"div"> & {
-  variant?: ReplyBoxVariant
-  channel?: ReplyBoxChannel
-  items?: ReplyBoxTrayItem[]
-  defaultExpanded?: boolean
-  expanded?: boolean
-  onExpandedChange?: (expanded: boolean) => void
-  defaultNoteMode?: boolean
-  noteMode?: boolean
-  onNoteModeChange?: (noteMode: boolean) => void
-  onSend?: () => void
-  sendIcon?: LucideIcon
-  stopEnabled?: boolean
-  onStop?: () => void
-}
+  variant?: ReplyBoxVariant;
+  channel?: ReplyBoxChannel;
+  items?: ReplyBoxTrayItem[];
+  defaultExpanded?: boolean;
+  expanded?: boolean;
+  onExpandedChange?: (expanded: boolean) => void;
+  defaultNoteMode?: boolean;
+  noteMode?: boolean;
+  onNoteModeChange?: (noteMode: boolean) => void;
+  onSend?: () => void;
+  sendIcon?: GeckoIcon;
+  stopEnabled?: boolean;
+  onStop?: () => void;
+};
 
 export function ReplyBox({
   className,
@@ -55,40 +55,40 @@ export function ReplyBox({
     value: expandedProp,
     defaultValue: defaultExpanded,
     onChange: onExpandedChange,
-  })
+  });
   const [noteMode, setNoteMode] = useControllableState<boolean>({
     value: noteModeProp,
     defaultValue: defaultNoteMode,
     onChange: onNoteModeChange,
-  })
+  });
 
   const toggleExpanded = React.useCallback(
     () => setExpanded((v) => !v),
-    [setExpanded]
-  )
+    [setExpanded],
+  );
   const toggleNoteMode = React.useCallback(
     () => setNoteMode((v) => !v),
-    [setNoteMode]
-  )
+    [setNoteMode],
+  );
 
   const [internalChannel, setInternalChannel] = React.useState<ReplyBoxChannel>(
     () => {
-      return channel ?? { type: "live-chat", label: "Select a channel" }
-    }
-  )
+      return channel ?? { type: "live-chat", label: "Select a channel" };
+    },
+  );
 
   React.useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- channel data is synchronized by the integrating application
-    if (channel) setInternalChannel(channel)
-  }, [channel])
+    if (channel) setInternalChannel(channel);
+  }, [channel]);
 
   const setChannel = React.useCallback((next: ReplyBoxChannel) => {
-    setInternalChannel(next)
-  }, [])
+    setInternalChannel(next);
+  }, []);
 
-  const resolvedChannel = internalChannel
+  const resolvedChannel = internalChannel;
 
-  const useWrappedLayout = variant === "chat"
+  const useWrappedLayout = variant === "chat";
 
   const containerClassName = cn(
     "border border-border flex flex-col",
@@ -99,20 +99,20 @@ export function ReplyBox({
     variant === "basic" &&
       "shadow-md transition-[border-color] has-[[data-slot=reply-box-input]:focus]:border-ring",
     expanded && "h-full",
-    className
-  )
+    className,
+  );
 
-  const childArray = React.Children.toArray(children)
+  const childArray = React.Children.toArray(children);
   const footerIndex = useWrappedLayout
     ? childArray.findIndex(
-        (child) => React.isValidElement(child) && child.type === ReplyBoxFooter
+        (child) => React.isValidElement(child) && child.type === ReplyBoxFooter,
       )
-    : -1
+    : -1;
   const wrappedMain =
     footerIndex >= 0
       ? childArray.filter((_, index) => index !== footerIndex)
-      : childArray
-  const wrappedFooter = footerIndex >= 0 ? childArray[footerIndex] : null
+      : childArray;
+  const wrappedFooter = footerIndex >= 0 ? childArray[footerIndex] : null;
 
   return (
     <ReplyBoxContext.Provider
@@ -145,7 +145,7 @@ export function ReplyBox({
               data-slot="reply-box-panel"
               className={cn(
                 "border border-border -mt-px -mx-px rounded-xl",
-                noteMode ? "bg-warning-muted" : "bg-background"
+                noteMode ? "bg-warning-muted" : "bg-background",
               )}
             >
               {wrappedMain}
@@ -157,7 +157,7 @@ export function ReplyBox({
         )}
       </div>
     </ReplyBoxContext.Provider>
-  )
+  );
 }
 
 export type {
@@ -166,4 +166,4 @@ export type {
   ReplyBoxChannelType,
   ReplyBoxTrayCustomAction,
   ReplyBoxTrayItem,
-}
+};

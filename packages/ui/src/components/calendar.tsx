@@ -9,11 +9,10 @@ import {
 
 import { cn } from "@gecko/ui/lib/utils";
 import { Button, buttonVariants } from "@gecko/ui/components/button";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ChevronDownIcon,
-} from "lucide-react";
+import ChevronLeftIcon from "@hugeicons/core-free-icons/ChevronLeftIcon";
+import ChevronRightIcon from "@hugeicons/core-free-icons/ChevronRightIcon";
+import ChevronDownIcon from "@hugeicons/core-free-icons/ChevronDownIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   bookedDates?: Matcher | Matcher[];
@@ -176,7 +175,8 @@ function Calendar({
         Chevron: ({ className, orientation, ...props }) => {
           if (orientation === "left") {
             return (
-              <ChevronLeftIcon
+              <HugeiconsIcon
+                icon={ChevronLeftIcon}
                 className={cn("rtl:rotate-180 size-4", className)}
                 {...props}
               />
@@ -185,7 +185,8 @@ function Calendar({
 
           if (orientation === "right") {
             return (
-              <ChevronRightIcon
+              <HugeiconsIcon
+                icon={ChevronRightIcon}
                 className={cn("rtl:rotate-180 size-4", className)}
                 {...props}
               />
@@ -193,7 +194,11 @@ function Calendar({
           }
 
           return (
-            <ChevronDownIcon className={cn("size-4", className)} {...props} />
+            <HugeiconsIcon
+              icon={ChevronDownIcon}
+              className={cn("size-4", className)}
+              {...props}
+            />
           );
         },
         DayButton: ({ ...props }) => (
@@ -245,11 +250,11 @@ function CalendarDayButton({
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
       className={cn(
-        "data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground data-[selected-single=true]:hover:bg-primary data-[selected-single=true]:hover:text-primary-foreground",
-        "data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-middle=true]:hover:bg-muted data-[range-middle=true]:hover:text-foreground",
-        "data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[range-start=true]:hover:bg-primary data-[range-start=true]:hover:text-primary-foreground",
-        "data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-end=true]:hover:bg-primary data-[range-end=true]:hover:text-primary-foreground",
-        "dark:hover:text-foreground relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal focus-visible:relative focus-visible:z-10 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-e-(--cell-radius) data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-s-(--cell-radius) [&>span]:text-2xs [&>span]:opacity-70",
+        "data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground data-[selected-single=true]:font-medium data-[selected-single=true]:hover:bg-primary data-[selected-single=true]:hover:text-primary-foreground",
+        "data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-middle=true]:font-medium data-[range-middle=true]:hover:bg-muted data-[range-middle=true]:hover:text-foreground",
+        "data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[range-start=true]:font-medium data-[range-start=true]:hover:bg-primary data-[range-start=true]:hover:text-primary-foreground",
+        "data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-end=true]:font-medium data-[range-end=true]:hover:bg-primary data-[range-end=true]:hover:text-primary-foreground",
+        "relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal focus-visible:relative focus-visible:z-10 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-e-(--cell-radius) data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-s-(--cell-radius) [&>span]:text-2xs [&>span]:opacity-70",
         defaultClassNames.day,
         className,
       )}

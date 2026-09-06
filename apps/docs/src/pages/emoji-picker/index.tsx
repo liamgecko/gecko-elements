@@ -1,4 +1,6 @@
-import { Smile, SmilePlus } from "lucide-react";
+import Smile from "@hugeicons/core-free-icons/SmileIcon";
+import SmilePlus from "@hugeicons/core-free-icons/SmilePlusIcon";
+import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -201,7 +203,7 @@ export function EmojiPickerPage() {
                   />
                 }
               >
-                <Smile />
+                <HugeiconsIcon icon={Smile} />
               </EmojiPickerTrigger>
               <EmojiPickerContent />
             </EmojiPicker>
@@ -233,7 +235,7 @@ export function EmojiPickerPage() {
               <EmojiPickerTrigger
                 render={
                   <Button variant="ghost">
-                    <SmilePlus />
+                    <HugeiconsIcon icon={SmilePlus} />
                     Add emoji
                   </Button>
                 }
@@ -276,7 +278,7 @@ export function EmojiPickerPage() {
                   />
                 }
               >
-                <SmilePlus />
+                <HugeiconsIcon icon={SmilePlus} />
               </EmojiPickerTrigger>
               <EmojiPickerContent />
             </EmojiPicker>
@@ -319,7 +321,7 @@ export function EmojiPickerPage() {
                   />
                 }
               >
-                <SmilePlus />
+                <HugeiconsIcon icon={SmilePlus} />
               </EmojiPickerTrigger>
               <EmojiPickerContent />
             </EmojiPicker>

@@ -28,12 +28,14 @@
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
+  --color-chart-tick: var(--chart-tick);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-input-hover: var(--input-hover);
   --color-input-focus: var(--input-focus);
   --color-input-destructive: var(--input-destructive);
   --color-border: var(--border);
+  --color-overlay-border: var(--overlay-border);
 
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
@@ -82,6 +84,13 @@
   --color-background: var(--background);
   --color-muted-background: var(--muted-background);
   --color-backdrop: var(--backdrop);
+  --color-separator: var(--separator);
+
+  --shadow-xs: var(--elevation-xs);
+  --shadow-sm: var(--elevation-sm);
+  --shadow-md: var(--elevation-md);
+  --shadow-lg: var(--elevation-lg);
+  --shadow-xl: var(--elevation-xl);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -113,6 +122,17 @@
   --accent: oklch(96.7% 0.003 264.542); /* gray-100 */
   --accent-foreground: var(--foreground); /* gray-900 */
   --backdrop: oklch(13% 0.028 261.692 / 0.5); /* gray-950 / 50% */
+
+  /* Elevation */
+  --elevation-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --elevation-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1),
+    0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --elevation-md: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --elevation-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --elevation-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
 
   /* Primary colors */
   --primary: oklch(21% 0.034 264.665); /* gray-900 */
@@ -154,11 +174,13 @@
 
   /* Border colors */
   --border: oklch(92.8% 0.006 264.531); /* gray-200 */
+  --separator: var(--border); /* gray-200 */
   --input: oklch(92.8% 0.006 264.531); /* gray-200 */
   --input-hover: oklch(87.2% 0.01 258.338); /* gray-300 */
   --input-focus: oklch(70.7% 0.022 261.325); /* gray-400 */
   --input-destructive: oklch(50.5% 0.213 27.518); /* red-700 */
   --ring: oklch(70.7% 0.022 261.325); /* gray-400 */
+  --overlay-border: oklch(21% 0.034 264.665 / 0.1); /* foreground / 10% */
 
   /* Chart colors */
   --chart-1: oklch(54.6% 0.245 262.881); /* blue-600 */
@@ -166,6 +188,7 @@
   --chart-3: oklch(87.2% 0.01 258.338); /* purple-400 */
   --chart-4: oklch(84.5% 0.143 164.978); /* emerald-300 */
   --chart-5: oklch(83.7% 0.128 66.29); /* orange-300 */
+  --chart-tick: var(--muted-foreground); /* gray-600 */
 
   /* Sidebar colors */
   --sidebar: oklch(98.5% 0.002 247.839); /* gray-50 */
@@ -194,6 +217,20 @@
   --accent-foreground: var(--foreground); /* gray-50 */
   --backdrop: oklch(13% 0.028 261.692 / 0.4); /* gray-950 / 50% */
 
+  /* Elevation */
+  --elevation-xs: 0 0 0 1px rgb(255 255 255 / 0.06),
+    0 1px 2px 0 rgb(0 0 0 / 0.5);
+  --elevation-sm: 0 0 0 1px rgb(255 255 255 / 0.07),
+    0 1px 3px 0 rgb(0 0 0 / 0.55), 0 1px 2px -1px rgb(0 0 0 / 0.55);
+  --elevation-md: 0 0 0 1px rgb(255 255 255 / 0.08),
+    0 4px 6px -1px rgb(0 0 0 / 0.6), 0 2px 4px -2px rgb(0 0 0 / 0.6);
+  --elevation-lg: 0 0 0 1px rgb(255 255 255 / 0.09),
+    0 10px 15px -3px rgb(0 0 0 / 0.65),
+    0 4px 6px -4px rgb(0 0 0 / 0.65);
+  --elevation-xl: 0 0 0 1px rgb(255 255 255 / 0.1),
+    0 20px 25px -5px rgb(0 0 0 / 0.7),
+    0 8px 10px -6px rgb(0 0 0 / 0.7);
+
   /* Primary colors */
   --primary: oklch(92.8% 0.006 264.531); /* gray-200 */
   --primary-foreground: oklch(21% 0.034 264.665); /* gray-900 */
@@ -206,7 +243,7 @@
 
   /* Muted colors */
   --muted: oklch(21% 0.034 264.665); /* gray-900 */
-  --muted-foreground: oklch(70.7% 0.022 261.325); /* gray-400 */
+  --muted-foreground: oklch(87.2% 0.01 258.338); /* gray-300 */
   --muted-border: oklch(27.8% 0.033 256.848); /* gray-800 */
 
   /* Destructive colors */
@@ -243,11 +280,13 @@
 
   /* Border colors */
   --border: oklch(27.8% 0.033 256.848); /* gray-800 */
+  --separator: oklch(37.3% 0.034 259.733); /* gray-700 */
   --input: oklch(27.8% 0.033 256.848); /* gray-800 */
   --input-hover: oklch(37.3% 0.034 259.733); /* gray-700 */
   --input-focus: oklch(44.6% 0.03 256.802); /* gray-600 */
   --input-destructive: oklch(51.4% 0.222 16.935); /* rose-700 */
   --ring: oklch(44.6% 0.03 256.802); /* gray-600 */
+  --overlay-border: oklch(96.7% 0.003 264.542 / 0.05); /* foreground / 5% */
 
   /* Chart colors */
   --chart-1: oklch(62.3% 0.214 259.815); /* blue-500 */
@@ -255,6 +294,7 @@
   --chart-3: oklch(70.2% 0.183 293.541); /* between indigo-500 & indigo-400 (hue matches indigo ramp) */
   --chart-4: oklch(90.5% 0.093 164.15); /* ~emerald-400 */
   --chart-5: oklch(92.4% 0.12 95.746); /* ~orange-400 */
+  --chart-tick: oklch(92.8% 0.006 264.531); /* gray-200 */
 
   /* Sidebar colors */
   --sidebar: oklch(11% 0.028 261.692); /* gray-950 */
