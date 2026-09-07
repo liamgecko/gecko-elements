@@ -226,6 +226,8 @@ Pagination is opt-in. Without the `pagination` prop, Data table renders every fi
 
 Pagination controls remain inline within their leading and trailing groups. Its Select triggers use compact content-appropriate widths rather than the full-width form-field treatment.
 
+The results summary uses compact supporting text and gives the result count stronger emphasis.
+
 This implementation expects the complete client-side dataset in `data`. It does not currently provide controlled server-side sorting, filtering or pagination. When a product list must fetch pages or query results remotely, request a reviewed library extension rather than combining remote fetching with these client-side controls.
 
 Do not pass a page-size value outside the approved 10, 25 and 50 options. Unsupported initial sizes fall back to 10.

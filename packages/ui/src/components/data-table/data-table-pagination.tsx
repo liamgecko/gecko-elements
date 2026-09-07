@@ -45,9 +45,10 @@ export function DataTablePagination({ className }: DataTablePaginationProps) {
         className,
       )}
     >
-      <div className="text-foreground flex items-center gap-2 text-sm">
+      <div className="text-foreground flex items-center gap-2 text-xs">
         <p className="whitespace-nowrap">
-          Found {filteredRows} {filteredRows === 1 ? "result" : "results"}.
+          Found <span className="font-medium">{filteredRows}</span>{" "}
+          {filteredRows === 1 ? "result" : "results"}.
         </p>
         <div className="flex items-center gap-2 whitespace-nowrap">
           <span>Showing:</span>
