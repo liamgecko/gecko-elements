@@ -255,7 +255,7 @@ export function AlertPage() {
         <ChildSection
           id="variants-info"
           title="Info"
-          description="Use for contextual information about the current state or available options when the blue informational treatment is useful."
+          description="Use for contextual information about the current state or available options when the cyan informational treatment is useful."
         >
           <ComponentExample>
             <div className="space-y-6">

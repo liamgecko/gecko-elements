@@ -35,8 +35,8 @@ import {
 } from "@gecko/ui/components/dropdown-menu";
 import ChevronRight from "@hugeicons/core-free-icons/ChevronRightIcon";
 import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
-import PanelLeftClose from "@hugeicons/core-free-icons/PanelLeftCloseIcon";
-import PanelLeftOpen from "@hugeicons/core-free-icons/PanelLeftOpenIcon";
+import LayoutAlignLeft from "@hugeicons/core-free-icons/LayoutAlignLeftIcon";
+import LayoutLeft from "@hugeicons/core-free-icons/LayoutLeftIcon";
 import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
@@ -299,7 +299,7 @@ function SidebarTrigger({
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar, state } = useSidebar();
   const expanded = state === "expanded";
-  const Icon = expanded ? PanelLeftOpen : PanelLeftClose;
+  const Icon = expanded ? LayoutAlignLeft : LayoutLeft;
   const label = expanded ? "Collapse sidebar" : "Expand sidebar";
   const isMac =
     typeof navigator !== "undefined" &&
@@ -906,7 +906,7 @@ const sidebarMenuButtonVariants = cva(
         default:
           "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground font-medium",
         outline:
-          "bg-background hover:bg-sidebar-accent hover:text-sidebar-accent-foreground shadow-[0_0_0_1px_hsl(var(--sidebar-border))] hover:shadow-[0_0_0_1px_hsl(var(--sidebar-accent))]",
+          "bg-background hover:bg-sidebar-accent hover:text-sidebar-accent-foreground shadow-[0_0_0_1px_var(--sidebar-border)] hover:shadow-[0_0_0_1px_var(--sidebar-accent)]",
       },
       size: {
         default: "h-7 text-xs",

@@ -5,7 +5,6 @@
 export const customComponentPaths = new Set<string>([
   "/components/activity-feed",
   "/components/avatar-group",
-  "/components/chat-bubble",
   "/components/chat-head",
   "/components/code-snippet",
   "/components/colour-field",

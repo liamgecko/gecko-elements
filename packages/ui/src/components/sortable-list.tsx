@@ -201,7 +201,7 @@ function SortableNestedSectionRow({
     <li
       ref={ref}
       className={cn(
-        "list-none rounded-md border border-border bg-gray-50 p-3",
+        "list-none rounded-md border border-border bg-muted-background p-3",
         isDragging && "shadow-md",
       )}
     >

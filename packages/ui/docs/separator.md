@@ -57,6 +57,8 @@ Separator must not communicate status, selection, progress or a change in state.
 
 Separator accepts Base UI Separator properties and native `div` attributes.
 
+The standard treatment uses the `separator` semantic colour token. Library-owned inverse surfaces use `separator-inverse`, which preserves the same structural role with suitable contrast on dark chrome. Application code must not select the token directly; request an approved component treatment when an inverse separator is required.
+
 ## Accessibility
 
 - Preserve the separator role and orientation supplied by Base UI when the boundary is structural.

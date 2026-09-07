@@ -59,9 +59,9 @@ const descriptionClass: Record<ResolvedAvatarSize, string> = {
 export type AvatarStatus = "online" | "unavailable" | "offline";
 
 const statusClass: Record<AvatarStatus, string> = {
-  online: "bg-emerald-500 dark:bg-teal-500",
-  unavailable: "bg-orange-500",
-  offline: "bg-gray-500 dark:bg-gray-400",
+  online: "bg-presence-online",
+  unavailable: "bg-presence-unavailable",
+  offline: "bg-presence-offline",
 };
 
 const badgeSizeClass =
@@ -174,7 +174,7 @@ function Avatar({
       {notification && (
         <AvatarBadge
           position="notification"
-          className="bg-red-600 dark:bg-rose-600"
+          className="bg-notification"
           accessibleLabel="Unread activity"
         />
       )}

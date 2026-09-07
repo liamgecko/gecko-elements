@@ -27,6 +27,8 @@ Give every Switch a visible label that names the on state.
 
 Application code owns persistence. Switch owns interaction, semantics and presentation.
 
+The checked track uses the dedicated `switch-checked` colour role with Emerald 500 in both appearances. The `switch-indicator` thumb remains white in both appearances and uses a wide pill shape within the elongated track. Checked and unchecked states remain distinguishable without colour through the thumb position and native checked semantics.
+
 ## Label and description
 
 Use `label` for the visible and accessible setting name. Add `description` when the effect needs supporting context.
@@ -65,6 +67,8 @@ Choose the size that matches the surrounding interface density.
 ```
 
 Use the default size unless a compact surface already establishes the small control density.
+
+The track dimensions are 32×16px for small, 40×20px for default and 48×24px for large. Their indicators are 16.5×12px, 22×16px and 27.5×20px respectively, with an even 2px visual inset at either end.
 
 ## Label position
 

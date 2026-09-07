@@ -40,6 +40,13 @@ export function BadgePage() {
   Badge
 </Badge>`;
 
+  const solidSnippet = `<Badge
+  variant="primary|secondary|info|warning|destructive|success|light"
+  solid
+>
+  Badge
+</Badge>`;
+
   const borderedSnippet = `<Badge
   variant="primary|secondary|info|warning|destructive|success|light"
   bordered
@@ -156,9 +163,10 @@ export function BadgePage() {
         title="Variants"
         description={
           <>
-            Change colour with <Code>variant</Code>, add an outline with{" "}
-            <Code>bordered</Code>, or a pill shape with <Code>rounded</Code>.
-            Choose the look that matches how important the label is.
+            Change colour with <Code>variant</Code>, increase emphasis with{" "}
+            <Code>solid</Code>, add an outline with <Code>bordered</Code>, or a
+            pill shape with <Code>rounded</Code>. Choose the look that matches
+            how important the label is.
           </>
         }
       >
@@ -188,6 +196,49 @@ export function BadgePage() {
                 variant="block"
                 language="tsx"
                 code={coloursSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
+          id="variants-solid"
+          title="Solid"
+          description={
+            <>
+              Set <Code>solid</Code> when a status needs stronger emphasis than
+              the default quiet treatment.
+            </>
+          }
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="primary" solid>
+                  Primary
+                </Badge>
+                <Badge solid>Secondary</Badge>
+                <Badge variant="info" solid>
+                  Info
+                </Badge>
+                <Badge variant="warning" solid>
+                  Warning
+                </Badge>
+                <Badge variant="destructive" solid>
+                  Destructive
+                </Badge>
+                <Badge variant="success" solid>
+                  Success
+                </Badge>
+                <Badge variant="light" solid>
+                  Light
+                </Badge>
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={solidSnippet}
                 showCopyButton
                 copyLabel="Copy example"
               />
@@ -517,8 +568,9 @@ export function BadgePage() {
           doItems={[
             <>
               Keep the wording to a word or two. Use <Code>variant</Code> for
-              colour, <Code>size</Code> for density, and <Code>bordered</Code>{" "}
-              or <Code>rounded</Code> for shape.
+              colour, <Code>solid</Code> for emphasis, <Code>size</Code> for
+              density, and <Code>bordered</Code> or <Code>rounded</Code> for
+              shape.
             </>,
             <>
               Place symbols with <Code>leftIcon</Code> and{" "}
@@ -539,8 +591,8 @@ export function BadgePage() {
             <>
               Don’t override colour, padding, or radius with{" "}
               <Code>className</Code>. Use <Code>variant</Code>,{" "}
-              <Code>size</Code>, <Code>bordered</Code>, and <Code>rounded</Code>
-              .
+              <Code>solid</Code>, <Code>size</Code>, <Code>bordered</Code>, and{" "}
+              <Code>rounded</Code>.
             </>,
             <>
               Don’t use a Badge for a sentence, an instruction, or a heading.
@@ -587,6 +639,13 @@ export function BadgePage() {
               defaultValue: "false",
               description:
                 "Makes a pill shape. Use this when the label should feel like a tag.",
+            },
+            {
+              name: "solid",
+              type: "boolean",
+              defaultValue: "false",
+              description:
+                "Uses the stronger filled colour treatment for an emphasized status.",
             },
             {
               name: "leftIcon",

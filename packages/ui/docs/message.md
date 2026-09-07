@@ -121,6 +121,10 @@ Delivery status appears only for `agent` messages:
 
 For a failed message, use Bubble’s destructive treatment and put the explanatory resend action in MessageFooter. Do not rely on the status icon or colour alone.
 
+Message uses the shared semantic colour roles: warning-muted for notes, success
+for read status, destructive for failed status and link-foreground for
+interactive references. It does not define Message-specific colour tokens.
+
 MessageInfo chooses its metadata grid from Message variant. Pass `userInfo` for inbound customer context and `agentInfo` for administrator or AI context.
 
 ## AI actions

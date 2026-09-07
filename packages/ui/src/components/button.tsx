@@ -13,21 +13,21 @@ const buttonVariants = cva(
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/85",
         outline:
-          "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground disabled:bg-muted data-disabled:bg-muted",
+          "border-border bg-transparent hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground disabled:bg-muted data-disabled:bg-muted",
         "outline-destructive":
-          "border-border bg-background hover:border-destructive/40 hover:bg-destructive/10 hover:text-destructive aria-expanded:border-destructive/40 aria-expanded:bg-destructive/10 aria-expanded:text-destructive focus-visible:border-destructive/40 focus-visible:ring-destructive/20 disabled:bg-muted data-disabled:bg-muted dark:hover:border-destructive-muted-border dark:hover:bg-destructive-muted dark:aria-expanded:border-destructive-muted-border dark:aria-expanded:bg-destructive-muted",
+          "border-border bg-transparent hover:border-destructive-muted-border hover:bg-destructive-muted hover:text-destructive-muted-foreground aria-expanded:border-destructive-muted-border aria-expanded:bg-destructive-muted aria-expanded:text-destructive-muted-foreground focus-visible:border-destructive/40 focus-visible:ring-destructive/20 disabled:bg-muted data-disabled:bg-muted",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground",
         "ghost-light":
-          "hover:bg-black/5 hover:text-foreground aria-expanded:bg-black/5 aria-expanded:text-foreground",
+          "hover:bg-light-surface-hover hover:text-foreground aria-expanded:bg-light-surface-hover aria-expanded:text-foreground",
         "ghost-dark":
-          "text-white hover:bg-white/10 hover:text-white aria-expanded:bg-white/10 aria-expanded:text-white",
+          "text-dark-surface-foreground hover:bg-dark-surface-hover hover:text-dark-surface-foreground aria-expanded:bg-dark-surface-hover aria-expanded:text-dark-surface-foreground",
         "ghost-destructive":
-          "hover:bg-destructive/10 hover:text-destructive aria-expanded:bg-destructive/10 aria-expanded:text-destructive dark:hover:bg-destructive-muted dark:aria-expanded:bg-destructive-muted focus-visible:border-destructive/40 focus-visible:ring-destructive/20",
+          "hover:bg-destructive-muted hover:text-destructive-muted-foreground aria-expanded:bg-destructive-muted aria-expanded:text-destructive-muted-foreground focus-visible:border-destructive/40 focus-visible:ring-destructive/20",
         destructive:
-          "bg-destructive text-white hover:bg-destructive/85 focus-visible:ring-destructive/20 focus-visible:border-destructive/40",
+          "bg-destructive-solid text-destructive-solid-foreground hover:bg-destructive-solid/85 focus-visible:border-destructive/40 focus-visible:ring-destructive/20",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

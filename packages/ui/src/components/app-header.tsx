@@ -44,7 +44,7 @@ function AppHeader({
     <header
       data-slot="app-header"
       className={cn(
-        "[--header-height:calc(--spacing(14))] sticky top-0 z-20 flex w-full items-center border-b bg-gray-900",
+        "[--header-height:calc(--spacing(14))] sticky top-0 z-20 flex w-full items-center border-b border-border bg-chrome",
         className,
       )}
       {...props}
@@ -109,7 +109,7 @@ function AppHeaderActions({
           {index > 0 ? (
             <Separator
               orientation="vertical"
-              className="mx-1 h-8 bg-background/20"
+              className="mx-1 h-8 bg-separator-inverse"
             />
           ) : null}
           {child}
@@ -226,7 +226,7 @@ function AppHeaderStatusToggle({
             aria-label={ariaLabel ?? tooltipLabel}
             size="icon-sm"
             variant="ghost-dark"
-            className="aria-pressed:bg-transparent aria-pressed:hover:bg-white/10"
+            className="aria-pressed:bg-transparent aria-pressed:hover:bg-dark-surface-hover"
             pressed={isPressed}
             onPressedChange={(next) => handlePressedChange(Boolean(next))}
           >

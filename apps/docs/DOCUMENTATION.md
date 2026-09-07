@@ -61,7 +61,7 @@ Tick a batch when every page in it is **Done**. Deferred pages do not block the 
 - [x] **2 — Actions + feedback** — Button, Badge, Toast, Empty, Alert dialog, Spinner, Progress
 - [x] **3 — Overlays** — Dialog, Sheet, Popover, Dropdown menu, Context menu, Command, Tooltip
 - [x] **4 — Remaining Shadcn** — Direction and Kbd deferred
-- [x] **5 — Custom components** — Chat bubble deprecated
+- [x] **5 — Custom components**
 - [x] **6 — Structure** — Page Container, Page Header, App Header, and App Sidebar done
 
 Core (Color, Typography, Spacing, Radius, Shadows, Icons) stays as-is in Phase 1.
@@ -164,7 +164,6 @@ Source: `src/pages/gallery-data.ts`. Kind: Custom = `src/config/custom-component
 
 | Page             | Notes                                                                |
 | ---------------- | -------------------------------------------------------------------- |
-| Chat bubble      | Replaced by Message. Routed but not in the gallery. Do not document. |
 | Menu (structure) | Replaced by AppSidebar. `/structure/menu` redirects.                 |
 
 ---
@@ -227,7 +226,7 @@ Work one cluster per session. Each covers 5–15 component pages.
 - [x] **Overlays & menus** — Dialog, Sheet, Popover, Dropdown menu, Context menu, Command, Tooltip
 - [x] **Actions & status** — Button, Badge, Avatar, Avatar group, Counter, Marker, Accordion, Activity feed, Code snippet, Calendar, Label, File field
 
-Still deferred / out of Phase 2.5: Direction, Kbd, Chat bubble (deprecated).
+Still deferred / out of Phase 2.5: Direction and Kbd.
 
 ### Rules
 
@@ -314,4 +313,3 @@ Parent index + one file per component. Keep files short. Source of truth remains
 - Changing component APIs
 - Dual-writing TSX pages and LLM files in Phase 1
 - Relying on the live docs URL as the agent knowledge base
-- Deprecated components (Chat bubble)

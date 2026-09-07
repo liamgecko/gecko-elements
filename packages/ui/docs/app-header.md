@@ -22,7 +22,7 @@ AppHeader
     └── AppHeaderUserMenu
 ```
 
-AppHeader owns its height, sticky position, dark surface and inline padding. AppHeaderActions inserts separators between its direct children. Application code must not recreate this layout with utilities.
+AppHeader owns its height, sticky position, dark surface and inline padding. Its surface uses the shared `chrome` colour token: gray-900 in the light theme and the Sidebar surface in the dark theme. AppHeader uses the shared border token and the shared `separator-inverse` token for action boundaries on its dark surface. Its Button and Toggle controls use the shared dark-surface foreground and hover roles. AppHeaderActions inserts separators between its direct children. Application code must not recreate this layout with utilities.
 
 ## Canonical header
 
@@ -130,6 +130,10 @@ AppHeader accepts native `header` properties.
 | `children` | `ReactNode` | —         | Replaces the image with approved content |
 
 AppHeaderLogo accepts native image properties when it renders an image.
+
+AppHeaderLogo renders the supplied image unchanged. Do not invert, recolour,
+filter or otherwise alter the logo; choose the intended source asset for the
+header surface.
 
 ### AppHeaderActions
 

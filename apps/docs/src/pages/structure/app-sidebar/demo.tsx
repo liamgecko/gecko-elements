@@ -7,7 +7,7 @@ import {
   type AppSidebarNavItem,
 } from "@gecko/ui/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@gecko/ui/components/sidebar";
-import geckoLogoUrl from "@/assets/gecko-logo.svg";
+import geckoLogoUrl from "@/assets/gecko-logo-light.svg";
 import Headset from "@hugeicons/core-free-icons/HeadsetIcon";
 import House from "@hugeicons/core-free-icons/Home04Icon";
 import Inbox from "@hugeicons/core-free-icons/Archive04Icon";

@@ -1,5 +1,5 @@
 import * as React from "react";
-import geckoLogoUrl from "@/assets/gecko-logo.svg";
+import geckoLogoUrl from "@/assets/gecko-logo-light.svg";
 import {
   AppHeader,
   AppHeaderAccountSwitcher,

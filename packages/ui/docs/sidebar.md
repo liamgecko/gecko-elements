@@ -107,6 +107,10 @@ App Sidebar fixes these values to the approved product treatment. Do not overrid
 
 `SidebarMenuSkeleton` supports `showIcon`.
 
+`SidebarTrigger` uses `LayoutAlignLeftIcon` while expanded to represent the
+collapse action and `LayoutLeftIcon` while collapsed to represent the expand
+action.
+
 ## Accessibility
 
 - Use links for destinations and buttons for actions or disclosures.
@@ -118,7 +122,7 @@ App Sidebar fixes these values to the approved product treatment. Do not overrid
 
 ## Styling contract
 
-The library owns rail widths, collapse motion, positioning, semantic colours, focus treatment, menu spacing, tooltip placement, collapsed submenu placement and the footer divider.
+The library owns rail widths, collapse motion, positioning, semantic colours, focus treatment, menu spacing, tooltip placement, collapsed submenu placement and the footer divider. The outline menu variant consumes the Sidebar border and accent tokens directly in both themes.
 
 App Sidebar owns its Scroll area and hidden-until-hover scrollbar behaviour. Do not replace it with a native scrolling region. Preserve the existing Sidebar footer styling.
 

@@ -143,7 +143,7 @@ function ToastIcon({ type }: { type: string | undefined }) {
     icon = (
       <HugeiconsIcon
         icon={CircleCheckBig}
-        className="text-emerald-600 dark:text-teal-600"
+        className="text-success"
         aria-hidden="true"
       />
     );
@@ -151,7 +151,7 @@ function ToastIcon({ type }: { type: string | undefined }) {
 
   if (type === "info") {
     icon = (
-      <HugeiconsIcon icon={Info} className="text-blue-600" aria-hidden="true" />
+      <HugeiconsIcon icon={Info} className="text-info" aria-hidden="true" />
     );
   }
 
@@ -159,7 +159,7 @@ function ToastIcon({ type }: { type: string | undefined }) {
     icon = (
       <HugeiconsIcon
         icon={TriangleAlert}
-        className="text-yellow-600"
+        className="text-warning"
         aria-hidden="true"
       />
     );
@@ -169,7 +169,7 @@ function ToastIcon({ type }: { type: string | undefined }) {
     icon = (
       <HugeiconsIcon
         icon={OctagonX}
-        className="text-red-600 dark:text-rose-600"
+        className="text-destructive"
         aria-hidden="true"
       />
     );

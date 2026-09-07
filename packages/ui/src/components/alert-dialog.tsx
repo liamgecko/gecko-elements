@@ -1,46 +1,47 @@
-import * as React from "react"
-import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog"
+import * as React from "react";
+import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog";
 
-import { cn } from "@gecko/ui/lib/utils"
-import { Button } from "@gecko/ui/components/button"
+import { cn } from "@gecko/ui/lib/utils";
+import { modalSurfaceClassName } from "@gecko/ui/lib/modal-surface";
+import { Button } from "@gecko/ui/components/button";
 
-export type AlertDialogVariant = "destructive"
+export type AlertDialogVariant = "destructive";
 
 const AlertDialogContext = React.createContext<{
-  variant?: AlertDialogVariant
-} | null>(null)
+  variant?: AlertDialogVariant;
+} | null>(null);
 
 function useAlertDialogContext() {
-  return React.useContext(AlertDialogContext)
+  return React.useContext(AlertDialogContext);
 }
 
 function AlertDialog({
   variant,
   ...props
 }: AlertDialogPrimitive.Root.Props & {
-  variant?: AlertDialogVariant
+  variant?: AlertDialogVariant;
 }) {
   const value = React.useMemo(
     () => (variant != null ? { variant } : { variant: undefined }),
     [variant],
-  )
+  );
   return (
     <AlertDialogContext.Provider value={value}>
       <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />
     </AlertDialogContext.Provider>
-  )
+  );
 }
 
 function AlertDialogTrigger({ ...props }: AlertDialogPrimitive.Trigger.Props) {
   return (
     <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />
-  )
+  );
 }
 
 function AlertDialogPortal({ ...props }: AlertDialogPrimitive.Portal.Props) {
   return (
     <AlertDialogPrimitive.Portal data-slot="alert-dialog-portal" {...props} />
-  )
+  );
 }
 
 function AlertDialogOverlay({
@@ -56,7 +57,7 @@ function AlertDialogOverlay({
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AlertDialogContent({
@@ -69,13 +70,14 @@ function AlertDialogContent({
       <AlertDialogPrimitive.Popup
         data-slot="alert-dialog-content"
         className={cn(
-          "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 bg-background ring-foreground/10 gap-6 rounded-xl p-6 ring-1 duration-100 max-w-xs sm:max-w-lg fixed top-1/2 start-1/2 z-50 grid w-full -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 outline-none",
+          modalSurfaceClassName,
+          "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 gap-6 p-6 duration-100 max-w-xs sm:max-w-lg fixed top-1/2 start-1/2 z-50 grid w-full -translate-x-1/2 rtl:translate-x-1/2 -translate-y-1/2 outline-none",
           className,
         )}
         {...props}
       />
     </AlertDialogPortal>
-  )
+  );
 }
 
 function AlertDialogHeader({
@@ -91,7 +93,7 @@ function AlertDialogHeader({
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AlertDialogFooter({
@@ -107,7 +109,7 @@ function AlertDialogFooter({
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AlertDialogTitle({
@@ -120,7 +122,7 @@ function AlertDialogTitle({
       className={cn("text-lg font-semibold", className)}
       {...props}
     />
-  )
+  );
 }
 
 function AlertDialogDescription({
@@ -136,7 +138,7 @@ function AlertDialogDescription({
       )}
       {...props}
     />
-  )
+  );
 }
 
 function AlertDialogAction({
@@ -146,10 +148,10 @@ function AlertDialogAction({
   ...props
 }: AlertDialogPrimitive.Close.Props &
   Pick<React.ComponentProps<typeof Button>, "variant" | "size">) {
-  const ctx = useAlertDialogContext()
+  const ctx = useAlertDialogContext();
   const defaultVariant =
-    ctx?.variant === "destructive" ? "destructive" : "default"
-  const resolvedVariant = variant ?? defaultVariant
+    ctx?.variant === "destructive" ? "destructive" : "default";
+  const resolvedVariant = variant ?? defaultVariant;
   return (
     <AlertDialogPrimitive.Close
       data-slot="alert-dialog-action"
@@ -157,7 +159,7 @@ function AlertDialogAction({
       render={<Button variant={resolvedVariant} size={size} />}
       {...props}
     />
-  )
+  );
 }
 
 function AlertDialogCancel({
@@ -174,7 +176,7 @@ function AlertDialogCancel({
       render={<Button variant={variant} size={size} />}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -189,4 +191,4 @@ export {
   AlertDialogPortal,
   AlertDialogTitle,
   AlertDialogTrigger,
-}
+};

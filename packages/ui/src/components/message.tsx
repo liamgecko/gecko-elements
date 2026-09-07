@@ -97,8 +97,7 @@ function Message({
         className={cn(
           "group/message relative flex w-full min-w-0 gap-2 text-sm data-[align=end]:flex-row-reverse",
           // Note styling lives on Message, applied to nested bubble content.
-          "data-[variant=note]:[&_[data-slot=bubble-content]]:bg-yellow-100 data-[variant=note]:[&_[data-slot=bubble-content]]:text-yellow-950",
-          "dark:data-[variant=note]:[&_[data-slot=bubble-content]]:bg-yellow-950 dark:data-[variant=note]:[&_[data-slot=bubble-content]]:text-yellow-100",
+          "data-[variant=note]:[&_[data-slot=bubble-content]]:bg-warning-muted data-[variant=note]:[&_[data-slot=bubble-content]]:text-warning-muted-foreground",
           className,
         )}
         {...props}
@@ -200,7 +199,7 @@ function MessageStatusIndicator({
       icon: (
         <HugeiconsIcon
           icon={CheckCheck}
-          className="size-3 text-blue-600 dark:text-teal-500"
+          className="size-3 text-success"
           aria-hidden
           strokeWidth={2.2}
         />
@@ -211,7 +210,7 @@ function MessageStatusIndicator({
       icon: (
         <HugeiconsIcon
           icon={CircleAlert}
-          className="size-3 text-red-700 dark:text-rose-200"
+          className="size-3 text-destructive"
           aria-hidden
           strokeWidth={2.2}
         />
@@ -271,8 +270,8 @@ function MessageMeta({
       className={cn(
         "flex items-center gap-2 text-2xs text-muted-foreground",
         align === "end" ? "justify-end" : "justify-start",
-        variant === "note" && "dark:text-yellow-100",
-        status === "failed" && "dark:text-rose-200",
+        variant === "note" && "text-warning-muted-foreground",
+        status === "failed" && "text-destructive",
         actions && "h-6",
         className,
       )}
@@ -559,7 +558,7 @@ function renderEmailList(value: string | string[] | undefined) {
         <a
           key={email}
           href={`mailto:${email}`}
-          className="text-blue-700 hover:underline dark:text-blue-500"
+          className="text-link-foreground hover:underline"
         >
           {email}
         </a>
@@ -578,7 +577,7 @@ function renderSourceInfo(source: MessageSourceInfo | undefined) {
         <a
           key={ref.url}
           href={ref.url}
-          className="text-blue-700 hover:underline dark:text-blue-500"
+          className="text-link-foreground hover:underline"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -653,7 +652,7 @@ function MessageInfo({ userInfo, agentInfo, className }: MessageInfoProps) {
                 {userInfo?.page ? (
                   <a
                     href={userInfo.page.url}
-                    className="text-blue-700 hover:underline dark:text-blue-500"
+                    className="text-link-foreground hover:underline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

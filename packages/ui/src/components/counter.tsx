@@ -10,15 +10,11 @@ const counterVariants = cva(
       variant: {
         primary: "bg-primary text-primary-foreground",
         secondary: "bg-secondary text-secondary-foreground",
-        info: "bg-blue-600 text-white dark:bg-blue-700 dark:text-blue-50",
-        warning:
-          "bg-yellow-500 text-primary dark:bg-yellow-600 dark:text-yellow-950",
-        destructive:
-          "bg-red-600 text-white dark:bg-rose-700 dark:text-rose-50",
-        success:
-          "bg-emerald-700 text-white dark:bg-teal-700 dark:text-teal-50",
-        light:
-          "bg-background text-foreground border border-border",
+        info: "bg-info text-info-foreground",
+        warning: "bg-warning text-warning-foreground",
+        destructive: "bg-destructive-solid text-destructive-solid-foreground",
+        success: "bg-success text-success-foreground",
+        light: "border border-border bg-background text-foreground",
       },
       size: {
         sm: "h-4 min-w-4 px-1 text-5xs",

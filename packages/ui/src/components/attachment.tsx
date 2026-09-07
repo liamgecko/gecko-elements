@@ -102,7 +102,7 @@ const attachmentVariants = cva(
 );
 
 const mediaClass =
-  "relative flex aspect-square w-10 shrink-0 items-center justify-center overflow-hidden rounded bg-muted text-foreground group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive group-data-[dragging=true]/attachment:bg-blue-100 dark:group-data-[dragging=true]/attachment:bg-blue-900 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4";
+  "relative flex aspect-square w-10 shrink-0 items-center justify-center overflow-hidden rounded bg-muted text-foreground group-data-[state=error]/attachment:bg-destructive/10 group-data-[state=error]/attachment:text-destructive group-data-[dragging=true]/attachment:bg-accent-strong [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4";
 
 function clampProgress(percent: number) {
   if (!Number.isFinite(percent)) return 0;
@@ -260,9 +260,7 @@ function Attachment(props: AttachmentProps) {
         }}
         className={cn(
           attachmentVariants({ interactive: true }),
-          isDragging &&
-            !disabled &&
-            "border-blue-500 bg-blue-50 dark:border-blue-700 dark:bg-blue-950",
+          isDragging && !disabled && "border-input-hover bg-accent",
           disabled && "cursor-not-allowed opacity-75",
           className,
         )}

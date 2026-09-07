@@ -260,7 +260,7 @@ Do not add application-specific actions to Attachment without explicit consent.
 
 ## Styling contract
 
-Attachment has one supported size and horizontal row layout. Do not override its border, colour, spacing, radius, typography, state icons, progress treatment, or action placement with `className`.
+Attachment has one supported size and horizontal row layout. During drag, the icon tile uses a stronger accent surface than the surrounding drop target so it remains distinct in both themes. Do not override its border, colour, spacing, radius, typography, state icons, progress treatment, or action placement with `className`.
 
 Agents must not add sizes, orientations, groups, image previews, triggers, states, actions, or behaviour props without explicit user consent. Stop and ask when the current interface cannot satisfy a requirement.
 

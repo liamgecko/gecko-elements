@@ -211,6 +211,8 @@ Base UI safely renders Button with `type="button"` by default. Set `type="submit
 
 The library owns colour, border, radius, spacing, typography, icon sizing, dropdown chevron, focus, hover, disabled, invalid, and loading treatments.
 
+Ghost Button treatments use shared semantic surface roles. `ghost-light` uses the light-surface hover role, which remains a dark translucent overlay in both appearance modes so it contrasts with pale specialised surfaces. `ghost-dark` uses the dark-surface foreground and hover roles, which remain light in both appearance modes. Do not hardcode contextual surface colours in Button compositions.
+
 Use `className` only for documented layout integration such as width or parent alignment. Request a library change when a legitimate treatment is missing. Agents must obtain explicit user consent before adding or changing props, variants, sizes, behaviours, meanings, or visual treatments.
 
 ## Relationship to Shadcn

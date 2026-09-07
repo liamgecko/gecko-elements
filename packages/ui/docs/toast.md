@@ -217,12 +217,12 @@ Toaster also accepts children rendered inside ToastProvider.
 
 Toast owns viewport placement, stacking, entrance and exit motion, expanded layout, swipe movement, surface, border, shadow, focus treatment, spacing and close/action controls.
 
-Gecko adds the approved status icons and colours:
+Gecko adds the approved status icons and semantic colours:
 
-- success uses the green confirmation icon;
-- info uses the blue information icon;
-- warning uses the yellow warning icon;
-- error uses the red destructive icon;
+- success uses the success confirmation treatment;
+- info uses the information treatment;
+- warning uses the warning treatment;
+- error uses the destructive treatment;
 - loading uses the muted rotating loader.
 
 Application code selects `type`. It does not recolour the toast, replace its status icons, change its radius, or restyle its internal parts.

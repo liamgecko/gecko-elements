@@ -96,7 +96,7 @@ export function ColorPicker({
               disabled={disabled}
               aria-label={selectedHex ? `Choose colour. Current value ${selectedHex}` : "Choose colour"}
               className={cn(
-                "absolute start-2 rounded-full bg-muted p-0 shadow-[inset_0_0_0_1px_rgb(0_0_0/0.1)] after:absolute after:-inset-1",
+                "absolute start-2 rounded-full bg-muted p-0 shadow-[inset_0_0_0_1px_var(--color-contrast-border)] after:absolute after:-inset-1",
                 "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring/50",
                 "disabled:pointer-events-none disabled:opacity-75",
                 buttonSize,

@@ -59,11 +59,12 @@ Use the size required by the surrounding component’s canonical recipe. Agents 
 
 ## Shape and border
 
-Set `rounded` for the approved pill treatment. Set `bordered` when the label needs stronger separation from its background. Both properties work with every approved variant.
+Set `rounded` for the approved pill treatment. Set `bordered` when the label needs stronger separation from its background. Set `solid` when a status needs stronger emphasis than the default quiet treatment. These properties work with every approved variant.
 
 ```tsx
 <Badge rounded>Prospect</Badge>
 <Badge variant="warning" bordered>Needs review</Badge>
+<Badge variant="success" solid>Complete</Badge>
 ```
 
 ## Icons
@@ -139,6 +140,7 @@ Positive finite values display. Values above nine display as `9+`. Zero, negativ
 | `size`                   | `"xs" \| "sm" \| "md" \| "lg" \| "xl"`                                                     | `"sm"`        | Approved scale                                                           |
 | `bordered`               | `boolean`                                                                                  | `false`       | Adds the approved variant border                                         |
 | `rounded`                | `boolean`                                                                                  | `false`       | Uses the pill treatment                                                  |
+| `solid`                  | `boolean`                                                                                  | `false`       | Uses the stronger filled colour treatment                                |
 | `leftIcon`               | `React.ReactNode`                                                                          | none          | Automatically sized decorative leading icon                              |
 | `rightIcon`              | `React.ReactNode`                                                                          | none          | Automatically sized decorative trailing icon; unavailable with dismissal |
 | `dismissible`            | `true \| { label?: string; ariaLabel?: string; onDismiss?: () => void }`                   | `false`       | Adds the internal dismiss control and removal behaviour                  |
@@ -149,7 +151,7 @@ Positive finite values display. Values above nine display as `9+`. Zero, negativ
 
 The library owns colour, border, radius, spacing, typography, icon sizing, Avatar sizing, dismissal, notification positioning, and interaction states.
 
-Use `className` only to position the complete Badge within its parent layout. Request a library change when a legitimate treatment is missing. Agents must obtain explicit user consent before adding or changing props, variants, sizes, meanings, or visual treatments.
+Use `className` only to position the complete Badge within its parent layout. Use `solid` rather than overriding a Badge with filled colour utilities. Request a library change when a legitimate treatment is missing. Agents must obtain explicit user consent before adding or changing props, variants, sizes, meanings, or visual treatments.
 
 ## Relationship to Shadcn
 

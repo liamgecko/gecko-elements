@@ -5,6 +5,7 @@ import { Dialog as SheetPrimitive } from "@base-ui/react/dialog";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@gecko/ui/lib/utils";
+import { modalSurfaceClassName } from "@gecko/ui/lib/modal-surface";
 import { Button } from "@gecko/ui/components/button";
 import { ScrollArea } from "@gecko/ui/components/scroll-area";
 import XIcon from "@hugeicons/core-free-icons/XIcon";
@@ -40,7 +41,10 @@ function SheetOverlay({ className, ...props }: SheetPrimitive.Backdrop.Props) {
 }
 
 const sheetVariants = cva(
-  "fixed z-50 flex flex-col gap-4 overflow-hidden rounded-lg bg-background ring-1 ring-overlay-border text-sm shadow-lg transition duration-200 ease-in-out data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 motion-reduce:animate-none motion-reduce:transition-none pt-4",
+  cn(
+    modalSurfaceClassName,
+    "fixed z-50 flex flex-col gap-4 overflow-hidden text-sm transition duration-200 ease-in-out data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 motion-reduce:animate-none motion-reduce:transition-none pt-4",
+  ),
   {
     variants: {
       side: {

@@ -329,7 +329,7 @@ export function PageSectionNav({ className }: PageSectionNavProps) {
         )}
       >
         <nav aria-label="Page sections" className="text-sm text-muted-foreground">
-          <span className="text-2xs font-medium text-muted-foreground dark:text-gray-400 mb-4 block">
+          <span className="text-2xs font-medium text-muted-foreground mb-4 block">
             On this page
           </span>
           <div ref={sectionListRef} className="relative">

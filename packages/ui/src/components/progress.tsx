@@ -42,10 +42,10 @@ function getValueColorBar(
 ): string {
   if (value === undefined || value === null) return "bg-primary"
   const percentage = getProgressPercentage(value, min, max)
-  if (percentage <= 25) return "bg-red-500 dark:bg-rose-500"
-  if (percentage <= 50) return "bg-orange-500"
-  if (percentage <= 75) return "bg-yellow-500"
-  return "bg-emerald-500 dark:bg-teal-500"
+  if (percentage <= 25) return "bg-progress-lowest"
+  if (percentage <= 50) return "bg-progress-low"
+  if (percentage <= 75) return "bg-progress-medium"
+  return "bg-progress-high"
 }
 
 function getValueColorRing(
@@ -55,10 +55,10 @@ function getValueColorRing(
 ): string {
   if (value === undefined || value === null) return "stroke-primary"
   const percentage = getProgressPercentage(value, min, max)
-  if (percentage <= 25) return "stroke-red-500 dark:stroke-rose-500"
-  if (percentage <= 50) return "stroke-orange-500"
-  if (percentage <= 75) return "stroke-yellow-500"
-  return "stroke-emerald-500 dark:stroke-teal-500"
+  if (percentage <= 25) return "stroke-progress-lowest"
+  if (percentage <= 50) return "stroke-progress-low"
+  if (percentage <= 75) return "stroke-progress-medium"
+  return "stroke-progress-high"
 }
 
 type ProgressSize = "sm" | "default" | "lg"

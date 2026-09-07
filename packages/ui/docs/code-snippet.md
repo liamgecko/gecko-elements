@@ -119,6 +119,8 @@ Callers do not provide loading, highlighted HTML, or error states.
 
 The library owns inline typography and colour; block background, border, radius, spacing, typography, overflow, focus treatment and highlighting; and copy Button placement, Tooltip and feedback.
 
+Inline Code uses the `inline-code-foreground` semantic colour token over the shared muted surface. It does not use a destructive status token because technical tokens do not imply an error.
+
 Use `className` only for documented parent-layout integration such as width or placement. Request a library change when a legitimate treatment is missing.
 
 Agents must obtain explicit user consent before adding or changing variants, props, languages, controls, behaviours, styling, syntax themes or visual treatments.

@@ -45,6 +45,8 @@ Do not use Toggle as a hidden form control. Choose Checkbox or Switch when a boo
 
 The default Toggle uses the outline treatment. `ghost-light` and `ghost-dark` are specialised treatments for existing application chrome, not ordinary content.
 
+The specialised ghost treatments use the shared contextual surface roles. `ghost-light` uses the light-surface hover role; `ghost-dark` uses the dark-surface foreground and hover roles. These roles follow the surface the Toggle sits on rather than the active appearance mode.
+
 Text sizes are `xs`, `sm`, `default` and `lg`. Icon-only equivalents are `icon-xs`, `icon-sm`, `icon` and `icon-lg`. Match neighbouring controls.
 
 An icon-only Toggle is square at every size, including when a text size is used. Prefer the matching icon size when choosing a size explicitly.

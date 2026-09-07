@@ -181,6 +181,8 @@ Compose Collapsible inside BubbleContent when a long message needs an explicit S
 
 The library owns surface colour, border, radius, spacing, wrapping, maximum width, action positioning, reaction positioning, hover treatment, focus treatment, and Message integration.
 
+Default bubbles use the shared `highlight` and `highlight-hover` surfaces. Secondary bubbles use the shared `muted` surface and `accent` hover treatment. Hover treatments apply only when `BubbleContent` renders as a button or link.
+
 Use `className` only for layout integration explicitly required by a documented composition, such as preserving whitespace in long preformatted message text. Request a library change when a legitimate treatment is missing. Agents must obtain explicit user consent before adding or changing props, variants, behaviours, meanings, or visual treatments.
 
 ## Relationship to Shadcn

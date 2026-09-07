@@ -25,9 +25,9 @@ const bubbleVariants = cva(
     variants: {
       variant: {
         default:
-          "*:data-[slot=bubble-content]:bg-blue-50 *:data-[slot=bubble-content]:text-foreground dark:*:data-[slot=bubble-content]:bg-gray-800 [&>[data-slot=bubble-content]:is(button,a):hover]:bg-blue-100 dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-gray-700",
+          "*:data-[slot=bubble-content]:bg-highlight *:data-[slot=bubble-content]:text-foreground [&>[data-slot=bubble-content]:is(button,a):hover]:bg-highlight-hover",
         secondary:
-          "*:data-[slot=bubble-content]:bg-muted [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--muted),var(--foreground)_5%)]",
+          "*:data-[slot=bubble-content]:bg-muted [&>[data-slot=bubble-content]:is(button,a):hover]:bg-accent",
         outline:
           "*:data-[slot=bubble-content]:border-border *:data-[slot=bubble-content]:bg-background [&>[data-slot=bubble-content]:is(button,a):hover]:bg-muted [&>[data-slot=bubble-content]:is(button,a):hover]:text-foreground dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-input/30",
         ghost:

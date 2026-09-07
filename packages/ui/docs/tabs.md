@@ -211,6 +211,13 @@ TabsContent accepts the remaining Base UI Tabs Panel properties.
 - Ensure the active panel follows its trigger in the reading order.
 - Preserve the visible focus indicator and reduced-motion treatment.
 
+## Styling contract
+
+The default tab list uses the shared muted surface and its selected indicator
+uses the shared popover surface for elevation in both themes. The line variant
+uses the shared foreground and border roles. Do not add mode-specific colour
+overrides in application code.
+
 ## Agent rules
 
 1. Import Tabs parts from `@gecko/ui/components/tabs`.

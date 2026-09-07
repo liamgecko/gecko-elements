@@ -13,6 +13,7 @@ import {
   TooltipTrigger,
 } from "@gecko/ui/components/tooltip";
 import geckoLogo from "@/assets/gecko-logo.svg";
+import geckoLogoLight from "@/assets/gecko-logo-light.svg";
 import { SidebarNav } from "./sidebar-nav";
 import { ScrollArea } from "@gecko/ui/components/scroll-area";
 import { Link, useLocation } from "react-router-dom";
@@ -155,7 +156,13 @@ export function AppShell({ children }: AppShellProps) {
                 <img
                   src={geckoLogo}
                   alt="Gecko Elements"
-                  className="shrink-0 dark:invert"
+                  className="shrink-0 dark:hidden"
+                  width={100}
+                />
+                <img
+                  src={geckoLogoLight}
+                  alt="Gecko Elements"
+                  className="hidden shrink-0 dark:block"
                   width={100}
                 />
               </div>

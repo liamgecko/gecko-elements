@@ -18,7 +18,7 @@ const badgeVariants = cva(
         warning: "bg-warning-muted text-warning-muted-foreground",
         destructive: "bg-destructive-muted text-destructive-muted-foreground",
         success: "bg-success-muted text-success-muted-foreground",
-        light: "border-border bg-white text-foreground dark:bg-gray-950",
+        light: "border-border bg-background text-foreground",
       },
       size: {
         xs: "gap-1 px-1 py-0.5 text-4xs leading-3",
@@ -34,6 +34,10 @@ const badgeVariants = cva(
       rounded: {
         true: "rounded-full",
         false: "rounded",
+      },
+      solid: {
+        true: "",
+        false: "",
       },
     },
     compoundVariants: [
@@ -64,6 +68,41 @@ const badgeVariants = cva(
         className: "border-success-muted-border",
       },
       { bordered: true, variant: "light", className: "border-border" },
+      {
+        solid: true,
+        variant: "primary",
+        className: "bg-primary text-primary-foreground",
+      },
+      {
+        solid: true,
+        variant: "secondary",
+        className: "bg-secondary text-secondary-foreground",
+      },
+      {
+        solid: true,
+        variant: "info",
+        className: "bg-info text-info-foreground",
+      },
+      {
+        solid: true,
+        variant: "warning",
+        className: "bg-warning text-warning-foreground",
+      },
+      {
+        solid: true,
+        variant: "destructive",
+        className: "bg-destructive-solid text-destructive-solid-foreground",
+      },
+      {
+        solid: true,
+        variant: "success",
+        className: "bg-success text-success-foreground",
+      },
+      {
+        solid: true,
+        variant: "light",
+        className: "bg-background text-foreground",
+      },
       { rounded: true, size: "xs", className: "px-1.5" },
       { rounded: true, size: "sm", className: "px-2" },
       { rounded: true, size: "md", className: "px-2.5" },
@@ -75,6 +114,7 @@ const badgeVariants = cva(
       size: "sm",
       bordered: false,
       rounded: false,
+      solid: false,
     },
   },
 );
@@ -163,6 +203,7 @@ function Badge({
   size = "sm",
   bordered = false,
   rounded = false,
+  solid = false,
   dismissible = false,
   leftIcon,
   rightIcon,
@@ -185,7 +226,13 @@ function Badge({
     <span
       data-slot="badge"
       className={cn(
-        badgeVariants({ variant, size: resolvedSize, bordered, rounded }),
+        badgeVariants({
+          variant,
+          size: resolvedSize,
+          bordered,
+          rounded,
+          solid,
+        }),
         className,
       )}
       {...props}
@@ -196,7 +243,7 @@ function Badge({
       {dismissible ? (
         <button
           type="button"
-          className="relative ms-1 inline-flex shrink-0 items-center justify-center rounded p-0.5 outline-none after:absolute after:start-1/2 after:top-1/2 after:size-6 after:-translate-x-1/2 after:-translate-y-1/2 after:content-[''] hover:bg-gray-950/5 focus-visible:ring-2 focus-visible:ring-ring/50 dark:hover:bg-white/10"
+          className="relative ms-1 inline-flex shrink-0 items-center justify-center rounded p-0.5 outline-none after:absolute after:start-1/2 after:top-1/2 after:size-6 after:-translate-x-1/2 after:-translate-y-1/2 after:content-[''] hover:bg-foreground/5 focus-visible:ring-2 focus-visible:ring-ring/50 dark:hover:bg-foreground/10"
           aria-label={
             dismissibleConfig?.ariaLabel ??
             dismissibleConfig?.label ??

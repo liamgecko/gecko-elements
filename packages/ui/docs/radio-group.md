@@ -40,7 +40,7 @@ Radio options normally retain one selection after a choice is made. Do not add a
 
 ## Button treatment
 
-Use `asButton` for a short, prominent set. Button presentation does not change radio semantics: exactly one option remains selectable.
+Use `asButton` for a short, prominent set. Button presentation does not change radio semantics: exactly one option remains selectable. A visible radio stays fixed at the start of every option, so selection is not communicated by colour alone and the content does not move when the state changes.
 
 ```tsx
 <RadioGroup label="Billing cycle" defaultValue="monthly">
@@ -110,7 +110,7 @@ The product decides when validation runs and focuses the first invalid group aft
 - Arrow keys move between enabled options; Space selects the focused option.
 - Tab enters and leaves the group as one form control.
 - The standard control has an enlarged interaction target while retaining its approved visual size.
-- Button-style options preserve radio semantics and do not become ordinary buttons.
+- Button-style options preserve radio semantics, keep a visible radio selection cue and do not become ordinary buttons.
 
 ## Interface
 

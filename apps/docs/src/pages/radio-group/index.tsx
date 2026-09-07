@@ -485,7 +485,7 @@ const form = useForm<z.infer<typeof formSchema>>({
       <MainSection
         id="as-button"
         title="As button"
-        description="Use button-style options for a short, prominent single-choice set."
+        description="Use button-style options for a short, prominent single-choice set. A visible radio reinforces the selected state without relying on colour alone."
       >
         <ChildSection
           id="as-button-basic"

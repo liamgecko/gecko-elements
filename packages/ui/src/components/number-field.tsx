@@ -84,7 +84,7 @@ export function NumberField({
           className={cn(
             "flex items-center justify-center w-7 border-e rounded-l-sm border-input bg-secondary text-secondary-foreground",
             "group-aria-invalid/number-field:border-input-destructive",
-            "hover:bg-gray-200 dark:hover:bg-gray-900 focus-visible:outline-none",
+            "hover:bg-accent focus-visible:outline-none",
             "disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-muted disabled:hover:bg-muted",
           )}
         >
@@ -110,7 +110,7 @@ export function NumberField({
           className={cn(
             "flex items-center justify-center w-7 border-s rounded-r-sm border-input bg-secondary text-secondary-foreground",
             "group-aria-invalid/number-field:border-input-destructive",
-            "hover:bg-gray-200 dark:hover:bg-gray-900 focus-visible:outline-none",
+            "hover:bg-accent focus-visible:outline-none",
             "disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-muted disabled:hover:bg-muted",
           )}
         >

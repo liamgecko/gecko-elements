@@ -99,9 +99,13 @@ The approved values are a closed set:
 
 Avatar automatically injects the correctly sized internal badge and accessible text such as “Status: online”. Agents must not compose a badge manually, remap a status colour, or add another status without explicit user consent.
 
+The approved status colours use the `presence-online`, `presence-unavailable`, and `presence-offline` semantic tokens so each theme can preserve the meaning and contrast independently.
+
 ## Unread activity
 
 Set `notification` when there is unread activity associated with the person or account. Avatar automatically injects a red badge at the top left and the accessible text “Unread activity”.
+
+The unread badge uses the semantic `notification` colour token rather than the destructive status treatment.
 
 Notification and availability status may appear together because they occupy different positions:
 

@@ -6,7 +6,7 @@ import ChevronDownIcon from "@hugeicons/core-free-icons/ChevronDownIcon";
 import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 const nativeSelectVariants = cva(
-  "border-input hover:border-input-hover focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:focus-visible:ring-input-destructive/20 dark:aria-invalid:focus-visible:ring-input-destructive/40 aria-invalid:border-input-destructive w-full min-w-0 appearance-none rounded-sm border bg-background py-1 pe-8 transition-[color,box-shadow,border] select-none focus-visible:ring-3 aria-invalid:focus-visible:ring-3 outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-muted disabled:hover:border-input cursor-pointer",
+  "border-input hover:border-input-hover focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:focus-visible:ring-input-destructive/20 dark:aria-invalid:focus-visible:ring-input-destructive/40 aria-invalid:border-input-destructive w-full min-w-0 appearance-none rounded-sm border bg-input-background py-1 pe-8 transition-[color,box-shadow,border] select-none focus-visible:ring-3 aria-invalid:focus-visible:ring-3 outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-muted disabled:hover:border-input cursor-pointer",
   {
     variants: {
       size: {

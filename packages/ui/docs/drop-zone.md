@@ -95,7 +95,7 @@ Plural defaults are `"Drag & drop files here"` and `"Browse files"` when `multip
 
 ## Styling contract
 
-Drop zone owns the selection surface, prompt, browse affordance, drag feedback, invalid and disabled states, selected-file rows, file-size formatting, and remove actions.
+Drop zone owns the selection surface, prompt, browse affordance, drag feedback, invalid and disabled states, selected-file rows, file-size formatting, and remove actions. Its invalid state uses the shared destructive-muted surface and input-destructive border and focus roles in both themes.
 
 Use `className` only to position the complete component in its surrounding layout. Application code supplies selection state, requirements, validation messages, and upload behaviour without restyling the component's chrome.
 

@@ -65,7 +65,7 @@ Set `showValueColors` only when the colour thresholds communicate meaningful sta
 <Progress value={20} valueLabel="20%" showValueColors />
 ```
 
-The built-in thresholds are 25 or below, 50 or below, 75 or below, and above 75. Do not use this presentation when those thresholds do not match the domain meaning.
+The built-in thresholds are 25 or below, 50 or below, 75 or below, and above 75. The tiers use the `progress-lowest`, `progress-low`, `progress-medium`, and `progress-high` semantic colour tokens so bar and ring treatments remain consistent across themes. Do not use this presentation when those thresholds do not match the domain meaning.
 
 ## Interface
 

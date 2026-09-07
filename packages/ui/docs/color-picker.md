@@ -181,7 +181,7 @@ ColorPicker accepts compatible Input properties except properties owned by the c
 
 ## Styling contract
 
-The library owns the input width, swatch size and position, logical spacing, neutral and selected swatches, borders, radius, focus and invalid treatments, Popover spacing, visual picker and internal hex input.
+The library owns the input width, swatch size and position, logical spacing, neutral and selected swatches, borders, radius, focus and invalid treatments, Popover spacing, visual picker and internal hex input. The swatch uses the shared contrast-border role because its boundary sits over arbitrary user-selected colours rather than a themed surface.
 
 Use `className` only for documented parent-layout integration such as placement. Request a library change when a legitimate treatment is missing.
 

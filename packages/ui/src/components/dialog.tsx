@@ -4,6 +4,7 @@ import * as React from "react";
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 
 import { cn } from "@gecko/ui/lib/utils";
+import { modalSurfaceClassName } from "@gecko/ui/lib/modal-surface";
 import { Button } from "@gecko/ui/components/button";
 import XIcon from "@hugeicons/core-free-icons/XIcon";
 import { HugeiconsIcon } from "@gecko/ui/lib/icon";
@@ -72,7 +73,8 @@ function DialogContent({
         data-slot="dialog-content"
         data-size={size}
         className={cn(
-          "bg-background data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 ring-overlay-border fixed top-1/2 start-1/2 z-50 flex max-h-[calc(100dvh-2rem)] w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-xl text-sm ring-1 duration-100 outline-none rtl:translate-x-1/2",
+          modalSurfaceClassName,
+          "data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 fixed top-1/2 start-1/2 z-50 flex max-h-[calc(100dvh-2rem)] w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden text-sm duration-100 outline-none rtl:translate-x-1/2",
           sizeClass,
           className,
         )}
