@@ -91,12 +91,10 @@ function ChatHeadActions({
             variant: "outline" as const,
           },
         ];
-  const availableActions = actions.filter((action) => action.onAction);
-  if (!availableActions.length) return null;
 
   return (
     <div className="pointer-events-none absolute inset-y-0 end-3 z-10 flex items-center gap-1.5 opacity-0 transition-opacity duration-200 group-hover/chat-head-item:pointer-events-auto group-hover/chat-head-item:opacity-100 group-focus-within/chat-head-item:pointer-events-auto group-focus-within/chat-head-item:opacity-100">
-      {availableActions.map((action) => (
+      {actions.map((action) => (
         <Tooltip key={action.label}>
           <TooltipTrigger
             render={
@@ -181,11 +179,6 @@ function ChatHead({
       >
         {items.map((item, index) => {
           const isSelected = item.id === selectedId;
-          const state = item.state ?? "open";
-          const hasActions =
-            state === "closed"
-              ? Boolean(onReopenConversation || onDeleteConversation)
-              : Boolean(onCloseConversation);
           const preview =
             item.lastMessageSender === "agent"
               ? `You: ${item.messageSnippet}`
@@ -240,11 +233,7 @@ function ChatHead({
                 <time
                   dateTime={item.timestamp.toISOString()}
                   title={item.timestamp.toLocaleString()}
-                  className={cn(
-                    "shrink-0 whitespace-nowrap text-2xs font-medium text-muted-foreground transition-opacity duration-200",
-                    hasActions &&
-                      "group-hover/chat-head-item:opacity-0 group-focus-within/chat-head-item:opacity-0",
-                  )}
+                  className="shrink-0 whitespace-nowrap text-2xs font-medium text-muted-foreground transition-opacity duration-200 group-hover/chat-head-item:opacity-0 group-focus-within/chat-head-item:opacity-0"
                 >
                   {formatRelativeTime(item.timestamp, now)}
                 </time>

@@ -262,8 +262,8 @@ export function ChatHeadPage() {
         description={
           <>
             Set an item’s <Code>state</Code> to <Code>"closed"</Code> for a
-            finished conversation. Its available actions are re-open and delete
-            when their callbacks are supplied.
+            finished conversation. Re-open and delete appear on hover or
+            keyboard focus; callbacks connect their application behaviour.
           </>
         }
       >
@@ -358,7 +358,7 @@ export function ChatHeadPage() {
       <MainSection
         id="controls"
         title="Controls"
-        description="Connect the close, reopen and delete callbacks to expose each action. The application updates items and handles persistence, permissions and confirmation. Missing callbacks hide the corresponding controls. This example changes local data only."
+        description="Hover or focus a conversation to reveal its state-based actions. Callbacks connect close, reopen and delete to application behaviour; they do not control visibility. The application updates items and handles persistence, permissions and confirmation. This example changes local data only."
       >
         <ComponentExample>
           <ConversationActionsExample />
@@ -432,20 +432,19 @@ export function ChatHeadPage() {
             {
               name: "onCloseConversation",
               type: "(item: ChatHeadItem) => void",
-              description:
-                "Optional. Exposes the close action for open conversations.",
+              description: "Handles the close action for open conversations.",
             },
             {
               name: "onReopenConversation",
               type: "(item: ChatHeadItem) => void",
               description:
-                "Optional. Exposes the reopen action for closed conversations.",
+                "Handles the reopen action for closed conversations.",
             },
             {
               name: "onDeleteConversation",
               type: "(item: ChatHeadItem) => void",
               description:
-                "Optional. Exposes the delete action for closed conversations.",
+                "Handles the delete action for closed conversations.",
             },
             {
               name: "item.id",
