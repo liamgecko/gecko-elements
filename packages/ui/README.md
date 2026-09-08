@@ -1,6 +1,6 @@
 # @gecko/ui
 
-Gecko Elements' shared React component library. The [component contracts](docs/) define approved usage, composition, props and styling. Use this guide for interface work in any consuming project, and read the matching contract before changing a component or its documentation.
+Gecko Elements' shared React component library. The [component contracts](docs/README.md) define approved usage, composition, props and styling. Use this guide for interface work in any consuming project, and read the matching contract before changing a component or its documentation.
 
 ## Desktop application scope
 
