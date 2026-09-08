@@ -214,7 +214,7 @@ TabsContent accepts the remaining Base UI Tabs Panel properties.
 ## Styling contract
 
 The default tab list uses the shared muted surface and its selected indicator
-uses the shared popover surface for elevation in both themes. The line variant
+uses the shared card surface for elevation in both themes. The line variant
 uses the shared foreground and border roles. Do not add mode-specific colour
 overrides in application code.
 

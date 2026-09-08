@@ -3,6 +3,7 @@
 import * as React from "react";
 import Check from "@hugeicons/core-free-icons/CheckIcon";
 import Copy from "@hugeicons/core-free-icons/Copy01Icon";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import { toast } from "@gecko/ui/components/toast";
 
@@ -136,6 +137,7 @@ function CodeBlock({
   copyLabel = "Copy",
 }: CodeBlockProps) {
   const isDark = useIsDarkMode();
+  const shouldReduceMotion = useReducedMotion();
   const highlightKey = `${isDark ? "dark" : "light"}:${language}:${code}`;
   const [highlighted, setHighlighted] = React.useState<{
     key: string;
@@ -208,7 +210,7 @@ function CodeBlock({
                       await copyText(code);
                       setCopied(true);
                       toast.add({ title: "Copied", type: "success" });
-                      window.setTimeout(() => setCopied(false), 1200);
+                      window.setTimeout(() => setCopied(false), 1800);
                     } catch {
                       toast.add({ title: "Failed to copy", type: "error" });
                     } finally {
@@ -216,11 +218,35 @@ function CodeBlock({
                     }
                   }}
                 >
-                  {copied ? (
-                    <HugeiconsIcon icon={Check} aria-hidden />
-                  ) : (
-                    <HugeiconsIcon icon={Copy} aria-hidden />
-                  )}
+                  <span
+                    className="relative grid size-4 place-items-center"
+                    aria-hidden="true"
+                  >
+                    <AnimatePresence initial={false}>
+                      <motion.span
+                        key={copied ? "copied" : "copy"}
+                        className="absolute inset-0 grid place-items-center"
+                        initial={
+                          shouldReduceMotion
+                            ? { opacity: 0 }
+                            : { opacity: 0, scale: 0.25, filter: "blur(4px)" }
+                        }
+                        animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                        exit={
+                          shouldReduceMotion
+                            ? { opacity: 0 }
+                            : { opacity: 0, scale: 0.25, filter: "blur(4px)" }
+                        }
+                        transition={
+                          shouldReduceMotion
+                            ? { duration: 0.1 }
+                            : { type: "spring", duration: 0.3, bounce: 0 }
+                        }
+                      >
+                        <HugeiconsIcon icon={copied ? Check : Copy} />
+                      </motion.span>
+                    </AnimatePresence>
+                  </span>
                 </Button>
               }
             />

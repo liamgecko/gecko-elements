@@ -132,6 +132,10 @@ export const componentSections: ComponentSections = {
         { id: "variants-primary", label: "Primary" },
         { id: "variants-secondary", label: "Secondary" },
         { id: "variants-outline", label: "Outline" },
+        {
+          id: "variants-outline-destructive",
+          label: "Outline destructive",
+        },
         { id: "variants-destructive", label: "Destructive" },
         { id: "variants-ghost", label: "Ghost" },
         { id: "variants-ghost-destructive", label: "Ghost destructive" },
@@ -391,6 +395,7 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "checkbox-group", label: "Checkbox group" },
+    { id: "required-group", label: "Required group" },
     {
       id: "as-button",
       label: "As button",
@@ -665,6 +670,7 @@ export const componentSections: ComponentSections = {
         { id: "states-error", label: "Error" },
       ],
     },
+    { id: "required-group", label: "Required group" },
     {
       id: "as-button",
       label: "As button",

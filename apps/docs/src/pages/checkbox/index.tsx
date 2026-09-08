@@ -114,6 +114,15 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
   <Checkbox value="whatsapp" label="WhatsApp" />
 </CheckboxGroup>`;
 
+  const requiredGroupSnippet = `const formSchema = z.object({
+  eventFormats: z.array(z.string()).min(1, "Select at least one event format."),
+})
+
+<CheckboxGroup required label="Event formats">
+  <Checkbox value="in-person" label="In person" />
+  <Checkbox value="online" label="Online" />
+</CheckboxGroup>`;
+
   const asButtonBasicSnippet = `<CheckboxGroup
   horizontal
   label="Preferred contact methods"
@@ -165,6 +174,7 @@ const [selectedChannels, setSelectedChannels] = useState(["email"])
   <FieldContent>
     <CheckboxGroup
       horizontal
+      required
       aria-invalid
       aria-describedby="event-formats-error"
       label="Event formats"
@@ -549,6 +559,35 @@ const form = useForm<z.infer<typeof formSchema>>({
       </MainSection>
 
       <MainSection
+        id="required-group"
+        title="Required group"
+        description={
+          <>
+            Put <Code>required</Code> on CheckboxGroup, not on its Checkbox
+            options. The required marker belongs once on the group legend.
+            Because HTML cannot natively require one checkbox from a group,
+            validate the selected array with your form schema.
+          </>
+        }
+      >
+        <ComponentExample>
+          <div className="space-y-6">
+            <CheckboxGroup required label="Event formats">
+              <Checkbox value="in-person" label="In person" />
+              <Checkbox value="online" label="Online" />
+            </CheckboxGroup>
+            <Code
+              variant="block"
+              language="tsx"
+              code={requiredGroupSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </MainSection>
+
+      <MainSection
         id="as-button"
         title="As button"
         description={
@@ -682,6 +721,7 @@ const form = useForm<z.infer<typeof formSchema>>({
                 <FieldContent>
                   <CheckboxGroup
                     horizontal
+                    required
                     aria-invalid
                     aria-describedby="event-formats-error"
                     label="Event formats"
@@ -709,7 +749,7 @@ const form = useForm<z.infer<typeof formSchema>>({
       <MainSection
         id="within-form"
         title="Within form"
-        description="Place Checkbox inside the form flow and give it a submitted name. Keep the action at its default width."
+        description="Place Checkbox inside the form flow and give it a submitted name. For a required group, put required on CheckboxGroup and validate its array value."
       >
         <ComponentExample>
           <div className="space-y-6">
@@ -779,6 +819,10 @@ const form = useForm<z.infer<typeof formSchema>>({
               CheckboxGroup when validation belongs to the complete choice.
             </>,
             <>
+              Put <Code>required</Code> on CheckboxGroup and validate that its
+              array contains at least one value.
+            </>,
+            <>
               Use <Code>parent</Code> and <Code>allValues</Code> for a
               select-all option. CheckboxGroup derives its indeterminate state.
             </>,
@@ -801,6 +845,10 @@ const form = useForm<z.infer<typeof formSchema>>({
             </>,
             <>
               Don’t omit <Code>value</Code> on options inside a group.
+            </>,
+            <>
+              Don’t put <Code>required</Code> on every Checkbox in a group; that
+              requires every option and repeats the marker.
             </>,
             <>Don’t preselect consent or marketing choices.</>,
           ]}
@@ -838,6 +886,13 @@ const form = useForm<z.infer<typeof formSchema>>({
               defaultValue: "false",
               description:
                 "On CheckboxGroup. Lays options out in a wrapping row.",
+            },
+            {
+              name: "required",
+              type: "boolean",
+              defaultValue: "false",
+              description:
+                "On CheckboxGroup, marks the complete question required and shows one marker on its legend. Validate at least one selected value in the form schema. On Checkbox, reserve this for a standalone boolean agreement.",
             },
             {
               name: "indeterminate",

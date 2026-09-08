@@ -41,6 +41,7 @@
   --color-input-selected: var(--input-selected);
   --color-input-focus: var(--input-focus);
   --color-input-destructive: var(--input-destructive);
+  --color-input-destructive-hover: var(--input-destructive-hover);
   --color-border: var(--border);
   --color-contrast-border: var(--contrast-border);
   --color-separator-inverse: var(--separator-inverse);
@@ -267,6 +268,11 @@
   --input-selected: var(--input-hover);
   --input-focus: oklch(70.7% 0.022 261.325); /* gray-400 */
   --input-destructive: oklch(50.5% 0.213 27.518); /* red-700 */
+  --input-destructive-hover: color-mix(
+    in oklch,
+    var(--input-destructive) 90%,
+    oklch(1 0 0)
+  );
   --ring: oklch(70.7% 0.022 261.325); /* gray-400 */
   --overlay-border: oklch(21% 0.034 264.665 / 0.1); /* foreground / 10% */
 
@@ -299,7 +305,7 @@
   --foreground: oklch(96% 0.002 85); /* high-contrast neutral */
   --card: oklch(19% 0.002 85); /* standard surface */
   --card-foreground: var(--foreground);
-  --popover: oklch(23% 0.002 85); /* raised surface */
+  --popover: oklch(19% 0.002 85); /* floating surface */
   --popover-foreground: var(--foreground);
   --modal: oklch(17% 0.002 85); /* modal surface */
   --modal-foreground: var(--foreground);
@@ -339,9 +345,9 @@
   --destructive: oklch(71.2% 0.194 13.428); /* rose-400 */
   --destructive-foreground: oklch(16% 0.025 13.428);
   --destructive-border: oklch(71.2% 0.194 13.428 / 0.4);
-  --destructive-muted: oklch(71.2% 0.194 13.428 / 0.12);
-  --destructive-muted-foreground: oklch(79% 0.17 12);
-  --destructive-muted-border: oklch(71.2% 0.194 13.428 / 0.36);
+  --destructive-muted: oklch(27.1% 0.105 12.094 / 0.4); /* rose-950/40 */
+  --destructive-muted-foreground: var(--destructive); /* rose-400 */
+  --destructive-muted-border: oklch(71.2% 0.194 13.428);
 
   /* Success colors */
   --success: oklch(77.7% 0.152 181.912); /* teal-400 */

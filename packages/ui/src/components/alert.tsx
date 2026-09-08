@@ -17,7 +17,7 @@ const alertVariants = cva(
       variant: {
         default: "bg-card text-card-foreground border-border",
         destructive:
-          "border-destructive dark:border-destructive-muted-border bg-destructive-muted text-destructive dark:text-destructive-muted-foreground *:data-[slot=alert-description]:text-destructive *:[svg]:text-destructive dark:*:data-[slot=alert-description]:text-destructive-muted-foreground dark:*:[svg]:text-destructive-muted-foreground",
+          "border-destructive dark:border-destructive-muted-border bg-destructive-muted dark:bg-rose-950/40 text-destructive dark:text-rose-400  *:data-[slot=alert-description]:text-destructive *:[svg]:text-destructive dark:*:data-[slot=alert-description]:text-rose-400 dark:*:[svg]:text-rose-400",
         info: "border-info dark:border-info-muted-border bg-info-muted text-info dark:text-info-muted-foreground *:data-[slot=alert-description]:text-info *:[svg]:text-info dark:*:data-[slot=alert-description]:text-info-muted-foreground dark:*:[svg]:text-info-muted-foreground",
         success:
           "border-success dark:border-success-muted-border bg-success-muted text-success dark:text-success-muted-foreground *:data-[slot=alert-description]:text-success *:[svg]:text-success dark:*:data-[slot=alert-description]:text-success-muted-foreground dark:*:[svg]:text-success-muted-foreground",

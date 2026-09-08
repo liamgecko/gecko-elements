@@ -68,6 +68,8 @@ Set `showCopyButton` when people are expected to reuse the complete block, such 
 
 Set `copyLabel` to a concise action that identifies what will be copied, such as `"Copy embed code"` or `"Copy command"`. Code snippet copies the exact `code` string and owns the Button, Tooltip, success state and Toast feedback.
 
+The copy icon transitions to a check using the library’s contextual icon motion and keeps the success state visible long enough to register. Reduced-motion preferences retain an opacity-only transition.
+
 Copy is intentionally unavailable for inline Code. Use block Code when a value needs a copy action.
 
 ## Content rules

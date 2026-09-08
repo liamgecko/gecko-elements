@@ -312,7 +312,7 @@ function TabsOverflowList({
                 !hasOverflow && "invisible absolute pointer-events-none",
                 activeTabIsOverflowed &&
                   variant === "default" &&
-                  "bg-popover shadow-sm",
+                  "bg-card shadow-sm",
                 activeTabIsOverflowed &&
                   variant === "line" &&
                   "after:bg-foreground after:absolute after:inset-x-0 after:-bottom-1 after:h-0.5",
@@ -352,7 +352,7 @@ function TabsIndicator({ variant }: { variant: TabsVariant }) {
       className={cn(
         "pointer-events-none absolute z-0 transition-[left,top,width,height] duration-200 ease-out motion-reduce:transition-none",
         variant === "default" &&
-          "left-[var(--active-tab-left)] top-[var(--active-tab-top)] h-[var(--active-tab-height)] w-[var(--active-tab-width)] rounded-full bg-popover shadow-sm",
+          "left-[var(--active-tab-left)] top-[var(--active-tab-top)] h-[var(--active-tab-height)] w-[var(--active-tab-width)] rounded-full bg-card shadow-sm",
         variant === "line" &&
           "bg-foreground data-horizontal:bottom-[-1px] data-horizontal:left-[var(--active-tab-left)] data-horizontal:h-0.5 data-horizontal:w-[var(--active-tab-width)] data-vertical:top-[var(--active-tab-top)] data-vertical:-inset-e-px data-vertical:h-[var(--active-tab-height)] data-vertical:w-0.5",
       )}

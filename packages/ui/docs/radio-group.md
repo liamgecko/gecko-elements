@@ -38,6 +38,24 @@ Use `value` with `onValueChange` for controlled state. Use `defaultValue` for th
 
 Radio options normally retain one selection after a choice is made. Do not add a clear action when the question requires one answer.
 
+## Required groups
+
+Requiredness belongs to the complete question. Set `required` on RadioGroup, never on RadioGroupItem. RadioGroup renders one required marker beside its legend and preserves native group validation. The individual option labels never show required markers.
+
+```tsx
+<RadioGroup
+  required
+  name="notificationFrequency"
+  label="Notification frequency"
+>
+  <RadioGroupItem value="all" label="All activity" />
+  <RadioGroupItem value="important" label="Important activity" />
+  <RadioGroupItem value="none" label="No notifications" />
+</RadioGroup>
+```
+
+Although native radio semantics associate the required constraint with the group’s options, the user is answering one required question—not several required questions. Repeating the marker beside every option falsely implies that every option must be selected. Connect one validation error to RadioGroup and do not repeat `required`, `aria-invalid` or the error relationship on its items.
+
 ## Button treatment
 
 Use `asButton` for a short, prominent set. Button presentation does not change radio semantics: exactly one option remains selectable. A visible radio stays fixed at the start of every option, so selection is not communicated by colour alone and the content does not move when the state changes.
@@ -76,22 +94,19 @@ Button retains its intrinsic width. Keep submit enabled and validate a required 
 
 ## Validation
 
-Validation belongs to the complete group. Connect one error to RadioGroup and use the item state only for the visual invalid treatment.
+Validation belongs to the complete group. Connect one error to RadioGroup; the group applies the visual invalid treatment to its items.
 
 ```tsx
 <Field data-invalid>
   <FieldContent>
     <RadioGroup
+      required
       aria-invalid
       aria-describedby="frequency-error"
       label="Notification frequency"
     >
-      <RadioGroupItem aria-invalid value="all" label="All activity" />
-      <RadioGroupItem
-        aria-invalid
-        value="important"
-        label="Important activity"
-      />
+      <RadioGroupItem value="all" label="All activity" />
+      <RadioGroupItem value="important" label="Important activity" />
     </RadioGroup>
     <FieldError id="frequency-error">
       Choose a notification frequency.
@@ -105,6 +120,7 @@ The product decides when validation runs and focuses the first invalid group aft
 ## Accessibility
 
 - RadioGroup has one visible group label.
+- A required RadioGroup shows one required marker on its group label; option labels never repeat it.
 - Every RadioGroupItem has its own visible option label.
 - Group and option descriptions are connected automatically.
 - Arrow keys move between enabled options; Space selects the focused option.
@@ -116,18 +132,18 @@ The product decides when validation runs and focuses the first invalid group aft
 
 ### RadioGroup
 
-| Property        | Type                      | Default      | Meaning                                       |
-| --------------- | ------------------------- | ------------ | --------------------------------------------- |
-| `label`         | `React.ReactNode`         | none         | Visible legend and accessible group name      |
-| `description`   | `React.ReactNode`         | none         | Supporting text connected to the group        |
-| `value`         | `string`                  | uncontrolled | Controlled selected value                     |
-| `defaultValue`  | `string`                  | none         | Initial uncontrolled selected value           |
-| `onValueChange` | `(value: string) => void` | none         | Reports the newly selected value              |
-| `name`          | `string`                  | none         | Native form field name                        |
-| `horizontal`    | `boolean`                 | `false`      | Approved wrapping-row layout                  |
-| `disabled`      | `boolean`                 | `false`      | Makes the complete group unavailable          |
-| `readOnly`      | `boolean`                 | `false`      | Prevents the selected value from changing     |
-| `required`      | `boolean`                 | `false`      | Requires one value for native form validation |
+| Property        | Type                      | Default      | Meaning                                                  |
+| --------------- | ------------------------- | ------------ | -------------------------------------------------------- |
+| `label`         | `React.ReactNode`         | none         | Visible legend and accessible group name                 |
+| `description`   | `React.ReactNode`         | none         | Supporting text connected to the group                   |
+| `value`         | `string`                  | uncontrolled | Controlled selected value                                |
+| `defaultValue`  | `string`                  | none         | Initial uncontrolled selected value                      |
+| `onValueChange` | `(value: string) => void` | none         | Reports the newly selected value                         |
+| `name`          | `string`                  | none         | Native form field name                                   |
+| `horizontal`    | `boolean`                 | `false`      | Approved wrapping-row layout                             |
+| `disabled`      | `boolean`                 | `false`      | Makes the complete group unavailable                     |
+| `readOnly`      | `boolean`                 | `false`      | Prevents the selected value from changing                |
+| `required`      | `boolean`                 | `false`      | Requires one group value and marks the group legend once |
 
 ### RadioGroupItem
 
@@ -154,3 +170,5 @@ The selected border matches the selected fill, including on hover. On selection,
 Use `className` only to position the complete RadioGroup within its parent layout. Request a library change when a legitimate treatment is missing.
 
 Agents must obtain explicit user consent before adding or changing props, states, variants, behaviours or styling.
+
+Implementation rule: never put `required` on RadioGroupItem. Put it on RadioGroup, render the required marker once on the legend, and associate one error with the complete group. Do not repeat `aria-invalid` or `aria-describedby` on every item.

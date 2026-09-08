@@ -4,16 +4,22 @@ import * as React from "react";
 
 import { cn } from "@gecko/ui/lib/utils";
 
+type LabelProps = React.ComponentProps<"label"> & {
+  /** Internal: group controls render requiredness on their legend instead. */
+  hideRequiredMarker?: boolean;
+};
+
 function Label({
   className,
   htmlFor,
   children,
+  hideRequiredMarker = false,
   ...props
-}: React.ComponentProps<"label">) {
+}: LabelProps) {
   const [showRequired, setShowRequired] = React.useState(false);
 
   React.useLayoutEffect(() => {
-    if (!htmlFor) {
+    if (!htmlFor || hideRequiredMarker) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- sync required marker from associated control
       setShowRequired(false);
       return;
@@ -35,7 +41,7 @@ function Label({
     });
 
     return () => observer.disconnect();
-  }, [htmlFor]);
+  }, [hideRequiredMarker, htmlFor]);
 
   return (
     <label

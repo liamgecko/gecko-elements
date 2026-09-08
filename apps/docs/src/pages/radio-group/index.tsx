@@ -94,8 +94,6 @@ export function RadioGroupPage() {
       <RadioGroupItem
         value="email"
         id="invalid-email"
-        aria-invalid
-        aria-describedby="invalid-email-error"
         label="Email only"
       />
     </RadioGroup>
@@ -104,6 +102,16 @@ export function RadioGroupPage() {
     </FieldError>
   </FieldContent>
 </Field>`;
+
+  const requiredGroupSnippet = `<RadioGroup
+  required
+  name="notificationFrequency"
+  label="Notification frequency"
+>
+  <RadioGroupItem value="all" label="All activity" />
+  <RadioGroupItem value="important" label="Important activity" />
+  <RadioGroupItem value="none" label="No notifications" />
+</RadioGroup>`;
 
   const asButtonBasicSnippet = `<RadioGroup
   label="Choose an option"
@@ -148,6 +156,7 @@ export function RadioGroupPage() {
   const asButtonErrorSnippet = `<Field data-invalid className="w-fit max-w-full">
   <FieldContent>
     <RadioGroup
+      required
       aria-invalid
       aria-describedby="as-button-error-msg"
       value=""
@@ -159,16 +168,12 @@ export function RadioGroupPage() {
         id="as-button-error-a"
         value="a"
         label="Option A"
-        aria-invalid
-        aria-describedby="as-button-error-msg"
       />
       <RadioGroupItem
         asButton
         id="as-button-error-b"
         value="b"
         label="Option B"
-        aria-invalid
-        aria-describedby="as-button-error-msg"
       />
     </RadioGroup>
     <FieldError id="as-button-error-msg">
@@ -200,9 +205,9 @@ const form = useForm<z.infer<typeof formSchema>>({
           required
           aria-invalid={fieldState.invalid}
         >
-          <RadioGroupItem value="all" label="All activity" aria-invalid={fieldState.invalid} />
-          <RadioGroupItem value="important" label="Important activity" aria-invalid={fieldState.invalid} />
-          <RadioGroupItem value="none" label="No notifications" aria-invalid={fieldState.invalid} />
+          <RadioGroupItem value="all" label="All activity" />
+          <RadioGroupItem value="important" label="Important activity" />
+          <RadioGroupItem value="none" label="No notifications" />
         </RadioGroup>
         {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
       </Field>
@@ -460,8 +465,6 @@ const form = useForm<z.infer<typeof formSchema>>({
                     <RadioGroupItem
                       value="email"
                       id="invalid-email"
-                      aria-invalid
-                      aria-describedby="invalid-email-error"
                       label="Email only"
                     />
                   </RadioGroup>
@@ -480,6 +483,39 @@ const form = useForm<z.infer<typeof formSchema>>({
             </div>
           </ComponentExample>
         </ChildSection>
+      </MainSection>
+
+      <MainSection
+        id="required-group"
+        title="Required group"
+        description={
+          <>
+            Put <Code>required</Code> on RadioGroup, never on RadioGroupItem.
+            The complete question is required, so its legend shows one marker
+            and its options keep ordinary option labels.
+          </>
+        }
+      >
+        <ComponentExample>
+          <div className="flex flex-col gap-6">
+            <RadioGroup
+              required
+              name="notificationFrequency"
+              label="Notification frequency"
+            >
+              <RadioGroupItem value="all" label="All activity" />
+              <RadioGroupItem value="important" label="Important activity" />
+              <RadioGroupItem value="none" label="No notifications" />
+            </RadioGroup>
+            <Code
+              variant="block"
+              language="tsx"
+              code={requiredGroupSnippet}
+              showCopyButton
+              copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
       </MainSection>
 
       <MainSection
@@ -605,6 +641,7 @@ const form = useForm<z.infer<typeof formSchema>>({
               <Field data-invalid className="w-fit max-w-full">
                 <FieldContent>
                   <RadioGroup
+                    required
                     aria-invalid
                     aria-describedby="as-button-error-msg"
                     value=""
@@ -616,16 +653,12 @@ const form = useForm<z.infer<typeof formSchema>>({
                       id="as-button-error-a"
                       value="a"
                       label="Option A"
-                      aria-invalid
-                      aria-describedby="as-button-error-msg"
                     />
                     <RadioGroupItem
                       asButton
                       id="as-button-error-b"
                       value="b"
                       label="Option B"
-                      aria-invalid
-                      aria-describedby="as-button-error-msg"
                     />
                   </RadioGroup>
                   <FieldError id="as-button-error-msg">
@@ -648,7 +681,7 @@ const form = useForm<z.infer<typeof formSchema>>({
       <MainSection
         id="within-form"
         title="Within form"
-        description="Give the group a submitted name and keep the form action at its default width."
+        description="Give the group a submitted name. Put required on RadioGroup so the group legend—not each option—owns the required marker."
       >
         <ComponentExample>
           <div className="flex flex-col gap-6">
@@ -672,20 +705,14 @@ const form = useForm<z.infer<typeof formSchema>>({
                           required
                           aria-invalid={fieldState.invalid}
                         >
-                          <RadioGroupItem
-                            value="all"
-                            label="All activity"
-                            aria-invalid={fieldState.invalid}
-                          />
+                          <RadioGroupItem value="all" label="All activity" />
                           <RadioGroupItem
                             value="important"
                             label="Important activity"
-                            aria-invalid={fieldState.invalid}
                           />
                           <RadioGroupItem
                             value="none"
                             label="No notifications"
-                            aria-invalid={fieldState.invalid}
                           />
                         </RadioGroup>
                         {fieldState.invalid && (
@@ -725,6 +752,10 @@ const form = useForm<z.infer<typeof formSchema>>({
               Use button-style options for a short set that should stand out.
             </>,
             <>Associate one validation error with the complete group.</>,
+            <>
+              Put <Code>required</Code> on RadioGroup so the shared question has
+              one required marker.
+            </>,
           ]}
           dontItems={[
             <>
@@ -740,6 +771,10 @@ const form = useForm<z.infer<typeof formSchema>>({
               is unclear.
             </>,
             <>Don’t repeat a value across items in the same group.</>,
+            <>
+              Don’t put <Code>required</Code>, <Code>aria-invalid</Code> or the
+              group error relationship on every RadioGroupItem.
+            </>,
           ]}
         />
       </MainSection>
@@ -797,7 +832,8 @@ const form = useForm<z.infer<typeof formSchema>>({
                 name: "required",
                 type: "boolean",
                 defaultValue: "false",
-                description: "Requires one option for native form validation.",
+                description:
+                  "On RadioGroup only. Requires one group value and shows one marker on the group legend; never apply it to RadioGroupItem.",
               },
               {
                 name: "readOnly",

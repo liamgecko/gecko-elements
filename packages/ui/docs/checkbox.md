@@ -50,6 +50,25 @@ Every child Checkbox has a unique non-empty `value`. The group returns selected 
 
 CheckboxGroup is the behavioural interface for one multiple-choice question. FieldGroup is a generic layout container for separate fields and does not replace CheckboxGroup.
 
+## Required groups
+
+Requiredness belongs to the complete question. Set `required` on CheckboxGroup, never on the Checkbox options inside it. CheckboxGroup renders one required marker beside its legend, exposes `aria-required="true"` on the group, and prevents child options from becoming individually required.
+
+```tsx
+const formSchema = z.object({
+  eventFormats: z.array(z.string()).min(1, "Select at least one event format."),
+})
+
+<CheckboxGroup required label="Event formats">
+  <Checkbox value="in-person" label="In person" />
+  <Checkbox value="online" label="Online" />
+</CheckboxGroup>
+```
+
+HTML does not provide a native “select at least one checkbox from this group” constraint. Validate the group value in the form schema, then put `aria-invalid` and the error relationship on CheckboxGroup after validation fails. Do not add `required` to every child: that means every option must be selected, changes the question, and repeats the visual required marker.
+
+The `required` prop on Checkbox itself is reserved for a standalone boolean agreement such as accepting terms.
+
 ## Within form
 
 Give an independent Checkbox a submitted name and place the form action after the field content:
@@ -148,12 +167,13 @@ For one required Checkbox, place `aria-invalid` and `aria-describedby` on that C
 </Field>
 ```
 
-For CheckboxGroup, place `aria-invalid` and `aria-describedby` on the group only. CheckboxGroup applies the invalid treatment to its options:
+For CheckboxGroup, place `required`, `aria-invalid` and `aria-describedby` on the group only. CheckboxGroup applies the invalid treatment to its options:
 
 ```tsx
 <Field data-invalid>
   <FieldContent>
     <CheckboxGroup
+      required
       aria-invalid
       aria-describedby="formats-error"
       label="Event formats"
@@ -186,6 +206,8 @@ Keep a visible explanation near a disabled choice when the reason is not already
 - The standard Checkbox includes an enlarged interaction target while retaining the approved 16 px visual size.
 - Button-style options keep a visible checkbox at the start and do not rely on colour alone.
 - CheckboxGroup exposes one labelled group while each child retains its own option label.
+- A required CheckboxGroup shows one required marker on its legend. Its child option labels never show required markers.
+- CheckboxGroup exposes group requiredness with `aria-required`; form-schema validation enforces that at least one value is selected.
 - Invalid groups associate one error with the complete question rather than repeating validation props on every option.
 
 ## Interface
@@ -211,16 +233,17 @@ Checkbox also accepts Base UI Checkbox Root properties.
 
 ### CheckboxGroup
 
-| Property        | Type                        | Default      | Meaning                                               |
-| --------------- | --------------------------- | ------------ | ----------------------------------------------------- |
-| `label`         | `React.ReactNode`           | none         | Visible legend and accessible group name              |
-| `description`   | `React.ReactNode`           | none         | Supporting text automatically connected to the group  |
-| `value`         | `string[]`                  | uncontrolled | Controlled selected values                            |
-| `defaultValue`  | `string[]`                  | `[]`         | Initial uncontrolled selected values                  |
-| `onValueChange` | `(value: string[]) => void` | none         | Reports the complete selected value array             |
-| `allValues`     | `string[]`                  | `[]`         | Child values controlled by a parent Checkbox          |
-| `horizontal`    | `boolean`                   | `false`      | Approved wrapping-row layout for button-style options |
-| `disabled`      | `boolean`                   | `false`      | Disables the complete group                           |
+| Property        | Type                        | Default      | Meaning                                                                              |
+| --------------- | --------------------------- | ------------ | ------------------------------------------------------------------------------------ |
+| `label`         | `React.ReactNode`           | none         | Visible legend and accessible group name                                             |
+| `description`   | `React.ReactNode`           | none         | Supporting text automatically connected to the group                                 |
+| `value`         | `string[]`                  | uncontrolled | Controlled selected values                                                           |
+| `defaultValue`  | `string[]`                  | `[]`         | Initial uncontrolled selected values                                                 |
+| `onValueChange` | `(value: string[]) => void` | none         | Reports the complete selected value array                                            |
+| `allValues`     | `string[]`                  | `[]`         | Child values controlled by a parent Checkbox                                         |
+| `horizontal`    | `boolean`                   | `false`      | Approved wrapping-row layout for button-style options                                |
+| `disabled`      | `boolean`                   | `false`      | Disables the complete group                                                          |
+| `required`      | `boolean`                   | `false`      | Marks the complete question required; validate at least one value in the form schema |
 
 CheckboxGroup also accepts Base UI Checkbox Group properties.
 
@@ -231,6 +254,8 @@ The library owns visual size, radius, colour, checked and indeterminate indicato
 Use `className` only to position the complete Checkbox or CheckboxGroup within its parent layout. Request a library change when a legitimate treatment is missing.
 
 Agents must obtain explicit user consent before adding or changing props, states, variants, indicators, behaviours or styling.
+
+Implementation rule: never put `required` on Checkboxes inside CheckboxGroup. Put it on CheckboxGroup, show the marker once on the legend, and validate the group array in the product’s form schema. Only an independent boolean Checkbox may own `required` directly.
 
 ## Relationship to Shadcn
 

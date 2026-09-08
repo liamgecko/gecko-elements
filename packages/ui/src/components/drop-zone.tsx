@@ -192,7 +192,7 @@ export function DropZone({
           "group/drop-zone relative flex flex-col items-center justify-center gap-2 rounded-sm border border-dashed border-border bg-transparent p-6 text-center outline-none transition-[color,background-color,border-color,box-shadow] hover:border-input-hover",
           "peer-focus-visible:border-ring peer-focus-visible:ring-3 peer-focus-visible:ring-ring/50",
           invalid &&
-            "border-input-destructive bg-destructive-muted peer-focus-visible:border-input-destructive peer-focus-visible:ring-input-destructive/30",
+            "border-input-destructive bg-destructive-muted hover:border-input-destructive-hover peer-focus-visible:border-input-destructive peer-focus-visible:ring-input-destructive/30",
           isDragging && !disabled && !invalid && "border-ring bg-muted",
           disabled &&
             "cursor-not-allowed bg-muted opacity-75 hover:border-border",

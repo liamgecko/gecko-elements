@@ -17,7 +17,7 @@ const buttonVariants = cva(
         "outline-destructive":
           "border-border bg-transparent hover:border-destructive-muted-border hover:bg-destructive-muted hover:text-destructive-muted-foreground aria-expanded:border-destructive-muted-border aria-expanded:bg-destructive-muted aria-expanded:text-destructive-muted-foreground focus-visible:border-destructive/40 focus-visible:ring-destructive/20 disabled:bg-muted data-disabled:bg-muted",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:hover:bg-secondary dark:hover:bg-[linear-gradient(color-mix(in_oklch,var(--dark-surface-hover)_50%,transparent),color-mix(in_oklch,var(--dark-surface-hover)_50%,transparent))] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground",
         "ghost-light":
@@ -27,7 +27,7 @@ const buttonVariants = cva(
         "ghost-destructive":
           "hover:bg-destructive-muted hover:text-destructive-muted-foreground aria-expanded:bg-destructive-muted aria-expanded:text-destructive-muted-foreground focus-visible:border-destructive/40 focus-visible:ring-destructive/20",
         destructive:
-          "bg-destructive-solid text-destructive-solid-foreground hover:bg-destructive-solid/85 focus-visible:border-destructive/40 focus-visible:ring-destructive/20",
+          "bg-destructive-muted text-destructive-muted-foreground hover:bg-destructive-muted/80 dark:hover:bg-destructive-muted dark:hover:bg-[linear-gradient(color-mix(in_oklch,var(--dark-surface-hover)_50%,transparent),color-mix(in_oklch,var(--dark-surface-hover)_50%,transparent))] focus-visible:border-destructive/40 focus-visible:ring-destructive/20",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

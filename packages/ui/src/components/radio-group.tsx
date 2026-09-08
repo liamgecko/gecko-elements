@@ -48,6 +48,7 @@ function RadioGroup({
   horizontal = false,
   id: idProp,
   disabled,
+  required,
   "aria-invalid": ariaInvalid,
   "aria-labelledby": ariaLabelledBy,
   "aria-describedby": ariaDescribedBy,
@@ -84,6 +85,11 @@ function RadioGroup({
           className="mb-2 flex w-fit items-center gap-1 text-xs font-medium leading-snug select-none group-data-[disabled=true]/radio-fieldset:pointer-events-none group-data-[disabled=true]/radio-fieldset:cursor-not-allowed group-data-[disabled=true]/radio-fieldset:opacity-75"
         >
           {label}
+          {required && (
+            <span className="text-destructive" aria-hidden="true">
+              *
+            </span>
+          )}
         </legend>
       )}
       {description != null && (
@@ -99,6 +105,7 @@ function RadioGroup({
         data-orientation={effectiveHorizontal ? "horizontal" : "vertical"}
         id={groupId}
         disabled={disabled}
+        required={required}
         aria-invalid={ariaInvalid}
         aria-labelledby={labelledBy}
         aria-describedby={describedBy}
@@ -161,12 +168,13 @@ function RadioGroupItem({
         aria-describedby={ariaDescribedBy}
         className={baseClasses}
         {...props}
+        required={false}
       >
         <span
           data-slot="radio-button-control"
           aria-hidden="true"
           className={cn(
-            "border-input bg-background relative grid size-4 shrink-0 place-content-center rounded-full border transition-[color,box-shadow,border] group-data-checked/as-button:border-primary group-data-checked/as-button:bg-primary group-data-checked/as-button:text-primary-foreground",
+            "border-input bg-background relative grid size-4 shrink-0 place-content-center rounded-full border transition-[color,box-shadow,border] group-data-checked/as-button:border-primary group-data-checked/as-button:bg-primary group-data-checked/as-button:text-primary-foreground group-aria-invalid/as-button:border-input-destructive group-aria-invalid/radio-group:border-input-destructive",
             description != null && "row-span-2 mt-0.5"
           )}
         >
@@ -208,6 +216,7 @@ function RadioGroupItem({
       aria-describedby={describedBy}
       className={baseClasses}
       {...props}
+      required={false}
     >
       <RadioPrimitive.Indicator
         data-slot="radio-group-indicator"
@@ -238,6 +247,7 @@ function RadioGroupItem({
           <ControlLabel
             id={labelId}
             htmlFor={inputId}
+            hideRequiredMarker
             className="cursor-pointer font-normal select-none group-data-[disabled=true]/radio-group-item-row:cursor-not-allowed group-data-[disabled=true]/radio-group-item-row:opacity-75"
           >
             {label}

@@ -39,9 +39,13 @@ type CheckboxProps = CheckboxPrimitive.Root.Props & {
 type CheckboxGroupProps = CheckboxGroupPrimitive.Props & {
   label?: React.ReactNode;
   description?: React.ReactNode;
+  /** Marks the complete group required; validate at least one value in the form schema. */
+  required?: boolean;
   /** Lay out options in a row (wraps on narrow widths). */
   horizontal?: boolean;
 };
+
+const CheckboxGroupContext = React.createContext(false);
 
 function Checkbox({
   className,
@@ -54,6 +58,7 @@ function Checkbox({
   "aria-labelledby": ariaLabelledBy,
   ...props
 }: CheckboxProps) {
+  const isInCheckboxGroup = React.useContext(CheckboxGroupContext);
   const generatedId = React.useId();
   const inputId = idProp ?? generatedId;
   const labelId = `${inputId}-label`;
@@ -87,12 +92,13 @@ function Checkbox({
         aria-describedby={describedBy}
         className={baseClasses}
         {...props}
+        required={isInCheckboxGroup ? false : props.required}
       >
         <span
           data-slot="checkbox-button-control"
           aria-hidden="true"
           className={cn(
-            "border-input bg-background grid size-4 shrink-0 place-content-center rounded-sm border transition-shadow group-data-checked/as-button:border-primary group-data-checked/as-button:bg-primary group-data-checked/as-button:text-primary-foreground",
+            "border-input bg-background grid size-4 shrink-0 place-content-center rounded-sm border transition-shadow group-data-checked/as-button:border-primary group-data-checked/as-button:bg-primary group-data-checked/as-button:text-primary-foreground group-aria-invalid/as-button:border-input-destructive group-aria-invalid/checkbox-group:border-input-destructive",
             description && "row-span-2 mt-0.5",
           )}
         >
@@ -134,6 +140,7 @@ function Checkbox({
       aria-describedby={describedBy}
       className={baseClasses}
       {...props}
+      required={isInCheckboxGroup ? false : props.required}
     >
       <CheckboxPrimitive.Indicator
         data-slot="checkbox-indicator"
@@ -171,7 +178,7 @@ function Checkbox({
             className="flex items-center gap-1 text-sm leading-none font-medium select-none group-data-[disabled=true]/checkbox:cursor-not-allowed group-data-[disabled=true]/checkbox:opacity-75"
           >
             {label}
-            {props.required && (
+            {!isInCheckboxGroup && props.required && (
               <span className="text-destructive" aria-hidden="true">
                 *
               </span>
@@ -198,6 +205,8 @@ function CheckboxGroup({
   horizontal = false,
   id: idProp,
   disabled,
+  required = false,
+  children,
   "aria-invalid": ariaInvalid,
   "aria-labelledby": ariaLabelledBy,
   "aria-describedby": ariaDescribedBy,
@@ -225,6 +234,11 @@ function CheckboxGroup({
           className="mb-2 flex items-center gap-1 text-sm leading-none font-medium select-none group-data-[disabled=true]/checkbox-fieldset:pointer-events-none group-data-[disabled=true]/checkbox-fieldset:cursor-not-allowed group-data-[disabled=true]/checkbox-fieldset:opacity-75"
         >
           {label}
+          {required && (
+            <span className="text-destructive" aria-hidden="true">
+              *
+            </span>
+          )}
         </legend>
       )}
       {description && (
@@ -235,21 +249,28 @@ function CheckboxGroup({
           {description}
         </p>
       )}
-      <CheckboxGroupPrimitive
-        data-slot="checkbox-group"
-        data-orientation={horizontal ? "horizontal" : "vertical"}
-        id={groupId}
-        disabled={disabled}
-        aria-invalid={ariaInvalid}
-        aria-labelledby={labelledBy}
-        aria-describedby={describedBy}
-        className={cn(
-          "group/checkbox-group",
-          horizontal ? "flex flex-row flex-wrap gap-2" : "flex flex-col gap-3",
-          className,
-        )}
-        {...props}
-      />
+      <CheckboxGroupContext.Provider value>
+        <CheckboxGroupPrimitive
+          data-slot="checkbox-group"
+          data-orientation={horizontal ? "horizontal" : "vertical"}
+          id={groupId}
+          disabled={disabled}
+          aria-required={required || undefined}
+          aria-invalid={ariaInvalid}
+          aria-labelledby={labelledBy}
+          aria-describedby={describedBy}
+          className={cn(
+            "group/checkbox-group",
+            horizontal
+              ? "flex flex-row flex-wrap gap-2"
+              : "flex flex-col gap-3",
+            className,
+          )}
+          {...props}
+        >
+          {children}
+        </CheckboxGroupPrimitive>
+      </CheckboxGroupContext.Provider>
     </fieldset>
   );
 }
