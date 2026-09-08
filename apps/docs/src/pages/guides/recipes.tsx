@@ -104,19 +104,22 @@ export function GuidesRecipesPage() {
       <MainSection
         id="forms"
         title="Forms"
-        description="Setup interfaces use Field as the layout wrapper. Every control sits inside Field with a label, optional helper, and error."
+        description="Setup forms follow each control's documented Field composition for labels, supporting text and validation."
       >
         <ChildSection
           id="forms-basic"
           title="Basic form"
           description={
             <>
-              Wrap controls in{" "}
-              <DocsPageLink to="/components/field">Field</DocsPageLink> →{" "}
-              <Code>FieldLabel</Code> + control + <Code>FieldDescription</Code>{" "}
-              + <Code>FieldError</Code>. Group related fields in a{" "}
-              <Code>FieldGroup</Code> inside a <Code>FieldSet</Code>. When
-              invalid, the error replaces the helper text.
+              Use one <DocsPageLink to="/components/field">Field</DocsPageLink>{" "}
+              for one control, with <Code>FieldLabel</Code> unless the control
+              supplies its own label. Add optional <Code>FieldDescription</Code>{" "}
+              and render <Code>FieldError</Code> only for an active error. Use{" "}
+              <Code>FieldGroup</Code> for adjacent fields; add{" "}
+              <Code>FieldSet</Code> and <Code>FieldLegend</Code> when they need
+              a shared semantic name. Keep helper text during validation when it
+              remains useful, and connect both helper and error IDs with{" "}
+              <Code>aria-describedby</Code>.
             </>
           }
         >
@@ -173,10 +176,13 @@ export function GuidesRecipesPage() {
           title="Validation"
           description={
             <>
-              Mark invalid controls with <Code>aria-invalid</Code> and connect a{" "}
-              <Code>FieldError</Code>. Do not use disabled to represent a
-              validation error. For checkbox and radio groups, put the error on
-              the group.
+              Validate on submission and focus the first invalid control. Set{" "}
+              <Code>data-invalid</Code> on Field and <Code>aria-invalid</Code>{" "}
+              on the control, then connect <Code>FieldError</Code> through{" "}
+              <Code>aria-describedby</Code>. For checkbox and radio groups,
+              connect the error to the group. Keep submit enabled before
+              validation; use Button's <Code>loading</Code> prop during
+              submission.
             </>
           }
         />
@@ -211,11 +217,11 @@ export function GuidesRecipesPage() {
                 Data table
               </DocsPageLink>{" "}
               with <DocsPageLink to="/components/filters">Filters</DocsPageLink>{" "}
-              (via <Code>toolbar.filters</Code> or standalone) and{" "}
+              through <Code>toolbar.filters</Code>. Configure the table's own{" "}
               <DocsPageLink to="/components/pagination">
                 Pagination
               </DocsPageLink>{" "}
-              under the results.
+              controls instead of adding a separate Pagination component.
             </>
           }
         >
@@ -355,7 +361,8 @@ export function GuidesRecipesPage() {
             </li>
             <li>
               <DocsPageLink to="/components/progress">Progress</DocsPageLink> —
-              reporting completeness, not primary page loading.
+              completion of a measurable task. Use Spinner for indeterminate
+              waits.
             </li>
           </ul>
         </ChildSection>
@@ -369,8 +376,9 @@ export function GuidesRecipesPage() {
               <DocsPageLink to="/components/progress">Progress</DocsPageLink>{" "}
               when reporting how complete something is. Inside a{" "}
               <DocsPageLink to="/components/button">Button</DocsPageLink>, set{" "}
-              <Code>disabled</Code> while the action is in flight and render a
-              Spinner as a child when needed.
+              <Code>loading</Code> while the action is in flight and keep
+              meaningful action wording as its children. Button owns the loading
+              indicator, busy state and activation protection.
             </>
           }
         />

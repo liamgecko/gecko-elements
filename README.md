@@ -1,21 +1,43 @@
-# shadcn/ui monorepo template
+# Gecko Elements
 
-This is a Vite monorepo template with shadcn/ui.
+This npm monorepo contains the shared `@gecko/ui` library and the applications that consume it. Start with the [library usage guide](packages/ui/README.md) when building an interface.
 
-## Adding components
+## Repository map
 
-To add components to your app, run the following command at the root of your `web` app:
+| Location                       | Purpose                                              |
+| ------------------------------ | ---------------------------------------------------- |
+| [packages/ui](packages/ui)     | Public component imports, styles and usage contracts |
+| [apps/docs](apps/docs)         | Interactive component documentation and examples     |
+| [apps/sandbox](apps/sandbox)   | Product interface sandbox                            |
+| [apps/projects](apps/projects) | Forms, chat widget and virtual events prototypes     |
+| [CONTEXT.md](CONTEXT.md)       | Gecko application terminology                        |
 
-```bash
-pnpm dlx shadcn@latest add button -c apps/web
+## Working in this monorepo
+
+Use Node and npm as specified in [package.json](package.json). Run commands from the repository root. If dependencies are not installed, run `npm ci`.
+
+Existing apps declare `"@gecko/ui": "*"`, import `@gecko/ui/globals.css`, and enable `@tailwindcss/vite`. For a new app, use a directory matched by the root workspace globs and adapt the workspace wiring in an existing app's [package.json](apps/projects/forms/package.json), [Vite config](apps/projects/forms/vite.config.ts), [TypeScript config](apps/projects/forms/tsconfig.app.json), and [entry point](apps/projects/forms/src/main.tsx). Adjust relative paths for the new directory. Preserve the shared stylesheet and its Tailwind source coverage when adding a workspace outside the existing app locations.
+
+Run the docs app to inspect live examples:
+
+```sh
+npm run dev --workspace docs
 ```
 
-This will place the ui components in the `packages/ui/src/components` directory.
+For a consuming app, replace `forms` below with its `package.json` name:
 
-## Using components
-
-To use the components in your app, import them from the `ui` package.
-
-```tsx
-import { Button } from "@gecko/ui/components/button";
+```sh
+npm run dev --workspace forms
+npm run build --workspace forms
 ```
+
+The app build runs TypeScript project checks and Vite bundling. Root `npm run typecheck` alone is insufficient: some app scripts target a solution config with no source files, and sandbox has no typecheck script.
+
+After changes to shared library code or styles, check the library and all consuming apps:
+
+```sh
+npm run typecheck --workspace @gecko/ui
+npm run build
+```
+
+Use an affected workspace's lint or test scripts where provided; see its `package.json`. Complete the [interface verification](packages/ui/README.md#verify-the-interface) in the running app and report any failures separately from missing library capabilities.

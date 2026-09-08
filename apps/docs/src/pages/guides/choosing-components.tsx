@@ -119,8 +119,10 @@ export function GuidesChoosingComponentsPage() {
             verification codes with auto-advance and paste.
           </li>
           <li>
-            <DocsPageLink to="/components/label">Label</DocsPageLink> — only via{" "}
-            <Code>FieldLabel</Code> inside Field. Never as a page heading.
+            <DocsPageLink to="/components/label">Label</DocsPageLink> — use{" "}
+            <Code>FieldLabel</Code> inside Field for product forms. Standalone
+            controls may use Label when they do not need Field's layout.
+            Controls with a documented label prop own their label composition.
           </li>
         </ul>
       </MainSection>
@@ -163,7 +165,8 @@ export function GuidesChoosingComponentsPage() {
             <DocsPageLink to="/components/date-picker">
               Date picker
             </DocsPageLink>{" "}
-            — future or general dates (events, deadlines). Not date of birth.
+            — dates that benefit from a calendar (events, deadlines). Prefer
+            Date field for date of birth unless the product requires a calendar.
           </li>
           <li>
             <DocsPageLink to="/components/calendar">Calendar</DocsPageLink> —
@@ -196,12 +199,14 @@ export function GuidesChoosingComponentsPage() {
           </li>
           <li>
             <DocsPageLink to="/components/file-field">File field</DocsPageLink>{" "}
-            — not the primary Gecko upload pattern; prefer Attachment.
+            — basic file selection when upload status is not needed. Use
+            Attachment for upload progress, retry and removal.
           </li>
           <li>
             <DocsPageLink to="/components/file-tree">File tree</DocsPageLink> —
-            not used in product UI today. Do not invent uses until product
-            adopts it.
+            a confirmed hierarchy of folders and files, such as a website map.
+            It is not currently used in product UI; selection, file actions and
+            other new interactions require a library extension.
           </li>
           <li>
             <DocsPageLink to="/components/sortable-list">
@@ -259,7 +264,7 @@ export function GuidesChoosingComponentsPage() {
             example close conversation).
           </li>
           <li>
-            <DocsPageLink to="/components/alert">Alert</DocsPageLink> — an
+            <DocsPageLink to="/components/alert">Alert</DocsPageLink> — a
             persistent, non-blocking callout within a page or section. The
             parent removes it when the condition ends; make it dismissible only
             when the message is safe to acknowledge and clear.
@@ -274,8 +279,8 @@ export function GuidesChoosingComponentsPage() {
           </li>
           <li>
             <DocsPageLink to="/components/progress">Progress</DocsPageLink> —
-            reporting how complete a metric or job is — not the primary page
-            loading pattern.
+            completion of a measurable task. Use Spinner when completion cannot
+            be measured.
           </li>
         </ul>
       </MainSection>
@@ -297,8 +302,9 @@ export function GuidesChoosingComponentsPage() {
           </li>
           <li>
             <DocsPageLink to="/components/filters">Filters</DocsPageLink> —
-            product list filtering, always paired with Data table. Inbox
-            conversation filters are a separate pattern.
+            collection filtering through <Code>Filter</Code>. Use Data table's
+            toolbar for product lists, or Filter directly for dashboards and
+            reports. Inbox conversation filters are a separate pattern.
           </li>
           <li>
             <DocsPageLink to="/components/metric-card">
@@ -365,17 +371,20 @@ export function GuidesChoosingComponentsPage() {
             <DocsPageLink to="/components/message-scroller">
               Message scroller
             </DocsPageLink>{" "}
-            — transcript with notes and system messages included.
+            — conversation transcript. Notes and system messages belong only in
+            the administrator transcript and must never reach customers.
           </li>
           <li>
             <DocsPageLink to="/components/message">Message</DocsPageLink> /{" "}
             <DocsPageLink to="/components/bubble">Bubble</DocsPageLink> —
-            conversation rows; Bubble variants map to agent, customer, bot, and
-            note roles.
+            conversation rows. Set the participant or note variant on Message
+            and let it supply Bubble's treatment and alignment.
           </li>
           <li>
             <DocsPageLink to="/components/reply-box">Reply box</DocsPageLink> —
-            default composer in Inbox; basic variant in the live chat widget.
+            <Code>chat</Code> for the full composer, <Code>textarea</Code> for a
+            multiline composer, or <Code>basic</Code> for a compact single-line
+            composer. Choose from the conversation workflow.
           </li>
           <li>
             <DocsPageLink to="/components/typing-indicator">
@@ -416,11 +425,14 @@ export function GuidesChoosingComponentsPage() {
           </li>
           <li>
             <DocsPageLink to="/components/pagination">Pagination</DocsPageLink>{" "}
-            — under Data table (and Activity feed) results. Never in Header.
+            — navigation below paginated results. Use the pagination already
+            owned by Data table and Activity feed when consuming those
+            components.
           </li>
           <li>
             <DocsPageLink to="/components/sidebar">Sidebar</DocsPageLink> —
-            primitives for building App Sidebar or custom rails.
+            primitives used by App Sidebar. Product code uses App Sidebar; other
+            shell compositions require approval.
           </li>
         </ul>
       </MainSection>

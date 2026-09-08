@@ -57,7 +57,7 @@ Do not put unrelated form actions inside the boundary.
 
 - Use decorative icons to reinforce the input purpose or show a redundant status cue.
 - Use InputGroupText for short prefixes, suffixes, units and counters.
-- Use Kbd when a real keyboard shortcut activates or focuses the input.
+- Use [Kbd](kbd.md) when a real keyboard shortcut activates or focuses the input.
 - Compose Dropdown Menu with InputGroupButton when several actions or scopes operate on the value.
 - Use a small Spinner with `aria-busy="true"` on the group while work is in progress.
 
@@ -144,3 +144,4 @@ InputGroupInput accepts the Input interface except native numeric `size`. InputG
 - **Textarea** — multiline text without an internal toolbar.
 - **Button Group** — actions joined beside a control.
 - **Field** — labels, descriptions, errors and form layout.
+- **Kbd** — display of an implemented keyboard shortcut inside an addon.

@@ -141,6 +141,15 @@ Tooltip and Popover composition is supported by the open children interface but 
 
 Compose Collapsible inside BubbleContent when a long message needs an explicit Show more and Show less control. Keep the full message in the DOM and visually clamp the closed state so the Bubble retains a stable intrinsic width and assistive technology receives the complete message. Use a native Button through CollapsibleTrigger.
 
+Import the disclosure parts from Gecko:
+
+```tsx
+import {
+  Collapsible,
+  CollapsibleTrigger,
+} from "@gecko/ui/components/collapsible";
+```
+
 ## Accessibility
 
 - Bubble is a visual layout primitive; the surrounding Message supplies message-level meaning and context.

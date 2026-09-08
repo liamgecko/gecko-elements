@@ -137,4 +137,4 @@ Don't:
 
 - **Header tabs** — switch between sub-pages within a product section.
 - **Tabs** — switch between views or sections of content on the same page.
-  The existing Collapsible implementation is not a recommended alternative and is planned for removal. Do not use or expand it.
+- **Collapsible** — supports the approved [long-message Bubble composition](bubble.md#long-content) and folder disclosure inside [File tree](file-tree.md). Keep these uses; Collapsible is not a replacement for Accordion's grouped sections. Application code consumes FileTree rather than rebuilding its internal disclosure composition.

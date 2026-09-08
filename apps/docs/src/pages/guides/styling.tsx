@@ -116,23 +116,24 @@ export function GuidesStylingPage() {
           title="Field wrapping"
           description={
             <>
-              Form controls belong inside{" "}
-              <DocsPageLink to="/components/field">Field</DocsPageLink>. Field
-              provides the label, description, and error message. Do not
-              recreate that layout with custom markup.
+              Follow each control's documented{" "}
+              <DocsPageLink to="/components/field">Field</DocsPageLink>{" "}
+              composition for labels, descriptions and validation. Some controls
+              own their label through a dedicated prop.
             </>
           }
         >
           <DocsDoDont
             doItems={[
               <>
-                Wrap every form control in a{" "}
-                <DocsPageLink to="/components/field">Field</DocsPageLink> with a{" "}
-                <Code>FieldLabel</Code>.
+                Use <Code>FieldLabel</Code> inside{" "}
+                <DocsPageLink to="/components/field">Field</DocsPageLink> unless
+                the control's documented label prop supplies its label.
               </>,
               <>
                 Use <Code>FieldDescription</Code> for help text and{" "}
-                <Code>FieldError</Code> for validation.
+                <Code>FieldError</Code> for validation, connected to the control
+                with <Code>aria-describedby</Code>.
               </>,
               <>
                 Match <Code>size</Code> across every control in the same form
@@ -140,7 +141,7 @@ export function GuidesStylingPage() {
               </>,
             ]}
             dontItems={[
-              <>Don't build label and error layout outside of Field.</>,
+              <>Don't duplicate a label already owned by the control.</>,
               <>Don't mix field sizes in the same form row.</>,
               <>
                 Don't use <Code>disabled</Code> to represent a validation error.
@@ -171,7 +172,8 @@ export function GuidesStylingPage() {
               <DocsPageLink to="/structure/container">
                 Page Container
               </DocsPageLink>{" "}
-              around the main page content.
+              around standard page content. Inbox has its own layout and omits
+              Page Header and Container.
             </>,
             <>
               Place it below a{" "}
