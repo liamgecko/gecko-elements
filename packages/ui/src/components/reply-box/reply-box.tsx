@@ -98,7 +98,7 @@ export function ReplyBox({
     variant === "textarea" && "bg-background",
     variant === "basic" &&
       "shadow-md transition-[border-color] has-[[data-slot=reply-box-input]:focus]:border-ring",
-    expanded && "h-full",
+    expanded && "h-full min-h-0",
     className,
   );
 
@@ -145,6 +145,7 @@ export function ReplyBox({
               data-slot="reply-box-panel"
               className={cn(
                 "border border-border -mt-px -mx-px rounded-xl",
+                expanded && "flex min-h-0 flex-1 flex-col",
                 noteMode ? "bg-warning-muted" : "bg-background",
               )}
             >

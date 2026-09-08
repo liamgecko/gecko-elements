@@ -142,6 +142,7 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "disabled", label: "Disabled" },
+    { id: "panel-disclosure", label: "Panel disclosure" },
     { id: "dropdown", label: "Dropdown" },
     { id: "link-button", label: "Link button" },
     { id: "sizes", label: "Sizes" },

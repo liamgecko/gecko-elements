@@ -64,7 +64,7 @@ export function ReplyBoxHeader({
     <div
       data-slot="reply-box-header"
       className={[
-        "flex items-center justify-between gap-2 px-2 py-2 border-b border-border",
+        "flex shrink-0 items-center justify-between gap-2 px-2 py-2 border-b border-border",
         className,
       ]
         .filter(Boolean)
@@ -142,6 +142,7 @@ export function ReplyBoxHeader({
                   aria-label={
                     expanded ? "Minimize reply box" : "Maximize reply box"
                   }
+                  aria-expanded={expanded}
                   onClick={toggleExpanded}
                 >
                   {expanded ? (

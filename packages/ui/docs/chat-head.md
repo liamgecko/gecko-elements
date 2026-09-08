@@ -22,6 +22,9 @@ Pass the current conversations, the selected conversation ID, and the product’
   onSelect={(conversation) => {
     setSelectedConversationId(conversation.id);
   }}
+  onCloseConversation={closeConversation}
+  onReopenConversation={reopenConversation}
+  onDeleteConversation={requestConversationDeletion}
 />
 ```
 
@@ -101,18 +104,20 @@ The product owns the unread state. Chat head does not infer unread status from t
 
 `state` is an approved closed set:
 
-| Value      | Meaning                 | Controls shown     |
-| ---------- | ----------------------- | ------------------ |
-| `"open"`   | An active conversation  | Close              |
-| `"closed"` | A finished conversation | Re-open and delete |
+| Value      | Meaning                 | Controls available with callbacks |
+| ---------- | ----------------------- | --------------------------------- |
+| `"open"`   | An active conversation  | Close                             |
+| `"closed"` | A finished conversation | Re-open and delete                |
 
 `"open"` is the default.
 
-The library owns the controls’ appearance, placement, tooltips, accessible names, and mapping to conversation state. Their product behaviour is intentionally outside the current interface and will be decided during product integration.
+The library owns the controls’ appearance, placement, tooltips, accessible names and mapping to conversation state. Connect `onCloseConversation`, `onReopenConversation` and `onDeleteConversation` to make the respective controls available. Each callback receives the complete item. An action without a callback is omitted; a list without action callbacks remains a selectable list with no inert action buttons. Its timestamps remain visible on hover and focus.
+
+Callbacks report intent; Chat Head does not change `items`, select the row, close a conversation or delete data itself. The application owns state updates, persistence, permissions, pending/error feedback and any deletion confirmation. Update the controlled items only according to the product's success or optimistic-update rules. When removal invalidates the current selection, the application chooses a remaining conversation or clears the selection and manages focus.
 
 Delete uses Button’s `outline-destructive` treatment. It matches the neutral outline controls at rest, then communicates destructive intent through its interaction states.
 
-Agents must preserve the existing controls and must not add callbacks, action implementations, confirmation flows, permissions, or alternative controls without explicit user consent.
+Use these action callbacks instead of recreating row controls. Keep confirmation flows and permissions in the application. Obtain explicit user consent before adding other action types or changing the approved control treatment.
 
 ## Relative time
 
@@ -153,11 +158,14 @@ Do not add loading, empty, error, filtering, sorting, or pagination properties t
 
 ### ChatHead
 
-| Property     | Type                           | Default  | Meaning                                       |
-| ------------ | ------------------------------ | -------- | --------------------------------------------- |
-| `items`      | `readonly ChatHeadItem[]`      | required | Conversations rendered in supplied order      |
-| `selectedId` | `string`                       | none     | Currently selected conversation ID            |
-| `onSelect`   | `(item: ChatHeadItem) => void` | required | Reports conversation selection to the product |
+| Property               | Type                           | Default  | Meaning                                            |
+| ---------------------- | ------------------------------ | -------- | -------------------------------------------------- |
+| `items`                | `readonly ChatHeadItem[]`      | required | Conversations rendered in supplied order           |
+| `selectedId`           | `string`                       | none     | Currently selected conversation ID                 |
+| `onSelect`             | `(item: ChatHeadItem) => void` | required | Reports conversation selection to the product      |
+| `onCloseConversation`  | `(item: ChatHeadItem) => void` | none     | Exposes the close action for open conversations    |
+| `onReopenConversation` | `(item: ChatHeadItem) => void` | none     | Exposes the reopen action for closed conversations |
+| `onDeleteConversation` | `(item: ChatHeadItem) => void` | none     | Exposes the delete action for closed conversations |
 
 Chat head also accepts native `ul` properties except `children` and the native DOM `onSelect` event. Its `onSelect` property exclusively reports conversation selection. Callers provide data through `items`; they do not compose rows manually.
 

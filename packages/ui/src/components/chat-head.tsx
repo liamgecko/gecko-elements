@@ -37,6 +37,9 @@ export type ChatHeadProps = Omit<
   items: readonly ChatHeadItem[];
   selectedId?: string;
   onSelect: (item: ChatHeadItem) => void;
+  onCloseConversation?: (item: ChatHeadItem) => void;
+  onReopenConversation?: (item: ChatHeadItem) => void;
+  onDeleteConversation?: (item: ChatHeadItem) => void;
 };
 
 function formatRelativeTime(timestamp: Date, now: Date): string {
@@ -55,57 +58,64 @@ function formatRelativeTime(timestamp: Date, now: Date): string {
   return `${Math.floor(diffMs / year)}y`;
 }
 
-function ChatHeadActions({ state }: { state: ChatHeadState }) {
+function ChatHeadActions({
+  item,
+  onCloseConversation,
+  onReopenConversation,
+  onDeleteConversation,
+}: Pick<
+  ChatHeadProps,
+  "onCloseConversation" | "onReopenConversation" | "onDeleteConversation"
+> & { item: ChatHeadItem }) {
+  const actions =
+    item.state === "closed"
+      ? [
+          {
+            label: "Re-open conversation",
+            icon: LockOpen,
+            onAction: onReopenConversation,
+            variant: "outline" as const,
+          },
+          {
+            label: "Delete conversation",
+            icon: Trash2,
+            onAction: onDeleteConversation,
+            variant: "outline-destructive" as const,
+          },
+        ]
+      : [
+          {
+            label: "Close conversation",
+            icon: Check,
+            onAction: onCloseConversation,
+            variant: "outline" as const,
+          },
+        ];
+  const availableActions = actions.filter((action) => action.onAction);
+  if (!availableActions.length) return null;
+
   return (
     <div className="pointer-events-none absolute inset-y-0 end-3 z-10 flex items-center gap-1.5 opacity-0 transition-opacity duration-200 group-hover/chat-head-item:pointer-events-auto group-hover/chat-head-item:opacity-100 group-focus-within/chat-head-item:pointer-events-auto group-focus-within/chat-head-item:opacity-100">
-      {state === "closed" ? (
-        <>
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <Button type="button" variant="outline" size="icon-xs">
-                  <HugeiconsIcon icon={LockOpen} aria-hidden="true" />
-                  <span className="sr-only">Re-open conversation</span>
-                </Button>
-              }
-            />
-            <TooltipContent side="bottom">
-              <p>Re-open this conversation</p>
-            </TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <Button
-                  type="button"
-                  variant="outline-destructive"
-                  size="icon-xs"
-                >
-                  <HugeiconsIcon icon={Trash2} aria-hidden="true" />
-                  <span className="sr-only">Delete conversation</span>
-                </Button>
-              }
-            />
-            <TooltipContent side="bottom">
-              <p>Permanently delete this conversation</p>
-            </TooltipContent>
-          </Tooltip>
-        </>
-      ) : (
-        <Tooltip>
+      {availableActions.map((action) => (
+        <Tooltip key={action.label}>
           <TooltipTrigger
             render={
-              <Button type="button" variant="outline" size="icon-xs">
-                <HugeiconsIcon icon={Check} aria-hidden="true" />
-                <span className="sr-only">Close conversation</span>
+              <Button
+                type="button"
+                variant={action.variant}
+                size="icon-xs"
+                onClick={() => action.onAction?.(item)}
+              >
+                <HugeiconsIcon icon={action.icon} aria-hidden="true" />
+                <span className="sr-only">{action.label}</span>
               </Button>
             }
           />
           <TooltipContent side="bottom">
-            <p>Mark this conversation as closed</p>
+            <p>{action.label}</p>
           </TooltipContent>
         </Tooltip>
-      )}
+      ))}
     </div>
   );
 }
@@ -115,6 +125,9 @@ function ChatHead({
   items,
   selectedId,
   onSelect,
+  onCloseConversation,
+  onReopenConversation,
+  onDeleteConversation,
   ...props
 }: ChatHeadProps) {
   const [now, setNow] = React.useState(() => new Date());
@@ -169,6 +182,10 @@ function ChatHead({
         {items.map((item, index) => {
           const isSelected = item.id === selectedId;
           const state = item.state ?? "open";
+          const hasActions =
+            state === "closed"
+              ? Boolean(onReopenConversation || onDeleteConversation)
+              : Boolean(onCloseConversation);
           const preview =
             item.lastMessageSender === "agent"
               ? `You: ${item.messageSnippet}`
@@ -223,13 +240,22 @@ function ChatHead({
                 <time
                   dateTime={item.timestamp.toISOString()}
                   title={item.timestamp.toLocaleString()}
-                  className="shrink-0 whitespace-nowrap text-2xs font-medium text-muted-foreground transition-opacity duration-200 group-hover/chat-head-item:opacity-0 group-focus-within/chat-head-item:opacity-0"
+                  className={cn(
+                    "shrink-0 whitespace-nowrap text-2xs font-medium text-muted-foreground transition-opacity duration-200",
+                    hasActions &&
+                      "group-hover/chat-head-item:opacity-0 group-focus-within/chat-head-item:opacity-0",
+                  )}
                 >
                   {formatRelativeTime(item.timestamp, now)}
                 </time>
               </button>
 
-              <ChatHeadActions state={state} />
+              <ChatHeadActions
+                item={item}
+                onCloseConversation={onCloseConversation}
+                onReopenConversation={onReopenConversation}
+                onDeleteConversation={onDeleteConversation}
+              />
             </li>
           );
         })}

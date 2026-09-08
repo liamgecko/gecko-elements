@@ -51,7 +51,7 @@ export function ReplyBoxFooter({
     <div
       data-slot="reply-box-footer"
       className={cn(
-        "flex items-center justify-between gap-3 px-2 py-2",
+        "flex shrink-0 items-center justify-between gap-3 px-2 py-2",
         ctx.variant === "textarea" && "border-t border-border",
         className,
       )}

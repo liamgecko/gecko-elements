@@ -111,7 +111,9 @@ Note mode changes the surface, writing prompt, accessible name and send action. 
 
 Use expanded with onExpandedChange when the product owns the available composer height. Use defaultExpanded for an uncontrolled initial state.
 
-The expand control changes only Reply box state. Its parent must provide a meaningful height for the expanded layout.
+The parent provides a bounded height and controls the space available to the composer. When expanded, Reply box fills that height and its editor takes the remaining space while the header and footer stay visible. Long drafts scroll inside the editor.
+
+Keep the same ReplyBox and ReplyBoxContent mounted when expanding or contracting. Expansion changes layout only: it preserves the draft and note mode, with the existing channel controls, footer tray items, icons and actions retained. Do not switch variants or replace the editor to implement expansion.
 
 ## Channels
 
