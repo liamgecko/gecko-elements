@@ -13,19 +13,19 @@ const buttonVariants = cva(
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/85",
         outline:
-          "border-border bg-transparent hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground disabled:bg-muted data-disabled:bg-muted",
+          "border-border bg-background hover:bg-muted hover:text-foreground [&[aria-haspopup][aria-expanded=true]]:bg-muted [&[aria-haspopup][aria-expanded=true]]:text-foreground disabled:bg-muted data-disabled:bg-muted",
         "outline-destructive":
-          "border-border bg-transparent hover:border-destructive-muted-border hover:bg-destructive-muted hover:text-destructive-muted-foreground aria-expanded:border-destructive-muted-border aria-expanded:bg-destructive-muted aria-expanded:text-destructive-muted-foreground focus-visible:border-destructive/40 focus-visible:ring-destructive/20 disabled:bg-muted data-disabled:bg-muted",
+          "border-border bg-background hover:border-destructive-muted-border hover:bg-destructive-muted hover:text-destructive-muted-foreground [&[aria-haspopup][aria-expanded=true]]:border-destructive-muted-border [&[aria-haspopup][aria-expanded=true]]:bg-destructive-muted [&[aria-haspopup][aria-expanded=true]]:text-destructive-muted-foreground focus-visible:border-destructive/40 focus-visible:ring-destructive/20 disabled:bg-muted data-disabled:bg-muted",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:hover:bg-secondary dark:hover:bg-[linear-gradient(color-mix(in_oklch,var(--dark-surface-hover)_50%,transparent),color-mix(in_oklch,var(--dark-surface-hover)_50%,transparent))] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 dark:hover:bg-secondary dark:hover:bg-[linear-gradient(color-mix(in_oklch,var(--dark-surface-hover)_50%,transparent),color-mix(in_oklch,var(--dark-surface-hover)_50%,transparent))] [&[aria-haspopup][aria-expanded=true]]:bg-secondary [&[aria-haspopup][aria-expanded=true]]:text-secondary-foreground",
         ghost:
-          "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground",
+          "hover:bg-muted hover:text-foreground [&[aria-haspopup][aria-expanded=true]]:bg-muted [&[aria-haspopup][aria-expanded=true]]:text-foreground",
         "ghost-light":
-          "hover:bg-light-surface-hover hover:text-foreground aria-expanded:bg-light-surface-hover aria-expanded:text-foreground",
+          "hover:bg-light-surface-hover hover:text-foreground [&[aria-haspopup][aria-expanded=true]]:bg-light-surface-hover [&[aria-haspopup][aria-expanded=true]]:text-foreground",
         "ghost-dark":
-          "text-dark-surface-foreground hover:bg-dark-surface-hover hover:text-dark-surface-foreground aria-expanded:bg-dark-surface-hover aria-expanded:text-dark-surface-foreground",
+          "text-dark-surface-foreground hover:bg-dark-surface-hover hover:text-dark-surface-foreground [&[aria-haspopup][aria-expanded=true]]:bg-dark-surface-hover [&[aria-haspopup][aria-expanded=true]]:text-dark-surface-foreground",
         "ghost-destructive":
-          "hover:bg-destructive-muted hover:text-destructive-muted-foreground aria-expanded:bg-destructive-muted aria-expanded:text-destructive-muted-foreground focus-visible:border-destructive/40 focus-visible:ring-destructive/20",
+          "hover:bg-destructive-muted hover:text-destructive-muted-foreground [&[aria-haspopup][aria-expanded=true]]:bg-destructive-muted [&[aria-haspopup][aria-expanded=true]]:text-destructive-muted-foreground focus-visible:border-destructive/40 focus-visible:ring-destructive/20",
         destructive:
           "bg-destructive-muted text-destructive-muted-foreground hover:bg-destructive-muted/80 dark:hover:bg-destructive-muted dark:hover:bg-[linear-gradient(color-mix(in_oklch,var(--dark-surface-hover)_50%,transparent),color-mix(in_oklch,var(--dark-surface-hover)_50%,transparent))] focus-visible:border-destructive/40 focus-visible:ring-destructive/20",
         link: "text-primary underline-offset-4 hover:underline",

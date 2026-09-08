@@ -170,6 +170,14 @@ The chevron rotates when the trigger opens and returns when it closes. Reduced-m
 
 The `dropdown` property is not a standalone disclosure implementation.
 
+## Panel disclosure
+
+Use a ghost icon Button for showing or hiding a persistent panel. Supply an action-specific `aria-label`, `aria-expanded` and `aria-controls` naming the panel. Change the icon and label with the expanded state. Do not use Toggle or `aria-pressed` for this action.
+
+`aria-expanded` alone does not change Button colours, borders or background. Normal hover and keyboard-focus treatments still apply. Only popup triggers that also have `aria-haspopup` receive the existing expanded popup treatment. Keep popup semantics on menus and popovers; do not add `aria-haspopup` to a panel button for styling.
+
+For a right contact panel, use `LayoutAlignRightIcon` while expanded (collapse action) and `LayoutRightIcon` while collapsed (expand action), rendered through `@gecko/ui/lib/icon`. The application owns panel state and visibility. The navigation rail uses SidebarTrigger, which owns its corresponding left-panel icons and labels.
+
 ## Forms
 
 Base UI safely renders Button with `type="button"` by default. Set `type="submit"` explicitly for form submission.
@@ -210,6 +218,8 @@ Base UI safely renders Button with `type="button"` by default. Set `type="submit
 ## Styling contract
 
 The library owns colour, border, radius, spacing, typography, icon sizing, dropdown chevron, focus, hover, disabled, invalid, and loading treatments.
+
+Both `outline` and `outline-destructive` use `bg-background` as their resting surface. Their existing hover, popup-open, focus and disabled treatments still apply.
 
 Ghost Button treatments use shared semantic surface roles. `ghost-light` uses the light-surface hover role, which remains a dark translucent overlay in both appearance modes so it contrasts with pale specialised surfaces. `ghost-dark` uses the dark-surface foreground and hover roles, which remain light in both appearance modes. Do not hardcode contextual surface colours in Button compositions.
 

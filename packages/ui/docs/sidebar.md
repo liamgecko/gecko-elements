@@ -109,7 +109,8 @@ App Sidebar fixes these values to the approved product treatment. Do not overrid
 
 `SidebarTrigger` uses `LayoutAlignLeftIcon` while expanded to represent the
 collapse action and `LayoutLeftIcon` while collapsed to represent the expand
-action.
+action. It supplies the corresponding accessible action label and `aria-expanded`.
+Expanded state does not give the Button a selected background; normal hover and focus treatments remain.
 
 ## Accessibility
 

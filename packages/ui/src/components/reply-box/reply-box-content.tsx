@@ -181,7 +181,11 @@ export function ReplyBoxContent({
   return (
     <div
       data-slot="reply-box-content"
-      className={cn("bg-transparent", className)}
+      className={cn(
+        "bg-transparent",
+        expanded && "flex min-h-0 flex-1 flex-col",
+        className,
+      )}
     >
       <textarea
         data-slot="reply-box-textarea"
@@ -189,7 +193,7 @@ export function ReplyBoxContent({
         placeholder={resolvedPlaceholder}
         className={cn(
           "appearance-none w-full min-w-0 resize-none bg-transparent border-0 text-sm outline-none ring-0 shadow-none focus:outline-none focus:ring-0 placeholder:text-muted-foreground p-4",
-          expanded ? "min-h-56 h-full" : "min-h-28",
+          expanded ? "block h-full min-h-0 flex-1" : "min-h-28",
           noteMode && "bg-transparent",
           textareaClassFromProps,
         )}

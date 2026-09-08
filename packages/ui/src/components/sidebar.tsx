@@ -297,8 +297,8 @@ function SidebarTrigger({
   onClick,
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { toggleSidebar, state } = useSidebar();
-  const expanded = state === "expanded";
+  const { toggleSidebar, state, isMobile, openMobile } = useSidebar();
+  const expanded = isMobile ? openMobile : state === "expanded";
   const Icon = expanded ? LayoutAlignLeft : LayoutLeft;
   const label = expanded ? "Collapse sidebar" : "Expand sidebar";
   const isMac =
@@ -313,6 +313,7 @@ function SidebarTrigger({
       size="icon-sm"
       className={cn(className)}
       aria-label={label}
+      aria-expanded={expanded}
       onClick={(event) => {
         onClick?.(event);
         toggleSidebar();

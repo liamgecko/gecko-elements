@@ -2,6 +2,12 @@
 
 Gecko Elements' shared React component library. The [component contracts](docs/) define approved usage, composition, props and styling. Use this guide for interface work in any consuming project, and read the matching contract before changing a component or its documentation.
 
+## Desktop application scope
+
+The Gecko application, including the Sandbox Inbox, is a desktop application. Mobile layouts, phone breakpoints, touch-specific navigation and mobile visual checks are not requirements. Do not add them or report their absence as a defect unless the user explicitly requests mobile support for a particular product surface.
+
+Support desktop window resizing, keyboard navigation, screen readers, browser zoom and the approved appearance modes. Component overflow inside a desktop panel remains relevant. Existing capabilities used by other consumers should not be removed merely because the desktop app does not require them.
+
 ## Find and choose a component
 
 Start from the task the interface must support. Search contract titles and their Purpose and Related sections, then read the candidate contracts to choose between similar components. From this directory:
@@ -40,6 +46,8 @@ Begin with the selected component's canonical usage. Supply product content, sta
 Components own their visual treatment. Use documented props and composition slots; use `className` only for the layout integration allowed by that component's contract. Build surrounding page layout without overriding component padding, colours, typography, borders, icons or interaction states through classes, inline styles, CSS selectors or token overrides. Do not copy, replace or wrap a component to create a locally customised version. Composition wrappers may organise approved components and product logic while preserving their contracts.
 
 Before adding, replacing or directly importing an external UI dependency, read [Approved UI dependencies](docs/dependencies.md). Use the assigned Gecko interface and its documented exceptions. An upstream API or a permissive TypeScript prop does not itself approve a new Gecko usage pattern.
+
+Panel disclosure buttons follow the [Button contract](docs/button.md); conversation row actions follow the [Chat Head contract](docs/chat-head.md).
 
 ## When something is missing
 

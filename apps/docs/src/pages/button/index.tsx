@@ -16,12 +16,20 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@gecko/ui/components/dropdown-menu";
+import LayoutAlignRightIcon from "@hugeicons/core-free-icons/LayoutAlignRightIcon";
+import LayoutRightIcon from "@hugeicons/core-free-icons/LayoutRightIcon";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@gecko/ui/components/tooltip";
 import RefreshCw from "@hugeicons/core-free-icons/RefreshCwIcon";
 import Settings from "@hugeicons/core-free-icons/Settings01Icon";
 import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import { useState } from "react";
 
 export function ButtonPage() {
+  const [panelExpanded, setPanelExpanded] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -267,8 +275,9 @@ export function SaveChangesButton({
           title="Outline"
           description={
             <>
-              A bordered action using <Code>variant=&quot;outline&quot;</Code>.
-              Use this when a solid button would be too loud.
+              A bordered action using <Code>variant=&quot;outline&quot;</Code>{" "}
+              with a <Code>bg-background</Code> resting surface. Use this when a
+              solid button would be too loud.
             </>
           }
         >
@@ -429,6 +438,52 @@ export function SaveChangesButton({
               showCopyButton
               copyLabel="Copy example"
             />
+          </div>
+        </ComponentExample>
+      </MainSection>
+
+      <MainSection
+        id="panel-disclosure"
+        title="Panel disclosure"
+        description="Panel buttons change their icon and accessible action label. Expanded state keeps the same resting appearance; hover and keyboard focus still work."
+      >
+        <ComponentExample>
+          <div className="grid gap-4">
+            <div>
+              <Tooltip>
+                <TooltipTrigger
+                  render={
+                    <Button
+                      variant="ghost"
+                      size="icon-sm"
+                      aria-label={
+                        panelExpanded
+                          ? "Hide contact details"
+                          : "Show contact details"
+                      }
+                      aria-expanded={panelExpanded}
+                      aria-controls="button-contact-panel"
+                      onClick={() => setPanelExpanded((value) => !value)}
+                    >
+                      <HugeiconsIcon
+                        icon={
+                          panelExpanded ? LayoutAlignRightIcon : LayoutRightIcon
+                        }
+                        aria-hidden
+                      />
+                    </Button>
+                  }
+                />
+                <TooltipContent>
+                  {panelExpanded
+                    ? "Hide contact details"
+                    : "Show contact details"}
+                </TooltipContent>
+              </Tooltip>
+            </div>
+            <div id="button-contact-panel" hidden={!panelExpanded}>
+              Contact details
+            </div>
           </div>
         </ComponentExample>
       </MainSection>

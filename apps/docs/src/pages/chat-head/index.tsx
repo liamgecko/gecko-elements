@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -10,6 +10,7 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { ChatHead, type ChatHeadItem } from "@gecko/ui/components/chat-head";
+import { Button } from "@gecko/ui/components/button";
 import { Code } from "@gecko/ui/components/code";
 
 const now = Date.now();
@@ -126,6 +127,58 @@ const activeSnippet = `<ChatHead
   }}
 />`;
 
+function ConversationActionsExample() {
+  const [items, setItems] = useState([
+    ...defaultConversations,
+    ...closedConversations,
+  ]);
+  const [selectedId, setSelectedId] = useState<string>();
+  const [feedback, setFeedback] = useState(
+    "Hover or focus a row to use its conversation actions.",
+  );
+  const resetRef = useRef<HTMLButtonElement>(null);
+  const changeState = (item: ChatHeadItem, state: "open" | "closed") => {
+    setItems((previous) =>
+      previous.map((row) => (row.id === item.id ? { ...row, state } : row)),
+    );
+    setFeedback(
+      `${item.name}: conversation ${state === "open" ? "reopened" : "closed"}.`,
+    );
+    resetRef.current?.focus();
+  };
+  return (
+    <div className="grid gap-4">
+      <ChatHead
+        items={items}
+        selectedId={selectedId}
+        onSelect={(item) => setSelectedId(item.id)}
+        onCloseConversation={(item) => changeState(item, "closed")}
+        onReopenConversation={(item) => changeState(item, "open")}
+        onDeleteConversation={(item) => {
+          setItems((previous) => previous.filter((row) => row.id !== item.id));
+          if (selectedId === item.id) setSelectedId(undefined);
+          setFeedback(`${item.name}: example conversation removed.`);
+          resetRef.current?.focus();
+        }}
+      />
+      <p role="status">{feedback}</p>
+      <div>
+        <Button
+          ref={resetRef}
+          variant="outline"
+          onClick={() => {
+            setItems([...defaultConversations, ...closedConversations]);
+            setSelectedId(undefined);
+            setFeedback("Example conversations reset.");
+          }}
+        >
+          Reset conversations
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 export function ChatHeadPage() {
   const [selectedConversationId, setSelectedConversationId] =
     useState("active-matt-lanham");
@@ -209,8 +262,8 @@ export function ChatHeadPage() {
         description={
           <>
             Set an item’s <Code>state</Code> to <Code>"closed"</Code> for a
-            finished conversation. Its existing controls change to re-open and
-            delete.
+            finished conversation. Its available actions are re-open and delete
+            when their callbacks are supplied.
           </>
         }
       >
@@ -305,8 +358,12 @@ export function ChatHeadPage() {
       <MainSection
         id="controls"
         title="Controls"
-        description="Open conversations display the existing close control. Closed conversations display the existing re-open and delete controls. Their product behaviour is intentionally outside the current library interface and will be decided during product integration."
-      ></MainSection>
+        description="Connect the close, reopen and delete callbacks to expose each action. The application updates items and handles persistence, permissions and confirmation. Missing callbacks hide the corresponding controls. This example changes local data only."
+      >
+        <ComponentExample>
+          <ConversationActionsExample />
+        </ComponentExample>
+      </MainSection>
 
       <MainSection
         id="keyboard"
@@ -371,6 +428,24 @@ export function ChatHeadPage() {
               type: "(item: ChatHeadItem) => void",
               description:
                 "Notifies the product when a conversation is selected.",
+            },
+            {
+              name: "onCloseConversation",
+              type: "(item: ChatHeadItem) => void",
+              description:
+                "Optional. Exposes the close action for open conversations.",
+            },
+            {
+              name: "onReopenConversation",
+              type: "(item: ChatHeadItem) => void",
+              description:
+                "Optional. Exposes the reopen action for closed conversations.",
+            },
+            {
+              name: "onDeleteConversation",
+              type: "(item: ChatHeadItem) => void",
+              description:
+                "Optional. Exposes the delete action for closed conversations.",
             },
             {
               name: "item.id",

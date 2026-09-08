@@ -21,6 +21,7 @@ import {
 
 export function ReplyBoxPage() {
   const [sending, setSending] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const basicItems: ReplyBoxActionId[] = ["attachment", "emoji", "image"];
 
   const importSnippet = [
@@ -40,11 +41,19 @@ export function ReplyBoxPage() {
   ].join("\n");
 
   const defaultSnippet = [
-    '<ReplyBox channel={{ type: "email", label: "Select a channel" }}>',
-    "  <ReplyBoxHeader showChannelSwitcher showExpand />",
-    "  <ReplyBoxContent />",
-    "  <ReplyBoxFooter showTray />",
-    "</ReplyBox>",
+    "const [expanded, setExpanded] = useState(false)",
+    "",
+    '<div className={expanded ? "h-112 min-h-0" : undefined}>',
+    "  <ReplyBox",
+    '    channel={{ type: "email", label: "Select a channel" }}',
+    "    expanded={expanded}",
+    "    onExpandedChange={setExpanded}",
+    "  >",
+    "    <ReplyBoxHeader showChannelSwitcher showExpand />",
+    "    <ReplyBoxContent />",
+    "    <ReplyBoxFooter showTray />",
+    "  </ReplyBox>",
+    "</div>",
   ].join("\n");
 
   const footerOnlySnippet = [
@@ -154,11 +163,17 @@ export function ReplyBoxPage() {
       >
         <ComponentExample>
           <div className="space-y-6">
-            <ReplyBox channel={{ type: "email", label: "Select a channel" }}>
-              <ReplyBoxHeader showChannelSwitcher showExpand />
-              <ReplyBoxContent />
-              <ReplyBoxFooter showTray />
-            </ReplyBox>
+            <div className={expanded ? "h-112 min-h-0" : undefined}>
+              <ReplyBox
+                channel={{ type: "email", label: "Select a channel" }}
+                expanded={expanded}
+                onExpandedChange={setExpanded}
+              >
+                <ReplyBoxHeader showChannelSwitcher showExpand />
+                <ReplyBoxContent />
+                <ReplyBoxFooter showTray />
+              </ReplyBox>
+            </div>
             <Code
               variant="block"
               language="tsx"
