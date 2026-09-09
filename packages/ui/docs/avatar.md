@@ -1,6 +1,6 @@
 # Avatar
 
-Import: `@gecko/ui/components/avatar`  
+Import: `@geckolabs/elements/components/avatar`  
 Status: Stable  
 Source: `src/components/avatar.tsx`  
 Human documentation: `apps/docs/src/pages/avatar/index.tsx`
@@ -21,7 +21,7 @@ import {
   AvatarDescription,
   AvatarImage,
   AvatarLabel,
-} from "@gecko/ui/components/avatar";
+} from "@geckolabs/elements/components/avatar";
 ```
 
 `AvatarBadge` is an internal visual foundation. It is not a public export. Use `status` and `notification` to request the approved badge treatments.

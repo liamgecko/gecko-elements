@@ -1,5 +1,5 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { cva } from "class-variance-authority";
@@ -8,11 +8,11 @@ import Upload01Icon from "@hugeicons/core-free-icons/Upload01Icon";
 import FileWarning from "@hugeicons/core-free-icons/FileExclamationPointIcon";
 import RefreshCw from "@hugeicons/core-free-icons/RefreshCwIcon";
 import Trash2 from "@hugeicons/core-free-icons/Delete02Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { Button } from "@gecko/ui/components/button";
-import { Spinner } from "@gecko/ui/components/spinner";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { Button } from "@geckolabs/elements/components/button";
+import { Spinner } from "@geckolabs/elements/components/spinner";
 
 type AttachmentState = "empty" | "uploading" | "error" | "done";
 

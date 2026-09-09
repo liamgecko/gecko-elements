@@ -16,7 +16,7 @@ My recommendation is to prepare Elements as an externally consumable library, pr
 
 - Elements checkout: `7fc705f49d5bac5a998665963f09c6484a60c867`; Admin checkout: `d16f38f07ca7492cf07c7023c9a1ae9892068200`. Both working trees were clean at the start. Evidence refers to these local checkouts, not an assertion about the deployed production version.
 - Read manifests, lockfiles, build/deployment configuration, entry points, styles, component implementations/contracts and representative Admin consumers. Enumerated static imports and source files. Repository documentation was treated as architectural evidence; it was not treated as a request to implement a migration.
-- Elements library typecheck passed: `npm run typecheck --workspace @gecko/ui`.
+- Elements library typecheck passed: `npm run typecheck --workspace @geckolabs/elements`.
 - Compiled Elements' real stylesheet with the installed Tailwind 4.3.1 compiler. Compared exact simple class selectors with the stylesheet actually copied into Admin. Ran isolated Chrome computed-style probes with both stylesheets in both orders, blocking network requests. These are CSS measurements on synthetic markup, not live React interaction tests.
 - Did **not** run the full Admin test/build suite, authenticate into the product, exercise mixed React overlays, verify every route, or measure production bundle sizes. Functional, visual and browser support claims beyond these probes remain validation work.
 
@@ -27,7 +27,7 @@ Reproducible inputs and results: [CSS audit script](</Users/liamyoung/Documents/
 | Area | Current implementation | Migration implication |
 | --- | --- | --- |
 | Elements library | React 19.2.4 dependency range, TypeScript, Base UI 1.6, Tailwind 4.3, subpath component exports pointing at source. `private: true`, version `0.0.0`, no package build script or compiled JS/type distribution. | Good internal source-sharing arrangement; external release/consumption needs an explicit contract. Source distribution is possible, but would make consumers responsible for compatible TS/CSS processing. |
-| Elements apps | npm workspaces; Vite with Tailwind plugin; aliases resolve `@gecko/ui` directly to source. CI builds docs, sandbox and project apps for GitHub Pages. | Successful prototype builds do not prove the package works from a clean external installation or through its actual export map. |
+| Elements apps | npm workspaces; Vite with Tailwind plugin; aliases resolve `@geckolabs/elements` directly to source. CI builds docs, sandbox and project apps for GitHub Pages. | Successful prototype builds do not prove the package works from a clean external installation or through its actual export map. |
 | Legacy Design | CRA showcase plus locally maintained Bootstrap 5.2.2 Sass sources, including Gecko-specific components. Sass builds CSS; a script copies it into App. | The main app does not consume a published Design React package. Design changes reach App through a copy step. |
 | Main App | React 18.3.1, React Bootstrap 2.10.2, Vite 5, UI Router, React Query, mixed JS/TS, extensive local UI wrappers and styles. | Existing Vite tooling is a helpful integration point. Keep router/query/domain APIs unless a specific UI contract requires a change. |
 | Entry-point styles | Admin conditionally loads its copied Bootstrap CSS and App.css; public form/event/RSVP/stream experiences skip those imports. | Preserve this boundary. An unconditional Elements globals import would broaden the change beyond authenticated Admin. |
@@ -184,7 +184,7 @@ Example commands, from this repository, with the legacy checkout path adjusted i
 ```sh
 node docs/ui-migration/css-coexistence-audit.mjs "$PWD" /Users/liamyoung/Repos/Gecko-Admin-Web-App /private/tmp/gecko-css-audit.json
 python3 docs/ui-migration/legacy-inventory.py /Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src
-npm run typecheck --workspace @gecko/ui
+npm run typecheck --workspace @geckolabs/elements
 ```
 
 The audit scripts are evidence tools, not a newly established product test suite. No product code, package versions or legacy repository files were changed for this assessment.

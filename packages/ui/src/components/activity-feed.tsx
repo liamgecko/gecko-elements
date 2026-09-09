@@ -1,4 +1,4 @@
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import CalendarPlus from "@hugeicons/core-free-icons/CalendarPlusIcon";
@@ -12,15 +12,15 @@ import MessageSquareText from "@hugeicons/core-free-icons/MessageSquareTextIcon"
 import MonitorCog from "@hugeicons/core-free-icons/MonitorCogIcon";
 import PhoneForwarded from "@hugeicons/core-free-icons/PhoneForwardedIcon";
 import Smartphone from "@hugeicons/core-free-icons/SmartphoneIcon";
-import { HugeiconsIcon, type IconSvgElement } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon, type IconSvgElement } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
-} from "@gecko/ui/components/pagination";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/pagination";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 export type ActivityFeedType =
   | "conversation-started"

@@ -10,12 +10,12 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { DropZone } from "@gecko/ui/components/drop-zone";
+import { DropZone } from "@geckolabs/elements/components/drop-zone";
 
 export function DropZonePage() {
   const [files, setFiles] = useState<File[]>([]);
 
-  const importSnippet = `import { DropZone } from "@gecko/ui/components/drop-zone"`;
+  const importSnippet = `import { DropZone } from "@geckolabs/elements/components/drop-zone"`;
 
   const basicSnippet = `<DropZone
   value={files}

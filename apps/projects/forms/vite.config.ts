@@ -13,8 +13,8 @@ export default defineConfig(({ command }) => ({
   },
   resolve: {
     alias: {
-      "@gecko/ui": path.resolve(__dirname, "../../../packages/ui/src"),
-      "@gecko/ui/": `${path.resolve(__dirname, "../../../packages/ui/src")}/`,
+      "@geckolabs/elements": path.resolve(__dirname, "../../../packages/ui/src"),
+      "@geckolabs/elements/": `${path.resolve(__dirname, "../../../packages/ui/src")}/`,
     },
   },
 }))

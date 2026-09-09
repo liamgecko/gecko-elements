@@ -1,6 +1,6 @@
 # Toast
 
-Import: `@gecko/ui/components/toast`  
+Import: `@geckolabs/elements/components/toast`  
 Status: Stable  
 Source: `src/components/toast.tsx`  
 Human documentation: `apps/docs/src/pages/toast/index.tsx`
@@ -27,7 +27,7 @@ Render one Toaster near the application root:
 Use the exported shared manager to trigger feedback:
 
 ```tsx
-import { toast } from "@gecko/ui/components/toast"
+import { toast } from "@geckolabs/elements/components/toast"
 
 toast.add({
   title: "Event created",
@@ -229,7 +229,7 @@ Application code selects `type`. It does not recolour the toast, replace its sta
 
 ## Agent rules
 
-1. Import `toast` and `Toaster` from `@gecko/ui/components/toast`.
+1. Import `toast` and `Toaster` from `@geckolabs/elements/components/toast`.
 2. Render one Toaster near the application root.
 3. Use `toast.add` for ordinary feedback and choose a type based on meaning.
 4. Write a concise, specific title that states what happened.

@@ -2,20 +2,20 @@ import * as React from "react";
 import type { ColumnDef, FilterFn } from "@tanstack/react-table";
 import { Lock, LockOpen } from "lucide-react";
 
-import { Avatar } from "@gecko/ui/components/avatar";
-import { Switch } from "@gecko/ui/components/switch";
+import { Avatar } from "@geckolabs/elements/components/avatar";
+import { Switch } from "@geckolabs/elements/components/switch";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
-import type { DataTableColumnMeta } from "@gecko/ui/components/data-table/data-table";
-import { DataTableColumnHeader } from "@gecko/ui/components/data-table/data-table-column-header";
+} from "@geckolabs/elements/components/tooltip";
+import type { DataTableColumnMeta } from "@geckolabs/elements/components/data-table/data-table";
+import { DataTableColumnHeader } from "@geckolabs/elements/components/data-table/data-table-column-header";
 import {
   DataTableMultiSelectFilter,
   type DataTableMultiSelectFilterValue,
-} from "@gecko/ui/components/data-table/data-table-columns";
-import { DataTableMultiLineCell } from "@gecko/ui/components/data-table/data-table-multi-line-cell";
+} from "@geckolabs/elements/components/data-table/data-table-columns";
+import { DataTableMultiLineCell } from "@geckolabs/elements/components/data-table/data-table-multi-line-cell";
 
 import type { Workflow, WorkflowLockStatus } from "./workflows-data";
 

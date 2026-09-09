@@ -1,4 +1,4 @@
-import { DatePicker } from "@gecko/ui/components/date-picker";
+import { DatePicker } from "@geckolabs/elements/components/date-picker";
 import {
   Combobox,
   ComboboxContent,
@@ -6,15 +6,15 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from "@gecko/ui/components/combobox";
+} from "@geckolabs/elements/components/combobox";
 import {
   Field,
   FieldError,
   FieldLabel,
-} from "@gecko/ui/components/field";
-import { Input } from "@gecko/ui/components/input";
-import { TelephoneField } from "@gecko/ui/components/telephone-field";
-import { Textarea } from "@gecko/ui/components/textarea";
+} from "@geckolabs/elements/components/field";
+import { Input } from "@geckolabs/elements/components/input";
+import { TelephoneField } from "@geckolabs/elements/components/telephone-field";
+import { Textarea } from "@geckolabs/elements/components/textarea";
 
 import { COUNTRIES } from "../../data/countries";
 import { useBooking } from "../../state/booking";

@@ -1,6 +1,6 @@
 # Typing indicator
 
-Import: `@gecko/ui/components/typing-indicator`  
+Import: `@geckolabs/elements/components/typing-indicator`  
 Status: Stable  
 Source: `src/components/typing-indicator.tsx`  
 Human documentation: `apps/docs/src/pages/typing-indicator/index.tsx`
@@ -73,7 +73,7 @@ TypingIndicator also accepts native `div` properties. Its status role, live-regi
 
 ## Agent rules
 
-1. Import TypingIndicator from `@gecko/ui/components/typing-indicator`.
+1. Import TypingIndicator from `@geckolabs/elements/components/typing-indicator`.
 2. Render it outside message rows and near the conversation composer.
 3. Drive `active` from remote real-time typing activity.
 4. Keep the component mounted so exit motion can complete.

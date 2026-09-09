@@ -1,6 +1,6 @@
 import { Handle, Position, type NodeProps } from "@xyflow/react"
 
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 import type { WorkflowGraphNodeData } from "../../workflows-data"
 import { useWorkflowNodeInvalid } from "../use-workflow-node-invalid"

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash2, X } from "lucide-react";
-import { toast } from "@gecko/ui/components/toast";
+import { toast } from "@geckolabs/elements/components/toast";
 
 import {
   AlertDialog,
@@ -12,21 +12,21 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@gecko/ui/components/alert-dialog";
+} from "@geckolabs/elements/components/alert-dialog";
 import {
   DataTableContent,
   DataTableProvider,
-} from "@gecko/ui/components/data-table/data-table";
-import { DataTableColumnToggle } from "@gecko/ui/components/data-table/data-table-column-toggle";
-import { DataTablePagination } from "@gecko/ui/components/data-table/data-table-pagination";
-import { DataTableSearch } from "@gecko/ui/components/data-table/data-table-search";
-import { DataTableSelectActions } from "@gecko/ui/components/data-table/data-table-select-actions";
+} from "@geckolabs/elements/components/data-table/data-table";
+import { DataTableColumnToggle } from "@geckolabs/elements/components/data-table/data-table-column-toggle";
+import { DataTablePagination } from "@geckolabs/elements/components/data-table/data-table-pagination";
+import { DataTableSearch } from "@geckolabs/elements/components/data-table/data-table-search";
+import { DataTableSelectActions } from "@geckolabs/elements/components/data-table/data-table-select-actions";
 import {
   DataTableToolbar,
   DataTableToolbarGroup,
   DataTableToolbarSearchRow,
-} from "@gecko/ui/components/data-table/data-table-toolbar";
-import { TooltipProvider } from "@gecko/ui/components/tooltip";
+} from "@geckolabs/elements/components/data-table/data-table-toolbar";
+import { TooltipProvider } from "@geckolabs/elements/components/tooltip";
 
 import { SupabaseSetupNotice } from "@/components/supabase-setup-notice";
 import { DataTablePageSkeleton } from "@/components/data-table-page-skeleton";

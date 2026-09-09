@@ -1,5 +1,5 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import CircleHelp from "@hugeicons/core-free-icons/HelpCircleIcon";
@@ -7,7 +7,7 @@ import CircleMinus from "@hugeicons/core-free-icons/CircleMinusIcon";
 import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
 import TrendingDown from "@hugeicons/core-free-icons/TrendingDownIcon";
 import TrendingUp from "@hugeicons/core-free-icons/TrendingUpIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import {
   Area,
   AreaChart,
@@ -16,26 +16,26 @@ import {
   type TooltipContentProps as RechartsTooltipContentProps,
 } from "recharts";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Card,
   CardAction,
   CardContent,
   CardHeader,
-} from "@gecko/ui/components/card";
+} from "@geckolabs/elements/components/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
+} from "@geckolabs/elements/components/dropdown-menu";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/tooltip";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 export type MetricCardSentiment = "positive" | "negative" | "neutral";
 

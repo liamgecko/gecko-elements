@@ -1,8 +1,8 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { Plus } from "lucide-react"
 
-import { Container } from "@gecko/ui/components/container"
-import { Header } from "@gecko/ui/components/header"
+import { Container } from "@geckolabs/elements/components/container"
+import { Header } from "@geckolabs/elements/components/header"
 
 import { usePageBreadcrumbs } from "../../lib/use-page-breadcrumbs"
 import { getTabLabelForPath } from "../../lib/tabbed-sections"

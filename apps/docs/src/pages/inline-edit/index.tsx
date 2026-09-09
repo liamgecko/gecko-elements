@@ -9,7 +9,7 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { InlineEdit } from "@gecko/ui/components/inline-edit";
+import { InlineEdit } from "@geckolabs/elements/components/inline-edit";
 import { Code } from "@/components/layout/docs-code";
 
 export function InlineEditPage() {
@@ -18,7 +18,7 @@ export function InlineEditPage() {
   const [lg, setLg] = React.useState("Registration form");
   const [basic, setBasic] = React.useState("Registration form");
 
-  const importSnippet = `import { InlineEdit } from "@gecko/ui/components/inline-edit"`;
+  const importSnippet = `import { InlineEdit } from "@geckolabs/elements/components/inline-edit"`;
 
   const basicExampleSnippet = `<InlineEdit
   aria-label="Form title"

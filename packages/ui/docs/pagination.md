@@ -1,6 +1,6 @@
 # Pagination
 
-Import: `@gecko/ui/components/pagination`  
+Import: `@geckolabs/elements/components/pagination`  
 Status: Stable  
 Source: `src/components/pagination.tsx`  
 Human documentation: `apps/docs/src/pages/pagination/index.tsx`
@@ -98,7 +98,7 @@ Pagination accepts native `nav` properties. PaginationContent, PaginationItem an
 
 ## Agent rules
 
-1. Import Pagination parts from `@gecko/ui/components/pagination`.
+1. Import Pagination parts from `@geckolabs/elements/components/pagination`.
 2. Put every link or control in its own PaginationItem inside PaginationContent.
 3. Use links for URL navigation and native Gecko Buttons for client-side actions.
 4. Set `isActive` on exactly one current page.

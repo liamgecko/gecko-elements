@@ -1,19 +1,19 @@
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 import * as React from "react";
 import Check from "@hugeicons/core-free-icons/CheckIcon";
 import LockOpen from "@hugeicons/core-free-icons/LockOpenIcon";
 import Trash2 from "@hugeicons/core-free-icons/Delete02Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
-import { Button } from "@gecko/ui/components/button";
+import { Avatar, AvatarImage } from "@geckolabs/elements/components/avatar";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/tooltip";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 export type ChatHeadPresence = "online" | "unavailable" | "offline";
 export type ChatHeadMessageSender = "contact" | "agent";

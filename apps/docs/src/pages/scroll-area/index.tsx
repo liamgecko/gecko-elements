@@ -8,8 +8,8 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { ScrollArea, ScrollBar } from "@gecko/ui/components/scroll-area";
-import { Separator } from "@gecko/ui/components/separator";
+import { ScrollArea, ScrollBar } from "@geckolabs/elements/components/scroll-area";
+import { Separator } from "@geckolabs/elements/components/separator";
 import { Code } from "@/components/layout/docs-code";
 
 const tags = Array.from({ length: 50 }).map(
@@ -40,7 +40,7 @@ export function ScrollAreaPage() {
   const importSnippet = `import {
   ScrollArea,
   ScrollBar,
-} from "@gecko/ui/components/scroll-area"`;
+} from "@geckolabs/elements/components/scroll-area"`;
 
   const compositionSnippet = `ScrollArea
 └── ScrollBar`;

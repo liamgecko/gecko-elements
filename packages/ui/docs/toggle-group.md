@@ -1,6 +1,6 @@
 # Toggle Group
 
-Import: `@gecko/ui/components/toggle-group`  
+Import: `@geckolabs/elements/components/toggle-group`  
 Status: Stable  
 Source: `src/components/toggle-group.tsx`  
 Human documentation: `apps/docs/src/pages/toggle-group/index.tsx`
@@ -136,7 +136,7 @@ Toggle Group and its items accept their remaining Base UI properties.
 
 ## Agent rules
 
-1. Import ToggleGroup and ToggleGroupItem from `@gecko/ui/components/toggle-group`.
+1. Import ToggleGroup and ToggleGroupItem from `@geckolabs/elements/components/toggle-group`.
 2. Place items directly inside the group.
 3. Give the group an accessible name and every item a unique value.
 4. Treat group values as arrays for both single and multiple selection.

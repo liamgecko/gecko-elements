@@ -4,7 +4,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@gecko/ui/components/accordion";
+} from "@geckolabs/elements/components/accordion";
 import {
   Combobox,
   ComboboxChip,
@@ -19,17 +19,17 @@ import {
   ComboboxList,
   ComboboxSeparator,
   ComboboxValue,
-} from "@gecko/ui/components/combobox";
-import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
+} from "@geckolabs/elements/components/combobox";
+import { Avatar, AvatarImage } from "@geckolabs/elements/components/avatar";
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from "@gecko/ui/components/field";
-import { DatePicker } from "@gecko/ui/components/date-picker";
-import { Input } from "@gecko/ui/components/input";
-import { Label } from "@gecko/ui/components/label";
+} from "@geckolabs/elements/components/field";
+import { DatePicker } from "@geckolabs/elements/components/date-picker";
+import { Input } from "@geckolabs/elements/components/input";
+import { Label } from "@geckolabs/elements/components/label";
 import {
   Select,
   SelectContent,
@@ -39,9 +39,9 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select";
-import { Textarea } from "@gecko/ui/components/textarea";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/select";
+import { Textarea } from "@geckolabs/elements/components/textarea";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 import type {
   WorkflowActionType,

@@ -7,7 +7,7 @@ import {
   AppHeaderControls,
   AppHeaderLogo,
   AppHeaderUserMenu,
-} from "@gecko/ui/components/app-header";
+} from "@geckolabs/elements/components/app-header";
 
 export function AppHeaderDemo() {
   const [callOnline, setCallOnline] = React.useState(true);

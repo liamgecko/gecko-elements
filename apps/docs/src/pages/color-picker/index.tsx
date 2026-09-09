@@ -12,9 +12,9 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { Button } from "@gecko/ui/components/button";
-import { ColorPicker } from "@gecko/ui/components/color-picker";
-import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";
+import { Button } from "@geckolabs/elements/components/button";
+import { ColorPicker } from "@geckolabs/elements/components/color-picker";
+import { Field, FieldError, FieldLabel } from "@geckolabs/elements/components/field";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -26,7 +26,7 @@ const colorPickerFormSchema = z.object({
 
 export function ColorPickerPage() {
   const [controlledColour, setControlledColour] = React.useState("#6366F1");
-  const importSnippet = `import { ColorPicker } from "@gecko/ui/components/color-picker"`;
+  const importSnippet = `import { ColorPicker } from "@geckolabs/elements/components/color-picker"`;
 
   const basicSnippet = `<Field>
   <FieldLabel htmlFor="brand-colour">Brand colour</FieldLabel>

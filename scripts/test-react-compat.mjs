@@ -12,12 +12,16 @@ import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import assert from "node:assert/strict";
 import { chromium } from "playwright";
+import { checkPackedElements } from "./check-packed-elements.mjs";
+import { checkElementsTreeShaking } from "./check-elements-tree-shaking.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const versions = {
   18: { react: "18.3.1", dom: "18.3.1", types: "18.3.31", domTypes: "18.3.7" },
   19: { react: "19.2.5", dom: "19.2.5", types: "19.2.18", domTypes: "19.2.3" },
 };
+const cssMode = process.env.ELEMENTS_CSS_MODE ?? "compiled";
+assert(["compiled", "tailwind"].includes(cssMode));
 const requested = process.argv.slice(2);
 const matrix = requested.length ? requested : Object.keys(versions);
 for (const major of matrix)
@@ -31,7 +35,7 @@ function run(command, args, cwd) {
   assert.equal(result.status, 0, `${command} ${args.join(" ")} failed`);
 }
 const scratch = await mkdtemp(path.join(tmpdir(), "gecko-react-compat-"));
-console.log(`Compatibility artifacts: ${scratch}`);
+console.log(`Compatibility artifacts (${cssMode} CSS): ${scratch}`);
 let passed = false;
 try {
   run(
@@ -39,7 +43,7 @@ try {
     [
       "pack",
       "--workspace",
-      "@gecko/ui",
+      "@geckolabs/elements",
       "--pack-destination",
       scratch,
       "--quiet",
@@ -49,14 +53,14 @@ try {
   const tarball = (await readdir(scratch)).find((name) =>
     name.endsWith(".tgz"),
   );
-  const components = path.join(root, "packages/ui/src/components");
+  const components = path.join(root, "packages/ui/dist/components");
   const files = await readdir(components, { recursive: true });
   const imports = files
-    .filter((name) => name.endsWith(".tsx") || name.endsWith("/index.ts"))
+    .filter((name) => name.endsWith(".js"))
     .sort()
     .map(
       (name) =>
-        `@gecko/ui/components/${name.replace(/\.tsx?$/, "").replace(/\/index$/, "")}`,
+        `@geckolabs/elements/components/${name.replace(/\.js$/, "").replace(/\/index$/, "")}`,
     );
   for (const major of matrix) {
     const version = versions[major];
@@ -68,18 +72,44 @@ try {
       await readFile(path.join(fixture, "package.json")),
     );
     manifest.dependencies = {
-      "@gecko/ui": `file:../${tarball}`,
+      "@geckolabs/elements": `file:../${tarball}`,
       react: version.react,
       "react-dom": version.dom,
       "react-is": version.react,
     };
+    if (cssMode === "compiled")
+      delete manifest.devDependencies["@tailwindcss/vite"];
     manifest.devDependencies["@types/react"] = version.types;
     manifest.devDependencies["@types/react-dom"] = version.domTypes;
     await writeFile(
       path.join(fixture, "package.json"),
       JSON.stringify(manifest, null, 2),
     );
-    // Every component module is compiled and loaded, even those not rendered by
+    const mainPath = path.join(fixture, "main.tsx");
+    if (cssMode === "tailwind") {
+      const configPath = path.join(fixture, "vite.config.ts");
+      const config = await readFile(configPath, "utf8");
+      await writeFile(
+        configPath,
+        'import tailwindcss from "@tailwindcss/vite";\n' +
+          config.replace(
+            "plugins: [react()]",
+            "plugins: [react(), tailwindcss()]",
+          ),
+      );
+      await writeFile(
+        mainPath,
+        (await readFile(mainPath, "utf8")).replace(
+          "@geckolabs/elements/globals.css",
+          "./tailwind.css",
+        ),
+      );
+      await writeFile(
+        path.join(fixture, "tailwind.css"),
+        '@import "@geckolabs/elements/tailwind.css";\n@source "./*.tsx";\n',
+      );
+    }
+    // Every compiled component module is loaded, even those not rendered by
     // the interaction fixture. No monorepo aliases or hoisted React are used.
     await writeFile(
       path.join(fixture, "exports.tsx"),
@@ -90,16 +120,27 @@ try {
         .join("\n") +
         `\n(globalThis as unknown as {compatModules: unknown[]}).compatModules = [${imports.map((_, i) => `module${i}`).join(",")}];\n`,
     );
-    await writeFile(path.join(fixture, "component-imports.json"), JSON.stringify(imports));
+    await writeFile(
+      path.join(fixture, "component-imports.json"),
+      JSON.stringify(imports),
+    );
     console.log(`\nTesting React ${version.react}`);
     run(
       "npm",
       ["install", "--ignore-scripts", "--no-audit", "--no-fund"],
       fixture,
     );
-    run("npm", ["ls", "react", "react-dom", "@hugeicons/core-free-icons"], fixture);
+    run(
+      "npm",
+      ["ls", "react", "react-dom", "@hugeicons/core-free-icons"],
+      fixture,
+    );
+    const installed = path.join(fixture, "node_modules/@geckolabs/elements");
+    await checkPackedElements(installed);
     run(path.join(fixture, "node_modules/.bin/tsc"), ["--noEmit"], fixture);
     run(path.join(fixture, "node_modules/.bin/vite"), ["build"], fixture);
+    if (major === "19" && cssMode === "compiled")
+      await checkElementsTreeShaking(fixture);
     const { createServer, preview } = await import(
       pathToFileURL(path.join(fixture, "node_modules/vite/dist/node/index.js"))
     );
@@ -129,6 +170,10 @@ try {
           reducedMotion: "reduce",
         });
         const errors = [];
+        page.on("response", (response) => {
+          if (response.status() >= 400)
+            errors.push(`${response.status()} ${response.url()}`);
+        });
         page.on(
           "pageerror",
           (error) => (errors.push(error.message), console.error(error.message)),
@@ -137,14 +182,57 @@ try {
           if (message.type() === "error" || message.type() === "warning")
             errors.push(message.text());
         });
-        await page.route("https://fonts.googleapis.com/**", (route) =>
-          route.fulfill({ contentType: "text/css", body: "" }),
-        );
+        const fontRequests = [];
+        page.on("request", (request) => {
+          if (/fonts\.(googleapis|gstatic)\.com/.test(request.url()))
+            fontRequests.push(request.url());
+        });
         console.log(`Browser checks: React ${major} ${mode}`);
         await page.goto(url);
         await page
           .getByRole("heading", { name: `React ${version.react}` })
           .waitFor();
+        await page.evaluate(async () => {
+          await document.fonts.load('400 14px "Satoshi-Gecko"');
+          await document.fonts.load('400 14px "Geist Mono"');
+          await document.fonts.ready;
+        });
+        assert(
+          await page.evaluate(
+            () =>
+              document.fonts.check('400 14px "Satoshi-Gecko"') &&
+              document.fonts.check('400 14px "Geist Mono"'),
+          ),
+        );
+        assert.deepEqual(fontRequests, [], "Fonts must be self-hosted");
+        const button = page.getByRole("button", { name: "Save", exact: true });
+        await button.evaluate((el) =>
+          el.setAttribute("data-testid", "style-probe"),
+        );
+        const lightBackground = await button.evaluate(
+          (el) => getComputedStyle(el).backgroundColor,
+        );
+        assert(!["rgba(0, 0, 0, 0)", "transparent"].includes(lightBackground));
+        await page.evaluate(() =>
+          document.documentElement.classList.add("dark"),
+        );
+        await page.waitForFunction(
+          (before) =>
+            getComputedStyle(
+              document.querySelector('button[data-testid="style-probe"]'),
+            ).backgroundColor !== before,
+          lightBackground,
+        );
+        await page.evaluate(() =>
+          document.documentElement.classList.remove("dark"),
+        );
+        if (cssMode === "tailwind")
+          assert.equal(
+            await page
+              .getByTestId("consumer-utility")
+              .evaluate((el) => getComputedStyle(el).paddingLeft),
+            "37px",
+          );
         await page
           .getByRole("button", { name: "Focus name", exact: true })
           .click();
@@ -153,7 +241,10 @@ try {
             .getByLabel("Name", { exact: true })
             .evaluate((el) => document.activeElement === el),
         );
-        await page.waitForFunction(() => document.querySelectorAll(".recharts-bar-rectangle").length === 2);
+        await page.waitForFunction(
+          () =>
+            document.querySelectorAll(".recharts-bar-rectangle").length === 2,
+        );
         await page.getByLabel("Name", { exact: true }).fill("Gecko");
         assert.equal(
           await page.getByTestId("name-value").textContent(),

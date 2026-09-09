@@ -8,9 +8,9 @@ import {
   MessageScrollerProvider,
   MessageScrollerViewport,
   useMessageScrollerScrollable,
-} from "@gecko/ui/components/message-scroller"
-import { ReplyBox, ReplyBoxContent } from "@gecko/ui/components/reply-box"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@geckolabs/elements/components/message-scroller"
+import { ReplyBox, ReplyBoxContent } from "@geckolabs/elements/components/reply-box"
+import { cn } from "@geckolabs/elements/lib/utils"
 import { ConversationMessage } from "./conversation-message"
 import {
   THINKING_DELAY_MS,

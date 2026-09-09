@@ -9,7 +9,7 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { MetricCard } from "@gecko/ui/components/metric-card";
+import { MetricCard } from "@geckolabs/elements/components/metric-card";
 
 export function MetricCardPage() {
   const baseTitle = "Median first response time";
@@ -54,7 +54,7 @@ export function MetricCardPage() {
     "2026-04-05",
   ] as const;
 
-  const importSnippet = `import { MetricCard } from "@gecko/ui/components/metric-card"`;
+  const importSnippet = `import { MetricCard } from "@geckolabs/elements/components/metric-card"`;
 
   const basicSnippet = `<MetricCard title="Median first response time" value="1m 28s" />`;
 

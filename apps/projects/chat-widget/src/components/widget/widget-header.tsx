@@ -1,13 +1,13 @@
 import { Minus, X } from "lucide-react";
 
-import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
-import { Button } from "@gecko/ui/components/button";
+import { Avatar, AvatarImage } from "@geckolabs/elements/components/avatar";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
+} from "@geckolabs/elements/components/tooltip";
 import type { AgentProfile, WidgetPhase } from "@/lib/types";
 
 type WidgetHeaderProps = {

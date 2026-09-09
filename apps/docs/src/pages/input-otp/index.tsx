@@ -15,9 +15,9 @@ import {
   InputOTPGroup,
   InputOTPSlot,
   InputOTPSeparator,
-} from "@gecko/ui/components/input-otp";
+} from "@geckolabs/elements/components/input-otp";
 import { Code } from "@/components/layout/docs-code";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Field,
   FieldDescription,
@@ -26,7 +26,7 @@ import {
   FieldLabel,
   FieldLegend,
   FieldSet,
-} from "@gecko/ui/components/field";
+} from "@geckolabs/elements/components/field";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -40,7 +40,7 @@ export function InputOtpPage() {
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "@gecko/ui/components/input-otp"`;
+} from "@geckolabs/elements/components/input-otp"`;
 
   const compositionSnippet = `InputOTP
 └── InputOTPGroup

@@ -15,7 +15,7 @@ export function StructureAppSidebarPage() {
   AppSidebar,
   AppSidebarFavourites,
   AppSidebarNav,
-} from "@gecko/ui/components/app-sidebar"`;
+} from "@geckolabs/elements/components/app-sidebar"`;
 
   const compositionSnippet = `AppSidebar
 ├── AppSidebarFavourites

@@ -1,6 +1,6 @@
 # Native select
 
-Import: `@gecko/ui/components/native-select`  
+Import: `@geckolabs/elements/components/native-select`  
 Status: Stable  
 Source: `src/components/native-select.tsx`  
 Human documentation: `apps/docs/src/pages/native-select/index.tsx`
@@ -125,7 +125,7 @@ NativeSelect, NativeSelectOption and NativeSelectOptGroup also accept the native
 
 ## Agent rules
 
-1. Import Native select parts from `@gecko/ui/components/native-select`.
+1. Import Native select parts from `@geckolabs/elements/components/native-select`.
 2. Use Native select for short, stable lists of text choices that benefit from native browser behaviour.
 3. Compose product controls with Field and a visible FieldLabel.
 4. Set meaningful `id`, `name` and option `value` properties.

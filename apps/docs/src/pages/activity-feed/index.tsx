@@ -12,7 +12,7 @@ import {
 import {
   ActivityFeed,
   type ActivityFeedEntry,
-} from "@gecko/ui/components/activity-feed";
+} from "@geckolabs/elements/components/activity-feed";
 import { Code } from "@/components/layout/docs-code";
 
 const PAGE_SIZE = 5;
@@ -86,7 +86,7 @@ export function ActivityFeedPage() {
   const [page, setPage] = useState(1);
   const pageItems = sampleItems.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
-  const importSnippet = `import { ActivityFeed } from "@gecko/ui/components/activity-feed"`;
+  const importSnippet = `import { ActivityFeed } from "@geckolabs/elements/components/activity-feed"`;
 
   const basicExampleSnippet = `<ActivityFeed items={activities} />`;
 

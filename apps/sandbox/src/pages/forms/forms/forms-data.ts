@@ -1,4 +1,4 @@
-import type { DataTableRowAction } from "@gecko/ui/components/data-table/data-table"
+import type { DataTableRowAction } from "@geckolabs/elements/components/data-table/data-table"
 
 export type FormStatus = "published" | "draft" | "unpublished"
 
@@ -49,7 +49,7 @@ export type Form = {
   }
 }
 
-import type { FilterCategory } from "@gecko/ui/components/filters"
+import type { FilterCategory } from "@geckolabs/elements/components/filters"
 
 const formStatusFilterCategory: FilterCategory = {
   id: "status",

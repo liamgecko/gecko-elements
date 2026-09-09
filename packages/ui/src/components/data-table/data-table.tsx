@@ -17,9 +17,9 @@ import {
   type VisibilityState,
 } from "@tanstack/react-table";
 import SearchX from "@hugeicons/core-free-icons/SearchXIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { cn } from "@gecko/ui/lib/utils";
+import { cn } from "@geckolabs/elements/lib/utils";
 import {
   Table,
   TableBody,
@@ -28,8 +28,8 @@ import {
   TableHeader,
   TableExpandableRow,
   TableRow,
-} from "@gecko/ui/components/table";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/table";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Empty,
   EmptyContent,
@@ -37,7 +37,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@gecko/ui/components/empty";
+} from "@geckolabs/elements/components/empty";
 
 import type { DataTableColumnMeta } from "./data-table-column-meta";
 

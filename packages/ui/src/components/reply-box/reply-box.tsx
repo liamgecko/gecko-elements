@@ -1,11 +1,11 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
-import type { GeckoIcon } from "@gecko/ui/lib/icon";
+import type { GeckoIcon } from "@geckolabs/elements/lib/icon";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { useControllableState } from "@gecko/ui/hooks/use-controllable-state";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { useControllableState } from "@geckolabs/elements/hooks/use-controllable-state";
 import type {
   ReplyBoxActionId,
   ReplyBoxChannel,

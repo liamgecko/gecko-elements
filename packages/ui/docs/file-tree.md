@@ -1,6 +1,6 @@
 # File tree
 
-Import: `@gecko/ui/components/file-tree`  
+Import: `@geckolabs/elements/components/file-tree`  
 Status: Stable  
 Source: `src/components/file-tree.tsx`  
 Human documentation: `apps/docs/src/pages/file-tree/index.tsx`
@@ -16,8 +16,8 @@ Use File tree when people need to scan nested structure, such as a website map p
 Model each node as either a folder or a file. Only folders accept children. Every id is stable and unique across the complete hierarchy.
 
 ```tsx
-import { FileTree } from "@gecko/ui/components/file-tree";
-import type { FileTreeNode } from "@gecko/ui/components/file-tree";
+import { FileTree } from "@geckolabs/elements/components/file-tree";
+import type { FileTreeNode } from "@geckolabs/elements/components/file-tree";
 
 const nodes: FileTreeNode[] = [
   {

@@ -7,10 +7,10 @@ import type { SortableDraggable } from "@dnd-kit/dom/sortable";
 import { DragDropProvider } from "@dnd-kit/react";
 import { isSortable, useSortable } from "@dnd-kit/react/sortable";
 import GripVertical from "@hugeicons/core-free-icons/GripVerticalIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
-import { cn } from "@gecko/ui/lib/utils";
+import { Button } from "@geckolabs/elements/components/button";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 const ROOT_GROUP = "__root__";
 const SECTION_SORTABLE_TYPE = "sortable-section";

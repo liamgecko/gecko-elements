@@ -1,7 +1,7 @@
 import * as React from "react"
 import { CheckCheck, SquarePen, Trash2, X } from "lucide-react"
 import { useParams } from "react-router-dom"
-import { toast } from "@gecko/ui/components/toast"
+import { toast } from "@geckolabs/elements/components/toast"
 
 import {
   AlertDialog,
@@ -12,8 +12,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@gecko/ui/components/alert-dialog"
-import { Button } from "@gecko/ui/components/button"
+} from "@geckolabs/elements/components/alert-dialog"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   Combobox,
   ComboboxChip,
@@ -24,7 +24,7 @@ import {
   ComboboxItem,
   ComboboxList,
   ComboboxValue,
-} from "@gecko/ui/components/combobox"
+} from "@geckolabs/elements/components/combobox"
 import {
   Dialog,
   DialogBody,
@@ -33,7 +33,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogWrapper,
-} from "@gecko/ui/components/dialog"
+} from "@geckolabs/elements/components/dialog"
 import {
   Field,
   FieldContent,
@@ -43,8 +43,8 @@ import {
   FieldLabel,
   FieldSeparator,
   FieldSet,
-} from "@gecko/ui/components/field"
-import { Input } from "@gecko/ui/components/input"
+} from "@geckolabs/elements/components/field"
+import { Input } from "@geckolabs/elements/components/input"
 import {
   Select,
   SelectContent,
@@ -52,14 +52,14 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select"
-import { Switch } from "@gecko/ui/components/switch"
+} from "@geckolabs/elements/components/select"
+import { Switch } from "@geckolabs/elements/components/switch"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
+} from "@geckolabs/elements/components/tooltip"
 
 import {
   DataLoadErrorAlert,

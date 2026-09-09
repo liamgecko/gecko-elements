@@ -1,6 +1,6 @@
 # Checkbox
 
-Import: `@gecko/ui/components/checkbox`  
+Import: `@geckolabs/elements/components/checkbox`  
 Status: Stable  
 Source: `src/components/checkbox.tsx`  
 Human documentation: `apps/docs/src/pages/checkbox/index.tsx`

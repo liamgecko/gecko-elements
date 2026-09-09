@@ -7,7 +7,7 @@ import {
 } from "@/components/layout/docs-section";
 import Delete02Icon from "@hugeicons/core-free-icons/Delete02Icon";
 import StarIcon from "@hugeicons/core-free-icons/StarIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { Code } from "@/components/layout/docs-code";
 
 export function IconsPage() {
@@ -112,7 +112,7 @@ export function IconsPage() {
             showCopyButton
             copyLabel="Copy code"
             code={`import Delete02Icon from "@hugeicons/core-free-icons/Delete02Icon"
-import { HugeiconsIcon } from "@gecko/ui/lib/icon"
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon"
 
 <HugeiconsIcon icon={Delete02Icon} className="size-*" />`}
             className="mt-8"

@@ -18,7 +18,7 @@ export function StructureAppHeaderPage() {
   AppHeaderAccountSwitcher,
   AppHeaderControls,
   AppHeaderUserMenu,
-} from "@gecko/ui/components/app-header"`;
+} from "@geckolabs/elements/components/app-header"`;
 
   const compositionSnippet = `AppHeader
 ├── AppHeaderLogo

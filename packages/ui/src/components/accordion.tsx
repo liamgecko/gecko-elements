@@ -1,11 +1,11 @@
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 import * as React from "react";
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { cva, type VariantProps } from "class-variance-authority";
 import ChevronDownIcon from "@hugeicons/core-free-icons/ChevronDownIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { cn } from "@gecko/ui/lib/utils";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 const accordionVariants = cva("flex w-full flex-col", {
   variants: {

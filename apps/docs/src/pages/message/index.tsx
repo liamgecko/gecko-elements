@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Reply from "@hugeicons/core-free-icons/ReplyIcon";
 import SmilePlus from "@hugeicons/core-free-icons/SmilePlusIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -13,7 +13,7 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
+import { Avatar, AvatarImage } from "@geckolabs/elements/components/avatar";
 import {
   Bubble,
   BubbleActions,
@@ -22,14 +22,14 @@ import {
   BubbleHeader,
   BubbleReactions,
   BubbleTimestamp,
-} from "@gecko/ui/components/bubble";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/bubble";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import {
   EmojiPicker,
   EmojiPickerContent,
   EmojiPickerTrigger,
-} from "@gecko/ui/components/emoji-picker";
+} from "@geckolabs/elements/components/emoji-picker";
 import {
   Message,
   MessageAiActions,
@@ -39,7 +39,7 @@ import {
   MessageGroup,
   MessageInfo,
   MessageMeta,
-} from "@gecko/ui/components/message";
+} from "@geckolabs/elements/components/message";
 
 const userAvatar = {
   src: "",
@@ -212,7 +212,7 @@ function LiveChatExample() {
 }
 
 export function MessagePage() {
-  const importSnippet = `import { Avatar } from "@gecko/ui/components/avatar"
+  const importSnippet = `import { Avatar } from "@geckolabs/elements/components/avatar"
 import {
   Bubble,
   BubbleActions,
@@ -221,7 +221,7 @@ import {
   BubbleHeader,
   BubbleReactions,
   BubbleTimestamp,
-} from "@gecko/ui/components/bubble"
+} from "@geckolabs/elements/components/bubble"
 import {
   Message,
   MessageAiActions,
@@ -232,7 +232,7 @@ import {
   MessageHeader,
   MessageInfo,
   MessageMeta,
-} from "@gecko/ui/components/message"`;
+} from "@geckolabs/elements/components/message"`;
 
   const compositionSnippet = `Message
 ├── MessageAvatar

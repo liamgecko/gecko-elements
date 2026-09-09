@@ -7,7 +7,7 @@ import {
   AppSidebarNav,
   type AppSidebarNavChild,
   type AppSidebarNavItem,
-} from "@gecko/ui/components/app-sidebar";
+} from "@geckolabs/elements/components/app-sidebar";
 
 import { getTabLabelForPath } from "../../lib/tabbed-sections";
 import { getChildSlug, navItems, toSlug } from "../../lib/nav-items";

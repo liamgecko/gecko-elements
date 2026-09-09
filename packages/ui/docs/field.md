@@ -1,6 +1,6 @@
 # Field
 
-Import: `@gecko/ui/components/field`  
+Import: `@geckolabs/elements/components/field`  
 Status: Stable  
 Source: `src/components/field.tsx`  
 Human documentation: `apps/docs/src/pages/field/index.tsx`
@@ -27,7 +27,7 @@ import {
   FieldSeparator,
   FieldSet,
   FieldTitle,
-} from "@gecko/ui/components/field";
+} from "@geckolabs/elements/components/field";
 ```
 
 Import the form control separately.

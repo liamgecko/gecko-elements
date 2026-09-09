@@ -14,10 +14,10 @@ import {
   ComboboxSeparator,
   ComboboxValue,
   useComboboxAnchor,
-} from "@gecko/ui/components/combobox";
+} from "@geckolabs/elements/components/combobox";
 
 import { Code } from "@/components/layout/docs-code";
-import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";
+import { Field, FieldError, FieldLabel } from "@geckolabs/elements/components/field";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
@@ -80,7 +80,7 @@ export function ComboboxPage() {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from "@gecko/ui/components/combobox"`;
+} from "@geckolabs/elements/components/combobox"`;
   const compositionSnippet = `Combobox
 ├── ComboboxInput
 └── ComboboxContent

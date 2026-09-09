@@ -1,7 +1,7 @@
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 import * as React from "react";
 
-import { Input } from "@gecko/ui/components/input";
+import { Input } from "@geckolabs/elements/components/input";
 
 export type FileInputProps = Omit<
   React.ComponentProps<typeof Input>,

@@ -2,7 +2,7 @@ import * as React from "react"
 import { CheckCheck, X } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   Field,
   FieldContent,
@@ -12,8 +12,8 @@ import {
   FieldLabel,
   FieldSeparator,
   FieldSet,
-} from "@gecko/ui/components/field"
-import { Input } from "@gecko/ui/components/input"
+} from "@geckolabs/elements/components/field"
+import { Input } from "@geckolabs/elements/components/input"
 import {
   Select,
   SelectContent,
@@ -21,8 +21,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select"
-import { Switch } from "@gecko/ui/components/switch"
+} from "@geckolabs/elements/components/select"
+import { Switch } from "@geckolabs/elements/components/switch"
 
 import {
   PAYMENT_PROVIDER_CURRENCIES,

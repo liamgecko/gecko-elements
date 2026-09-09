@@ -1,6 +1,6 @@
 # Context menu
 
-Import: `@gecko/ui/components/context-menu`  
+Import: `@geckolabs/elements/components/context-menu`  
 Status: Stable primitive; Data table integration not yet exposed  
 Source: `src/components/context-menu.tsx`  
 Human documentation: `apps/docs/src/pages/context-menu/index.tsx`

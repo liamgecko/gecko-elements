@@ -3,9 +3,9 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@gecko/ui/components/tabs"
-import { Counter } from "@gecko/ui/components/counter"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@geckolabs/elements/components/tabs"
+import { Counter } from "@geckolabs/elements/components/counter"
+import { cn } from "@geckolabs/elements/lib/utils"
 import { MessageSquareText, Users } from "lucide-react"
 
 import { AttendeesPanel } from "@/components/attendees/attendees-panel"

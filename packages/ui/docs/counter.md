@@ -1,6 +1,6 @@
 # Counter
 
-Import: `@gecko/ui/components/counter`  
+Import: `@geckolabs/elements/components/counter`  
 Status: Stable  
 Source: `src/components/counter.tsx`  
 Human documentation: `apps/docs/src/pages/counter/index.tsx`

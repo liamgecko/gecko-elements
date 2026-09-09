@@ -1,4 +1,4 @@
-import { ChartLegendGroupedContent } from "@gecko/ui/components/chart"
+import { ChartLegendGroupedContent } from "@geckolabs/elements/components/chart"
 
 type LegendPayloadItem = {
   value: string

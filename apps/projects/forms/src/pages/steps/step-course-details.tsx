@@ -1,4 +1,4 @@
-import { Checkbox } from "@gecko/ui/components/checkbox";
+import { Checkbox } from "@geckolabs/elements/components/checkbox";
 import {
   Combobox,
   ComboboxContent,
@@ -6,14 +6,14 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from "@gecko/ui/components/combobox";
+} from "@geckolabs/elements/components/combobox";
 import {
   Field,
   FieldContent,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from "@gecko/ui/components/field";
+} from "@geckolabs/elements/components/field";
 import {
   Select,
   SelectContent,
@@ -21,7 +21,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select";
+} from "@geckolabs/elements/components/select";
 
 import { COURSES, ENTRY_YEARS } from "../../data/event";
 import { useBooking } from "../../state/booking";

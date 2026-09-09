@@ -1,6 +1,6 @@
 import { Navigate, Routes, Route } from "react-router-dom";
 import { AppShell } from "@/components/layout/app-shell";
-import { Toaster } from "@gecko/ui/components/toast";
+import { Toaster } from "@geckolabs/elements/components/toast";
 import { HomePage } from "@/pages/home";
 import { AccordionPage } from "@/pages/accordion";
 import { AlertPage } from "@/pages/alert";

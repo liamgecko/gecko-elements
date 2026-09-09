@@ -9,10 +9,10 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";
-import { Button } from "@gecko/ui/components/button";
-import { Input } from "@gecko/ui/components/input";
-import { Label } from "@gecko/ui/components/label";
+import { Field, FieldError, FieldLabel } from "@geckolabs/elements/components/field";
+import { Button } from "@geckolabs/elements/components/button";
+import { Input } from "@geckolabs/elements/components/input";
+import { Label } from "@geckolabs/elements/components/label";
 import { Code } from "@/components/layout/docs-code";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
@@ -26,7 +26,7 @@ const labelFormSchema = z.object({
 });
 
 export function LabelPage() {
-  const importSnippet = `import { Label } from "@gecko/ui/components/label"`;
+  const importSnippet = `import { Label } from "@geckolabs/elements/components/label"`;
 
   const basicExampleSnippet = `<div className="space-y-2">
   <Label htmlFor="label-email">Your email address</Label>

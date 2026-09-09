@@ -1,6 +1,6 @@
 import { useState } from "react";
 import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -13,17 +13,17 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   type SortableNestedSection,
   SortableList,
-} from "@gecko/ui/components/sortable-list";
+} from "@geckolabs/elements/components/sortable-list";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
+} from "@geckolabs/elements/components/dropdown-menu";
 
 const initialItems = ["Alpha", "Bravo", "Charlie", "Delta"];
 
@@ -83,7 +83,7 @@ export function SortableListPage() {
   const [rowActionItems, setRowActionItems] = useState(initialRowActionItems);
   const [sections, setSections] = useState(initialSections);
 
-  const importSnippet = `import { SortableList } from "@gecko/ui/components/sortable-list"`;
+  const importSnippet = `import { SortableList } from "@geckolabs/elements/components/sortable-list"`;
 
   const basicSnippet = `<SortableList
   items={items}

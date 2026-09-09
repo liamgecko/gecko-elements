@@ -10,15 +10,15 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from "@gecko/ui/components/field";
-import { TelephoneField } from "@gecko/ui/components/telephone-field";
+} from "@geckolabs/elements/components/field";
+import { TelephoneField } from "@geckolabs/elements/components/telephone-field";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -29,7 +29,7 @@ const telephoneFormSchema = z.object({
 export function TelephoneFieldPage() {
   const [value, setValue] = useState<string>("");
 
-  const importSnippet = `import { TelephoneField } from "@gecko/ui/components/telephone-field"`;
+  const importSnippet = `import { TelephoneField } from "@geckolabs/elements/components/telephone-field"`;
 
   const basicExampleSnippet = `const [value, setValue] = useState("")
 

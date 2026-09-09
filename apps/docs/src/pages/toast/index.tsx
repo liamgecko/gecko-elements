@@ -8,15 +8,15 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
-import { toast } from "@gecko/ui/components/toast";
+import { toast } from "@geckolabs/elements/components/toast";
 
 export function ToastPage() {
   const importSnippet = `import {
   Toaster,
   toast,
-} from "@gecko/ui/components/toast"`;
+} from "@geckolabs/elements/components/toast"`;
 
   const basicExampleSnippet = `toast.add({
   title: "Event created",

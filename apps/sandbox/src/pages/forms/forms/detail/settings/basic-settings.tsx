@@ -6,15 +6,15 @@ import {
   FieldGroup,
   FieldLabel,
   FieldSet,
-} from "@gecko/ui/components/field"
-import { Input } from "@gecko/ui/components/input"
+} from "@geckolabs/elements/components/field"
+import { Input } from "@geckolabs/elements/components/input"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select"
+} from "@geckolabs/elements/components/select"
 
 import type { FormLayoutOutletContext, FormStatus } from "../../forms-data"
 

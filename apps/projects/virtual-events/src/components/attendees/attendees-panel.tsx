@@ -1,4 +1,4 @@
-import { Avatar, AvatarLabel } from "@gecko/ui/components/avatar";
+import { Avatar, AvatarLabel } from "@geckolabs/elements/components/avatar";
 
 import { LIVE_CHAT_PEOPLE } from "@/components/live-chat/live-chat-people";
 

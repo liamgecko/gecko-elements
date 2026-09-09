@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-import { Badge } from "@gecko/ui/components/badge"
+import { Badge } from "@geckolabs/elements/components/badge"
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -8,7 +8,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-} from "@gecko/ui/components/sidebar"
+} from "@geckolabs/elements/components/sidebar"
 import { sidebarNavGroups, type SidebarNavItem } from "@/config/sidebar-nav"
 
 export function SidebarNav() {

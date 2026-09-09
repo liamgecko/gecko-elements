@@ -1,7 +1,7 @@
 import { CheckCheck, Cog, Home } from "lucide-react"
 
-import { Header } from "@gecko/ui/components/header"
-import type { HeaderBreadcrumbItem } from "@gecko/ui/components/header"
+import { Header } from "@geckolabs/elements/components/header"
+import type { HeaderBreadcrumbItem } from "@geckolabs/elements/components/header"
 
 import { BreadcrumbRouterLink } from "@/components/breadcrumb-router-link"
 import {

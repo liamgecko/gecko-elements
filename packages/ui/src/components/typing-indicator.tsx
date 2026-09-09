@@ -2,9 +2,9 @@
 
 import * as React from "react";
 
-import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
-import { Marker, MarkerContent, MarkerIcon } from "@gecko/ui/components/marker";
-import { cn } from "@gecko/ui/lib/utils";
+import { Avatar, AvatarImage } from "@geckolabs/elements/components/avatar";
+import { Marker, MarkerContent, MarkerIcon } from "@geckolabs/elements/components/marker";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 export interface TypingIndicatorProps extends Omit<
   React.HTMLAttributes<HTMLDivElement>,

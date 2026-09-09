@@ -1,8 +1,8 @@
 import * as React from "react"
 import { useNavigate } from "react-router-dom"
 
-import { DataTable } from "@gecko/ui/components/data-table/data-table"
-import { TooltipProvider } from "@gecko/ui/components/tooltip"
+import { DataTable } from "@geckolabs/elements/components/data-table/data-table"
+import { TooltipProvider } from "@geckolabs/elements/components/tooltip"
 
 import {
   DataLoadErrorAlert,

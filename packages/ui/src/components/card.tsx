@@ -1,16 +1,16 @@
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import CircleHelp from "@hugeicons/core-free-icons/HelpCircleIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { cn } from "@gecko/ui/lib/utils";
+import { cn } from "@geckolabs/elements/lib/utils";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
+} from "@geckolabs/elements/components/tooltip";
 
 const Card = /* @__PURE__ */ withRef(function Card({
   className,

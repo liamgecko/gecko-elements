@@ -1,5 +1,5 @@
 import type { RefObject } from "react";
-import { toast } from "@gecko/ui/components/toast";
+import { toast } from "@geckolabs/elements/components/toast";
 import type { Edge } from "@xyflow/react";
 
 import type { WorkflowGraphNodeData } from "../workflows-data";

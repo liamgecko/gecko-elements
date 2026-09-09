@@ -4,12 +4,12 @@ import * as React from "react";
 import Check from "@hugeicons/core-free-icons/CheckIcon";
 import PenSquare from "@hugeicons/core-free-icons/SquarePenIcon";
 import X from "@hugeicons/core-free-icons/XIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { Input } from "@gecko/ui/components/input";
-import { Button } from "@gecko/ui/components/button";
-import { cn } from "@gecko/ui/lib/utils";
+import { Input } from "@geckolabs/elements/components/input";
+import { Button } from "@geckolabs/elements/components/button";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 const inlineEditViewRootVariants = cva(
   "group flex w-full min-w-0 items-center justify-between overflow-hidden whitespace-nowrap rounded-sm border border-transparent bg-transparent p-0 text-start font-[inherit] text-foreground transition-colors",

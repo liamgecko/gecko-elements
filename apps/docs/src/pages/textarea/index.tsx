@@ -9,15 +9,15 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from "@gecko/ui/components/field";
-import { Textarea } from "@gecko/ui/components/textarea";
+} from "@geckolabs/elements/components/field";
+import { Textarea } from "@geckolabs/elements/components/textarea";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -26,7 +26,7 @@ const textareaFormSchema = z.object({
 });
 
 export function TextareaPage() {
-  const importSnippet = `import { Textarea } from "@gecko/ui/components/textarea"`;
+  const importSnippet = `import { Textarea } from "@geckolabs/elements/components/textarea"`;
 
   const basicExampleSnippet = `<Textarea
   aria-label="Message"

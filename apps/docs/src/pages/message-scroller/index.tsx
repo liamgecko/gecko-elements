@@ -23,9 +23,9 @@ export function MessageScrollerPage() {
   MessageScrollerItem,
   MessageScrollerProvider,
   MessageScrollerViewport,
-} from "@gecko/ui/components/message-scroller"
-import { Message, MessageContent } from "@gecko/ui/components/message"
-import { Bubble, BubbleContent } from "@gecko/ui/components/bubble"`;
+} from "@geckolabs/elements/components/message-scroller"
+import { Message, MessageContent } from "@geckolabs/elements/components/message"
+import { Bubble, BubbleContent } from "@geckolabs/elements/components/bubble"`;
 
   const compositionSnippet = `MessageScrollerProvider
 └── MessageScroller
@@ -147,7 +147,7 @@ import { Bubble, BubbleContent } from "@gecko/ui/components/bubble"`;
 </MessageScrollerProvider>`;
 
   const animationSnippet = `import { motion } from "motion/react"
-import { MESSAGE_ANIMATIONS } from "@gecko/ui/lib/message-animations"
+import { MESSAGE_ANIMATIONS } from "@geckolabs/elements/lib/message-animations"
 
 <MessageScrollerProvider>
   <MessageScroller>
@@ -194,7 +194,7 @@ import { MESSAGE_ANIMATIONS } from "@gecko/ui/lib/message-animations"
   MessageScrollerProvider,
   MessageScrollerViewport,
   useMessageScrollerScrollable,
-} from "@gecko/ui/components/message-scroller"
+} from "@geckolabs/elements/components/message-scroller"
 
 function ScrollEdges() {
   const { start, end } = useMessageScrollerScrollable()

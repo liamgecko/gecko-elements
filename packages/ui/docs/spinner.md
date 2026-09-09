@@ -1,6 +1,6 @@
 # Spinner
 
-Import: `@gecko/ui/components/spinner`  
+Import: `@geckolabs/elements/components/spinner`  
 Status: Stable  
 Source: `src/components/spinner.tsx`  
 Human documentation: `apps/docs/src/pages/spinner/index.tsx`
@@ -78,7 +78,7 @@ Spinner also accepts native SVG properties. Its default `role="status"` and `ari
 
 ## Agent rules
 
-1. Import Spinner from `@gecko/ui/components/spinner`.
+1. Import Spinner from `@geckolabs/elements/components/spinner`.
 2. Use Spinner only when completion cannot be measured.
 3. Use the default medium size for standalone loading and an approved smaller size inside compact components.
 4. Keep the default status semantics for standalone loading.

@@ -1,6 +1,6 @@
 # Drop zone
 
-Import: `@gecko/ui/components/drop-zone`  
+Import: `@geckolabs/elements/components/drop-zone`  
 Status: Stable  
 Source: `src/components/drop-zone.tsx`  
 Human documentation: `apps/docs/src/pages/drop-zone/index.tsx`
@@ -20,7 +20,7 @@ Use the controlled interface when the product needs the selected file.
 ```tsx
 import { useState } from "react";
 
-import { DropZone } from "@gecko/ui/components/drop-zone";
+import { DropZone } from "@geckolabs/elements/components/drop-zone";
 
 const [files, setFiles] = useState<File[]>([]);
 

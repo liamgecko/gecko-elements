@@ -1,22 +1,22 @@
 "use client";
 /* eslint-disable react-refresh/only-export-components -- the anchor hook is part of the Combobox public interface. */
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { Combobox as ComboboxPrimitive } from "@base-ui/react";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { Button } from "@gecko/ui/components/button";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@gecko/ui/components/input-group";
+} from "@geckolabs/elements/components/input-group";
 import ChevronDownIcon from "@hugeicons/core-free-icons/ChevronDownIcon";
 import XIcon from "@hugeicons/core-free-icons/XIcon";
 import CheckIcon from "@hugeicons/core-free-icons/CheckIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 const Combobox = ComboboxPrimitive.Root;
 

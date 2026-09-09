@@ -1,6 +1,6 @@
 import { MessageCircleCheck } from "lucide-react"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   Dialog,
   DialogBody,
@@ -10,9 +10,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogWrapper,
-} from "@gecko/ui/components/dialog"
-import { Label } from "@gecko/ui/components/label"
-import { Textarea } from "@gecko/ui/components/textarea"
+} from "@geckolabs/elements/components/dialog"
+import { Label } from "@geckolabs/elements/components/label"
+import { Textarea } from "@geckolabs/elements/components/textarea"
 
 export type AssistantNegativeFeedbackDialogProps = {
   open: boolean

@@ -14,7 +14,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@gecko/ui/components/accordion";
+} from "@geckolabs/elements/components/accordion";
 
 export function AccordionPage() {
   const importSnippet = `import {
@@ -22,7 +22,7 @@ export function AccordionPage() {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@gecko/ui/components/accordion"`;
+} from "@geckolabs/elements/components/accordion"`;
 
   const getControlsSnippet = (
     accordionProps: string,

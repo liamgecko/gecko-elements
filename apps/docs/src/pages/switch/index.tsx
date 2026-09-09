@@ -9,11 +9,11 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { Field, FieldContent, FieldError } from "@gecko/ui/components/field";
-import { Switch } from "@gecko/ui/components/switch";
+import { Field, FieldContent, FieldError } from "@geckolabs/elements/components/field";
+import { Switch } from "@geckolabs/elements/components/switch";
 
 export function SwitchPage() {
-  const importSnippet = `import { Switch } from "@gecko/ui/components/switch"`;
+  const importSnippet = `import { Switch } from "@geckolabs/elements/components/switch"`;
 
   const basicExampleSnippet = `<Switch label="Share across devices" />`;
 

@@ -9,36 +9,36 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
+} from "@geckolabs/elements/components/dropdown-menu";
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from "@gecko/ui/components/field";
+} from "@geckolabs/elements/components/field";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
   InputGroupText,
-} from "@gecko/ui/components/input-group";
-import { Kbd } from "@gecko/ui/components/kbd";
-import { Spinner } from "@gecko/ui/components/spinner";
+} from "@geckolabs/elements/components/input-group";
+import { Kbd } from "@geckolabs/elements/components/kbd";
+import { Spinner } from "@geckolabs/elements/components/spinner";
 import Check from "@hugeicons/core-free-icons/CheckIcon";
 import Copy from "@hugeicons/core-free-icons/Copy01Icon";
 import CreditCard from "@hugeicons/core-free-icons/CreditCardIcon";
 import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
 import Mail from "@hugeicons/core-free-icons/Mail01Icon";
 import Search from "@hugeicons/core-free-icons/Search01Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -54,7 +54,7 @@ export function InputGroupPage() {
   InputGroupInput,
   InputGroupText,
   InputGroupTextarea,
-} from "@gecko/ui/components/input-group"`;
+} from "@geckolabs/elements/components/input-group"`;
 
   const compositionSnippet = `InputGroup
 ├── InputGroupInput or InputGroupTextarea

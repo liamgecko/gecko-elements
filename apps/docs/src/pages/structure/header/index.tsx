@@ -8,7 +8,7 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { Header } from "@gecko/ui/components/header";
+import { Header } from "@geckolabs/elements/components/header";
 
 const demoBreadcrumbs = {
   items: [
@@ -35,7 +35,7 @@ const demoTabs = {
 } as const;
 
 export function StructureHeaderPage() {
-  const importSnippet = `import { Header } from "@gecko/ui/components/header"`;
+  const importSnippet = `import { Header } from "@geckolabs/elements/components/header"`;
 
   const compositionSnippet = `Header
 ├── Breadcrumb

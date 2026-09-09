@@ -1,13 +1,13 @@
 import * as React from "react"
 
-import { Label } from "@gecko/ui/components/label"
+import { Label } from "@geckolabs/elements/components/label"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select"
+} from "@geckolabs/elements/components/select"
 import { Widget } from "@/components/widget"
 import type { AgentType } from "@/lib/types"
 

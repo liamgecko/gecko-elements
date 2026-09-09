@@ -1,6 +1,6 @@
 # Popover
 
-Import: `@gecko/ui/components/popover`  
+Import: `@geckolabs/elements/components/popover`  
 Status: Stable  
 Source: `src/components/popover.tsx`  
 Human documentation: `apps/docs/src/pages/popover/index.tsx`
@@ -152,7 +152,7 @@ Popover, PopoverTrigger, PopoverTitle, PopoverDescription and PopoverClose accep
 
 ## Agent rules
 
-1. Import Popover parts from `@gecko/ui/components/popover`.
+1. Import Popover parts from `@geckolabs/elements/components/popover`.
 2. Render the trigger with a Gecko component instance rather than passing a component function.
 3. Use the canonical title and description composition when the panel needs context.
 4. Use PopoverFooter for actions and PopoverClose for actions that dismiss the panel.

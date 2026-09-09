@@ -1,7 +1,7 @@
 import { Clock } from "lucide-react"
 import type { ReactNode } from "react"
 
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 type EventDateTimeProps = {
   dateTime: string

@@ -10,7 +10,9 @@
     "typecheck": "turbo typecheck",
     "test:react-compat": "node scripts/test-react-compat.mjs",
     "test:message-scroller": "node tests/message-scroller/anchor-shift.mjs",
-    "check:react-refs": "node scripts/check-react-refs.mjs"
+    "check:react-refs": "node scripts/check-react-refs.mjs",
+    "build:package": "npm run build --workspace @geckolabs/elements",
+    "test:package:tailwind": "ELEMENTS_CSS_MODE=tailwind node scripts/test-react-compat.mjs"
   },
   "devDependencies": {
     "prettier": "^3.8.1",

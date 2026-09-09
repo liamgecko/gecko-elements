@@ -2,11 +2,11 @@ import { useChat } from "@ai-sdk/react";
 import ArrowUpIcon from "@hugeicons/core-free-icons/ArrowUp02Icon";
 import MessageCircleDashedIcon from "@hugeicons/core-free-icons/MessageCircleDashedIcon";
 import RotateCwIcon from "@hugeicons/core-free-icons/RotateCwIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 import { createChat, getMessageText } from "@/lib/ai";
 import { ScrollerDemoMessage } from "./scroller-demo-message";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Card,
   CardAction,
@@ -15,31 +15,31 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@gecko/ui/components/card";
+} from "@geckolabs/elements/components/card";
 import {
   Empty,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@gecko/ui/components/empty";
+} from "@geckolabs/elements/components/empty";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
-} from "@gecko/ui/components/input-group";
+} from "@geckolabs/elements/components/input-group";
 import {
   MessageScroller,
   MessageScrollerButton,
   MessageScrollerContent,
   MessageScrollerProvider,
   MessageScrollerViewport,
-} from "@gecko/ui/components/message-scroller";
+} from "@geckolabs/elements/components/message-scroller";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
+} from "@geckolabs/elements/components/tooltip";
 
 const chat = createChat()
   .user(

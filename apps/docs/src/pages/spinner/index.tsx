@@ -9,17 +9,17 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { Button } from "@gecko/ui/components/button";
-import { Badge } from "@gecko/ui/components/badge";
+import { Button } from "@geckolabs/elements/components/button";
+import { Badge } from "@geckolabs/elements/components/badge";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from "@gecko/ui/components/input-group";
-import { Spinner } from "@gecko/ui/components/spinner";
+} from "@geckolabs/elements/components/input-group";
+import { Spinner } from "@geckolabs/elements/components/spinner";
 
 export function SpinnerPage() {
-  const importSnippet = `import { Spinner } from "@gecko/ui/components/spinner"`;
+  const importSnippet = `import { Spinner } from "@geckolabs/elements/components/spinner"`;
 
   const basicExampleSnippet = `<Spinner />`;
 

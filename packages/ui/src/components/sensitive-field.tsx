@@ -3,22 +3,22 @@
 import * as React from "react";
 import View from "@hugeicons/core-free-icons/ViewIcon";
 import EyeOff from "@hugeicons/core-free-icons/EyeOffIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { useControllableState } from "@gecko/ui/hooks/use-controllable-state";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { useControllableState } from "@geckolabs/elements/hooks/use-controllable-state";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@gecko/ui/components/input-group";
+} from "@geckolabs/elements/components/input-group";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
+} from "@geckolabs/elements/components/tooltip";
 
 type SensitiveFieldSize = "sm" | "md" | "lg";
 

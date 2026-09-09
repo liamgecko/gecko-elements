@@ -1,5 +1,5 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import Check from "@hugeicons/core-free-icons/CheckIcon";
@@ -10,29 +10,29 @@ import Info from "@hugeicons/core-free-icons/InfoIcon";
 import Share from "@hugeicons/core-free-icons/Upload06Icon";
 import ThumbsDown from "@hugeicons/core-free-icons/ThumbsDownIcon";
 import ThumbsUp from "@hugeicons/core-free-icons/ThumbsUpIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@gecko/ui/components/popover";
-import { Toggle } from "@gecko/ui/components/toggle";
+} from "@geckolabs/elements/components/popover";
+import { Toggle } from "@geckolabs/elements/components/toggle";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
+} from "@geckolabs/elements/components/tooltip";
 import {
   MessageContext,
   getDefaultAlign,
   getMessageBubbleVariant,
   useMessageContext,
   type MessageVariant,
-} from "@gecko/ui/components/message-context";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/message-context";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 type MessageStatus = "sent" | "delivered" | "read" | "failed";
 type RelativeTimeInput = Date | string | number;

@@ -1,7 +1,7 @@
 import * as React from "react"
 import { WandSparkles } from "lucide-react"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   Dialog,
   DialogBody,
@@ -11,8 +11,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogWrapper,
-} from "@gecko/ui/components/dialog"
-import { Textarea } from "@gecko/ui/components/textarea"
+} from "@geckolabs/elements/components/dialog"
+import { Textarea } from "@geckolabs/elements/components/textarea"
 
 const EXAMPLE_PROMPT =
   'I want to create a workflow that after a conversation closes, and channel was "Admissions live chat" then add a label of "Admissions" to the conversation'

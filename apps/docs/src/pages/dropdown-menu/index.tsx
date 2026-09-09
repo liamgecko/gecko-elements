@@ -27,16 +27,16 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
-import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/dropdown-menu";
+import { Avatar, AvatarImage } from "@geckolabs/elements/components/avatar";
+import { Button } from "@geckolabs/elements/components/button";
 import CreditCardIcon from "@hugeicons/core-free-icons/CreditCardIcon";
 import PencilIcon from "@hugeicons/core-free-icons/PencilEdit01Icon";
 import SettingsIcon from "@hugeicons/core-free-icons/Settings01Icon";
 import ShareIcon from "@hugeicons/core-free-icons/Share01Icon";
 import TrashIcon from "@hugeicons/core-free-icons/Delete02Icon";
 import UserIcon from "@hugeicons/core-free-icons/User02Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 export function DropdownMenuPage() {
   const [showStatusBar, setShowStatusBar] = React.useState(true);
@@ -62,7 +62,7 @@ export function DropdownMenuPage() {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"`;
+} from "@geckolabs/elements/components/dropdown-menu"`;
 
   const compositionSnippet = `DropdownMenu
 ├── DropdownMenuTrigger

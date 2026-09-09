@@ -2,7 +2,7 @@ import * as React from "react"
 import { CheckCheck, X } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   Field,
   FieldDescription,
@@ -10,8 +10,8 @@ import {
   FieldGroup,
   FieldLabel,
   FieldSet,
-} from "@gecko/ui/components/field"
-import { Input } from "@gecko/ui/components/input"
+} from "@geckolabs/elements/components/field"
+import { Input } from "@geckolabs/elements/components/input"
 
 export type FormFormValues = {
   name: string

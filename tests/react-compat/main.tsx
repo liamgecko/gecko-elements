@@ -1,18 +1,25 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
-import "@gecko/ui/globals.css";
+import "@geckolabs/elements/globals.css";
 import "./exports";
-import { Button } from "@gecko/ui/components/button";
-import { Input } from "@gecko/ui/components/input";
-import { Bar, BarChart } from "recharts";
-import { ChartContainer } from "@gecko/ui/components/chart";
-import { Table, TableBody, TableDetailRow } from "@gecko/ui/components/table";
-import { ReplyBox, ReplyBoxFooter } from "@gecko/ui/components/reply-box";
-import { Textarea } from "@gecko/ui/components/textarea";
-import { Search } from "@gecko/ui/components/search";
-import { FileInput } from "@gecko/ui/components/file-input";
-import { Checkbox } from "@gecko/ui/components/checkbox";
-import { Switch } from "@gecko/ui/components/switch";
+import { Button } from "@geckolabs/elements/components/button";
+import { Input } from "@geckolabs/elements/components/input";
+import { Bar, BarChart } from "@geckolabs/elements/charts";
+import { ChartContainer } from "@geckolabs/elements/components/chart";
+import {
+  Table,
+  TableBody,
+  TableDetailRow,
+} from "@geckolabs/elements/components/table";
+import {
+  ReplyBox,
+  ReplyBoxFooter,
+} from "@geckolabs/elements/components/reply-box";
+import { Textarea } from "@geckolabs/elements/components/textarea";
+import { Search } from "@geckolabs/elements/components/search";
+import { FileInput } from "@geckolabs/elements/components/file-input";
+import { Checkbox } from "@geckolabs/elements/components/checkbox";
+import { Switch } from "@geckolabs/elements/components/switch";
 import {
   Dialog,
   DialogTrigger,
@@ -20,28 +27,28 @@ import {
   DialogTitle,
   DialogDescription,
   DialogClose,
-} from "@gecko/ui/components/dialog";
+} from "@geckolabs/elements/components/dialog";
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from "@gecko/ui/components/select";
+} from "@geckolabs/elements/components/select";
 import {
   Combobox,
   ComboboxInput,
   ComboboxContent,
   ComboboxList,
   ComboboxItem,
-} from "@gecko/ui/components/combobox";
+} from "@geckolabs/elements/components/combobox";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from "@gecko/ui/components/dropdown-menu";
-import { Toaster, toast } from "@gecko/ui/components/toast";
+} from "@geckolabs/elements/components/dropdown-menu";
+import { Toaster, toast } from "@geckolabs/elements/components/toast";
 import {
   MessageScrollerProvider,
   MessageScroller,
@@ -51,7 +58,7 @@ import {
   MessageScrollerButton,
   useMessageScroller,
   useMessageScrollerVisibility,
-} from "@gecko/ui/components/message-scroller";
+} from "@geckolabs/elements/components/message-scroller";
 
 declare global {
   interface Window {
@@ -149,8 +156,20 @@ function App() {
       <main style={{ padding: 32, display: "grid", gap: 16, maxWidth: 640 }}>
         <h1>React {React.version}</h1>
         <Button ref={cleanupRef}>Ref lifecycle</Button>
-        <ChartContainer title="Compatibility chart" config={{ total: { label: "Total" } }} style={{ height: 180, width: 400 }}>
-          <BarChart data={[{ total: 4 }, { total: 8 }]}><><Bar dataKey="total" fill="var(--color-total)" isAnimationActive={false} /></></BarChart>
+        <ChartContainer
+          title="Compatibility chart"
+          config={{ total: { label: "Total" } }}
+          style={{ height: 180, width: 400 }}
+        >
+          <BarChart data={[{ total: 4 }, { total: 8 }]}>
+            <>
+              <Bar
+                dataKey="total"
+                fill="var(--color-total)"
+                isAnimationActive={false}
+              />
+            </>
+          </BarChart>
         </ChartContainer>
         <Table>
           <TableBody>
@@ -281,6 +300,9 @@ const root = createRoot(document.getElementById("root")!);
 window.compat.unmount = () => root.unmount();
 root.render(
   <React.StrictMode>
-    <App />
+    <>
+      <span data-testid="consumer-utility" className="[padding-left:37px]" />
+      <App />
+    </>
   </React.StrictMode>,
 );

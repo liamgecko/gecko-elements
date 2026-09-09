@@ -3,12 +3,12 @@
 import * as React from "react";
 import Upload01Icon from "@hugeicons/core-free-icons/Upload01Icon";
 import Trash2 from "@hugeicons/core-free-icons/Delete02Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { useControllableState } from "@gecko/ui/hooks/use-controllable-state";
-import { Button, buttonVariants } from "@gecko/ui/components/button";
-import { Input } from "@gecko/ui/components/input";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { useControllableState } from "@geckolabs/elements/hooks/use-controllable-state";
+import { Button, buttonVariants } from "@geckolabs/elements/components/button";
+import { Input } from "@geckolabs/elements/components/input";
 
 const DEFAULT_DESCRIPTION = "Or click to browse";
 const DEFAULT_ERROR =

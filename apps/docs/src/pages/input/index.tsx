@@ -10,7 +10,7 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Field,
   FieldDescription,
@@ -19,17 +19,17 @@ import {
   FieldLabel,
   FieldLegend,
   FieldSet,
-} from "@gecko/ui/components/field";
-import { Input } from "@gecko/ui/components/input";
+} from "@geckolabs/elements/components/field";
+import { Input } from "@geckolabs/elements/components/input";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@gecko/ui/components/input-group";
+} from "@geckolabs/elements/components/input-group";
 import Copy from "@hugeicons/core-free-icons/Copy01Icon";
 import Search from "@hugeicons/core-free-icons/Search01Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -43,7 +43,7 @@ const inputFormSchema = z.object({
 });
 
 export function InputPage() {
-  const importSnippet = `import { Input } from "@gecko/ui/components/input"`;
+  const importSnippet = `import { Input } from "@geckolabs/elements/components/input"`;
 
   const basicExampleSnippet = `<Input
   aria-label="Email address"

@@ -1,6 +1,6 @@
 # Tooltip
 
-Import: `@gecko/ui/components/tooltip`  
+Import: `@geckolabs/elements/components/tooltip`  
 Status: Stable  
 Source: `src/components/tooltip.tsx`  
 Human documentation: `apps/docs/src/pages/tooltip/index.tsx`
@@ -110,7 +110,7 @@ The components also accept their corresponding Base UI properties. TooltipConten
 
 ## Agent rules
 
-1. Import Tooltip parts from `@gecko/ui/components/tooltip`.
+1. Import Tooltip parts from `@geckolabs/elements/components/tooltip`.
 2. Place one TooltipProvider near the application root.
 3. Use Tooltip only for short, supplementary, non-interactive content.
 4. Give every icon-only trigger an accessible name that closely matches its tooltip label.

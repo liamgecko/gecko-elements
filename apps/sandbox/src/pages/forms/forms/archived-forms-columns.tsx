@@ -1,16 +1,16 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { Lock, LockOpen } from "lucide-react";
 
-import { Avatar } from "@gecko/ui/components/avatar";
+import { Avatar } from "@geckolabs/elements/components/avatar";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
-import type { DataTableColumnMeta } from "@gecko/ui/components/data-table/data-table";
-import { DataTableColumnHeader } from "@gecko/ui/components/data-table/data-table-column-header";
-import { DataTableMultiSelectFilter } from "@gecko/ui/components/data-table/data-table-columns";
-import { DataTableMultiLineCell } from "@gecko/ui/components/data-table/data-table-multi-line-cell";
+} from "@geckolabs/elements/components/tooltip";
+import type { DataTableColumnMeta } from "@geckolabs/elements/components/data-table/data-table";
+import { DataTableColumnHeader } from "@geckolabs/elements/components/data-table/data-table-column-header";
+import { DataTableMultiSelectFilter } from "@geckolabs/elements/components/data-table/data-table-columns";
+import { DataTableMultiLineCell } from "@geckolabs/elements/components/data-table/data-table-multi-line-cell";
 
 import { formatFormDate } from "./forms-columns";
 import type { Form, FormLockStatus } from "./forms-data";

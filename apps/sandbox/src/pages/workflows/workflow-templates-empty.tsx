@@ -1,7 +1,7 @@
 import { LayoutTemplate, Plus } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   Empty,
   EmptyContent,
@@ -9,7 +9,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@gecko/ui/components/empty"
+} from "@geckolabs/elements/components/empty"
 
 import { getWorkflowTemplateNewPath } from "./workflows-data"
 

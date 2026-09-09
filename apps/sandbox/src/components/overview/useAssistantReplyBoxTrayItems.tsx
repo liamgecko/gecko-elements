@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Astroid, Mic } from "lucide-react"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,8 +9,8 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"
-import { type ReplyBoxTrayItem } from "@gecko/ui/components/reply-box"
+} from "@geckolabs/elements/components/dropdown-menu"
+import { type ReplyBoxTrayItem } from "@geckolabs/elements/components/reply-box"
 
 export type AssistantAiModel = "auto" | "instant" | "thinking"
 

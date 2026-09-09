@@ -19,9 +19,9 @@ import {
   FieldLegend,
   FieldSeparator,
   FieldSet,
-} from "@gecko/ui/components/field";
-import { Input } from "@gecko/ui/components/input";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/field";
+import { Input } from "@geckolabs/elements/components/input";
+import { Button } from "@geckolabs/elements/components/button";
 
 export function FieldPage() {
   const [showValidationErrors, setShowValidationErrors] = React.useState(false);
@@ -38,7 +38,7 @@ export function FieldPage() {
   FieldSeparator,
   FieldSet,
   FieldTitle,
-} from "@gecko/ui/components/field"`;
+} from "@geckolabs/elements/components/field"`;
 
   const fieldCompositionSnippet = `Field
 ├── FieldLabel

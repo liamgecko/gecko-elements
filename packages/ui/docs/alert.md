@@ -1,6 +1,6 @@
 # Alert
 
-Import: `@gecko/ui/components/alert`  
+Import: `@geckolabs/elements/components/alert`  
 Status: Stable  
 Source: `src/components/alert.tsx`  
 Human documentation: `apps/docs/src/pages/alert/index.tsx`
@@ -19,7 +19,7 @@ import {
   AlertAction,
   AlertDescription,
   AlertTitle,
-} from "@gecko/ui/components/alert";
+} from "@geckolabs/elements/components/alert";
 ```
 
 Import Button separately when the Alert has an action.

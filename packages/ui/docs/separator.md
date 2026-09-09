@@ -1,6 +1,6 @@
 # Separator
 
-Import: `@gecko/ui/components/separator`  
+Import: `@geckolabs/elements/components/separator`  
 Status: Stable  
 Source: `src/components/separator.tsx`  
 Human documentation: `apps/docs/src/pages/separator/index.tsx`
@@ -69,7 +69,7 @@ The standard treatment uses the `separator` semantic colour token. Library-owned
 
 ## Agent rules
 
-1. Import Separator from `@gecko/ui/components/separator`.
+1. Import Separator from `@geckolabs/elements/components/separator`.
 2. Use the default orientation between stacked groups.
 3. Use the vertical orientation between inline groups.
 4. Keep spacing around the line so the groups remain readable.

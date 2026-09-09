@@ -1,13 +1,13 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { NumberField as NumberFieldPrimitive } from "@base-ui/react/number-field";
 import Minus from "@hugeicons/core-free-icons/MinusIcon";
 import Plus from "@hugeicons/core-free-icons/PlusIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { cn } from "@gecko/ui/lib/utils";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 type Size = "sm" | "md" | "lg";
 

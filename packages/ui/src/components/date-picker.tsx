@@ -3,25 +3,25 @@ import { cva } from "class-variance-authority";
 import { format } from "date-fns";
 import type { DateRange, Matcher } from "react-day-picker";
 import CalendarIcon from "@hugeicons/core-free-icons/Calendar03Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { useControllableState } from "@gecko/ui/hooks/use-controllable-state";
-import { Button } from "@gecko/ui/components/button";
-import { Calendar } from "@gecko/ui/components/calendar";
-import { Field, FieldLabel } from "@gecko/ui/components/field";
-import { Input } from "@gecko/ui/components/input";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { useControllableState } from "@geckolabs/elements/hooks/use-controllable-state";
+import { Button } from "@geckolabs/elements/components/button";
+import { Calendar } from "@geckolabs/elements/components/calendar";
+import { Field, FieldLabel } from "@geckolabs/elements/components/field";
+import { Input } from "@geckolabs/elements/components/input";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@gecko/ui/components/input-group";
+} from "@geckolabs/elements/components/input-group";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@gecko/ui/components/popover";
+} from "@geckolabs/elements/components/popover";
 
 const NATIVE_DATE_OR_TIME_INPUT_CLASSES =
   "appearance-none bg-background [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none";

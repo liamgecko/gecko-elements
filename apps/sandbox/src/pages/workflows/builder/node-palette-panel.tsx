@@ -1,9 +1,9 @@
 import * as React from "react"
 import { PanelLeftClose, PanelLeftOpen } from "lucide-react"
 
-import { Button } from "@gecko/ui/components/button"
-import { asButtonCheckboxVariants } from "@gecko/ui/components/checkbox"
-import { cn } from "@gecko/ui/lib/utils"
+import { Button } from "@geckolabs/elements/components/button"
+import { asButtonCheckboxVariants } from "@geckolabs/elements/components/checkbox"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 import { WORKFLOW_DRAG_MIME } from "./workflow-graph-types"
 import {

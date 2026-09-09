@@ -1,7 +1,7 @@
 import { CheckCheck } from "lucide-react"
 import * as React from "react"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   Combobox,
   ComboboxContent,
@@ -9,7 +9,7 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from "@gecko/ui/components/combobox"
+} from "@geckolabs/elements/components/combobox"
 import {
   Dialog,
   DialogBody,
@@ -19,8 +19,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogWrapper,
-} from "@gecko/ui/components/dialog"
-import { Field, FieldLabel } from "@gecko/ui/components/field"
+} from "@geckolabs/elements/components/dialog"
+import { Field, FieldLabel } from "@geckolabs/elements/components/field"
 
 import { useWorkflowTemplates } from "@/hooks/useWorkflowTemplates"
 

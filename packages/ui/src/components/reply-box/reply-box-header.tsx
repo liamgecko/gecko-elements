@@ -1,12 +1,12 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import ContractIcon from "@hugeicons/core-free-icons/ArrowShrink02Icon";
 import ExpandIcon from "@hugeicons/core-free-icons/ArrowExpand01Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,13 +14,13 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
+} from "@geckolabs/elements/components/dropdown-menu";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
+} from "@geckolabs/elements/components/tooltip";
 
 import { useReplyBox } from "./reply-box-context";
 import type { ReplyBoxChannel, ReplyBoxChannelType } from "./reply-box-actions";

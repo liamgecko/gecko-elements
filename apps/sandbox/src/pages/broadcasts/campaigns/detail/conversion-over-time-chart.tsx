@@ -8,9 +8,9 @@ import {
   ChartTooltipContent,
   ChartTooltipGroupedContent,
   type ChartConfig,
-} from "@gecko/ui/components/chart"
-import { Card, CardContent, CardHeader } from "@gecko/ui/components/card"
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+} from "@geckolabs/elements/components/chart"
+import { Card, CardContent, CardHeader } from "@geckolabs/elements/components/card"
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "@geckolabs/elements/charts"
 
 import {
   CampaignStatsGroupedLegend,

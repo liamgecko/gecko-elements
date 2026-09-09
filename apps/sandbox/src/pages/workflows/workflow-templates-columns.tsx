@@ -1,9 +1,9 @@
 import type { ColumnDef } from "@tanstack/react-table";
 
-import { Avatar } from "@gecko/ui/components/avatar";
-import type { DataTableColumnMeta } from "@gecko/ui/components/data-table/data-table";
-import { DataTableColumnHeader } from "@gecko/ui/components/data-table/data-table-column-header";
-import { DataTableMultiLineCell } from "@gecko/ui/components/data-table/data-table-multi-line-cell";
+import { Avatar } from "@geckolabs/elements/components/avatar";
+import type { DataTableColumnMeta } from "@geckolabs/elements/components/data-table/data-table";
+import { DataTableColumnHeader } from "@geckolabs/elements/components/data-table/data-table-column-header";
+import { DataTableMultiLineCell } from "@geckolabs/elements/components/data-table/data-table-multi-line-cell";
 
 import type { WorkflowTemplate } from "./workflows-data";
 import { formatWorkflowDateTime } from "./workflows-columns";

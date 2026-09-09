@@ -1,6 +1,6 @@
 # Switch
 
-Import: `@gecko/ui/components/switch`  
+Import: `@geckolabs/elements/components/switch`  
 Status: Stable  
 Source: `src/components/switch.tsx`  
 Human documentation: `apps/docs/src/pages/switch/index.tsx`
@@ -136,7 +136,7 @@ Switch also accepts Base UI Switch Root properties.
 
 ## Agent rules
 
-- Import Switch from `@gecko/ui/components/switch`.
+- Import Switch from `@geckolabs/elements/components/switch`.
 - Use Switch only for an independent setting that takes effect immediately.
 - Use Checkbox for choices submitted later and Radio group for one choice from a set.
 - Give every canonical Switch a visible positive label describing its on state.

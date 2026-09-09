@@ -2,9 +2,9 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@gecko/ui/components/sidebar";
-import { ScrollArea } from "@gecko/ui/components/scroll-area";
-import { Toaster } from "@gecko/ui/components/toast";
+} from "@geckolabs/elements/components/sidebar";
+import { ScrollArea } from "@geckolabs/elements/components/scroll-area";
+import { Toaster } from "@geckolabs/elements/components/toast";
 
 import { AppSidebar } from "./AppSidebar";
 import { AppHeader } from "./AppHeader";

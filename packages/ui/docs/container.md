@@ -1,6 +1,6 @@
 # Page container
 
-Import: `@gecko/ui/components/container`  
+Import: `@geckolabs/elements/components/container`  
 Status: Stable  
 Source: `src/components/container.tsx`  
 Human documentation: `apps/docs/src/pages/structure/container/index.tsx`
@@ -39,7 +39,7 @@ Container owns the standard page background and `p-6` outer padding. Use `classN
 
 ## Agent rules
 
-1. Import Container from `@gecko/ui/components/container`.
+1. Import Container from `@geckolabs/elements/components/container`.
 2. Use one Container around the body of every standard page.
 3. Place Container below Page Header.
 4. Do not use Container on Inbox unless its layout contract changes.

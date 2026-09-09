@@ -5,8 +5,8 @@ import CreditCard from "@hugeicons/core-free-icons/CreditCardIcon";
 import Settings from "@hugeicons/core-free-icons/Settings01Icon";
 import Smile from "@hugeicons/core-free-icons/SmileIcon";
 import User from "@hugeicons/core-free-icons/User02Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
-import { Button } from "@gecko/ui/components/button";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import {
   Command,
@@ -18,7 +18,7 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "@gecko/ui/components/command";
+} from "@geckolabs/elements/components/command";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
@@ -43,7 +43,7 @@ export function CommandPage() {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "@gecko/ui/components/command"`;
+} from "@geckolabs/elements/components/command"`;
 
   const compositionSnippet = `Command
 ├── CommandInput

@@ -1,19 +1,19 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { EmojiPicker as FrimousseEmojiPicker } from "frimousse";
 import SmilePlus from "@hugeicons/core-free-icons/SmilePlusIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@gecko/ui/components/popover";
-import { cn } from "@gecko/ui/lib/utils";
-import { useControllableState } from "@gecko/ui/hooks/use-controllable-state";
+} from "@geckolabs/elements/components/popover";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { useControllableState } from "@geckolabs/elements/hooks/use-controllable-state";
 
 import "./emoji-picker.css";
 
@@ -119,7 +119,9 @@ function EmojiPicker({
   );
 }
 
-const EmojiPickerTrigger = /* @__PURE__ */ withRef(function EmojiPickerTrigger({
+const EmojiPickerTrigger: React.NamedExoticComponent<
+  React.ComponentProps<typeof PopoverTrigger>
+> = /* @__PURE__ */ withRef(function EmojiPickerTrigger({
   ...props
 }: React.ComponentProps<typeof PopoverTrigger>) {
   return <PopoverTrigger data-slot="emoji-picker-trigger" {...props} />;

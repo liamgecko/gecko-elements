@@ -1,6 +1,6 @@
 # Breadcrumb
 
-Import: `@gecko/ui/components/breadcrumb`  
+Import: `@geckolabs/elements/components/breadcrumb`  
 Status: Stable  
 Source: `src/components/breadcrumb.tsx`  
 Human documentation: `apps/docs/src/pages/breadcrumb/index.tsx`
@@ -24,7 +24,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@gecko/ui/components/breadcrumb";
+} from "@geckolabs/elements/components/breadcrumb";
 
 <Breadcrumb>
   <BreadcrumbList>

@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@gecko/ui/components/card"
+} from "@geckolabs/elements/components/card"
 import {
   MessageScroller,
   MessageScrollerButton,
@@ -14,7 +14,7 @@ import {
   MessageScrollerProvider,
   MessageScrollerViewport,
   useMessageScrollerScrollable,
-} from "@gecko/ui/components/message-scroller"
+} from "@geckolabs/elements/components/message-scroller"
 
 const messages = Array.from({ length: 12 }, (_, index) => ({
   id: `scrollable-${index + 1}`,

@@ -1,12 +1,12 @@
 import * as React from "react";
-import { AppHeader, AppHeaderLogo } from "@gecko/ui/components/app-header";
+import { AppHeader, AppHeaderLogo } from "@geckolabs/elements/components/app-header";
 import {
   AppSidebar,
   AppSidebarFavourites,
   AppSidebarNav,
   type AppSidebarNavItem,
-} from "@gecko/ui/components/app-sidebar";
-import { SidebarInset, SidebarProvider } from "@gecko/ui/components/sidebar";
+} from "@geckolabs/elements/components/app-sidebar";
+import { SidebarInset, SidebarProvider } from "@geckolabs/elements/components/sidebar";
 import geckoLogoUrl from "@/assets/gecko-logo-light.svg";
 import Headset from "@hugeicons/core-free-icons/HeadsetIcon";
 import House from "@hugeicons/core-free-icons/Home04Icon";

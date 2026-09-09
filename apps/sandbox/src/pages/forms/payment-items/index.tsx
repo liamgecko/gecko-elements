@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash2, X } from "lucide-react";
-import { toast } from "@gecko/ui/components/toast";
+import { toast } from "@geckolabs/elements/components/toast";
 
 import {
   AlertDialog,
@@ -12,9 +12,9 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@gecko/ui/components/alert-dialog";
-import { DataTable } from "@gecko/ui/components/data-table/data-table";
-import { TooltipProvider } from "@gecko/ui/components/tooltip";
+} from "@geckolabs/elements/components/alert-dialog";
+import { DataTable } from "@geckolabs/elements/components/data-table/data-table";
+import { TooltipProvider } from "@geckolabs/elements/components/tooltip";
 
 import {
   DataLoadErrorAlert,

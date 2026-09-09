@@ -4,14 +4,14 @@ import * as React from "react";
 import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
 import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
 import Star from "@hugeicons/core-free-icons/StarIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@gecko/ui/components/collapsible";
+} from "@geckolabs/elements/components/collapsible";
 import {
   Dialog,
   DialogBody,
@@ -20,16 +20,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogWrapper,
-} from "@gecko/ui/components/dialog";
+} from "@geckolabs/elements/components/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
-import { Field, FieldLabel } from "@gecko/ui/components/field";
-import { Input } from "@gecko/ui/components/input";
-import { ScrollArea } from "@gecko/ui/components/scroll-area";
+} from "@geckolabs/elements/components/dropdown-menu";
+import { Field, FieldLabel } from "@geckolabs/elements/components/field";
+import { Input } from "@geckolabs/elements/components/input";
+import { ScrollArea } from "@geckolabs/elements/components/scroll-area";
 import {
   Sidebar,
   SidebarContent,
@@ -46,9 +46,9 @@ import {
   SidebarMenuSubItem,
   SidebarTrigger,
   useSidebar,
-} from "@gecko/ui/components/sidebar";
-import { cn } from "@gecko/ui/lib/utils";
-import { renderGeckoIcon, type GeckoIcon } from "@gecko/ui/lib/icon";
+} from "@geckolabs/elements/components/sidebar";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { renderGeckoIcon, type GeckoIcon } from "@geckolabs/elements/lib/icon";
 
 type AppSidebarProps = {
   children: [

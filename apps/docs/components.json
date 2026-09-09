@@ -14,8 +14,8 @@
     "components": "@/components",
     "hooks": "@/hooks",
     "lib": "@/lib",
-    "utils": "@gecko/ui/lib/utils",
-    "ui": "@gecko/ui/components"
+    "utils": "@geckolabs/elements/lib/utils",
+    "ui": "@geckolabs/elements/components"
   },
   "rtl": false,
   "menuColor": "default",

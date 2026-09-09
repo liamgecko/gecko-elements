@@ -9,8 +9,8 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { FileTree } from "@gecko/ui/components/file-tree";
-import type { FileTreeNode } from "@gecko/ui/components/file-tree";
+import { FileTree } from "@geckolabs/elements/components/file-tree";
+import type { FileTreeNode } from "@geckolabs/elements/components/file-tree";
 
 const fileTreeNodes: FileTreeNode[] = [
   {
@@ -47,8 +47,8 @@ const fileTreeNodes: FileTreeNode[] = [
 ];
 
 export function FileTreePage() {
-  const importSnippet = `import { FileTree } from "@gecko/ui/components/file-tree"
-import type { FileTreeNode } from "@gecko/ui/components/file-tree"`;
+  const importSnippet = `import { FileTree } from "@geckolabs/elements/components/file-tree"
+import type { FileTreeNode } from "@geckolabs/elements/components/file-tree"`;
 
   const basicExampleSnippet = `<FileTree
   nodes={nodes}

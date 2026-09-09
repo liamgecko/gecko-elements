@@ -20,7 +20,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@gecko/ui/components/table";
+} from "@geckolabs/elements/components/table";
 
 const invoices = [
   ["INV001", "Paid", "Credit Card", "$250.00"],
@@ -64,7 +64,7 @@ export function TablePage() {
   TableHead,
   TableHeader,
   TableRow,
-} from "@gecko/ui/components/table"`;
+} from "@geckolabs/elements/components/table"`;
 
   const compositionSnippet = `Table
 ├── TableCaption

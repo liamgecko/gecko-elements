@@ -15,10 +15,10 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@gecko/ui/components/empty";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/empty";
+import { Button } from "@geckolabs/elements/components/button";
 import InboxIcon from "@hugeicons/core-free-icons/Archive04Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { Code } from "@/components/layout/docs-code";
 
 export function EmptyPage() {
@@ -29,7 +29,7 @@ export function EmptyPage() {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@gecko/ui/components/empty"`;
+} from "@geckolabs/elements/components/empty"`;
 
   const compositionSnippet = `Empty
 ├── EmptyHeader

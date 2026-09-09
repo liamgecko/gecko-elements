@@ -8,15 +8,15 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
+} from "@geckolabs/elements/components/tooltip";
 import BookmarkPlusIcon from "@hugeicons/core-free-icons/BookmarkPlusIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 const sides = ["left", "top", "bottom", "right"] as const;
 
@@ -26,7 +26,7 @@ export function TooltipPage() {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip"`;
+} from "@geckolabs/elements/components/tooltip"`;
 
   const providerSnippet = `<TooltipProvider>
   {children}

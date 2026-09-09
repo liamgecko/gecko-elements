@@ -1,5 +1,5 @@
-import { cn } from "@gecko/ui/lib/utils";
-import { Toaster } from "@gecko/ui/components/toast";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { Toaster } from "@geckolabs/elements/components/toast";
 
 import { VirtualEventsProvider } from "@/context/virtual-events-context";
 

@@ -1,4 +1,4 @@
-import "@gecko/ui/globals.css"
+import "@geckolabs/elements/globals.css"
 
 import { AppShell } from "./components/layout/AppShell"
 import { Navigate, Route, Routes, useLocation } from "react-router-dom"

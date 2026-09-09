@@ -1,9 +1,9 @@
-import { Skeleton } from "@gecko/ui/components/skeleton"
+import { Skeleton } from "@geckolabs/elements/components/skeleton"
 import {
   DataTableToolbar,
   DataTableToolbarGroup,
   DataTableToolbarSearchRow,
-} from "@gecko/ui/components/data-table/data-table-toolbar"
+} from "@geckolabs/elements/components/data-table/data-table-toolbar"
 import {
   Table,
   TableBody,
@@ -11,8 +11,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@gecko/ui/components/table"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@geckolabs/elements/components/table"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 export type DataTablePageSkeletonProps = {
   /** Visible data columns (excluding selection and actions). @default 3 */

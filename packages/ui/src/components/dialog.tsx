@@ -1,14 +1,14 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { modalSurfaceClassName } from "@gecko/ui/lib/modal-surface";
-import { Button } from "@gecko/ui/components/button";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { modalSurfaceClassName } from "@geckolabs/elements/lib/modal-surface";
+import { Button } from "@geckolabs/elements/components/button";
 import XIcon from "@hugeicons/core-free-icons/XIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 type DialogSize = "xs" | "sm" | "md" | "lg" | "xl";
 

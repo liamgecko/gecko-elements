@@ -17,7 +17,7 @@ import {
   ReplyBoxFooter,
   ReplyBoxHeader,
   type ReplyBoxActionId,
-} from "@gecko/ui/components/reply-box";
+} from "@geckolabs/elements/components/reply-box";
 
 export function ReplyBoxPage() {
   const [sending, setSending] = useState(false);
@@ -30,7 +30,7 @@ export function ReplyBoxPage() {
     "  ReplyBoxContent,",
     "  ReplyBoxFooter,",
     "  ReplyBoxHeader,",
-    '} from "@gecko/ui/components/reply-box"',
+    '} from "@geckolabs/elements/components/reply-box"',
   ].join("\n");
 
   const compositionSnippet = [

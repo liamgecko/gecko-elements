@@ -1,6 +1,6 @@
 # Message
 
-Import: `@gecko/ui/components/message`  
+Import: `@geckolabs/elements/components/message`  
 Status: Stable  
 Source: `src/components/message.tsx`  
 Human documentation: `apps/docs/src/pages/message/index.tsx`
@@ -26,7 +26,7 @@ import {
   MessageHeader,
   MessageInfo,
   MessageMeta,
-} from "@gecko/ui/components/message";
+} from "@geckolabs/elements/components/message";
 ```
 
 Import Avatar and Bubble separately.
@@ -208,7 +208,7 @@ Bubble controls the visible surface width. It wraps at an 85% maximum by default
 
 ## Agent rules
 
-1. Import Message parts from `@gecko/ui/components/message`.
+1. Import Message parts from `@geckolabs/elements/components/message`.
 2. Render the visible surface with Bubble inside MessageContent.
 3. Set Message `variant` from the participant or note meaning, not visual preference.
 4. Let Message choose Bubble variant and alignment unless a documented viewer-relative exception applies.

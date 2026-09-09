@@ -1,6 +1,6 @@
 # Button
 
-Import: `@gecko/ui/components/button`  
+Import: `@geckolabs/elements/components/button`  
 Status: Stable  
 Source: `src/components/button.tsx`  
 Human documentation: `apps/docs/src/pages/button/index.tsx`
@@ -16,7 +16,7 @@ Use a native link for navigation. Use Toggle for a persistent on/off choice, Dro
 Default is the primary treatment. Omit `variant` and `size` for the main action.
 
 ```tsx
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 
 <Button onClick={saveChanges}>Save changes</Button>;
 ```
@@ -104,7 +104,7 @@ Set `loading` while the action is running.
 ```tsx
 import { useState } from "react";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 
 export function SaveChangesButton({
   saveChanges,
@@ -178,7 +178,7 @@ Use a ghost icon Button for showing or hiding a persistent panel. Supply an acti
 
 `aria-expanded` alone does not change Button colours, borders or background. Normal hover and keyboard-focus treatments still apply. Only popup triggers that also have `aria-haspopup` receive the existing expanded popup treatment. Keep popup semantics on menus and popovers; do not add `aria-haspopup` to a panel button for styling.
 
-For a right contact panel, use `LayoutAlignRightIcon` while expanded (collapse action) and `LayoutRightIcon` while collapsed (expand action), rendered through `@gecko/ui/lib/icon`. The application owns panel state and visibility. The navigation rail uses SidebarTrigger, which owns its corresponding left-panel icons and labels.
+For a right contact panel, use `LayoutAlignRightIcon` while expanded (collapse action) and `LayoutRightIcon` while collapsed (expand action), rendered through `@geckolabs/elements/lib/icon`. The application owns panel state and visibility. The navigation rail uses SidebarTrigger, which owns its corresponding left-panel icons and labels.
 
 ## Forms
 

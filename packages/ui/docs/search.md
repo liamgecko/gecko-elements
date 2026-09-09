@@ -1,6 +1,6 @@
 # Search
 
-Import: `@gecko/ui/components/search`  
+Import: `@geckolabs/elements/components/search`  
 Status: Stable  
 Source: `src/components/search.tsx`  
 Human documentation: `apps/docs/src/pages/search/index.tsx`
@@ -88,7 +88,7 @@ Search accepts applicable native input properties except the native `size` prope
 
 ## Agent rules
 
-1. Import Search from `@gecko/ui/components/search`.
+1. Import Search from `@geckolabs/elements/components/search`.
 2. Use Search only when the query changes content elsewhere in the interface.
 3. Use `onValueChange` as the canonical query callback.
 4. Provide a specific accessible name when the searchable content is known.

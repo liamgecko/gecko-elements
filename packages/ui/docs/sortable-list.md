@@ -1,6 +1,6 @@
 # Sortable list
 
-Import: `@gecko/ui/components/sortable-list`  
+Import: `@geckolabs/elements/components/sortable-list`  
 Status: Stable  
 Source: `src/components/sortable-list.tsx`  
 Human documentation: `apps/docs/src/pages/sortable-list/index.tsx`
@@ -16,7 +16,7 @@ Use Sortable list when order has product meaning. Use Attachment or Drop zone wh
 Use the controlled flat interface for one sequence. Each item is represented by a stable unique id, and the product stores the order received by `onItemsChange`.
 
 ```tsx
-import { SortableList } from "@gecko/ui/components/sortable-list";
+import { SortableList } from "@geckolabs/elements/components/sortable-list";
 
 const [itemIds, setItemIds] = useState(["welcome", "details", "confirmation"]);
 
@@ -38,7 +38,7 @@ Use `variant="nested"` for ordered sections containing ordered child items. Chil
 import {
   type SortableNestedSection,
   SortableList,
-} from "@gecko/ui/components/sortable-list";
+} from "@geckolabs/elements/components/sortable-list";
 
 const [sections, setSections] = useState<SortableNestedSection[]>([
   {

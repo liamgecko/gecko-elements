@@ -1,5 +1,5 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
@@ -9,10 +9,10 @@ import Loader2 from "@hugeicons/core-free-icons/Loading03Icon";
 import OctagonX from "@hugeicons/core-free-icons/OctagonXIcon";
 import TriangleAlert from "@hugeicons/core-free-icons/TriangleAlertIcon";
 import XIcon from "@hugeicons/core-free-icons/XIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
-import { cn } from "@gecko/ui/lib/utils";
+import { Button } from "@geckolabs/elements/components/button";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 const toast = ToastPrimitive.createToastManager();
 

@@ -5,8 +5,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"
-import { ScrollArea } from "@gecko/ui/components/scroll-area"
+} from "@geckolabs/elements/components/dropdown-menu"
+import { ScrollArea } from "@geckolabs/elements/components/scroll-area"
 import {
   Sidebar,
   SidebarContent,
@@ -18,7 +18,7 @@ import {
   SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@gecko/ui/components/sidebar"
+} from "@geckolabs/elements/components/sidebar"
 
 import type { AssistantConversation } from "./assistant-conversations"
 import { TypingConversationTitle } from "./TypingConversationTitle"

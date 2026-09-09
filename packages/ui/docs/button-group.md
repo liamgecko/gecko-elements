@@ -1,6 +1,6 @@
 # Button Group
 
-Import: `@gecko/ui/components/button-group`  
+Import: `@geckolabs/elements/components/button-group`  
 Status: Stable  
 Source: `src/components/button-group.tsx`  
 Human documentation: `apps/docs/src/pages/button-group/index.tsx`
@@ -88,7 +88,7 @@ ButtonGroup accepts native div properties. ButtonGroupSeparator accepts Gecko Se
 
 ## Agent rules
 
-1. Import group parts from `@gecko/ui/components/button-group` and children from their Gecko modules.
+1. Import group parts from `@geckolabs/elements/components/button-group` and children from their Gecko modules.
 2. Group only actions that operate on the same object or value.
 3. Give the group an accessible name.
 4. Keep peer Button variants and sizes consistent.

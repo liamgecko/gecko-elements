@@ -7,7 +7,7 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"],
-      "@gecko/ui/*": ["../../packages/ui/src/*"]
+      "@geckolabs/elements/*": ["../../packages/ui/src/*"]
     }
   }
 }

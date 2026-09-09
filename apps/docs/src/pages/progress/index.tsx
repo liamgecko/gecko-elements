@@ -8,7 +8,7 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Progress } from "@gecko/ui/components/progress";
+import { Progress } from "@geckolabs/elements/components/progress";
 import { Code } from "@/components/layout/docs-code";
 
 export function ProgressPage() {
@@ -18,7 +18,7 @@ export function ProgressPage() {
   ProgressLabel,
   ProgressTrack,
   ProgressValue,
-} from "@gecko/ui/components/progress"`;
+} from "@geckolabs/elements/components/progress"`;
 
   const compositionSnippet = `Progress
 ├── ProgressLabel

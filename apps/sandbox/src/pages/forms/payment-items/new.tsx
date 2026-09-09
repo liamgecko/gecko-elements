@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "@gecko/ui/components/toast";
+import { toast } from "@geckolabs/elements/components/toast";
 
 import { SupabaseSetupNotice } from "@/components/supabase-setup-notice";
 import { paymentItemsRepository } from "@/data/repositories/paymentItemsRepository";

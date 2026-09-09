@@ -1,6 +1,6 @@
 # OTP field
 
-Import: `@gecko/ui/components/input-otp`  
+Import: `@geckolabs/elements/components/input-otp`  
 Status: Stable  
 Source: `src/components/input-otp.tsx`  
 Human documentation: `apps/docs/src/pages/input-otp/index.tsx`  
@@ -174,7 +174,7 @@ InputOTP accepts the supported native input properties and `input-otp` propertie
 
 ## Agent rules
 
-1. Import OTP field components from `@gecko/ui/components/input-otp`.
+1. Import OTP field components from `@geckolabs/elements/components/input-otp`.
 2. Import only approved pattern constants from `input-otp`; do not render `OTPInput` directly.
 3. Use OTP field only for short, fixed-length verification codes.
 4. Compose product controls with Field and a visible FieldLabel.

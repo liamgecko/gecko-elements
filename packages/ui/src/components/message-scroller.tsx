@@ -1,5 +1,5 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import {
@@ -9,10 +9,10 @@ import {
   useMessageScrollerVisibility,
 } from "../vendor/shadcn-message-scroller/index.js";
 import ArrowDownIcon from "@hugeicons/core-free-icons/ArrowDown02Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { Button } from "@gecko/ui/components/button";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { Button } from "@geckolabs/elements/components/button";
 
 function MessageScrollerProvider(
   props: React.ComponentProps<typeof MessageScrollerPrimitive.Provider>,

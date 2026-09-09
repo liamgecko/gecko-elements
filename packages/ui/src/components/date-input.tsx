@@ -2,8 +2,8 @@
 
 import * as React from "react"
 
-import { cn } from "@gecko/ui/lib/utils"
-import { Input } from "@gecko/ui/components/input"
+import { cn } from "@geckolabs/elements/lib/utils"
+import { Input } from "@geckolabs/elements/components/input"
 
 type DateInputSize = "sm" | "md" | "lg"
 

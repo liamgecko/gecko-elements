@@ -6,19 +6,19 @@ import flags from "react-phone-number-input/flags";
 import ChevronsLeftRight from "@hugeicons/core-free-icons/ChevronsLeftRightIcon";
 import CheckIcon from "@hugeicons/core-free-icons/CheckIcon";
 import Globe2Icon from "@hugeicons/core-free-icons/Globe02Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { Button } from "@gecko/ui/components/button";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuEmpty,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
-import { Input } from "@gecko/ui/components/input";
+} from "@geckolabs/elements/components/dropdown-menu";
+import { Input } from "@geckolabs/elements/components/input";
 
 const sizeVariants = cva("", {
   variants: {

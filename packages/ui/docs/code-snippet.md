@@ -1,6 +1,6 @@
 # Code snippet
 
-Import: `@gecko/ui/components/code`  
+Import: `@geckolabs/elements/components/code`  
 Status: Stable  
 Source: `src/components/code.tsx`  
 Human documentation: `apps/docs/src/pages/code-snippet/index.tsx`
@@ -16,7 +16,7 @@ Use Input for an editable single-line value and Textarea for editable multiline 
 Inline is the default variant:
 
 ```tsx
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@geckolabs/elements/components/code";
 
 <p>
   Set <Code>aria-invalid</Code> when validation fails.

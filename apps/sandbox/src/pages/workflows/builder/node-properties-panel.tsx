@@ -6,7 +6,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { toast } from "@gecko/ui/components/toast";
+import { toast } from "@geckolabs/elements/components/toast";
 
 import {
   AlertDialog,
@@ -17,14 +17,14 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@gecko/ui/components/alert-dialog";
+} from "@geckolabs/elements/components/alert-dialog";
 import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from "@gecko/ui/components/alert";
-import { Button } from "@gecko/ui/components/button";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/alert";
+import { Button } from "@geckolabs/elements/components/button";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 import type { WorkflowGraphNodeData } from "../workflows-data";
 import { NodePropertiesFields } from "./node-properties-fields";

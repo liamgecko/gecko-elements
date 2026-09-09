@@ -1,6 +1,6 @@
 # Date field
 
-Import: `@gecko/ui/components/date-input`  
+Import: `@geckolabs/elements/components/date-input`  
 Export: `DateInput`  
 Status: Stable  
 Source: `src/components/date-input.tsx`  
@@ -21,8 +21,8 @@ Use a controlled value, a visible FieldLabel and an accessible group name:
 ```tsx
 import * as React from "react"
 
-import { DateInput } from "@gecko/ui/components/date-input"
-import { Field, FieldLabel } from "@gecko/ui/components/field"
+import { DateInput } from "@geckolabs/elements/components/date-input"
+import { Field, FieldLabel } from "@geckolabs/elements/components/field"
 
 const [dateOfBirth, setDateOfBirth] = React.useState<Date | undefined>()
 

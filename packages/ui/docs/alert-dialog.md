@@ -1,6 +1,6 @@
 # Alert dialog
 
-Import: `@gecko/ui/components/alert-dialog`  
+Import: `@geckolabs/elements/components/alert-dialog`  
 Status: Stable  
 Source: `src/components/alert-dialog.tsx`  
 Human documentation: `apps/docs/src/pages/alert-dialog/index.tsx`
@@ -26,7 +26,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@gecko/ui/components/alert-dialog";
+} from "@geckolabs/elements/components/alert-dialog";
 ```
 
 ## Composition

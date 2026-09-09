@@ -2,7 +2,7 @@ import * as React from "react";
 import { ChartLine } from "lucide-react";
 import { useParams } from "react-router-dom";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,7 +12,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
+} from "@geckolabs/elements/components/dropdown-menu";
 
 import { useBroadcastCampaigns } from "@/hooks/useBroadcastCampaigns";
 

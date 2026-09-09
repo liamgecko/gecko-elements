@@ -1,4 +1,4 @@
-import type { DataTableRowAction } from "@gecko/ui/components/data-table"
+import type { DataTableRowAction } from "@geckolabs/elements/components/data-table"
 
 export type DemoEventSyncStatus = "synced" | "failed" | "syncing" | "none"
 export type DemoEventIntegration = "dynamics" | "salesforce" | "none"

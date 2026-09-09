@@ -5,7 +5,7 @@ import { Home } from "lucide-react"
 import type {
   HeaderBreadcrumbItem,
   HeaderProps,
-} from "@gecko/ui/components/header"
+} from "@geckolabs/elements/components/header"
 
 import { BreadcrumbRouterLink } from "@/components/breadcrumb-router-link"
 import {

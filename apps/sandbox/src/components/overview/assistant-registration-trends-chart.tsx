@@ -5,8 +5,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@gecko/ui/components/chart"
-import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
+} from "@geckolabs/elements/components/chart"
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "@geckolabs/elements/charts"
 
 export const AGENT_TRENDS_REPLY_PLAIN =
   "Sure, I can show you registration trends over the last 7 days."

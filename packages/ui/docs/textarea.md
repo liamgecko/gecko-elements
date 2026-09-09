@@ -1,6 +1,6 @@
 # Textarea
 
-Import: `@gecko/ui/components/textarea`  
+Import: `@geckolabs/elements/components/textarea`  
 Status: Stable  
 Source: `src/components/textarea.tsx`  
 Human documentation: `apps/docs/src/pages/textarea/index.tsx`
@@ -173,7 +173,7 @@ Use `className` only to position the complete control or set a deliberate layout
 
 ## Agent rules
 
-1. Import Textarea from `@gecko/ui/components/textarea`.
+1. Import Textarea from `@geckolabs/elements/components/textarea`.
 2. Use Textarea for multiline free text and Input for single-line values.
 3. Compose product textareas with Field and a visible FieldLabel.
 4. Set a meaningful `id` and `name` when the value participates in a form.

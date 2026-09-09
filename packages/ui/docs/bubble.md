@@ -1,6 +1,6 @@
 # Bubble
 
-Import: `@gecko/ui/components/bubble`  
+Import: `@geckolabs/elements/components/bubble`  
 Status: Stable  
 Source: `src/components/bubble.tsx`  
 Human documentation: `apps/docs/src/pages/bubble/index.tsx`
@@ -16,12 +16,12 @@ Use Card for grouped page content, Tooltip for a short contextual hint, Alert fo
 ## Canonical application usage
 
 ```tsx
-import { Bubble, BubbleContent } from "@gecko/ui/components/bubble";
+import { Bubble, BubbleContent } from "@geckolabs/elements/components/bubble";
 import {
   Message,
   MessageContent,
   MessageMeta,
-} from "@gecko/ui/components/message";
+} from "@geckolabs/elements/components/message";
 
 <Message variant="user">
   <MessageContent>
@@ -147,7 +147,7 @@ Import the disclosure parts from Gecko:
 import {
   Collapsible,
   CollapsibleTrigger,
-} from "@gecko/ui/components/collapsible";
+} from "@geckolabs/elements/components/collapsible";
 ```
 
 ## Accessibility

@@ -1,6 +1,6 @@
 # Radio group
 
-Import: `@gecko/ui/components/radio-group`  
+Import: `@geckolabs/elements/components/radio-group`  
 Status: Stable  
 Source: `src/components/radio-group.tsx`  
 Human documentation: `apps/docs/src/pages/radio-group/index.tsx`

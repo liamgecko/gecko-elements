@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "@gecko/ui/components/toast";
+import { toast } from "@geckolabs/elements/components/toast";
 
-import { Container } from "@gecko/ui/components/container";
-import { Header } from "@gecko/ui/components/header";
+import { Container } from "@geckolabs/elements/components/container";
+import { Header } from "@geckolabs/elements/components/header";
 import { SupabaseSetupNotice } from "@/components/supabase-setup-notice";
 import { broadcastCampaignsRepository } from "@/data/repositories/broadcastCampaignsRepository";
 import { usePageBreadcrumbs } from "@/lib/use-page-breadcrumbs";

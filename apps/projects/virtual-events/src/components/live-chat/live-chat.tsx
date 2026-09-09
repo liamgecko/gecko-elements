@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 
-import { ScrollArea } from "@gecko/ui/components/scroll-area"
-import { cn } from "@gecko/ui/lib/utils"
+import { ScrollArea } from "@geckolabs/elements/components/scroll-area"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 import { useVirtualEvents } from "@/context/virtual-events-context"
 

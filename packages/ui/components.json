@@ -11,11 +11,11 @@
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "@gecko/ui/components",
-    "utils": "@gecko/ui/lib/utils",
-    "hooks": "@gecko/ui/hooks",
-    "lib": "@gecko/ui/lib",
-    "ui": "@gecko/ui/components"
+    "components": "@geckolabs/elements/components",
+    "utils": "@geckolabs/elements/lib/utils",
+    "hooks": "@geckolabs/elements/hooks",
+    "lib": "@geckolabs/elements/lib",
+    "ui": "@geckolabs/elements/components"
   },
   "rtl": false,
   "menuColor": "default",

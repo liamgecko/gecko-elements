@@ -1,6 +1,6 @@
 # Empty
 
-Import: `@gecko/ui/components/empty`  
+Import: `@geckolabs/elements/components/empty`  
 Status: Stable  
 Source: `src/components/empty.tsx`  
 Human documentation: `apps/docs/src/pages/empty/index.tsx`

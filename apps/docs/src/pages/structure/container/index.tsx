@@ -8,10 +8,10 @@ import { ComponentExample } from "@/components/layout/component-example";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
 import { Code } from "@/components/layout/docs-code";
-import { Container } from "@gecko/ui/components/container";
+import { Container } from "@geckolabs/elements/components/container";
 
 export function StructureContainerPage() {
-  const importSnippet = `import { Container } from "@gecko/ui/components/container"`;
+  const importSnippet = `import { Container } from "@geckolabs/elements/components/container"`;
 
   const exampleSnippet = `<Container>
   {/* Page content goes here */}

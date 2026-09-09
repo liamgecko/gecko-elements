@@ -4,16 +4,16 @@ import * as React from "react";
 import Check from "@hugeicons/core-free-icons/CheckIcon";
 import Copy from "@hugeicons/core-free-icons/Copy01Icon";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
-import { toast } from "@gecko/ui/components/toast";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import { toast } from "@geckolabs/elements/components/toast";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { Button } from "@gecko/ui/components/button";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
+} from "@geckolabs/elements/components/tooltip";
 
 type CodeInlineProps = {
   variant?: "inline";

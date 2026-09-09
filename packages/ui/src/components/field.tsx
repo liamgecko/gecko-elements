@@ -1,14 +1,14 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import { useMemo } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { Label } from "@gecko/ui/components/label";
-import { Separator } from "@gecko/ui/components/separator";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { Label } from "@geckolabs/elements/components/label";
+import { Separator } from "@geckolabs/elements/components/separator";
 import CircleAlert from "@hugeicons/core-free-icons/AlertCircleIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 const FieldSet = /* @__PURE__ */ withRef(function FieldSet({
   className,

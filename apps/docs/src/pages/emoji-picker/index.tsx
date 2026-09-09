@@ -1,6 +1,6 @@
 import Smile from "@hugeicons/core-free-icons/SmileIcon";
 import SmilePlus from "@hugeicons/core-free-icons/SmilePlusIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -12,14 +12,14 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import {
   DEFAULT_TRAY_EMOJIS,
   EmojiPicker,
   EmojiPickerContent,
   EmojiPickerTrigger,
-} from "@gecko/ui/components/emoji-picker";
+} from "@geckolabs/elements/components/emoji-picker";
 
 const sides = ["top", "right", "bottom", "left"] as const;
 const aligns = ["start", "center", "end"] as const;
@@ -44,7 +44,7 @@ export function EmojiPickerPage() {
   EmojiPicker,
   EmojiPickerContent,
   EmojiPickerTrigger,
-} from "@gecko/ui/components/emoji-picker"`;
+} from "@geckolabs/elements/components/emoji-picker"`;
 
   const compositionSnippet = `EmojiPicker
 ├── EmojiPickerTrigger

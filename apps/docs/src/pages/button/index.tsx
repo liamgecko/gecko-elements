@@ -8,24 +8,24 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
+} from "@geckolabs/elements/components/dropdown-menu";
 import LayoutAlignRightIcon from "@hugeicons/core-free-icons/LayoutAlignRightIcon";
 import LayoutRightIcon from "@hugeicons/core-free-icons/LayoutRightIcon";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
+} from "@geckolabs/elements/components/tooltip";
 import RefreshCw from "@hugeicons/core-free-icons/RefreshCwIcon";
 import Settings from "@hugeicons/core-free-icons/Settings01Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { useState } from "react";
 
 export function ButtonPage() {
@@ -33,7 +33,7 @@ export function ButtonPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const importSnippet = `import { Button } from "@gecko/ui/components/button"`;
+  const importSnippet = `import { Button } from "@geckolabs/elements/components/button"`;
 
   const defaultSnippet = `<Button>Save changes</Button>`;
 
@@ -110,7 +110,7 @@ export function ButtonPage() {
 
   const loadingSnippet = `import { useState } from "react"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 
 export function SaveChangesButton({
   saveChanges,

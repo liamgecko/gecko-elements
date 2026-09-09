@@ -1,21 +1,21 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
 import { cva, type VariantProps } from "class-variance-authority";
 import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/dropdown-menu";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 type TabsVariant = "default" | "line";
 

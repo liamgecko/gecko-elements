@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
-import { TypingIndicator } from "@gecko/ui/components/typing-indicator";
+import { TypingIndicator } from "@geckolabs/elements/components/typing-indicator";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
@@ -13,7 +13,7 @@ const placeholderAvatar = "https://picsum.photos/seed/avatar/200";
 export function TypingIndicatorPage() {
   const [isTyping, setIsTyping] = useState(true);
 
-  const importSnippet = `import { TypingIndicator } from "@gecko/ui/components/typing-indicator"`;
+  const importSnippet = `import { TypingIndicator } from "@geckolabs/elements/components/typing-indicator"`;
 
   const defaultSnippet = `<TypingIndicator />`;
 

@@ -8,19 +8,19 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   ButtonGroup,
   ButtonGroupSeparator,
-} from "@gecko/ui/components/button-group";
+} from "@geckolabs/elements/components/button-group";
 import { Code } from "@/components/layout/docs-code";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
-import { Input } from "@gecko/ui/components/input";
+} from "@geckolabs/elements/components/dropdown-menu";
+import { Input } from "@geckolabs/elements/components/input";
 import {
   Select,
   SelectContent,
@@ -28,11 +28,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select";
+} from "@geckolabs/elements/components/select";
 import Minus from "@hugeicons/core-free-icons/MinusIcon";
 import Plus from "@hugeicons/core-free-icons/PlusIcon";
 import Search from "@hugeicons/core-free-icons/Search01Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 const currencies = [
   { label: "GBP", value: "gbp" },
@@ -45,7 +45,7 @@ export function ButtonGroupPage() {
   ButtonGroup,
   ButtonGroupSeparator,
   ButtonGroupText,
-} from "@gecko/ui/components/button-group"`;
+} from "@geckolabs/elements/components/button-group"`;
 
   const compositionSnippet = `ButtonGroup
 ├── Button, Input, or SelectTrigger

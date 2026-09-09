@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 export type DataTableMultiLineCellProps = {
   primary: React.ReactNode

@@ -1,7 +1,7 @@
 import { Navigate, useNavigate } from "react-router-dom";
 
-import { Button } from "@gecko/ui/components/button";
-import { Card } from "@gecko/ui/components/card";
+import { Button } from "@geckolabs/elements/components/button";
+import { Card } from "@geckolabs/elements/components/card";
 import { ChevronLeft, ShoppingCart } from "lucide-react";
 
 import { BasketLines } from "../components/basket-content";

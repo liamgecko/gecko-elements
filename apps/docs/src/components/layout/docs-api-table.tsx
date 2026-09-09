@@ -5,7 +5,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@gecko/ui/components/table";
+} from "@geckolabs/elements/components/table";
 import { Code } from "@/components/layout/docs-code";
 
 export type DocsApiRow = {

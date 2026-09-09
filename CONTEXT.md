@@ -1,6 +1,6 @@
 # Gecko product glossary
 
-Product terms used by Gecko applications in this monorepo. Component selection, APIs and composition are documented in the [@gecko/ui usage guide](packages/ui/README.md) and its component contracts.
+Product terms used by Gecko applications in this monorepo. Component selection, APIs and composition are documented in the [@geckolabs/elements usage guide](packages/ui/README.md) and its component contracts.
 
 ## Language
 

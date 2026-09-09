@@ -1,0 +1,26 @@
+// Keep chart primitives on the same Recharts instance as Elements' wrappers.
+// The Chart contract defines approved composition; this is not a new chart API.
+export {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Label,
+  LabelList,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  PolarAngleAxis,
+  PolarGrid,
+  PolarRadiusAxis,
+  Radar,
+  RadarChart,
+  RadialBar,
+  RadialBarChart,
+  ReferenceLine,
+  XAxis,
+  YAxis,
+} from "recharts";

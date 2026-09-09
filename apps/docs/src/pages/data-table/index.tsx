@@ -18,8 +18,8 @@ import {
   DataTableMultiLineCell,
   DataTableMultiSelectFilter,
   type DataTableColumnMeta,
-} from "@gecko/ui/components/data-table";
-import { Badge } from "@gecko/ui/components/badge";
+} from "@geckolabs/elements/components/data-table";
+import { Badge } from "@geckolabs/elements/components/badge";
 import { Code } from "@/components/layout/docs-code";
 import {
   Table,
@@ -28,7 +28,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@gecko/ui/components/table";
+} from "@geckolabs/elements/components/table";
 
 import {
   demoEvents,
@@ -467,7 +467,7 @@ export function DataTablePage() {
   DataTable,
   DataTableColumnHeader,
   DataTableMultiLineCell,
-} from "@gecko/ui/components/data-table"`;
+} from "@geckolabs/elements/components/data-table"`;
 
   const basicSnippet = `<DataTable
   aria-label="Events"

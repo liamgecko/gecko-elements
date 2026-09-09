@@ -1,6 +1,6 @@
 # Tabs
 
-Import: `@gecko/ui/components/tabs`  
+Import: `@geckolabs/elements/components/tabs`  
 Status: Stable  
 Source: `src/components/tabs.tsx`  
 Human documentation: `apps/docs/src/pages/tabs/index.tsx`
@@ -222,7 +222,7 @@ overrides in application code.
 
 ## Agent rules
 
-1. Import Tabs parts from `@gecko/ui/components/tabs`.
+1. Import Tabs parts from `@geckolabs/elements/components/tabs`.
 2. Use Tabs only for related panels on the same page.
 3. Use Header tabs for navigation between sub-pages.
 4. Give every TabsTrigger a matching TabsContent value.

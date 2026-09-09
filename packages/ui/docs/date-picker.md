@@ -1,6 +1,6 @@
 # Date picker
 
-Import: `@gecko/ui/components/date-picker`  
+Import: `@geckolabs/elements/components/date-picker`  
 Status: Stable  
 Source: `src/components/date-picker.tsx`  
 Human documentation: `apps/docs/src/pages/date-picker/index.tsx`
@@ -14,8 +14,8 @@ The product owns the selected value and what happens after it changes. Date pick
 ## Canonical application usage
 
 ```tsx
-import { DatePicker } from "@gecko/ui/components/date-picker";
-import { Field, FieldLabel } from "@gecko/ui/components/field";
+import { DatePicker } from "@geckolabs/elements/components/date-picker";
+import { Field, FieldLabel } from "@geckolabs/elements/components/field";
 
 const [date, setDate] = React.useState<Date>();
 

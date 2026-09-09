@@ -7,11 +7,11 @@ import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { Counter } from "@gecko/ui/components/counter";
+import { Counter } from "@geckolabs/elements/components/counter";
 import { Code } from "@/components/layout/docs-code";
 
 export function CounterPage() {
-  const importSnippet = `import { Counter } from "@gecko/ui/components/counter"`;
+  const importSnippet = `import { Counter } from "@geckolabs/elements/components/counter"`;
 
   const basicSnippet = `<Counter value={1} />
 <Counter value={3} />

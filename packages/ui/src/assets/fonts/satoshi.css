@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Satoshi-Gecko';
-    src: url('./Satoshi-Light.otf') format('opentype');
+    src: url('./Satoshi-Light.woff2') format('woff2');
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -8,7 +8,7 @@
 }
 @font-face {
     font-family: 'Satoshi-Gecko';
-    src: url('./Satoshi-LightItalic.otf') format('opentype');
+    src: url('./Satoshi-LightItalic.woff2') format('woff2');
     font-weight: 300;
     font-style: italic;
     font-display: swap;
@@ -16,7 +16,7 @@
 }
 @font-face {
     font-family: 'Satoshi-Gecko';
-    src: url('./Satoshi-Regular.otf') format('opentype');
+    src: url('./Satoshi-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -24,7 +24,7 @@
 }
 @font-face {
     font-family: 'Satoshi-Gecko';
-    src: url('./Satoshi-Italic.otf') format('opentype');
+    src: url('./Satoshi-Italic.woff2') format('woff2');
     font-weight: 400;
     font-style: italic;
     font-display: swap;
@@ -32,7 +32,7 @@
 }
 @font-face {
     font-family: 'Satoshi-Gecko';
-    src: url('./Satoshi-Medium.otf') format('opentype');
+    src: url('./Satoshi-Medium.woff2') format('woff2');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -40,7 +40,7 @@
 }
 @font-face {
     font-family: 'Satoshi-Gecko';
-    src: url('./Satoshi-MediumItalic.otf') format('opentype');
+    src: url('./Satoshi-MediumItalic.woff2') format('woff2');
     font-weight: 500;
     font-style: italic;
     font-display: swap;
@@ -48,7 +48,7 @@
 }
 @font-face {
     font-family: 'Satoshi-Gecko';
-    src: url('./Satoshi-Bold.otf') format('opentype');
+    src: url('./Satoshi-Bold.woff2') format('woff2');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -56,7 +56,7 @@
 }
 @font-face {
     font-family: 'Satoshi-Gecko';
-    src: url('./Satoshi-BoldItalic.otf') format('opentype');
+    src: url('./Satoshi-BoldItalic.woff2') format('woff2');
     font-weight: 700;
     font-style: italic;
     font-display: swap;
@@ -64,7 +64,7 @@
 }
 @font-face {
     font-family: 'Satoshi-Gecko';
-    src: url('./Satoshi-Black.otf') format('opentype');
+    src: url('./Satoshi-Black.woff2') format('woff2');
     font-weight: 900;
     font-style: normal;
     font-display: swap;
@@ -72,7 +72,7 @@
 }
 @font-face {
     font-family: 'Satoshi-Gecko';
-    src: url('./Satoshi-BlackItalic.otf') format('opentype');
+    src: url('./Satoshi-BlackItalic.woff2') format('woff2');
     font-weight: 900;
     font-style: italic;
     font-display: swap;

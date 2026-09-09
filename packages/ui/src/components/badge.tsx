@@ -1,12 +1,12 @@
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import X from "@hugeicons/core-free-icons/XIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Avatar } from "@gecko/ui/components/avatar";
-import { Counter } from "@gecko/ui/components/counter";
-import { cn } from "@gecko/ui/lib/utils";
+import { Avatar } from "@geckolabs/elements/components/avatar";
+import { Counter } from "@geckolabs/elements/components/counter";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 const badgeVariants = cva(
   "group/badge relative inline-flex shrink-0 items-center gap-1.5 overflow-visible border font-medium transition-colors",

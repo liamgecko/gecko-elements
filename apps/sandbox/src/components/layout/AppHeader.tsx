@@ -10,7 +10,7 @@ import {
   AppHeaderControls,
   AppHeaderLogo,
   AppHeaderUserMenu,
-} from "@gecko/ui/components/app-header";
+} from "@geckolabs/elements/components/app-header";
 
 export function AppHeader() {
   const navigate = useNavigate();

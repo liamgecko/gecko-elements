@@ -1,14 +1,14 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { Select as SelectPrimitive } from "@base-ui/react/select";
 
-import { cn } from "@gecko/ui/lib/utils";
+import { cn } from "@geckolabs/elements/lib/utils";
 import ChevronDownIcon from "@hugeicons/core-free-icons/ChevronDownIcon";
 import CheckIcon from "@hugeicons/core-free-icons/CheckIcon";
 import ChevronUpIcon from "@hugeicons/core-free-icons/ChevronUpIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 const Select = SelectPrimitive.Root;
 

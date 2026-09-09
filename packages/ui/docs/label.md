@@ -1,6 +1,6 @@
 # Label
 
-Import: `@gecko/ui/components/label`  
+Import: `@geckolabs/elements/components/label`  
 Status: Stable  
 Source: `src/components/label.tsx`  
 Human documentation: `apps/docs/src/pages/label/index.tsx`
@@ -86,7 +86,7 @@ Label also accepts native label properties.
 
 ## Agent rules
 
-1. Import Label from `@gecko/ui/components/label`.
+1. Import Label from `@geckolabs/elements/components/label`.
 2. Prefer FieldLabel inside Field for product form fields.
 3. Match `htmlFor` and `id`; never leave Label pointing at a missing or duplicate ID.
 4. Put `required` and `disabled` on the associated control.

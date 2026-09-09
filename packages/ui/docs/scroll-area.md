@@ -1,6 +1,6 @@
 # Scroll area
 
-Import: `@gecko/ui/components/scroll-area`  
+Import: `@geckolabs/elements/components/scroll-area`  
 Status: Stable  
 Source: `src/components/scroll-area.tsx`  
 Human documentation: `apps/docs/src/pages/scroll-area/index.tsx`
@@ -85,7 +85,7 @@ ScrollBar accepts Base UI Scroll Area Scrollbar properties.
 
 ## Agent rules
 
-1. Import ScrollArea and ScrollBar from `@gecko/ui/components/scroll-area`.
+1. Import ScrollArea and ScrollBar from `@geckolabs/elements/components/scroll-area`.
 2. Use Scroll area only for deliberately bounded regions.
 3. Keep native document scrolling unless the product shell owns a separate scroll container.
 4. Set a constrained height or width on the root.

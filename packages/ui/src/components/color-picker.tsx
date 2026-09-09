@@ -1,16 +1,16 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { HexColorPicker } from "react-colorful";
 
-import { Input } from "@gecko/ui/components/input";
+import { Input } from "@geckolabs/elements/components/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@gecko/ui/components/popover";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/popover";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 const HEX_PATTERN = /^#([0-9a-fA-F]{6})$/;
 const HEX_INPUT_PATTERN = "#[0-9A-Fa-f]{6}";

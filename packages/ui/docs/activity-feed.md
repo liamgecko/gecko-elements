@@ -1,6 +1,6 @@
 # Activity feed
 
-Import: `@gecko/ui/components/activity-feed`  
+Import: `@geckolabs/elements/components/activity-feed`  
 Status: Stable  
 Source: `src/components/activity-feed.tsx`  
 Human documentation: `apps/docs/src/pages/activity-feed/index.tsx`
@@ -18,7 +18,7 @@ import {
   ActivityFeed,
   type ActivityFeedEntry,
   type ActivityFeedPagination,
-} from "@gecko/ui/components/activity-feed";
+} from "@geckolabs/elements/components/activity-feed";
 ```
 
 ## Canonical usage

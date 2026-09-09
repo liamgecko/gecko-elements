@@ -1,6 +1,6 @@
 # Metric card
 
-Import: `@gecko/ui/components/metric-card`  
+Import: `@geckolabs/elements/components/metric-card`  
 Status: Stable  
 Source: `src/components/metric-card.tsx`  
 Human documentation: `apps/docs/src/pages/metric-card/index.tsx`
@@ -24,7 +24,7 @@ import {
   type MetricCardSparkline,
   type MetricCardSparklineDatum,
   type MetricCardTrend,
-} from "@gecko/ui/components/metric-card";
+} from "@geckolabs/elements/components/metric-card";
 ```
 
 ## Canonical metric
@@ -168,7 +168,7 @@ Use a row of three cards at normal dashboard widths and let the layout collapse 
 
 ## Agent rules
 
-1. Import MetricCard and its types from `@gecko/ui/components/metric-card`.
+1. Import MetricCard and its types from `@geckolabs/elements/components/metric-card`.
 2. Give each card one clear title and one headline value.
 3. Derive trend sentiment from product meaning, not direction alone.
 4. Use a sparkline only for compact change over time; use Chart for detailed analysis.

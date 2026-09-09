@@ -2,7 +2,7 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from "@gecko/ui/components/alert"
+} from "@geckolabs/elements/components/alert"
 
 import { isSupabaseConfigured } from "@/lib/supabase/env"
 

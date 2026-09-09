@@ -2,14 +2,14 @@
 
 import ChevronLeftIcon from "@hugeicons/core-free-icons/ChevronLeftIcon";
 import ChevronRightIcon from "@hugeicons/core-free-icons/ChevronRightIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
-} from "@gecko/ui/components/pagination";
+} from "@geckolabs/elements/components/pagination";
 import {
   Select,
   SelectContent,
@@ -17,8 +17,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/select";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 import { useDataTableContext } from "./data-table-context";
 

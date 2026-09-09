@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 export function breadcrumbLinkClassName(className?: string) {
   return cn("hover:text-foreground transition-colors", className)

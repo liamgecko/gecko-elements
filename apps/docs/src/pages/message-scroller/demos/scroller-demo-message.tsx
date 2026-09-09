@@ -1,13 +1,13 @@
 import type { ComponentProps } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
-import { Bubble, BubbleContent } from "@gecko/ui/components/bubble";
-import { Message, MessageContent } from "@gecko/ui/components/message";
+import { Bubble, BubbleContent } from "@geckolabs/elements/components/bubble";
+import { Message, MessageContent } from "@geckolabs/elements/components/message";
 import {
   MESSAGE_ANIMATIONS,
   type MessageAnimationPreset,
-} from "@gecko/ui/lib/message-animations";
-import { MessageScrollerItem } from "@gecko/ui/components/message-scroller";
+} from "@geckolabs/elements/lib/message-animations";
+import { MessageScrollerItem } from "@geckolabs/elements/components/message-scroller";
 
 type DemoMessagePart = {
   type: string;

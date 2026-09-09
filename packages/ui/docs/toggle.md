@@ -1,6 +1,6 @@
 # Toggle
 
-Import: `@gecko/ui/components/toggle`  
+Import: `@geckolabs/elements/components/toggle`  
 Status: Stable  
 Source: `src/components/toggle.tsx`  
 Human documentation: `apps/docs/src/pages/toggle/index.tsx`
@@ -74,7 +74,7 @@ Toggle accepts the remaining Base UI Toggle properties.
 
 ## Agent rules
 
-1. Import Toggle from `@gecko/ui/components/toggle`.
+1. Import Toggle from `@geckolabs/elements/components/toggle`.
 2. Use it only for a state that remains on until pressed again.
 3. Give icon-only usage an accessible name and hide decorative icons.
 4. Use visible text when the icon is ambiguous.

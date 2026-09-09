@@ -1,14 +1,14 @@
 import * as React from "react"
 import { Lightbulb, X } from "lucide-react"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@gecko/ui/components/card"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@geckolabs/elements/components/card"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 import {
   pickSuggestedPrompts,

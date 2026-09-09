@@ -3,7 +3,7 @@
 import * as React from "react";
 import type { Row, Table } from "@tanstack/react-table";
 import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 import {
   DropdownMenu,
@@ -12,8 +12,8 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/dropdown-menu";
+import { Button } from "@geckolabs/elements/components/button";
 
 import type {
   DataTableRowAction,

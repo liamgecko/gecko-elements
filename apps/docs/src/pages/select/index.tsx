@@ -18,10 +18,10 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/select";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
-import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";
+import { Field, FieldError, FieldLabel } from "@geckolabs/elements/components/field";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -97,7 +97,7 @@ export function SelectPage() {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select"`;
+} from "@geckolabs/elements/components/select"`;
 
   const compositionSnippet = `Select
 ├── SelectTrigger

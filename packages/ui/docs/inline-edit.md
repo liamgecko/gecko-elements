@@ -1,6 +1,6 @@
 # Inline edit
 
-Import: `@gecko/ui/components/inline-edit`  
+Import: `@geckolabs/elements/components/inline-edit`  
 Status: Stable  
 Source: `src/components/inline-edit.tsx`  
 Human documentation: `apps/docs/src/pages/inline-edit/index.tsx`
@@ -20,7 +20,7 @@ Keep the value controlled and name the editable content by its purpose rather th
 ```tsx
 import { useState } from "react";
 
-import { InlineEdit } from "@gecko/ui/components/inline-edit";
+import { InlineEdit } from "@geckolabs/elements/components/inline-edit";
 
 const [title, setTitle] = useState("Registration form");
 

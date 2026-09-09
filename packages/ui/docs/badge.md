@@ -1,6 +1,6 @@
 # Badge
 
-Import: `@gecko/ui/components/badge`  
+Import: `@geckolabs/elements/components/badge`  
 Status: Stable  
 Source: `src/components/badge.tsx`  
 Human documentation: `apps/docs/src/pages/badge/index.tsx`
@@ -14,7 +14,7 @@ Use Button, Toggle, or a semantic link when the complete element performs an act
 ## Import
 
 ```tsx
-import { Badge } from "@gecko/ui/components/badge";
+import { Badge } from "@geckolabs/elements/components/badge";
 ```
 
 ## Canonical usage

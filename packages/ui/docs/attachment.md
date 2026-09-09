@@ -1,6 +1,6 @@
 # Attachment
 
-Import: `@gecko/ui/components/attachment`  
+Import: `@geckolabs/elements/components/attachment`  
 Status: Stable  
 Source: `src/components/attachment.tsx`  
 Human documentation: `apps/docs/src/pages/attachment/index.tsx`
@@ -16,7 +16,7 @@ Attachment is intentionally not the compound Shadcn attachment-display interface
 ## Import
 
 ```tsx
-import { Attachment } from "@gecko/ui/components/attachment";
+import { Attachment } from "@geckolabs/elements/components/attachment";
 ```
 
 ## Canonical managed mode

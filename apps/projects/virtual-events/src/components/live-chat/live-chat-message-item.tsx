@@ -1,13 +1,13 @@
-import { Bubble, BubbleActions, BubbleAuthor, BubbleContent, BubbleHeader, BubbleReactions, BubbleTimestamp } from "@gecko/ui/components/bubble"
-import { Button } from "@gecko/ui/components/button"
+import { Bubble, BubbleActions, BubbleAuthor, BubbleContent, BubbleHeader, BubbleReactions, BubbleTimestamp } from "@geckolabs/elements/components/bubble"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   EmojiPicker,
   EmojiPickerContent,
   EmojiPickerTrigger,
-} from "@gecko/ui/components/emoji-picker"
-import { Message, MessageContent } from "@gecko/ui/components/message"
-import { MESSAGE_ANIMATIONS } from "@gecko/ui/lib/message-animations"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@geckolabs/elements/components/emoji-picker"
+import { Message, MessageContent } from "@geckolabs/elements/components/message"
+import { MESSAGE_ANIMATIONS } from "@geckolabs/elements/lib/message-animations"
+import { cn } from "@geckolabs/elements/lib/utils"
 import { Reply, SmilePlus } from "lucide-react"
 import { motion, useReducedMotion } from "motion/react"
 import { useRef, useState } from "react"

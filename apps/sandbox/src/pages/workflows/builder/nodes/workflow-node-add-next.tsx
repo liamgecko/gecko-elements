@@ -9,15 +9,15 @@ import {
 import { Plus } from "lucide-react"
 import type { MouseEvent, PointerEvent } from "react"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuEmpty,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@geckolabs/elements/components/dropdown-menu"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 import type { WorkflowNodeKind } from "../../workflows-data"
 import {

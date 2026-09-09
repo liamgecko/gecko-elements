@@ -15,7 +15,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@gecko/ui/components/card";
+} from "@geckolabs/elements/components/card";
 import {
   ChartContainer,
   ChartLegend,
@@ -23,7 +23,7 @@ import {
   ChartMetric,
   ChartTooltip,
   ChartTooltipContent,
-} from "@gecko/ui/components/chart";
+} from "@geckolabs/elements/components/chart";
 
 import {
   singleBarChartExampleConfig,
@@ -77,7 +77,7 @@ import {
   RadialBarChart,
   XAxis,
   YAxis,
-} from "recharts";
+} from "@geckolabs/elements/charts";
 
 export function ChartsPage() {
   const importSnippet = `import {
@@ -87,7 +87,7 @@ export function ChartsPage() {
   ChartMetric,
   ChartTooltip,
   ChartTooltipContent,
-} from "@gecko/ui/components/chart"`;
+} from "@geckolabs/elements/components/chart"`;
 
   const barSnippet = `<ChartContainer title="Monthly desktop users" config={config}>
   <BarChart data={data}>

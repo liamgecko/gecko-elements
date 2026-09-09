@@ -3,7 +3,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@gecko/ui/components/accordion";
+} from "@geckolabs/elements/components/accordion";
 import { ShoppingCart } from "lucide-react";
 
 import {

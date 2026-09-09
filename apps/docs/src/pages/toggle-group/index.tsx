@@ -13,14 +13,14 @@ import { Code } from "@/components/layout/docs-code";
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from "@gecko/ui/components/toggle-group";
+} from "@geckolabs/elements/components/toggle-group";
 import AlignCenter from "@hugeicons/core-free-icons/TextAlignCenterIcon";
 import TextAlignStart from "@hugeicons/core-free-icons/TextAlignStartIcon";
 import TextAlignEnd from "@hugeicons/core-free-icons/TextAlignEndIcon";
 import Bold from "@hugeicons/core-free-icons/BoldIcon";
 import Italic from "@hugeicons/core-free-icons/ItalicIcon";
 import Underline from "@hugeicons/core-free-icons/UnderlineIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 function AlignmentIcons() {
   return (
@@ -67,7 +67,7 @@ export function ToggleGroupPage() {
   const importSnippet = `import {
   ToggleGroup,
   ToggleGroupItem,
-} from "@gecko/ui/components/toggle-group"`;
+} from "@geckolabs/elements/components/toggle-group"`;
   const compositionSnippet = `ToggleGroup
 └── ToggleGroupItem`;
   const basicSnippet = `<ToggleGroup defaultValue={["left"]} aria-label="Text alignment">

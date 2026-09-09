@@ -1,5 +1,5 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
@@ -9,8 +9,8 @@ import {
   type FilterCategory,
   type FilterOperator,
   type FilterProps,
-} from "@gecko/ui/components/filters";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/filters";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 import { useDataTableContext } from "./data-table-context";
 import type { DataTableMultiSelectFilterValue } from "./data-table-columns";

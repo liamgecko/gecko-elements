@@ -1,6 +1,6 @@
 # Input
 
-Import: `@gecko/ui/components/input`  
+Import: `@geckolabs/elements/components/input`  
 Status: Stable  
 Source: `src/components/input.tsx`  
 Human documentation: `apps/docs/src/pages/input/index.tsx`
@@ -174,7 +174,7 @@ Input also accepts native input properties except native numeric `size`, which i
 
 ## Agent rules
 
-1. Import Input from `@gecko/ui/components/input`.
+1. Import Input from `@geckolabs/elements/components/input`.
 2. Compose product inputs with Field and a visible FieldLabel.
 3. Set meaningful `id`, `name`, `type` and `autoComplete` properties for the value.
 4. Use placeholders only for examples or format hints.

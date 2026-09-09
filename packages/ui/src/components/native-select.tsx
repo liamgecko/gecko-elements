@@ -1,10 +1,10 @@
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@gecko/ui/lib/utils";
+import { cn } from "@geckolabs/elements/lib/utils";
 import ChevronDownIcon from "@hugeicons/core-free-icons/ChevronDownIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 const nativeSelectVariants = cva(
   "border-input hover:border-input-hover focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:focus-visible:ring-input-destructive/20 dark:aria-invalid:focus-visible:ring-input-destructive/40 aria-invalid:border-input-destructive w-full min-w-0 appearance-none rounded-sm border bg-input-background py-1 pe-8 transition-[color,box-shadow,border] select-none focus-visible:ring-3 aria-invalid:focus-visible:ring-3 outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-muted disabled:hover:border-input cursor-pointer",

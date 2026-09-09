@@ -22,8 +22,8 @@ import type {
   WorkflowGraphNodeData,
   WorkflowNodeKind,
 } from "../workflows-data"
-import { cn } from "@gecko/ui/lib/utils"
-import { Spinner } from "@gecko/ui/components/spinner"
+import { cn } from "@geckolabs/elements/lib/utils"
+import { Spinner } from "@geckolabs/elements/components/spinner"
 import { NodePalettePanel } from "./node-palette-panel"
 import { NodePropertiesPanel } from "./node-properties-panel"
 import { WorkflowCanvasEmpty } from "./workflow-canvas-empty"

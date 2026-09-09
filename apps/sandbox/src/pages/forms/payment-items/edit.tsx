@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { toast } from "@gecko/ui/components/toast";
+import { toast } from "@geckolabs/elements/components/toast";
 
 import {
   DataLoadErrorAlert,

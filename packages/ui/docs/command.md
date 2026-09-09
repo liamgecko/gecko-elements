@@ -1,6 +1,6 @@
 # Command
 
-Import: `@gecko/ui/components/command`  
+Import: `@geckolabs/elements/components/command`  
 Status: Available, not adopted in Gecko product UI  
 Source: `src/components/command.tsx`  
 Human documentation: `apps/docs/src/pages/command/index.tsx`

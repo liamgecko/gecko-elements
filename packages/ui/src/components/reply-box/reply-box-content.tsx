@@ -4,17 +4,17 @@ import * as React from "react";
 import CirclePlus from "@hugeicons/core-free-icons/CirclePlusIcon";
 import SendHorizontal from "@hugeicons/core-free-icons/SendHorizontalIcon";
 import Square from "@hugeicons/core-free-icons/SquareIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
-import { cn } from "@gecko/ui/lib/utils";
-import { renderGeckoIcon } from "@gecko/ui/lib/icon";
+} from "@geckolabs/elements/components/tooltip";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { renderGeckoIcon } from "@geckolabs/elements/lib/icon";
 
 import {
   getReplyBoxAction,

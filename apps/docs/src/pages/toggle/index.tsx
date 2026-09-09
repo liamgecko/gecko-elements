@@ -10,15 +10,15 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { Toggle } from "@gecko/ui/components/toggle";
+import { Toggle } from "@geckolabs/elements/components/toggle";
 import Bookmark from "@hugeicons/core-free-icons/Bookmark02Icon";
 import Bold from "@hugeicons/core-free-icons/BoldIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 export function TogglePage() {
   const [bookmarked, setBookmarked] = useState(false);
 
-  const importSnippet = `import { Toggle } from "@gecko/ui/components/toggle"`;
+  const importSnippet = `import { Toggle } from "@geckolabs/elements/components/toggle"`;
   const basicSnippet = `<Toggle aria-label="Bookmark">
   <Bookmark aria-hidden="true" />
 </Toggle>`;

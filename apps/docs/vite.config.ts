@@ -11,8 +11,8 @@ export default defineConfig(({ command }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Resolve workspace package to source so subpaths like `@gecko/ui/components/button` work in Vite/Rollup.
-      "@gecko/ui": path.resolve(__dirname, "../../packages/ui/src"),
+      // Resolve workspace package to source so subpaths like `@geckolabs/elements/components/button` work in Vite/Rollup.
+      "@geckolabs/elements": path.resolve(__dirname, "../../packages/ui/src"),
     },
   },
 }))

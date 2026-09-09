@@ -1,4 +1,4 @@
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 import { MOCK_EVENT_SCHEDULE } from "@/data/event-schedule"
 

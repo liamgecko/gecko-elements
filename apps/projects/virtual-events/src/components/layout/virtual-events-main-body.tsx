@@ -1,5 +1,5 @@
-import { ScrollArea } from "@gecko/ui/components/scroll-area"
-import { cn } from "@gecko/ui/lib/utils"
+import { ScrollArea } from "@geckolabs/elements/components/scroll-area"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 type VirtualEventsMainBodyProps = {
   children: React.ReactNode

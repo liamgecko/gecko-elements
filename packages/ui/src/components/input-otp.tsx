@@ -1,12 +1,12 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { OTPInput, OTPInputContext } from "input-otp";
 
-import { cn } from "@gecko/ui/lib/utils";
+import { cn } from "@geckolabs/elements/lib/utils";
 import MinusIcon from "@hugeicons/core-free-icons/MinusIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 const InputOTP = /* @__PURE__ */ withRef(function InputOTP({
   className,

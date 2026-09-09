@@ -1,13 +1,13 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { Button } from "@gecko/ui/components/button";
-import { Input } from "@gecko/ui/components/input";
-import { Textarea } from "@gecko/ui/components/textarea";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { Button } from "@geckolabs/elements/components/button";
+import { Input } from "@geckolabs/elements/components/input";
+import { Textarea } from "@geckolabs/elements/components/textarea";
 
 type InputGroupSize = "sm" | "md" | "lg";
 

@@ -5,24 +5,24 @@ import {
   SidebarHeader,
   SidebarProvider,
   SidebarTrigger,
-} from "@gecko/ui/components/sidebar";
+} from "@geckolabs/elements/components/sidebar";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
+} from "@geckolabs/elements/components/tooltip";
 import geckoLogo from "@/assets/gecko-logo.svg";
 import geckoLogoLight from "@/assets/gecko-logo-light.svg";
 import { SidebarNav } from "./sidebar-nav";
-import { ScrollArea } from "@gecko/ui/components/scroll-area";
+import { ScrollArea } from "@geckolabs/elements/components/scroll-area";
 import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "@/components/theme-provider";
 import Home from "@hugeicons/core-free-icons/Home04Icon";
 import Moon02Icon from "@hugeicons/core-free-icons/Moon02Icon";
 import Sun from "@hugeicons/core-free-icons/Sun01Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
-import { Separator } from "@gecko/ui/components/separator";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import { Separator } from "@geckolabs/elements/components/separator";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -30,9 +30,9 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@gecko/ui/components/breadcrumb";
+} from "@geckolabs/elements/components/breadcrumb";
 import { PageSectionNav } from "./page-section-nav";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import { structurePages } from "@/pages/gallery-data";
 
 const APP_TITLE = "Gecko Elements";

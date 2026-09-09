@@ -2,7 +2,7 @@ import BookOpenCheck from "@hugeicons/core-free-icons/BookOpenCheckIcon";
 import GitBranch from "@hugeicons/core-free-icons/GitBranchIcon";
 import RotateCcw from "@hugeicons/core-free-icons/RotateCcwIcon";
 import Search from "@hugeicons/core-free-icons/Search01Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -15,15 +15,15 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { Marker, MarkerContent, MarkerIcon } from "@gecko/ui/components/marker";
-import { Spinner } from "@gecko/ui/components/spinner";
+import { Marker, MarkerContent, MarkerIcon } from "@geckolabs/elements/components/marker";
+import { Spinner } from "@geckolabs/elements/components/spinner";
 
 export function MarkerPage() {
   const importSnippet = `import {
   Marker,
   MarkerContent,
   MarkerIcon,
-} from "@gecko/ui/components/marker"`;
+} from "@geckolabs/elements/components/marker"`;
 
   const compositionSnippet = `Marker
 ├── MarkerIcon

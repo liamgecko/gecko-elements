@@ -1,6 +1,6 @@
 # Kbd
 
-Import: `@gecko/ui/components/kbd`
+Import: `@geckolabs/elements/components/kbd`
 
 Status: Stable
 
@@ -17,7 +17,7 @@ Use KbdGroup to arrange separate keycaps for one shortcut. Keep the action avail
 ## Canonical usage
 
 ```tsx
-import { Kbd, KbdGroup } from "@gecko/ui/components/kbd";
+import { Kbd, KbdGroup } from "@geckolabs/elements/components/kbd";
 
 <>
   <Kbd>Esc</Kbd>

@@ -2,7 +2,7 @@ import * as React from "react";
 import ChevronDownIcon from "@hugeicons/core-free-icons/ChevronDownIcon";
 import ReplyIcon from "@hugeicons/core-free-icons/ReplyIcon";
 import SmilePlusIcon from "@hugeicons/core-free-icons/SmilePlusIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -21,12 +21,12 @@ import {
   BubbleContent,
   BubbleGroup,
   BubbleReactions,
-} from "@gecko/ui/components/bubble";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/bubble";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Collapsible,
   CollapsibleTrigger,
-} from "@gecko/ui/components/collapsible";
+} from "@geckolabs/elements/components/collapsible";
 
 const showMoreText = `The accessibility review found two focus states that were visually too subtle in dark mode.
 
@@ -79,7 +79,7 @@ export function BubblePage() {
   BubbleHeader,
   BubbleReactions,
   BubbleTimestamp,
-} from "@gecko/ui/components/bubble"`;
+} from "@geckolabs/elements/components/bubble"`;
 
   const compositionSnippet = `Bubble
 ├── BubbleContent

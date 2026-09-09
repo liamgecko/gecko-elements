@@ -91,7 +91,7 @@ apps/sandbox/src/
     useWorkflowTemplate.ts
 ```
 
-UI states (not configured, load errors) use `Alert` from `@gecko/ui/components/alert` via `components/supabase-setup-notice.tsx`.
+UI states (not configured, load errors) use `Alert` from `@geckolabs/elements/components/alert` via `components/supabase-setup-notice.tsx`.
 
 ### Adding a new entity
 

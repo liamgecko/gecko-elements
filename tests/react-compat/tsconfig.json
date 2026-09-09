@@ -10,9 +10,5 @@
     "noEmit": true,
     "types": ["react", "react-dom"]
   },
-  "include": [
-    "*.tsx",
-    "node_modules/@gecko/ui/src/**/*.ts",
-    "node_modules/@gecko/ui/src/**/*.tsx"
-  ]
+  "include": ["*.tsx"]
 }

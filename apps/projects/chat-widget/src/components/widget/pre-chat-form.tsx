@@ -1,13 +1,13 @@
 import * as React from "react"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@gecko/ui/components/field"
-import { Input } from "@gecko/ui/components/input"
+} from "@geckolabs/elements/components/field"
+import { Input } from "@geckolabs/elements/components/input"
 import type { Visitor } from "@/lib/types"
 
 type PreChatFormProps = {

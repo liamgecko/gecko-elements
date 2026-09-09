@@ -1,6 +1,6 @@
 # Data table
 
-Import: `@gecko/ui/components/data-table`  
+Import: `@geckolabs/elements/components/data-table`  
 Status: Stable for client-side data  
 Source: `src/components/data-table/`  
 Human documentation: `apps/docs/src/pages/data-table/index.tsx`
@@ -22,7 +22,7 @@ import {
   DataTable,
   DataTableColumnHeader,
   DataTableMultiLineCell,
-} from "@gecko/ui/components/data-table";
+} from "@geckolabs/elements/components/data-table";
 
 type Event = {
   id: string;

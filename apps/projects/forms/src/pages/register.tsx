@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Button } from "@gecko/ui/components/button";
-import { Card } from "@gecko/ui/components/card";
-import { FieldGroup } from "@gecko/ui/components/field";
+import { Button } from "@geckolabs/elements/components/button";
+import { Card } from "@geckolabs/elements/components/card";
+import { FieldGroup } from "@geckolabs/elements/components/field";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { FormShell } from "../components/form-shell";

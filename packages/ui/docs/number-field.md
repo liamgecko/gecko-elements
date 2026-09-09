@@ -1,6 +1,6 @@
 # Number field
 
-Import: `@gecko/ui/components/number-field`  
+Import: `@geckolabs/elements/components/number-field`  
 Status: Stable  
 Source: `src/components/number-field.tsx`  
 Human documentation: `apps/docs/src/pages/number-field/index.tsx`
@@ -149,7 +149,7 @@ NumberField also accepts the supported Base UI Number Field Root properties. Tre
 
 ## Agent rules
 
-1. Import NumberField from `@gecko/ui/components/number-field`.
+1. Import NumberField from `@geckolabs/elements/components/number-field`.
 2. Use Number field only for quantities or amounts that benefit from stepping.
 3. Compose product controls with Field and a visible FieldLabel.
 4. Set meaningful `id` and `name` properties when the value participates in a form.

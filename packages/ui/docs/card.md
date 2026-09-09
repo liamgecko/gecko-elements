@@ -1,6 +1,6 @@
 # Card
 
-Import: `@gecko/ui/components/card`  
+Import: `@geckolabs/elements/components/card`  
 Status: Stable  
 Source: `src/components/card.tsx`  
 Human documentation: `apps/docs/src/pages/card/index.tsx`
@@ -20,7 +20,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@gecko/ui/components/card";
+} from "@geckolabs/elements/components/card";
 
 <Card>
   <CardHeader>

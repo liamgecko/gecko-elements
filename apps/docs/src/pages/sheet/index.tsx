@@ -18,8 +18,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@gecko/ui/components/sheet";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/sheet";
+import { Button } from "@geckolabs/elements/components/button";
 
 export function SheetPage() {
   const importSnippet = `import {
@@ -31,7 +31,7 @@ export function SheetPage() {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@gecko/ui/components/sheet"`;
+} from "@geckolabs/elements/components/sheet"`;
 
   const compositionSnippet = `Sheet
 ├── SheetTrigger

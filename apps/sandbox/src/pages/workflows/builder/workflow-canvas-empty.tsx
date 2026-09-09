@@ -1,7 +1,7 @@
 import * as React from "react"
 import { LayoutTemplate, WandSparkles, Workflow } from "lucide-react"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   Empty,
   EmptyContent,
@@ -9,7 +9,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@gecko/ui/components/empty"
+} from "@geckolabs/elements/components/empty"
 
 import { WorkflowTemplateSelectorDialog } from "./workflow-template-selector-dialog"
 import { WorkflowDescribeDialog } from "./workflow-describe-dialog"

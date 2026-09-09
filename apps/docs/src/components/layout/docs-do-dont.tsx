@@ -1,7 +1,7 @@
 import Check from "@hugeicons/core-free-icons/CheckIcon";
 import X from "@hugeicons/core-free-icons/XIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
-import { cn } from "@gecko/ui/lib/utils";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 type DocsDoDontProps = {
   doItems: React.ReactNode[];

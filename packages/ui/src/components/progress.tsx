@@ -1,11 +1,11 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@gecko/ui/lib/utils";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 const RING_SIZE_CONFIG = {
   sm: { size: 32, radius: 14, stroke: 3 },

@@ -1,5 +1,5 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { cva } from "class-variance-authority";
@@ -7,15 +7,15 @@ import ChevronRight from "@hugeicons/core-free-icons/ChevronRightIcon";
 import FileText from "@hugeicons/core-free-icons/FileTextIcon";
 import Folder from "@hugeicons/core-free-icons/Folder01Icon";
 import FolderOpen from "@hugeicons/core-free-icons/Folder03Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@gecko/ui/components/collapsible";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/collapsible";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 export type FileTreeNode =
   | {

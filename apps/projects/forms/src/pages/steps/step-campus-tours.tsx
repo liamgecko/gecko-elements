@@ -2,7 +2,7 @@ import {
   Field,
   FieldDescription,
   FieldLabel,
-} from "@gecko/ui/components/field";
+} from "@geckolabs/elements/components/field";
 import {
   Select,
   SelectContent,
@@ -10,7 +10,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select";
+} from "@geckolabs/elements/components/select";
 
 import { EventField } from "../../components/event-field";
 import { CAMPUSES, campusToursEvent } from "../../data/event";

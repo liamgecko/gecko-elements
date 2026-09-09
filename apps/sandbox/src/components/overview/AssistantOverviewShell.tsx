@@ -1,7 +1,7 @@
 import * as React from "react"
 
-import { SidebarInset, SidebarProvider } from "@gecko/ui/components/sidebar"
-import { cn } from "@gecko/ui/lib/utils"
+import { SidebarInset, SidebarProvider } from "@geckolabs/elements/components/sidebar"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 import { AssistantConversationsSidebar } from "./AssistantConversationsSidebar"
 import type { AssistantConversation } from "./assistant-conversations"

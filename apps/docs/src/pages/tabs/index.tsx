@@ -8,14 +8,14 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Badge } from "@gecko/ui/components/badge";
+import { Badge } from "@geckolabs/elements/components/badge";
 import { Code } from "@/components/layout/docs-code";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@gecko/ui/components/tabs";
+} from "@geckolabs/elements/components/tabs";
 
 function ExamplePanels() {
   return (
@@ -33,7 +33,7 @@ export function TabsPage() {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@gecko/ui/components/tabs"`;
+} from "@geckolabs/elements/components/tabs"`;
 
   const compositionSnippet = `Tabs
 ├── TabsList

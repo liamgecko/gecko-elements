@@ -1,13 +1,13 @@
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 import * as React from "react";
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox-group";
 import { cva } from "class-variance-authority";
 
-import { cn } from "@gecko/ui/lib/utils";
+import { cn } from "@geckolabs/elements/lib/utils";
 import CheckIcon from "@hugeicons/core-free-icons/CheckIcon";
 import Minus from "@hugeicons/core-free-icons/MinusIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 const defaultCheckboxStyles =
   "border-input hover:border-input-hover group-hover/field:border-input-hover group-hover/checkbox:border-input-hover bg-background data-checked:bg-primary data-checked:text-primary-foreground data-checked:border-primary data-checked:hover:border-primary group-hover/field:data-checked:border-primary group-hover/checkbox:data-checked:border-primary aria-invalid:aria-checked:border-primary aria-invalid:border-input-destructive group-aria-invalid/checkbox-group:border-input-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-input-destructive/0 focus-visible:aria-invalid:ring-input-destructive/20 dark:focus-visible:aria-invalid:ring-input-destructive/40 group-aria-invalid/checkbox-group:focus-visible:ring-input-destructive/20 dark:group-aria-invalid/checkbox-group:focus-visible:ring-input-destructive/40 flex size-4 items-center justify-center rounded-sm cursor-pointer border transition-[color,box-shadow,border] focus-visible:ring-3 peer relative shrink-0 outline-none after:absolute after:-inset-x-3 after:-inset-y-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-75 disabled:hover:border-input disabled:group-hover/field:border-input disabled:group-hover/checkbox:border-input";

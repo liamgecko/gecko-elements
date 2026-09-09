@@ -1,6 +1,6 @@
 # App sidebar
 
-Import: `@gecko/ui/components/app-sidebar`  
+Import: `@geckolabs/elements/components/app-sidebar`  
 Status: Stable  
 Source: `src/components/app-sidebar.tsx`  
 Human documentation: `apps/docs/src/pages/structure/app-sidebar/index.tsx`

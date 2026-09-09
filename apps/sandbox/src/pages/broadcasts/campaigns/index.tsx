@@ -1,7 +1,7 @@
 import * as React from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Trash2, X } from "lucide-react"
-import { toast } from "@gecko/ui/components/toast"
+import { toast } from "@geckolabs/elements/components/toast"
 
 import {
   AlertDialog,
@@ -12,10 +12,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@gecko/ui/components/alert-dialog"
-import { Container } from "@gecko/ui/components/container"
-import { DataTable } from "@gecko/ui/components/data-table/data-table"
-import { Header } from "@gecko/ui/components/header"
+} from "@geckolabs/elements/components/alert-dialog"
+import { Container } from "@geckolabs/elements/components/container"
+import { DataTable } from "@geckolabs/elements/components/data-table/data-table"
+import { Header } from "@geckolabs/elements/components/header"
 import { useFavourites } from "../../../state/favourites"
 import { usePageBreadcrumbs } from "../../../lib/use-page-breadcrumbs"
 import {

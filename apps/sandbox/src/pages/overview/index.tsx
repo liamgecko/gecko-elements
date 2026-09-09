@@ -1,24 +1,24 @@
 import * as React from "react"
 
-import { Button } from "@gecko/ui/components/button"
-import { Container } from "@gecko/ui/components/container"
+import { Button } from "@geckolabs/elements/components/button"
+import { Container } from "@geckolabs/elements/components/container"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
+} from "@geckolabs/elements/components/tooltip"
 import { BotMessageSquare } from "lucide-react"
-import { Bubble, BubbleContent } from "@gecko/ui/components/bubble"
+import { Bubble, BubbleContent } from "@geckolabs/elements/components/bubble"
 import {
   Message,
   MessageAiActions,
   MessageContent,
   MessageMeta,
-} from "@gecko/ui/components/message"
-import { ReplyBox, ReplyBoxContent, ReplyBoxFooter } from "@gecko/ui/components/reply-box"
+} from "@geckolabs/elements/components/message"
+import { ReplyBox, ReplyBoxContent, ReplyBoxFooter } from "@geckolabs/elements/components/reply-box"
 import { Forward, Loader } from "lucide-react"
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 import { AssistantOverviewShell } from "../../components/overview/AssistantOverviewShell"
 import { AssistantPanelTrigger } from "../../components/overview/AssistantPanelTrigger"

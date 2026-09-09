@@ -1,13 +1,13 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
 import { ToggleGroup as ToggleGroupPrimitive } from "@base-ui/react/toggle-group";
 import { type VariantProps } from "class-variance-authority";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { toggleVariants } from "@gecko/ui/components/toggle";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { toggleVariants } from "@geckolabs/elements/components/toggle";
 
 type ToggleGroupVariants = Omit<
   VariantProps<typeof toggleVariants>,

@@ -11,8 +11,8 @@ import {
 import { Code } from "@/components/layout/docs-code";
 
 export function CodeSnippetPage() {
-  const blockExample = `import { Field, FieldDescription, FieldLabel } from "@gecko/ui/components/field"
-import { Input } from "@gecko/ui/components/input"
+  const blockExample = `import { Field, FieldDescription, FieldLabel } from "@geckolabs/elements/components/field"
+import { Input } from "@geckolabs/elements/components/input"
 
 export function InputFile() {
   return (
@@ -24,7 +24,7 @@ export function InputFile() {
   )
 }`;
 
-  const importSnippet = `import { Code } from "@gecko/ui/components/code"`;
+  const importSnippet = `import { Code } from "@geckolabs/elements/components/code"`;
 
   const inlineSnippet = `<Code>Inline code snippet</Code>`;
 

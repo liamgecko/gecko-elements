@@ -1,16 +1,16 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { Dialog as SheetPrimitive } from "@base-ui/react/dialog";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { modalSurfaceClassName } from "@gecko/ui/lib/modal-surface";
-import { Button } from "@gecko/ui/components/button";
-import { ScrollArea } from "@gecko/ui/components/scroll-area";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { modalSurfaceClassName } from "@geckolabs/elements/lib/modal-surface";
+import { Button } from "@geckolabs/elements/components/button";
+import { ScrollArea } from "@geckolabs/elements/components/scroll-area";
 import XIcon from "@hugeicons/core-free-icons/XIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;

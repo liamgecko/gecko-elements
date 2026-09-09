@@ -7,9 +7,9 @@ import {
   type KeyboardEvent,
   type SyntheticEvent,
 } from "react";
-import { toast } from "@gecko/ui/components/toast";
+import { toast } from "@geckolabs/elements/components/toast";
 
-import { ReplyBox } from "@gecko/ui/components/reply-box";
+import { ReplyBox } from "@geckolabs/elements/components/reply-box";
 
 import { useVirtualEvents } from "@/context/virtual-events-context";
 

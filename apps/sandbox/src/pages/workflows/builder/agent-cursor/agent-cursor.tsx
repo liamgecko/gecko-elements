@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 function lerp(start: number, end: number, t: number) {
   return start + (end - start) * t

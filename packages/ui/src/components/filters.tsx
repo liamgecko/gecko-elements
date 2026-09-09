@@ -1,5 +1,5 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import ArrowDownWideNarrow from "@hugeicons/core-free-icons/ArrowDownWideNarrowIcon";
@@ -7,10 +7,10 @@ import Check from "@hugeicons/core-free-icons/CheckIcon";
 import Funnel from "@hugeicons/core-free-icons/FunnelIcon";
 import ListFilterPlus from "@hugeicons/core-free-icons/ListFilterPlusIcon";
 import X from "@hugeicons/core-free-icons/XIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
-import { Counter } from "@gecko/ui/components/counter";
+import { Button } from "@geckolabs/elements/components/button";
+import { Counter } from "@geckolabs/elements/components/counter";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -22,16 +22,16 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
-import { Calendar } from "@gecko/ui/components/calendar";
+} from "@geckolabs/elements/components/dropdown-menu";
+import { Calendar } from "@geckolabs/elements/components/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@gecko/ui/components/popover";
-import { Separator } from "@gecko/ui/components/separator";
-import { cn } from "@gecko/ui/lib/utils";
-import { renderGeckoIcon, type GeckoIcon } from "@gecko/ui/lib/icon";
+} from "@geckolabs/elements/components/popover";
+import { Separator } from "@geckolabs/elements/components/separator";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { renderGeckoIcon, type GeckoIcon } from "@geckolabs/elements/lib/icon";
 import type { DateRange } from "react-day-picker";
 
 const FILTER_TRIGGER_ICONS = {

@@ -1,4 +1,4 @@
-# @gecko/ui
+# @geckolabs/elements
 
 Gecko Elements' shared React component library. The [component contracts](docs/README.md) define approved usage, composition, props and styling. Use this guide for interface work in any consuming project, and read the matching contract before changing a component or its documentation.
 
@@ -20,15 +20,30 @@ implementations that accept `ref` must use `React.forwardRef` or the internal
 `withRef` helper; plain ref-as-prop functions do not work on React 18. This does
 not change the approved component interfaces or introduce a product-facing API.
 
-Run `npm run test:react-compat` from the repository root to pack the source
-library, install it in isolated React 18.3.1 and React 19 consumers, typecheck all
-library source, build with Vite 8, and exercise both development and production
-builds in Chromium. Run `node scripts/check-react-refs.mjs` for the static ref
-guard. See [the compatibility fixture](../../tests/react-compat/README.md).
+Run `npm run test:react-compat` from the repository root to build and pack the
+library, install it in isolated React 18.3.1 and React 19 consumers, typecheck its
+public imports, and exercise development and production builds in Chromium.
+Run `npm run test:package:tailwind` for the Tailwind integration mode and
+`node scripts/check-react-refs.mjs` for the static ref guard.
+See [the compatibility fixture](../../tests/react-compat/README.md).
 
-This runtime support does not make the package a finished npm release: versioning,
-compiled distribution and the main App's CSS integration remain separate work.
-The existing source exports still require TypeScript/JSX and Tailwind processing.
+## Package status and local installation
+
+The package now emits ES2020 ESM JavaScript and TypeScript declarations under
+`dist`. Consumers do not need to transpile Elements TSX or configure workspace
+aliases. CommonJS and server rendering are not tested distribution targets.
+
+From the repository root, run `npm run build:package` or
+`npm pack --workspace @geckolabs/elements --pack-destination /tmp` (which builds
+first). Install the resulting tarball into a consuming app with
+`npm install /tmp/geckolabs-elements-0.1.0-next.1.tgz`, alongside matching React,
+React DOM and React Is peers. This is a local prerelease artifact: `private: true`
+remains as a publication guard until the private npm release process is ready.
+No Admin integration or npm release is included in this slice.
+
+Inside this monorepo, Vite and TypeScript deliberately resolve Elements to source
+for fast feedback. The isolated compatibility tests resolve the packed `dist`
+exports instead. The historical `@gecko/ui` name is no longer an alias.
 
 ## Find and choose a component
 
@@ -48,18 +63,53 @@ Contracts are the authority for approved usage. Their `Source` paths are relativ
 The export map in [package.json](package.json) defines the available public module paths. Import named components from the path in their contract; there is no package-root component barrel.
 
 ```tsx
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 ```
 
-Import every part of a compound component from its documented entry point, including [Data table](docs/data-table.md) and [Reply box](docs/reply-box.md). Use public `@gecko/ui` paths even when the application's tooling can resolve source files directly. An exported internal helper or an undocumented module is not automatically an approved product component.
+Import every part of a compound component from its documented entry point, including [Data table](docs/data-table.md) and [Reply box](docs/reply-box.md). Use public `@geckolabs/elements` paths even when the application's tooling can resolve source files directly. An exported internal helper or an undocumented module is not automatically an approved product component.
 
-Load the shared stylesheet once at the application's entry point:
+Choose exactly one stylesheet mode and load it once at the application entry.
+Both modes supply the same fonts, tokens, base styles and component treatment.
+
+### Compiled CSS
 
 ```tsx
-import "@gecko/ui/globals.css";
+import "@geckolabs/elements/globals.css";
 ```
 
-It supplies the fonts, tokens, component styles and Tailwind utilities. Retain the consuming app's Tailwind processing and ensure its source files are covered by the shared stylesheet's source scanning. Add any providers required by the selected contracts, such as [Toast](docs/toast.md) or [Sidebar](docs/sidebar.md).
+No Tailwind plugin is needed. This contains utilities used by Elements itself;
+it is not a catalogue of every possible utility a consumer might write. Use
+application CSS for surrounding layout, or choose Tailwind mode below.
+
+### Tailwind 4 integration
+
+In the application's CSS entry (adjust the source path relative to that file):
+
+```css
+@import "@geckolabs/elements/tailwind.css";
+@source "./**/*.{ts,tsx}";
+```
+
+Process that stylesheet with Tailwind 4.3.1 and its matching Vite or PostCSS
+integration. The package explicitly scans its compiled JavaScript; the consumer
+explicitly registers its own source. Do not also import `globals.css` or add a
+second Tailwind base import. Monorepo prototypes retain their source stylesheet
+and Vite's automatic application source detection.
+
+Apply `.dark` to the document root so portalled components share the theme.
+The stylesheet includes global base styles and unprefixed utilities. It is not
+isolated from Bootstrap; initial Admin integration still needs a separate document.
+Add providers required by component contracts, such as [Toast](docs/toast.md)
+or [Sidebar](docs/sidebar.md).
+
+Compose charts with primitives from `@geckolabs/elements/charts` and wrappers
+from `@geckolabs/elements/components/chart`. This keeps both on Elements' Recharts
+instance even when an application has another Recharts version installed.
+
+Fonts are served locally from the package. Satoshi is included for Gecko's
+internal use under ITF FFL; Geist Mono uses OFL. See the packaged font notices
+under `dist/assets/fonts/README.md`. Do not distribute Satoshi publicly or to
+external organisations as part of this package without resolving those rights.
 
 ## Compose within the contract
 

@@ -19,10 +19,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@gecko/ui/components/dialog";
-import { Button } from "@gecko/ui/components/button";
-import { Field, FieldLabel } from "@gecko/ui/components/field";
-import { Input } from "@gecko/ui/components/input";
+} from "@geckolabs/elements/components/dialog";
+import { Button } from "@geckolabs/elements/components/button";
+import { Field, FieldLabel } from "@geckolabs/elements/components/field";
+import { Input } from "@geckolabs/elements/components/input";
 
 export function DialogPage() {
   const importSnippet = `import {
@@ -35,7 +35,7 @@ export function DialogPage() {
   DialogTitle,
   DialogTrigger,
   DialogWrapper,
-} from "@gecko/ui/components/dialog"`;
+} from "@geckolabs/elements/components/dialog"`;
 
   const compositionSnippet = `Dialog
 ├── DialogTrigger

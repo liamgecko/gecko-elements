@@ -1,4 +1,4 @@
-import "@gecko/ui/globals.css";
+import "@geckolabs/elements/globals.css";
 
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";

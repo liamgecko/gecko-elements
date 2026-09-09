@@ -1,4 +1,4 @@
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 import * as React from "react";
 import {
   Legend,
@@ -9,7 +9,7 @@ import {
   type TooltipValueType,
 } from "recharts";
 
-import { cn } from "@gecko/ui/lib/utils";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const;
@@ -605,60 +605,63 @@ type ChartLegendGroup = {
   payload: ChartLegendPayload;
 };
 
-const ChartLegendContent = /* @__PURE__ */ withRef(function ChartLegendContent({
-  className,
-  hideIcon = false,
-  payload,
-  verticalAlign = "bottom",
-  nameKey,
-}: React.ComponentProps<"div"> & {
+type ChartLegendContentProps = React.ComponentProps<"div"> & {
   hideIcon?: boolean;
   nameKey?: string;
-} & DefaultLegendContentProps) {
-  const { config } = useChart();
+} & DefaultLegendContentProps;
 
-  if (!payload?.length) {
-    return null;
-  }
+const ChartLegendContent: React.NamedExoticComponent<ChartLegendContentProps> =
+  /* @__PURE__ */ withRef(function ChartLegendContent({
+    className,
+    hideIcon = false,
+    payload,
+    verticalAlign = "bottom",
+    nameKey,
+  }: ChartLegendContentProps) {
+    const { config } = useChart();
 
-  return (
-    <div
-      className={cn(
-        "flex items-center justify-center gap-4",
-        verticalAlign === "top" ? "pb-3" : "pt-3",
-        className,
-      )}
-    >
-      {payload
-        .filter((item) => item.type !== "none")
-        .map((item, index) => {
-          const key = `${nameKey ?? item.dataKey ?? "value"}`;
-          const itemConfig = getPayloadConfigFromPayload(config, item, key);
+    if (!payload?.length) {
+      return null;
+    }
 
-          return (
-            <div
-              key={index}
-              className={cn(
-                "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground",
-              )}
-            >
-              {itemConfig?.icon && !hideIcon ? (
-                <itemConfig.icon />
-              ) : (
-                <div
-                  className="h-2 w-2 shrink-0 rounded-[2px]"
-                  style={{
-                    backgroundColor: item.color,
-                  }}
-                />
-              )}
-              {itemConfig?.label}
-            </div>
-          );
-        })}
-    </div>
-  );
-});
+    return (
+      <div
+        className={cn(
+          "flex items-center justify-center gap-4",
+          verticalAlign === "top" ? "pb-3" : "pt-3",
+          className,
+        )}
+      >
+        {payload
+          .filter((item) => item.type !== "none")
+          .map((item, index) => {
+            const key = `${nameKey ?? item.dataKey ?? "value"}`;
+            const itemConfig = getPayloadConfigFromPayload(config, item, key);
+
+            return (
+              <div
+                key={index}
+                className={cn(
+                  "flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground",
+                )}
+              >
+                {itemConfig?.icon && !hideIcon ? (
+                  <itemConfig.icon />
+                ) : (
+                  <div
+                    className="h-2 w-2 shrink-0 rounded-[2px]"
+                    style={{
+                      backgroundColor: item.color,
+                    }}
+                  />
+                )}
+                {itemConfig?.label}
+              </div>
+            );
+          })}
+      </div>
+    );
+  });
 
 const ChartLegendGroupedContent = /* @__PURE__ */ withRef(
   function ChartLegendGroupedContent({

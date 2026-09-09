@@ -6,9 +6,9 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { toast } from "@gecko/ui/components/toast";
+import { toast } from "@geckolabs/elements/components/toast";
 
-import { Container } from "@gecko/ui/components/container";
+import { Container } from "@geckolabs/elements/components/container";
 import {
   DataLoadErrorAlert,
   SupabaseSetupNotice,

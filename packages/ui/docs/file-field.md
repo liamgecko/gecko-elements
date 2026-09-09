@@ -1,6 +1,6 @@
 # File field
 
-Import: `@gecko/ui/components/file-input`  
+Import: `@geckolabs/elements/components/file-input`  
 Status: Stable  
 Source: `src/components/file-input.tsx`  
 Human documentation: `apps/docs/src/pages/file-field/index.tsx`
@@ -16,7 +16,7 @@ The documented component name is **File field**. The exported React component is
 ## Import
 
 ```tsx
-import { FileInput } from "@gecko/ui/components/file-input";
+import { FileInput } from "@geckolabs/elements/components/file-input";
 ```
 
 ## Canonical composition

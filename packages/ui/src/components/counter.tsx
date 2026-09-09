@@ -1,7 +1,7 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 const counterVariants = cva(
   "inline-flex items-center justify-center rounded-full font-medium leading-[1.1] shrink-0",

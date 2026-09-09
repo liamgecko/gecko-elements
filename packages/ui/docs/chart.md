@@ -1,6 +1,6 @@
 # Chart
 
-Import: `@gecko/ui/components/chart`  
+Import: `@geckolabs/elements/components/chart`  
 Status: Stable  
 Source: `src/components/chart.tsx`  
 Human documentation: `apps/docs/src/pages/charts/index.tsx`
@@ -18,16 +18,21 @@ The host must provide `react-is` matching its React version, as required by
 Elements declares this peer alongside React and React DOM. The compatibility
 fixture verifies fragment-contained chart series under React 18.3.1 and React 19.
 
+Application chart primitives come from `@geckolabs/elements/charts`, which
+re-exports the existing recipe primitives from Elements' own Recharts instance.
+Do not combine these wrappers with chart primitives imported from an app's
+separately installed Recharts version.
+
 ## Canonical application usage
 
 ```tsx
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis } from "@geckolabs/elements/charts";
 
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@gecko/ui/components/chart";
+} from "@geckolabs/elements/components/chart";
 
 const data = [
   { month: "January", desktop: 186 },

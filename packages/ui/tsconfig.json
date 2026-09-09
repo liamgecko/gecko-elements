@@ -9,7 +9,7 @@
     "strict": true,
     "noEmit": true,
     "paths": {
-      "@gecko/ui/*": ["./src/*"]
+      "@geckolabs/elements/*": ["./src/*"]
     }
   },
   "include": ["."],

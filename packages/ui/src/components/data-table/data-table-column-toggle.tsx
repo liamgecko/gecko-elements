@@ -1,22 +1,22 @@
 "use client";
 
 import Columns3Cog from "@hugeicons/core-free-icons/ColumnsThreeCogIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
+} from "@geckolabs/elements/components/dropdown-menu";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/tooltip";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 import { getDataTableColumnToggleLabel } from "./data-table-column-meta";
 import { useDataTableContext } from "./data-table-context";

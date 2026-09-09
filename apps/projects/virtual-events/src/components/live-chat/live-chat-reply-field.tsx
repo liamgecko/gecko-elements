@@ -1,6 +1,6 @@
-import { Button } from "@gecko/ui/components/button"
-import { useReplyBox } from "@gecko/ui/components/reply-box"
-import { cn } from "@gecko/ui/lib/utils"
+import { Button } from "@geckolabs/elements/components/button"
+import { useReplyBox } from "@geckolabs/elements/components/reply-box"
+import { cn } from "@geckolabs/elements/lib/utils"
 import { CirclePlus, SendHorizontal } from "lucide-react"
 import type { ComponentProps } from "react"
 

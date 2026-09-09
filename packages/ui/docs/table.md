@@ -1,6 +1,6 @@
 # Table
 
-Import: `@gecko/ui/components/table`  
+Import: `@geckolabs/elements/components/table`  
 Status: Stable  
 Source: `src/components/table.tsx`  
 Human documentation: `apps/docs/src/pages/table/index.tsx`
@@ -201,7 +201,7 @@ TableExpandableRowTrigger accepts Gecko Button properties except `type`, which i
 
 ## Agent rules
 
-1. Import Table parts from `@gecko/ui/components/table`.
+1. Import Table parts from `@geckolabs/elements/components/table`.
 2. Use Table only for simple tabular data without sorting, filters, pagination or row actions.
 3. Use Data table for product lists and interactive datasets.
 4. Give every table a caption or accessible name.

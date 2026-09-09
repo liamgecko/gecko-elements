@@ -1,6 +1,6 @@
 # Avatar group
 
-Import: `@gecko/ui/components/avatar-group`  
+Import: `@geckolabs/elements/components/avatar-group`  
 Status: Stable  
 Source: `src/components/avatar-group.tsx`  
 Human documentation: `apps/docs/src/pages/avatar-group/index.tsx`
@@ -16,7 +16,7 @@ Gecko Avatar group is a data-driven module. It owns Avatar composition, meaningf
 ## Import
 
 ```tsx
-import { AvatarGroup } from "@gecko/ui/components/avatar-group";
+import { AvatarGroup } from "@geckolabs/elements/components/avatar-group";
 ```
 
 Import `AvatarGroupItem` only when application data needs the exported type.

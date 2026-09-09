@@ -1,6 +1,6 @@
 # Input Group
 
-Import: `@gecko/ui/components/input-group`  
+Import: `@geckolabs/elements/components/input-group`  
 Status: Stable  
 Source: `src/components/input-group.tsx`  
 Human documentation: `apps/docs/src/pages/input-group/index.tsx`
@@ -120,7 +120,7 @@ InputGroupInput accepts the Input interface except native numeric `size`. InputG
 
 ## Agent rules
 
-1. Import every Input Group part from `@gecko/ui/components/input-group`.
+1. Import every Input Group part from `@geckolabs/elements/components/input-group`.
 2. Render exactly one InputGroupInput or InputGroupTextarea per group.
 3. Render the control before addons in the DOM.
 4. Use `align` instead of rearranging DOM order.

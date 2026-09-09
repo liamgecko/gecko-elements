@@ -1,6 +1,6 @@
 # App header
 
-Import: `@gecko/ui/components/app-header`  
+Import: `@geckolabs/elements/components/app-header`  
 Status: Stable  
 Source: `src/components/app-header.tsx`  
 Human documentation: `apps/docs/src/pages/structure/app-header/index.tsx`
@@ -206,7 +206,7 @@ Each user menu item requires `id` and `label`, and accepts `onSelect`, `variant`
 
 ## Agent rules
 
-1. Import every App header part from `@gecko/ui/components/app-header`.
+1. Import every App header part from `@geckolabs/elements/components/app-header`.
 2. Use one AppHeader as the top-level product chrome.
 3. Compose AppHeaderLogo and AppHeaderActions as its direct regions.
 4. Let AppHeaderActions insert separators; do not add manual separators.

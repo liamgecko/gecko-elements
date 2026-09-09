@@ -9,8 +9,8 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { ChatHead, type ChatHeadItem } from "@gecko/ui/components/chat-head";
-import { Button } from "@gecko/ui/components/button";
+import { ChatHead, type ChatHeadItem } from "@geckolabs/elements/components/chat-head";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 
 const now = Date.now();
@@ -72,7 +72,7 @@ const activeConversations: ChatHeadItem[] = [
   },
 ];
 
-const importSnippet = `import { ChatHead } from "@gecko/ui/components/chat-head"`;
+const importSnippet = `import { ChatHead } from "@geckolabs/elements/components/chat-head"`;
 
 const defaultSnippet = `<ChatHead
   items={conversations}

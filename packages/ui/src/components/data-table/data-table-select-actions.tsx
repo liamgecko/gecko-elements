@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import Cog from "@hugeicons/core-free-icons/CogIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,8 +12,8 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/dropdown-menu";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 import { useDataTableContext } from "./data-table-context";
 

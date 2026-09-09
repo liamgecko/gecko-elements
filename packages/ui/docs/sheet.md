@@ -1,6 +1,6 @@
 # Sheet
 
-Import: `@gecko/ui/components/sheet`  
+Import: `@geckolabs/elements/components/sheet`  
 Status: Stable  
 Source: `src/components/sheet.tsx`  
 Human documentation: `apps/docs/src/pages/sheet/index.tsx`
@@ -16,7 +16,7 @@ Sheet follows Shadcn’s composition and wraps Base UI Dialog. Application code 
 ## Canonical application usage
 
 ```tsx
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Sheet,
   SheetBody,
@@ -26,7 +26,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@gecko/ui/components/sheet";
+} from "@geckolabs/elements/components/sheet";
 
 <Sheet>
   <SheetTrigger render={<Button variant="outline" />}>
@@ -153,7 +153,7 @@ Use `className` only for a documented layout integration that cannot be expresse
 
 ## Agent rules
 
-1. Import Sheet and its parts from `@gecko/ui/components/sheet`.
+1. Import Sheet and its parts from `@geckolabs/elements/components/sheet`.
 2. Include one `SheetTitle` in every Sheet.
 3. Keep long task content inside `SheetBody` and actions inside `SheetFooter`.
 4. Choose the smallest approved size that comfortably presents the content.

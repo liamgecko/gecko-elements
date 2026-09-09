@@ -1,20 +1,20 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { Command as CommandPrimitive } from "cmdk";
 
-import { cn } from "@gecko/ui/lib/utils";
+import { cn } from "@geckolabs/elements/lib/utils";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@gecko/ui/components/dialog";
+} from "@geckolabs/elements/components/dialog";
 import SearchIcon from "@hugeicons/core-free-icons/Search01Icon";
 import CheckIcon from "@hugeicons/core-free-icons/CheckIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 const Command = /* @__PURE__ */ withRef(function Command({
   className,

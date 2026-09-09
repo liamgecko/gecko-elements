@@ -1,7 +1,7 @@
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 import * as React from "react";
 
-import { cn } from "@gecko/ui/lib/utils";
+import { cn } from "@geckolabs/elements/lib/utils";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,25 +9,25 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@gecko/ui/components/breadcrumb";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/breadcrumb";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
-import { Tabs, TabsList, TabsTrigger } from "@gecko/ui/components/tabs";
-import { Toggle } from "@gecko/ui/components/toggle";
+} from "@geckolabs/elements/components/dropdown-menu";
+import { Tabs, TabsList, TabsTrigger } from "@geckolabs/elements/components/tabs";
+import { Toggle } from "@geckolabs/elements/components/toggle";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
+} from "@geckolabs/elements/components/tooltip";
 import Home from "@hugeicons/core-free-icons/Home04Icon";
 import Star from "@hugeicons/core-free-icons/StarIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 type HeaderBreadcrumbItem =
   | {

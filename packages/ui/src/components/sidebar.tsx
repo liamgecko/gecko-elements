@@ -1,5 +1,5 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 /* eslint-disable react-refresh/only-export-components -- Sidebar intentionally exports its context hook with its compound components. */
 
@@ -8,37 +8,37 @@ import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { useIsMobile } from "@gecko/ui/hooks/use-mobile";
-import { cn } from "@gecko/ui/lib/utils";
-import { Button } from "@gecko/ui/components/button";
-import { Input } from "@gecko/ui/components/input";
-import { Separator } from "@gecko/ui/components/separator";
+import { useIsMobile } from "@geckolabs/elements/hooks/use-mobile";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { Button } from "@geckolabs/elements/components/button";
+import { Input } from "@geckolabs/elements/components/input";
+import { Separator } from "@geckolabs/elements/components/separator";
 import {
   Sheet,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-} from "@gecko/ui/components/sheet";
-import { Skeleton } from "@gecko/ui/components/skeleton";
+} from "@geckolabs/elements/components/sheet";
+import { Skeleton } from "@geckolabs/elements/components/skeleton";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
-import { Kbd } from "@gecko/ui/components/kbd";
+} from "@geckolabs/elements/components/tooltip";
+import { Kbd } from "@geckolabs/elements/components/kbd";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
+} from "@geckolabs/elements/components/dropdown-menu";
 import ChevronRight from "@hugeicons/core-free-icons/ChevronRightIcon";
 import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
 import LayoutAlignLeft from "@hugeicons/core-free-icons/LayoutAlignLeftIcon";
 import LayoutLeft from "@hugeicons/core-free-icons/LayoutLeftIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;

@@ -1,6 +1,6 @@
 # Combobox
 
-Import: `@gecko/ui/components/combobox`  
+Import: `@geckolabs/elements/components/combobox`  
 Status: Stable  
 Source: `src/components/combobox.tsx`  
 Human documentation: `apps/docs/src/pages/combobox/index.tsx`

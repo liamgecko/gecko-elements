@@ -1,8 +1,8 @@
 import {
   Field,
   FieldLabel,
-} from "@gecko/ui/components/field";
-import { Input } from "@gecko/ui/components/input";
+} from "@geckolabs/elements/components/field";
+import { Input } from "@geckolabs/elements/components/input";
 import {
   Select,
   SelectContent,
@@ -10,7 +10,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select";
+} from "@geckolabs/elements/components/select";
 
 import { EventField } from "../../components/event-field";
 import { openDayEvent } from "../../data/event";

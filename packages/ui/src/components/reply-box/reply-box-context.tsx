@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import type { GeckoIcon } from "@gecko/ui/lib/icon";
+import type { GeckoIcon } from "@geckolabs/elements/lib/icon";
 
 import type { ReplyBoxChannel, ReplyBoxTrayItem } from "./reply-box-actions";
 import type { ReplyBoxVariant } from "./reply-box";

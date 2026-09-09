@@ -1,4 +1,4 @@
-import { Switch } from "@gecko/ui/components/switch";
+import { Switch } from "@geckolabs/elements/components/switch";
 
 import { useBooking } from "../state/booking";
 import { FloatingBasket } from "./floating-basket";

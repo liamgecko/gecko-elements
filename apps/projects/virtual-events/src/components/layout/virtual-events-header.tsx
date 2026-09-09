@@ -1,5 +1,5 @@
-import { Badge } from "@gecko/ui/components/badge"
-import { Button } from "@gecko/ui/components/button"
+import { Badge } from "@geckolabs/elements/components/badge"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,15 +7,15 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"
-import { Separator } from "@gecko/ui/components/separator"
+} from "@geckolabs/elements/components/dropdown-menu"
+import { Separator } from "@geckolabs/elements/components/separator"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@geckolabs/elements/components/tooltip"
+import { cn } from "@geckolabs/elements/lib/utils"
 import { Bell, Power, Radio } from "lucide-react"
 import * as React from "react"
 

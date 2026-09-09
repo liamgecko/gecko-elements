@@ -1,4 +1,4 @@
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible";
 
 const Collapsible = /* @__PURE__ */ withRef(function Collapsible({

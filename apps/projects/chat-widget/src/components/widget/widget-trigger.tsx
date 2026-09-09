@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "motion/react"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 
 type WidgetTriggerProps = {
   isOpen: boolean

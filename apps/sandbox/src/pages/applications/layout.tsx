@@ -1,7 +1,7 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
 
-import { Container } from "@gecko/ui/components/container"
-import { Header } from "@gecko/ui/components/header"
+import { Container } from "@geckolabs/elements/components/container"
+import { Header } from "@geckolabs/elements/components/header"
 import { useFavourites } from "../../state/favourites"
 import { getTabLabelForPath } from "../../lib/tabbed-sections"
 import { usePageBreadcrumbs } from "../../lib/use-page-breadcrumbs"

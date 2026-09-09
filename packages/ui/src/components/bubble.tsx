@@ -1,4 +1,4 @@
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
@@ -7,8 +7,8 @@ import { cva, type VariantProps } from "class-variance-authority";
 import {
   getMessageBubbleVariant,
   useOptionalMessageContext,
-} from "@gecko/ui/components/message-context";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/message-context";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 const BubbleGroup = /* @__PURE__ */ withRef(function BubbleGroup({
   className,

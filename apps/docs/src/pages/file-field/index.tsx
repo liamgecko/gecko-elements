@@ -13,10 +13,10 @@ import {
   FieldDescription,
   FieldError,
   FieldLabel,
-} from "@gecko/ui/components/field";
-import { FileInput } from "@gecko/ui/components/file-input";
+} from "@geckolabs/elements/components/field";
+import { FileInput } from "@geckolabs/elements/components/file-input";
 import { Code } from "@/components/layout/docs-code";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -27,7 +27,7 @@ const fileFieldFormSchema = z.object({
 });
 
 export function FileFieldPage() {
-  const importSnippet = `import { FileInput } from "@gecko/ui/components/file-input"`;
+  const importSnippet = `import { FileInput } from "@geckolabs/elements/components/file-input"`;
 
   const basicExampleSnippet = `<Field>
   <FieldLabel htmlFor="supporting-document">Supporting document</FieldLabel>

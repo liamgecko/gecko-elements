@@ -1,18 +1,18 @@
 import type { ComponentProps } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 
-import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
-import { Bubble, BubbleContent } from "@gecko/ui/components/bubble";
+import { Avatar, AvatarImage } from "@geckolabs/elements/components/avatar";
+import { Bubble, BubbleContent } from "@geckolabs/elements/components/bubble";
 import {
   Message,
   MessageAvatar,
   MessageContent,
-} from "@gecko/ui/components/message";
+} from "@geckolabs/elements/components/message";
 import {
   MESSAGE_ANIMATIONS,
   type MessageAnimationPreset,
-} from "@gecko/ui/lib/message-animations";
-import { MessageScrollerItem } from "@gecko/ui/components/message-scroller";
+} from "@geckolabs/elements/lib/message-animations";
+import { MessageScrollerItem } from "@geckolabs/elements/components/message-scroller";
 import type { AgentProfile, ChatMessage } from "@/lib/types";
 
 type ConversationMessageProps = Omit<

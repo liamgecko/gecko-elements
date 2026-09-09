@@ -1,6 +1,6 @@
 # Message scroller
 
-Import: `@gecko/ui/components/message-scroller`  
+Import: `@geckolabs/elements/components/message-scroller`  
 Status: Stable  
 Source: `src/components/message-scroller.tsx`  
 Human documentation: `apps/docs/src/pages/message-scroller/index.tsx`
@@ -26,7 +26,7 @@ import {
   useMessageScroller,
   useMessageScrollerScrollable,
   useMessageScrollerVisibility,
-} from "@gecko/ui/components/message-scroller";
+} from "@geckolabs/elements/components/message-scroller";
 ```
 
 ## Composition
@@ -155,7 +155,7 @@ The exported hooks and inherited native properties remain available. Consult the
 
 ## Agent rules
 
-1. Import Message scroller parts and hooks from `@gecko/ui/components/message-scroller`.
+1. Import Message scroller parts and hooks from `@geckolabs/elements/components/message-scroller`.
 2. Place MessageScroller inside a height-constrained parent.
 3. Wrap every direct transcript row in MessageScrollerItem.
 4. Supply a stable `messageId` for every addressable or visibility-tracked row.

@@ -3,7 +3,7 @@ name: React compatibility
 on:
   pull_request:
   push:
-    branches: [main, codex/react-18-support]
+    branches: [main, codex/react-18-support, codex/elements-package-readiness]
 
 permissions:
   contents: read
@@ -26,5 +26,6 @@ jobs:
       - run: npm run typecheck
       - run: npx playwright install --with-deps chromium
       - run: npm run test:react-compat -- ${{ matrix.react }}
+      - run: npm run test:package:tailwind -- ${{ matrix.react }}
       - run: npm run test:message-scroller
         if: matrix.react == '19'

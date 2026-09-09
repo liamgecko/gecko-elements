@@ -1,6 +1,6 @@
 # Select
 
-Import: `@gecko/ui/components/select`  
+Import: `@geckolabs/elements/components/select`  
 Status: Stable  
 Source: `src/components/select.tsx`  
 Human documentation: `apps/docs/src/pages/select/index.tsx`
@@ -217,7 +217,7 @@ Agents must obtain explicit user consent before adding or changing props, states
 
 ## Agent rules
 
-1. Import Select parts from `@gecko/ui/components/select`.
+1. Import Select parts from `@geckolabs/elements/components/select`.
 2. Use Select for one value from a short, fixed list.
 3. Put product Select controls in Field with a visible FieldLabel.
 4. Pass `items` whenever stored values and visible labels differ.

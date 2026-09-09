@@ -1,5 +1,5 @@
 import Home from "@hugeicons/core-free-icons/Home04Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { Link } from "react-router-dom";
 import {
   Breadcrumb,
@@ -9,8 +9,8 @@ import {
   BreadcrumbList,
   BreadcrumbPage as BreadcrumbCurrentPage,
   BreadcrumbSeparator,
-} from "@gecko/ui/components/breadcrumb";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/breadcrumb";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import {
   DropdownMenu,
@@ -18,7 +18,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
+} from "@geckolabs/elements/components/dropdown-menu";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
@@ -40,7 +40,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@gecko/ui/components/breadcrumb"`;
+} from "@geckolabs/elements/components/breadcrumb"`;
 
   const compositionSnippet = `Breadcrumb
 └── BreadcrumbList

@@ -1,6 +1,6 @@
 import * as React from "react"
 import { useLocation } from "react-router-dom"
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@geckolabs/elements/lib/utils"
 import type { Section } from "@/config/component-sections"
 import { componentSections } from "@/config/component-sections"
 

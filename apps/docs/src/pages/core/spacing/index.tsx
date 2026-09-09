@@ -12,7 +12,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@gecko/ui/components/table";
+} from "@geckolabs/elements/components/table";
 
 export function SpacingPage() {
   return (

@@ -13,7 +13,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@gecko/ui/components/collapsible";
+} from "@geckolabs/elements/components/collapsible";
 import { Code } from "@/components/layout/docs-code";
 import {
   Sidebar,
@@ -30,7 +30,7 @@ import {
   SidebarMenuSubItem,
   SidebarProvider,
   SidebarTrigger,
-} from "@gecko/ui/components/sidebar";
+} from "@geckolabs/elements/components/sidebar";
 import BookOpen from "@hugeicons/core-free-icons/BookOpen01Icon";
 import Box from "@hugeicons/core-free-icons/Blockchain01Icon";
 import Home from "@hugeicons/core-free-icons/Home04Icon";
@@ -39,7 +39,7 @@ import LifeBuoy from "@hugeicons/core-free-icons/LifebuoyIcon";
 import Package from "@hugeicons/core-free-icons/PackageIcon";
 import Settings from "@hugeicons/core-free-icons/Settings01Icon";
 import Wrench from "@hugeicons/core-free-icons/Wrench01Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 const exampleShellClassName = "h-[420px] overflow-hidden p-0";
 
@@ -343,7 +343,7 @@ export function SidebarPage() {
   SidebarSeparator,
   SidebarTrigger,
   useSidebar,
-} from "@gecko/ui/components/sidebar"`;
+} from "@geckolabs/elements/components/sidebar"`;
 
   const compositionSnippet = `SidebarProvider
 ├── Sidebar

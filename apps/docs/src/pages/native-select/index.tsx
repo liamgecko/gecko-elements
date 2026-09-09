@@ -11,13 +11,13 @@ import {
 } from "@/components/layout/docs-section";
 
 import { Code } from "@/components/layout/docs-code";
-import { Button } from "@gecko/ui/components/button";
-import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";
+import { Button } from "@geckolabs/elements/components/button";
+import { Field, FieldError, FieldLabel } from "@geckolabs/elements/components/field";
 import {
   NativeSelect,
   NativeSelectOptGroup,
   NativeSelectOption,
-} from "@gecko/ui/components/native-select";
+} from "@geckolabs/elements/components/native-select";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -30,7 +30,7 @@ export function NativeSelectPage() {
   NativeSelect,
   NativeSelectOptGroup,
   NativeSelectOption,
-} from "@gecko/ui/components/native-select"`;
+} from "@geckolabs/elements/components/native-select"`;
 
   const compositionSnippet = `NativeSelect
 ├── NativeSelectOption

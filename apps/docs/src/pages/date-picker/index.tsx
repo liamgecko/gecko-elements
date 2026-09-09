@@ -14,9 +14,9 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { Button } from "@gecko/ui/components/button";
-import { DatePicker } from "@gecko/ui/components/date-picker";
-import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";
+import { Button } from "@geckolabs/elements/components/button";
+import { DatePicker } from "@geckolabs/elements/components/date-picker";
+import { Field, FieldError, FieldLabel } from "@geckolabs/elements/components/field";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -34,7 +34,7 @@ export function DatePickerPage() {
   const [subscriptionDate, setSubscriptionDate] = useState<Date | undefined>();
   const [timeDate, setTimeDate] = useState<Date | undefined>(undefined);
 
-  const importSnippet = `import { DatePicker } from "@gecko/ui/components/date-picker"`;
+  const importSnippet = `import { DatePicker } from "@geckolabs/elements/components/date-picker"`;
 
   const basicSnippet = `<DatePicker
   id="date-picker-basic"

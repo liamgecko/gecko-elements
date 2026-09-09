@@ -1,6 +1,6 @@
 import { Share } from "lucide-react"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   Dialog,
   DialogBody,
@@ -10,9 +10,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogWrapper,
-} from "@gecko/ui/components/dialog"
-import { Input } from "@gecko/ui/components/input"
-import { Label } from "@gecko/ui/components/label"
+} from "@geckolabs/elements/components/dialog"
+import { Input } from "@geckolabs/elements/components/input"
+import { Label } from "@geckolabs/elements/components/label"
 
 export type AssistantShareConversationDialogProps = {
   open: boolean

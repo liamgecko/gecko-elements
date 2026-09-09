@@ -1,6 +1,6 @@
 # Progress
 
-Import: `@gecko/ui/components/progress`  
+Import: `@geckolabs/elements/components/progress`  
 Status: Stable  
 Source: `src/components/progress.tsx`  
 Human documentation: `apps/docs/src/pages/progress/index.tsx`
@@ -94,7 +94,7 @@ Progress accepts Base UI Progress Root properties. ProgressTrack, ProgressIndica
 
 ## Agent rules
 
-1. Import Progress parts from `@gecko/ui/components/progress`.
+1. Import Progress parts from `@geckolabs/elements/components/progress`.
 2. Use the canonical Progress component instead of rebuilding the track and indicator.
 3. Give the task an accessible name.
 4. Keep values within the configured minimum and maximum.

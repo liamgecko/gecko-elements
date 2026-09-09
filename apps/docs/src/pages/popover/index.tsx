@@ -10,15 +10,15 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import {
   Field,
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@gecko/ui/components/field";
-import { Input } from "@gecko/ui/components/input";
+} from "@geckolabs/elements/components/field";
+import { Input } from "@geckolabs/elements/components/input";
 import {
   Popover,
   PopoverClose,
@@ -28,7 +28,7 @@ import {
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
-} from "@gecko/ui/components/popover";
+} from "@geckolabs/elements/components/popover";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -47,7 +47,7 @@ export function PopoverPage() {
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
-} from "@gecko/ui/components/popover"`;
+} from "@geckolabs/elements/components/popover"`;
 
   const compositionSnippet = `Popover
 ├── PopoverTrigger

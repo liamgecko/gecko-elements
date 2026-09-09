@@ -1,16 +1,16 @@
 import * as React from "react";
 
-import { Button } from "@gecko/ui/components/button";
-import { FieldLegend, FieldSet } from "@gecko/ui/components/field";
+import { Button } from "@geckolabs/elements/components/button";
+import { FieldLegend, FieldSet } from "@geckolabs/elements/components/field";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
   PaginationNext,
   PaginationPrevious,
-} from "@gecko/ui/components/pagination";
-import { Search } from "@gecko/ui/components/search";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/pagination";
+import { Search } from "@geckolabs/elements/components/search";
+import { cn } from "@geckolabs/elements/lib/utils";
 import {
   ArrowDownAZ,
   ArrowUpAZ,

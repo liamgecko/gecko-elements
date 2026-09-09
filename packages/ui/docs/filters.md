@@ -1,6 +1,6 @@
 # Filters
 
-Import: `@gecko/ui/components/filters`  
+Import: `@geckolabs/elements/components/filters`  
 Status: Stable  
 Source: `src/components/filters.tsx`  
 Human documentation: `apps/docs/src/pages/filters/index.tsx`
@@ -32,7 +32,7 @@ Every category and option has a stable value. Category ids are the keys returned
 ```tsx
 import { useState } from "react";
 
-import { Filter, type FilterOperator } from "@gecko/ui/components/filters";
+import { Filter, type FilterOperator } from "@geckolabs/elements/components/filters";
 
 const categories = [
   {

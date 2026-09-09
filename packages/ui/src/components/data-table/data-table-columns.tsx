@@ -4,8 +4,8 @@
 
 import type { ColumnDef, FilterFn } from "@tanstack/react-table"
 
-import { Checkbox } from "@gecko/ui/components/checkbox"
-import { TableExpandableRowTrigger } from "@gecko/ui/components/table"
+import { Checkbox } from "@geckolabs/elements/components/checkbox"
+import { TableExpandableRowTrigger } from "@geckolabs/elements/components/table"
 
 import type { DataTableColumnMeta } from "./data-table-column-meta"
 import { DataTableRowActionsMenu } from "./data-table-row-actions"

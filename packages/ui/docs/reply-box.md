@@ -1,6 +1,6 @@
 # Reply box
 
-Import: @gecko/ui/components/reply-box  
+Import: @geckolabs/elements/components/reply-box  
 Status: Stable  
 Source: src/components/reply-box/  
 Human documentation: apps/docs/src/pages/reply-box/index.tsx
@@ -23,7 +23,7 @@ import {
   ReplyBoxContent,
   ReplyBoxFooter,
   ReplyBoxHeader,
-} from "@gecko/ui/components/reply-box";
+} from "@geckolabs/elements/components/reply-box";
 
 <ReplyBox>
   <ReplyBoxHeader showExpand />
@@ -208,7 +208,7 @@ Use className only to position or size a complete Reply box or region in its par
 ## Agent rules
 
 - Use Reply box only for a chat or conversation composer.
-- Import every part from @gecko/ui/components/reply-box.
+- Import every part from @geckolabs/elements/components/reply-box.
 - Keep message content, editor behaviour and submission rules in the application.
 - Treat channel taxonomy and switching as product-owned.
 - Connect every visible action to real product behaviour.

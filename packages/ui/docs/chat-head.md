@@ -1,6 +1,6 @@
 # Chat head
 
-Import: `@gecko/ui/components/chat-head`  
+Import: `@geckolabs/elements/components/chat-head`  
 Status: Stable  
 Source: `src/components/chat-head.tsx`  
 Human documentation: `apps/docs/src/pages/chat-head/index.tsx`

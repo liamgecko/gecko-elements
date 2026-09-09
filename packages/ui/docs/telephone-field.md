@@ -1,6 +1,6 @@
 # Telephone field
 
-Import: `@gecko/ui/components/telephone-field`  
+Import: `@geckolabs/elements/components/telephone-field`  
 Status: Stable  
 Source: `src/components/telephone-field.tsx`  
 Human documentation: `apps/docs/src/pages/telephone-field/index.tsx`
@@ -156,7 +156,7 @@ Use `className` only to position the complete field in its parent. Request a lib
 
 ## Agent rules
 
-1. Import TelephoneField from `@gecko/ui/components/telephone-field`.
+1. Import TelephoneField from `@geckolabs/elements/components/telephone-field`.
 2. Do not import `react-phone-number-input` directly in application code.
 3. Use Field and FieldLabel in product forms.
 4. Set `name` and `autoComplete="tel"` when the value is submitted.

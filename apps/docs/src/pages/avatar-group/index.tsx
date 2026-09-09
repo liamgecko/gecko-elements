@@ -1,4 +1,4 @@
-import { AvatarGroup } from "@gecko/ui/components/avatar-group";
+import { AvatarGroup } from "@geckolabs/elements/components/avatar-group";
 import { Code } from "@/components/layout/docs-code";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -50,7 +50,7 @@ const itemsSnippet = (items: typeof sampleItems) =>
 const sizes = ["xs", "sm", "md", "lg", "xl", "2xl", "3xl"] as const;
 
 export function AvatarGroupPage() {
-  const importSnippet = `import { AvatarGroup } from "@gecko/ui/components/avatar-group"`;
+  const importSnippet = `import { AvatarGroup } from "@geckolabs/elements/components/avatar-group"`;
 
   const basicExampleSnippet = `<AvatarGroup
   items={[

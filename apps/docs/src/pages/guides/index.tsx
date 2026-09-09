@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { buttonVariants } from "@gecko/ui/components/button";
+import { buttonVariants } from "@geckolabs/elements/components/button";
 import { HeaderSection, MainSection } from "@/components/layout/docs-section";
 import { guidesPages } from "@/pages/gallery-data";
 

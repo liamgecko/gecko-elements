@@ -1,5 +1,5 @@
 import ImageUp from "@hugeicons/core-free-icons/ImageUpIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { RequiredForm } from "@/components/layout/required-form";
@@ -12,15 +12,15 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Attachment } from "@gecko/ui/components/attachment";
-import { Button } from "@gecko/ui/components/button";
+import { Attachment } from "@geckolabs/elements/components/attachment";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from "@gecko/ui/components/field";
+} from "@geckolabs/elements/components/field";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -60,7 +60,7 @@ function simulateFailingUpload(
 }
 
 export function AttachmentPage() {
-  const importSnippet = `import { Attachment } from "@gecko/ui/components/attachment"`;
+  const importSnippet = `import { Attachment } from "@geckolabs/elements/components/attachment"`;
 
   const basicExampleSnippet = `<Attachment
   accept="image/*"

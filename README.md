@@ -1,6 +1,6 @@
 # Gecko Elements
 
-This npm monorepo contains the shared `@gecko/ui` library and the applications that consume it. Start with the [library usage guide](packages/ui/README.md) when building an interface.
+This npm monorepo contains the shared `@geckolabs/elements` library and the applications that consume it. Start with the [library usage guide](packages/ui/README.md) when building an interface.
 
 ## Repository map
 
@@ -16,7 +16,7 @@ This npm monorepo contains the shared `@gecko/ui` library and the applications t
 
 Use Node and npm as specified in [package.json](package.json). Run commands from the repository root. If dependencies are not installed, run `npm ci`.
 
-Existing apps declare `"@gecko/ui": "*"`, import `@gecko/ui/globals.css`, and enable `@tailwindcss/vite`. For a new app, use a directory matched by the root workspace globs and adapt the workspace wiring in an existing app's [package.json](apps/projects/forms/package.json), [Vite config](apps/projects/forms/vite.config.ts), [TypeScript config](apps/projects/forms/tsconfig.app.json), and [entry point](apps/projects/forms/src/main.tsx). Adjust relative paths for the new directory. Preserve the shared stylesheet and its Tailwind source coverage when adding a workspace outside the existing app locations.
+Existing apps declare `"@geckolabs/elements": "*"`, import `@geckolabs/elements/globals.css`, and enable `@tailwindcss/vite`. For a new app, use a directory matched by the root workspace globs and adapt the workspace wiring in an existing app's [package.json](apps/projects/forms/package.json), [Vite config](apps/projects/forms/vite.config.ts), [TypeScript config](apps/projects/forms/tsconfig.app.json), and [entry point](apps/projects/forms/src/main.tsx). Adjust relative paths for the new directory. Preserve the shared stylesheet and its Tailwind source coverage when adding a workspace outside the existing app locations.
 
 Run the docs app to inspect live examples:
 
@@ -36,7 +36,7 @@ The app build runs TypeScript project checks and Vite bundling. Root `npm run ty
 After changes to shared library code or styles, check the library and all consuming apps:
 
 ```sh
-npm run typecheck --workspace @gecko/ui
+npm run typecheck --workspace @geckolabs/elements
 npm run build
 ```
 

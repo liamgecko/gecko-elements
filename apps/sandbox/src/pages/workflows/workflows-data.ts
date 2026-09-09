@@ -1,5 +1,5 @@
-import type { DataTableRowAction } from "@gecko/ui/components/data-table/data-table"
-import type { FilterCategory } from "@gecko/ui/components/filters"
+import type { DataTableRowAction } from "@geckolabs/elements/components/data-table/data-table"
+import type { FilterCategory } from "@geckolabs/elements/components/filters"
 
 export type WorkflowLockStatus =
   | "locked-view-only"

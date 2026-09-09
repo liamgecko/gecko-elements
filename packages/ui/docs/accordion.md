@@ -1,6 +1,6 @@
 # Accordion
 
-Import: `@gecko/ui/components/accordion`  
+Import: `@geckolabs/elements/components/accordion`  
 Status: Stable  
 Source: `src/components/accordion.tsx`  
 Human documentation: `apps/docs/src/pages/accordion/index.tsx`
@@ -21,7 +21,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@gecko/ui/components/accordion";
+} from "@geckolabs/elements/components/accordion";
 ```
 
 ## Composition

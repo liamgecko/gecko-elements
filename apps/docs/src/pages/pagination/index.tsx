@@ -18,7 +18,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@gecko/ui/components/pagination";
+} from "@geckolabs/elements/components/pagination";
 
 export function PaginationPage() {
   const importSnippet = `import {
@@ -29,7 +29,7 @@ export function PaginationPage() {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@gecko/ui/components/pagination"`;
+} from "@geckolabs/elements/components/pagination"`;
 
   const compositionSnippet = `Pagination
 └── PaginationContent

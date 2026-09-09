@@ -1,6 +1,6 @@
 # Marker
 
-Import: `@gecko/ui/components/marker`  
+Import: `@geckolabs/elements/components/marker`  
 Status: Stable  
 Source: `src/components/marker.tsx`  
 Human documentation: `apps/docs/src/pages/marker/index.tsx`
@@ -14,7 +14,7 @@ Marker is a Shadcn component built with Base UI’s rendering utilities. There i
 ## Import
 
 ```tsx
-import { Marker, MarkerContent, MarkerIcon } from "@gecko/ui/components/marker";
+import { Marker, MarkerContent, MarkerIcon } from "@geckolabs/elements/components/marker";
 ```
 
 ## Composition
@@ -124,7 +124,7 @@ Marker, MarkerIcon and MarkerContent also accept the native properties of their 
 
 ## Agent rules
 
-1. Import Marker and its parts from `@gecko/ui/components/marker`.
+1. Import Marker and its parts from `@geckolabs/elements/components/marker`.
 2. Use the default variant unless the note is a labelled separator or bordered row.
 3. Put decorative symbols inside MarkerIcon and meaningful text inside MarkerContent.
 4. Add `role="status"` only for an in-progress update that should be announced.

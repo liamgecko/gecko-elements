@@ -3,7 +3,7 @@ import {
   AvatarDescription,
   AvatarImage,
   AvatarLabel,
-} from "@gecko/ui/components/avatar";
+} from "@geckolabs/elements/components/avatar";
 import { Code } from "@/components/layout/docs-code";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -27,7 +27,7 @@ export function AvatarPage() {
   AvatarDescription,
   AvatarImage,
   AvatarLabel,
-} from "@gecko/ui/components/avatar"`;
+} from "@geckolabs/elements/components/avatar"`;
 
   const compositionSnippet = `Avatar
 ├── AvatarImage

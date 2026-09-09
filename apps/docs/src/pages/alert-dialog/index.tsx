@@ -8,8 +8,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@gecko/ui/components/alert-dialog";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/alert-dialog";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -33,7 +33,7 @@ export function AlertDialogPage() {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@gecko/ui/components/alert-dialog"`;
+} from "@geckolabs/elements/components/alert-dialog"`;
 
   const compositionSnippet = `AlertDialog
 ├── AlertDialogTrigger

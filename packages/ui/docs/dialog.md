@@ -1,6 +1,6 @@
 # Dialog
 
-Import: `@gecko/ui/components/dialog`  
+Import: `@geckolabs/elements/components/dialog`  
 Status: Stable  
 Source: `src/components/dialog.tsx`  
 Human documentation: `apps/docs/src/pages/dialog/index.tsx`
@@ -14,7 +14,7 @@ Use Dialog for create and edit forms, configuration tasks and similarly focused 
 ## Canonical application usage
 
 ```tsx
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Dialog,
   DialogBody,
@@ -25,9 +25,9 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogWrapper,
-} from "@gecko/ui/components/dialog";
-import { Field, FieldLabel } from "@gecko/ui/components/field";
-import { Input } from "@gecko/ui/components/input";
+} from "@geckolabs/elements/components/dialog";
+import { Field, FieldLabel } from "@geckolabs/elements/components/field";
+import { Input } from "@geckolabs/elements/components/input";
 
 <Dialog>
   <DialogTrigger render={<Button variant="outline" />}>

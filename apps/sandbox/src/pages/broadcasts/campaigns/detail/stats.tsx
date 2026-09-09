@@ -3,9 +3,9 @@ import type { DateRange } from "react-day-picker"
 import { useParams } from "react-router-dom"
 import { CheckCheck, ListFilterPlus } from "lucide-react"
 
-import { Button } from "@gecko/ui/components/button"
-import { DatePicker } from "@gecko/ui/components/date-picker"
-import { MetricCard } from "@gecko/ui/components/metric-card"
+import { Button } from "@geckolabs/elements/components/button"
+import { DatePicker } from "@geckolabs/elements/components/date-picker"
+import { MetricCard } from "@geckolabs/elements/components/metric-card"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +13,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu"
+} from "@geckolabs/elements/components/dropdown-menu"
 
 import { DeliveryPerformanceChart } from "./delivery-performance-chart"
 import { ClickPerformanceChart } from "./click-performance-chart"

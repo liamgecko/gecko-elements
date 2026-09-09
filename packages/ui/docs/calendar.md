@@ -1,6 +1,6 @@
 # Calendar
 
-Import: `@gecko/ui/components/calendar`  
+Import: `@geckolabs/elements/components/calendar`  
 Status: Stable  
 Source: `src/components/calendar.tsx`  
 Human documentation: `apps/docs/src/pages/calendar/index.tsx`
@@ -26,7 +26,7 @@ React DayPicker technically supports `mode="multiple"`, but multiple independent
 
 ```tsx
 import { useState } from "react";
-import { Calendar } from "@gecko/ui/components/calendar";
+import { Calendar } from "@geckolabs/elements/components/calendar";
 
 const [date, setDate] = useState<Date>();
 
@@ -40,7 +40,7 @@ Use controlled state so the application owns the selected value. `onSelect` can 
 ```tsx
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
-import { Calendar } from "@gecko/ui/components/calendar";
+import { Calendar } from "@geckolabs/elements/components/calendar";
 
 const [dateRange, setDateRange] = useState<DateRange>();
 

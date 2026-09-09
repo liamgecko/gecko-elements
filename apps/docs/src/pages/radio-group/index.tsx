@@ -10,9 +10,9 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Button } from "@gecko/ui/components/button";
-import { Field, FieldContent, FieldError } from "@gecko/ui/components/field";
-import { RadioGroup, RadioGroupItem } from "@gecko/ui/components/radio-group";
+import { Button } from "@geckolabs/elements/components/button";
+import { Field, FieldContent, FieldError } from "@geckolabs/elements/components/field";
+import { RadioGroup, RadioGroupItem } from "@geckolabs/elements/components/radio-group";
 import { Code } from "@/components/layout/docs-code";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
@@ -26,7 +26,7 @@ export function RadioGroupPage() {
   const [asButtonValue, setAsButtonValue] = useState<string>("a");
   const [asButtonDescValue, setAsButtonDescValue] = useState<string>("terms");
 
-  const importSnippet = `import { RadioGroup, RadioGroupItem } from "@gecko/ui/components/radio-group"`;
+  const importSnippet = `import { RadioGroup, RadioGroupItem } from "@geckolabs/elements/components/radio-group"`;
   const compositionSnippet = `RadioGroup
 └── RadioGroupItem`;
 

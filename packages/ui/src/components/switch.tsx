@@ -1,11 +1,11 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
 
-import { ControlLabel } from "@gecko/ui/components/label";
-import { cn } from "@gecko/ui/lib/utils";
+import { ControlLabel } from "@geckolabs/elements/components/label";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 type SwitchProps = SwitchPrimitive.Root.Props & {
   size?: "sm" | "default" | "lg";

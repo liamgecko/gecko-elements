@@ -1,8 +1,8 @@
 import { Cog, Home } from "lucide-react"
 import { Navigate, Outlet, useLocation, useNavigate, useParams } from "react-router-dom"
 
-import { Container } from "@gecko/ui/components/container"
-import { Header } from "@gecko/ui/components/header"
+import { Container } from "@geckolabs/elements/components/container"
+import { Header } from "@geckolabs/elements/components/header"
 import {
   DataLoadErrorAlert,
   SupabaseSetupNotice,

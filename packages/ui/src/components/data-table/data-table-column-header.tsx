@@ -5,15 +5,15 @@ import ArrowDown from "@hugeicons/core-free-icons/ArrowDown02Icon";
 import ArrowUp from "@hugeicons/core-free-icons/ArrowUp02Icon";
 import ArrowUpDown from "@hugeicons/core-free-icons/ArrowUpDownIcon";
 import CircleHelp from "@hugeicons/core-free-icons/HelpCircleIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/tooltip";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 export type DataTableColumnHeaderProps<TData, TValue> = {
   column: Column<TData, TValue>;

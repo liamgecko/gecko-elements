@@ -8,11 +8,11 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Separator } from "@gecko/ui/components/separator";
+import { Separator } from "@geckolabs/elements/components/separator";
 import { Code } from "@/components/layout/docs-code";
 
 export function SeparatorPage() {
-  const importSnippet = `import { Separator } from "@gecko/ui/components/separator"`;
+  const importSnippet = `import { Separator } from "@geckolabs/elements/components/separator"`;
 
   const orientationSnippet = `<Separator orientation="horizontal|vertical" />`;
 

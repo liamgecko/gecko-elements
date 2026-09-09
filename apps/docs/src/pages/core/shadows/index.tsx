@@ -12,7 +12,7 @@ import {
   TableBody,
   TableHeader,
   TableHead,
-} from "@gecko/ui/components/table";
+} from "@geckolabs/elements/components/table";
 
 export function ShadowsPage() {
   return (

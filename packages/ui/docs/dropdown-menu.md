@@ -1,6 +1,6 @@
 # Dropdown menu
 
-Import: `@gecko/ui/components/dropdown-menu`  
+Import: `@geckolabs/elements/components/dropdown-menu`  
 Status: Stable compound component  
 Source: `src/components/dropdown-menu.tsx`  
 Human documentation: `apps/docs/src/pages/dropdown-menu/index.tsx`

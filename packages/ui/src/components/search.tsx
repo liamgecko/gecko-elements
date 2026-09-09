@@ -3,15 +3,15 @@
 import * as React from "react";
 import SearchIcon from "@hugeicons/core-free-icons/Search01Icon";
 import XIcon from "@hugeicons/core-free-icons/XIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { cn } from "@gecko/ui/lib/utils";
+import { cn } from "@geckolabs/elements/lib/utils";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@gecko/ui/components/input-group";
+} from "@geckolabs/elements/components/input-group";
 
 type SearchSize = "sm" | "md" | "lg";
 

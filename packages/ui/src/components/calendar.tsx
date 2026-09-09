@@ -7,12 +7,12 @@ import {
   type Matcher,
 } from "react-day-picker";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { Button, buttonVariants } from "@gecko/ui/components/button";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { Button, buttonVariants } from "@geckolabs/elements/components/button";
 import ChevronLeftIcon from "@hugeicons/core-free-icons/ChevronLeftIcon";
 import ChevronRightIcon from "@hugeicons/core-free-icons/ChevronRightIcon";
 import ChevronDownIcon from "@hugeicons/core-free-icons/ChevronDownIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   bookedDates?: Matcher | Matcher[];

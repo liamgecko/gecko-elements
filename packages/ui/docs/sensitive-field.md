@@ -1,6 +1,6 @@
 # Sensitive field
 
-Import: `@gecko/ui/components/sensitive-field`  
+Import: `@geckolabs/elements/components/sensitive-field`  
 Status: Stable  
 Source: `src/components/sensitive-field.tsx`  
 Human documentation: `apps/docs/src/pages/sensitive-field/index.tsx`
@@ -139,7 +139,7 @@ Use `className` only to position the complete component in its parent. Request a
 
 ## Agent rules
 
-1. Import SensitiveField from `@gecko/ui/components/sensitive-field`.
+1. Import SensitiveField from `@geckolabs/elements/components/sensitive-field`.
 2. Use it only for existing private values that need concealed review or editing.
 3. Use Field and FieldLabel in product forms.
 4. Keep the value concealed by default.

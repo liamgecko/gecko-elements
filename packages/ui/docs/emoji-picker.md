@@ -1,6 +1,6 @@
 # Emoji picker
 
-Import: `@gecko/ui/components/emoji-picker`  
+Import: `@geckolabs/elements/components/emoji-picker`  
 Status: Stable compound component  
 Source: `src/components/emoji-picker.tsx`  
 Human documentation: `apps/docs/src/pages/emoji-picker/index.tsx`  
@@ -132,7 +132,7 @@ Use `className` only to place the complete picker in its parent layout. Use `sid
 
 ## Agent rules
 
-- Import Emoji picker from `@gecko/ui`; keep Frimousse behind this interface.
+- Import Emoji picker from `@geckolabs/elements`; keep Frimousse behind this interface.
 - Use `picker` for inserting emoji and `tray` for reactions.
 - Connect `onEmojiSelect` to the product operation.
 - Start with the default tray emoji set and placement.

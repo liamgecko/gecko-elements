@@ -1,13 +1,13 @@
 import { PanelRightClose, PanelRightOpen } from "lucide-react"
 
-import { Button } from "@gecko/ui/components/button"
-import { useSidebar } from "@gecko/ui/components/sidebar"
+import { Button } from "@geckolabs/elements/components/button"
+import { useSidebar } from "@geckolabs/elements/components/sidebar"
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@geckolabs/elements/components/tooltip"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 export type AssistantPanelTriggerProps = {
   className?: string

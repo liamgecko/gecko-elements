@@ -1,21 +1,21 @@
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 import * as React from "react";
 
-import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
-import type { AvatarSize } from "@gecko/ui/components/avatar";
-import { Button } from "@gecko/ui/components/button";
+import { Avatar, AvatarImage } from "@geckolabs/elements/components/avatar";
+import type { AvatarSize } from "@geckolabs/elements/components/avatar";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Popover,
   PopoverContent,
   PopoverTitle,
   PopoverTrigger,
-} from "@gecko/ui/components/popover";
+} from "@geckolabs/elements/components/popover";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/tooltip";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 export type AvatarGroupItem = {
   /** Stable identity used when people are reordered. */

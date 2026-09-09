@@ -3,8 +3,8 @@ import {
   AvatarDescription,
   AvatarImage,
   AvatarLabel,
-} from "@gecko/ui/components/avatar";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/avatar";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 import { MOCK_EVENT_DETAILS } from "@/data/event-details";
 import { formatEventDateRange } from "@/lib/format-event-time";

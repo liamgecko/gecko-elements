@@ -3,11 +3,11 @@ import { useChat } from "@ai-sdk/react";
 import ArrowUpIcon from "@hugeicons/core-free-icons/ArrowUp02Icon";
 import MessageCircleDashedIcon from "@hugeicons/core-free-icons/MessageCircleDashedIcon";
 import RotateCwIcon from "@hugeicons/core-free-icons/RotateCwIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 import { createChat } from "@/lib/ai";
 import { ScrollerDemoMessage } from "./scroller-demo-message";
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Card,
   CardAction,
@@ -16,25 +16,25 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@gecko/ui/components/card";
+} from "@geckolabs/elements/components/card";
 import {
   Empty,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@gecko/ui/components/empty";
+} from "@geckolabs/elements/components/empty";
 import {
   MESSAGE_ANIMATIONS,
   type MessageAnimationId,
-} from "@gecko/ui/lib/message-animations";
+} from "@geckolabs/elements/lib/message-animations";
 import {
   MessageScroller,
   MessageScrollerButton,
   MessageScrollerContent,
   MessageScrollerProvider,
   MessageScrollerViewport,
-} from "@gecko/ui/components/message-scroller";
+} from "@geckolabs/elements/components/message-scroller";
 import {
   Select,
   SelectContent,
@@ -42,7 +42,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@gecko/ui/components/select";
+} from "@geckolabs/elements/components/select";
 
 const chat = createChat()
   .user("Can user messages pop in like iMessage without breaking anchoring?")

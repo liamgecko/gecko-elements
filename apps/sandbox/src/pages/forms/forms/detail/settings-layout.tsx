@@ -1,7 +1,7 @@
 import { Navigate, Outlet, useLocation, useNavigate, useOutletContext, useParams } from "react-router-dom"
 
-import { Tabs, TabsList, TabsTrigger } from "@gecko/ui/components/tabs"
-import { cn } from "@gecko/ui/lib/utils"
+import { Tabs, TabsList, TabsTrigger } from "@geckolabs/elements/components/tabs"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 import {
   FORM_SETTINGS_SECTIONS,

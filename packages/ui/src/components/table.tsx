@@ -1,13 +1,13 @@
 "use client";
-import { inertProps } from "@gecko/ui/lib/inert";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { inertProps } from "@geckolabs/elements/lib/inert";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import ChevronDown from "@hugeicons/core-free-icons/ChevronDownIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-import { Button } from "@gecko/ui/components/button";
-import { cn } from "@gecko/ui/lib/utils";
+import { Button } from "@geckolabs/elements/components/button";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 const TableHoverContext = React.createContext(false);
 

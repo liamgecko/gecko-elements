@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Bell from "@hugeicons/core-free-icons/BellIcon";
 import ChevronRight from "@hugeicons/core-free-icons/ChevronRightIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
-import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
-import { Badge } from "@gecko/ui/components/badge";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import { Avatar, AvatarImage } from "@geckolabs/elements/components/avatar";
+import { Badge } from "@geckolabs/elements/components/badge";
 import { Code } from "@/components/layout/docs-code";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -32,7 +32,7 @@ const avatarSrc =
 export function BadgePage() {
   const [dismissed, setDismissed] = useState(false);
 
-  const importSnippet = `import { Badge } from "@gecko/ui/components/badge"`;
+  const importSnippet = `import { Badge } from "@geckolabs/elements/components/badge"`;
 
   const defaultSnippet = `<Badge>Default badge</Badge>`;
 

@@ -1,11 +1,11 @@
 import * as React from "react";
 
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@gecko/ui/components/collapsible";
+} from "@geckolabs/elements/components/collapsible";
 import { ChevronDown, ShoppingCart } from "lucide-react";
 
 import {

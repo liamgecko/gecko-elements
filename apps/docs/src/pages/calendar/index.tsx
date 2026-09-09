@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { addDays } from "date-fns";
 import type { DateRange } from "react-day-picker";
-import { Calendar } from "@gecko/ui/components/calendar";
+import { Calendar } from "@geckolabs/elements/components/calendar";
 import { Code } from "@/components/layout/docs-code";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -32,7 +32,7 @@ export function CalendarPage() {
     (_, i) => new Date(year, 0, 12 + i),
   );
 
-  const importSnippet = `import { Calendar } from "@gecko/ui/components/calendar"`;
+  const importSnippet = `import { Calendar } from "@geckolabs/elements/components/calendar"`;
 
   const basicExampleSnippet = `<Calendar
   mode="single"

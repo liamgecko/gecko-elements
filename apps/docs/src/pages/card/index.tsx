@@ -6,8 +6,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@gecko/ui/components/card";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/card";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -29,7 +29,7 @@ export function CardPage() {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@gecko/ui/components/card"`;
+} from "@geckolabs/elements/components/card"`;
 
   const compositionSnippet = `Card
 ├── CardHeader

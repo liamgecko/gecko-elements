@@ -1,10 +1,10 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 
-import { Search } from "@gecko/ui/components/search";
-import { cn } from "@gecko/ui/lib/utils";
+import { Search } from "@geckolabs/elements/components/search";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 import { useDataTableContext } from "./data-table-context";
 

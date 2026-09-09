@@ -1,12 +1,12 @@
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import {
   Field,
   FieldDescription,
   FieldError,
   FieldLabel,
-} from "@gecko/ui/components/field";
-import { SensitiveField } from "@gecko/ui/components/sensitive-field";
+} from "@geckolabs/elements/components/field";
+import { SensitiveField } from "@geckolabs/elements/components/sensitive-field";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { RequiredForm } from "@/components/layout/required-form";
@@ -26,7 +26,7 @@ const sensitiveFieldFormSchema = z.object({
 });
 
 export function SensitiveFieldPage() {
-  const importSnippet = `import { SensitiveField } from "@gecko/ui/components/sensitive-field"`;
+  const importSnippet = `import { SensitiveField } from "@geckolabs/elements/components/sensitive-field"`;
 
   const basicExampleSnippet = `<SensitiveField
   aria-label="API key"

@@ -1,4 +1,4 @@
-import type { ChartConfig } from "@gecko/ui/components/chart";
+import type { ChartConfig } from "@geckolabs/elements/components/chart";
 
 export type SingleBarChartExampleDatum = {
   month: string;

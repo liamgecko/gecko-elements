@@ -26,7 +26,7 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from "@gecko/ui/components/context-menu";
+} from "@geckolabs/elements/components/context-menu";
 import FolderIcon from "@hugeicons/core-free-icons/Folder01Icon";
 import InboxIcon from "@hugeicons/core-free-icons/Archive04Icon";
 import LifeBuoyIcon from "@hugeicons/core-free-icons/LifebuoyIcon";
@@ -34,7 +34,7 @@ import PencilIcon from "@hugeicons/core-free-icons/PencilEdit01Icon";
 import ShareIcon from "@hugeicons/core-free-icons/Share01Icon";
 import TrashIcon from "@hugeicons/core-free-icons/Delete02Icon";
 import UserIcon from "@hugeicons/core-free-icons/User02Icon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 export function ContextMenuPage() {
   const [user, setUser] = React.useState("pedro");
@@ -55,7 +55,7 @@ export function ContextMenuPage() {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from "@gecko/ui/components/context-menu"`;
+} from "@geckolabs/elements/components/context-menu"`;
 
   const compositionSnippet = `ContextMenu
 ├── ContextMenuTrigger

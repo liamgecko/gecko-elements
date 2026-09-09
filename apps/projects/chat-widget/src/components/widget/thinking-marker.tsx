@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 
-import { Marker, MarkerContent } from "@gecko/ui/components/marker"
+import { Marker, MarkerContent } from "@geckolabs/elements/components/marker"
 
 /** Pause after the user sends before the marker enters. */
 export const THINKING_ENTER_DELAY_MS = 400

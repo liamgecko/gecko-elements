@@ -1,4 +1,4 @@
-import { Button } from "@gecko/ui/components/button";
+import { Button } from "@geckolabs/elements/components/button";
 import { Trash2 } from "lucide-react";
 
 import { formatCost, type BasketLine } from "../lib/booking";

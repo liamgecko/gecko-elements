@@ -1,5 +1,5 @@
 import Sparkles from "@hugeicons/core-free-icons/SparklesIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -16,8 +16,8 @@ import {
   AlertAction,
   AlertDescription,
   AlertTitle,
-} from "@gecko/ui/components/alert";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/alert";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 
 const variants = [
@@ -63,7 +63,7 @@ export function AlertPage() {
   AlertAction,
   AlertDescription,
   AlertTitle,
-} from "@gecko/ui/components/alert"`;
+} from "@geckolabs/elements/components/alert"`;
 
   const compositionSnippet = `Alert
 ├── AlertTitle

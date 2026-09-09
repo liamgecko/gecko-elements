@@ -1,6 +1,6 @@
 # Colour field
 
-Import: `@gecko/ui/components/color-picker`  
+Import: `@geckolabs/elements/components/color-picker`  
 Export: `ColorPicker`  
 Status: Stable  
 Source: `src/components/color-picker.tsx`  
@@ -19,8 +19,8 @@ The product name uses British spelling: Colour field. The code export remains `C
 Wrap ColorPicker with Field and give it a visible FieldLabel:
 
 ```tsx
-import { ColorPicker } from "@gecko/ui/components/color-picker";
-import { Field, FieldLabel } from "@gecko/ui/components/field";
+import { ColorPicker } from "@geckolabs/elements/components/color-picker";
+import { Field, FieldLabel } from "@geckolabs/elements/components/field";
 
 <Field>
   <FieldLabel htmlFor="brand-colour">Brand colour</FieldLabel>

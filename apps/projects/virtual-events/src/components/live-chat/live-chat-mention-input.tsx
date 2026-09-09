@@ -1,4 +1,4 @@
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@geckolabs/elements/lib/utils"
 import { forwardRef, useMemo, type ComponentProps } from "react"
 
 import { getDraftTextParts } from "./live-chat-mentions"

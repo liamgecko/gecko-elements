@@ -1,5 +1,5 @@
-import { ChartMetric } from "@gecko/ui/components/chart"
-import { Card, CardContent, CardHeader } from "@gecko/ui/components/card"
+import { ChartMetric } from "@geckolabs/elements/components/chart"
+import { Card, CardContent, CardHeader } from "@geckolabs/elements/components/card"
 import {
   Table,
   TableBody,
@@ -7,7 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@gecko/ui/components/table"
+} from "@geckolabs/elements/components/table"
 
 import type { CampaignStatsClickRow } from "./campaign-stats-types"
 

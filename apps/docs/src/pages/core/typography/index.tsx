@@ -12,7 +12,7 @@ import {
   TableCell,
   TableRow,
   TableHead,
-} from "@gecko/ui/components/table";
+} from "@geckolabs/elements/components/table";
 
 export function TypographyPage() {
   return (

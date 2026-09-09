@@ -9,7 +9,7 @@ import Signature from "@hugeicons/core-free-icons/SignatureIcon";
 import WandSparkles from "@hugeicons/core-free-icons/WandSparklesIcon";
 import Download01Icon from "@hugeicons/core-free-icons/Download01Icon";
 import Bookmark from "@hugeicons/core-free-icons/Bookmark02Icon";
-import { cn } from "@gecko/ui/lib/utils";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 export type ReplyBoxChannelType = "live-chat" | "email";
 
@@ -150,4 +150,4 @@ export function getReplyBoxActionIconProps(
 }
 
 import type * as React from "react";
-import type { GeckoIcon, GeckoIconProps } from "@gecko/ui/lib/icon";
+import type { GeckoIcon, GeckoIconProps } from "@geckolabs/elements/lib/icon";

@@ -2,7 +2,7 @@ import * as React from "react"
 import { useNavigate } from "react-router-dom"
 import { CheckCheck, ChevronLeft } from "lucide-react"
 
-import { Button } from "@gecko/ui/components/button"
+import { Button } from "@geckolabs/elements/components/button"
 import {
   Combobox,
   ComboboxContent,
@@ -10,7 +10,7 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from "@gecko/ui/components/combobox"
+} from "@geckolabs/elements/components/combobox"
 import {
   Dialog,
   DialogBody,
@@ -20,10 +20,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogWrapper,
-} from "@gecko/ui/components/dialog"
-import { Field, FieldLabel } from "@gecko/ui/components/field"
-import { RadioGroup, RadioGroupItem } from "@gecko/ui/components/radio-group"
-import { cn } from "@gecko/ui/lib/utils"
+} from "@geckolabs/elements/components/dialog"
+import { Field, FieldLabel } from "@geckolabs/elements/components/field"
+import { RadioGroup, RadioGroupItem } from "@geckolabs/elements/components/radio-group"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 import { useWorkflowTemplates } from "@/hooks/useWorkflowTemplates"
 

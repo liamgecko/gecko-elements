@@ -1,12 +1,12 @@
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 import * as React from "react";
 
-import { cn } from "@gecko/ui/lib/utils";
-import { Button } from "@gecko/ui/components/button";
+import { cn } from "@geckolabs/elements/lib/utils";
+import { Button } from "@geckolabs/elements/components/button";
 import ChevronLeftIcon from "@hugeicons/core-free-icons/ChevronLeftIcon";
 import ChevronRightIcon from "@hugeicons/core-free-icons/ChevronRightIcon";
 import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
-import { HugeiconsIcon } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 const Pagination = /* @__PURE__ */ withRef(function Pagination({
   className,

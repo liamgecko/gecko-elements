@@ -6,7 +6,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@gecko/ui/components/empty"
+} from "@geckolabs/elements/components/empty"
 
 export default function MyAccountsPage() {
   return (

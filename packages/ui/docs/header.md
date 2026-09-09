@@ -1,6 +1,6 @@
 # Page header
 
-Import: `@gecko/ui/components/header`  
+Import: `@geckolabs/elements/components/header`  
 Status: Stable  
 Source: `src/components/header.tsx`  
 Human documentation: `apps/docs/src/pages/structure/header/index.tsx`
@@ -232,7 +232,7 @@ Use `className` only for reviewed layout integration. Do not remove the backgrou
 
 ## Agent rules
 
-1. Import Header from `@gecko/ui/components/header`.
+1. Import Header from `@geckolabs/elements/components/header`.
 2. Use one Header above Page Container on every standard page.
 3. Do not use Header on Inbox unless its layout contract changes.
 4. Treat the favourite control as part of every Header.

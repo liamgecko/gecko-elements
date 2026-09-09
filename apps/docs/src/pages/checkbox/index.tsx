@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Checkbox, CheckboxGroup } from "@gecko/ui/components/checkbox";
-import { Button } from "@gecko/ui/components/button";
+import { Checkbox, CheckboxGroup } from "@geckolabs/elements/components/checkbox";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import {
   Field,
   FieldContent,
   FieldError,
   FieldGroup,
-} from "@gecko/ui/components/field";
+} from "@geckolabs/elements/components/field";
 import { ComponentExample } from "@/components/layout/component-example";
 import { RequiredForm } from "@/components/layout/required-form";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
@@ -32,7 +32,7 @@ export function CheckboxPage() {
   const [groupValue, setGroupValue] = useState<string[]>(["email"]);
   const [channelValue, setChannelValue] = useState<string[]>(["email"]);
 
-  const importSnippet = `import { Checkbox, CheckboxGroup } from "@gecko/ui/components/checkbox"`;
+  const importSnippet = `import { Checkbox, CheckboxGroup } from "@geckolabs/elements/components/checkbox"`;
 
   const compositionSnippet = `CheckboxGroup
 └── Checkbox`;

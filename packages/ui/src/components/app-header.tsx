@@ -1,15 +1,15 @@
 "use client";
-import { withRef } from "@gecko/ui/lib/with-ref";
+import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import Circle from "@hugeicons/core-free-icons/CircleIcon";
 import Headset from "@hugeicons/core-free-icons/HeadsetIcon";
 import MessageSquareText from "@hugeicons/core-free-icons/MessageSquareTextIcon";
-import { HugeiconsIcon, type IconSvgElement } from "@gecko/ui/lib/icon";
+import { HugeiconsIcon, type IconSvgElement } from "@geckolabs/elements/lib/icon";
 
-import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
-import { Badge } from "@gecko/ui/components/badge";
-import { Button } from "@gecko/ui/components/button";
+import { Avatar, AvatarImage } from "@geckolabs/elements/components/avatar";
+import { Badge } from "@geckolabs/elements/components/badge";
+import { Button } from "@geckolabs/elements/components/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,15 +17,15 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@gecko/ui/components/dropdown-menu";
-import { Separator } from "@gecko/ui/components/separator";
-import { Toggle } from "@gecko/ui/components/toggle";
+} from "@geckolabs/elements/components/dropdown-menu";
+import { Separator } from "@geckolabs/elements/components/separator";
+import { Toggle } from "@geckolabs/elements/components/toggle";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@gecko/ui/components/tooltip";
-import { cn } from "@gecko/ui/lib/utils";
+} from "@geckolabs/elements/components/tooltip";
+import { cn } from "@geckolabs/elements/lib/utils";
 
 function SlashedIcon({ icon }: { icon: IconSvgElement }) {
   return (

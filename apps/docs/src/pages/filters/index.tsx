@@ -12,8 +12,8 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { DateRangeFilter, Filter, Sort } from "@gecko/ui/components/filters";
-import type { FilterCategory } from "@gecko/ui/components/filters";
+import { DateRangeFilter, Filter, Sort } from "@geckolabs/elements/components/filters";
+import type { FilterCategory } from "@geckolabs/elements/components/filters";
 import type { DateRange } from "react-day-picker";
 
 const actionOptions = [
@@ -128,7 +128,7 @@ export function FiltersPage() {
   DateRangeFilter,
   Filter,
   Sort,
-} from "@gecko/ui/components/filters"`;
+} from "@geckolabs/elements/components/filters"`;
 
   const basicExampleSnippet = `<Filter categories={categories} onChange={handleFiltersChange} />`;
 

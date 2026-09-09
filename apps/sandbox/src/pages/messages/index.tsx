@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom"
 
-import { Container } from "@gecko/ui/components/container"
+import { Container } from "@geckolabs/elements/components/container"
 import { Inbox } from "lucide-react"
 
 import {
@@ -9,8 +9,8 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@gecko/ui/components/empty"
-import { Header } from "@gecko/ui/components/header"
+} from "@geckolabs/elements/components/empty"
+import { Header } from "@geckolabs/elements/components/header"
 import { useFavourites } from "../../state/favourites"
 import { usePageBreadcrumbs } from "../../lib/use-page-breadcrumbs"
 

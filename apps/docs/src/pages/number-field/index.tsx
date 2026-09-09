@@ -10,7 +10,7 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { NumberField } from "@gecko/ui/components/number-field";
+import { NumberField } from "@geckolabs/elements/components/number-field";
 import {
   Field,
   FieldContent,
@@ -20,8 +20,8 @@ import {
   FieldLabel,
   FieldLegend,
   FieldSet,
-} from "@gecko/ui/components/field";
-import { Button } from "@gecko/ui/components/button";
+} from "@geckolabs/elements/components/field";
+import { Button } from "@geckolabs/elements/components/button";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 
@@ -33,7 +33,7 @@ const numberFieldFormSchema = z.object({
 });
 
 export function NumberFieldPage() {
-  const importSnippet = `import { NumberField } from "@gecko/ui/components/number-field"`;
+  const importSnippet = `import { NumberField } from "@geckolabs/elements/components/number-field"`;
 
   const basicExampleSnippet = `<NumberField
   aria-label="Amount"

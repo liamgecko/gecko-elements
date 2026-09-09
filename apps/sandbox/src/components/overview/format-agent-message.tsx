@@ -1,4 +1,4 @@
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@geckolabs/elements/lib/utils"
 
 export function isBulletListBlock(block: string) {
   const lines = block

@@ -13,6 +13,7 @@
     "noEmit": true,
     "strict": true,
     "paths": {
+      "@geckolabs/elements/*": ["../../packages/ui/src/*"],
       "@/*": ["./src/*"]
     }
   },

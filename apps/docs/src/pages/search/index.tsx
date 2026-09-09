@@ -9,13 +9,13 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Search } from "@gecko/ui/components/search";
+import { Search } from "@geckolabs/elements/components/search";
 import { Code } from "@/components/layout/docs-code";
 
 export function SearchPage() {
   const [value, setValue] = useState("");
 
-  const importSnippet = `import { Search } from "@gecko/ui/components/search"`;
+  const importSnippet = `import { Search } from "@geckolabs/elements/components/search"`;
 
   const basicExampleSnippet = `<Search placeholder="Search…" />`;
 
