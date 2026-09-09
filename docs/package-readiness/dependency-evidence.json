@@ -1,0 +1,3386 @@
+{
+  "date": "2026-09-09",
+  "commit": "4fe4c64069b48dec053f39b58ff1ecfa8d27d438",
+  "lockSha256": "23c59a8bb6fa4ebb696ca44798c5373f343de76f6c4d11e46a9040d2e06e3483",
+  "node": "v22.21.1",
+  "npm": "10.9.4",
+  "method": "TS AST imports/re-exports/literal dynamic imports/import types and CSS imports under packages/ui/src; lock graph follows dependencies and present optional dependencies, not peer edges. Paths are install reachability, not browser bundle reachability.",
+  "inventory": [
+    {
+      "name": "@base-ui/react",
+      "declared": {
+        "dependencies": "^1.6.0"
+      },
+      "lockedVersion": "1.6.0",
+      "installedVersion": "1.6.0",
+      "node": ">=14.0.0",
+      "license": "MIT",
+      "peers": {
+        "@date-fns/tz": "^1.2.0",
+        "@types/react": "^17 || ^18 || ^19",
+        "date-fns": "^4.0.0",
+        "react": "^17 || ^18 || ^19",
+        "react-dom": "^17 || ^18 || ^19"
+      },
+      "optionalPeers": {
+        "@date-fns/tz": {
+          "optional": true
+        },
+        "@types/react": {
+          "optional": true
+        },
+        "date-fns": {
+          "optional": true
+        }
+      },
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/accordion.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "@base-ui/react/accordion"
+        },
+        {
+          "file": "packages/ui/src/components/alert-dialog.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "@base-ui/react/alert-dialog"
+        },
+        {
+          "file": "packages/ui/src/components/avatar.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "@base-ui/react/avatar"
+        },
+        {
+          "file": "packages/ui/src/components/breadcrumb.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "@base-ui/react/merge-props"
+        },
+        {
+          "file": "packages/ui/src/components/breadcrumb.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@base-ui/react/use-render"
+        },
+        {
+          "file": "packages/ui/src/components/bubble.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "@base-ui/react/merge-props"
+        },
+        {
+          "file": "packages/ui/src/components/bubble.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@base-ui/react/use-render"
+        },
+        {
+          "file": "packages/ui/src/components/button-group.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "@base-ui/react/merge-props"
+        },
+        {
+          "file": "packages/ui/src/components/button-group.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "@base-ui/react/use-render"
+        },
+        {
+          "file": "packages/ui/src/components/button.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "@base-ui/react/button"
+        },
+        {
+          "file": "packages/ui/src/components/card.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "@base-ui/react/merge-props"
+        },
+        {
+          "file": "packages/ui/src/components/card.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@base-ui/react/use-render"
+        },
+        {
+          "file": "packages/ui/src/components/checkbox.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "@base-ui/react/checkbox"
+        },
+        {
+          "file": "packages/ui/src/components/checkbox.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@base-ui/react/checkbox-group"
+        },
+        {
+          "file": "packages/ui/src/components/collapsible.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "@base-ui/react/collapsible"
+        },
+        {
+          "file": "packages/ui/src/components/combobox.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@base-ui/react"
+        },
+        {
+          "file": "packages/ui/src/components/context-menu.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/context-menu"
+        },
+        {
+          "file": "packages/ui/src/components/dialog.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/dialog"
+        },
+        {
+          "file": "packages/ui/src/components/dropdown-menu.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/menu"
+        },
+        {
+          "file": "packages/ui/src/components/input.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "@base-ui/react/input"
+        },
+        {
+          "file": "packages/ui/src/components/marker.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/merge-props"
+        },
+        {
+          "file": "packages/ui/src/components/marker.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@base-ui/react/use-render"
+        },
+        {
+          "file": "packages/ui/src/components/number-field.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/number-field"
+        },
+        {
+          "file": "packages/ui/src/components/popover.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/popover"
+        },
+        {
+          "file": "packages/ui/src/components/progress.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/progress"
+        },
+        {
+          "file": "packages/ui/src/components/radio-group.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/radio"
+        },
+        {
+          "file": "packages/ui/src/components/radio-group.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@base-ui/react/radio-group"
+        },
+        {
+          "file": "packages/ui/src/components/scroll-area.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@base-ui/react/scroll-area"
+        },
+        {
+          "file": "packages/ui/src/components/select.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/select"
+        },
+        {
+          "file": "packages/ui/src/components/separator.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@base-ui/react/separator"
+        },
+        {
+          "file": "packages/ui/src/components/sheet.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/dialog"
+        },
+        {
+          "file": "packages/ui/src/components/sidebar.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@base-ui/react/merge-props"
+        },
+        {
+          "file": "packages/ui/src/components/sidebar.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@base-ui/react/use-render"
+        },
+        {
+          "file": "packages/ui/src/components/switch.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/switch"
+        },
+        {
+          "file": "packages/ui/src/components/tabs.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/tabs"
+        },
+        {
+          "file": "packages/ui/src/components/toast.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/toast"
+        },
+        {
+          "file": "packages/ui/src/components/toggle-group.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/toggle"
+        },
+        {
+          "file": "packages/ui/src/components/toggle-group.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@base-ui/react/toggle-group"
+        },
+        {
+          "file": "packages/ui/src/components/toggle.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@base-ui/react/toggle"
+        },
+        {
+          "file": "packages/ui/src/components/tooltip.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@base-ui/react/tooltip"
+        }
+      ]
+    },
+    {
+      "name": "@dnd-kit/abstract",
+      "declared": {
+        "dependencies": "0.3.2"
+      },
+      "lockedVersion": "0.3.2",
+      "installedVersion": "0.3.2",
+      "node": null,
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/sortable-list.tsx",
+          "line": 4,
+          "kind": "type",
+          "specifier": "@dnd-kit/abstract"
+        }
+      ]
+    },
+    {
+      "name": "@dnd-kit/dom",
+      "declared": {
+        "dependencies": "0.3.2"
+      },
+      "lockedVersion": "0.3.2",
+      "installedVersion": "0.3.2",
+      "node": null,
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/sortable-list.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@dnd-kit/dom"
+        },
+        {
+          "file": "packages/ui/src/components/sortable-list.tsx",
+          "line": 6,
+          "kind": "type",
+          "specifier": "@dnd-kit/dom/sortable"
+        }
+      ]
+    },
+    {
+      "name": "@dnd-kit/react",
+      "declared": {
+        "dependencies": "^0.3.2"
+      },
+      "lockedVersion": "0.3.2",
+      "installedVersion": "0.3.2",
+      "node": null,
+      "license": "MIT",
+      "peers": {
+        "react": "^18.0.0 || ^19.0.0",
+        "react-dom": "^18.0.0 || ^19.0.0"
+      },
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/sortable-list.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@dnd-kit/react"
+        },
+        {
+          "file": "packages/ui/src/components/sortable-list.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@dnd-kit/react/sortable"
+        }
+      ]
+    },
+    {
+      "name": "@hugeicons/core-free-icons",
+      "declared": {
+        "dependencies": "4.3.0"
+      },
+      "lockedVersion": "4.3.0",
+      "installedVersion": "4.3.0",
+      "node": null,
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/accordion.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronDownIcon"
+        },
+        {
+          "file": "packages/ui/src/components/activity-feed.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CalendarPlusIcon"
+        },
+        {
+          "file": "packages/ui/src/components/activity-feed.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronLeftIcon"
+        },
+        {
+          "file": "packages/ui/src/components/activity-feed.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronRightIcon"
+        },
+        {
+          "file": "packages/ui/src/components/activity-feed.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ListTodoIcon"
+        },
+        {
+          "file": "packages/ui/src/components/activity-feed.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/MailCheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/activity-feed.tsx",
+          "line": 9,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/MailPlusIcon"
+        },
+        {
+          "file": "packages/ui/src/components/activity-feed.tsx",
+          "line": 10,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/MessageSquareCheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/activity-feed.tsx",
+          "line": 11,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/MessageSquareTextIcon"
+        },
+        {
+          "file": "packages/ui/src/components/activity-feed.tsx",
+          "line": 12,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/MonitorCogIcon"
+        },
+        {
+          "file": "packages/ui/src/components/activity-feed.tsx",
+          "line": 13,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/PhoneForwardedIcon"
+        },
+        {
+          "file": "packages/ui/src/components/activity-feed.tsx",
+          "line": 14,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/SmartphoneIcon"
+        },
+        {
+          "file": "packages/ui/src/components/alert.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/TriangleAlertIcon"
+        },
+        {
+          "file": "packages/ui/src/components/alert.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CircleCheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/alert.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/InfoIcon"
+        },
+        {
+          "file": "packages/ui/src/components/alert.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/XIcon"
+        },
+        {
+          "file": "packages/ui/src/components/alert.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CircleXIcon"
+        },
+        {
+          "file": "packages/ui/src/components/app-header.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CircleIcon"
+        },
+        {
+          "file": "packages/ui/src/components/app-header.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/HeadsetIcon"
+        },
+        {
+          "file": "packages/ui/src/components/app-header.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/MessageSquareTextIcon"
+        },
+        {
+          "file": "packages/ui/src/components/app-sidebar.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckCheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/app-sidebar.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/EllipsisIcon"
+        },
+        {
+          "file": "packages/ui/src/components/app-sidebar.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/StarIcon"
+        },
+        {
+          "file": "packages/ui/src/components/attachment.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/attachment.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Upload01Icon"
+        },
+        {
+          "file": "packages/ui/src/components/attachment.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/FileExclamationPointIcon"
+        },
+        {
+          "file": "packages/ui/src/components/attachment.tsx",
+          "line": 9,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/RefreshCwIcon"
+        },
+        {
+          "file": "packages/ui/src/components/attachment.tsx",
+          "line": 10,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Delete02Icon"
+        },
+        {
+          "file": "packages/ui/src/components/badge.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/XIcon"
+        },
+        {
+          "file": "packages/ui/src/components/breadcrumb.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronRightIcon"
+        },
+        {
+          "file": "packages/ui/src/components/breadcrumb.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/EllipsisIcon"
+        },
+        {
+          "file": "packages/ui/src/components/button.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronDownIcon"
+        },
+        {
+          "file": "packages/ui/src/components/button.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/LoaderIcon"
+        },
+        {
+          "file": "packages/ui/src/components/calendar.tsx",
+          "line": 12,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronLeftIcon"
+        },
+        {
+          "file": "packages/ui/src/components/calendar.tsx",
+          "line": 13,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronRightIcon"
+        },
+        {
+          "file": "packages/ui/src/components/calendar.tsx",
+          "line": 14,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronDownIcon"
+        },
+        {
+          "file": "packages/ui/src/components/card.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/HelpCircleIcon"
+        },
+        {
+          "file": "packages/ui/src/components/chat-head.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/chat-head.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/LockOpenIcon"
+        },
+        {
+          "file": "packages/ui/src/components/chat-head.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Delete02Icon"
+        },
+        {
+          "file": "packages/ui/src/components/checkbox.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/checkbox.tsx",
+          "line": 9,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/MinusIcon"
+        },
+        {
+          "file": "packages/ui/src/components/code.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/code.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Copy01Icon"
+        },
+        {
+          "file": "packages/ui/src/components/combobox.tsx",
+          "line": 16,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronDownIcon"
+        },
+        {
+          "file": "packages/ui/src/components/combobox.tsx",
+          "line": 17,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/XIcon"
+        },
+        {
+          "file": "packages/ui/src/components/combobox.tsx",
+          "line": 18,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/command.tsx",
+          "line": 15,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Search01Icon"
+        },
+        {
+          "file": "packages/ui/src/components/command.tsx",
+          "line": 16,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/context-menu.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronRightIcon"
+        },
+        {
+          "file": "packages/ui/src/components/context-menu.tsx",
+          "line": 9,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-column-header.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ArrowDown02Icon"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-column-header.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ArrowUp02Icon"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-column-header.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ArrowUpDownIcon"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-column-header.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/HelpCircleIcon"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-column-toggle.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ColumnsThreeCogIcon"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-pagination.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronLeftIcon"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-pagination.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronRightIcon"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-row-actions.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/EllipsisIcon"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-select-actions.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CogIcon"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table.tsx",
+          "line": 19,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/SearchXIcon"
+        },
+        {
+          "file": "packages/ui/src/components/date-picker.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Calendar03Icon"
+        },
+        {
+          "file": "packages/ui/src/components/dialog.tsx",
+          "line": 10,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/XIcon"
+        },
+        {
+          "file": "packages/ui/src/components/drop-zone.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Upload01Icon"
+        },
+        {
+          "file": "packages/ui/src/components/drop-zone.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Delete02Icon"
+        },
+        {
+          "file": "packages/ui/src/components/dropdown-menu.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/dropdown-menu.tsx",
+          "line": 9,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronRightIcon"
+        },
+        {
+          "file": "packages/ui/src/components/dropdown-menu.tsx",
+          "line": 10,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Search01Icon"
+        },
+        {
+          "file": "packages/ui/src/components/dropdown-menu.tsx",
+          "line": 11,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/XIcon"
+        },
+        {
+          "file": "packages/ui/src/components/emoji-picker.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/SmilePlusIcon"
+        },
+        {
+          "file": "packages/ui/src/components/field.tsx",
+          "line": 10,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/AlertCircleIcon"
+        },
+        {
+          "file": "packages/ui/src/components/file-tree.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronRightIcon"
+        },
+        {
+          "file": "packages/ui/src/components/file-tree.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/FileTextIcon"
+        },
+        {
+          "file": "packages/ui/src/components/file-tree.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Folder01Icon"
+        },
+        {
+          "file": "packages/ui/src/components/file-tree.tsx",
+          "line": 9,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Folder03Icon"
+        },
+        {
+          "file": "packages/ui/src/components/filters.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ArrowDownWideNarrowIcon"
+        },
+        {
+          "file": "packages/ui/src/components/filters.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/filters.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/FunnelIcon"
+        },
+        {
+          "file": "packages/ui/src/components/filters.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ListFilterPlusIcon"
+        },
+        {
+          "file": "packages/ui/src/components/filters.tsx",
+          "line": 9,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/XIcon"
+        },
+        {
+          "file": "packages/ui/src/components/header.tsx",
+          "line": 28,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Home04Icon"
+        },
+        {
+          "file": "packages/ui/src/components/header.tsx",
+          "line": 29,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/StarIcon"
+        },
+        {
+          "file": "packages/ui/src/components/inline-edit.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/inline-edit.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/SquarePenIcon"
+        },
+        {
+          "file": "packages/ui/src/components/inline-edit.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/XIcon"
+        },
+        {
+          "file": "packages/ui/src/components/input-otp.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/MinusIcon"
+        },
+        {
+          "file": "packages/ui/src/components/message-scroller.tsx",
+          "line": 11,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ArrowDown02Icon"
+        },
+        {
+          "file": "packages/ui/src/components/message.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/message.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckCheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/message.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/AlertCircleIcon"
+        },
+        {
+          "file": "packages/ui/src/components/message.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Copy01Icon"
+        },
+        {
+          "file": "packages/ui/src/components/message.tsx",
+          "line": 9,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/InfoIcon"
+        },
+        {
+          "file": "packages/ui/src/components/message.tsx",
+          "line": 10,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Upload06Icon"
+        },
+        {
+          "file": "packages/ui/src/components/message.tsx",
+          "line": 11,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ThumbsDownIcon"
+        },
+        {
+          "file": "packages/ui/src/components/message.tsx",
+          "line": 12,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ThumbsUpIcon"
+        },
+        {
+          "file": "packages/ui/src/components/metric-card.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/HelpCircleIcon"
+        },
+        {
+          "file": "packages/ui/src/components/metric-card.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CircleMinusIcon"
+        },
+        {
+          "file": "packages/ui/src/components/metric-card.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/EllipsisIcon"
+        },
+        {
+          "file": "packages/ui/src/components/metric-card.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/TrendingDownIcon"
+        },
+        {
+          "file": "packages/ui/src/components/metric-card.tsx",
+          "line": 9,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/TrendingUpIcon"
+        },
+        {
+          "file": "packages/ui/src/components/native-select.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronDownIcon"
+        },
+        {
+          "file": "packages/ui/src/components/number-field.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/MinusIcon"
+        },
+        {
+          "file": "packages/ui/src/components/number-field.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/PlusIcon"
+        },
+        {
+          "file": "packages/ui/src/components/pagination.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronLeftIcon"
+        },
+        {
+          "file": "packages/ui/src/components/pagination.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronRightIcon"
+        },
+        {
+          "file": "packages/ui/src/components/pagination.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/EllipsisIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-actions.ts",
+          "line": 1,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Image01Icon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-actions.ts",
+          "line": 2,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/AttachmentIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-actions.ts",
+          "line": 3,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ReplyIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-actions.ts",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/SmileIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-actions.ts",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/StickyNote03Icon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-actions.ts",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/UserSquareIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-actions.ts",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ClosedCaptionIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-actions.ts",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/SignatureIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-actions.ts",
+          "line": 9,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/WandSparklesIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-actions.ts",
+          "line": 10,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Download01Icon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-actions.ts",
+          "line": 11,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Bookmark02Icon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-button-tray.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/EllipsisIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-button-tray.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/MessageSquareIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-content.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CirclePlusIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-content.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/SendHorizontalIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-content.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/SquareIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-footer.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CirclePlusIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-footer.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/SendHorizontalIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-footer.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/SquareIcon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-header.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ArrowShrink02Icon"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-header.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ArrowExpand01Icon"
+        },
+        {
+          "file": "packages/ui/src/components/search.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Search01Icon"
+        },
+        {
+          "file": "packages/ui/src/components/search.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/XIcon"
+        },
+        {
+          "file": "packages/ui/src/components/select.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronDownIcon"
+        },
+        {
+          "file": "packages/ui/src/components/select.tsx",
+          "line": 9,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/select.tsx",
+          "line": 10,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronUpIcon"
+        },
+        {
+          "file": "packages/ui/src/components/sensitive-field.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ViewIcon"
+        },
+        {
+          "file": "packages/ui/src/components/sensitive-field.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/EyeOffIcon"
+        },
+        {
+          "file": "packages/ui/src/components/sheet.tsx",
+          "line": 12,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/XIcon"
+        },
+        {
+          "file": "packages/ui/src/components/sidebar.tsx",
+          "line": 37,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronRightIcon"
+        },
+        {
+          "file": "packages/ui/src/components/sidebar.tsx",
+          "line": 38,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/EllipsisIcon"
+        },
+        {
+          "file": "packages/ui/src/components/sidebar.tsx",
+          "line": 39,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/LayoutAlignLeftIcon"
+        },
+        {
+          "file": "packages/ui/src/components/sidebar.tsx",
+          "line": 40,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/LayoutLeftIcon"
+        },
+        {
+          "file": "packages/ui/src/components/sortable-list.tsx",
+          "line": 9,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/GripVerticalIcon"
+        },
+        {
+          "file": "packages/ui/src/components/table.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronDownIcon"
+        },
+        {
+          "file": "packages/ui/src/components/tabs.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/EllipsisIcon"
+        },
+        {
+          "file": "packages/ui/src/components/telephone-field.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/ChevronsLeftRightIcon"
+        },
+        {
+          "file": "packages/ui/src/components/telephone-field.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CheckIcon"
+        },
+        {
+          "file": "packages/ui/src/components/telephone-field.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Globe02Icon"
+        },
+        {
+          "file": "packages/ui/src/components/toast.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/CircleCheckBigIcon"
+        },
+        {
+          "file": "packages/ui/src/components/toast.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/InfoIcon"
+        },
+        {
+          "file": "packages/ui/src/components/toast.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/Loading03Icon"
+        },
+        {
+          "file": "packages/ui/src/components/toast.tsx",
+          "line": 9,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/OctagonXIcon"
+        },
+        {
+          "file": "packages/ui/src/components/toast.tsx",
+          "line": 10,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/TriangleAlertIcon"
+        },
+        {
+          "file": "packages/ui/src/components/toast.tsx",
+          "line": 11,
+          "kind": "value",
+          "specifier": "@hugeicons/core-free-icons/XIcon"
+        }
+      ]
+    },
+    {
+      "name": "@hugeicons/react",
+      "declared": {
+        "dependencies": "^1.1.10"
+      },
+      "lockedVersion": "1.1.10",
+      "installedVersion": "1.1.10",
+      "node": null,
+      "license": "MIT",
+      "peers": {
+        "react": ">=16.0.0"
+      },
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/lib/icon.ts",
+          "line": 2,
+          "kind": "value",
+          "specifier": "@hugeicons/react"
+        },
+        {
+          "file": "packages/ui/src/lib/icon.ts",
+          "line": 8,
+          "kind": "type",
+          "specifier": "@hugeicons/react"
+        }
+      ]
+    },
+    {
+      "name": "@tanstack/react-table",
+      "declared": {
+        "dependencies": "^8.21.3"
+      },
+      "lockedVersion": "8.21.3",
+      "installedVersion": "8.21.3",
+      "node": ">=12",
+      "license": "MIT",
+      "peers": {
+        "react": ">=16.8",
+        "react-dom": ">=16.8"
+      },
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/data-table/data-table-column-header.tsx",
+          "line": 3,
+          "kind": "type",
+          "specifier": "@tanstack/react-table"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-columns.tsx",
+          "line": 5,
+          "kind": "type",
+          "specifier": "@tanstack/react-table"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-context.tsx",
+          "line": 4,
+          "kind": "type",
+          "specifier": "@tanstack/react-table"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-context.tsx",
+          "line": 11,
+          "kind": "type",
+          "specifier": "@tanstack/react-table"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-filters.tsx",
+          "line": 5,
+          "kind": "type",
+          "specifier": "@tanstack/react-table"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-row-actions.tsx",
+          "line": 4,
+          "kind": "type",
+          "specifier": "@tanstack/react-table"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "@tanstack/react-table"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table.tsx",
+          "line": 88,
+          "kind": "type",
+          "specifier": "@tanstack/react-table"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table.tsx",
+          "line": 93,
+          "kind": "type",
+          "specifier": "@tanstack/react-table"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table.tsx",
+          "line": 343,
+          "kind": "type",
+          "specifier": "@tanstack/react-table"
+        }
+      ]
+    },
+    {
+      "name": "class-variance-authority",
+      "declared": {
+        "dependencies": "^0.7.1"
+      },
+      "lockedVersion": "0.7.1",
+      "installedVersion": "0.7.1",
+      "node": null,
+      "license": "Apache-2.0",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/accordion.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/activity-feed.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/alert.tsx",
+          "line": 9,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/attachment.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/badge.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/bubble.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/button-group.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/button.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/checkbox.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/counter.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/date-picker.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/empty.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/field.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/file-tree.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/inline-edit.tsx",
+          "line": 8,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/input-group.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/input.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/marker.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/native-select.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/progress.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/radio-group.tsx",
+          "line": 7,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/sheet.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/sidebar.tsx",
+          "line": 9,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/tabs.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/telephone-field.tsx",
+          "line": 10,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/textarea.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/toggle-group.tsx",
+          "line": 7,
+          "kind": "type",
+          "specifier": "class-variance-authority"
+        },
+        {
+          "file": "packages/ui/src/components/toggle.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "class-variance-authority"
+        }
+      ]
+    },
+    {
+      "name": "clsx",
+      "declared": {
+        "dependencies": "^2.1.1"
+      },
+      "lockedVersion": "2.1.1",
+      "installedVersion": "2.1.1",
+      "node": ">=6",
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/lib/utils.ts",
+          "line": 1,
+          "kind": "value",
+          "specifier": "clsx"
+        }
+      ]
+    },
+    {
+      "name": "cmdk",
+      "declared": {
+        "dependencies": "^1.1.1"
+      },
+      "lockedVersion": "1.1.1",
+      "installedVersion": "1.1.1",
+      "node": null,
+      "license": "MIT",
+      "peers": {
+        "react": "^18 || ^19 || ^19.0.0-rc",
+        "react-dom": "^18 || ^19 || ^19.0.0-rc"
+      },
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/command.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "cmdk"
+        }
+      ]
+    },
+    {
+      "name": "date-fns",
+      "declared": {
+        "dependencies": "^4.1.0"
+      },
+      "lockedVersion": "4.1.0",
+      "installedVersion": "4.1.0",
+      "node": null,
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/date-picker.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "date-fns"
+        }
+      ]
+    },
+    {
+      "name": "frimousse",
+      "declared": {
+        "dependencies": "^0.3.0"
+      },
+      "lockedVersion": "0.3.0",
+      "installedVersion": "0.3.0",
+      "node": null,
+      "license": "MIT",
+      "peers": {
+        "react": "^18 || ^19",
+        "typescript": ">=5.1.0"
+      },
+      "optionalPeers": {
+        "typescript": {
+          "optional": true
+        }
+      },
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/emoji-picker.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "frimousse"
+        }
+      ]
+    },
+    {
+      "name": "input-otp",
+      "declared": {
+        "dependencies": "^1.4.2"
+      },
+      "lockedVersion": "1.4.2",
+      "installedVersion": "1.4.2",
+      "node": null,
+      "license": "MIT",
+      "peers": {
+        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc",
+        "react-dom": "^16.8 || ^17.0 || ^18.0 || ^19.0.0 || ^19.0.0-rc"
+      },
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/input-otp.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "input-otp"
+        }
+      ]
+    },
+    {
+      "name": "motion",
+      "declared": {
+        "dependencies": "^12.42.2"
+      },
+      "lockedVersion": "12.42.2",
+      "installedVersion": "12.42.2",
+      "node": null,
+      "license": "MIT",
+      "peers": {
+        "@emotion/is-prop-valid": "*",
+        "react": "^18.0.0 || ^19.0.0",
+        "react-dom": "^18.0.0 || ^19.0.0"
+      },
+      "optionalPeers": {
+        "@emotion/is-prop-valid": {
+          "optional": true
+        },
+        "react": {
+          "optional": true
+        },
+        "react-dom": {
+          "optional": true
+        }
+      },
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/code.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "motion/react"
+        },
+        {
+          "file": "packages/ui/src/lib/message-animations.ts",
+          "line": 1,
+          "kind": "type",
+          "specifier": "motion/react"
+        }
+      ]
+    },
+    {
+      "name": "react-colorful",
+      "declared": {
+        "dependencies": "^5.6.1"
+      },
+      "lockedVersion": "5.6.1",
+      "installedVersion": "5.6.1",
+      "node": null,
+      "license": "MIT",
+      "peers": {
+        "react": ">=16.8.0",
+        "react-dom": ">=16.8.0"
+      },
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/color-picker.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "react-colorful"
+        }
+      ]
+    },
+    {
+      "name": "react-day-picker",
+      "declared": {
+        "dependencies": "^9.11.1"
+      },
+      "lockedVersion": "9.14.0",
+      "installedVersion": "9.14.0",
+      "node": ">=18",
+      "license": "MIT",
+      "peers": {
+        "react": ">=16.8.0"
+      },
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/calendar.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react-day-picker"
+        },
+        {
+          "file": "packages/ui/src/components/date-picker.tsx",
+          "line": 4,
+          "kind": "type",
+          "specifier": "react-day-picker"
+        },
+        {
+          "file": "packages/ui/src/components/filters.tsx",
+          "line": 35,
+          "kind": "type",
+          "specifier": "react-day-picker"
+        }
+      ]
+    },
+    {
+      "name": "react-phone-number-input",
+      "declared": {
+        "dependencies": "^3.4.14"
+      },
+      "lockedVersion": "3.4.16",
+      "installedVersion": "3.4.16",
+      "node": null,
+      "license": "MIT",
+      "peers": {
+        "react": ">=16.8",
+        "react-dom": ">=16.8"
+      },
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/telephone-field.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react-phone-number-input"
+        },
+        {
+          "file": "packages/ui/src/components/telephone-field.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "react-phone-number-input/flags"
+        }
+      ]
+    },
+    {
+      "name": "recharts",
+      "declared": {
+        "dependencies": "^3.8.0"
+      },
+      "lockedVersion": "3.8.1",
+      "installedVersion": "3.8.1",
+      "node": ">=18",
+      "license": "MIT",
+      "peers": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-is": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/chart.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "recharts"
+        },
+        {
+          "file": "packages/ui/src/components/metric-card.tsx",
+          "line": 11,
+          "kind": "value",
+          "specifier": "recharts"
+        }
+      ]
+    },
+    {
+      "name": "shadcn",
+      "declared": {
+        "dependencies": "^4.12.0"
+      },
+      "lockedVersion": "4.12.0",
+      "installedVersion": "4.12.0",
+      "node": ">=20.18.1",
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/styles/globals.css",
+          "line": 5,
+          "kind": "css",
+          "specifier": "shadcn/tailwind.css"
+        }
+      ]
+    },
+    {
+      "name": "shiki",
+      "declared": {
+        "dependencies": "^4.0.2"
+      },
+      "lockedVersion": "4.0.2",
+      "installedVersion": "4.0.2",
+      "node": ">=20",
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/code.tsx",
+          "line": 52,
+          "kind": "type",
+          "specifier": "shiki"
+        },
+        {
+          "file": "packages/ui/src/components/code.tsx",
+          "line": 59,
+          "kind": "dynamic",
+          "specifier": "shiki"
+        }
+      ]
+    },
+    {
+      "name": "tailwind-merge",
+      "declared": {
+        "dependencies": "^3.5.0"
+      },
+      "lockedVersion": "3.5.0",
+      "installedVersion": "3.5.0",
+      "node": null,
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/lib/utils.ts",
+          "line": 2,
+          "kind": "value",
+          "specifier": "tailwind-merge"
+        }
+      ]
+    },
+    {
+      "name": "tw-animate-css",
+      "declared": {
+        "dependencies": "^1.4.0"
+      },
+      "lockedVersion": "1.4.0",
+      "installedVersion": "1.4.0",
+      "node": null,
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/styles/globals.css",
+          "line": 4,
+          "kind": "css",
+          "specifier": "tw-animate-css"
+        }
+      ]
+    },
+    {
+      "name": "zod",
+      "declared": {
+        "dependencies": "^3.25.76"
+      },
+      "lockedVersion": "3.25.76",
+      "installedVersion": "3.25.76",
+      "node": null,
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": []
+    },
+    {
+      "name": "@eslint/js",
+      "declared": {
+        "devDependencies": "^9.39.2"
+      },
+      "lockedVersion": "9.39.4",
+      "installedVersion": "9.39.4",
+      "node": "^18.18.0 || ^20.9.0 || >=21.1.0",
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": []
+    },
+    {
+      "name": "@tailwindcss/vite",
+      "declared": {
+        "devDependencies": "^4.3.1"
+      },
+      "lockedVersion": "4.3.1",
+      "installedVersion": "4.3.1",
+      "node": null,
+      "license": "MIT",
+      "peers": {
+        "vite": "^5.2.0 || ^6 || ^7 || ^8"
+      },
+      "optionalPeers": {},
+      "sourceUses": []
+    },
+    {
+      "name": "@turbo/gen",
+      "declared": {
+        "devDependencies": "^2.8.1"
+      },
+      "lockedVersion": "2.9.9",
+      "installedVersion": "2.9.9",
+      "node": null,
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": []
+    },
+    {
+      "name": "@types/node",
+      "declared": {
+        "devDependencies": "^25.1.0"
+      },
+      "lockedVersion": "25.6.0",
+      "installedVersion": "25.6.0",
+      "node": null,
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": []
+    },
+    {
+      "name": "@types/react",
+      "declared": {
+        "devDependencies": "^19.2.10"
+      },
+      "lockedVersion": "19.2.14",
+      "installedVersion": "19.2.14",
+      "node": null,
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": []
+    },
+    {
+      "name": "@types/react-dom",
+      "declared": {
+        "devDependencies": "^19.2.3"
+      },
+      "lockedVersion": "19.2.3",
+      "installedVersion": "19.2.3",
+      "node": null,
+      "license": "MIT",
+      "peers": {
+        "@types/react": "^19.2.0"
+      },
+      "optionalPeers": {},
+      "sourceUses": []
+    },
+    {
+      "name": "eslint",
+      "declared": {
+        "devDependencies": "^9.39.2"
+      },
+      "lockedVersion": "9.39.4",
+      "installedVersion": "9.39.4",
+      "node": "^18.18.0 || ^20.9.0 || >=21.1.0",
+      "license": "MIT",
+      "peers": {
+        "jiti": "*"
+      },
+      "optionalPeers": {
+        "jiti": {
+          "optional": true
+        }
+      },
+      "sourceUses": []
+    },
+    {
+      "name": "eslint-plugin-react-hooks",
+      "declared": {
+        "devDependencies": "^7.0.1"
+      },
+      "lockedVersion": "7.1.1",
+      "installedVersion": "7.1.1",
+      "node": ">=18",
+      "license": "MIT",
+      "peers": {
+        "eslint": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0 || ^10.0.0"
+      },
+      "optionalPeers": {},
+      "sourceUses": []
+    },
+    {
+      "name": "eslint-plugin-react-refresh",
+      "declared": {
+        "devDependencies": "^0.4.24"
+      },
+      "lockedVersion": "0.4.26",
+      "installedVersion": "0.4.26",
+      "node": null,
+      "license": "MIT",
+      "peers": {
+        "eslint": ">=8.40"
+      },
+      "optionalPeers": {},
+      "sourceUses": []
+    },
+    {
+      "name": "globals",
+      "declared": {
+        "devDependencies": "^17.2.0"
+      },
+      "lockedVersion": "17.6.0",
+      "installedVersion": "17.6.0",
+      "node": ">=18",
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": []
+    },
+    {
+      "name": "react",
+      "declared": {
+        "devDependencies": "^19.2.4",
+        "peerDependencies": "^18.3.1 || ^19.0.0"
+      },
+      "lockedVersion": "19.2.5",
+      "installedVersion": "19.2.5",
+      "node": ">=0.10.0",
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/components/accordion.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/activity-feed.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/alert-dialog.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/alert.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/app-header.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/app-sidebar.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/attachment.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/avatar-group.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/avatar.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/badge.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/breadcrumb.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/bubble.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/calendar.tsx",
+          "line": 1,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/card.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/chart.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/chat-head.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/checkbox.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/code.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/color-picker.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/combobox.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/command.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/container.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/context-menu.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/counter.tsx",
+          "line": 1,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-context.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-filters.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-multi-line-cell.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-row-actions.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-search.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-select-actions.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table-toolbar.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/data-table/data-table.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/date-input.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/date-picker.tsx",
+          "line": 1,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/dialog.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/drop-zone.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/dropdown-menu.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/emoji-picker.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/empty.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/field.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/file-input.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/file-tree.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/filters.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/header.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/inline-edit.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/input-group.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/input-otp.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/input.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/label.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/marker.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/message-context.tsx",
+          "line": 1,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/message-scroller.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/message.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/metric-card.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/native-select.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/number-field.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/pagination.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/popover.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/progress.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/radio-group.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-actions.ts",
+          "line": 152,
+          "kind": "type",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-button-tray.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-content.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-context.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-footer.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box-header.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/reply-box/reply-box.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/search.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/select.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/sensitive-field.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/sheet.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/sidebar.tsx",
+          "line": 6,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/sortable-list.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/switch.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/table.tsx",
+          "line": 5,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/tabs.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/telephone-field.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/textarea.tsx",
+          "line": 2,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/toast.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/toggle-group.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/toggle.tsx",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/components/typing-indicator.tsx",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/hooks/use-controllable-state.ts",
+          "line": 1,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/hooks/use-mobile.ts",
+          "line": 1,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/lib/icon.ts",
+          "line": 1,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/lib/inert.ts",
+          "line": 1,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/lib/with-ref.ts",
+          "line": 1,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/vendor/shadcn-message-scroller/index.d.ts",
+          "line": 1,
+          "kind": "type",
+          "specifier": "react/jsx-runtime"
+        },
+        {
+          "file": "packages/ui/src/vendor/shadcn-message-scroller/index.d.ts",
+          "line": 2,
+          "kind": "type",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/vendor/shadcn-message-scroller/index.js",
+          "line": 3,
+          "kind": "value",
+          "specifier": "react"
+        },
+        {
+          "file": "packages/ui/src/vendor/shadcn-message-scroller/index.js",
+          "line": 4,
+          "kind": "value",
+          "specifier": "react/jsx-runtime"
+        }
+      ]
+    },
+    {
+      "name": "react-dom",
+      "declared": {
+        "devDependencies": "^19.2.4",
+        "peerDependencies": "^18.3.1 || ^19.0.0"
+      },
+      "lockedVersion": "19.2.5",
+      "installedVersion": "19.2.5",
+      "node": null,
+      "license": "MIT",
+      "peers": {
+        "react": "^19.2.5"
+      },
+      "optionalPeers": {},
+      "sourceUses": []
+    },
+    {
+      "name": "tailwindcss",
+      "declared": {
+        "devDependencies": "^4.3.1"
+      },
+      "lockedVersion": "4.3.1",
+      "installedVersion": "4.3.1",
+      "node": null,
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": [
+        {
+          "file": "packages/ui/src/styles/globals.css",
+          "line": 3,
+          "kind": "css",
+          "specifier": "tailwindcss"
+        }
+      ]
+    },
+    {
+      "name": "typescript",
+      "declared": {
+        "devDependencies": "^5.9.3"
+      },
+      "lockedVersion": "5.9.3",
+      "installedVersion": "5.9.3",
+      "node": ">=14.17",
+      "license": "Apache-2.0",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": []
+    },
+    {
+      "name": "typescript-eslint",
+      "declared": {
+        "devDependencies": "^8.54.0"
+      },
+      "lockedVersion": "8.59.2",
+      "installedVersion": "8.59.2",
+      "node": "^18.18.0 || ^20.9.0 || >=21.1.0",
+      "license": "MIT",
+      "peers": {
+        "eslint": "^8.57.0 || ^9.0.0 || ^10.0.0",
+        "typescript": ">=4.8.4 <6.1.0"
+      },
+      "optionalPeers": {},
+      "sourceUses": []
+    },
+    {
+      "name": "react-is",
+      "declared": {
+        "peerDependencies": "^18.3.1 || ^19.0.0"
+      },
+      "lockedVersion": "19.2.5",
+      "installedVersion": "19.2.5",
+      "node": null,
+      "license": "MIT",
+      "peers": {},
+      "optionalPeers": {},
+      "sourceUses": []
+    }
+  ],
+  "undeclared": [],
+  "outdated": {
+    "@base-ui/react": {
+      "current": "1.6.0",
+      "wanted": "1.8.0",
+      "latest": "1.8.0",
+      "dependent": "ui",
+      "location": "node_modules/@base-ui/react"
+    },
+    "@dnd-kit/abstract": {
+      "current": "0.3.2",
+      "wanted": "0.3.2",
+      "latest": "0.5.0",
+      "dependent": "ui",
+      "location": "node_modules/@dnd-kit/abstract"
+    },
+    "@dnd-kit/dom": {
+      "current": "0.3.2",
+      "wanted": "0.3.2",
+      "latest": "0.5.0",
+      "dependent": "ui",
+      "location": "node_modules/@dnd-kit/dom"
+    },
+    "@dnd-kit/react": {
+      "current": "0.3.2",
+      "wanted": "0.3.2",
+      "latest": "0.5.0",
+      "dependent": "ui",
+      "location": "node_modules/@dnd-kit/react"
+    },
+    "@eslint/js": {
+      "current": "9.39.4",
+      "wanted": "9.39.5",
+      "latest": "10.0.1",
+      "dependent": "ui",
+      "location": "node_modules/@eslint/js"
+    },
+    "@hugeicons/core-free-icons": {
+      "current": "4.3.0",
+      "wanted": "4.3.0",
+      "latest": "4.3.2",
+      "dependent": "ui",
+      "location": "node_modules/@hugeicons/core-free-icons"
+    },
+    "@tailwindcss/vite": {
+      "current": "4.3.1",
+      "wanted": "4.3.3",
+      "latest": "4.3.3",
+      "dependent": "ui",
+      "location": "node_modules/@tailwindcss/vite"
+    },
+    "@tanstack/react-table": {
+      "current": "8.21.3",
+      "wanted": "8.21.3",
+      "latest": "9.2.4",
+      "dependent": "ui",
+      "location": "node_modules/@tanstack/react-table"
+    },
+    "@turbo/gen": {
+      "current": "2.9.9",
+      "wanted": "2.10.12",
+      "latest": "2.10.12",
+      "dependent": "ui",
+      "location": "node_modules/@turbo/gen"
+    },
+    "@types/node": {
+      "current": "25.6.0",
+      "wanted": "25.9.5",
+      "latest": "26.4.1",
+      "dependent": "ui",
+      "location": "node_modules/@types/node"
+    },
+    "@types/react": {
+      "current": "19.2.14",
+      "wanted": "19.2.18",
+      "latest": "19.2.18",
+      "dependent": "ui",
+      "location": "node_modules/@types/react"
+    },
+    "@types/react-dom": {
+      "current": "19.2.3",
+      "wanted": "19.2.7",
+      "latest": "19.2.7",
+      "dependent": "ui",
+      "location": "node_modules/@types/react-dom"
+    },
+    "date-fns": {
+      "current": "4.1.0",
+      "wanted": "4.4.0",
+      "latest": "4.4.0",
+      "dependent": "ui",
+      "location": "node_modules/date-fns"
+    },
+    "eslint": {
+      "current": "9.39.4",
+      "wanted": "9.39.5",
+      "latest": "10.10.0",
+      "dependent": "ui",
+      "location": "node_modules/eslint"
+    },
+    "eslint-plugin-react-refresh": {
+      "current": "0.4.26",
+      "wanted": "0.4.26",
+      "latest": "0.5.6",
+      "dependent": "ui",
+      "location": "node_modules/eslint-plugin-react-refresh"
+    },
+    "globals": {
+      "current": "17.6.0",
+      "wanted": "17.12.0",
+      "latest": "17.12.0",
+      "dependent": "ui",
+      "location": "node_modules/globals"
+    },
+    "input-otp": {
+      "current": "1.4.2",
+      "wanted": "1.5.0",
+      "latest": "1.5.0",
+      "dependent": "ui",
+      "location": "node_modules/input-otp"
+    },
+    "motion": {
+      "current": "12.42.2",
+      "wanted": "12.43.0",
+      "latest": "13.2.0",
+      "dependent": "ui",
+      "location": "node_modules/motion"
+    },
+    "react": {
+      "current": "19.2.5",
+      "wanted": "19.2.8",
+      "latest": "19.2.8",
+      "dependent": "ui",
+      "location": "node_modules/react"
+    },
+    "react-colorful": {
+      "current": "5.6.1",
+      "wanted": "5.8.1",
+      "latest": "5.8.1",
+      "dependent": "ui",
+      "location": "node_modules/react-colorful"
+    },
+    "react-day-picker": {
+      "current": "9.14.0",
+      "wanted": "9.14.0",
+      "latest": "10.0.1",
+      "dependent": "ui",
+      "location": "node_modules/react-day-picker"
+    },
+    "react-dom": {
+      "current": "19.2.5",
+      "wanted": "19.2.8",
+      "latest": "19.2.8",
+      "dependent": "ui",
+      "location": "node_modules/react-dom"
+    },
+    "react-is": {
+      "current": "19.2.5",
+      "wanted": "19.2.8",
+      "latest": "19.2.8",
+      "dependent": "ui",
+      "location": "node_modules/react-is"
+    },
+    "react-phone-number-input": {
+      "current": "3.4.16",
+      "wanted": "3.4.18",
+      "latest": "3.4.18",
+      "dependent": "ui",
+      "location": "node_modules/react-phone-number-input"
+    },
+    "recharts": {
+      "current": "3.8.1",
+      "wanted": "3.10.1",
+      "latest": "3.10.1",
+      "dependent": "ui",
+      "location": "node_modules/recharts"
+    },
+    "shadcn": {
+      "current": "4.12.0",
+      "wanted": "4.21.0",
+      "latest": "4.21.0",
+      "dependent": "ui",
+      "location": "node_modules/shadcn"
+    },
+    "shiki": {
+      "current": "4.0.2",
+      "wanted": "4.4.3",
+      "latest": "4.4.3",
+      "dependent": "ui",
+      "location": "node_modules/shiki"
+    },
+    "tailwind-merge": {
+      "current": "3.5.0",
+      "wanted": "3.6.0",
+      "latest": "3.6.0",
+      "dependent": "ui",
+      "location": "node_modules/tailwind-merge"
+    },
+    "tailwindcss": {
+      "current": "4.3.1",
+      "wanted": "4.3.3",
+      "latest": "4.3.3",
+      "dependent": "ui",
+      "location": "node_modules/tailwindcss"
+    },
+    "typescript": {
+      "current": "5.9.3",
+      "wanted": "5.9.3",
+      "latest": "7.0.2",
+      "dependent": "ui",
+      "location": "node_modules/typescript"
+    },
+    "typescript-eslint": {
+      "current": "8.59.2",
+      "wanted": "8.69.0",
+      "latest": "8.69.0",
+      "dependent": "ui",
+      "location": "node_modules/typescript-eslint"
+    },
+    "zod": {
+      "current": "3.25.76",
+      "wanted": "3.25.76",
+      "latest": "4.5.4",
+      "dependent": "ui",
+      "location": "node_modules/zod"
+    }
+  },
+  "security": {
+    "fullSummary": {
+      "info": 0,
+      "low": 4,
+      "moderate": 4,
+      "high": 10,
+      "critical": 0,
+      "total": 18
+    },
+    "productionSummary": {
+      "info": 0,
+      "low": 3,
+      "moderate": 4,
+      "high": 9,
+      "critical": 0,
+      "total": 16
+    },
+    "findings": [
+      {
+        "name": "@babel/core",
+        "severity": "low",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/@babel/core"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/@babel/core",
+            "path": [
+              "shadcn",
+              "@babel/core"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-4x5r-pxfx-6jf8"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "@hono/node-server",
+        "severity": "moderate",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/@hono/node-server"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/@hono/node-server",
+            "path": [
+              "shadcn",
+              "@modelcontextprotocol/sdk",
+              "@hono/node-server"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-frvp-7c67-39w9"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "baseline-browser-mapping",
+        "severity": "moderate",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/baseline-browser-mapping"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/baseline-browser-mapping",
+            "path": [
+              "shadcn",
+              "browserslist",
+              "baseline-browser-mapping"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-w5vr-8v7q-w6rv"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "body-parser",
+        "severity": "low",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/body-parser"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/body-parser",
+            "path": [
+              "shadcn",
+              "@modelcontextprotocol/sdk",
+              "express",
+              "body-parser"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-v422-hmwv-36x6"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "brace-expansion",
+        "severity": "high",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/@ts-morph/common/node_modules/brace-expansion",
+          "node_modules/@typescript-eslint/typescript-estree/node_modules/brace-expansion",
+          "node_modules/brace-expansion"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/@ts-morph/common/node_modules/brace-expansion",
+            "path": [
+              "shadcn",
+              "ts-morph",
+              "@ts-morph/common",
+              "minimatch",
+              "brace-expansion"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-jxxr-4gwj-5jf2",
+          "https://github.com/advisories/GHSA-3jxr-9vmj-r5cp",
+          "https://github.com/advisories/GHSA-mh99-v99m-4gvg",
+          "https://github.com/advisories/GHSA-rgw5-rvv9-x895"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "browserslist",
+        "severity": "high",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/browserslist"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/browserslist",
+            "path": [
+              "shadcn",
+              "browserslist"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-c83g-rgw3-j3cx",
+          "https://github.com/advisories/GHSA-73wf-gq98-2v4g"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "esbuild",
+        "severity": "low",
+        "productionAudit": false,
+        "nodes": [
+          "node_modules/vite/node_modules/esbuild"
+        ],
+        "paths": [],
+        "advisories": [
+          "https://github.com/advisories/GHSA-g7r4-m6w7-qqqr"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "express-rate-limit",
+        "severity": "moderate",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/express-rate-limit"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/express-rate-limit",
+            "path": [
+              "shadcn",
+              "@modelcontextprotocol/sdk",
+              "express-rate-limit"
+            ]
+          }
+        ],
+        "advisories": [],
+        "fixAvailable": true
+      },
+      {
+        "name": "fast-uri",
+        "severity": "high",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/fast-uri"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/fast-uri",
+            "path": [
+              "shadcn",
+              "@modelcontextprotocol/sdk",
+              "ajv",
+              "fast-uri"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-v2hh-gcrm-f6hx",
+          "https://github.com/advisories/GHSA-7p8r-x3mc-p8w7",
+          "https://github.com/advisories/GHSA-f65p-4m7j-42xc",
+          "https://github.com/advisories/GHSA-fph4-wmhf-6fwf",
+          "https://github.com/advisories/GHSA-jqff-g426-hqxp",
+          "https://github.com/advisories/GHSA-4c8g-83qw-93j6"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "hono",
+        "severity": "high",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/hono"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/hono",
+            "path": [
+              "shadcn",
+              "@modelcontextprotocol/sdk",
+              "hono"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-qp7p-654g-cw7p",
+          "https://github.com/advisories/GHSA-hm8q-7f3q-5f36",
+          "https://github.com/advisories/GHSA-p77w-8qqv-26rm",
+          "https://github.com/advisories/GHSA-xrhx-7g5j-rcj5",
+          "https://github.com/advisories/GHSA-3hrh-pfw6-9m5x",
+          "https://github.com/advisories/GHSA-f577-qrjj-4474",
+          "https://github.com/advisories/GHSA-2gcr-mfcq-wcc3",
+          "https://github.com/advisories/GHSA-rv63-4mwf-qqc2",
+          "https://github.com/advisories/GHSA-wgpf-jwqj-8h8p",
+          "https://github.com/advisories/GHSA-88fw-hqm2-52qc",
+          "https://github.com/advisories/GHSA-wwfh-h76j-fc44",
+          "https://github.com/advisories/GHSA-j6c9-x7qj-28xf",
+          "https://github.com/advisories/GHSA-xgm2-5f3f-mvvc",
+          "https://github.com/advisories/GHSA-hvrm-45r6-mjfj",
+          "https://github.com/advisories/GHSA-w62v-xxxg-mg59",
+          "https://github.com/advisories/GHSA-8j4g-w8fx-2239",
+          "https://github.com/advisories/GHSA-f23p-vx2j-j53r",
+          "https://github.com/advisories/GHSA-79qm-7rj5-m7r9",
+          "https://github.com/advisories/GHSA-54fx-42gc-7vw4",
+          "https://github.com/advisories/GHSA-gqvv-2mrq-wpjv",
+          "https://github.com/advisories/GHSA-g6gw-c38x-mqfc",
+          "https://github.com/advisories/GHSA-crvj-82cr-hjcx"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "ip-address",
+        "severity": "high",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/ip-address"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/ip-address",
+            "path": [
+              "shadcn",
+              "@modelcontextprotocol/sdk",
+              "express-rate-limit",
+              "ip-address"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-v2v4-37r5-5v8g",
+          "https://github.com/advisories/GHSA-mwp4-54f8-5fhr"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "js-yaml",
+        "severity": "high",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/js-yaml"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/js-yaml",
+            "path": [
+              "shadcn",
+              "cosmiconfig",
+              "js-yaml"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-h67p-54hq-rp68",
+          "https://github.com/advisories/GHSA-52cp-r559-cp3m",
+          "https://github.com/advisories/GHSA-5p4m-2wfm-xmqj",
+          "https://github.com/advisories/GHSA-2883-xcg3-v3hh"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "nanoid",
+        "severity": "high",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/nanoid"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/nanoid",
+            "path": [
+              "shadcn",
+              "postcss",
+              "nanoid"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-28wg-ghj8-5hjv",
+          "https://github.com/advisories/GHSA-2v37-7h3g-55p8"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "postcss",
+        "severity": "high",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/postcss"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/postcss",
+            "path": [
+              "shadcn",
+              "postcss"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-fxqj-rqcc-2cmp",
+          "https://github.com/advisories/GHSA-r28c-9q8g-f849"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "postcss-selector-parser",
+        "severity": "low",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/postcss-selector-parser"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/postcss-selector-parser",
+            "path": [
+              "shadcn",
+              "postcss-selector-parser"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-w9m9-85wc-3x92"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "qs",
+        "severity": "moderate",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/qs"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/qs",
+            "path": [
+              "shadcn",
+              "@modelcontextprotocol/sdk",
+              "express",
+              "qs"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-q8mj-m7cp-5q26",
+          "https://github.com/advisories/GHSA-x5fp-wj9c-mxmx",
+          "https://github.com/advisories/GHSA-4mjr-xmp4-gh2g"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "undici",
+        "severity": "high",
+        "productionAudit": true,
+        "nodes": [
+          "node_modules/undici"
+        ],
+        "paths": [
+          {
+            "node": "node_modules/undici",
+            "path": [
+              "shadcn",
+              "undici"
+            ]
+          }
+        ],
+        "advisories": [
+          "https://github.com/advisories/GHSA-8xcm-r25x-g524",
+          "https://github.com/advisories/GHSA-4cwx-7wf7-3272",
+          "https://github.com/advisories/GHSA-m8rv-5g2x-5cg5",
+          "https://github.com/advisories/GHSA-jr45-8vmc-qm54",
+          "https://github.com/advisories/GHSA-v3r7-h72x-cjcm"
+        ],
+        "fixAvailable": true
+      },
+      {
+        "name": "vite",
+        "severity": "high",
+        "productionAudit": false,
+        "nodes": [
+          "node_modules/vite"
+        ],
+        "paths": [],
+        "advisories": [
+          "https://github.com/advisories/GHSA-v6wh-96g9-6wx3",
+          "https://github.com/advisories/GHSA-fx2h-pf6j-xcff"
+        ],
+        "fixAvailable": true
+      }
+    ]
+  },
+  "shadcn": {
+    "lockedClosureNodes": 288,
+    "exclusiveWithinLibraryProductionRoots": 282
+  }
+}

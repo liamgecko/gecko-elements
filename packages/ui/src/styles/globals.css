@@ -2,7 +2,7 @@
 @import "../assets/fonts/satoshi.css";
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import "../vendor/shadcn-tailwind/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 @source "../../../apps/**/*.{ts,tsx}";
