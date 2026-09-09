@@ -20,6 +20,8 @@ Start with the [library usage guide](../../packages/ui/README.md). The [componen
 
 Component pages cover purpose, usage, imports, compound anatomy where applicable, a working basic example, supported variants and behaviour, relevant API details, and related components. Use the existing documentation layout components. Keep guide summaries brief and defer detailed rules to the owning contract and component page.
 
+Render documentation code through `Code` from `@/components/layout/docs-code`. This sets block regions to `tabIndex={-1}` so only copy buttons enter sequential Tab order. Keep public `@gecko/ui/components/code` imports in the displayed usage snippets for library consumers.
+
 ## Navigation and coverage
 
 - [gallery-data.ts](src/pages/gallery-data.ts) lists the component, structure, core and guide pages.

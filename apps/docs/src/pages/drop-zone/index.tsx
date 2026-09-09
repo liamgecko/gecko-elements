@@ -9,7 +9,7 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { DropZone } from "@gecko/ui/components/drop-zone";
 
 export function DropZonePage() {

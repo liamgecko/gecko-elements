@@ -9,6 +9,8 @@ Human documentation: `apps/docs/src/pages/tabs/index.tsx`
 
 Tabs switches between related panels on the same page while showing one panel at a time.
 
+For buttons that filter one shared list instead of selecting corresponding panels, use [Toggle Group's filter variant](toggle-group.md#filter-variant). It supports counts and unread indicators without tab panels.
+
 Use standalone Tabs to section content within a page. Use the tab configuration on Header when the tabs navigate between sub-pages in a product section. Use Accordion when sections should remain stacked or people may need to compare their content.
 
 Tabs follows the Shadcn composition and wraps Base UI Tabs. Application code imports the Gecko component rather than Shadcn or Base UI directly.

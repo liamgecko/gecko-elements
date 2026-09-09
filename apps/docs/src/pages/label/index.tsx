@@ -13,7 +13,7 @@ import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";
 import { Button } from "@gecko/ui/components/button";
 import { Input } from "@gecko/ui/components/input";
 import { Label } from "@gecko/ui/components/label";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 

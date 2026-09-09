@@ -14,7 +14,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@gecko/ui/components/collapsible";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import {
   Sidebar,
   SidebarContent,

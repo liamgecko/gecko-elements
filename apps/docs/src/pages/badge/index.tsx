@@ -4,7 +4,7 @@ import ChevronRight from "@hugeicons/core-free-icons/ChevronRightIcon";
 import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
 import { Badge } from "@gecko/ui/components/badge";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";

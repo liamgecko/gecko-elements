@@ -14,7 +14,7 @@ import {
 } from "@/components/layout/docs-section";
 import { Attachment } from "@gecko/ui/components/attachment";
 import { Button } from "@gecko/ui/components/button";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import {
   Field,
   FieldDescription,

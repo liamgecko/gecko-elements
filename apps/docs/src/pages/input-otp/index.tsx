@@ -16,7 +16,7 @@ import {
   InputOTPSlot,
   InputOTPSeparator,
 } from "@gecko/ui/components/input-otp";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { Button } from "@gecko/ui/components/button";
 import {
   Field,

@@ -10,7 +10,7 @@ import {
 } from "@/components/layout/docs-section";
 import { ScrollArea, ScrollBar } from "@gecko/ui/components/scroll-area";
 import { Separator } from "@gecko/ui/components/separator";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 
 const tags = Array.from({ length: 50 }).map(
   (_, i, a) => `v1.2.0-beta.${a.length - i}`,

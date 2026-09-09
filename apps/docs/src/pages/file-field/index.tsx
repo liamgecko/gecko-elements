@@ -15,7 +15,7 @@ import {
   FieldLabel,
 } from "@gecko/ui/components/field";
 import { FileInput } from "@gecko/ui/components/file-input";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { Button } from "@gecko/ui/components/button";
 import { Controller } from "react-hook-form";
 import { z } from "zod";

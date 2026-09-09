@@ -10,7 +10,7 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Search } from "@gecko/ui/components/search";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 
 export function SearchPage() {
   const [value, setValue] = useState("");

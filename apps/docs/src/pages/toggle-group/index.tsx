@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
@@ -8,7 +9,7 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import {
   ToggleGroup,
   ToggleGroupItem,
@@ -38,6 +39,31 @@ function AlignmentIcons() {
 }
 
 export function ToggleGroupPage() {
+  const [filter, setFilter] = useState("mine");
+  const filterOptions = [
+    { value: "mine", label: "My conversations", count: 1 },
+    { value: "unassigned", label: "Unassigned", count: 9775, unread: true },
+    { value: "open", label: "Open", count: 30330, unread: true },
+    { value: "closed", label: "Closed", count: 0 },
+    { value: "sent", label: "Sent" },
+    { value: "bot", label: "Assigned to bot", count: 241, unread: true },
+  ];
+  const filterSnippet = `const [view, setView] = useState("mine")
+
+<ToggleGroup
+  variant="filter"
+  value={[view]}
+  onValueChange={(values) => {
+    if (values.length) setView(String(values[0]))
+  }}
+  aria-label="Conversation filters"
+>
+  <ToggleGroupItem value="mine" count={1}>My conversations</ToggleGroupItem>
+  <ToggleGroupItem value="unassigned" count={9775} unread>Unassigned</ToggleGroupItem>
+  <ToggleGroupItem value="closed" count={0}>Closed</ToggleGroupItem>
+</ToggleGroup>
+{/* Filter one shared list using view; no tab panels are needed. */}`;
+
   const importSnippet = `import {
   ToggleGroup,
   ToggleGroupItem,
@@ -170,6 +196,45 @@ export function ToggleGroupPage() {
               code={basicSnippet}
               showCopyButton
               copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </MainSection>
+
+      <MainSection
+        id="filter"
+        title="Filter"
+        description="Use filter buttons to update one shared list. Counts and unread dots are independent of selection. This controlled example keeps one filter selected; sample totals illustrate count formatting."
+      >
+        <ComponentExample>
+          <div className="space-y-6">
+            <div className="max-w-full overflow-x-auto p-1">
+              <ToggleGroup
+                variant="filter"
+                value={[filter]}
+                onValueChange={(values) => {
+                  if (values.length) setFilter(String(values[0]));
+                }}
+                aria-label="Conversation filters"
+              >
+                {filterOptions.map((option) => (
+                  <ToggleGroupItem
+                    key={option.value}
+                    value={option.value}
+                    count={option.count}
+                    unread={option.unread}
+                  >
+                    {option.label}
+                  </ToggleGroupItem>
+                ))}
+              </ToggleGroup>
+            </div>
+            <Code
+              variant="block"
+              language="tsx"
+              code={filterSnippet}
+              showCopyButton
+              copyLabel="Copy filter example"
             />
           </div>
         </ComponentExample>
@@ -412,7 +477,7 @@ export function ToggleGroupPage() {
               },
               {
                 name: "variant",
-                type: "Toggle variant",
+                type: 'Toggle variant | "filter"',
                 defaultValue: '"outline"',
                 description: "Sets the shared visual treatment.",
               },
@@ -452,6 +517,19 @@ export function ToggleGroupPage() {
                 description: "Identifies the item in the group value array.",
               },
               {
+                name: "count",
+                type: "number",
+                description:
+                  "Filter variant only. Displays a muted, parenthesised count when greater than zero.",
+              },
+              {
+                name: "unread",
+                type: "boolean",
+                defaultValue: "false",
+                description:
+                  "Filter variant only. Displays and announces unread activity independently of selection.",
+              },
+              {
                 name: "disabled",
                 type: "boolean",
                 defaultValue: "false",
@@ -459,7 +537,7 @@ export function ToggleGroupPage() {
               },
               {
                 name: "variant",
-                type: "Toggle variant",
+                type: 'Toggle variant | "filter"',
                 defaultValue: '"outline"',
                 description:
                   "Sets presentation when the group does not provide it.",

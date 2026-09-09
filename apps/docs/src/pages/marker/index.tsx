@@ -14,7 +14,7 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { Marker, MarkerContent, MarkerIcon } from "@gecko/ui/components/marker";
 import { Spinner } from "@gecko/ui/components/spinner";
 

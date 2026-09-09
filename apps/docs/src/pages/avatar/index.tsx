@@ -4,7 +4,7 @@ import {
   AvatarImage,
   AvatarLabel,
 } from "@gecko/ui/components/avatar";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";

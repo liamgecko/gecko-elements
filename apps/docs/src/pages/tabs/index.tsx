@@ -9,7 +9,7 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Badge } from "@gecko/ui/components/badge";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import {
   Tabs,
   TabsContent,

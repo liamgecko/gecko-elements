@@ -92,6 +92,8 @@ Toggle accepts the remaining Base UI Toggle properties.
 
 ## Related
 
+For shared-list filters with counts and unread indicators, use [Toggle Group’s filter variant](toggle-group.md#filter-variant). It is not a standalone Toggle variant.
+
 - **Toggle Group** — related single or multiple pressed states.
 - **Button** — one-time action.
 - **Switch** — immediate application setting.

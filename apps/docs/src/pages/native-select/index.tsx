@@ -10,7 +10,7 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { Button } from "@gecko/ui/components/button";
 import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";
 import {

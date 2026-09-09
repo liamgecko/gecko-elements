@@ -332,12 +332,12 @@
   --primary-border: oklch(100% 0 0 / 0.16);
 
   /* Secondary colors */
-  --secondary: oklch(22% 0.002 85);
+  --secondary: oklch(26% 0.002 85);
   --secondary-foreground: oklch(94% 0.002 85);
   --secondary-border: oklch(100% 0 0 / 0.12);
 
   /* Muted colors */
-  --muted: oklch(21% 0.002 85);
+  --muted: oklch(27.5% 0.002 85);
   --muted-foreground: oklch(75% 0.002 85);
   --muted-border: oklch(100% 0 0 / 0.08);
 

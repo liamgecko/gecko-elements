@@ -20,7 +20,7 @@ import {
   type DataTableColumnMeta,
 } from "@gecko/ui/components/data-table";
 import { Badge } from "@gecko/ui/components/badge";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import {
   Table,
   TableBody,

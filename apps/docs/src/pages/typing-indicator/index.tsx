@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@gecko/ui/components/button";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { TypingIndicator } from "@gecko/ui/components/typing-indicator";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";

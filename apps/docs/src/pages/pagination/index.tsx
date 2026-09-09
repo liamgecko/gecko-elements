@@ -9,7 +9,7 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import {
   Pagination,
   PaginationContent,

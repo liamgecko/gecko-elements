@@ -2281,6 +2281,7 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "basic-example", label: "Basic example" },
+    { id: "filter", label: "Filter" },
     { id: "multiple", label: "Multiple selection" },
     { id: "sizes", label: "Sizes" },
     { id: "spacing", label: "Spacing" },

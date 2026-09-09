@@ -9,7 +9,7 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { Toggle } from "@gecko/ui/components/toggle";
 import Bookmark from "@hugeicons/core-free-icons/Bookmark02Icon";
 import Bold from "@hugeicons/core-free-icons/BoldIcon";

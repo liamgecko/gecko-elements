@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@gecko/ui/components/table";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 
 export type DocsApiRow = {
   name: string;

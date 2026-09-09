@@ -13,7 +13,7 @@ import {
   ButtonGroup,
   ButtonGroupSeparator,
 } from "@gecko/ui/components/button-group";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import {
   DropdownMenu,
   DropdownMenuContent,

@@ -7,7 +7,7 @@ import Smile from "@hugeicons/core-free-icons/SmileIcon";
 import User from "@hugeicons/core-free-icons/User02Icon";
 import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 import { Button } from "@gecko/ui/components/button";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import {
   Command,
   CommandDialog,

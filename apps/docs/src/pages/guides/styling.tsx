@@ -5,7 +5,7 @@ import {
 } from "@/components/layout/docs-section";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 
 export function GuidesStylingPage() {
   return (

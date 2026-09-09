@@ -10,7 +10,7 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { InlineEdit } from "@gecko/ui/components/inline-edit";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 
 export function InlineEditPage() {
   const [sm, setSm] = React.useState("Registration form");

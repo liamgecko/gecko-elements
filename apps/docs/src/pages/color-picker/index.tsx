@@ -11,7 +11,7 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { Button } from "@gecko/ui/components/button";
 import { ColorPicker } from "@gecko/ui/components/color-picker";
 import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";

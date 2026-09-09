@@ -90,7 +90,7 @@ Callers do not provide loading, highlighted HTML, or error states.
 
 - Inline Code renders the semantic `code` element.
 - Block Code renders semantic `pre` and `code` elements inside a labelled scrollable region.
-- The block region is keyboard focusable so overflowing content can be scrolled without a pointer.
+- The block region is keyboard focusable by default so overflowing content can be scrolled without a pointer. Set `tabIndex={-1}` for read-only documentation examples where only the copy button belongs in sequential Tab order. Highlighted `pre` elements never add a second Tab stop. The code remains available to screen readers and pointer selection.
 - Keyboard focus receives the approved visible focus treatment.
 - The copy action is a native Button with an accessible action label and Tooltip.
 - Copy success or failure is announced through the library Toast.
@@ -116,6 +116,8 @@ Callers do not provide loading, highlighted HTML, or error states.
 | `showCopyButton` | `boolean`                                                                                       | `false`  | Adds the library-owned copy action              |
 | `copyLabel`      | `string`                                                                                        | `"Copy"` | Accessible name and Tooltip for the copy action |
 | `className`      | `string`                                                                                        | none     | Parent-layout integration only                  |
+
+Block Code also accepts `tabIndex?: 0 | -1` (default `0`) for the scrollable region. This does not change the copy button’s Tab order.
 
 ## Styling contract
 

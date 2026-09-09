@@ -13,7 +13,7 @@ import {
   ActivityFeed,
   type ActivityFeedEntry,
 } from "@gecko/ui/components/activity-feed";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 
 const PAGE_SIZE = 5;
 

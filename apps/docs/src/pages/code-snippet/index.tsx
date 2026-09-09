@@ -8,7 +8,7 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 
 export function CodeSnippetPage() {
   const blockExample = `import { Field, FieldDescription, FieldLabel } from "@gecko/ui/components/field"

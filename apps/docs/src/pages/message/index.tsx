@@ -24,7 +24,7 @@ import {
   BubbleTimestamp,
 } from "@gecko/ui/components/bubble";
 import { Button } from "@gecko/ui/components/button";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import {
   EmojiPicker,
   EmojiPickerContent,

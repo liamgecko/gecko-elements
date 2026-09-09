@@ -9,7 +9,7 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Separator } from "@gecko/ui/components/separator";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 
 export function SeparatorPage() {
   const importSnippet = `import { Separator } from "@gecko/ui/components/separator"`;

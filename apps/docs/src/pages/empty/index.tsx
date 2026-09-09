@@ -19,7 +19,7 @@ import {
 import { Button } from "@gecko/ui/components/button";
 import InboxIcon from "@hugeicons/core-free-icons/Archive04Icon";
 import { HugeiconsIcon } from "@gecko/ui/lib/icon";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 
 export function EmptyPage() {
   const importSnippet = `import {

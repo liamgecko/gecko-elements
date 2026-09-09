@@ -7,7 +7,7 @@ import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { Container } from "@gecko/ui/components/container";
 
 export function StructureContainerPage() {

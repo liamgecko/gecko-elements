@@ -11,7 +11,7 @@ import {
   BreadcrumbSeparator,
 } from "@gecko/ui/components/breadcrumb";
 import { Button } from "@gecko/ui/components/button";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import {
   DropdownMenu,
   DropdownMenuContent,

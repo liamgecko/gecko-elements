@@ -43,6 +43,8 @@ type CodeBlockProps = {
   language: CodeLanguage;
   showCopyButton?: boolean;
   copyLabel?: string;
+  /** Set to -1 when the copy button should be the only sequential Tab stop. */
+  tabIndex?: 0 | -1;
 };
 
 export type CodeProps = CodeInlineProps | CodeBlockProps;
@@ -135,6 +137,7 @@ function CodeBlock({
   language,
   showCopyButton = false,
   copyLabel = "Copy",
+  tabIndex = 0,
 }: CodeBlockProps) {
   const isDark = useIsDarkMode();
   const shouldReduceMotion = useReducedMotion();
@@ -158,6 +161,7 @@ function CodeBlock({
           transformers: [
             {
               pre(node) {
+                node.properties.tabindex = -1;
                 if (node.properties && "style" in node.properties) {
                   delete (node.properties as Record<string, unknown>).style;
                 }
@@ -264,7 +268,7 @@ function CodeBlock({
           "[&_.shiki]:font-mono [&_.shiki]:text-2xs [&_.shiki_code]:block [&_.shiki_code]:min-w-max",
           showCopyButton && "me-10",
         )}
-        tabIndex={0}
+        tabIndex={tabIndex}
         role="region"
         aria-label="Code snippet"
         dangerouslySetInnerHTML={{

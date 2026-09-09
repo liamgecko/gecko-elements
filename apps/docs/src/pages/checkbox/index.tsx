@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Checkbox, CheckboxGroup } from "@gecko/ui/components/checkbox";
 import { Button } from "@gecko/ui/components/button";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import {
   Field,
   FieldContent,

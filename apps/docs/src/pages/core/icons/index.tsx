@@ -8,7 +8,7 @@ import {
 import Delete02Icon from "@hugeicons/core-free-icons/Delete02Icon";
 import StarIcon from "@hugeicons/core-free-icons/StarIcon";
 import { HugeiconsIcon } from "@gecko/ui/lib/icon";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 
 export function IconsPage() {
   return (

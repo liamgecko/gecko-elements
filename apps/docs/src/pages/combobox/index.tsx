@@ -16,7 +16,7 @@ import {
   useComboboxAnchor,
 } from "@gecko/ui/components/combobox";
 
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";

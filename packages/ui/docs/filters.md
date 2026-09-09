@@ -13,7 +13,7 @@ Use `Filter` in new code. `Filters` remains available only as a compatibility al
 
 Pair Filter with Data table for a product list. Use it independently when a dashboard or reporting interface owns another dataset or query. The product applies emitted values to local data, URL state, or a remote request; this module owns only the filtering controls and their presentation.
 
-Inbox and conversation filters are a separate product pattern.
+For the Inbox status row or other persistent list-filter buttons with counts and unread indicators, use [Toggle Group's filter variant](toggle-group.md#filter-variant). The application filters one shared list. Custom Inbox filter creation and saving remain a separate product composition.
 
 ## Choose the control
 

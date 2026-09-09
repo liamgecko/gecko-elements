@@ -4,7 +4,7 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { DocsPageLink } from "@/components/layout/docs-page-link";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 
 export function GuidesRecipesPage() {
   return (

@@ -11,7 +11,7 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { DateRangeFilter, Filter, Sort } from "@gecko/ui/components/filters";
 import type { FilterCategory } from "@gecko/ui/components/filters";
 import type { DateRange } from "react-day-picker";

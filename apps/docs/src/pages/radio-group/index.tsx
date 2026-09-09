@@ -13,7 +13,7 @@ import {
 import { Button } from "@gecko/ui/components/button";
 import { Field, FieldContent, FieldError } from "@gecko/ui/components/field";
 import { RadioGroup, RadioGroupItem } from "@gecko/ui/components/radio-group";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
 

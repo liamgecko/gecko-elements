@@ -4,7 +4,7 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { ComponentExample } from "@/components/layout/component-example";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import {
   Table,
   TableHeader,

@@ -13,7 +13,7 @@ import { MessageScrollerAnimationDemo } from "@/pages/message-scroller/demos/ani
 import { MessageScrollerContextDemo } from "@/pages/message-scroller/demos/context-demo";
 import { MessageScrollerScrollStateDemo } from "@/pages/message-scroller/demos/scroll-state-demo";
 import { MessageScrollerStreamingDemo } from "@/pages/message-scroller/demos/streaming-demo";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 
 export function MessageScrollerPage() {
   const importSnippet = `import {

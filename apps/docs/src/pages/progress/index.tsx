@@ -9,7 +9,7 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Progress } from "@gecko/ui/components/progress";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 
 export function ProgressPage() {
   const importSnippet = `import {

@@ -11,7 +11,7 @@ import {
 } from "@/components/layout/docs-section";
 import { ChatHead, type ChatHeadItem } from "@gecko/ui/components/chat-head";
 import { Button } from "@gecko/ui/components/button";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 
 const now = Date.now();
 

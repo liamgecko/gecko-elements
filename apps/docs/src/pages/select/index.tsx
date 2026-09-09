@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from "@gecko/ui/components/select";
 import { Button } from "@gecko/ui/components/button";
-import { Code } from "@gecko/ui/components/code";
+import { Code } from "@/components/layout/docs-code";
 import { Field, FieldError, FieldLabel } from "@gecko/ui/components/field";
 import { Controller } from "react-hook-form";
 import { z } from "zod";
