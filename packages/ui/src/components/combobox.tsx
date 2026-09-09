@@ -1,5 +1,6 @@
-/* eslint-disable react-refresh/only-export-components -- the anchor hook is part of the Combobox public interface. */
 "use client";
+/* eslint-disable react-refresh/only-export-components -- the anchor hook is part of the Combobox public interface. */
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { Combobox as ComboboxPrimitive } from "@base-ui/react";
@@ -46,7 +47,7 @@ function ComboboxValue({ children, ...props }: ComboboxPrimitive.Value.Props) {
   );
 }
 
-function ComboboxTrigger({
+const ComboboxTrigger = /* @__PURE__ */ withRef(function ComboboxTrigger({
   className,
   children,
   "aria-label": ariaLabel = "Show options",
@@ -70,9 +71,9 @@ function ComboboxTrigger({
       />
     </ComboboxPrimitive.Trigger>
   );
-}
+});
 
-function ComboboxClear({
+const ComboboxClear = /* @__PURE__ */ withRef(function ComboboxClear({
   className,
   "aria-label": ariaLabel = "Clear selection",
   ...props
@@ -94,9 +95,9 @@ function ComboboxClear({
       }
     />
   );
-}
+});
 
-function ComboboxInput({
+const ComboboxInput = /* @__PURE__ */ withRef(function ComboboxInput({
   className,
   children,
   disabled,
@@ -132,9 +133,9 @@ function ComboboxInput({
       {children}
     </InputGroup>
   );
-}
+});
 
-function ComboboxContent({
+const ComboboxContent = /* @__PURE__ */ withRef(function ComboboxContent({
   className,
   side = "bottom",
   sideOffset = 6,
@@ -169,9 +170,12 @@ function ComboboxContent({
       </ComboboxPrimitive.Positioner>
     </ComboboxPrimitive.Portal>
   );
-}
+});
 
-function ComboboxList({ className, ...props }: ComboboxPrimitive.List.Props) {
+const ComboboxList = /* @__PURE__ */ withRef(function ComboboxList({
+  className,
+  ...props
+}: ComboboxPrimitive.List.Props) {
   return (
     <ComboboxPrimitive.List
       data-slot="combobox-list"
@@ -182,9 +186,9 @@ function ComboboxList({ className, ...props }: ComboboxPrimitive.List.Props) {
       {...props}
     />
   );
-}
+});
 
-function ComboboxItem({
+const ComboboxItem = /* @__PURE__ */ withRef(function ComboboxItem({
   className,
   children,
   ...props
@@ -208,9 +212,12 @@ function ComboboxItem({
       />
     </ComboboxPrimitive.Item>
   );
-}
+});
 
-function ComboboxGroup({ className, ...props }: ComboboxPrimitive.Group.Props) {
+const ComboboxGroup = /* @__PURE__ */ withRef(function ComboboxGroup({
+  className,
+  ...props
+}: ComboboxPrimitive.Group.Props) {
   return (
     <ComboboxPrimitive.Group
       data-slot="combobox-group"
@@ -218,9 +225,9 @@ function ComboboxGroup({ className, ...props }: ComboboxPrimitive.Group.Props) {
       {...props}
     />
   );
-}
+});
 
-function ComboboxLabel({
+const ComboboxLabel = /* @__PURE__ */ withRef(function ComboboxLabel({
   className,
   ...props
 }: ComboboxPrimitive.GroupLabel.Props) {
@@ -231,7 +238,7 @@ function ComboboxLabel({
       {...props}
     />
   );
-}
+});
 
 function ComboboxCollection({ ...props }: ComboboxPrimitive.Collection.Props) {
   return (
@@ -239,7 +246,10 @@ function ComboboxCollection({ ...props }: ComboboxPrimitive.Collection.Props) {
   );
 }
 
-function ComboboxEmpty({ className, ...props }: ComboboxPrimitive.Empty.Props) {
+const ComboboxEmpty = /* @__PURE__ */ withRef(function ComboboxEmpty({
+  className,
+  ...props
+}: ComboboxPrimitive.Empty.Props) {
   return (
     <ComboboxPrimitive.Empty
       data-slot="combobox-empty"
@@ -250,9 +260,9 @@ function ComboboxEmpty({ className, ...props }: ComboboxPrimitive.Empty.Props) {
       {...props}
     />
   );
-}
+});
 
-function ComboboxSeparator({
+const ComboboxSeparator = /* @__PURE__ */ withRef(function ComboboxSeparator({
   className,
   ...props
 }: ComboboxPrimitive.Separator.Props) {
@@ -263,7 +273,7 @@ function ComboboxSeparator({
       {...props}
     />
   );
-}
+});
 
 const ComboboxChips = React.forwardRef<
   HTMLDivElement,
@@ -295,7 +305,7 @@ const ComboboxChips = React.forwardRef<
   );
 });
 
-function ComboboxChip({
+const ComboboxChip = /* @__PURE__ */ withRef(function ComboboxChip({
   className,
   children,
   showRemove = true,
@@ -343,9 +353,9 @@ function ComboboxChip({
       )}
     </ComboboxPrimitive.Chip>
   );
-}
+});
 
-function ComboboxChipsInput({
+const ComboboxChipsInput = /* @__PURE__ */ withRef(function ComboboxChipsInput({
   className,
   placeholder,
   ...props
@@ -363,7 +373,7 @@ function ComboboxChipsInput({
       {...props}
     />
   );
-}
+});
 
 function useComboboxAnchor() {
   return React.useRef<HTMLDivElement | null>(null);

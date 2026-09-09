@@ -7,13 +7,18 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "turbo format",
-    "typecheck": "turbo typecheck"
+    "typecheck": "turbo typecheck",
+    "test:react-compat": "node scripts/test-react-compat.mjs",
+    "test:message-scroller": "node tests/message-scroller/anchor-shift.mjs",
+    "check:react-refs": "node scripts/check-react-refs.mjs"
   },
   "devDependencies": {
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "turbo": "^2.8.17",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "playwright": "1.63.0",
+    "react-is": "19.2.5"
   },
   "packageManager": "npm@10.9.4",
   "engines": {

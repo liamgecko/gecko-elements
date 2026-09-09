@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
@@ -24,7 +25,7 @@ const markerVariants = cva(
   },
 );
 
-function Marker({
+const Marker = /* @__PURE__ */ withRef(function Marker({
   className,
   variant = "default",
   render,
@@ -44,9 +45,12 @@ function Marker({
       variant,
     },
   });
-}
+});
 
-function MarkerIcon({ className, ...props }: React.ComponentProps<"span">) {
+const MarkerIcon = /* @__PURE__ */ withRef(function MarkerIcon({
+  className,
+  ...props
+}: React.ComponentProps<"span">) {
   return (
     <span
       data-slot="marker-icon"
@@ -58,9 +62,9 @@ function MarkerIcon({ className, ...props }: React.ComponentProps<"span">) {
       {...props}
     />
   );
-}
+});
 
-function MarkerContent({
+const MarkerContent = /* @__PURE__ */ withRef(function MarkerContent({
   className,
   shimmer,
   ...props
@@ -79,7 +83,7 @@ function MarkerContent({
       {...props}
     />
   );
-}
+});
 
 export {
   Marker,

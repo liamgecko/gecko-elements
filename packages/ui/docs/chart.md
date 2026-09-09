@@ -11,6 +11,13 @@ Chart presents a trend, comparison, distribution or part-to-whole relationship v
 
 Use a chart only when the visual shape helps answer the question faster than reading every value. Use Table when exact values are the primary content. Use Metric card for a single number.
 
+## Runtime compatibility
+
+The host must provide `react-is` matching its React version, as required by
+[Recharts installation guidance](https://github.com/recharts/recharts#installation).
+Elements declares this peer alongside React and React DOM. The compatibility
+fixture verifies fragment-contained chart series under React 18.3.1 and React 19.
+
 ## Canonical application usage
 
 ```tsx

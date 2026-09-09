@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import Check from "@hugeicons/core-free-icons/CheckIcon";
@@ -67,7 +68,10 @@ function formatRelativeTime(
   return `${Math.floor(diffMs / year)}y`;
 }
 
-function MessageGroup({ className, ...props }: React.ComponentProps<"div">) {
+const MessageGroup = /* @__PURE__ */ withRef(function MessageGroup({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="message-group"
@@ -75,9 +79,9 @@ function MessageGroup({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function Message({
+const Message = /* @__PURE__ */ withRef(function Message({
   className,
   variant = "user",
   align,
@@ -104,9 +108,12 @@ function Message({
       />
     </MessageContext.Provider>
   );
-}
+});
 
-function MessageAvatar({ className, ...props }: React.ComponentProps<"div">) {
+const MessageAvatar = /* @__PURE__ */ withRef(function MessageAvatar({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   const context = React.useContext(MessageContext);
   if (context?.variant === "ai") {
     return null;
@@ -124,9 +131,12 @@ function MessageAvatar({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function MessageContent({ className, ...props }: React.ComponentProps<"div">) {
+const MessageContent = /* @__PURE__ */ withRef(function MessageContent({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="message-content"
@@ -137,9 +147,12 @@ function MessageContent({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function MessageHeader({ className, ...props }: React.ComponentProps<"div">) {
+const MessageHeader = /* @__PURE__ */ withRef(function MessageHeader({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="message-header"
@@ -150,9 +163,12 @@ function MessageHeader({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function MessageFooter({ className, ...props }: React.ComponentProps<"div">) {
+const MessageFooter = /* @__PURE__ */ withRef(function MessageFooter({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="message-footer"
@@ -163,7 +179,7 @@ function MessageFooter({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
 function MessageStatusIndicator({
   status,
@@ -248,7 +264,7 @@ type MessageMetaProps = React.ComponentProps<"div"> & {
  * In-bubble meta row: status, relative time, and optional info popover.
  * Place inside BubbleContent. Failed resend copy belongs in MessageFooter.
  */
-function MessageMeta({
+const MessageMeta = /* @__PURE__ */ withRef(function MessageMeta({
   className,
   timestamp,
   status,
@@ -298,7 +314,7 @@ function MessageMeta({
       )}
     </div>
   );
-}
+});
 
 type MessageAiActionsProps = {
   copyText?: string;

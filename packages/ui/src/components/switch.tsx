@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
@@ -14,7 +15,7 @@ type SwitchProps = SwitchPrimitive.Root.Props & {
   labelPosition?: "before" | "after";
 };
 
-function Switch({
+const Switch = /* @__PURE__ */ withRef(function Switch({
   className,
   size = "default",
   label,
@@ -101,6 +102,6 @@ function Switch({
       {labelPosition === "after" ? labelNode : null}
     </div>
   );
-}
+});
 
 export { Switch };

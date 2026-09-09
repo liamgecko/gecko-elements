@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 import {
   Legend,
@@ -44,7 +45,7 @@ function useChart() {
   return context;
 }
 
-function ChartContainer({
+const ChartContainer = /* @__PURE__ */ withRef(function ChartContainer({
   id,
   className,
   children,
@@ -94,7 +95,7 @@ function ChartContainer({
       </div>
     </ChartContext.Provider>
   );
-}
+});
 
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config);
@@ -242,166 +243,168 @@ function ChartXAxisTickLabel({
   );
 }
 
-function ChartTooltipContent({
-  active,
-  payload,
-  className,
-  indicator = "dot",
-  hideLabel = false,
-  hideIndicator = false,
-  label,
-  labelFormatter,
-  labelClassName,
-  formatter,
-  color,
-  nameKey,
-  labelKey,
-}: React.ComponentProps<typeof Tooltip> &
-  React.ComponentProps<"div"> & {
-    hideLabel?: boolean;
-    hideIndicator?: boolean;
-    indicator?: "line" | "dot" | "dashed";
-    nameKey?: string;
-    labelKey?: string;
-  } & Omit<
-    DefaultTooltipContentProps<TooltipValueType, TooltipNameType>,
-    "accessibilityLayer"
-  >) {
-  const { config } = useChart();
-
-  const tooltipLabel = React.useMemo(() => {
-    if (hideLabel || !payload?.length) {
-      return null;
-    }
-
-    const [item] = payload;
-    const key = `${labelKey ?? item?.dataKey ?? item?.name ?? "value"}`;
-    const itemConfig = getPayloadConfigFromPayload(config, item, key);
-    const value =
-      !labelKey && typeof label === "string"
-        ? (config[label]?.label ?? label)
-        : itemConfig?.label;
-
-    if (labelFormatter) {
-      return (
-        <div className={cn("font-medium", labelClassName)}>
-          {labelFormatter(value, payload)}
-        </div>
-      );
-    }
-
-    if (!value) {
-      return null;
-    }
-
-    return <div className={cn("font-medium", labelClassName)}>{value}</div>;
-  }, [
+const ChartTooltipContent = /* @__PURE__ */ withRef(
+  function ChartTooltipContent({
+    active,
+    payload,
+    className,
+    indicator = "dot",
+    hideLabel = false,
+    hideIndicator = false,
     label,
     labelFormatter,
-    payload,
-    hideLabel,
     labelClassName,
-    config,
+    formatter,
+    color,
+    nameKey,
     labelKey,
-  ]);
+  }: React.ComponentProps<typeof Tooltip> &
+    React.ComponentProps<"div"> & {
+      hideLabel?: boolean;
+      hideIndicator?: boolean;
+      indicator?: "line" | "dot" | "dashed";
+      nameKey?: string;
+      labelKey?: string;
+    } & Omit<
+      DefaultTooltipContentProps<TooltipValueType, TooltipNameType>,
+      "accessibilityLayer"
+    >) {
+    const { config } = useChart();
 
-  if (!active || !payload?.length) {
-    return null;
-  }
+    const tooltipLabel = React.useMemo(() => {
+      if (hideLabel || !payload?.length) {
+        return null;
+      }
 
-  const nestLabel = payload.length === 1 && indicator !== "dot";
+      const [item] = payload;
+      const key = `${labelKey ?? item?.dataKey ?? item?.name ?? "value"}`;
+      const itemConfig = getPayloadConfigFromPayload(config, item, key);
+      const value =
+        !labelKey && typeof label === "string"
+          ? (config[label]?.label ?? label)
+          : itemConfig?.label;
 
-  return (
-    <div
-      role="status"
-      aria-live="polite"
-      className={cn(
-        "grid min-w-44 items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-2xs shadow-xl",
-        className,
-      )}
-    >
-      {!nestLabel ? tooltipLabel : null}
-      <div className="grid gap-1.5">
-        {payload
-          .filter((item) => item.type !== "none")
-          .map((item, index) => {
-            const key = `${nameKey ?? item.name ?? item.dataKey ?? "value"}`;
-            const itemConfig = getPayloadConfigFromPayload(config, item, key);
-            const indicatorColor = color ?? item.payload?.fill ?? item.color;
+      if (labelFormatter) {
+        return (
+          <div className={cn("font-medium", labelClassName)}>
+            {labelFormatter(value, payload)}
+          </div>
+        );
+      }
 
-            return (
-              <div
-                key={index}
-                className={cn(
-                  "flex w-full flex-nowrap items-center gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
-                  indicator === "dot" && "items-center",
-                )}
-              >
-                {formatter && item?.value !== undefined && item.name ? (
-                  <div className="min-w-0 w-full flex-1">
-                    {formatter(
-                      item.value,
-                      item.name,
-                      item,
-                      index,
-                      item.payload,
-                    )}
-                  </div>
-                ) : (
-                  <>
-                    {itemConfig?.icon ? (
-                      <itemConfig.icon />
-                    ) : (
-                      !hideIndicator && (
-                        <div
-                          className={cn(
-                            "shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg)",
-                            {
-                              "h-2.5 w-2.5": indicator === "dot",
-                              "w-1": indicator === "line",
-                              "w-0 border-[1.5px] border-dashed bg-transparent":
-                                indicator === "dashed",
-                              "my-0.5": nestLabel && indicator === "dashed",
-                            },
-                          )}
-                          style={
-                            {
-                              "--color-bg": indicatorColor,
-                              "--color-border": indicatorColor,
-                            } as React.CSSProperties
-                          }
-                        />
-                      )
-                    )}
-                    <div
-                      className={cn(
-                        "flex min-w-0 flex-1 items-center gap-4 leading-none",
-                        nestLabel && "items-end",
-                      )}
-                    >
-                      <div className="grid min-w-0 flex-1 gap-1.5">
-                        {nestLabel ? tooltipLabel : null}
-                        <span className="text-muted-foreground">
-                          {itemConfig?.label ?? item.name}
-                        </span>
-                      </div>
-                      {item.value != null && (
-                        <span className="shrink-0 font-mono font-medium text-foreground tabular-nums">
-                          {typeof item.value === "number"
-                            ? item.value.toLocaleString()
-                            : String(item.value)}
-                        </span>
+      if (!value) {
+        return null;
+      }
+
+      return <div className={cn("font-medium", labelClassName)}>{value}</div>;
+    }, [
+      label,
+      labelFormatter,
+      payload,
+      hideLabel,
+      labelClassName,
+      config,
+      labelKey,
+    ]);
+
+    if (!active || !payload?.length) {
+      return null;
+    }
+
+    const nestLabel = payload.length === 1 && indicator !== "dot";
+
+    return (
+      <div
+        role="status"
+        aria-live="polite"
+        className={cn(
+          "grid min-w-44 items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-2xs shadow-xl",
+          className,
+        )}
+      >
+        {!nestLabel ? tooltipLabel : null}
+        <div className="grid gap-1.5">
+          {payload
+            .filter((item) => item.type !== "none")
+            .map((item, index) => {
+              const key = `${nameKey ?? item.name ?? item.dataKey ?? "value"}`;
+              const itemConfig = getPayloadConfigFromPayload(config, item, key);
+              const indicatorColor = color ?? item.payload?.fill ?? item.color;
+
+              return (
+                <div
+                  key={index}
+                  className={cn(
+                    "flex w-full flex-nowrap items-center gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5 [&>svg]:text-muted-foreground",
+                    indicator === "dot" && "items-center",
+                  )}
+                >
+                  {formatter && item?.value !== undefined && item.name ? (
+                    <div className="min-w-0 w-full flex-1">
+                      {formatter(
+                        item.value,
+                        item.name,
+                        item,
+                        index,
+                        item.payload,
                       )}
                     </div>
-                  </>
-                )}
-              </div>
-            );
-          })}
+                  ) : (
+                    <>
+                      {itemConfig?.icon ? (
+                        <itemConfig.icon />
+                      ) : (
+                        !hideIndicator && (
+                          <div
+                            className={cn(
+                              "shrink-0 rounded-[2px] border-(--color-border) bg-(--color-bg)",
+                              {
+                                "h-2.5 w-2.5": indicator === "dot",
+                                "w-1": indicator === "line",
+                                "w-0 border-[1.5px] border-dashed bg-transparent":
+                                  indicator === "dashed",
+                                "my-0.5": nestLabel && indicator === "dashed",
+                              },
+                            )}
+                            style={
+                              {
+                                "--color-bg": indicatorColor,
+                                "--color-border": indicatorColor,
+                              } as React.CSSProperties
+                            }
+                          />
+                        )
+                      )}
+                      <div
+                        className={cn(
+                          "flex min-w-0 flex-1 items-center gap-4 leading-none",
+                          nestLabel && "items-end",
+                        )}
+                      >
+                        <div className="grid min-w-0 flex-1 gap-1.5">
+                          {nestLabel ? tooltipLabel : null}
+                          <span className="text-muted-foreground">
+                            {itemConfig?.label ?? item.name}
+                          </span>
+                        </div>
+                        {item.value != null && (
+                          <span className="shrink-0 font-mono font-medium text-foreground tabular-nums">
+                            {typeof item.value === "number"
+                              ? item.value.toLocaleString()
+                              : String(item.value)}
+                          </span>
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
+              );
+            })}
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  },
+);
 
 type ChartTooltipPayloadItem = NonNullable<
   DefaultTooltipContentProps<TooltipValueType, TooltipNameType>["payload"]
@@ -499,93 +502,99 @@ function ChartTooltipItems({
   );
 }
 
-function ChartTooltipGroupedContent({
-  active,
-  payload,
-  className,
-  indicator = "dot",
-  hideIndicator = false,
-  label,
-  labelFormatter,
-  labelClassName,
-  formatter,
-  color,
-  nameKey,
-  primaryTitle,
-  compareTitle,
-  isCompareSeries = (dataKey) => dataKey.startsWith("compare"),
-}: React.ComponentProps<typeof Tooltip> &
-  React.ComponentProps<"div"> & {
-    hideIndicator?: boolean;
-    indicator?: "line" | "dot" | "dashed";
-    nameKey?: string;
-    primaryTitle: string;
-    compareTitle: string;
-    isCompareSeries?: (dataKey: string) => boolean;
-  } & Omit<
-    DefaultTooltipContentProps<TooltipValueType, TooltipNameType>,
-    "accessibilityLayer"
-  >) {
-  if (!active || !payload?.length) {
-    return null;
-  }
-
-  const visiblePayload = payload.filter((item) => item.type !== "none");
-  const primaryPayload: ChartTooltipPayloadItem[] = [];
-  const comparePayload: ChartTooltipPayloadItem[] = [];
-
-  for (const item of visiblePayload) {
-    const dataKey = String(item.dataKey ?? "");
-    if (isCompareSeries(dataKey)) {
-      comparePayload.push(item);
-    } else {
-      primaryPayload.push(item);
-    }
-  }
-
-  const labelContent =
-    label != null ? (
-      <div
-        className={cn(
-          "border-b border-border pb-1.5 font-medium",
-          labelClassName,
-        )}
-      >
-        {labelFormatter ? labelFormatter(label, payload) : label}
-      </div>
-    ) : null;
-
-  const itemProps = {
-    indicator,
-    hideIndicator,
+const ChartTooltipGroupedContent = /* @__PURE__ */ withRef(
+  function ChartTooltipGroupedContent({
+    active,
+    payload,
+    className,
+    indicator = "dot",
+    hideIndicator = false,
+    label,
+    labelFormatter,
+    labelClassName,
+    formatter,
     color,
     nameKey,
-    formatter,
-  };
+    primaryTitle,
+    compareTitle,
+    isCompareSeries = (dataKey) => dataKey.startsWith("compare"),
+  }: React.ComponentProps<typeof Tooltip> &
+    React.ComponentProps<"div"> & {
+      hideIndicator?: boolean;
+      indicator?: "line" | "dot" | "dashed";
+      nameKey?: string;
+      primaryTitle: string;
+      compareTitle: string;
+      isCompareSeries?: (dataKey: string) => boolean;
+    } & Omit<
+      DefaultTooltipContentProps<TooltipValueType, TooltipNameType>,
+      "accessibilityLayer"
+    >) {
+    if (!active || !payload?.length) {
+      return null;
+    }
 
-  return (
-    <div
-      role="status"
-      aria-live="polite"
-      className={cn(
-        "grid min-w-44 items-start gap-2 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-2xs shadow-xl",
-        className,
-      )}
-    >
-      {labelContent}
-      <div className="grid gap-2">
-        <div className="grid gap-1">
-          <p className="truncate font-medium text-foreground">{primaryTitle}</p>
-          <ChartTooltipItems payload={primaryPayload} {...itemProps} />
+    const visiblePayload = payload.filter((item) => item.type !== "none");
+    const primaryPayload: ChartTooltipPayloadItem[] = [];
+    const comparePayload: ChartTooltipPayloadItem[] = [];
+
+    for (const item of visiblePayload) {
+      const dataKey = String(item.dataKey ?? "");
+      if (isCompareSeries(dataKey)) {
+        comparePayload.push(item);
+      } else {
+        primaryPayload.push(item);
+      }
+    }
+
+    const labelContent =
+      label != null ? (
+        <div
+          className={cn(
+            "border-b border-border pb-1.5 font-medium",
+            labelClassName,
+          )}
+        >
+          {labelFormatter ? labelFormatter(label, payload) : label}
         </div>
-        <div className="grid gap-1">
-          <p className="truncate font-medium text-foreground">{compareTitle}</p>
-          <ChartTooltipItems payload={comparePayload} {...itemProps} />
+      ) : null;
+
+    const itemProps = {
+      indicator,
+      hideIndicator,
+      color,
+      nameKey,
+      formatter,
+    };
+
+    return (
+      <div
+        role="status"
+        aria-live="polite"
+        className={cn(
+          "grid min-w-44 items-start gap-2 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-2xs shadow-xl",
+          className,
+        )}
+      >
+        {labelContent}
+        <div className="grid gap-2">
+          <div className="grid gap-1">
+            <p className="truncate font-medium text-foreground">
+              {primaryTitle}
+            </p>
+            <ChartTooltipItems payload={primaryPayload} {...itemProps} />
+          </div>
+          <div className="grid gap-1">
+            <p className="truncate font-medium text-foreground">
+              {compareTitle}
+            </p>
+            <ChartTooltipItems payload={comparePayload} {...itemProps} />
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  },
+);
 
 const ChartLegend = Legend;
 
@@ -596,7 +605,7 @@ type ChartLegendGroup = {
   payload: ChartLegendPayload;
 };
 
-function ChartLegendContent({
+const ChartLegendContent = /* @__PURE__ */ withRef(function ChartLegendContent({
   className,
   hideIcon = false,
   payload,
@@ -649,52 +658,54 @@ function ChartLegendContent({
         })}
     </div>
   );
-}
+});
 
-function ChartLegendGroupedContent({
-  className,
-  groups,
-  hideIcon = false,
-  nameKey,
-  verticalAlign = "bottom",
-}: React.ComponentProps<"div"> & {
-  groups: ChartLegendGroup[];
-  hideIcon?: boolean;
-  nameKey?: string;
-  verticalAlign?: "top" | "bottom";
-}) {
-  if (!groups.length) {
-    return null;
-  }
+const ChartLegendGroupedContent = /* @__PURE__ */ withRef(
+  function ChartLegendGroupedContent({
+    className,
+    groups,
+    hideIcon = false,
+    nameKey,
+    verticalAlign = "bottom",
+  }: React.ComponentProps<"div"> & {
+    groups: ChartLegendGroup[];
+    hideIcon?: boolean;
+    nameKey?: string;
+    verticalAlign?: "top" | "bottom";
+  }) {
+    if (!groups.length) {
+      return null;
+    }
 
-  return (
-    <div
-      className={cn(
-        "flex w-full flex-col items-center gap-2",
-        verticalAlign === "top" ? "pb-3" : "pt-3",
-        className,
-      )}
-    >
-      {groups.map((group) => (
-        <div
-          key={group.title}
-          className="flex w-full max-w-full flex-col items-center gap-1"
-        >
-          <p className="max-w-full truncate text-center text-2xs font-medium text-foreground">
-            {group.title}
-          </p>
-          <ChartLegendContent
-            payload={group.payload}
-            hideIcon={hideIcon}
-            nameKey={nameKey}
-            verticalAlign={verticalAlign}
-            className="justify-center pt-0"
-          />
-        </div>
-      ))}
-    </div>
-  );
-}
+    return (
+      <div
+        className={cn(
+          "flex w-full flex-col items-center gap-2",
+          verticalAlign === "top" ? "pb-3" : "pt-3",
+          className,
+        )}
+      >
+        {groups.map((group) => (
+          <div
+            key={group.title}
+            className="flex w-full max-w-full flex-col items-center gap-1"
+          >
+            <p className="max-w-full truncate text-center text-2xs font-medium text-foreground">
+              {group.title}
+            </p>
+            <ChartLegendContent
+              payload={group.payload}
+              hideIcon={hideIcon}
+              nameKey={nameKey}
+              verticalAlign={verticalAlign}
+              className="justify-center pt-0"
+            />
+          </div>
+        ))}
+      </div>
+    );
+  },
+);
 
 /**
  * Headline metric: primary value + optional muted label. Place above `ChartContainer`

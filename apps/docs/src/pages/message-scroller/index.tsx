@@ -149,8 +149,6 @@ import { Bubble, BubbleContent } from "@gecko/ui/components/bubble"`;
   const animationSnippet = `import { motion } from "motion/react"
 import { MESSAGE_ANIMATIONS } from "@gecko/ui/lib/message-animations"
 
-const MotionItem = motion.create(MessageScrollerItem)
-
 <MessageScrollerProvider>
   <MessageScroller>
     <MessageScrollerViewport>
@@ -159,25 +157,28 @@ const MotionItem = motion.create(MessageScrollerItem)
           const isUser = message.role === "user"
 
           return (
-            <MotionItem
+            <MessageScrollerItem
               key={message.id}
               messageId={message.id}
               scrollAnchor={isUser}
-              variants={MESSAGE_ANIMATIONS.pop.variants}
-              initial={isUser ? "initial" : false}
-              animate="animate"
             >
-              <Message
-                variant={isUser ? "user" : "ai"}
-                align={isUser ? "end" : "start"}
+              <motion.div
+                variants={MESSAGE_ANIMATIONS.pop.variants}
+                initial={isUser ? "initial" : false}
+                animate="animate"
               >
-                <MessageContent>
-                  <Bubble>
-                    <BubbleContent>{message.text}</BubbleContent>
-                  </Bubble>
-                </MessageContent>
-              </Message>
-            </MotionItem>
+                <Message
+                  variant={isUser ? "user" : "ai"}
+                  align={isUser ? "end" : "start"}
+                >
+                  <MessageContent>
+                    <Bubble>
+                      <BubbleContent>{message.text}</BubbleContent>
+                    </Bubble>
+                  </MessageContent>
+                </Message>
+              </motion.div>
+            </MessageScrollerItem>
           )
         })}
       </MessageScrollerContent>
@@ -391,8 +392,8 @@ function ScrollEdges() {
         title="Animating new messages"
         description={
           <>
-            Compose <Code>MessageScrollerItem</Code> with motion presets
-            directly. User messages animate on send; assistant replies stream in
+            Keep <Code>MessageScrollerItem</Code> stationary and apply motion
+            presets to a child element. User messages animate on send; assistant replies stream in
             below without an entrance animation.
           </>
         }

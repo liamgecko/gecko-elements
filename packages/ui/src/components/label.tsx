@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 
@@ -9,7 +10,7 @@ type LabelProps = React.ComponentProps<"label"> & {
   hideRequiredMarker?: boolean;
 };
 
-function Label({
+const Label = /* @__PURE__ */ withRef(function Label({
   className,
   htmlFor,
   children,
@@ -61,13 +62,13 @@ function Label({
       )}
     </label>
   );
-}
+});
 
-function ControlLabel({
+const ControlLabel = /* @__PURE__ */ withRef(function ControlLabel({
   className,
   ...props
 }: React.ComponentProps<typeof Label>) {
   return <Label className={cn("text-sm", className)} {...props} />;
-}
+});
 
 export { Label, ControlLabel };

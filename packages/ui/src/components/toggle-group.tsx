@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
@@ -29,7 +30,7 @@ const ToggleGroupContext = React.createContext<
   orientation: "horizontal",
 });
 
-function ToggleGroup({
+const ToggleGroup = /* @__PURE__ */ withRef(function ToggleGroup({
   className,
   variant = "outline",
   size,
@@ -68,9 +69,9 @@ function ToggleGroup({
       </ToggleGroupContext.Provider>
     </ToggleGroupPrimitive>
   );
-}
+});
 
-function ToggleGroupItem({
+const ToggleGroupItem = /* @__PURE__ */ withRef(function ToggleGroupItem({
   className,
   children,
   variant = "outline",
@@ -149,6 +150,6 @@ function ToggleGroupItem({
       )}
     </TogglePrimitive>
   );
-}
+});
 
 export { ToggleGroup, ToggleGroupItem };

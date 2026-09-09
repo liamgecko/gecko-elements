@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import { cn } from "@gecko/ui/lib/utils";
 
 type SpinnerSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -14,7 +15,11 @@ type SpinnerProps = React.ComponentProps<"svg"> & {
   size?: SpinnerSize;
 };
 
-function Spinner({ className, size = "md", ...props }: SpinnerProps) {
+const Spinner = /* @__PURE__ */ withRef(function Spinner({
+  className,
+  size = "md",
+  ...props
+}: SpinnerProps) {
   return (
     <svg
       data-slot="spinner"
@@ -37,6 +42,6 @@ function Spinner({ className, size = "md", ...props }: SpinnerProps) {
       <path d="M21 12a9 9 0 1 1-6.219-8.56" />
     </svg>
   );
-}
+});
 
 export { Spinner };

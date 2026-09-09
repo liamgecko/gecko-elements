@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
@@ -7,7 +8,10 @@ import ChevronRightIcon from "@hugeicons/core-free-icons/ChevronRightIcon";
 import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
 import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
+const Breadcrumb = /* @__PURE__ */ withRef(function Breadcrumb({
+  className,
+  ...props
+}: React.ComponentProps<"nav">) {
   return (
     <nav
       aria-label="breadcrumb"
@@ -16,9 +20,12 @@ function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
       {...props}
     />
   );
-}
+});
 
-function BreadcrumbList({ className, ...props }: React.ComponentProps<"ol">) {
+const BreadcrumbList = /* @__PURE__ */ withRef(function BreadcrumbList({
+  className,
+  ...props
+}: React.ComponentProps<"ol">) {
   return (
     <ol
       data-slot="breadcrumb-list"
@@ -29,9 +36,12 @@ function BreadcrumbList({ className, ...props }: React.ComponentProps<"ol">) {
       {...props}
     />
   );
-}
+});
 
-function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
+const BreadcrumbItem = /* @__PURE__ */ withRef(function BreadcrumbItem({
+  className,
+  ...props
+}: React.ComponentProps<"li">) {
   return (
     <li
       data-slot="breadcrumb-item"
@@ -39,9 +49,9 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
       {...props}
     />
   );
-}
+});
 
-function BreadcrumbLink({
+const BreadcrumbLink = /* @__PURE__ */ withRef(function BreadcrumbLink({
   className,
   render,
   children,
@@ -61,9 +71,12 @@ function BreadcrumbLink({
       slot: "breadcrumb-link",
     },
   });
-}
+});
 
-function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {
+const BreadcrumbPage = /* @__PURE__ */ withRef(function BreadcrumbPage({
+  className,
+  ...props
+}: React.ComponentProps<"span">) {
   return (
     <span
       data-slot="breadcrumb-page"
@@ -72,29 +85,31 @@ function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {
       {...props}
     />
   );
-}
+});
 
-function BreadcrumbSeparator({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<"li">) {
-  return (
-    <li
-      data-slot="breadcrumb-separator"
-      role="presentation"
-      aria-hidden="true"
-      className={cn("[&>svg]:size-3.5", className)}
-      {...props}
-    >
-      {children ?? (
-        <HugeiconsIcon icon={ChevronRightIcon} className="rtl:rotate-180" />
-      )}
-    </li>
-  );
-}
+const BreadcrumbSeparator = /* @__PURE__ */ withRef(
+  function BreadcrumbSeparator({
+    children,
+    className,
+    ...props
+  }: React.ComponentProps<"li">) {
+    return (
+      <li
+        data-slot="breadcrumb-separator"
+        role="presentation"
+        aria-hidden="true"
+        className={cn("[&>svg]:size-3.5", className)}
+        {...props}
+      >
+        {children ?? (
+          <HugeiconsIcon icon={ChevronRightIcon} className="rtl:rotate-180" />
+        )}
+      </li>
+    );
+  },
+);
 
-function BreadcrumbEllipsis({
+const BreadcrumbEllipsis = /* @__PURE__ */ withRef(function BreadcrumbEllipsis({
   className,
   ...props
 }: React.ComponentProps<"span">) {
@@ -112,7 +127,7 @@ function BreadcrumbEllipsis({
       <HugeiconsIcon icon={EllipsisIcon} />
     </span>
   );
-}
+});
 
 export {
   Breadcrumb,

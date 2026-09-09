@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import Circle from "@hugeicons/core-free-icons/CircleIcon";
@@ -35,7 +36,7 @@ function SlashedIcon({ icon }: { icon: IconSvgElement }) {
   );
 }
 
-function AppHeader({
+const AppHeader = /* @__PURE__ */ withRef(function AppHeader({
   className,
   children,
   ...props
@@ -54,14 +55,14 @@ function AppHeader({
       </div>
     </header>
   );
-}
+});
 
 type AppHeaderLogoProps = Omit<React.ComponentProps<"img">, "children"> & {
   /** Custom logo content. When set, `src` is ignored. */
   children?: React.ReactNode;
 };
 
-function AppHeaderLogo({
+const AppHeaderLogo = /* @__PURE__ */ withRef(function AppHeaderLogo({
   className,
   alt = "Gecko",
   draggable = false,
@@ -85,9 +86,9 @@ function AppHeaderLogo({
       {...props}
     />
   );
-}
+});
 
-function AppHeaderActions({
+const AppHeaderActions = /* @__PURE__ */ withRef(function AppHeaderActions({
   className,
   children,
   ...props
@@ -117,7 +118,7 @@ function AppHeaderActions({
       ))}
     </div>
   );
-}
+});
 
 type AppHeaderAccountItem = {
   id?: string;

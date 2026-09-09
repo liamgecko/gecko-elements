@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox-group";
@@ -47,7 +48,7 @@ type CheckboxGroupProps = CheckboxGroupPrimitive.Props & {
 
 const CheckboxGroupContext = React.createContext(false);
 
-function Checkbox({
+const Checkbox = /* @__PURE__ */ withRef(function Checkbox({
   className,
   asButton,
   label,
@@ -196,9 +197,9 @@ function Checkbox({
       </div>
     </label>
   );
-}
+});
 
-function CheckboxGroup({
+const CheckboxGroup = /* @__PURE__ */ withRef(function CheckboxGroup({
   className,
   label,
   description,
@@ -273,7 +274,7 @@ function CheckboxGroup({
       </CheckboxGroupContext.Provider>
     </fieldset>
   );
-}
+});
 
 // eslint-disable-next-line react-refresh/only-export-components -- cva styles are intentionally exported from this module.
 export { Checkbox, CheckboxGroup, asButtonCheckboxVariants };

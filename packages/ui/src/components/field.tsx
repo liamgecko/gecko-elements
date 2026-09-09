@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import { useMemo } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -9,7 +10,10 @@ import { Separator } from "@gecko/ui/components/separator";
 import CircleAlert from "@hugeicons/core-free-icons/AlertCircleIcon";
 import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
+const FieldSet = /* @__PURE__ */ withRef(function FieldSet({
+  className,
+  ...props
+}: React.ComponentProps<"fieldset">) {
   return (
     <fieldset
       data-slot="field-set"
@@ -20,9 +24,9 @@ function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
       {...props}
     />
   );
-}
+});
 
-function FieldLegend({
+const FieldLegend = /* @__PURE__ */ withRef(function FieldLegend({
   className,
   variant = "legend",
   ...props
@@ -38,9 +42,12 @@ function FieldLegend({
       {...props}
     />
   );
-}
+});
 
-function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
+const FieldGroup = /* @__PURE__ */ withRef(function FieldGroup({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="field-group"
@@ -51,7 +58,7 @@ function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
 const fieldVariants = cva(
   "data-[invalid=true]:text-destructive gap-1 has-[>[data-slot=checkbox]]:gap-2 has-[>[data-slot=radio-group-item]]:gap-2 group/field flex w-full",
@@ -71,7 +78,7 @@ const fieldVariants = cva(
   },
 );
 
-function Field({
+const Field = /* @__PURE__ */ withRef(function Field({
   className,
   orientation = "vertical",
   ...props
@@ -85,9 +92,12 @@ function Field({
       {...props}
     />
   );
-}
+});
 
-function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
+const FieldContent = /* @__PURE__ */ withRef(function FieldContent({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="field-content"
@@ -104,9 +114,9 @@ function FieldContent({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function FieldLabel({
+const FieldLabel = /* @__PURE__ */ withRef(function FieldLabel({
   className,
   ...props
 }: React.ComponentProps<typeof Label>) {
@@ -122,9 +132,12 @@ function FieldLabel({
       {...props}
     />
   );
-}
+});
 
-function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
+const FieldTitle = /* @__PURE__ */ withRef(function FieldTitle({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="field-label"
@@ -135,9 +148,12 @@ function FieldTitle({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
+const FieldDescription = /* @__PURE__ */ withRef(function FieldDescription({
+  className,
+  ...props
+}: React.ComponentProps<"p">) {
   return (
     <p
       data-slot="field-description"
@@ -150,9 +166,9 @@ function FieldDescription({ className, ...props }: React.ComponentProps<"p">) {
       {...props}
     />
   );
-}
+});
 
-function FieldSeparator({
+const FieldSeparator = /* @__PURE__ */ withRef(function FieldSeparator({
   children,
   className,
   ...props
@@ -180,9 +196,9 @@ function FieldSeparator({
       )}
     </div>
   );
-}
+});
 
-function FieldError({
+const FieldError = /* @__PURE__ */ withRef(function FieldError({
   className,
   children,
   errors,
@@ -239,7 +255,7 @@ function FieldError({
       <span className="min-w-0">{content}</span>
     </div>
   );
-}
+});
 
 export {
   Field,

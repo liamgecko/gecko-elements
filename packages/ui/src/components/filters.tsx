@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import ArrowDownWideNarrow from "@hugeicons/core-free-icons/ArrowDownWideNarrowIcon";
@@ -200,7 +201,7 @@ function applyClearCategory(
   };
 }
 
-export function Filter({
+export const Filter = /* @__PURE__ */ withRef(function Filter({
   className,
   categories,
   triggerLabel = "Filter",
@@ -520,11 +521,11 @@ export function Filter({
       )}
     </div>
   );
-}
+});
 
 export { Filter as Filters };
 
-export function Sort({
+export const Sort = /* @__PURE__ */ withRef(function Sort({
   className,
   options,
   value,
@@ -585,7 +586,7 @@ export function Sort({
       </DropdownMenu>
     </div>
   );
-}
+});
 
 export type DateRangeFilterPreset = {
   id: string;
@@ -656,242 +657,244 @@ export type DateRangeFilterProps = Omit<
   closeOnSelect?: boolean;
 };
 
-export function DateRangeFilter({
-  className,
-  triggerLabel = "Filter by date",
-  customLabel = "Custom",
-  presets,
-  value,
-  onChange,
-  closeOnSelect = true,
-  ...props
-}: DateRangeFilterProps) {
-  const resolvedPresets = React.useMemo<readonly DateRangeFilterPreset[]>(
-    () =>
-      presets ?? [
-        {
-          id: "last-24-hours",
-          label: "Past 24 hours",
-          getRange: (now) => ({
-            from: new Date(now.getTime() - 24 * 60 * 60 * 1000),
-            to: now,
-          }),
-        },
-        {
-          id: "last-7-days",
-          label: "Past 7 days",
-          getRange: (now) => ({
-            from: new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000),
-            to: now,
-          }),
-        },
-        {
-          id: "last-4-weeks",
-          label: "Past 4 weeks",
-          getRange: (now) => ({
-            from: new Date(now.getTime() - 28 * 24 * 60 * 60 * 1000),
-            to: now,
-          }),
-        },
-        {
-          id: "last-3-months",
-          label: "Past 3 months",
-          getRange: (now) => ({
-            from: new Date(
-              now.getFullYear(),
-              now.getMonth() - 3,
-              now.getDate(),
-              now.getHours(),
-              now.getMinutes(),
-            ),
-            to: now,
-          }),
-        },
-      ],
-    [presets],
-  );
-
-  const [selectedPreset, setSelectedPreset] = React.useState<{
-    id: string;
-    range: DateRange;
-  } | null>(null);
-
-  const [customRange, setCustomRange] = React.useState<DateRange | undefined>(
-    undefined,
-  );
-  const [calendarMonth, setCalendarMonth] = React.useState<Date>(
-    () => value?.from ?? new Date(),
-  );
-
-  const selectedPresetMatchesValue =
-    Boolean(selectedPreset?.range.from && selectedPreset.range.to) &&
-    selectedPreset?.range.from?.getTime() === value?.from?.getTime() &&
-    selectedPreset?.range.to?.getTime() === value?.to?.getTime();
-
-  const resolvedTriggerLabel = React.useMemo(() => {
-    if (!value?.from || !value?.to) return triggerLabel;
-
-    const preset = selectedPresetMatchesValue
-      ? resolvedPresets.find((p) => p.id === selectedPreset?.id)
-      : undefined;
-    if (preset) return preset.label;
-
-    // Custom selected: show formatted range
-    return formatRangeForLabel(value);
-  }, [
-    resolvedPresets,
-    selectedPreset?.id,
-    selectedPresetMatchesValue,
-    triggerLabel,
+export const DateRangeFilter = /* @__PURE__ */ withRef(
+  function DateRangeFilter({
+    className,
+    triggerLabel = "Filter by date",
+    customLabel = "Custom",
+    presets,
     value,
-  ]);
+    onChange,
+    closeOnSelect = true,
+    ...props
+  }: DateRangeFilterProps) {
+    const resolvedPresets = React.useMemo<readonly DateRangeFilterPreset[]>(
+      () =>
+        presets ?? [
+          {
+            id: "last-24-hours",
+            label: "Past 24 hours",
+            getRange: (now) => ({
+              from: new Date(now.getTime() - 24 * 60 * 60 * 1000),
+              to: now,
+            }),
+          },
+          {
+            id: "last-7-days",
+            label: "Past 7 days",
+            getRange: (now) => ({
+              from: new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000),
+              to: now,
+            }),
+          },
+          {
+            id: "last-4-weeks",
+            label: "Past 4 weeks",
+            getRange: (now) => ({
+              from: new Date(now.getTime() - 28 * 24 * 60 * 60 * 1000),
+              to: now,
+            }),
+          },
+          {
+            id: "last-3-months",
+            label: "Past 3 months",
+            getRange: (now) => ({
+              from: new Date(
+                now.getFullYear(),
+                now.getMonth() - 3,
+                now.getDate(),
+                now.getHours(),
+                now.getMinutes(),
+              ),
+              to: now,
+            }),
+          },
+        ],
+      [presets],
+    );
 
-  const handlePresetSelect = React.useCallback(
-    (presetId: string) => {
-      const preset = resolvedPresets.find((p) => p.id === presetId);
-      if (!preset) return;
-      const range = preset.getRange(new Date());
-      setSelectedPreset({ id: presetId, range });
-      setCustomRange(range);
-      onChange?.(range);
-    },
-    [onChange, resolvedPresets],
-  );
+    const [selectedPreset, setSelectedPreset] = React.useState<{
+      id: string;
+      range: DateRange;
+    } | null>(null);
 
-  const handleCustomChange = React.useCallback(
-    (next: DateRange | undefined) => {
-      if (!next?.from || !next?.to) {
+    const [customRange, setCustomRange] = React.useState<DateRange | undefined>(
+      undefined,
+    );
+    const [calendarMonth, setCalendarMonth] = React.useState<Date>(
+      () => value?.from ?? new Date(),
+    );
+
+    const selectedPresetMatchesValue =
+      Boolean(selectedPreset?.range.from && selectedPreset.range.to) &&
+      selectedPreset?.range.from?.getTime() === value?.from?.getTime() &&
+      selectedPreset?.range.to?.getTime() === value?.to?.getTime();
+
+    const resolvedTriggerLabel = React.useMemo(() => {
+      if (!value?.from || !value?.to) return triggerLabel;
+
+      const preset = selectedPresetMatchesValue
+        ? resolvedPresets.find((p) => p.id === selectedPreset?.id)
+        : undefined;
+      if (preset) return preset.label;
+
+      // Custom selected: show formatted range
+      return formatRangeForLabel(value);
+    }, [
+      resolvedPresets,
+      selectedPreset?.id,
+      selectedPresetMatchesValue,
+      triggerLabel,
+      value,
+    ]);
+
+    const handlePresetSelect = React.useCallback(
+      (presetId: string) => {
+        const preset = resolvedPresets.find((p) => p.id === presetId);
+        if (!preset) return;
+        const range = preset.getRange(new Date());
+        setSelectedPreset({ id: presetId, range });
+        setCustomRange(range);
+        onChange?.(range);
+      },
+      [onChange, resolvedPresets],
+    );
+
+    const handleCustomChange = React.useCallback(
+      (next: DateRange | undefined) => {
+        if (!next?.from || !next?.to) {
+          setCustomRange(next);
+          // Don’t call onChange until we have a complete range.
+          return;
+        }
+
+        setSelectedPreset(null);
         setCustomRange(next);
-        // Don’t call onChange until we have a complete range.
-        return;
-      }
+        onChange?.(next);
+      },
+      [onChange],
+    );
 
+    const [open, setOpen] = React.useState(false);
+    const [showCustom, setShowCustom] = React.useState(false);
+
+    const clearRange = React.useCallback(() => {
       setSelectedPreset(null);
-      setCustomRange(next);
-      onChange?.(next);
-    },
-    [onChange],
-  );
+      setCustomRange(undefined);
+      setCalendarMonth(new Date());
+      onChange?.(undefined);
+      setOpen(false);
+    }, [onChange]);
 
-  const [open, setOpen] = React.useState(false);
-  const [showCustom, setShowCustom] = React.useState(false);
-
-  const clearRange = React.useCallback(() => {
-    setSelectedPreset(null);
-    setCustomRange(undefined);
-    setCalendarMonth(new Date());
-    onChange?.(undefined);
-    setOpen(false);
-  }, [onChange]);
-
-  return (
-    <div
-      className={cn("flex flex-wrap items-center gap-2", className)}
-      {...props}
-    >
-      <Popover
-        open={open}
-        onOpenChange={(nextOpen) => {
-          if (nextOpen) {
-            setCustomRange(value);
-            setCalendarMonth(value?.from ?? new Date());
-          }
-          setOpen(nextOpen);
-        }}
+    return (
+      <div
+        className={cn("flex flex-wrap items-center gap-2", className)}
+        {...props}
       >
-        <PopoverTrigger
-          render={
-            <Button variant="outline" size="sm" className="gap-2">
-              <HugeiconsIcon
-                icon={ListFilterPlus}
-                aria-hidden="true"
-                className="size-4"
-              />
-              {resolvedTriggerLabel}
-            </Button>
-          }
-        />
-        <PopoverContent align="start" className="w-auto gap-0 p-0">
-          <div className="flex flex-col md:flex-row">
-            <div className="flex min-w-52 flex-col gap-1 p-1">
-              {resolvedPresets.map((preset) => {
-                const isSelected =
-                  selectedPresetMatchesValue &&
-                  selectedPreset?.id === preset.id;
-
-                return (
-                  <Button
-                    key={preset.id}
-                    variant="ghost"
-                    size="sm"
-                    className="w-full justify-start"
-                    aria-pressed={isSelected}
-                    onClick={() => {
-                      handlePresetSelect(preset.id);
-                      if (closeOnSelect) setOpen(false);
-                    }}
-                  >
-                    <HugeiconsIcon
-                      icon={Check}
-                      className={cn("size-3.5", !isSelected && "invisible")}
-                      aria-hidden="true"
-                    />
-                    {preset.label}
-                  </Button>
-                );
-              })}
-              <Separator />
-              <Button
-                variant="ghost"
-                size="sm"
-                className="justify-start"
-                aria-expanded={showCustom}
-                onClick={() => {
-                  setSelectedPreset(null);
-                  setShowCustom((current) => !current);
-                }}
-              >
-                <span className="size-3.5" aria-hidden="true" />
-                {customLabel}
+        <Popover
+          open={open}
+          onOpenChange={(nextOpen) => {
+            if (nextOpen) {
+              setCustomRange(value);
+              setCalendarMonth(value?.from ?? new Date());
+            }
+            setOpen(nextOpen);
+          }}
+        >
+          <PopoverTrigger
+            render={
+              <Button variant="outline" size="sm" className="gap-2">
+                <HugeiconsIcon
+                  icon={ListFilterPlus}
+                  aria-hidden="true"
+                  className="size-4"
+                />
+                {resolvedTriggerLabel}
               </Button>
-              {value?.from && (
+            }
+          />
+          <PopoverContent align="start" className="w-auto gap-0 p-0">
+            <div className="flex flex-col md:flex-row">
+              <div className="flex min-w-52 flex-col gap-1 p-1">
+                {resolvedPresets.map((preset) => {
+                  const isSelected =
+                    selectedPresetMatchesValue &&
+                    selectedPreset?.id === preset.id;
+
+                  return (
+                    <Button
+                      key={preset.id}
+                      variant="ghost"
+                      size="sm"
+                      className="w-full justify-start"
+                      aria-pressed={isSelected}
+                      onClick={() => {
+                        handlePresetSelect(preset.id);
+                        if (closeOnSelect) setOpen(false);
+                      }}
+                    >
+                      <HugeiconsIcon
+                        icon={Check}
+                        className={cn("size-3.5", !isSelected && "invisible")}
+                        aria-hidden="true"
+                      />
+                      {preset.label}
+                    </Button>
+                  );
+                })}
+                <Separator />
                 <Button
-                  variant="ghost-destructive"
+                  variant="ghost"
                   size="sm"
                   className="justify-start"
-                  onClick={clearRange}
+                  aria-expanded={showCustom}
+                  onClick={() => {
+                    setSelectedPreset(null);
+                    setShowCustom((current) => !current);
+                  }}
                 >
-                  <HugeiconsIcon
-                    icon={X}
-                    className="size-3.5"
-                    aria-hidden="true"
-                  />
-                  Clear date filter
+                  <span className="size-3.5" aria-hidden="true" />
+                  {customLabel}
                 </Button>
+                {value?.from && (
+                  <Button
+                    variant="ghost-destructive"
+                    size="sm"
+                    className="justify-start"
+                    onClick={clearRange}
+                  >
+                    <HugeiconsIcon
+                      icon={X}
+                      className="size-3.5"
+                      aria-hidden="true"
+                    />
+                    Clear date filter
+                  </Button>
+                )}
+              </div>
+              {showCustom && (
+                <div className="border-t border-border md:border-t-0 md:border-s">
+                  <Calendar
+                    mode="range"
+                    numberOfMonths={2}
+                    selected={customRange}
+                    month={calendarMonth}
+                    onMonthChange={setCalendarMonth}
+                    onSelect={(next) => {
+                      setCustomRange(next);
+                      if (next?.from) setCalendarMonth(next.from);
+                      handleCustomChange(next);
+                      if (closeOnSelect && next?.from && next?.to) {
+                        setOpen(false);
+                      }
+                    }}
+                  />
+                </div>
               )}
             </div>
-            {showCustom && (
-              <div className="border-t border-border md:border-t-0 md:border-s">
-                <Calendar
-                  mode="range"
-                  numberOfMonths={2}
-                  selected={customRange}
-                  month={calendarMonth}
-                  onMonthChange={setCalendarMonth}
-                  onSelect={(next) => {
-                    setCustomRange(next);
-                    if (next?.from) setCalendarMonth(next.from);
-                    handleCustomChange(next);
-                    if (closeOnSelect && next?.from && next?.to) {
-                      setOpen(false);
-                    }
-                  }}
-                />
-              </div>
-            )}
-          </div>
-        </PopoverContent>
-      </Popover>
-    </div>
-  );
-}
+          </PopoverContent>
+        </Popover>
+      </div>
+    );
+  },
+);

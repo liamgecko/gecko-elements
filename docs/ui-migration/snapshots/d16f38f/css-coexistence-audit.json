@@ -1,0 +1,316 @@
+{
+  "methodology": "Compile actual Elements globals using installed Tailwind and explicit source scanning; intersect exact simple class selectors with copied Admin CSS. Synthetic Chromium computed-style probes use actual stylesheets, no live product session. External requests blocked.",
+  "candidateCount": 4225,
+  "sources": [
+    {
+      "base": "/Users/liamyoung/Documents/Gecko Projects/elements-monorepo/packages/ui/src/styles",
+      "pattern": "../../../apps/**/*.{ts,tsx}",
+      "negated": false
+    },
+    {
+      "base": "/Users/liamyoung/Documents/Gecko Projects/elements-monorepo/packages/ui/src/styles",
+      "pattern": "../../../components/**/*.{ts,tsx}",
+      "negated": false
+    },
+    {
+      "base": "/Users/liamyoung/Documents/Gecko Projects/elements-monorepo/packages/ui/src/styles",
+      "pattern": "../**/*.{ts,tsx}",
+      "negated": false
+    }
+  ],
+  "overlapCount": 111,
+  "overlap": [
+    "align-middle",
+    "bg-info",
+    "bg-primary",
+    "bg-secondary",
+    "bg-success",
+    "bg-transparent",
+    "bg-warning",
+    "border",
+    "border-0",
+    "border-info",
+    "border-primary",
+    "border-success",
+    "border-warning",
+    "bottom-0",
+    "container",
+    "end-0",
+    "flex-nowrap",
+    "flex-row",
+    "flex-wrap",
+    "gap-0",
+    "gap-1",
+    "gap-2",
+    "gap-3",
+    "gap-4",
+    "gap-5",
+    "gap-6",
+    "h-auto",
+    "invisible",
+    "m-0",
+    "m-auto",
+    "mb-2",
+    "mb-3",
+    "mb-8",
+    "me-1",
+    "me-10",
+    "me-2",
+    "ms-1",
+    "ms-auto",
+    "mt-2",
+    "mt-3",
+    "mt-4",
+    "mt-auto",
+    "mx-0",
+    "mx-1",
+    "mx-2",
+    "mx-auto",
+    "my-1",
+    "opacity-0",
+    "opacity-100",
+    "opacity-50",
+    "opacity-75",
+    "order-first",
+    "order-last",
+    "overflow-auto",
+    "overflow-hidden",
+    "overflow-visible",
+    "p-0",
+    "p-1",
+    "p-12",
+    "p-2",
+    "p-3",
+    "p-4",
+    "p-6",
+    "pb-0",
+    "pb-2",
+    "pb-3",
+    "pb-4",
+    "pb-5",
+    "pe-2",
+    "pe-3",
+    "pe-8",
+    "ps-10",
+    "ps-2",
+    "ps-3",
+    "pt-0",
+    "pt-1",
+    "pt-2",
+    "pt-3",
+    "pt-4",
+    "pt-5",
+    "px-0",
+    "px-1",
+    "px-2",
+    "px-3",
+    "px-4",
+    "px-5",
+    "px-6",
+    "py-0",
+    "py-1",
+    "py-2",
+    "py-3",
+    "py-4",
+    "py-6",
+    "rounded",
+    "shadow-lg",
+    "shadow-md",
+    "shadow-none",
+    "shadow-sm",
+    "shadow-xl",
+    "shadow-xs",
+    "start-0",
+    "table",
+    "text-center",
+    "text-info",
+    "text-primary",
+    "text-start",
+    "text-success",
+    "text-warning",
+    "top-0",
+    "visible",
+    "w-auto"
+  ],
+  "examples": {
+    "p-2": {
+      "legacy": ".p-2 {\n    padding: 8px !important;\n}",
+      "elements": ".p-2 {\n    padding: calc(var(--spacing) * 2);\n  }"
+    },
+    "gap-2": {
+      "legacy": ".gap-2 {\n    gap: 8px !important;\n}",
+      "elements": ".gap-2 {\n    gap: calc(var(--spacing) * 2);\n  }"
+    },
+    "border": {
+      "legacy": ".border {\n    border: var(--gecko-border-width) var(--gecko-border-style)\n        var(--gecko-border-color) !important;\n}",
+      "elements": ".border {\n    border-style: var(--tw-border-style);\n    border-width: 1px;\n  }"
+    },
+    "rounded": {
+      "legacy": ".rounded {\n    border-radius: var(--gecko-border-radius) !important;\n}",
+      "elements": ".rounded {\n    border-radius: 0.25rem;\n  }"
+    }
+  },
+  "naivePrefix": "Cannot apply unprefixed utility class `bg-primary`. Did you mean `ge:bg-primary`?",
+  "probes": {
+    "elements": {
+      "html": {
+        "fontSize": "16px",
+        "height": "124px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#spacing": {
+        "fontSize": "16px",
+        "height": "40px",
+        "padding": "8px",
+        "gap": "8px"
+      },
+      "#size": {
+        "fontSize": "14px",
+        "height": "32px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#heading": {
+        "fontSize": "14px",
+        "height": "20px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#wrappedSize": {
+        "fontSize": "14px",
+        "height": "32px",
+        "padding": "0px",
+        "gap": "normal"
+      }
+    },
+    "legacy": {
+      "html": {
+        "fontSize": "14px",
+        "height": "98.7656px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#spacing": {
+        "fontSize": "14px",
+        "height": "34.1875px",
+        "padding": "8px",
+        "gap": "8px"
+      },
+      "#size": {
+        "fontSize": "14px",
+        "height": "18.1875px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#heading": {
+        "fontSize": "18.004px",
+        "height": "21.5938px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#wrappedSize": {
+        "fontSize": "16px",
+        "height": "20.7969px",
+        "padding": "0px",
+        "gap": "normal"
+      }
+    },
+    "legacyThenElements": {
+      "html": {
+        "fontSize": "14px",
+        "height": "115.781px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#spacing": {
+        "fontSize": "14px",
+        "height": "34.1875px",
+        "padding": "8px",
+        "gap": "8px"
+      },
+      "#size": {
+        "fontSize": "12.25px",
+        "height": "28px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#heading": {
+        "fontSize": "18.004px",
+        "height": "21.5938px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#wrappedSize": {
+        "fontSize": "12.25px",
+        "height": "28px",
+        "padding": "0px",
+        "gap": "normal"
+      }
+    },
+    "elementsThenLegacy": {
+      "html": {
+        "fontSize": "14px",
+        "height": "115.781px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#spacing": {
+        "fontSize": "14px",
+        "height": "34.1875px",
+        "padding": "8px",
+        "gap": "8px"
+      },
+      "#size": {
+        "fontSize": "12.25px",
+        "height": "28px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#heading": {
+        "fontSize": "18.004px",
+        "height": "21.5938px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#wrappedSize": {
+        "fontSize": "12.25px",
+        "height": "28px",
+        "padding": "0px",
+        "gap": "normal"
+      }
+    },
+    "designRootRuleThenElements": {
+      "html": {
+        "fontSize": "14px",
+        "height": "108.5px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#spacing": {
+        "fontSize": "14px",
+        "height": "35px",
+        "padding": "7px",
+        "gap": "7px"
+      },
+      "#size": {
+        "fontSize": "12.25px",
+        "height": "28px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#heading": {
+        "fontSize": "12.25px",
+        "height": "17.5px",
+        "padding": "0px",
+        "gap": "normal"
+      },
+      "#wrappedSize": {
+        "fontSize": "12.25px",
+        "height": "28px",
+        "padding": "0px",
+        "gap": "normal"
+      }
+    }
+  }
+}

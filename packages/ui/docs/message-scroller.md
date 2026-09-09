@@ -11,7 +11,7 @@ Message scroller is the transcript-aware scroll container for product conversati
 
 Use Message scroller for a conversation transcript. Use Scroll area for general overflowing content and Message for each complete conversation row.
 
-Message scroller is Shadcn’s styled wrapper around the headless `@shadcn/react/message-scroller` package. Gecko owns the approved styling and composition. Application code imports the Gecko component rather than the implementation package.
+Message scroller is Shadcn’s styled wrapper around the headless `@shadcn/react/message-scroller` package. Gecko maintains a licensed local copy of that implementation with a React 18/19 compatibility patch; see `src/vendor/shadcn-message-scroller/README.md`. Gecko owns the approved styling and composition. Application code imports the Gecko component rather than the implementation package.
 
 ## Import
 
@@ -68,6 +68,29 @@ MessageScroller fills its parent. Render it inside a height-constrained layout.
 ```
 
 Use stable `messageId` values. In Gecko, a turn anchor is the first message after a sender streak changes. Do not mark every message as an anchor.
+
+## Stable positioning and entry animation
+
+Keep MessageScrollerItem as a stationary measurement boundary. Apply entry
+transforms to a child `motion.div`, never to MessageScrollerItem itself. Scaling
+or translating the measured item changes its reported bounds while the scroller
+calculates its anchor and bottom spacer, causing existing messages to shift when
+later content arrives.
+
+```tsx
+<MessageScrollerItem messageId={message.id} scrollAnchor={startsTurn(message)}>
+  <motion.div variants={preset.variants} initial="initial" animate="animate">
+    <Message variant={message.variant} />
+  </motion.div>
+</MessageScrollerItem>
+```
+
+Rows use their actual layout height; do not add `content-visibility: auto` or intrinsic-height estimates to the measured items. An estimate can leave the anchor incorrect until the next update.
+
+Respect reduced-motion preferences when applying animations. Reserve space for
+asynchronously loaded media and avoid layout-changing animations on existing
+rows. New anchor turns and explicit navigation still intentionally move the
+viewport; appending or growing a reply must not nudge the current anchor.
 
 ## Live-edge following
 

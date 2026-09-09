@@ -1,15 +1,16 @@
-"use client"
+"use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
-import * as React from "react"
-import { Radio as RadioPrimitive } from "@base-ui/react/radio"
-import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group"
-import { cva } from "class-variance-authority"
+import * as React from "react";
+import { Radio as RadioPrimitive } from "@base-ui/react/radio";
+import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
+import { cva } from "class-variance-authority";
 
-import { cn } from "@gecko/ui/lib/utils"
-import { ControlLabel } from "@gecko/ui/components/label"
+import { cn } from "@gecko/ui/lib/utils";
+import { ControlLabel } from "@gecko/ui/components/label";
 
 const defaultRadioItemStyles =
-  "border-input hover:border-input-hover group-hover/field:border-input-hover group-hover/radio-group-item-row:border-input-hover bg-background data-checked:bg-primary data-checked:text-primary-foreground data-checked:border-primary data-checked:hover:border-primary group-hover/field:data-checked:border-primary group-hover/radio-group-item-row:data-checked:border-primary aria-invalid:aria-checked:border-input-destructive aria-invalid:aria-checked:bg-input-destructive aria-invalid:border-input-destructive group-aria-invalid/radio-group:border-input-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:focus-visible:ring-input-destructive/20 dark:aria-invalid:focus-visible:ring-input-destructive/40 group-aria-invalid/radio-group:focus-visible:ring-input-destructive/20 dark:group-aria-invalid/radio-group:focus-visible:ring-input-destructive/40 flex size-4 rounded-full transition-[color,box-shadow,border] focus-visible:ring-3 aria-invalid:focus-visible:ring-3 group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-1 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-75 disabled:hover:border-input disabled:group-hover/field:border-input disabled:group-hover/radio-group-item-row:border-input cursor-pointer"
+  "border-input hover:border-input-hover group-hover/field:border-input-hover group-hover/radio-group-item-row:border-input-hover bg-background data-checked:bg-primary data-checked:text-primary-foreground data-checked:border-primary data-checked:hover:border-primary group-hover/field:data-checked:border-primary group-hover/radio-group-item-row:data-checked:border-primary aria-invalid:aria-checked:border-input-destructive aria-invalid:aria-checked:bg-input-destructive aria-invalid:border-input-destructive group-aria-invalid/radio-group:border-input-destructive focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:focus-visible:ring-input-destructive/20 dark:aria-invalid:focus-visible:ring-input-destructive/40 group-aria-invalid/radio-group:focus-visible:ring-input-destructive/20 dark:group-aria-invalid/radio-group:focus-visible:ring-input-destructive/40 flex size-4 rounded-full transition-[color,box-shadow,border] focus-visible:ring-3 aria-invalid:focus-visible:ring-3 group/radio-group-item peer relative aspect-square shrink-0 border outline-none after:absolute after:-inset-x-3 after:-inset-y-1 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-75 disabled:hover:border-input disabled:group-hover/field:border-input disabled:group-hover/radio-group-item-row:border-input cursor-pointer";
 
 const asButtonRadioItemVariants = cva(
   "border-border bg-background rounded-md border text-sm cursor-pointer p-3 transition-all focus-visible:ring-3 focus-visible:border-ring focus-visible:ring-ring/50 outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-75 data-disabled:cursor-not-allowed data-disabled:pointer-events-none data-disabled:opacity-75 hover:bg-muted hover:border-input-hover hover:text-foreground disabled:hover:bg-background disabled:hover:border-border disabled:hover:text-foreground data-disabled:hover:bg-background data-disabled:hover:border-border data-disabled:hover:text-foreground data-checked:border-input-selected data-checked:bg-muted data-checked:text-foreground disabled:data-checked:hover:bg-muted disabled:data-checked:hover:border-input-selected disabled:data-checked:hover:text-foreground data-disabled:data-checked:hover:bg-muted data-disabled:data-checked:hover:border-input-selected data-disabled:data-checked:hover:text-foreground aria-invalid:border-input-destructive aria-invalid:hover:border-input-destructive aria-invalid:hover:text-destructive aria-invalid:hover:bg-destructive-muted aria-invalid:focus-visible:border-input-destructive focus-visible:aria-invalid:ring-input-destructive/20 dark:focus-visible:aria-invalid:ring-input-destructive/40 aria-invalid:data-checked:border-input-destructive dark:aria-invalid:data-checked:border-input-destructive aria-invalid:data-checked:bg-destructive-muted aria-invalid:data-checked:text-destructive-muted-foreground group-aria-invalid/radio-group:border-input-destructive group-aria-invalid/radio-group:hover:border-input-destructive group-aria-invalid/radio-group:hover:bg-destructive-muted group-aria-invalid/radio-group:hover:text-destructive group-aria-invalid/radio-group:focus-visible:border-input-destructive group-aria-invalid/radio-group:focus-visible:ring-input-destructive/20 dark:group-aria-invalid/radio-group:focus-visible:ring-input-destructive/40 group-aria-invalid/radio-group:data-checked:border-input-destructive group-aria-invalid/radio-group:data-checked:bg-destructive-muted group-aria-invalid/radio-group:data-checked:text-destructive-muted-foreground",
@@ -24,23 +25,23 @@ const asButtonRadioItemVariants = cva(
     defaultVariants: {
       layout: "inline",
     },
-  }
-)
+  },
+);
 
 type RadioGroupItemProps = RadioPrimitive.Root.Props & {
-  asButton?: boolean
-  label?: React.ReactNode
-  description?: React.ReactNode
-}
+  asButton?: boolean;
+  label?: React.ReactNode;
+  description?: React.ReactNode;
+};
 
 type RadioGroupProps = RadioGroupPrimitive.Props & {
-  label?: React.ReactNode
-  description?: React.ReactNode
+  label?: React.ReactNode;
+  description?: React.ReactNode;
   /** Lay out options in a row (wraps on narrow widths). */
-  horizontal?: boolean
-}
+  horizontal?: boolean;
+};
 
-function RadioGroup({
+const RadioGroup = /* @__PURE__ */ withRef(function RadioGroup({
   className,
   label,
   description,
@@ -54,23 +55,23 @@ function RadioGroup({
   "aria-describedby": ariaDescribedBy,
   ...props
 }: RadioGroupProps) {
-  const generatedId = React.useId()
-  const groupId = idProp ?? generatedId
-  const labelId = `${groupId}-label`
-  const descriptionId = `${groupId}-description`
+  const generatedId = React.useId();
+  const groupId = idProp ?? generatedId;
+  const labelId = `${groupId}-label`;
+  const descriptionId = `${groupId}-description`;
   const labelledBy =
     [ariaLabelledBy, label != null && labelId].filter(Boolean).join(" ") ||
-    undefined
+    undefined;
   const describedBy =
     [ariaDescribedBy, description != null && descriptionId]
       .filter(Boolean)
-      .join(" ") || undefined
+      .join(" ") || undefined;
   const hasAsButton = React.Children.toArray(children).some(
     (child) =>
       React.isValidElement(child) &&
-      (child.props as { asButton?: boolean }).asButton === true
-  )
-  const effectiveHorizontal = horizontal || hasAsButton
+      (child.props as { asButton?: boolean }).asButton === true,
+  );
+  const effectiveHorizontal = horizontal || hasAsButton;
 
   return (
     <fieldset
@@ -114,17 +115,17 @@ function RadioGroup({
           effectiveHorizontal
             ? "flex flex-row flex-wrap gap-2"
             : "grid gap-2 w-full",
-          className
+          className,
         )}
         {...props}
       >
         {children}
       </RadioGroupPrimitive>
     </fieldset>
-  )
-}
+  );
+});
 
-function RadioGroupItem({
+const RadioGroupItem = /* @__PURE__ */ withRef(function RadioGroupItem({
   className,
   asButton,
   label,
@@ -135,17 +136,17 @@ function RadioGroupItem({
   "aria-describedby": ariaDescribedBy,
   ...props
 }: RadioGroupItemProps) {
-  const generatedId = React.useId()
-  const inputId = idProp ?? generatedId
-  const labelId = `${inputId}-label`
-  const descriptionId = `${inputId}-description`
+  const generatedId = React.useId();
+  const inputId = idProp ?? generatedId;
+  const labelId = `${inputId}-label`;
+  const descriptionId = `${inputId}-description`;
   const labelledBy =
     [ariaLabelledBy, label != null && labelId].filter(Boolean).join(" ") ||
-    undefined
+    undefined;
   const describedBy =
     [ariaDescribedBy, description != null && descriptionId]
       .filter(Boolean)
-      .join(" ") || undefined
+      .join(" ") || undefined;
 
   const baseClasses = cn(
     asButton
@@ -153,11 +154,11 @@ function RadioGroupItem({
           layout: description != null ? "description" : "inline",
         })
       : defaultRadioItemStyles,
-    className
-  )
+    className,
+  );
 
   if (asButton) {
-    const labelContent = label ?? children
+    const labelContent = label ?? children;
 
     return (
       <RadioPrimitive.Root
@@ -175,7 +176,7 @@ function RadioGroupItem({
           aria-hidden="true"
           className={cn(
             "border-input bg-background relative grid size-4 shrink-0 place-content-center rounded-full border transition-[color,box-shadow,border] group-data-checked/as-button:border-primary group-data-checked/as-button:bg-primary group-data-checked/as-button:text-primary-foreground group-aria-invalid/as-button:border-input-destructive group-aria-invalid/radio-group:border-input-destructive",
-            description != null && "row-span-2 mt-0.5"
+            description != null && "row-span-2 mt-0.5",
           )}
         >
           <RadioPrimitive.Indicator
@@ -190,7 +191,7 @@ function RadioGroupItem({
             id={labelId}
             className={cn(
               "font-medium leading-none",
-              description != null && "col-start-2"
+              description != null && "col-start-2",
             )}
           >
             {labelContent}
@@ -205,7 +206,7 @@ function RadioGroupItem({
           </span>
         )}
       </RadioPrimitive.Root>
-    )
+    );
   }
 
   const control = (
@@ -225,10 +226,10 @@ function RadioGroupItem({
         <span className="bg-primary-foreground size-2 rounded-full motion-safe:transition-transform motion-safe:duration-350 motion-safe:ease-[cubic-bezier(0.2,0,0,1)] motion-safe:group-data-starting-style/radio-group-indicator:scale-[2]" />
       </RadioPrimitive.Indicator>
     </RadioPrimitive.Root>
-  )
+  );
 
   if (label == null && description == null) {
-    return control
+    return control;
   }
 
   return (
@@ -236,7 +237,7 @@ function RadioGroupItem({
       data-disabled={props.disabled ? "true" : undefined}
       className={cn(
         "group/radio-group-item-row flex gap-2 leading-snug data-[disabled=true]:pointer-events-none data-[disabled=true]:cursor-not-allowed",
-        description != null ? "items-start" : "items-center"
+        description != null ? "items-start" : "items-center",
       )}
     >
       <div className={cn("flex shrink-0", description != null && "mt-0.5")}>
@@ -263,7 +264,7 @@ function RadioGroupItem({
         )}
       </div>
     </div>
-  )
-}
+  );
+});
 
-export { RadioGroup, RadioGroupItem }
+export { RadioGroup, RadioGroupItem };

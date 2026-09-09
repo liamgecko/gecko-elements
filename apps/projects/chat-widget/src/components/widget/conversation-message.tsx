@@ -15,11 +15,9 @@ import {
 import { MessageScrollerItem } from "@gecko/ui/components/message-scroller";
 import type { AgentProfile, ChatMessage } from "@/lib/types";
 
-const MotionMessageScrollerItem = motion.create(MessageScrollerItem);
-
 type ConversationMessageProps = Omit<
-  ComponentProps<typeof MotionMessageScrollerItem>,
-  "animate" | "children" | "exit" | "initial" | "messageId" | "variants"
+  ComponentProps<typeof MessageScrollerItem>,
+  "children" | "messageId"
 > & {
   message: ChatMessage;
   agent: AgentProfile;
@@ -61,36 +59,36 @@ export function ConversationMessage({
       : animationPreset.variants;
 
   return (
-    <MotionMessageScrollerItem
-      messageId={message.id}
-      variants={variants}
-      initial={shouldReduceMotion ? false : "initial"}
-      animate="animate"
-      exit={shouldReduceMotion ? undefined : "exit"}
-      {...props}
-    >
-      <Message variant={isUser ? "user" : agent.type} align={align}>
-        {!isUser ? (
-          <MessageAvatar>
-            <Avatar name={agent.name} size="default">
-              {agent.avatarSrc ? <AvatarImage src={agent.avatarSrc} /> : null}
-            </Avatar>
-          </MessageAvatar>
-        ) : null}
-        <MessageContent>
-          <Bubble>
-            <BubbleContent>
-              {paragraphs.length > 0 ? (
-                paragraphs.map((paragraph, index) => (
-                  <p key={`${message.id}-${index}`}>{paragraph}</p>
-                ))
-              ) : (
-                <p className="text-muted-foreground">…</p>
-              )}
-            </BubbleContent>
-          </Bubble>
-        </MessageContent>
-      </Message>
-    </MotionMessageScrollerItem>
+    <MessageScrollerItem messageId={message.id} {...props}>
+      <motion.div
+        variants={variants}
+        initial={shouldReduceMotion ? false : "initial"}
+        animate="animate"
+        exit={shouldReduceMotion ? undefined : "exit"}
+      >
+        <Message variant={isUser ? "user" : agent.type} align={align}>
+          {!isUser ? (
+            <MessageAvatar>
+              <Avatar name={agent.name} size="default">
+                {agent.avatarSrc ? <AvatarImage src={agent.avatarSrc} /> : null}
+              </Avatar>
+            </MessageAvatar>
+          ) : null}
+          <MessageContent>
+            <Bubble>
+              <BubbleContent>
+                {paragraphs.length > 0 ? (
+                  paragraphs.map((paragraph, index) => (
+                    <p key={`${message.id}-${index}`}>{paragraph}</p>
+                  ))
+                ) : (
+                  <p className="text-muted-foreground">…</p>
+                )}
+              </BubbleContent>
+            </Bubble>
+          </MessageContent>
+        </Message>
+      </motion.div>
+    </MessageScrollerItem>
   );
 }

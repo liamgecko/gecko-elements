@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { Command as CommandPrimitive } from "cmdk";
@@ -15,7 +16,7 @@ import SearchIcon from "@hugeicons/core-free-icons/Search01Icon";
 import CheckIcon from "@hugeicons/core-free-icons/CheckIcon";
 import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-function Command({
+const Command = /* @__PURE__ */ withRef(function Command({
   className,
   label = "Command menu",
   ...props
@@ -31,7 +32,7 @@ function Command({
       {...props}
     />
   );
-}
+});
 
 function CommandDialog({
   title = "Command Palette",
@@ -66,7 +67,7 @@ function CommandDialog({
   );
 }
 
-function CommandInput({
+const CommandInput = /* @__PURE__ */ withRef(function CommandInput({
   className,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Input>) {
@@ -90,9 +91,9 @@ function CommandInput({
       />
     </div>
   );
-}
+});
 
-function CommandList({
+const CommandList = /* @__PURE__ */ withRef(function CommandList({
   className,
   label = "Suggestions",
   ...props
@@ -108,9 +109,9 @@ function CommandList({
       {...props}
     />
   );
-}
+});
 
-function CommandEmpty({
+const CommandEmpty = /* @__PURE__ */ withRef(function CommandEmpty({
   className,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Empty>) {
@@ -121,9 +122,9 @@ function CommandEmpty({
       {...props}
     />
   );
-}
+});
 
-function CommandGroup({
+const CommandGroup = /* @__PURE__ */ withRef(function CommandGroup({
   className,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Group>) {
@@ -137,9 +138,9 @@ function CommandGroup({
       {...props}
     />
   );
-}
+});
 
-function CommandSeparator({
+const CommandSeparator = /* @__PURE__ */ withRef(function CommandSeparator({
   className,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Separator>) {
@@ -150,9 +151,9 @@ function CommandSeparator({
       {...props}
     />
   );
-}
+});
 
-function CommandItem({
+const CommandItem = /* @__PURE__ */ withRef(function CommandItem({
   className,
   children,
   ...props
@@ -174,9 +175,9 @@ function CommandItem({
       />
     </CommandPrimitive.Item>
   );
-}
+});
 
-function CommandShortcut({
+const CommandShortcut = /* @__PURE__ */ withRef(function CommandShortcut({
   className,
   ...props
 }: React.ComponentProps<"span">) {
@@ -190,7 +191,7 @@ function CommandShortcut({
       {...props}
     />
   );
-}
+});
 
 export {
   Command,

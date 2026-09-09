@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva, type VariantProps } from "class-variance-authority";
 import ChevronDownIcon from "@hugeicons/core-free-icons/ChevronDownIcon";
@@ -27,7 +28,7 @@ const buttonVariants = cva(
         "ghost-destructive":
           "hover:bg-destructive-muted hover:text-destructive-muted-foreground [&[aria-haspopup][aria-expanded=true]]:bg-destructive-muted [&[aria-haspopup][aria-expanded=true]]:text-destructive-muted-foreground focus-visible:border-destructive/40 focus-visible:ring-destructive/20",
         destructive:
-          "bg-destructive-muted text-destructive-muted-foreground hover:bg-destructive-muted/80 dark:hover:bg-destructive-muted dark:hover:bg-[linear-gradient(color-mix(in_oklch,var(--dark-surface-hover)_50%,transparent),color-mix(in_oklch,var(--dark-surface-hover)_50%,transparent))] focus-visible:border-destructive/40 focus-visible:ring-destructive/20",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/85 dark:bg-destructive-muted dark:text-destructive-muted-foreground dark:hover:bg-destructive-muted dark:hover:bg-[linear-gradient(color-mix(in_oklch,var(--dark-surface-hover)_50%,transparent),color-mix(in_oklch,var(--dark-surface-hover)_50%,transparent))] focus-visible:border-destructive/40 focus-visible:ring-destructive/20",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
@@ -58,7 +59,7 @@ type ButtonProps = ButtonPrimitive.Props &
     loading?: boolean;
   };
 
-function Button({
+const Button = /* @__PURE__ */ withRef(function Button({
   className,
   variant = "default",
   size = "default",
@@ -110,7 +111,7 @@ function Button({
       )}
     </ButtonPrimitive>
   );
-}
+});
 
 // eslint-disable-next-line react-refresh/only-export-components -- cva styles are intentionally exported from this module.
 export { Button, buttonVariants };

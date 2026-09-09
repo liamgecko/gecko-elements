@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 
 import { Avatar, AvatarImage } from "@gecko/ui/components/avatar";
@@ -171,7 +172,7 @@ function OverflowPeople({
   );
 }
 
-export function AvatarGroup({
+export const AvatarGroup = /* @__PURE__ */ withRef(function AvatarGroup({
   items,
   size = "default",
   maxVisible,
@@ -217,4 +218,4 @@ export function AvatarGroup({
       )}
     </div>
   );
-}
+});

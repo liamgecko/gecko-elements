@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import CircleHelp from "@hugeicons/core-free-icons/HelpCircleIcon";
@@ -346,7 +347,7 @@ function MetricCardSparklineChart({
   );
 }
 
-export function MetricCard({
+export const MetricCard = /* @__PURE__ */ withRef(function MetricCard({
   title,
   value,
   detail,
@@ -397,4 +398,4 @@ export function MetricCard({
       </CardContent>
     </Card>
   );
-}
+});

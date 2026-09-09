@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import X from "@hugeicons/core-free-icons/XIcon";
@@ -197,7 +198,7 @@ function processChildren(children: React.ReactNode, size: BadgeSize) {
   });
 }
 
-function Badge({
+const Badge = /* @__PURE__ */ withRef(function Badge({
   className,
   variant = "secondary",
   size = "sm",
@@ -274,6 +275,6 @@ function Badge({
       ) : null}
     </span>
   );
-}
+});
 
 export { Badge };

@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 
@@ -21,14 +22,16 @@ function Tooltip({ ...props }: TooltipPrimitive.Root.Props) {
   return <TooltipPrimitive.Root data-slot="tooltip" {...props} />;
 }
 
-function TooltipTrigger({ ...props }: TooltipPrimitive.Trigger.Props) {
+const TooltipTrigger = /* @__PURE__ */ withRef(function TooltipTrigger({
+  ...props
+}: TooltipPrimitive.Trigger.Props) {
   return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
-}
+});
 
 const popupBase =
   "z-50 inline-flex w-fit max-w-xs origin-(--transform-origin) items-center gap-1.5 rounded-md border border-foreground bg-foreground px-3 py-1.5 text-2xs text-background shadow-md has-data-[slot=kbd]:pr-1.5 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 motion-reduce:animate-none motion-reduce:transition-none **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm";
 
-function TooltipContent({
+const TooltipContent = /* @__PURE__ */ withRef(function TooltipContent({
   className,
   side = "top",
   sideOffset = 4,
@@ -60,6 +63,6 @@ function TooltipContent({
       </TooltipPrimitive.Positioner>
     </TooltipPrimitive.Portal>
   );
-}
+});
 
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };

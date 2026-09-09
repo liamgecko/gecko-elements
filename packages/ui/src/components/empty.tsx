@@ -1,33 +1,37 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import { withRef } from "@gecko/ui/lib/with-ref";
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@gecko/ui/lib/utils";
 
-function Empty({ className, ...props }: React.ComponentProps<"div">) {
+const Empty = /* @__PURE__ */ withRef(function Empty({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="empty"
       className={cn(
         "gap-4 rounded-lg border-dashed p-12 flex w-full min-w-0 flex-1 flex-col items-center justify-center text-center text-balance",
-        className
+        className,
       )}
       {...props}
     />
-  )
-}
+  );
+});
 
-function EmptyHeader({ className, ...props }: React.ComponentProps<"div">) {
+const EmptyHeader = /* @__PURE__ */ withRef(function EmptyHeader({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="empty-header"
-      className={cn(
-        "gap-2 flex max-w-sm flex-col items-center",
-        className
-      )}
+      className={cn("gap-2 flex max-w-sm flex-col items-center", className)}
       {...props}
     />
-  )
-}
+  );
+});
 
 const emptyMediaVariants = cva(
   "flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0",
@@ -41,10 +45,10 @@ const emptyMediaVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  }
-)
+  },
+);
 
-function EmptyMedia({
+const EmptyMedia = /* @__PURE__ */ withRef(function EmptyMedia({
   className,
   variant = "default",
   ...props
@@ -56,44 +60,53 @@ function EmptyMedia({
       className={cn(emptyMediaVariants({ variant, className }))}
       {...props}
     />
-  )
-}
+  );
+});
 
-function EmptyTitle({ className, ...props }: React.ComponentProps<"div">) {
+const EmptyTitle = /* @__PURE__ */ withRef(function EmptyTitle({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="empty-title"
       className={cn("text-lg font-medium tracking-tight", className)}
       {...props}
     />
-  )
-}
+  );
+});
 
-function EmptyDescription({ className, ...props }: React.ComponentProps<"p">) {
+const EmptyDescription = /* @__PURE__ */ withRef(function EmptyDescription({
+  className,
+  ...props
+}: React.ComponentProps<"p">) {
   return (
     <p
       data-slot="empty-description"
       className={cn(
         "text-sm/relaxed text-muted-foreground [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4",
-        className
+        className,
       )}
       {...props}
     />
-  )
-}
+  );
+});
 
-function EmptyContent({ className, ...props }: React.ComponentProps<"div">) {
+const EmptyContent = /* @__PURE__ */ withRef(function EmptyContent({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="empty-content"
       className={cn(
         "gap-4 text-sm flex w-full max-w-sm min-w-0 flex-col items-center text-balance",
-        className
+        className,
       )}
       {...props}
     />
-  )
-}
+  );
+});
 
 export {
   Empty,
@@ -102,4 +115,4 @@ export {
   EmptyDescription,
   EmptyContent,
   EmptyMedia,
-}
+};

@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog";
 
@@ -32,19 +33,23 @@ function AlertDialog({
   );
 }
 
-function AlertDialogTrigger({ ...props }: AlertDialogPrimitive.Trigger.Props) {
+const AlertDialogTrigger = /* @__PURE__ */ withRef(function AlertDialogTrigger({
+  ...props
+}: AlertDialogPrimitive.Trigger.Props) {
   return (
     <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />
   );
-}
+});
 
-function AlertDialogPortal({ ...props }: AlertDialogPrimitive.Portal.Props) {
+const AlertDialogPortal = /* @__PURE__ */ withRef(function AlertDialogPortal({
+  ...props
+}: AlertDialogPrimitive.Portal.Props) {
   return (
     <AlertDialogPrimitive.Portal data-slot="alert-dialog-portal" {...props} />
   );
-}
+});
 
-function AlertDialogOverlay({
+const AlertDialogOverlay = /* @__PURE__ */ withRef(function AlertDialogOverlay({
   className,
   ...props
 }: AlertDialogPrimitive.Backdrop.Props) {
@@ -58,9 +63,9 @@ function AlertDialogOverlay({
       {...props}
     />
   );
-}
+});
 
-function AlertDialogContent({
+const AlertDialogContent = /* @__PURE__ */ withRef(function AlertDialogContent({
   className,
   ...props
 }: AlertDialogPrimitive.Popup.Props) {
@@ -78,9 +83,9 @@ function AlertDialogContent({
       />
     </AlertDialogPortal>
   );
-}
+});
 
-function AlertDialogHeader({
+const AlertDialogHeader = /* @__PURE__ */ withRef(function AlertDialogHeader({
   className,
   ...props
 }: React.ComponentProps<"div">) {
@@ -94,9 +99,9 @@ function AlertDialogHeader({
       {...props}
     />
   );
-}
+});
 
-function AlertDialogFooter({
+const AlertDialogFooter = /* @__PURE__ */ withRef(function AlertDialogFooter({
   className,
   ...props
 }: React.ComponentProps<"div">) {
@@ -110,9 +115,9 @@ function AlertDialogFooter({
       {...props}
     />
   );
-}
+});
 
-function AlertDialogTitle({
+const AlertDialogTitle = /* @__PURE__ */ withRef(function AlertDialogTitle({
   className,
   ...props
 }: React.ComponentProps<typeof AlertDialogPrimitive.Title>) {
@@ -123,25 +128,27 @@ function AlertDialogTitle({
       {...props}
     />
   );
-}
+});
 
-function AlertDialogDescription({
-  className,
-  ...props
-}: React.ComponentProps<typeof AlertDialogPrimitive.Description>) {
-  return (
-    <AlertDialogPrimitive.Description
-      data-slot="alert-dialog-description"
-      className={cn(
-        "text-muted-foreground *:[a]:hover:text-foreground text-sm text-balance md:text-pretty *:[a]:underline *:[a]:underline-offset-3",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
+const AlertDialogDescription = /* @__PURE__ */ withRef(
+  function AlertDialogDescription({
+    className,
+    ...props
+  }: React.ComponentProps<typeof AlertDialogPrimitive.Description>) {
+    return (
+      <AlertDialogPrimitive.Description
+        data-slot="alert-dialog-description"
+        className={cn(
+          "text-muted-foreground *:[a]:hover:text-foreground text-sm text-balance md:text-pretty *:[a]:underline *:[a]:underline-offset-3",
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
+);
 
-function AlertDialogAction({
+const AlertDialogAction = /* @__PURE__ */ withRef(function AlertDialogAction({
   className,
   variant,
   size = "default",
@@ -160,9 +167,9 @@ function AlertDialogAction({
       {...props}
     />
   );
-}
+});
 
-function AlertDialogCancel({
+const AlertDialogCancel = /* @__PURE__ */ withRef(function AlertDialogCancel({
   className,
   variant = "outline",
   size = "default",
@@ -177,7 +184,7 @@ function AlertDialogCancel({
       {...props}
     />
   );
-}
+});
 
 export {
   AlertDialog,

@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
@@ -9,7 +10,10 @@ import {
 } from "@gecko/ui/components/message-context";
 import { cn } from "@gecko/ui/lib/utils";
 
-function BubbleGroup({ className, ...props }: React.ComponentProps<"div">) {
+const BubbleGroup = /* @__PURE__ */ withRef(function BubbleGroup({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="bubble-group"
@@ -17,7 +21,7 @@ function BubbleGroup({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
 const bubbleVariants = cva(
   "group/bubble relative flex min-w-0 items-center gap-1 group-data-[align=end]/message:self-end data-[align=end]:self-end",
@@ -47,7 +51,7 @@ const bubbleVariants = cva(
   },
 );
 
-function Bubble({
+const Bubble = /* @__PURE__ */ withRef(function Bubble({
   variant,
   align,
   fullWidth = false,
@@ -77,9 +81,9 @@ function Bubble({
       {...props}
     />
   );
-}
+});
 
-function BubbleContent({
+const BubbleContent = /* @__PURE__ */ withRef(function BubbleContent({
   className,
   render,
   ...props
@@ -100,10 +104,13 @@ function BubbleContent({
       slot: "bubble-content",
     },
   });
-}
+});
 
 /** In-bubble top row for author + timestamp (e.g. live chat). */
-function BubbleHeader({ className, ...props }: React.ComponentProps<"div">) {
+const BubbleHeader = /* @__PURE__ */ withRef(function BubbleHeader({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="bubble-header"
@@ -114,9 +121,12 @@ function BubbleHeader({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function BubbleAuthor({ className, ...props }: React.ComponentProps<"span">) {
+const BubbleAuthor = /* @__PURE__ */ withRef(function BubbleAuthor({
+  className,
+  ...props
+}: React.ComponentProps<"span">) {
   return (
     <span
       data-slot="bubble-author"
@@ -127,9 +137,9 @@ function BubbleAuthor({ className, ...props }: React.ComponentProps<"span">) {
       {...props}
     />
   );
-}
+});
 
-function BubbleTimestamp({
+const BubbleTimestamp = /* @__PURE__ */ withRef(function BubbleTimestamp({
   className,
   ...props
 }: React.ComponentProps<"time">) {
@@ -143,7 +153,7 @@ function BubbleTimestamp({
       {...props}
     />
   );
-}
+});
 
 const bubbleReactionsVariants = cva(
   "absolute z-10 flex w-fit shrink-0 items-center justify-center gap-1 rounded-full bg-muted px-1.5 py-0.5 text-sm ring-3 ring-card has-[button]:p-0 [&>button]:rounded-full bottom-0 translate-y-3/4",
@@ -157,7 +167,7 @@ const bubbleReactionsVariants = cva(
   },
 );
 
-function BubbleReactions({
+const BubbleReactions = /* @__PURE__ */ withRef(function BubbleReactions({
   align,
   className,
   ...props
@@ -180,7 +190,7 @@ function BubbleReactions({
       {...props}
     />
   );
-}
+});
 
 const bubbleActionsVariants = cva(
   [
@@ -198,7 +208,7 @@ const bubbleActionsVariants = cva(
   },
 );
 
-function BubbleActions({
+const BubbleActions = /* @__PURE__ */ withRef(function BubbleActions({
   side,
   className,
   ...props
@@ -223,7 +233,7 @@ function BubbleActions({
       {...props}
     />
   );
-}
+});
 
 export {
   BubbleGroup,

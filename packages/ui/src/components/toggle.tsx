@@ -1,10 +1,11 @@
-"use client"
+"use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
-import * as React from "react"
-import { Toggle as TogglePrimitive } from "@base-ui/react/toggle"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@gecko/ui/lib/utils";
 
 const toggleVariants = cva(
   [
@@ -46,19 +47,19 @@ const toggleVariants = cva(
       variant: "outline",
       size: "default",
     },
-  }
-)
+  },
+);
 
-function Toggle({
+const Toggle = /* @__PURE__ */ withRef(function Toggle({
   className,
   variant = "outline",
   size = "default",
   children,
   ...props
 }: TogglePrimitive.Props & VariantProps<typeof toggleVariants>) {
-  const childArray = React.Children.toArray(children)
+  const childArray = React.Children.toArray(children);
   const isIconOnly =
-    childArray.length === 1 && React.isValidElement(childArray[0])
+    childArray.length === 1 && React.isValidElement(childArray[0]);
 
   return (
     <TogglePrimitive
@@ -69,8 +70,8 @@ function Toggle({
     >
       {children}
     </TogglePrimitive>
-  )
-}
+  );
+});
 
 // eslint-disable-next-line react-refresh/only-export-components -- cva styles are intentionally exported from this module.
-export { Toggle, toggleVariants }
+export { Toggle, toggleVariants };

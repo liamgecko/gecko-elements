@@ -47,6 +47,8 @@ The approved variants are a closed set:
 
 Choose variants from action hierarchy and context, not colour preference. `ghost-light`, `ghost-dark`, and `secondary` require a documented component recipe. Agents must obtain explicit user consent before adding or changing variants, props, meanings, or visual treatments.
 
+`destructive` uses a solid red background with white text in light mode. Dark mode retains its muted destructive background and destructive-coloured text.
+
 `variant="link"` remains an action. Navigation uses an anchor or application router Link with `buttonVariants` when it needs Button styling.
 
 ## Sizes

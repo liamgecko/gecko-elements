@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 import AlertTriangle from "@hugeicons/core-free-icons/TriangleAlertIcon";
 import CheckCircle from "@hugeicons/core-free-icons/CircleCheckIcon";
@@ -84,7 +85,7 @@ type AlertDismissibleProp =
       onDismiss?: () => void;
     };
 
-function Alert({
+const Alert = /* @__PURE__ */ withRef(function Alert({
   className,
   variant,
   icon = false,
@@ -179,9 +180,12 @@ function Alert({
       ) : null}
     </div>
   );
-}
+});
 
-function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
+const AlertTitle = /* @__PURE__ */ withRef(function AlertTitle({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="alert-title"
@@ -192,9 +196,9 @@ function AlertTitle({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function AlertDescription({
+const AlertDescription = /* @__PURE__ */ withRef(function AlertDescription({
   className,
   ...props
 }: React.ComponentProps<"div">) {
@@ -208,9 +212,12 @@ function AlertDescription({
       {...props}
     />
   );
-}
+});
 
-function AlertAction({ className, ...props }: React.ComponentProps<"div">) {
+const AlertAction = /* @__PURE__ */ withRef(function AlertAction({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="alert-action"
@@ -226,6 +233,6 @@ function AlertAction({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
 export { Alert, AlertTitle, AlertDescription, AlertAction };

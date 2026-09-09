@@ -1,10 +1,11 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import { Separator as SeparatorPrimitive } from "@base-ui/react/separator";
 
 import { cn } from "@gecko/ui/lib/utils";
 
-function Separator({
+const Separator = /* @__PURE__ */ withRef(function Separator({
   className,
   orientation = "horizontal",
   ...props
@@ -20,6 +21,6 @@ function Separator({
       {...props}
     />
   );
-}
+});
 
 export { Separator };

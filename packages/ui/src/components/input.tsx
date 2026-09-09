@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 import { Input as InputPrimitive } from "@base-ui/react/input";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -23,7 +24,12 @@ const inputVariants = cva(
 type InputProps = Omit<React.ComponentProps<"input">, "size"> &
   VariantProps<typeof inputVariants>;
 
-function Input({ className, type, size, ...props }: InputProps) {
+const Input = /* @__PURE__ */ withRef(function Input({
+  className,
+  type,
+  size,
+  ...props
+}: InputProps) {
   return (
     <InputPrimitive
       type={type}
@@ -32,6 +38,6 @@ function Input({ className, type, size, ...props }: InputProps) {
       {...props}
     />
   );
-}
+});
 
 export { Input };

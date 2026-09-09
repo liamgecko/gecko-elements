@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { OTPInput, OTPInputContext } from "input-otp";
@@ -7,7 +8,7 @@ import { cn } from "@gecko/ui/lib/utils";
 import MinusIcon from "@hugeicons/core-free-icons/MinusIcon";
 import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-function InputOTP({
+const InputOTP = /* @__PURE__ */ withRef(function InputOTP({
   className,
   containerClassName,
   ...props
@@ -29,9 +30,12 @@ function InputOTP({
       {...props}
     />
   );
-}
+});
 
-function InputOTPGroup({ className, ...props }: React.ComponentProps<"div">) {
+const InputOTPGroup = /* @__PURE__ */ withRef(function InputOTPGroup({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="input-otp-group"
@@ -42,9 +46,9 @@ function InputOTPGroup({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function InputOTPSlot({
+const InputOTPSlot = /* @__PURE__ */ withRef(function InputOTPSlot({
   index,
   className,
   ...props
@@ -72,9 +76,11 @@ function InputOTPSlot({
       )}
     </div>
   );
-}
+});
 
-function InputOTPSeparator({ ...props }: React.ComponentProps<"div">) {
+const InputOTPSeparator = /* @__PURE__ */ withRef(function InputOTPSeparator({
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="input-otp-separator"
@@ -85,6 +91,6 @@ function InputOTPSeparator({ ...props }: React.ComponentProps<"div">) {
       <HugeiconsIcon icon={MinusIcon} aria-hidden="true" />
     </div>
   );
-}
+});
 
 export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator };

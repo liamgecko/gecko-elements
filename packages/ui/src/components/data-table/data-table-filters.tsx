@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
@@ -78,38 +79,40 @@ export type DataTableFiltersProps = Omit<
  *
  * Supports operators `is`, `is not`, and `is any of` via `DataTableMultiSelectFilter`.
  */
-export function DataTableFilters({
-  categories,
-  className,
-  ...props
-}: DataTableFiltersProps) {
-  const { table, filterUiResetKey } = useDataTableContext<unknown>();
-  const handleChange = React.useCallback(
-    (
-      values: Record<string, string[]>,
-      operators: Record<string, FilterOperator>,
-    ) => {
-      table.setColumnFilters(mapToColumnFilters(values, operators));
-    },
-    [table],
-  );
+export const DataTableFilters = /* @__PURE__ */ withRef(
+  function DataTableFilters({
+    categories,
+    className,
+    ...props
+  }: DataTableFiltersProps) {
+    const { table, filterUiResetKey } = useDataTableContext<unknown>();
+    const handleChange = React.useCallback(
+      (
+        values: Record<string, string[]>,
+        operators: Record<string, FilterOperator>,
+      ) => {
+        table.setColumnFilters(mapToColumnFilters(values, operators));
+      },
+      [table],
+    );
 
-  const columnFilters = table.getState().columnFilters;
-  const { values: defaultValues, operators: defaultOperators } =
-    React.useMemo(() => {
-      void filterUiResetKey;
-      return mapFromColumnFilters(columnFilters);
-    }, [columnFilters, filterUiResetKey]);
+    const columnFilters = table.getState().columnFilters;
+    const { values: defaultValues, operators: defaultOperators } =
+      React.useMemo(() => {
+        void filterUiResetKey;
+        return mapFromColumnFilters(columnFilters);
+      }, [columnFilters, filterUiResetKey]);
 
-  return (
-    <Filter
-      key={filterUiResetKey}
-      categories={categories}
-      className={cn(className)}
-      defaultValues={defaultValues}
-      defaultOperators={defaultOperators}
-      onChange={handleChange}
-      {...props}
-    />
-  );
-}
+    return (
+      <Filter
+        key={filterUiResetKey}
+        categories={categories}
+        className={cn(className)}
+        defaultValues={defaultValues}
+        defaultOperators={defaultOperators}
+        onChange={handleChange}
+        {...props}
+      />
+    );
+  },
+);

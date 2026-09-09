@@ -1,27 +1,25 @@
-import type { ComponentProps } from "react"
-import { motion, useReducedMotion } from "motion/react"
+import type { ComponentProps } from "react";
+import { motion, useReducedMotion } from "motion/react";
 
-import { Bubble, BubbleContent } from "@gecko/ui/components/bubble"
-import { Message, MessageContent } from "@gecko/ui/components/message"
+import { Bubble, BubbleContent } from "@gecko/ui/components/bubble";
+import { Message, MessageContent } from "@gecko/ui/components/message";
 import {
   MESSAGE_ANIMATIONS,
   type MessageAnimationPreset,
-} from "@gecko/ui/lib/message-animations"
-import { MessageScrollerItem } from "@gecko/ui/components/message-scroller"
+} from "@gecko/ui/lib/message-animations";
+import { MessageScrollerItem } from "@gecko/ui/components/message-scroller";
 
 type DemoMessagePart = {
-  type: string
-  text?: string
-}
+  type: string;
+  text?: string;
+};
 
 type DemoMessage = {
-  id: string
-  role: string
-  text?: string
-  parts?: ReadonlyArray<DemoMessagePart>
-}
-
-const MotionMessageScrollerItem = motion.create(MessageScrollerItem)
+  id: string;
+  role: string;
+  text?: string;
+  parts?: ReadonlyArray<DemoMessagePart>;
+};
 
 /**
  * Docs-only composition for message-scroller demos.
@@ -35,15 +33,15 @@ export function ScrollerDemoMessage({
   scrollAnchor,
   ...props
 }: Omit<
-  ComponentProps<typeof MotionMessageScrollerItem>,
-  "animate" | "children" | "exit" | "initial" | "messageId" | "variants"
+  ComponentProps<typeof MessageScrollerItem>,
+  "children" | "messageId"
 > & {
-  animationPreset?: MessageAnimationPreset
-  message: DemoMessage
+  animationPreset?: MessageAnimationPreset;
+  message: DemoMessage;
 }) {
-  const shouldReduceMotion = useReducedMotion()
-  const isUserMessage = message.role === "user"
-  const textParts = getTextParts(message)
+  const shouldReduceMotion = useReducedMotion();
+  const isUserMessage = message.role === "user";
+  const textParts = getTextParts(message);
 
   const row = (
     <Message
@@ -55,7 +53,7 @@ export function ScrollerDemoMessage({
           const paragraphs = part.text
             .split(/\n\s*\n/)
             .map((paragraph) => paragraph.trim())
-            .filter(Boolean)
+            .filter(Boolean);
 
           return (
             <Bubble key={part.key}>
@@ -65,52 +63,42 @@ export function ScrollerDemoMessage({
                 ))}
               </BubbleContent>
             </Bubble>
-          )
+          );
         })}
       </MessageContent>
     </Message>
-  )
-
-  if (isUserMessage) {
-    return (
-      <MotionMessageScrollerItem
-        messageId={message.id}
-        scrollAnchor={scrollAnchor ?? true}
-        variants={animationPreset.variants}
-        initial={shouldReduceMotion ? false : "initial"}
-        animate="animate"
-        exit={shouldReduceMotion ? undefined : "exit"}
-        {...props}
-      >
-        {row}
-      </MotionMessageScrollerItem>
-    )
-  }
+  );
 
   return (
-    <MotionMessageScrollerItem
+    <MessageScrollerItem
       messageId={message.id}
-      scrollAnchor={scrollAnchor}
-      initial={false}
+      scrollAnchor={scrollAnchor ?? isUserMessage}
       {...props}
     >
-      {row}
-    </MotionMessageScrollerItem>
-  )
+      <motion.div
+        variants={animationPreset.variants}
+        initial={isUserMessage && !shouldReduceMotion ? "initial" : false}
+        animate="animate"
+        exit={isUserMessage && !shouldReduceMotion ? "exit" : undefined}
+      >
+        {row}
+      </motion.div>
+    </MessageScrollerItem>
+  );
 }
 
 function getTextParts(message: DemoMessage) {
   if (message.parts) {
     return message.parts.flatMap((part, index) => {
       if (part.type !== "text" || typeof part.text !== "string") {
-        return []
+        return [];
       }
 
-      return [{ key: `${message.id}-${index}`, text: part.text }]
-    })
+      return [{ key: `${message.id}-${index}`, text: part.text }];
+    });
   }
 
   return typeof message.text === "string"
     ? [{ key: `${message.id}-text`, text: message.text }]
-    : []
+    : [];
 }

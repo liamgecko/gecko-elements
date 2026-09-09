@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
@@ -19,11 +20,16 @@ function ToastProvider(props: ToastPrimitive.Provider.Props) {
   return <ToastPrimitive.Provider {...props} />;
 }
 
-function ToastPortal(props: ToastPrimitive.Portal.Props) {
+const ToastPortal = /* @__PURE__ */ withRef(function ToastPortal(
+  props: ToastPrimitive.Portal.Props,
+) {
   return <ToastPrimitive.Portal data-slot="toast-portal" {...props} />;
-}
+});
 
-function ToastViewport({ className, ...props }: ToastPrimitive.Viewport.Props) {
+const ToastViewport = /* @__PURE__ */ withRef(function ToastViewport({
+  className,
+  ...props
+}: ToastPrimitive.Viewport.Props) {
   return (
     <ToastPrimitive.Viewport
       data-slot="toast-viewport"
@@ -34,9 +40,12 @@ function ToastViewport({ className, ...props }: ToastPrimitive.Viewport.Props) {
       {...props}
     />
   );
-}
+});
 
-function Toast({ className, ...props }: ToastPrimitive.Root.Props) {
+const Toast = /* @__PURE__ */ withRef(function Toast({
+  className,
+  ...props
+}: ToastPrimitive.Root.Props) {
   return (
     <ToastPrimitive.Root
       data-slot="toast"
@@ -61,9 +70,12 @@ function Toast({ className, ...props }: ToastPrimitive.Root.Props) {
       {...props}
     />
   );
-}
+});
 
-function ToastContent({ className, ...props }: ToastPrimitive.Content.Props) {
+const ToastContent = /* @__PURE__ */ withRef(function ToastContent({
+  className,
+  ...props
+}: ToastPrimitive.Content.Props) {
   return (
     <ToastPrimitive.Content
       data-slot="toast-content"
@@ -74,9 +86,12 @@ function ToastContent({ className, ...props }: ToastPrimitive.Content.Props) {
       {...props}
     />
   );
-}
+});
 
-function ToastTitle({ className, ...props }: ToastPrimitive.Title.Props) {
+const ToastTitle = /* @__PURE__ */ withRef(function ToastTitle({
+  className,
+  ...props
+}: ToastPrimitive.Title.Props) {
   return (
     <ToastPrimitive.Title
       data-slot="toast-title"
@@ -84,9 +99,9 @@ function ToastTitle({ className, ...props }: ToastPrimitive.Title.Props) {
       {...props}
     />
   );
-}
+});
 
-function ToastDescription({
+const ToastDescription = /* @__PURE__ */ withRef(function ToastDescription({
   className,
   ...props
 }: ToastPrimitive.Description.Props) {
@@ -97,9 +112,9 @@ function ToastDescription({
       {...props}
     />
   );
-}
+});
 
-function ToastAction({
+const ToastAction = /* @__PURE__ */ withRef(function ToastAction({
   className,
   render = <Button variant="outline" size="sm" />,
   ...props
@@ -112,9 +127,9 @@ function ToastAction({
       {...props}
     />
   );
-}
+});
 
-function ToastClose({
+const ToastClose = /* @__PURE__ */ withRef(function ToastClose({
   className,
   children,
   render = <Button variant="ghost" size="icon-sm" />,
@@ -134,7 +149,7 @@ function ToastClose({
       {children ?? <HugeiconsIcon icon={XIcon} aria-hidden="true" />}
     </ToastPrimitive.Close>
   );
-}
+});
 
 function ToastIcon({ type }: { type: string | undefined }) {
   let icon: React.ReactNode = null;

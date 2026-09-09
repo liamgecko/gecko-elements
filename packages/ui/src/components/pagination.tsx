@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 
 import { cn } from "@gecko/ui/lib/utils";
@@ -7,7 +8,10 @@ import ChevronRightIcon from "@hugeicons/core-free-icons/ChevronRightIcon";
 import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
 import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
-function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
+const Pagination = /* @__PURE__ */ withRef(function Pagination({
+  className,
+  ...props
+}: React.ComponentProps<"nav">) {
   return (
     <nav
       role="navigation"
@@ -17,9 +21,9 @@ function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
       {...props}
     />
   );
-}
+});
 
-function PaginationContent({
+const PaginationContent = /* @__PURE__ */ withRef(function PaginationContent({
   className,
   ...props
 }: React.ComponentProps<"ul">) {
@@ -30,18 +34,20 @@ function PaginationContent({
       {...props}
     />
   );
-}
+});
 
-function PaginationItem({ ...props }: React.ComponentProps<"li">) {
+const PaginationItem = /* @__PURE__ */ withRef(function PaginationItem({
+  ...props
+}: React.ComponentProps<"li">) {
   return <li data-slot="pagination-item" {...props} />;
-}
+});
 
 type PaginationLinkProps = {
   isActive?: boolean;
 } & Pick<React.ComponentProps<typeof Button>, "size" | "variant"> &
   React.ComponentProps<"a">;
 
-function PaginationLink({
+const PaginationLink = /* @__PURE__ */ withRef(function PaginationLink({
   className,
   isActive,
   size = "icon",
@@ -64,9 +70,9 @@ function PaginationLink({
       }
     />
   );
-}
+});
 
-function PaginationPrevious({
+const PaginationPrevious = /* @__PURE__ */ withRef(function PaginationPrevious({
   className,
   text = "Previous",
   iconOnly = false,
@@ -91,9 +97,9 @@ function PaginationPrevious({
       {!iconOnly ? <span className="hidden sm:block">{text}</span> : null}
     </PaginationLink>
   );
-}
+});
 
-function PaginationNext({
+const PaginationNext = /* @__PURE__ */ withRef(function PaginationNext({
   className,
   text = "Next",
   iconOnly = false,
@@ -118,9 +124,9 @@ function PaginationNext({
       />
     </PaginationLink>
   );
-}
+});
 
-function PaginationEllipsis({
+const PaginationEllipsis = /* @__PURE__ */ withRef(function PaginationEllipsis({
   className,
   ...props
 }: React.ComponentProps<"span">) {
@@ -137,7 +143,7 @@ function PaginationEllipsis({
       <span className="sr-only">More pages</span>
     </span>
   );
-}
+});
 
 export {
   Pagination,

@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 import Check from "@hugeicons/core-free-icons/CheckIcon";
 import LockOpen from "@hugeicons/core-free-icons/LockOpenIcon";
@@ -118,7 +119,7 @@ function ChatHeadActions({
   );
 }
 
-function ChatHead({
+const ChatHead = /* @__PURE__ */ withRef(function ChatHead({
   className,
   items,
   selectedId,
@@ -251,6 +252,6 @@ function ChatHead({
       </ul>
     </TooltipProvider>
   );
-}
+});
 
 export { ChatHead };

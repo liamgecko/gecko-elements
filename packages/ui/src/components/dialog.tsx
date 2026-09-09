@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
@@ -15,19 +16,25 @@ function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
 }
 
-function DialogTrigger({ ...props }: DialogPrimitive.Trigger.Props) {
+const DialogTrigger = /* @__PURE__ */ withRef(function DialogTrigger({
+  ...props
+}: DialogPrimitive.Trigger.Props) {
   return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
-}
+});
 
-function DialogPortal({ ...props }: DialogPrimitive.Portal.Props) {
+const DialogPortal = /* @__PURE__ */ withRef(function DialogPortal({
+  ...props
+}: DialogPrimitive.Portal.Props) {
   return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
-}
+});
 
-function DialogClose({ ...props }: DialogPrimitive.Close.Props) {
+const DialogClose = /* @__PURE__ */ withRef(function DialogClose({
+  ...props
+}: DialogPrimitive.Close.Props) {
   return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
-}
+});
 
-function DialogOverlay({
+const DialogOverlay = /* @__PURE__ */ withRef(function DialogOverlay({
   className,
   ...props
 }: DialogPrimitive.Backdrop.Props) {
@@ -41,9 +48,9 @@ function DialogOverlay({
       {...props}
     />
   );
-}
+});
 
-function DialogContent({
+const DialogContent = /* @__PURE__ */ withRef(function DialogContent({
   className,
   children,
   showCloseButton = true,
@@ -100,9 +107,12 @@ function DialogContent({
       </DialogPrimitive.Popup>
     </DialogPortal>
   );
-}
+});
 
-function DialogWrapper({ className, ...props }: React.ComponentProps<"div">) {
+const DialogWrapper = /* @__PURE__ */ withRef(function DialogWrapper({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-wrapper"
@@ -113,9 +123,12 @@ function DialogWrapper({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
+const DialogHeader = /* @__PURE__ */ withRef(function DialogHeader({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-header"
@@ -126,18 +139,21 @@ function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function DialogBody({ className, ...props }: React.ComponentProps<"div">) {
+const DialogBody = /* @__PURE__ */ withRef(function DialogBody({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return <div data-slot="dialog-body" className={cn(className)} {...props} />;
-}
+});
 
 type DialogFooterProps = React.ComponentProps<"div"> & {
   showCloseButton?: boolean;
   closeButtonText?: string;
 };
 
-function DialogFooter({
+const DialogFooter = /* @__PURE__ */ withRef(function DialogFooter({
   className,
   showCloseButton = false,
   closeButtonText = "Close",
@@ -165,9 +181,12 @@ function DialogFooter({
       {children}
     </div>
   );
-}
+});
 
-function DialogTitle({ className, ...props }: DialogPrimitive.Title.Props) {
+const DialogTitle = /* @__PURE__ */ withRef(function DialogTitle({
+  className,
+  ...props
+}: DialogPrimitive.Title.Props) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
@@ -175,9 +194,9 @@ function DialogTitle({ className, ...props }: DialogPrimitive.Title.Props) {
       {...props}
     />
   );
-}
+});
 
-function DialogDescription({
+const DialogDescription = /* @__PURE__ */ withRef(function DialogDescription({
   className,
   ...props
 }: DialogPrimitive.Description.Props) {
@@ -191,7 +210,7 @@ function DialogDescription({
       {...props}
     />
   );
-}
+});
 
 export {
   Dialog,

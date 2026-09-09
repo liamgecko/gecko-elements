@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 
 import { cn } from "@gecko/ui/lib/utils";
@@ -414,7 +415,7 @@ function renderTabs(tabs: HeaderTabsProps) {
   );
 }
 
-function Header({
+const Header = /* @__PURE__ */ withRef(function Header({
   breadcrumbs,
   title,
   subheading,
@@ -479,7 +480,7 @@ function Header({
       {resolvedTabs ? <div>{resolvedTabs}</div> : null}
     </div>
   );
-}
+});
 
 export { Header };
 export type {

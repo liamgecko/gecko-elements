@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { Select as SelectPrimitive } from "@base-ui/react/select";
@@ -11,7 +12,10 @@ import { HugeiconsIcon } from "@gecko/ui/lib/icon";
 
 const Select = SelectPrimitive.Root;
 
-function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
+const SelectGroup = /* @__PURE__ */ withRef(function SelectGroup({
+  className,
+  ...props
+}: SelectPrimitive.Group.Props) {
   return (
     <SelectPrimitive.Group
       data-slot="select-group"
@@ -19,9 +23,12 @@ function SelectGroup({ className, ...props }: SelectPrimitive.Group.Props) {
       {...props}
     />
   );
-}
+});
 
-function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
+const SelectValue = /* @__PURE__ */ withRef(function SelectValue({
+  className,
+  ...props
+}: SelectPrimitive.Value.Props) {
   return (
     <SelectPrimitive.Value
       data-slot="select-value"
@@ -29,9 +36,9 @@ function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
       {...props}
     />
   );
-}
+});
 
-function SelectTrigger({
+const SelectTrigger = /* @__PURE__ */ withRef(function SelectTrigger({
   className,
   size = "default",
   children,
@@ -60,9 +67,9 @@ function SelectTrigger({
       />
     </SelectPrimitive.Trigger>
   );
-}
+});
 
-function SelectContent({
+const SelectContent = /* @__PURE__ */ withRef(function SelectContent({
   className,
   children,
   side = "bottom",
@@ -102,9 +109,9 @@ function SelectContent({
       </SelectPrimitive.Positioner>
     </SelectPrimitive.Portal>
   );
-}
+});
 
-function SelectLabel({
+const SelectLabel = /* @__PURE__ */ withRef(function SelectLabel({
   className,
   ...props
 }: SelectPrimitive.GroupLabel.Props) {
@@ -115,9 +122,9 @@ function SelectLabel({
       {...props}
     />
   );
-}
+});
 
-function SelectItem({
+const SelectItem = /* @__PURE__ */ withRef(function SelectItem({
   className,
   children,
   ...props
@@ -143,9 +150,9 @@ function SelectItem({
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
   );
-}
+});
 
-function SelectSeparator({
+const SelectSeparator = /* @__PURE__ */ withRef(function SelectSeparator({
   className,
   ...props
 }: SelectPrimitive.Separator.Props) {
@@ -156,43 +163,47 @@ function SelectSeparator({
       {...props}
     />
   );
-}
+});
 
-function SelectScrollUpButton({
-  className,
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>) {
-  return (
-    <SelectPrimitive.ScrollUpArrow
-      data-slot="select-scroll-up-button"
-      className={cn(
-        "bg-popover z-10 flex cursor-default items-center justify-center py-1 [&_svg:not([class*='size-'])]:size-4 top-0 w-full",
-        className,
-      )}
-      {...props}
-    >
-      <HugeiconsIcon icon={ChevronUpIcon} />
-    </SelectPrimitive.ScrollUpArrow>
-  );
-}
+const SelectScrollUpButton = /* @__PURE__ */ withRef(
+  function SelectScrollUpButton({
+    className,
+    ...props
+  }: React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>) {
+    return (
+      <SelectPrimitive.ScrollUpArrow
+        data-slot="select-scroll-up-button"
+        className={cn(
+          "bg-popover z-10 flex cursor-default items-center justify-center py-1 [&_svg:not([class*='size-'])]:size-4 top-0 w-full",
+          className,
+        )}
+        {...props}
+      >
+        <HugeiconsIcon icon={ChevronUpIcon} />
+      </SelectPrimitive.ScrollUpArrow>
+    );
+  },
+);
 
-function SelectScrollDownButton({
-  className,
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.ScrollDownArrow>) {
-  return (
-    <SelectPrimitive.ScrollDownArrow
-      data-slot="select-scroll-down-button"
-      className={cn(
-        "bg-popover z-10 flex cursor-default items-center justify-center py-1 [&_svg:not([class*='size-'])]:size-4 bottom-0 w-full",
-        className,
-      )}
-      {...props}
-    >
-      <HugeiconsIcon icon={ChevronDownIcon} />
-    </SelectPrimitive.ScrollDownArrow>
-  );
-}
+const SelectScrollDownButton = /* @__PURE__ */ withRef(
+  function SelectScrollDownButton({
+    className,
+    ...props
+  }: React.ComponentProps<typeof SelectPrimitive.ScrollDownArrow>) {
+    return (
+      <SelectPrimitive.ScrollDownArrow
+        data-slot="select-scroll-down-button"
+        className={cn(
+          "bg-popover z-10 flex cursor-default items-center justify-center py-1 [&_svg:not([class*='size-'])]:size-4 bottom-0 w-full",
+          className,
+        )}
+        {...props}
+      >
+        <HugeiconsIcon icon={ChevronDownIcon} />
+      </SelectPrimitive.ScrollDownArrow>
+    );
+  },
+);
 
 export {
   Select,

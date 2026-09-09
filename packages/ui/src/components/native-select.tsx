@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
@@ -24,7 +25,11 @@ const nativeSelectVariants = cva(
 type NativeSelectProps = Omit<React.ComponentProps<"select">, "size"> &
   VariantProps<typeof nativeSelectVariants>;
 
-function NativeSelect({ className, size = "md", ...props }: NativeSelectProps) {
+const NativeSelect = /* @__PURE__ */ withRef(function NativeSelect({
+  className,
+  size = "md",
+  ...props
+}: NativeSelectProps) {
   return (
     <div
       className={cn(
@@ -48,9 +53,9 @@ function NativeSelect({ className, size = "md", ...props }: NativeSelectProps) {
       />
     </div>
   );
-}
+});
 
-function NativeSelectOption({
+const NativeSelectOption = /* @__PURE__ */ withRef(function NativeSelectOption({
   className,
   ...props
 }: React.ComponentProps<"option">) {
@@ -61,19 +66,21 @@ function NativeSelectOption({
       {...props}
     />
   );
-}
+});
 
-function NativeSelectOptGroup({
-  className,
-  ...props
-}: React.ComponentProps<"optgroup">) {
-  return (
-    <optgroup
-      data-slot="native-select-optgroup"
-      className={cn("bg-[Canvas] text-[CanvasText]", className)}
-      {...props}
-    />
-  );
-}
+const NativeSelectOptGroup = /* @__PURE__ */ withRef(
+  function NativeSelectOptGroup({
+    className,
+    ...props
+  }: React.ComponentProps<"optgroup">) {
+    return (
+      <optgroup
+        data-slot="native-select-optgroup"
+        className={cn("bg-[Canvas] text-[CanvasText]", className)}
+        {...props}
+      />
+    );
+  },
+);
 
 export { NativeSelect, NativeSelectOptGroup, NativeSelectOption };

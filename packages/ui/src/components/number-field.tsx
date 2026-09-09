@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { NumberField as NumberFieldPrimitive } from "@base-ui/react/number-field";
@@ -42,7 +43,7 @@ export interface NumberFieldProps extends Omit<
   incrementAriaLabel?: string;
 }
 
-export function NumberField({
+export const NumberField = /* @__PURE__ */ withRef(function NumberField({
   size = "md",
   className,
   id,
@@ -119,4 +120,4 @@ export function NumberField({
       </NumberFieldPrimitive.Group>
     </NumberFieldPrimitive.Root>
   );
-}
+});

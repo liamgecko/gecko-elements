@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
@@ -11,7 +12,10 @@ import {
   TooltipTrigger,
 } from "@gecko/ui/components/tooltip";
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
+const Card = /* @__PURE__ */ withRef(function Card({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card"
@@ -22,9 +26,9 @@ function Card({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function CardTitle({
+const CardTitle = /* @__PURE__ */ withRef(function CardTitle({
   className,
   render,
   children,
@@ -44,9 +48,12 @@ function CardTitle({
       slot: "card-title",
     },
   });
-}
+});
 
-function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
+const CardDescription = /* @__PURE__ */ withRef(function CardDescription({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-description"
@@ -54,10 +61,13 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 CardDescription.displayName = "CardDescription";
 
-function CardAction({ className, ...props }: React.ComponentProps<"div">) {
+const CardAction = /* @__PURE__ */ withRef(function CardAction({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-action"
@@ -68,7 +78,7 @@ function CardAction({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 CardAction.displayName = "CardAction";
 
 /** Matches after Fast Refresh when `child.type` is a stale reference from the previous module. */
@@ -105,7 +115,7 @@ function partitionCardHeaderChildren(children: React.ReactNode) {
   return { actions, descriptions, main };
 }
 
-function CardHeader({
+const CardHeader = /* @__PURE__ */ withRef(function CardHeader({
   className,
   children,
   tooltip,
@@ -188,15 +198,21 @@ function CardHeader({
       )}
     </div>
   );
-}
+});
 
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
+const CardContent = /* @__PURE__ */ withRef(function CardContent({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div data-slot="card-content" className={cn("p-4", className)} {...props} />
   );
-}
+});
 
-function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
+const CardFooter = /* @__PURE__ */ withRef(function CardFooter({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-footer"
@@ -207,7 +223,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
 export {
   Card,

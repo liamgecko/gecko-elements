@@ -1,10 +1,11 @@
-"use client"
+"use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
-import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area"
+import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area";
 
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@gecko/ui/lib/utils";
 
-function ScrollArea({
+const ScrollArea = /* @__PURE__ */ withRef(function ScrollArea({
   className,
   children,
   ...props
@@ -24,10 +25,10 @@ function ScrollArea({
       <ScrollBar />
       <ScrollAreaPrimitive.Corner />
     </ScrollAreaPrimitive.Root>
-  )
-}
+  );
+});
 
-function ScrollBar({
+const ScrollBar = /* @__PURE__ */ withRef(function ScrollBar({
   className,
   orientation = "vertical",
   ...props
@@ -39,7 +40,7 @@ function ScrollBar({
       orientation={orientation}
       className={cn(
         "data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-s data-vertical:border-s-transparent flex touch-none p-px select-none opacity-0 transition-[color,opacity] group-hover/scroll:opacity-100 group-focus-within/scroll:opacity-100",
-        className
+        className,
       )}
       {...props}
     >
@@ -48,7 +49,7 @@ function ScrollBar({
         className="rounded-full bg-border relative flex-1"
       />
     </ScrollAreaPrimitive.Scrollbar>
-  )
-}
+  );
+});
 
-export { ScrollArea, ScrollBar }
+export { ScrollArea, ScrollBar };

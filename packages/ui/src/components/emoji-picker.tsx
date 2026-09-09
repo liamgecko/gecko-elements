@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { EmojiPicker as FrimousseEmojiPicker } from "frimousse";
@@ -118,13 +119,13 @@ function EmojiPicker({
   );
 }
 
-function EmojiPickerTrigger({
+const EmojiPickerTrigger = /* @__PURE__ */ withRef(function EmojiPickerTrigger({
   ...props
 }: React.ComponentProps<typeof PopoverTrigger>) {
   return <PopoverTrigger data-slot="emoji-picker-trigger" {...props} />;
-}
+});
 
-function EmojiPickerContent({
+const EmojiPickerContent = /* @__PURE__ */ withRef(function EmojiPickerContent({
   className,
   side,
   align,
@@ -155,7 +156,7 @@ function EmojiPickerContent({
         (defaultView === "tray" ? <EmojiPickerTray /> : <EmojiPickerPanel />)}
     </PopoverContent>
   );
-}
+});
 
 type EmojiPickerTrayProps = React.ComponentProps<"div"> & {
   /** Controlled open state for the nested full picker. */
@@ -163,7 +164,7 @@ type EmojiPickerTrayProps = React.ComponentProps<"div"> & {
   onPickerOpenChange?: (open: boolean) => void;
 };
 
-function EmojiPickerTray({
+const EmojiPickerTray = /* @__PURE__ */ withRef(function EmojiPickerTray({
   className,
   pickerOpen: pickerOpenProp,
   onPickerOpenChange,
@@ -283,7 +284,7 @@ function EmojiPickerTray({
       ) : null}
     </div>
   );
-}
+});
 
 type EmojiPickerPanelProps = React.ComponentProps<"div">;
 
@@ -305,7 +306,10 @@ function getRowStyle(style?: React.CSSProperties): React.CSSProperties {
   };
 }
 
-function EmojiPickerPanel({ className, ...props }: EmojiPickerPanelProps) {
+const EmojiPickerPanel = /* @__PURE__ */ withRef(function EmojiPickerPanel({
+  className,
+  ...props
+}: EmojiPickerPanelProps) {
   const { onEmojiSelect } = useEmojiPicker("EmojiPickerPanel");
 
   return (
@@ -420,7 +424,7 @@ function EmojiPickerPanel({ className, ...props }: EmojiPickerPanelProps) {
       </FrimousseEmojiPicker.Root>
     </div>
   );
-}
+});
 
 export {
   EmojiPicker,

@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import CalendarPlus from "@hugeicons/core-free-icons/CalendarPlusIcon";
@@ -167,7 +168,7 @@ export type ActivityFeedProps = Omit<React.ComponentProps<"ul">, "children"> &
     pagination?: ActivityFeedPagination;
   };
 
-function ActivityFeed({
+const ActivityFeed = /* @__PURE__ */ withRef(function ActivityFeed({
   className,
   items,
   variant = "default",
@@ -293,7 +294,7 @@ function ActivityFeed({
       ) : null}
     </div>
   );
-}
+});
 
 export { ActivityFeed };
 

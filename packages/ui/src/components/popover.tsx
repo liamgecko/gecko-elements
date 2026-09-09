@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
@@ -9,15 +10,19 @@ function Popover({ ...props }: PopoverPrimitive.Root.Props) {
   return <PopoverPrimitive.Root data-slot="popover" {...props} />;
 }
 
-function PopoverTrigger({ ...props }: PopoverPrimitive.Trigger.Props) {
+const PopoverTrigger = /* @__PURE__ */ withRef(function PopoverTrigger({
+  ...props
+}: PopoverPrimitive.Trigger.Props) {
   return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />;
-}
+});
 
-function PopoverClose({ ...props }: PopoverPrimitive.Close.Props) {
+const PopoverClose = /* @__PURE__ */ withRef(function PopoverClose({
+  ...props
+}: PopoverPrimitive.Close.Props) {
   return <PopoverPrimitive.Close data-slot="popover-close" {...props} />;
-}
+});
 
-function PopoverContent({
+const PopoverContent = /* @__PURE__ */ withRef(function PopoverContent({
   className,
   align = "center",
   alignOffset = 0,
@@ -49,9 +54,12 @@ function PopoverContent({
       </PopoverPrimitive.Positioner>
     </PopoverPrimitive.Portal>
   );
-}
+});
 
-function PopoverHeader({ className, ...props }: React.ComponentProps<"div">) {
+const PopoverHeader = /* @__PURE__ */ withRef(function PopoverHeader({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="popover-header"
@@ -59,9 +67,12 @@ function PopoverHeader({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function PopoverTitle({ className, ...props }: PopoverPrimitive.Title.Props) {
+const PopoverTitle = /* @__PURE__ */ withRef(function PopoverTitle({
+  className,
+  ...props
+}: PopoverPrimitive.Title.Props) {
   return (
     <PopoverPrimitive.Title
       data-slot="popover-title"
@@ -69,9 +80,9 @@ function PopoverTitle({ className, ...props }: PopoverPrimitive.Title.Props) {
       {...props}
     />
   );
-}
+});
 
-function PopoverDescription({
+const PopoverDescription = /* @__PURE__ */ withRef(function PopoverDescription({
   className,
   ...props
 }: PopoverPrimitive.Description.Props) {
@@ -82,9 +93,12 @@ function PopoverDescription({
       {...props}
     />
   );
-}
+});
 
-function PopoverFooter({ className, ...props }: React.ComponentProps<"div">) {
+const PopoverFooter = /* @__PURE__ */ withRef(function PopoverFooter({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="popover-footer"
@@ -95,7 +109,7 @@ function PopoverFooter({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
 export {
   Popover,

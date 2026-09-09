@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { cva } from "class-variance-authority";
@@ -132,7 +133,9 @@ function getMedia(state: AttachmentState) {
   }
 }
 
-function Attachment(props: AttachmentProps) {
+const Attachment = /* @__PURE__ */ withRef(function Attachment(
+  props: AttachmentProps,
+) {
   const {
     state: stateProp,
     name,
@@ -284,9 +287,7 @@ function Attachment(props: AttachmentProps) {
           {media}
         </span>
         <span className="min-w-0 flex-1 leading-tight">
-          <span className="block truncate font-medium">
-            {label}
-          </span>
+          <span className="block truncate font-medium">{label}</span>
           {displayDescription != null && (
             <span className="mt-0.5 block truncate text-2xs text-muted-foreground">
               {displayDescription}
@@ -364,7 +365,7 @@ function Attachment(props: AttachmentProps) {
       )}
     </div>
   );
-}
+});
 
 export { Attachment };
 export type {

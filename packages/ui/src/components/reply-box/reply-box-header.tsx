@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import ContractIcon from "@hugeicons/core-free-icons/ArrowShrink02Icon";
@@ -31,7 +32,7 @@ export type ReplyBoxHeaderProps = React.ComponentProps<"div"> & {
   channel?: ReplyBoxChannel;
 };
 
-export function ReplyBoxHeader({
+export const ReplyBoxHeader = /* @__PURE__ */ withRef(function ReplyBoxHeader({
   showChannelSwitcher = false,
   showExpand = false,
   channels,
@@ -169,4 +170,4 @@ export function ReplyBoxHeader({
       ) : null}
     </div>
   );
-}
+});

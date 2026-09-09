@@ -1,5 +1,6 @@
 "use client";
 
+import { inertProps } from "@gecko/ui/lib/inert";
 import * as React from "react";
 import EllipsisIcon from "@hugeicons/core-free-icons/EllipsisIcon";
 import MessageSquare from "@hugeicons/core-free-icons/MessageSquareIcon";
@@ -87,7 +88,10 @@ export function ReplyBoxButtonTray({
     [pinned],
   );
   const candidateMeasureRefs = React.useMemo(() => {
-    const refs: Record<string, React.RefObject<HTMLButtonElement | null>> = {};
+    const refs: Record<
+      string,
+      ReturnType<typeof React.createRef<HTMLButtonElement>>
+    > = {};
     for (const item of candidates) {
       refs[getReplyBoxTrayItemKey(item)] = React.createRef<HTMLButtonElement>();
     }
@@ -390,7 +394,7 @@ export function ReplyBoxButtonTray({
         <div
           className="absolute -z-10 h-0 w-0 overflow-hidden opacity-0 pointer-events-none"
           aria-hidden
-          inert
+          {...inertProps(true)}
         >
           <Button
             ref={overflowMeasureRef}

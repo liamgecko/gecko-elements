@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
@@ -48,7 +49,7 @@ type TabsProps = TabsPrimitive.Root.Props & {
   variant?: TabsVariant;
 };
 
-function Tabs({
+const Tabs = /* @__PURE__ */ withRef(function Tabs({
   className,
   children,
   defaultValue = 0,
@@ -91,7 +92,7 @@ function Tabs({
       </TabsPrimitive.Root>
     </TabsContext.Provider>
   );
-}
+});
 
 const tabsListVariants = cva(
   "group-data-horizontal/tabs:h-10 group/tabs-list text-muted-foreground relative isolate inline-flex items-center justify-center group-data-vertical/tabs:h-fit group-data-vertical/tabs:flex-col",
@@ -121,7 +122,7 @@ type TabsListProps = TabsPrimitive.List.Props &
     overflow?: boolean;
   };
 
-function TabsList({
+const TabsList = /* @__PURE__ */ withRef(function TabsList({
   className,
   children,
   fullWidth = false,
@@ -163,11 +164,11 @@ function TabsList({
       <TabsIndicator variant={variant} />
     </TabsPrimitive.List>
   );
-}
+});
 
 type OverflowTab = React.ReactElement<TabsPrimitive.Tab.Props>;
 
-function TabsOverflowList({
+const TabsOverflowList = /* @__PURE__ */ withRef(function TabsOverflowList({
   className,
   children,
   value,
@@ -343,7 +344,7 @@ function TabsOverflowList({
       </DropdownMenu>
     </div>
   );
-}
+});
 
 function TabsIndicator({ variant }: { variant: TabsVariant }) {
   return (
@@ -360,7 +361,10 @@ function TabsIndicator({ variant }: { variant: TabsVariant }) {
   );
 }
 
-function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
+const TabsTrigger = /* @__PURE__ */ withRef(function TabsTrigger({
+  className,
+  ...props
+}: TabsPrimitive.Tab.Props) {
   return (
     <TabsPrimitive.Tab
       data-slot="tabs-trigger"
@@ -373,9 +377,12 @@ function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
       {...props}
     />
   );
-}
+});
 
-function TabsContent({ className, ...props }: TabsPrimitive.Panel.Props) {
+const TabsContent = /* @__PURE__ */ withRef(function TabsContent({
+  className,
+  ...props
+}: TabsPrimitive.Panel.Props) {
   return (
     <TabsPrimitive.Panel
       data-slot="tabs-content"
@@ -386,6 +393,6 @@ function TabsContent({ className, ...props }: TabsPrimitive.Panel.Props) {
       {...props}
     />
   );
-}
+});
 
 export { Tabs, TabsList, TabsTrigger, TabsContent };

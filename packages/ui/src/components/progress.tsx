@@ -1,16 +1,17 @@
-"use client"
+"use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
-import * as React from "react"
-import { Progress as ProgressPrimitive } from "@base-ui/react/progress"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@gecko/ui/lib/utils"
+import { cn } from "@gecko/ui/lib/utils";
 
 const RING_SIZE_CONFIG = {
   sm: { size: 32, radius: 14, stroke: 3 },
   default: { size: 58, radius: 26, stroke: 6 },
   lg: { size: 90, radius: 41, stroke: 8 },
-} as const
+} as const;
 
 const progressTrackSizeVariants = cva("", {
   variants: {
@@ -23,53 +24,53 @@ const progressTrackSizeVariants = cva("", {
   defaultVariants: {
     size: "default",
   },
-})
+});
 
 function getProgressPercentage(
   value: number | null | undefined,
   min: number,
-  max: number
+  max: number,
 ): number {
-  if (value == null || max <= min) return 0
+  if (value == null || max <= min) return 0;
 
-  return Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100))
+  return Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
 }
 
 function getValueColorBar(
   value: number | null | undefined,
   min: number,
-  max: number
+  max: number,
 ): string {
-  if (value === undefined || value === null) return "bg-primary"
-  const percentage = getProgressPercentage(value, min, max)
-  if (percentage <= 25) return "bg-progress-lowest"
-  if (percentage <= 50) return "bg-progress-low"
-  if (percentage <= 75) return "bg-progress-medium"
-  return "bg-progress-high"
+  if (value === undefined || value === null) return "bg-primary";
+  const percentage = getProgressPercentage(value, min, max);
+  if (percentage <= 25) return "bg-progress-lowest";
+  if (percentage <= 50) return "bg-progress-low";
+  if (percentage <= 75) return "bg-progress-medium";
+  return "bg-progress-high";
 }
 
 function getValueColorRing(
   value: number | null | undefined,
   min: number,
-  max: number
+  max: number,
 ): string {
-  if (value === undefined || value === null) return "stroke-primary"
-  const percentage = getProgressPercentage(value, min, max)
-  if (percentage <= 25) return "stroke-progress-lowest"
-  if (percentage <= 50) return "stroke-progress-low"
-  if (percentage <= 75) return "stroke-progress-medium"
-  return "stroke-progress-high"
+  if (value === undefined || value === null) return "stroke-primary";
+  const percentage = getProgressPercentage(value, min, max);
+  if (percentage <= 25) return "stroke-progress-lowest";
+  if (percentage <= 50) return "stroke-progress-low";
+  if (percentage <= 75) return "stroke-progress-medium";
+  return "stroke-progress-high";
 }
 
-type ProgressSize = "sm" | "default" | "lg"
+type ProgressSize = "sm" | "default" | "lg";
 
 type ProgressProps = ProgressPrimitive.Root.Props & {
-  type?: "default" | "ring"
-  size?: ProgressSize
-  label?: string
-  valueLabel?: string
-  showValueColors?: boolean
-}
+  type?: "default" | "ring";
+  size?: ProgressSize;
+  label?: string;
+  valueLabel?: string;
+  showValueColors?: boolean;
+};
 
 const Progress = React.forwardRef<
   React.ComponentRef<typeof ProgressPrimitive.Root>,
@@ -89,19 +90,19 @@ const Progress = React.forwardRef<
     "aria-valuetext": ariaValueText,
     ...props
   },
-  ref
+  ref,
 ) {
   if (type === "ring") {
-    const ringSize = size ?? "default"
-    const config = RING_SIZE_CONFIG[ringSize]
-    const { size: svgSize, radius, stroke } = config
-    const center = svgSize / 2
-    const normalizedValue = getProgressPercentage(value, min, max)
-    const circumference = 2 * Math.PI * radius
-    const strokeDashoffset = ((100 - normalizedValue) / 100) * circumference
+    const ringSize = size ?? "default";
+    const config = RING_SIZE_CONFIG[ringSize];
+    const { size: svgSize, radius, stroke } = config;
+    const center = svgSize / 2;
+    const normalizedValue = getProgressPercentage(value, min, max);
+    const circumference = 2 * Math.PI * radius;
+    const strokeDashoffset = ((100 - normalizedValue) / 100) * circumference;
     const strokeClass = showValueColors
       ? getValueColorRing(value, min, max)
-      : "stroke-primary"
+      : "stroke-primary";
 
     return (
       <ProgressPrimitive.Root
@@ -142,7 +143,7 @@ const Progress = React.forwardRef<
               fill="none"
               className={cn(
                 "motion-safe:transition-all motion-safe:duration-300 motion-safe:ease-in-out",
-                strokeClass
+                strokeClass,
               )}
               strokeWidth={stroke}
               strokeLinecap="round"
@@ -160,7 +161,7 @@ const Progress = React.forwardRef<
                   ? "text-[8px]"
                   : ringSize === "lg"
                     ? "text-base"
-                    : "text-sm"
+                    : "text-sm",
               )}
             >
               {valueLabel}
@@ -176,14 +177,14 @@ const Progress = React.forwardRef<
           </ProgressPrimitive.Label>
         )}
       </ProgressPrimitive.Root>
-    )
+    );
   }
 
   const indicatorColorClass = showValueColors
     ? getValueColorBar(value, min, max)
-    : undefined
+    : undefined;
 
-  const hasLabelOrValue = label != null || valueLabel != null
+  const hasLabelOrValue = label != null || valueLabel != null;
 
   if (!hasLabelOrValue) {
     return (
@@ -203,7 +204,7 @@ const Progress = React.forwardRef<
           <ProgressIndicator className={indicatorColorClass} />
         </ProgressTrack>
       </ProgressPrimitive.Root>
-    )
+    );
   }
 
   return (
@@ -238,35 +239,35 @@ const Progress = React.forwardRef<
       </div>
       {children}
     </ProgressPrimitive.Root>
-  )
-})
+  );
+});
 
 type ProgressTrackProps = ProgressPrimitive.Track.Props &
-  VariantProps<typeof progressTrackSizeVariants>
+  VariantProps<typeof progressTrackSizeVariants>;
 
-function ProgressTrack({
+const ProgressTrack = /* @__PURE__ */ withRef(function ProgressTrack({
   className,
   size: sizeProp,
   ...props
 }: ProgressTrackProps) {
   const heightClass = progressTrackSizeVariants({
     size: sizeProp ?? "default",
-  })
+  });
 
   return (
     <ProgressPrimitive.Track
       className={cn(
         "bg-muted rounded-full relative flex w-full items-center overflow-x-hidden",
         heightClass,
-        className
+        className,
       )}
       data-slot="progress-track"
       {...props}
     />
-  )
-}
+  );
+});
 
-function ProgressIndicator({
+const ProgressIndicator = /* @__PURE__ */ withRef(function ProgressIndicator({
   className,
   ...props
 }: ProgressPrimitive.Indicator.Props) {
@@ -275,35 +276,41 @@ function ProgressIndicator({
       data-slot="progress-indicator"
       className={cn(
         "bg-primary h-full rounded-full motion-safe:transition-all",
-        className
+        className,
       )}
       {...props}
     />
-  )
-}
+  );
+});
 
-function ProgressLabel({ className, ...props }: ProgressPrimitive.Label.Props) {
+const ProgressLabel = /* @__PURE__ */ withRef(function ProgressLabel({
+  className,
+  ...props
+}: ProgressPrimitive.Label.Props) {
   return (
     <ProgressPrimitive.Label
       className={cn("text-sm font-medium", className)}
       data-slot="progress-label"
       {...props}
     />
-  )
-}
+  );
+});
 
-function ProgressValue({ className, ...props }: ProgressPrimitive.Value.Props) {
+const ProgressValue = /* @__PURE__ */ withRef(function ProgressValue({
+  className,
+  ...props
+}: ProgressPrimitive.Value.Props) {
   return (
     <ProgressPrimitive.Value
       className={cn(
         "text-muted-foreground ms-auto text-sm tabular-nums",
-        className
+        className,
       )}
       data-slot="progress-value"
       {...props}
     />
-  )
-}
+  );
+});
 
 export {
   Progress,
@@ -311,4 +318,4 @@ export {
   ProgressIndicator,
   ProgressLabel,
   ProgressValue,
-}
+};

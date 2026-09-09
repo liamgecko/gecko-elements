@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 /* eslint-disable react-refresh/only-export-components -- Sidebar intentionally exports its context hook with its compound components. */
 
@@ -68,7 +69,7 @@ function useSidebar() {
   return context;
 }
 
-function SidebarProvider({
+const SidebarProvider = /* @__PURE__ */ withRef(function SidebarProvider({
   defaultOpen = true,
   open: openProp,
   onOpenChange: setOpenProp,
@@ -183,9 +184,9 @@ function SidebarProvider({
       </div>
     </SidebarContext.Provider>
   );
-}
+});
 
-function Sidebar({
+const Sidebar = /* @__PURE__ */ withRef(function Sidebar({
   side = "left",
   variant = "sidebar",
   collapsible = "offcanvas",
@@ -290,9 +291,9 @@ function Sidebar({
       </div>
     </SidebarSideContext.Provider>
   );
-}
+});
 
-function SidebarTrigger({
+const SidebarTrigger = /* @__PURE__ */ withRef(function SidebarTrigger({
   className,
   onClick,
   ...props
@@ -336,9 +337,12 @@ function SidebarTrigger({
       </TooltipContent>
     </Tooltip>
   );
-}
+});
 
-function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
+const SidebarRail = /* @__PURE__ */ withRef(function SidebarRail({
+  className,
+  ...props
+}: React.ComponentProps<"button">) {
   const { toggleSidebar } = useSidebar();
 
   return (
@@ -361,9 +365,12 @@ function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
       {...props}
     />
   );
-}
+});
 
-function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
+const SidebarInset = /* @__PURE__ */ withRef(function SidebarInset({
+  className,
+  ...props
+}: React.ComponentProps<"main">) {
   return (
     <main
       data-slot="sidebar-inset"
@@ -374,9 +381,9 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
       {...props}
     />
   );
-}
+});
 
-function SidebarInput({
+const SidebarInput = /* @__PURE__ */ withRef(function SidebarInput({
   className,
   ...props
 }: React.ComponentProps<typeof Input>) {
@@ -388,9 +395,12 @@ function SidebarInput({
       {...props}
     />
   );
-}
+});
 
-function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
+const SidebarHeader = /* @__PURE__ */ withRef(function SidebarHeader({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="sidebar-header"
@@ -399,9 +409,12 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
+const SidebarFooter = /* @__PURE__ */ withRef(function SidebarFooter({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="sidebar-footer"
@@ -413,9 +426,9 @@ function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function SidebarSeparator({
+const SidebarSeparator = /* @__PURE__ */ withRef(function SidebarSeparator({
   className,
   ...props
 }: React.ComponentProps<typeof Separator>) {
@@ -427,9 +440,12 @@ function SidebarSeparator({
       {...props}
     />
   );
-}
+});
 
-function SidebarContent({ className, ...props }: React.ComponentProps<"div">) {
+const SidebarContent = /* @__PURE__ */ withRef(function SidebarContent({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="sidebar-content"
@@ -441,9 +457,12 @@ function SidebarContent({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
+const SidebarGroup = /* @__PURE__ */ withRef(function SidebarGroup({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="sidebar-group"
@@ -452,9 +471,9 @@ function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     />
   );
-}
+});
 
-function SidebarGroupLabel({
+const SidebarGroupLabel = /* @__PURE__ */ withRef(function SidebarGroupLabel({
   className,
   render,
   ...props
@@ -476,9 +495,9 @@ function SidebarGroupLabel({
       sidebar: "group-label",
     },
   });
-}
+});
 
-function SidebarGroupAction({
+const SidebarGroupAction = /* @__PURE__ */ withRef(function SidebarGroupAction({
   className,
   render,
   ...props
@@ -500,23 +519,28 @@ function SidebarGroupAction({
       sidebar: "group-action",
     },
   });
-}
+});
 
-function SidebarGroupContent({
+const SidebarGroupContent = /* @__PURE__ */ withRef(
+  function SidebarGroupContent({
+    className,
+    ...props
+  }: React.ComponentProps<"div">) {
+    return (
+      <div
+        data-slot="sidebar-group-content"
+        data-sidebar="group-content"
+        className={cn("text-sm w-full", className)}
+        {...props}
+      />
+    );
+  },
+);
+
+const SidebarMenu = /* @__PURE__ */ withRef(function SidebarMenu({
   className,
   ...props
-}: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="sidebar-group-content"
-      data-sidebar="group-content"
-      className={cn("text-sm w-full", className)}
-      {...props}
-    />
-  );
-}
-
-function SidebarMenu({ className, ...props }: React.ComponentProps<"ul">) {
+}: React.ComponentProps<"ul">) {
   return (
     <ul
       data-slot="sidebar-menu"
@@ -525,9 +549,9 @@ function SidebarMenu({ className, ...props }: React.ComponentProps<"ul">) {
       {...props}
     />
   );
-}
+});
 
-function SidebarMenuItem({
+const SidebarMenuItem = /* @__PURE__ */ withRef(function SidebarMenuItem({
   className,
   children,
   ...props
@@ -568,7 +592,7 @@ function SidebarMenuItem({
       {children}
     </li>
   );
-}
+});
 
 function findFirstElementOfType(
   node: React.ReactNode,
@@ -742,162 +766,168 @@ function collectCollapsedSubMenuEntries(
   return entries;
 }
 
-function SidebarCollapsedSubMenuItem({
-  className,
-  menuButton,
-  subMenu,
-  ...props
-}: React.ComponentProps<"li"> & {
-  menuButton: React.ReactElement<
-    React.ComponentProps<typeof SidebarMenuButton>
-  >;
-  subMenu: React.ReactElement<React.ComponentProps<typeof SidebarMenuSub>>;
-}) {
-  const sidebarSide = React.useContext(SidebarSideContext);
-  const popupSide = sidebarSide === "right" ? "left" : "right";
-  const [open, setOpen] = React.useState(false);
-  const [openActionKey, setOpenActionKey] = React.useState<string | null>(null);
+const SidebarCollapsedSubMenuItem = /* @__PURE__ */ withRef(
+  function SidebarCollapsedSubMenuItem({
+    className,
+    menuButton,
+    subMenu,
+    ...props
+  }: React.ComponentProps<"li"> & {
+    menuButton: React.ReactElement<
+      React.ComponentProps<typeof SidebarMenuButton>
+    >;
+    subMenu: React.ReactElement<React.ComponentProps<typeof SidebarMenuSub>>;
+  }) {
+    const sidebarSide = React.useContext(SidebarSideContext);
+    const popupSide = sidebarSide === "right" ? "left" : "right";
+    const [open, setOpen] = React.useState(false);
+    const [openActionKey, setOpenActionKey] = React.useState<string | null>(
+      null,
+    );
 
-  const heading = (() => {
-    const tooltip = menuButton.props.tooltip;
-    if (typeof tooltip === "string") return tooltip;
-    if (tooltip && typeof tooltip === "object" && "children" in tooltip) {
-      return getNodeText((tooltip as { children?: React.ReactNode }).children);
-    }
-    return getNodeText(menuButton.props.children);
-  })();
-  const headingIconRaw = getSidebarMenuButtonIcon(menuButton.props.children);
-  const headingIcon = React.useMemo(() => {
-    if (!React.isValidElement(headingIconRaw)) return headingIconRaw;
-    const el = headingIconRaw as React.ReactElement<{ className?: string }>;
-    return React.cloneElement(el, {
-      className: cn("size-3.75 stroke-[1.75]", el.props.className),
-      "aria-hidden": true,
-    } as unknown as Record<string, unknown>);
-  }, [headingIconRaw]);
+    const heading = (() => {
+      const tooltip = menuButton.props.tooltip;
+      if (typeof tooltip === "string") return tooltip;
+      if (tooltip && typeof tooltip === "object" && "children" in tooltip) {
+        return getNodeText(
+          (tooltip as { children?: React.ReactNode }).children,
+        );
+      }
+      return getNodeText(menuButton.props.children);
+    })();
+    const headingIconRaw = getSidebarMenuButtonIcon(menuButton.props.children);
+    const headingIcon = React.useMemo(() => {
+      if (!React.isValidElement(headingIconRaw)) return headingIconRaw;
+      const el = headingIconRaw as React.ReactElement<{ className?: string }>;
+      return React.cloneElement(el, {
+        className: cn("size-3.75 stroke-[1.75]", el.props.className),
+        "aria-hidden": true,
+      } as unknown as Record<string, unknown>);
+    }, [headingIconRaw]);
 
-  const entries = React.useMemo(
-    () => collectCollapsedSubMenuEntries(subMenu),
-    [subMenu],
-  );
+    const entries = React.useMemo(
+      () => collectCollapsedSubMenuEntries(subMenu),
+      [subMenu],
+    );
 
-  const triggerButton = React.cloneElement(menuButton, {
-    tooltip: undefined,
-  });
+    const triggerButton = React.cloneElement(menuButton, {
+      tooltip: undefined,
+    });
 
-  return (
-    <li
-      data-slot="sidebar-menu-item"
-      data-sidebar="menu-item"
-      className={cn("group/menu-item relative", className)}
-      {...props}
-    >
-      <DropdownMenu open={open} onOpenChange={setOpen}>
-        <DropdownMenuTrigger
-          render={triggerButton}
-          openOnHover
-          delay={75}
-          closeDelay={100}
-        />
-        <DropdownMenuContent
-          side={popupSide}
-          align="start"
-          sideOffset={0.25}
-          className="data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0 data-[side=left]:slide-in-from-right-4 data-[side=right]:slide-in-from-left-4 duration-250 ease-out motion-reduce:animate-none ring-border p-0 min-w-48 w-max max-w-[calc(100vw-1rem)]"
-        >
-          <div className="border-b border-border px-3 py-2.5">
-            <span className="flex items-center gap-2 text-muted-foreground">
-              {headingIcon}
-              <span className="text-4xs uppercase tracking-widest font-semibold">
-                {heading}
+    return (
+      <li
+        data-slot="sidebar-menu-item"
+        data-sidebar="menu-item"
+        className={cn("group/menu-item relative", className)}
+        {...props}
+      >
+        <DropdownMenu open={open} onOpenChange={setOpen}>
+          <DropdownMenuTrigger
+            render={triggerButton}
+            openOnHover
+            delay={75}
+            closeDelay={100}
+          />
+          <DropdownMenuContent
+            side={popupSide}
+            align="start"
+            sideOffset={0.25}
+            className="data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0 data-[side=left]:slide-in-from-right-4 data-[side=right]:slide-in-from-left-4 duration-250 ease-out motion-reduce:animate-none ring-border p-0 min-w-48 w-max max-w-[calc(100vw-1rem)]"
+          >
+            <div className="border-b border-border px-3 py-2.5">
+              <span className="flex items-center gap-2 text-muted-foreground">
+                {headingIcon}
+                <span className="text-4xs uppercase tracking-widest font-semibold">
+                  {heading}
+                </span>
               </span>
-            </span>
-          </div>
-          <DropdownMenuGroup className="p-1">
-            {entries.map((entry) => {
-              const selectEntry = (event: React.MouseEvent<HTMLElement>) => {
-                entry.onClick?.(
-                  event as unknown as React.MouseEvent<HTMLAnchorElement>,
-                );
-                setOpenActionKey(null);
-                setOpen(false);
-              };
+            </div>
+            <DropdownMenuGroup className="p-1">
+              {entries.map((entry) => {
+                const selectEntry = (event: React.MouseEvent<HTMLElement>) => {
+                  entry.onClick?.(
+                    event as unknown as React.MouseEvent<HTMLAnchorElement>,
+                  );
+                  setOpenActionKey(null);
+                  setOpen(false);
+                };
 
-              if (entry.actions.length === 0) {
+                if (entry.actions.length === 0) {
+                  return (
+                    <DropdownMenuItem
+                      key={entry.key}
+                      className="whitespace-nowrap"
+                      render={entry.href ? <a href={entry.href} /> : undefined}
+                      onClick={selectEntry}
+                    >
+                      {entry.label}
+                    </DropdownMenuItem>
+                  );
+                }
+
                 return (
-                  <DropdownMenuItem
+                  <div
                     key={entry.key}
-                    className="whitespace-nowrap"
-                    render={entry.href ? <a href={entry.href} /> : undefined}
-                    onClick={selectEntry}
+                    className="group/row relative flex w-full items-center rounded-sm hover:bg-accent focus-within:bg-accent"
                   >
-                    {entry.label}
-                  </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="min-w-0 flex-1 pe-8 whitespace-nowrap"
+                      onClick={selectEntry}
+                    >
+                      {entry.label}
+                    </DropdownMenuItem>
+                    <DropdownMenu
+                      open={openActionKey === entry.key}
+                      onOpenChange={(nextOpen) => {
+                        setOpenActionKey(nextOpen ? entry.key : null);
+                        if (nextOpen) setOpen(true);
+                      }}
+                    >
+                      <DropdownMenuTrigger
+                        render={
+                          <button
+                            type="button"
+                            aria-label={
+                              entry.actionTriggerLabel ?? "Item actions"
+                            }
+                            className="text-muted-foreground hover:bg-accent hover:text-accent-foreground absolute end-1 flex size-6 items-center justify-center rounded-md outline-hidden focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0"
+                            onClick={(event) => event.stopPropagation()}
+                            onPointerDown={(event) => event.stopPropagation()}
+                          />
+                        }
+                      >
+                        <HugeiconsIcon icon={EllipsisIcon} aria-hidden />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent
+                        align="end"
+                        side={popupSide}
+                        sideOffset={4}
+                      >
+                        {entry.actions.map((action, actionIndex) => (
+                          <DropdownMenuItem
+                            key={`${action.label}-${actionIndex}`}
+                            variant={action.variant}
+                            onClick={(event) => {
+                              action.onClick?.(event);
+                              setOpenActionKey(null);
+                              setOpen(false);
+                            }}
+                          >
+                            {action.label}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                 );
-              }
-
-              return (
-                <div
-                  key={entry.key}
-                  className="group/row relative flex w-full items-center rounded-sm hover:bg-accent focus-within:bg-accent"
-                >
-                  <DropdownMenuItem
-                    className="min-w-0 flex-1 pe-8 whitespace-nowrap"
-                    onClick={selectEntry}
-                  >
-                    {entry.label}
-                  </DropdownMenuItem>
-                  <DropdownMenu
-                    open={openActionKey === entry.key}
-                    onOpenChange={(nextOpen) => {
-                      setOpenActionKey(nextOpen ? entry.key : null);
-                      if (nextOpen) setOpen(true);
-                    }}
-                  >
-                    <DropdownMenuTrigger
-                      render={
-                        <button
-                          type="button"
-                          aria-label={
-                            entry.actionTriggerLabel ?? "Item actions"
-                          }
-                          className="text-muted-foreground hover:bg-accent hover:text-accent-foreground absolute end-1 flex size-6 items-center justify-center rounded-md outline-hidden focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0"
-                          onClick={(event) => event.stopPropagation()}
-                          onPointerDown={(event) => event.stopPropagation()}
-                        />
-                      }
-                    >
-                      <HugeiconsIcon icon={EllipsisIcon} aria-hidden />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                      align="end"
-                      side={popupSide}
-                      sideOffset={4}
-                    >
-                      {entry.actions.map((action, actionIndex) => (
-                        <DropdownMenuItem
-                          key={`${action.label}-${actionIndex}`}
-                          variant={action.variant}
-                          onClick={(event) => {
-                            action.onClick?.(event);
-                            setOpenActionKey(null);
-                            setOpen(false);
-                          }}
-                        >
-                          {action.label}
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              );
-            })}
-          </DropdownMenuGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </li>
-  );
-}
+              })}
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </li>
+    );
+  },
+);
 
 const sidebarMenuButtonVariants = cva(
   "ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground data-popup-open:bg-sidebar-accent data-popup-open:text-sidebar-accent-foreground gap-2 rounded-md p-2 text-start text-sm transition-[width,height,padding] motion-reduce:transition-none group-has-data-[sidebar=menu-action]/menu-item:pe-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! focus-visible:ring-2 peer/menu-button flex w-full items-center overflow-hidden outline-hidden group/menu-button disabled:pointer-events-none disabled:opacity-75 aria-disabled:pointer-events-none aria-disabled:opacity-75 [&>span:last-child]:truncate [&_svg]:size-4 [&_svg]:shrink-0 [&>svg:first-of-type]:stroke-[1.75]",
@@ -922,7 +952,7 @@ const sidebarMenuButtonVariants = cva(
   },
 );
 
-function SidebarMenuButton({
+const SidebarMenuButton = /* @__PURE__ */ withRef(function SidebarMenuButton({
   render,
   isActive = false,
   variant = "default",
@@ -1002,9 +1032,9 @@ function SidebarMenuButton({
       />
     </Tooltip>
   );
-}
+});
 
-function SidebarMenuAction({
+const SidebarMenuAction = /* @__PURE__ */ withRef(function SidebarMenuAction({
   className,
   render,
   showOnHover = false,
@@ -1032,9 +1062,9 @@ function SidebarMenuAction({
       sidebar: "menu-action",
     },
   });
-}
+});
 
-function SidebarMenuBadge({
+const SidebarMenuBadge = /* @__PURE__ */ withRef(function SidebarMenuBadge({
   className,
   ...props
 }: React.ComponentProps<"div">) {
@@ -1049,47 +1079,52 @@ function SidebarMenuBadge({
       {...props}
     />
   );
-}
+});
 
-function SidebarMenuSkeleton({
-  className,
-  showIcon = false,
-  ...props
-}: React.ComponentProps<"div"> & {
-  showIcon?: boolean;
-}) {
-  // Random width between 50 to 90%.
-  const [width] = React.useState(() => {
-    return `${Math.floor(Math.random() * 40) + 50}%`;
-  });
+const SidebarMenuSkeleton = /* @__PURE__ */ withRef(
+  function SidebarMenuSkeleton({
+    className,
+    showIcon = false,
+    ...props
+  }: React.ComponentProps<"div"> & {
+    showIcon?: boolean;
+  }) {
+    // Random width between 50 to 90%.
+    const [width] = React.useState(() => {
+      return `${Math.floor(Math.random() * 40) + 50}%`;
+    });
 
-  return (
-    <div
-      data-slot="sidebar-menu-skeleton"
-      data-sidebar="menu-skeleton"
-      className={cn("h-8 gap-2 rounded-md px-2 flex items-center", className)}
-      {...props}
-    >
-      {showIcon && (
+    return (
+      <div
+        data-slot="sidebar-menu-skeleton"
+        data-sidebar="menu-skeleton"
+        className={cn("h-8 gap-2 rounded-md px-2 flex items-center", className)}
+        {...props}
+      >
+        {showIcon && (
+          <Skeleton
+            className="size-4 rounded-md"
+            data-sidebar="menu-skeleton-icon"
+          />
+        )}
         <Skeleton
-          className="size-4 rounded-md"
-          data-sidebar="menu-skeleton-icon"
+          className="h-4 max-w-(--skeleton-width) flex-1"
+          data-sidebar="menu-skeleton-text"
+          style={
+            {
+              "--skeleton-width": width,
+            } as React.CSSProperties
+          }
         />
-      )}
-      <Skeleton
-        className="h-4 max-w-(--skeleton-width) flex-1"
-        data-sidebar="menu-skeleton-text"
-        style={
-          {
-            "--skeleton-width": width,
-          } as React.CSSProperties
-        }
-      />
-    </div>
-  );
-}
+      </div>
+    );
+  },
+);
 
-function SidebarMenuSub({ className, ...props }: React.ComponentProps<"ul">) {
+const SidebarMenuSub = /* @__PURE__ */ withRef(function SidebarMenuSub({
+  className,
+  ...props
+}: React.ComponentProps<"ul">) {
   return (
     <ul
       data-slot="sidebar-menu-sub"
@@ -1101,9 +1136,9 @@ function SidebarMenuSub({ className, ...props }: React.ComponentProps<"ul">) {
       {...props}
     />
   );
-}
+});
 
-function SidebarMenuSubItem({
+const SidebarMenuSubItem = /* @__PURE__ */ withRef(function SidebarMenuSubItem({
   className,
   ...props
 }: React.ComponentProps<"li">) {
@@ -1115,39 +1150,41 @@ function SidebarMenuSubItem({
       {...props}
     />
   );
-}
+});
 
-function SidebarMenuSubButton({
-  render,
-  size = "md",
-  isActive = false,
-  className,
-  ...props
-}: useRender.ComponentProps<"a"> &
-  React.ComponentProps<"a"> & {
-    size?: "sm" | "md";
-    isActive?: boolean;
-  }) {
-  return useRender({
-    defaultTagName: "a",
-    props: mergeProps<"a">(
-      {
-        className: cn(
-          "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-xs data-[size=sm]:text-2xs [&>svg]:size-4 [&>svg:first-of-type]:stroke-[1.75] flex min-w-0 -translate-x-px rtl:translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-75 aria-disabled:pointer-events-none aria-disabled:opacity-75 [&>span:last-child]:truncate [&>svg]:shrink-0 cursor-pointer",
-          className,
-        ),
-      },
-      props,
-    ),
+const SidebarMenuSubButton = /* @__PURE__ */ withRef(
+  function SidebarMenuSubButton({
     render,
-    state: {
-      slot: "sidebar-menu-sub-button",
-      sidebar: "menu-sub-button",
-      size,
-      active: isActive,
-    },
-  });
-}
+    size = "md",
+    isActive = false,
+    className,
+    ...props
+  }: useRender.ComponentProps<"a"> &
+    React.ComponentProps<"a"> & {
+      size?: "sm" | "md";
+      isActive?: boolean;
+    }) {
+    return useRender({
+      defaultTagName: "a",
+      props: mergeProps<"a">(
+        {
+          className: cn(
+            "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-xs data-[size=sm]:text-2xs [&>svg]:size-4 [&>svg:first-of-type]:stroke-[1.75] flex min-w-0 -translate-x-px rtl:translate-x-px items-center overflow-hidden outline-hidden group-data-[collapsible=icon]:hidden disabled:pointer-events-none disabled:opacity-75 aria-disabled:pointer-events-none aria-disabled:opacity-75 [&>span:last-child]:truncate [&>svg]:shrink-0 cursor-pointer",
+            className,
+          ),
+        },
+        props,
+      ),
+      render,
+      state: {
+        slot: "sidebar-menu-sub-button",
+        sidebar: "menu-sub-button",
+        size,
+        active: isActive,
+      },
+    });
+  },
+);
 
 export {
   Sidebar,

@@ -1,0 +1,30 @@
+name: React compatibility
+
+on:
+  pull_request:
+  push:
+    branches: [main, codex/react-18-support]
+
+permissions:
+  contents: read
+
+jobs:
+  compatibility:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        react: ['18', '19']
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/check-react-refs.mjs
+      - run: npm run typecheck
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:react-compat -- ${{ matrix.react }}
+      - run: npm run test:message-scroller
+        if: matrix.react == '19'

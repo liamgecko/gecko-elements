@@ -8,6 +8,28 @@ The Gecko application, including the Sandbox Inbox, is a desktop application. Mo
 
 Support desktop window resizing, keyboard navigation, screen readers, browser zoom and the approved appearance modes. Component overflow inside a desktop panel remains relevant. Existing capabilities used by other consumers should not be removed merely because the desktop app does not require them.
 
+## React support
+
+Elements supports **React and React DOM 18.3.1 or React 19**. The consuming
+application supplies matching `react`, `react-dom` and `react-is` versions through peer dependencies;
+Elements does not own a second runtime. `react-is` is required by Recharts; use `18.3.1` for all three in the Admin integration. The monorepo prototypes continue to use
+React 19. React 18.0–18.2 are not part of the supported/tested range.
+
+Component refs work through a React 18-compatible forwarding boundary. Library
+implementations that accept `ref` must use `React.forwardRef` or the internal
+`withRef` helper; plain ref-as-prop functions do not work on React 18. This does
+not change the approved component interfaces or introduce a product-facing API.
+
+Run `npm run test:react-compat` from the repository root to pack the source
+library, install it in isolated React 18.3.1 and React 19 consumers, typecheck all
+library source, build with Vite 8, and exercise both development and production
+builds in Chromium. Run `node scripts/check-react-refs.mjs` for the static ref
+guard. See [the compatibility fixture](../../tests/react-compat/README.md).
+
+This runtime support does not make the package a finished npm release: versioning,
+compiled distribution and the main App's CSS integration remain separate work.
+The existing source exports still require TypeScript/JSX and Tailwind processing.
+
 ## Find and choose a component
 
 Start from the task the interface must support. Search contract titles and their Purpose and Related sections, then read the candidate contracts to choose between similar components. From this directory:

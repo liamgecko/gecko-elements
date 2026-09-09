@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import { cva } from "class-variance-authority";
@@ -203,7 +204,7 @@ function FileTreeItems({
   });
 }
 
-export function FileTree({
+export const FileTree = /* @__PURE__ */ withRef(function FileTree({
   className,
   nodes,
   defaultExpandedIds = [],
@@ -224,4 +225,4 @@ export function FileTree({
       />
     </ul>
   );
-}
+});

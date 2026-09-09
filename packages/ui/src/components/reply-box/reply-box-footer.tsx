@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import CirclePlus from "@hugeicons/core-free-icons/CirclePlusIcon";
@@ -25,7 +26,7 @@ export type ReplyBoxFooterProps = React.ComponentProps<"div"> & {
   showSend?: boolean;
 };
 
-export function ReplyBoxFooter({
+export const ReplyBoxFooter = /* @__PURE__ */ withRef(function ReplyBoxFooter({
   channelType,
   items,
   showTray = false,
@@ -126,4 +127,4 @@ export function ReplyBoxFooter({
       ) : null}
     </div>
   );
-}
+});

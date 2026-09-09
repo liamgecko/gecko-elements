@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -88,7 +89,7 @@ function useAccordionVariant() {
   return React.useContext(AccordionVariantContext);
 }
 
-function Accordion({
+const Accordion = /* @__PURE__ */ withRef(function Accordion({
   className,
   variant = "default",
   ...props
@@ -106,9 +107,12 @@ function Accordion({
       />
     </AccordionVariantContext.Provider>
   );
-}
+});
 
-function AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {
+const AccordionItem = /* @__PURE__ */ withRef(function AccordionItem({
+  className,
+  ...props
+}: AccordionPrimitive.Item.Props) {
   const variant = useAccordionVariant() ?? "default";
   return (
     <AccordionPrimitive.Item
@@ -117,9 +121,9 @@ function AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {
       {...props}
     />
   );
-}
+});
 
-function AccordionTrigger({
+const AccordionTrigger = /* @__PURE__ */ withRef(function AccordionTrigger({
   className,
   children,
   ...props
@@ -142,9 +146,9 @@ function AccordionTrigger({
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );
-}
+});
 
-function AccordionContent({
+const AccordionContent = /* @__PURE__ */ withRef(function AccordionContent({
   className,
   children,
   ...props
@@ -163,7 +167,7 @@ function AccordionContent({
       </div>
     </AccordionPrimitive.Panel>
   );
-}
+});
 
 // eslint-disable-next-line react-refresh/only-export-components -- cva variants are intentionally exported from this module.
 export {

@@ -1,3 +1,4 @@
+import { withRef } from "@gecko/ui/lib/with-ref";
 import * as React from "react";
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 
@@ -112,7 +113,7 @@ function getInitials(name: string, size: ResolvedAvatarSize) {
   return `${firstInitial}${lastInitial}`.toUpperCase();
 }
 
-function Avatar({
+const Avatar = /* @__PURE__ */ withRef(function Avatar({
   className,
   name,
   size = "default",
@@ -201,9 +202,9 @@ function Avatar({
       )}
     </AvatarContext.Provider>
   );
-}
+});
 
-function AvatarImage({
+const AvatarImage = /* @__PURE__ */ withRef(function AvatarImage({
   className,
   alt = "",
   ...props
@@ -219,9 +220,9 @@ function AvatarImage({
       {...props}
     />
   );
-}
+});
 
-function AvatarFallback({
+const AvatarFallback = /* @__PURE__ */ withRef(function AvatarFallback({
   className,
   ...props
 }: AvatarPrimitive.Fallback.Props) {
@@ -236,9 +237,12 @@ function AvatarFallback({
       {...props}
     />
   );
-}
+});
 
-function AvatarLabel({ className, ...props }: React.ComponentProps<"span">) {
+const AvatarLabel = /* @__PURE__ */ withRef(function AvatarLabel({
+  className,
+  ...props
+}: React.ComponentProps<"span">) {
   const { resolvedSize } = useAvatarContext();
 
   return (
@@ -252,10 +256,10 @@ function AvatarLabel({ className, ...props }: React.ComponentProps<"span">) {
       {...props}
     />
   );
-}
+});
 AvatarLabel.displayName = "AvatarLabel";
 
-function AvatarDescription({
+const AvatarDescription = /* @__PURE__ */ withRef(function AvatarDescription({
   className,
   ...props
 }: React.ComponentProps<"span">) {
@@ -272,10 +276,10 @@ function AvatarDescription({
       {...props}
     />
   );
-}
+});
 AvatarDescription.displayName = "AvatarDescription";
 
-function AvatarBadge({
+const AvatarBadge = /* @__PURE__ */ withRef(function AvatarBadge({
   position,
   accessibleLabel,
   className,
@@ -294,6 +298,6 @@ function AvatarBadge({
       <span className="sr-only">{accessibleLabel}</span>
     </span>
   );
-}
+});
 
 export { Avatar, AvatarImage, AvatarLabel, AvatarDescription };

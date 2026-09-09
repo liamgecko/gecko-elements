@@ -1,0 +1,2331 @@
+{
+  "root": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src",
+  "methodology": {
+    "source_extensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx"
+    ],
+    "scan": "Recursive App/src only; does not traverse node_modules or generated output outside src.",
+    "import_pattern": "^import\\s+((?:[^;\\n]|\\n(?!(?:import|export)\\b))*?)\\s+from\\s+[\\'\"]([^\\'\"]+)[\\'\"]",
+    "import_definition": "Anchored static import ... from 'specifier' declarations, including multiline named imports. Excludes dynamic import(), side-effect-only imports, re-exports, require(). Regex inventory, not a full AST parser; inspect per-import records for auditability.",
+    "all_counts": "Include tests, mocks and .d.ts declaration files.",
+    "production_definition": "Exclude file names containing .test., paths containing a __mocks__ segment, and names ending .d.ts.",
+    "wrapper_reach": "Distinct importing files matching a specifier ending /Ui/NAME or /Ui/NAME/index with optional JS/TS extension on index; Ui barrel similarly ends /Ui or /Ui/index. Excludes nested paths below named wrapper. Counts overlap, do not sum.",
+    "family_definition": "Each subpath import declaration counted once under its react-bootstrap subpath; grouped package-root imports split into original imported binding names before alias. Type import esm/types reported separately. Trailing comma empty binding excluded.",
+    "class_literals": "Production quoted className assignments only. Excludes template strings, expressions and object className properties; lower bound. Does not establish actual generated selector presence or runtime frequency.",
+    "limits": "Counts measure files and static import declarations, not routes, rendered instances or migration effort. No legacy mutations or runtime tests."
+  },
+  "totals": {
+    "source_files": 988,
+    "production_source_files": 810,
+    "test_files": 162,
+    "css_scss_files": 95,
+    "react_bootstrap_import_statements": 63,
+    "react_bootstrap_import_files": 40,
+    "react_bootstrap_production_import_statements": 63,
+    "react_bootstrap_production_import_files": 40,
+    "react_bootstrap_import_files_within_ui": 21,
+    "react_bootstrap_import_files_outside_ui": 19
+  },
+  "react_bootstrap_imports": [
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Favourites/FavouriteMenuAndButton/index.tsx",
+      "relative_file": "Components/Favourites/FavouriteMenuAndButton/index.tsx",
+      "line": 5,
+      "bindings": "{\n    OverlayTrigger as BootstrapOverlayTrigger,\n    Tooltip as BootstrapTooltip,\n}",
+      "specifier": "react-bootstrap",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Favourites/FavouriteMenuAndButton/index.tsx",
+      "relative_file": "Components/Favourites/FavouriteMenuAndButton/index.tsx",
+      "line": 14,
+      "bindings": "{ Placement }",
+      "specifier": "react-bootstrap/esm/types",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Accordion/index.jsx",
+      "relative_file": "Components/Ui/Accordion/index.jsx",
+      "line": 2,
+      "bindings": "{ Accordion as BootstrapAccordion }",
+      "specifier": "react-bootstrap",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Badge/index.jsx",
+      "relative_file": "Components/Ui/Badge/index.jsx",
+      "line": 1,
+      "bindings": "BootstrapBadge",
+      "specifier": "react-bootstrap/Badge",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Buttons/index.jsx",
+      "relative_file": "Components/Ui/Buttons/index.jsx",
+      "line": 3,
+      "bindings": "BootstrapButton",
+      "specifier": "react-bootstrap/Button",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Card/index.jsx",
+      "relative_file": "Components/Ui/Card/index.jsx",
+      "line": 2,
+      "bindings": "BootstrapCard",
+      "specifier": "react-bootstrap/Card",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Card/index.jsx",
+      "relative_file": "Components/Ui/Card/index.jsx",
+      "line": 3,
+      "bindings": "BootstrapCardGroup",
+      "specifier": "react-bootstrap/CardGroup",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Dialog/index.jsx",
+      "relative_file": "Components/Ui/Dialog/index.jsx",
+      "line": 3,
+      "bindings": "BootstrapModal",
+      "specifier": "react-bootstrap/Modal",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Drawer/index.jsx",
+      "relative_file": "Components/Ui/Drawer/index.jsx",
+      "line": 2,
+      "bindings": "Offcanvas",
+      "specifier": "react-bootstrap/Offcanvas",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Dropdown/index.jsx",
+      "relative_file": "Components/Ui/Dropdown/index.jsx",
+      "line": 1,
+      "bindings": "BootstrapDropdown",
+      "specifier": "react-bootstrap/Dropdown",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/Fields/FileUpload/index.tsx",
+      "relative_file": "Components/Ui/Form/Fields/FileUpload/index.tsx",
+      "line": 2,
+      "bindings": "BootstrapForm",
+      "specifier": "react-bootstrap/Form",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/Fields/index.jsx",
+      "relative_file": "Components/Ui/Form/Fields/index.jsx",
+      "line": 3,
+      "bindings": "BootstrapForm",
+      "specifier": "react-bootstrap/Form",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/Fields/index.jsx",
+      "relative_file": "Components/Ui/Form/Fields/index.jsx",
+      "line": 4,
+      "bindings": "ToggleButton",
+      "specifier": "react-bootstrap/ToggleButton",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/Fields/index.jsx",
+      "relative_file": "Components/Ui/Form/Fields/index.jsx",
+      "line": 5,
+      "bindings": "ToggleButtonGroup",
+      "specifier": "react-bootstrap/ToggleButtonGroup",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/index.jsx",
+      "relative_file": "Components/Ui/Form/index.jsx",
+      "line": 1,
+      "bindings": "BootstrapForm",
+      "specifier": "react-bootstrap/Form",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/InfoPopover/index.tsx",
+      "relative_file": "Components/Ui/InfoPopover/index.tsx",
+      "line": 2,
+      "bindings": "OverlayTrigger",
+      "specifier": "react-bootstrap/OverlayTrigger",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/InfoPopover/index.tsx",
+      "relative_file": "Components/Ui/InfoPopover/index.tsx",
+      "line": 3,
+      "bindings": "Popover",
+      "specifier": "react-bootstrap/Popover",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/InlineTabs/index.jsx",
+      "relative_file": "Components/Ui/InlineTabs/index.jsx",
+      "line": 3,
+      "bindings": "BootstrapNav",
+      "specifier": "react-bootstrap/Nav",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/InlineTabs/index.jsx",
+      "relative_file": "Components/Ui/InlineTabs/index.jsx",
+      "line": 4,
+      "bindings": "BootstrapTab",
+      "specifier": "react-bootstrap/Tab",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/ListView/Components/ListViewMassAction/index.jsx",
+      "relative_file": "Components/Ui/ListView/Components/ListViewMassAction/index.jsx",
+      "line": 2,
+      "bindings": "BootstrapForm",
+      "specifier": "react-bootstrap/Form",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/ListView/Components/ListViewSearch/index.jsx",
+      "relative_file": "Components/Ui/ListView/Components/ListViewSearch/index.jsx",
+      "line": 2,
+      "bindings": "BootstrapForm",
+      "specifier": "react-bootstrap/Form",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/ListView/Components/ListViewTable/index.jsx",
+      "relative_file": "Components/Ui/ListView/Components/ListViewTable/index.jsx",
+      "line": 2,
+      "bindings": "BootstrapTable",
+      "specifier": "react-bootstrap/Table",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Modal/index.jsx",
+      "relative_file": "Components/Ui/Modal/index.jsx",
+      "line": 2,
+      "bindings": "BootstrapModal",
+      "specifier": "react-bootstrap/Modal",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Placeholder/index.tsx",
+      "relative_file": "Components/Ui/Placeholder/index.tsx",
+      "line": 1,
+      "bindings": "BootstrapPlaceholder",
+      "specifier": "react-bootstrap/Placeholder",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Spinner/index.tsx",
+      "relative_file": "Components/Ui/Spinner/index.tsx",
+      "line": 1,
+      "bindings": "Spinner",
+      "specifier": "react-bootstrap/Spinner",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Toast/index.jsx",
+      "relative_file": "Components/Ui/Toast/index.jsx",
+      "line": 3,
+      "bindings": "BootstrapToast",
+      "specifier": "react-bootstrap/Toast",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Toast/index.jsx",
+      "relative_file": "Components/Ui/Toast/index.jsx",
+      "line": 4,
+      "bindings": "BootstrapToastContainer",
+      "specifier": "react-bootstrap/ToastContainer",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Tooltip/index.jsx",
+      "relative_file": "Components/Ui/Tooltip/index.jsx",
+      "line": 1,
+      "bindings": "BootstrapOverlayTrigger",
+      "specifier": "react-bootstrap/OverlayTrigger",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Tooltip/index.jsx",
+      "relative_file": "Components/Ui/Tooltip/index.jsx",
+      "line": 2,
+      "bindings": "BootstrapTooltip",
+      "specifier": "react-bootstrap/Tooltip",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/index.jsx",
+      "relative_file": "Components/Ui/index.jsx",
+      "line": 1,
+      "bindings": "Alert",
+      "specifier": "react-bootstrap/Alert",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/index.jsx",
+      "relative_file": "Components/Ui/index.jsx",
+      "line": 2,
+      "bindings": "Col",
+      "specifier": "react-bootstrap/Col",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/index.jsx",
+      "relative_file": "Components/Ui/index.jsx",
+      "line": 3,
+      "bindings": "Button",
+      "specifier": "react-bootstrap/Button",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/index.jsx",
+      "relative_file": "Components/Ui/index.jsx",
+      "line": 6,
+      "bindings": "ListGroup",
+      "specifier": "react-bootstrap/ListGroup",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/index.jsx",
+      "relative_file": "Components/Ui/index.jsx",
+      "line": 7,
+      "bindings": "Row",
+      "specifier": "react-bootstrap/Row",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/WysiwygInline/Footer/AttachmentButton/index.tsx",
+      "relative_file": "Components/WysiwygInline/Footer/AttachmentButton/index.tsx",
+      "line": 2,
+      "bindings": "BootstrapForm",
+      "specifier": "react-bootstrap/Form",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Labels/Components/LabelsStatsTable.tsx",
+      "relative_file": "Modules/ChatReports/Modules/Labels/Components/LabelsStatsTable.tsx",
+      "line": 5,
+      "bindings": "{ Badge }",
+      "specifier": "react-bootstrap",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/AssignedParticipants/Components/AssignmentDropdownMenu/index.tsx",
+      "relative_file": "Modules/Conversations/Components/AssignedParticipants/Components/AssignmentDropdownMenu/index.tsx",
+      "line": 2,
+      "bindings": "Form",
+      "specifier": "react-bootstrap/Form",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/AssignedParticipants/index.tsx",
+      "relative_file": "Modules/Conversations/Components/AssignedParticipants/index.tsx",
+      "line": 2,
+      "bindings": "Dropdown",
+      "specifier": "react-bootstrap/Dropdown",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageContainer/RetryButton.tsx",
+      "relative_file": "Modules/Conversations/Components/ConversationEntry/Message/MessageContainer/RetryButton.tsx",
+      "line": 2,
+      "bindings": "{ Dropdown }",
+      "specifier": "react-bootstrap",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsHeader/Components/SegmentFilter/index.tsx",
+      "relative_file": "Modules/Conversations/Components/ConversationsHeader/Components/SegmentFilter/index.tsx",
+      "line": 3,
+      "bindings": "Dropdown",
+      "specifier": "react-bootstrap/Dropdown",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/Components/DropdownItem/index.tsx",
+      "relative_file": "Modules/Conversations/Components/CustomFilterList/Components/DropdownItem/index.tsx",
+      "line": 2,
+      "bindings": "Dropdown",
+      "specifier": "react-bootstrap/Dropdown",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/Components/DropdownItem/index.tsx",
+      "relative_file": "Modules/Conversations/Components/CustomFilterList/Components/DropdownItem/index.tsx",
+      "line": 3,
+      "bindings": "OverlayTrigger",
+      "specifier": "react-bootstrap/OverlayTrigger",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/Components/DropdownItem/index.tsx",
+      "relative_file": "Modules/Conversations/Components/CustomFilterList/Components/DropdownItem/index.tsx",
+      "line": 4,
+      "bindings": "Tooltip",
+      "specifier": "react-bootstrap/Tooltip",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/index.tsx",
+      "relative_file": "Modules/Conversations/Components/CustomFilterList/index.tsx",
+      "line": 2,
+      "bindings": "Dropdown",
+      "specifier": "react-bootstrap/Dropdown",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/index.tsx",
+      "relative_file": "Modules/Conversations/Components/CustomFilterList/index.tsx",
+      "line": 3,
+      "bindings": "Form",
+      "specifier": "react-bootstrap/Form",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/EditFieldPopover/index.tsx",
+      "relative_file": "Modules/Conversations/Components/MetaPanel/ContactDetails/EditFieldPopover/index.tsx",
+      "line": 11,
+      "bindings": "Overlay",
+      "specifier": "react-bootstrap/Overlay",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/EditFieldPopover/index.tsx",
+      "relative_file": "Modules/Conversations/Components/MetaPanel/ContactDetails/EditFieldPopover/index.tsx",
+      "line": 12,
+      "bindings": "Popover",
+      "specifier": "react-bootstrap/Popover",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/ChannelSwitcher/index.tsx",
+      "relative_file": "Modules/Conversations/Components/ReplyBox/ChannelSwitcher/index.tsx",
+      "line": 2,
+      "bindings": "{ Dropdown, Form }",
+      "specifier": "react-bootstrap",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/AttachmentButton/index.tsx",
+      "relative_file": "Modules/Conversations/Components/ReplyBox/Footer/AttachmentButton/index.tsx",
+      "line": 2,
+      "bindings": "BootstrapForm",
+      "specifier": "react-bootstrap/Form",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/SavedRepliesButton/DropdownSavedReplyItem/index.tsx",
+      "relative_file": "Modules/Conversations/Components/ReplyBox/Footer/SavedRepliesButton/DropdownSavedReplyItem/index.tsx",
+      "line": 7,
+      "bindings": "{ Dropdown }",
+      "specifier": "react-bootstrap",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/SavedRepliesButton/RepliesList/index.tsx",
+      "relative_file": "Modules/Conversations/Components/ReplyBox/Footer/SavedRepliesButton/RepliesList/index.tsx",
+      "line": 1,
+      "bindings": "{ Dropdown }",
+      "specifier": "react-bootstrap",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/SavedRepliesButton/index.tsx",
+      "relative_file": "Modules/Conversations/Components/ReplyBox/Footer/SavedRepliesButton/index.tsx",
+      "line": 3,
+      "bindings": "Dropdown",
+      "specifier": "react-bootstrap/Dropdown",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/SavedRepliesButton/index.tsx",
+      "relative_file": "Modules/Conversations/Components/ReplyBox/Footer/SavedRepliesButton/index.tsx",
+      "line": 4,
+      "bindings": "Form",
+      "specifier": "react-bootstrap/Form",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeConversationalCapture/Components/AddContactFieldBtn/index.tsx",
+      "relative_file": "Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeConversationalCapture/Components/AddContactFieldBtn/index.tsx",
+      "line": 5,
+      "bindings": "Dropdown",
+      "specifier": "react-bootstrap/Dropdown",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeConversationalCapture/Components/AddContactFieldBtn/index.tsx",
+      "relative_file": "Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeConversationalCapture/Components/AddContactFieldBtn/index.tsx",
+      "line": 9,
+      "bindings": "Form",
+      "specifier": "react-bootstrap/Form",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/SmsGeoPermissions/Components/CountryCheckboxes/index.tsx",
+      "relative_file": "Modules/SmsGeoPermissions/Components/CountryCheckboxes/index.tsx",
+      "line": 2,
+      "bindings": "Form",
+      "specifier": "react-bootstrap/Form",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/SmsGeoPermissions/Components/CountryCheckboxes/index.tsx",
+      "relative_file": "Modules/SmsGeoPermissions/Components/CountryCheckboxes/index.tsx",
+      "line": 3,
+      "bindings": "Col",
+      "specifier": "react-bootstrap/Col",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/SmsGeoPermissions/Components/CountryCheckboxes/index.tsx",
+      "relative_file": "Modules/SmsGeoPermissions/Components/CountryCheckboxes/index.tsx",
+      "line": 4,
+      "bindings": "Row",
+      "specifier": "react-bootstrap/Row",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/User/Components/Chat/Notifications/index.tsx",
+      "relative_file": "Modules/User/Components/Chat/Notifications/index.tsx",
+      "line": 1,
+      "bindings": "BootstrapTable",
+      "specifier": "react-bootstrap/Table",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/User/Components/Chat/Notifications/index.tsx",
+      "relative_file": "Modules/User/Components/Chat/Notifications/index.tsx",
+      "line": 2,
+      "bindings": "Form",
+      "specifier": "react-bootstrap/Form",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widgets/Components/EmbedCode/index.tsx",
+      "relative_file": "Modules/Widgets/Components/EmbedCode/index.tsx",
+      "line": 5,
+      "bindings": "OverlayTrigger",
+      "specifier": "react-bootstrap/OverlayTrigger",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widgets/Components/EmbedCode/index.tsx",
+      "relative_file": "Modules/Widgets/Components/EmbedCode/index.tsx",
+      "line": 6,
+      "bindings": "Tooltip",
+      "specifier": "react-bootstrap/Tooltip",
+      "production": true
+    },
+    {
+      "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widgets/Components/EmbedCode/index.tsx",
+      "relative_file": "Modules/Widgets/Components/EmbedCode/index.tsx",
+      "line": 7,
+      "bindings": "Form",
+      "specifier": "react-bootstrap/Form",
+      "production": true
+    }
+  ],
+  "react_bootstrap_families": {
+    "Form": 15,
+    "Dropdown": 11,
+    "OverlayTrigger": 5,
+    "Tooltip": 4,
+    "Badge": 2,
+    "Button": 2,
+    "Col": 2,
+    "Modal": 2,
+    "Popover": 2,
+    "Row": 2,
+    "Table": 2,
+    "Accordion": 1,
+    "Alert": 1,
+    "Card": 1,
+    "CardGroup": 1,
+    "ListGroup": 1,
+    "Nav": 1,
+    "Offcanvas": 1,
+    "Overlay": 1,
+    "Placeholder": 1,
+    "Spinner": 1,
+    "Tab": 1,
+    "Toast": 1,
+    "ToastContainer": 1,
+    "ToggleButton": 1,
+    "ToggleButtonGroup": 1,
+    "esm/types": 1
+  },
+  "wrapper_reach": {
+    "Buttons": {
+      "all_file_count": 96,
+      "production_file_count": 96,
+      "files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/AccountSwitcher/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/ErrorBoundaryWrapper/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Favourites/FavouriteMenuAndButton/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Favourites/Toggle/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Devices/RenameDeviceModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Fields/ReorderFieldsModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/GeckoAi/TestMcpConnectionModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Imports/NewImportModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Locks/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/AddToCategoryModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/SavedRowNameModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/SendTestEmailModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/SubmitWhatsappTemplateModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/TemplateRejectionFeedbackModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Usage/TransactionDetailsModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Users/ChangeUserGroupModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/VoipNumbers/NewVoipNumberModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Widgets/ViewEmbedCodeModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/PageLayout/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/ListView/Components/ListViewFilter/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/WysiwygInline/Footer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/WysiwygInline/Header/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgent/Modules/Configuration/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Bot/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Category/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Components/WhatsAppConnect/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Helper/prepareFacebookMessengerFields/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Helper/prepareInstagramFields/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Hooks/useChannelFormview/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channels/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/Components/EmptyState/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/TeamSummary/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/BotMessageFeedbackTable/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsStartedOutOfHours/Components/OutOfHoursModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Ratings/Components/RatingDetailsModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Ratings/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactField/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFieldGroups/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/Components/ConversationAssignmentModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/Components/ConversationLabelModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/ForwardedMessage.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageTypeFormResponse/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsHeader/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsPanel/ConversationItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterConditions/Components/Condition/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/Components/DropdownItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/EmptyState/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/InfinteScrollWrapper/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MessagesHeader/MessagesHeaderControls/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/EditFieldPopover/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/FieldValue/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactEvents/Components/ContactEvent/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactNotes/Components/InputField/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactNotes/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ConversationLabels/Label/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ConversationLabels/LabelSelector/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ConversationLabels/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ParticipantOverview/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NavBar/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/SavedRepliesButton/DropdownSavedReplyItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiAgent/Modules/Configuration/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiMcp/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseAssignmentModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/Components/ButtonItems/AddMoreButton/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeConversationalCapture/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemSamples/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseLabelModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/MessageButtonDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseSettings/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Label/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/Components/Editor/Components/FormSelectionModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/Components/Editor/Components/HeroModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/Components/Editor/Components/MapModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationField/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationType/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Outcome/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/PaymentItem/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Portal/Components/PortalBuilder/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Portal/Components/PortalSettings/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/SavedReply/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Team/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Template/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/FormView/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/Misc/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/User/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/PurchaseNumber/Components/PurchaseNumberListView/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/VerifyNumber/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widget/index.tsx"
+      ],
+      "production_files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/AccountSwitcher/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/ErrorBoundaryWrapper/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Favourites/FavouriteMenuAndButton/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Favourites/Toggle/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Devices/RenameDeviceModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Fields/ReorderFieldsModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/GeckoAi/TestMcpConnectionModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Imports/NewImportModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Locks/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/AddToCategoryModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/SavedRowNameModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/SendTestEmailModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/SubmitWhatsappTemplateModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/TemplateRejectionFeedbackModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Usage/TransactionDetailsModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Users/ChangeUserGroupModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/VoipNumbers/NewVoipNumberModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Widgets/ViewEmbedCodeModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/PageLayout/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/ListView/Components/ListViewFilter/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/WysiwygInline/Footer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/WysiwygInline/Header/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgent/Modules/Configuration/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Bot/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Category/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Components/WhatsAppConnect/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Helper/prepareFacebookMessengerFields/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Helper/prepareInstagramFields/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Hooks/useChannelFormview/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channels/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/Components/EmptyState/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/TeamSummary/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/BotMessageFeedbackTable/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsStartedOutOfHours/Components/OutOfHoursModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Ratings/Components/RatingDetailsModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Ratings/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactField/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFieldGroups/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/Components/ConversationAssignmentModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/Components/ConversationLabelModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/ForwardedMessage.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageTypeFormResponse/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsHeader/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsPanel/ConversationItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterConditions/Components/Condition/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/Components/DropdownItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/EmptyState/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/InfinteScrollWrapper/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MessagesHeader/MessagesHeaderControls/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/EditFieldPopover/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/FieldValue/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactEvents/Components/ContactEvent/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactNotes/Components/InputField/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactNotes/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ConversationLabels/Label/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ConversationLabels/LabelSelector/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ConversationLabels/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ParticipantOverview/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NavBar/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/SavedRepliesButton/DropdownSavedReplyItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiAgent/Modules/Configuration/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiMcp/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseAssignmentModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/Components/ButtonItems/AddMoreButton/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeConversationalCapture/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemSamples/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseLabelModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/MessageButtonDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseSettings/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Label/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/Components/Editor/Components/FormSelectionModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/Components/Editor/Components/HeroModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/Components/Editor/Components/MapModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationField/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationType/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Outcome/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/PaymentItem/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Portal/Components/PortalBuilder/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Portal/Components/PortalSettings/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/SavedReply/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Team/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Template/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/FormView/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/Misc/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/User/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/PurchaseNumber/Components/PurchaseNumberListView/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/VerifyNumber/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widget/index.tsx"
+      ]
+    },
+    "Form": {
+      "all_file_count": 10,
+      "production_file_count": 10,
+      "files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/AccountSwitcher/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/LanguageSwitcher/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/UserChatControl/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/EditFieldPopover/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactNotes/Components/InputField/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/MergeContactDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NewMessageDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/MessageButtonDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Tasks/Drawers/TaskDrawer.jsx"
+      ],
+      "production_files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/AccountSwitcher/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/LanguageSwitcher/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/UserChatControl/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/EditFieldPopover/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactNotes/Components/InputField/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/MergeContactDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NewMessageDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/MessageButtonDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Tasks/Drawers/TaskDrawer.jsx"
+      ]
+    },
+    "ListView": {
+      "all_file_count": 47,
+      "production_file_count": 47,
+      "files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgent/Modules/Logs/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgents/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Bots/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Categories/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channels/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/Components/AgentListView/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/TeamSummary/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/BotMessageFeedbackTable/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Labels/Components/LabelsStatsTable.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Ratings/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Contact/Components/ContactConversations/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFieldGroups/Components/List.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFields/Components/List.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/DataSecurityActivityLog/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/DataSecurityDeletedContacts/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Devices/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Domains/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Exports/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiAgents/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiMcps/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Groups/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Imports/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseItems/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBases/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Labels/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Numbers/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Options/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationFields/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationTypes/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Outcomes/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/PaymentItems/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/SavedReplies/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Senders/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Teams/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Template/Components/Usage/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Templates/Components/List/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Templates/Components/ListDeleted/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/ListView/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsCallUsage/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsSMSUsage/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsTransactions/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsWhatsAppUsage/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Users/Components/UsersList/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/PurchaseNumber/Components/PurchaseNumberListView/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widgets/index.tsx"
+      ],
+      "production_files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgent/Modules/Logs/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgents/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Bots/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Categories/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channels/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/Components/AgentListView/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/TeamSummary/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/BotMessageFeedbackTable/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Labels/Components/LabelsStatsTable.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Ratings/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Contact/Components/ContactConversations/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFieldGroups/Components/List.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFields/Components/List.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/DataSecurityActivityLog/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/DataSecurityDeletedContacts/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Devices/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Domains/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Exports/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiAgents/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiMcps/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Groups/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Imports/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseItems/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBases/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Labels/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Numbers/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Options/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationFields/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationTypes/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Outcomes/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/PaymentItems/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/SavedReplies/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Senders/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Teams/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Template/Components/Usage/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Templates/Components/List/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Templates/Components/ListDeleted/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/ListView/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsCallUsage/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsSMSUsage/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsTransactions/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsWhatsAppUsage/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Users/Components/UsersList/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/PurchaseNumber/Components/PurchaseNumberListView/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widgets/index.tsx"
+      ]
+    },
+    "Modal": {
+      "all_file_count": 26,
+      "production_file_count": 26,
+      "files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Devices/RenameDeviceModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Fields/ReorderFieldsModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/GeckoAi/TestMcpConnectionModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Imports/NewImportModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Locks/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/AddToCategoryModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/SavedRowNameModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/SendTestEmailModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/SubmitWhatsappTemplateModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/TemplateRejectionFeedbackModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Usage/TransactionDetailsModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Users/ChangeUserGroupModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Users/EmailUserModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/VoipNumbers/NewVoipNumberModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Widgets/ViewEmbedCodeModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgent/Modules/Logs/Components/InvocationModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsStartedOutOfHours/Components/OutOfHoursModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Ratings/Components/RatingDetailsModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/Components/ConversationAssignmentModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/Components/ConversationLabelModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseAssignmentModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseLabelModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/Components/Editor/Components/FormSelectionModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/Components/Editor/Components/HeroModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/Components/Editor/Components/MapModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/Misc/index.jsx"
+      ],
+      "production_files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Devices/RenameDeviceModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Fields/ReorderFieldsModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/GeckoAi/TestMcpConnectionModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Imports/NewImportModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Locks/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/AddToCategoryModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/SavedRowNameModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/SendTestEmailModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/SubmitWhatsappTemplateModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/TemplateRejectionFeedbackModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Usage/TransactionDetailsModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Users/ChangeUserGroupModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Users/EmailUserModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/VoipNumbers/NewVoipNumberModal/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Widgets/ViewEmbedCodeModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgent/Modules/Logs/Components/InvocationModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsStartedOutOfHours/Components/OutOfHoursModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Ratings/Components/RatingDetailsModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/Components/ConversationAssignmentModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/Components/ConversationLabelModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseAssignmentModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseLabelModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/Components/Editor/Components/FormSelectionModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/Components/Editor/Components/HeroModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/Components/Editor/Components/MapModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/Misc/index.jsx"
+      ]
+    },
+    "Drawer": {
+      "all_file_count": 6,
+      "production_file_count": 6,
+      "files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/MergeContactDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NewMessageDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/MessageButtonDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Tasks/Drawers/TaskDrawer.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/Misc/index.jsx"
+      ],
+      "production_files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/MergeContactDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NewMessageDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/MessageButtonDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Tasks/Drawers/TaskDrawer.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/Misc/index.jsx"
+      ]
+    },
+    "Dropdown": {
+      "all_file_count": 10,
+      "production_file_count": 10,
+      "files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/UserChatControl/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/UserControl/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFields/Components/List.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsHeader/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/SearchBar/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/Components/ButtonItems/ButtonItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionsBtn/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationFields/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/Misc/index.jsx"
+      ],
+      "production_files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/UserChatControl/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/UserControl/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFields/Components/List.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsHeader/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/SearchBar/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/Components/ButtonItems/ButtonItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionsBtn/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationFields/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/Misc/index.jsx"
+      ]
+    },
+    "Card": {
+      "all_file_count": 8,
+      "production_file_count": 8,
+      "files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/SortableList/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AuthenticateWhatsApp/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Components/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/TeamSummary/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/BotMessageFeedbackTable/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Portal/Components/PortalBuilder/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Tasks/index.jsx"
+      ],
+      "production_files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/SortableList/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AuthenticateWhatsApp/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Components/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/TeamSummary/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/BotMessageFeedbackTable/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Portal/Components/PortalBuilder/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Tasks/index.jsx"
+      ]
+    },
+    "Ui": {
+      "all_file_count": 276,
+      "production_file_count": 255,
+      "files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/AIAgents/index.test.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/AIAgents/index.ts",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/AITools/index.ts",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Activity/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Attendances/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Bots/index.test.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Bots/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Calls/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Calls/index.test.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Campaigns/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Categories/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Channels/index.test.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Channels/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/ContactFieldGroups/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Contacts/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Conversations/index.test.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Conversations/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Devices/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Devices/index.test.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Domains/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Domains/index.test.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Events/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Exports/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Fields/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Filters/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Forms/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Groups/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Groups/index.test.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Imports/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/KnowledgeBases/index.test.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/KnowledgeBases/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/KnowledgeBasesItems/index.test.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/KnowledgeBasesItems/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Labels/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/LandingPages/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Messages/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Notes/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Numbers/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Options/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/ParticipantNotes/index.test.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/ParticipantNotes/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/PaymentItems/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/PaymentItems/index.test.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Senders/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Tasks/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Teams/index.test.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Teams/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Templates/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Transactions/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Users/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Widgets/index.test.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Widgets/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Favourites/FavouriteMenuAndButton/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Favourites/Toggle/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Widgets/ViewEmbedCodeModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/TemplateTagBuilder/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Avatar/index.test.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Badge/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Buttons/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Card/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/DateRangeFilterBar/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/DateRangeFilterBar/useDateRangeFilter.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Dialog/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Dropdown/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/Fields/AdvancedSelect/Components/TeamMemberSelectOption/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/Fields/FileUpload/Components/ViewFileModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/Fields/FileUpload/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/ListView/Components/ListViewFilter/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/ListView/Components/ListViewSortColumn/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/ListView/Components/ListViewTable/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/MenuBuilder/Components/AddButtons/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/MenuBuilder/Components/EmptyMenu.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/MenuBuilder/Components/MenuItem/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Pagination/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/SortableAccordions/Components/SortableItem.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/SortableTasks/Components/Item/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/StatCard/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Toast/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/UserControl/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/WysiwygInline/Footer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/WysiwygInline/Header/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Helpers/EntityLock/index.ts",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Hooks/useFetchTokenData/Helpers/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Hooks/useListViewProps/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Hooks/useQueries/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgent/Modules/Configuration/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgent/Modules/Logs/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgent/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgent/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgents/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Bot/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Bot/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Bots/Helpers/Status/index.test.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Bots/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Broadcast/Tabs/Stats/Components/Charts/DeliveryPerformance/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Broadcast/Tabs/Stats/Components/Charts/OpenRate/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Categories/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Category/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Category/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Components/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Helper/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Hooks/useChannelFormview/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/index.test.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channels/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channels/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/AgentSummary/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/AgentSummary/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/Components/EmptyState/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/Components/MetricCard/MetricCard.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/TeamSummary/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/TeamSummary/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/ClosedConversations/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MedianConversationLength/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/BotMessageFeedbackTable/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/ResolvedConversations/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/TimeSaved/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ClosedConversations/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationRatings/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsByChannel/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsByChannelType/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsStartedOutOfHours/Components/OutOfHoursModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsStartedOutOfHours/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/MedianConversationLength/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/MedianFirstResponseTime/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/MessagesSent/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/NewConversations/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/TotalChatGPTConversations/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Labels/Components/LabelsStatsTable.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Labels/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Labels/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Ratings/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Ratings/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Contact/Components/ContactConversations/Hooks/useContactConversationsListView/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Contact/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactField/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactField/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFieldGroups/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFieldGroups/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFieldGroups/state.test.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFields/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFields/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/Components/HiddenConversationsTooltip/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/AssignedParticipants/Components/AssignmentOptionRow/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/AssignedParticipants/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/ForwardedMessage.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageContainer/MessageStatus.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageContainer/RetryButton.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageTypeFormResponse/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsHeader/Components/SegmentFilter/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsHeader/index.test.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsHeader/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsPanel/ConversationItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/Components/DropdownItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/Components/FilterButton/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/EmptyState/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MessagesHeader/MessagesHeaderControls/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MessagesHeader/MessagesHeaderEmailSubject/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/EditFieldPopover/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/FieldValue/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactEvents/Components/ContactEvent/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactEvents/Hooks/useContactEvents/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactNotes/Components/InputField/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactNotes/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ConversationLabels/Label/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ConversationLabels/LabelSelector/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ConversationLabels/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/MergeContactDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ParticipantOverview/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NavBar/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NewMessageDrawer/Components/CustomContactOption/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NewMessageDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ParticipantsSummary/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/AIGeneratedReply/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/ChannelSwitcher/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/SavedRepliesButton/DropdownSavedReplyItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Hooks/useConversationActivities/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Hooks/useConversationsData/index.test.ts",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Hooks/useConversationsData/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Hooks/useMessagesSocketEvents/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Hooks/useParticipantOnlineStatusVariant/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Modules/Conversation/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Modules/Conversation/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Modules/Conversations/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/DataSecurityActivityLog/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/DataSecurityDeletedContacts/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Domains/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Exports/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Exports/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiAgent/Modules/Configuration/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiAgent/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiAgent/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiAgents/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiMcp/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiMcp/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiMcps/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Imports/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Imports/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/IntegrationDynamicConsents/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/Components/ButtonItems/AddMoreButton/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/Components/ButtonItems/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeConversationalCapture/Components/AddContactFieldBtn/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeConversationalCapture/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeInvokeKbi/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionsBtn/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Hooks/useMessageButtonDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemSamples/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/MessageButtonDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseItem/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseItems/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseSettings/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBases/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Label/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Label/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Labels/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Labels/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Numbers/Helpers/Status/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Options/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationField/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationField/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationFields/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationType/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationType/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationTypes/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationTypes/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Outcome/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Outcome/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Outcomes/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Outcomes/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/PaymentItem/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/PaymentItem/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/PaymentItems/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Portal/Components/PortalBuilder/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/SavedReplies/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/SavedReply/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/SavedReply/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Senders/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Settings/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Team/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Team/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Teams/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Template/Components/Settings/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Template/Helpers/WhatsappApprovalUi/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Template/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Template/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Templates/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/FormView/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/Misc/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsCallUsage/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsSMSUsage/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsTransactions/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsWhatsAppUsage/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/User/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Users/Components/UserIdentityCell/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Users/Helpers/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/Helpers/Type/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/Helpers/Type/index.test.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/PurchaseNumber/Components/PurchaseNumberListView/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/VerifyNumber/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/VerifyNumber/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/VerifyNumber/useVerifyNumber.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widget/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widget/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widgets/index.tsx"
+      ],
+      "production_files": [
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/AIAgents/index.ts",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/AITools/index.ts",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Activity/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Attendances/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Bots/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Calls/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Campaigns/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Categories/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Channels/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/ContactFieldGroups/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Contacts/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Conversations/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Devices/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Domains/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Events/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Exports/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Fields/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Filters/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Forms/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Groups/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Imports/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/KnowledgeBases/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/KnowledgeBasesItems/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Labels/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/LandingPages/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Messages/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Notes/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Numbers/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Options/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/ParticipantNotes/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/PaymentItems/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Senders/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Tasks/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Teams/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Templates/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Transactions/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Users/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Commands/Widgets/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Favourites/FavouriteMenuAndButton/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Favourites/Toggle/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Widgets/ViewEmbedCodeModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/TemplateTagBuilder/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Badge/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Buttons/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Card/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/DateRangeFilterBar/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/DateRangeFilterBar/useDateRangeFilter.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Dialog/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Dropdown/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/Fields/AdvancedSelect/Components/TeamMemberSelectOption/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/Fields/FileUpload/Components/ViewFileModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/Fields/FileUpload/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/ListView/Components/ListViewFilter/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/ListView/Components/ListViewSortColumn/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/ListView/Components/ListViewTable/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/MenuBuilder/Components/AddButtons/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/MenuBuilder/Components/EmptyMenu.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/MenuBuilder/Components/MenuItem/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Pagination/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/SortableAccordions/Components/SortableItem.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/SortableTasks/Components/Item/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/StatCard/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Toast/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/UserControl/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/WysiwygInline/Footer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/WysiwygInline/Header/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Helpers/EntityLock/index.ts",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Hooks/useFetchTokenData/Helpers/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Hooks/useListViewProps/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Hooks/useQueries/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgent/Modules/Configuration/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgent/Modules/Logs/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgent/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgent/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/AIAgents/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Bot/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Bot/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Bots/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Broadcast/Tabs/Stats/Components/Charts/DeliveryPerformance/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Broadcast/Tabs/Stats/Components/Charts/OpenRate/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Categories/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Category/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Category/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Components/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Helper/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/Hooks/useChannelFormview/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channel/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channels/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Channels/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/AgentSummary/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/AgentSummary/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/Components/EmptyState/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/Components/MetricCard/MetricCard.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/TeamSummary/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/TeamSummary/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/ClosedConversations/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MedianConversationLength/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/BotMessageFeedbackTable/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/ResolvedConversations/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/TimeSaved/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ClosedConversations/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationRatings/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsByChannel/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsByChannelType/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsStartedOutOfHours/Components/OutOfHoursModal/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsStartedOutOfHours/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/MedianConversationLength/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/MedianFirstResponseTime/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/MessagesSent/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/NewConversations/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/TotalChatGPTConversations/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Labels/Components/LabelsStatsTable.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Labels/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Labels/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Ratings/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Ratings/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Contact/Components/ContactConversations/Hooks/useContactConversationsListView/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Contact/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactField/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactField/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFieldGroups/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFieldGroups/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFields/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ContactFields/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/Components/HiddenConversationsTooltip/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ConversationSearch/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/AssignedParticipants/Components/AssignmentOptionRow/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/AssignedParticipants/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/ForwardedMessage.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageContainer/MessageStatus.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageContainer/RetryButton.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageTypeFormResponse/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsHeader/Components/SegmentFilter/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsHeader/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsPanel/ConversationItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/Components/DropdownItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/Components/FilterButton/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/EmptyState/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MessagesHeader/MessagesHeaderControls/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MessagesHeader/MessagesHeaderEmailSubject/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/EditFieldPopover/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/FieldValue/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactEvents/Components/ContactEvent/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactEvents/Hooks/useContactEvents/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactNotes/Components/InputField/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactNotes/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ConversationLabels/Label/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ConversationLabels/LabelSelector/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ConversationLabels/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/MergeContactDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ParticipantOverview/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NavBar/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NewMessageDrawer/Components/CustomContactOption/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NewMessageDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ParticipantsSummary/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/AIGeneratedReply/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/ChannelSwitcher/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/SavedRepliesButton/DropdownSavedReplyItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Hooks/useConversationActivities/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Hooks/useConversationsData/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Hooks/useMessagesSocketEvents/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Hooks/useParticipantOnlineStatusVariant/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Modules/Conversation/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Modules/Conversation/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Modules/Conversations/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/DataSecurityActivityLog/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/DataSecurityDeletedContacts/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Domains/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Exports/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Exports/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiAgent/Modules/Configuration/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiAgent/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiAgent/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiAgents/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiMcp/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiMcp/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiMcps/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Imports/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Imports/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/IntegrationDynamicConsents/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/Components/ButtonItems/AddMoreButton/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/Components/ButtonItems/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeConversationalCapture/Components/AddContactFieldBtn/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeConversationalCapture/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeInvokeKbi/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionsBtn/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Hooks/useMessageButtonDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemSamples/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/MessageButtonDrawer/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseItem/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseItem/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseItems/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Modules/KnowledgeBaseSettings/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBases/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Label/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Label/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Labels/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Labels/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/LandingPage/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Numbers/Helpers/Status/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Options/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationField/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationField/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationFields/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationType/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationType/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationTypes/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/OrganisationTypes/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Outcome/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Outcome/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Outcomes/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Outcomes/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/PaymentItem/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/PaymentItem/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/PaymentItems/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Portal/Components/PortalBuilder/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/SavedReplies/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/SavedReply/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/SavedReply/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Senders/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Settings/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Team/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Team/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Teams/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Template/Components/Settings/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Template/Helpers/WhatsappApprovalUi/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Template/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Template/state.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Templates/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/FormView/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Ui/Misc/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsCallUsage/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsSMSUsage/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsTransactions/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/UsageAndCostsWhatsAppUsage/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/User/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Users/Components/UserIdentityCell/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Users/Helpers/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/Helpers/Type/index.jsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/PurchaseNumber/Components/PurchaseNumberListView/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/VerifyNumber/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/VerifyNumber/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/VerifyNumber/useVerifyNumber.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widget/index.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widget/state.tsx",
+        "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widgets/index.tsx"
+      ]
+    }
+  },
+  "class_literals": {
+    "d-flex": {
+      "occurrences": 133,
+      "file_count": 80,
+      "files": [
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/AppMenu/index.jsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Favourites/FavouriteMenuAndButton/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/DateRangeFilterBar/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/Fields/AdvancedSelect/Components/TeamMemberSelectOption/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/Fields/FileUpload/Components/ViewFileModal/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/Fields/FileUpload/index.tsx",
+          "occurrences": 3
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Form/Fields/index.jsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/ListView/Components/ListViewDropdownColumn/index.jsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/MenuBuilder/Components/ConditionsBuilder/index.jsx",
+          "occurrences": 4
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/MenuBuilder/Components/EmptyMenu.jsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/SortableAccordions/Components/SortableItem.tsx",
+          "occurrences": 3
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/SortableTasks/Components/EmptyItemsList.jsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/StatCard/Bar/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/StatCard/Line/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/StatCard/Pie/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/StatCard/index.tsx",
+          "occurrences": 3
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Statbox/index.jsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/WysiwygInline/Footer/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/WysiwygInline/PlainTextAttachments/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Broadcast/Tabs/Stats/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Components/StatTotalLabel.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/Components/MetricCard/MetricCard.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/Helper/prepareColumns.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/TeamSummary/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MedianConversationLength/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/BotMessageFeedbackTable/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/ResolvedConversations/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsStartedOutOfHours/Components/CustomExtraLabel.tsx",
+          "occurrences": 3
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Labels/Components/LabelsStatsTable.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/AssignedParticipants/Components/AssignmentOptionRow/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/AssignedParticipants/index.tsx",
+          "occurrences": 3
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageContainer/MessageStatus.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageContainer/RetryButton.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageContainer/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageTypeFormResponse/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/TypingIndicatorWithAvatar/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Transcript/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsHeader/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsPanel/ConversationItem/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterConditions/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/Components/DropdownItem/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/EmptyState/index.tsx",
+          "occurrences": 4
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MessagesHeader/MessagesHeaderControls/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MessagesHeader/index.tsx",
+          "occurrences": 4
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MessagesPanel/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/Activities/index.tsx",
+          "occurrences": 3
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactActivity/ContactActivityItem/index.tsx",
+          "occurrences": 3
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/EditFieldPopover/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/FieldValue/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactNotes/Components/InputField/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactNotes/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactTasksAndObjectives/ContactTasksAndObjectivesItem/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ConversationAnalysis/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/MergeContactDrawer/components/ComparisonPanel.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/MergeContactDrawer/components/CustomDropdownOption.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/MergeContactDrawer/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ParticipantOverview/index.tsx",
+          "occurrences": 3
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NavBar/index.tsx",
+          "occurrences": 3
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NewMessageDrawer/Components/CustomContactOption/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ParticipantsSummary/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/ChannelSwitcher/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Modules/Conversations/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/GeckoAiMcp/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/Components/ButtonItems/ButtonOption/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/Components/SortableItem/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeConversationalCapture/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeInvokeKbi/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemSamples/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/User/Components/Chat/Notifications/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Users/Components/UserIdentityCell/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/PurchaseNumber/Components/PurchaseNumberListView/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/PurchaseNumber/Components/VoipNumberTypes/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widgets/Components/EmbedCode/index.tsx",
+          "occurrences": 2
+        }
+      ]
+    },
+    "p-2": {
+      "occurrences": 7,
+      "file_count": 7,
+      "files": [
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/SortableAccordions/Components/SortableItem.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/WysiwygInline/Footer/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsPanel/ConversationsList/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/EmptyState/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ConversationLabels/Label/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/Footer/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Labels/Components/DisplayLabel.tsx",
+          "occurrences": 1
+        }
+      ]
+    },
+    "p-3": {
+      "occurrences": 4,
+      "file_count": 4,
+      "files": [
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/SortableAccordions/Components/SortableItem.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/EmptyState/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/MergeContactDrawer/components/ComparisonPanel.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/index.tsx",
+          "occurrences": 1
+        }
+      ]
+    },
+    "p-4": {
+      "occurrences": 5,
+      "file_count": 5,
+      "files": [
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/Components/MetricCard/MetricCard.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MessagesList/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/index.tsx",
+          "occurrences": 1
+        }
+      ]
+    },
+    "m-0": {
+      "occurrences": 6,
+      "file_count": 6,
+      "files": [
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsPanel/ConversationItem/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsPanel/ConversationsList/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MessagesHeader/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/Impressions/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ParticipantOverview/index.tsx",
+          "occurrences": 1
+        }
+      ]
+    },
+    "gap-2": {
+      "occurrences": 28,
+      "file_count": 21,
+      "files": [
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/DateRangeFilterBar/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/MenuBuilder/Components/ConditionsBuilder/index.jsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/SortableAccordions/Components/SortableItem.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Broadcast/Tabs/Stats/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Components/StatTotalLabel.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/AgentsTeams/Components/MetricCard/MetricCard.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MedianConversationLength/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/MessageSuccessRate/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Bots/Stats/ResolvedConversations/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsStartedOutOfHours/Components/CustomExtraLabel.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageContainer/RetryButton.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageTypeFormResponse/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NavBar/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NewMessageDrawer/Components/CustomContactOption/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ReplyBox/ChannelSwitcher/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/Components/ButtonItems/ButtonOption/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemSamples/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Users/Components/UserIdentityCell/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/VoipNumbers/PurchaseNumber/Components/PurchaseNumberListView/index.tsx",
+          "occurrences": 1
+        }
+      ]
+    },
+    "gap-3": {
+      "occurrences": 3,
+      "file_count": 3,
+      "files": [
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Templates/SubmitWhatsappTemplateModal/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/MenuBuilder/Components/ConditionsBuilder/index.jsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/MergeContactDrawer/index.tsx",
+          "occurrences": 1
+        }
+      ]
+    },
+    "border": {
+      "occurrences": 6,
+      "file_count": 6,
+      "files": [
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Modals/Usage/TransactionDetailsModal/index.jsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/EmptyState/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/MergeContactDrawer/components/ComparisonPanel.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/User/Components/Chat/Notifications/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widgets/Components/EmbedCode/index.tsx",
+          "occurrences": 1
+        }
+      ]
+    },
+    "rounded": {
+      "occurrences": 9,
+      "file_count": 8,
+      "files": [
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/WysiwygInline/PlainTextAttachments/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Attachments/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/Attachments.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/MetaHeader/MergeContactDrawer/components/ComparisonPanel.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/KnowledgeBase/Components/KnowledgeBaseItemActions/Components/KnowledgeBaseActionTypeButtons/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Template/index.jsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/User/Components/Chat/Notifications/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widgets/Components/EmbedCode/index.tsx",
+          "occurrences": 1
+        }
+      ]
+    },
+    "text-primary": {
+      "occurrences": 5,
+      "file_count": 4,
+      "files": [
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Transcript/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/CustomFilterList/Components/DropdownItem/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/Activities/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactActivity/ContactActivityItem/index.tsx",
+          "occurrences": 1
+        }
+      ]
+    },
+    "text-secondary": {
+      "occurrences": 23,
+      "file_count": 15,
+      "files": [
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/ChatReports/Modules/Conversations/Stats/ConversationsStartedOutOfHours/Components/CustomExtraLabel.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Activity/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/EmailMessageInfo/index.tsx",
+          "occurrences": 3
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageContainer/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationEntry/Message/MessageInfoPopover/index.tsx",
+          "occurrences": 4
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/ConversationsPanel/ConversationItem/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MessagesHeader/MessagesHeaderEmailSubject/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/Activities/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactActivity/ContactActivityItem/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/FieldValue/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactEvents/Components/ContactEvent/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactNotes/Components/NoteListItem/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactTasksAndObjectives/ContactTasksAndObjectivesItem/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/Impressions/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ParticipantOverview/index.tsx",
+          "occurrences": 2
+        }
+      ]
+    },
+    "shadow-sm": {
+      "occurrences": 0,
+      "file_count": 0,
+      "files": []
+    },
+    "position-relative": {
+      "occurrences": 14,
+      "file_count": 10,
+      "files": [
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/WysiwygInline/PlainTextAttachments/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/EmptyState/index.tsx",
+          "occurrences": 3
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MessagesPanel/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/Activities/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactActivity/ContactActivityItem/index.tsx",
+          "occurrences": 2
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactDetails/FieldValue/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/ContactTasksAndObjectives/ContactTasksAndObjectivesItem/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/MetaPanel/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Conversations/Components/NavBar/index.tsx",
+          "occurrences": 1
+        },
+        {
+          "file": "/Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Modules/Widgets/Components/EmbedCode/index.tsx",
+          "occurrences": 1
+        }
+      ]
+    }
+  },
+  "snapshot": {
+    "reviewed": "2026-09-09",
+    "admin_branch": "production",
+    "admin_commit": "68f9dc325126226a0bacd41b827ad2f44717fe0d",
+    "elements_commit": "7fc705f49d5bac5a998665963f09c6484a60c867"
+  }
+}

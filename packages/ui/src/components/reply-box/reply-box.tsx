@@ -1,4 +1,5 @@
 "use client";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import type { GeckoIcon } from "@gecko/ui/lib/icon";
@@ -33,7 +34,7 @@ export type ReplyBoxProps = React.ComponentProps<"div"> & {
   onStop?: () => void;
 };
 
-export function ReplyBox({
+export const ReplyBox = /* @__PURE__ */ withRef(function ReplyBox({
   className,
   variant = "chat",
   channel,
@@ -159,7 +160,7 @@ export function ReplyBox({
       </div>
     </ReplyBoxContext.Provider>
   );
-}
+});
 
 export type {
   ReplyBoxActionId,

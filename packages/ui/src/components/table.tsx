@@ -1,4 +1,6 @@
 "use client";
+import { inertProps } from "@gecko/ui/lib/inert";
+import { withRef } from "@gecko/ui/lib/with-ref";
 
 import * as React from "react";
 import ChevronDown from "@hugeicons/core-free-icons/ChevronDownIcon";
@@ -36,7 +38,7 @@ type TableProps = React.ComponentProps<"table"> & {
   description?: React.ReactNode;
 };
 
-function Table({
+const Table = /* @__PURE__ */ withRef(function Table({
   className,
   hoverable = false,
   nested = false,
@@ -117,9 +119,12 @@ function Table({
       </div>
     </TableHoverContext.Provider>
   );
-}
+});
 
-function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
+const TableHeader = /* @__PURE__ */ withRef(function TableHeader({
+  className,
+  ...props
+}: React.ComponentProps<"thead">) {
   return (
     <thead
       data-slot="table-header"
@@ -127,9 +132,12 @@ function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
       {...props}
     />
   );
-}
+});
 
-function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
+const TableBody = /* @__PURE__ */ withRef(function TableBody({
+  className,
+  ...props
+}: React.ComponentProps<"tbody">) {
   const hoverable = React.useContext(TableHoverContext);
   return (
     <tbody
@@ -143,9 +151,12 @@ function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
       {...props}
     />
   );
-}
+});
 
-function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
+const TableFooter = /* @__PURE__ */ withRef(function TableFooter({
+  className,
+  ...props
+}: React.ComponentProps<"tfoot">) {
   return (
     <tfoot
       data-slot="table-footer"
@@ -153,11 +164,14 @@ function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
       {...props}
     />
   );
-}
+});
 
 type TableRowProps = React.ComponentProps<"tr">;
 
-function TableRow({ className, ...props }: TableRowProps) {
+const TableRow = /* @__PURE__ */ withRef(function TableRow({
+  className,
+  ...props
+}: TableRowProps) {
   return (
     <tr
       data-slot="table-row"
@@ -168,7 +182,7 @@ function TableRow({ className, ...props }: TableRowProps) {
       {...props}
     />
   );
-}
+});
 
 type TableDetailRowProps = React.ComponentProps<"tr"> & {
   /** Must match the parent table’s column count. */
@@ -177,7 +191,7 @@ type TableDetailRowProps = React.ComponentProps<"tr"> & {
   children: React.ReactNode;
 };
 
-function TableDetailRow({
+const TableDetailRow = /* @__PURE__ */ withRef(function TableDetailRow({
   colSpan,
   open,
   children,
@@ -203,10 +217,7 @@ function TableDetailRow({
             open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
           )}
         >
-          <div
-            className="min-h-0 overflow-hidden"
-            inert={open ? undefined : true}
-          >
+          <div className="min-h-0 overflow-hidden" {...inertProps(!open)}>
             <div className="nested-wrapper bg-muted/50 border-b border-t border-border p-6">
               {children}
             </div>
@@ -215,7 +226,7 @@ function TableDetailRow({
       </td>
     </tr>
   );
-}
+});
 
 type TableExpandableRowProps = Omit<TableRowProps, "children"> & {
   /**
@@ -243,7 +254,7 @@ type TableExpandableRowProps = Omit<TableRowProps, "children"> & {
  * (typically the first cell) to toggle expansion; the row itself is not
  * clickable.
  */
-function TableExpandableRow({
+const TableExpandableRow = /* @__PURE__ */ withRef(function TableExpandableRow({
   colSpan,
   children,
   detail,
@@ -345,7 +356,7 @@ function TableExpandableRow({
       )}
     </>
   );
-}
+});
 
 type TableExpandableRowTriggerProps = Omit<
   React.ComponentProps<typeof Button>,
@@ -359,50 +370,55 @@ type TableExpandableRowTriggerProps = Omit<
  * Button that toggles its parent {@link TableExpandableRow}. Defaults to a
  * chevron icon; pass `children` to customize.
  */
-function TableExpandableRowTrigger({
-  className,
-  children,
-  label = "row",
-  onClick,
-  "aria-label": ariaLabel,
-  ...props
-}: TableExpandableRowTriggerProps) {
-  const ctx = React.useContext(TableExpandableRowContext);
-  if (!ctx) {
-    throw new Error(
-      "TableExpandableRowTrigger must be used inside TableExpandableRow.",
+const TableExpandableRowTrigger = /* @__PURE__ */ withRef(
+  function TableExpandableRowTrigger({
+    className,
+    children,
+    label = "row",
+    onClick,
+    "aria-label": ariaLabel,
+    ...props
+  }: TableExpandableRowTriggerProps) {
+    const ctx = React.useContext(TableExpandableRowContext);
+    if (!ctx) {
+      throw new Error(
+        "TableExpandableRowTrigger must be used inside TableExpandableRow.",
+      );
+    }
+    return (
+      <Button
+        type="button"
+        variant="ghost"
+        size="icon-sm"
+        aria-expanded={ctx.open}
+        aria-controls={ctx.ariaControls}
+        aria-label={ariaLabel ?? `${ctx.open ? "Collapse" : "Expand"} ${label}`}
+        className={cn("shrink-0", className)}
+        onClick={(e) => {
+          onClick?.(e);
+          if (!e.defaultPrevented) ctx.toggle();
+        }}
+        {...props}
+      >
+        {children ?? (
+          <HugeiconsIcon
+            icon={ChevronDown}
+            className={cn(
+              "text-muted-foreground size-4 transition-transform motion-reduce:transition-none",
+              ctx.open && "rotate-180",
+            )}
+            aria-hidden
+          />
+        )}
+      </Button>
     );
-  }
-  return (
-    <Button
-      type="button"
-      variant="ghost"
-      size="icon-sm"
-      aria-expanded={ctx.open}
-      aria-controls={ctx.ariaControls}
-      aria-label={ariaLabel ?? `${ctx.open ? "Collapse" : "Expand"} ${label}`}
-      className={cn("shrink-0", className)}
-      onClick={(e) => {
-        onClick?.(e);
-        if (!e.defaultPrevented) ctx.toggle();
-      }}
-      {...props}
-    >
-      {children ?? (
-        <HugeiconsIcon
-          icon={ChevronDown}
-          className={cn(
-            "text-muted-foreground size-4 transition-transform motion-reduce:transition-none",
-            ctx.open && "rotate-180",
-          )}
-          aria-hidden
-        />
-      )}
-    </Button>
-  );
-}
+  },
+);
 
-function TableHead({ className, ...props }: React.ComponentProps<"th">) {
+const TableHead = /* @__PURE__ */ withRef(function TableHead({
+  className,
+  ...props
+}: React.ComponentProps<"th">) {
   return (
     <th
       data-slot="table-head"
@@ -413,9 +429,12 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
       {...props}
     />
   );
-}
+});
 
-function TableCell({ className, ...props }: React.ComponentProps<"td">) {
+const TableCell = /* @__PURE__ */ withRef(function TableCell({
+  className,
+  ...props
+}: React.ComponentProps<"td">) {
   return (
     <td
       data-slot="table-cell"
@@ -426,9 +445,9 @@ function TableCell({ className, ...props }: React.ComponentProps<"td">) {
       {...props}
     />
   );
-}
+});
 
-function TableCaption({
+const TableCaption = /* @__PURE__ */ withRef(function TableCaption({
   className,
   ...props
 }: React.ComponentProps<"caption">) {
@@ -439,7 +458,7 @@ function TableCaption({
       {...props}
     />
   );
-}
+});
 
 export {
   Table,
