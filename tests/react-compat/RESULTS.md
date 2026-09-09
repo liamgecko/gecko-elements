@@ -49,3 +49,18 @@ following/inert state, and unmount cleanup.
   Vite development mode. Compiled distribution and npm release preparation remain
   separate work.
 - No Gecko-Admin-Web-App source, dependencies, branch or configuration was changed.
+
+## CI icon declaration failure follow-up
+
+The fresh consumer install reproduced CI's TS7016 errors with
+`@hugeicons/core-free-icons@4.3.2`: its per-icon JavaScript exists, but the
+corresponding declaration files advertised by its export map are missing.
+Changing only that dependency to 4.3.0 made the failing consumer typecheck pass.
+Elements now pins 4.3.0 in its own manifest, so the fix applies to consumers as
+well as this repository's lockfile.
+
+After the pin, `PLAYWRIGHT_CHANNEL=chrome npm run test:react-compat` passed
+fresh package installs, full source typechecks, builds, and development/production
+browser assertions for both React 18.3.1 and 19.2.5. The previously recorded
+ResizeObserver notification did not occur in this rerun. Remote CI still needs
+to run against the fix.

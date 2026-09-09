@@ -97,7 +97,7 @@ try {
       ["install", "--ignore-scripts", "--no-audit", "--no-fund"],
       fixture,
     );
-    run("npm", ["ls", "react", "react-dom"], fixture);
+    run("npm", ["ls", "react", "react-dom", "@hugeicons/core-free-icons"], fixture);
     run(path.join(fixture, "node_modules/.bin/tsc"), ["--noEmit"], fixture);
     run(path.join(fixture, "node_modules/.bin/vite"), ["build"], fixture);
     const { createServer, preview } = await import(

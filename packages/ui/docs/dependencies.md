@@ -54,3 +54,11 @@ Admin App. Prototypes retain React 19 and its matching `react-is`.
 ## React compatibility patch
 
 Message scroller retains the approved Shadcn implementation in `src/vendor/shadcn-message-scroller` with its MIT license and a targeted React 18/19 compatibility patch. The published 0.2.0 package requires React 19; do not reinstall it as a runtime dependency while React 18 support is required. See the vendor README for provenance, modifications and verification.
+
+## Icon package version
+
+`@hugeicons/core-free-icons` is pinned to `4.3.0`. The published `4.3.2`
+package advertises per-icon `dist/types/*.d.ts` exports but omits those files,
+so fresh source-package consumers fail with TS7016. Keep the exact version until
+an upstream release includes the declarations and passes `npm run test:react-compat`.
+Do not mask this with ambient `any` declarations or relaxed TypeScript checks.
