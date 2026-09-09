@@ -9,11 +9,18 @@ export async function checkPackedElements(root) {
     await readFile(path.join(root, "package.json"), "utf8"),
   );
   assert.equal(manifest.name, "@geckolabs/elements");
-  assert.equal(
-    manifest.private,
-    true,
-    "Publishing remains a separate release step",
-  );
+  assert.equal(manifest.publishConfig.access, "restricted");
+  assert.equal(manifest.publishConfig.tag, "next");
+  if (manifest.private !== true) {
+    assert.equal(
+      manifest.publishConfig.registry,
+      "https://registry.npmjs.org/",
+    );
+    assert(
+      !manifest.scripts && !manifest.devDependencies,
+      "Release artifacts omit build-only metadata",
+    );
+  }
   assert.deepEqual(manifest.sideEffects, ["**/*.css"]);
   assert(
     !manifest.dependencies.shadcn && !manifest.dependencies["tw-animate-css"],

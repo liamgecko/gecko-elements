@@ -12,7 +12,11 @@ Pass `-- 18` or `-- 19` to run one version. `PLAYWRIGHT_CHANNEL=chrome` uses
 installed Google Chrome instead of Playwright's Chromium. `KEEP_REACT_COMPAT=1`
 retains temporary artifacts; failed runs always retain them and print the path.
 
-The runner packs `@geckolabs/elements` into a tarball and installs it in fresh directories
+Set `ELEMENTS_PACKAGE_TARBALL=/absolute/path/to/package.tgz` to test an existing
+artifact without rebuilding it. The release preparation command uses this for both
+stylesheet modes. Component imports are discovered from the installed artifact.
+
+By default, the runner packs `@geckolabs/elements` into a tarball and installs it in fresh directories
 outside the workspace, with exact React/React DOM/type versions. It does not use
 workspace source aliases, force installation, legacy-peer-deps, or a second React.
 All compiled component modules are imported and typechecked against the consumer's

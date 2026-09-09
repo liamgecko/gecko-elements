@@ -41,3 +41,10 @@ npm run build
 ```
 
 Use an affected workspace's lint or test scripts where provided; see its `package.json`. Complete the [interface verification](packages/ui/README.md#verify-the-interface) in the running app and report any failures separately from missing library capabilities.
+
+## Private prereleases
+
+See [the private release guide](docs/package-readiness/private-releases.md).
+`npm run release:prepare` creates and tests an exact publishable tarball;
+`npm run release:publish -- 0.1.0-next.1` publishes that verified artifact privately
+under `next`. Neither a normal build nor a branch push publishes a package.

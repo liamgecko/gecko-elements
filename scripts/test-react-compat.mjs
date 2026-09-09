@@ -38,30 +38,28 @@ const scratch = await mkdtemp(path.join(tmpdir(), "gecko-react-compat-"));
 console.log(`Compatibility artifacts (${cssMode} CSS): ${scratch}`);
 let passed = false;
 try {
-  run(
-    "npm",
-    [
-      "pack",
-      "--workspace",
-      "@geckolabs/elements",
-      "--pack-destination",
-      scratch,
-      "--quiet",
-    ],
-    root,
-  );
+  if (process.env.ELEMENTS_PACKAGE_TARBALL) {
+    await cp(
+      path.resolve(process.env.ELEMENTS_PACKAGE_TARBALL),
+      path.join(scratch, "elements.tgz"),
+    );
+  } else {
+    run(
+      "npm",
+      [
+        "pack",
+        "--workspace",
+        "@geckolabs/elements",
+        "--pack-destination",
+        scratch,
+        "--quiet",
+      ],
+      root,
+    );
+  }
   const tarball = (await readdir(scratch)).find((name) =>
     name.endsWith(".tgz"),
   );
-  const components = path.join(root, "packages/ui/dist/components");
-  const files = await readdir(components, { recursive: true });
-  const imports = files
-    .filter((name) => name.endsWith(".js"))
-    .sort()
-    .map(
-      (name) =>
-        `@geckolabs/elements/components/${name.replace(/\.js$/, "").replace(/\/index$/, "")}`,
-    );
   for (const major of matrix) {
     const version = versions[major];
     const fixture = path.join(scratch, `react-${major}`);
@@ -109,6 +107,29 @@ try {
         '@import "@geckolabs/elements/tailwind.css";\n@source "./*.tsx";\n',
       );
     }
+    console.log(`\nTesting React ${version.react}`);
+    run(
+      "npm",
+      ["install", "--ignore-scripts", "--no-audit", "--no-fund"],
+      fixture,
+    );
+    run(
+      "npm",
+      ["ls", "react", "react-dom", "@hugeicons/core-free-icons"],
+      fixture,
+    );
+    const installed = path.join(fixture, "node_modules/@geckolabs/elements");
+    await checkPackedElements(installed);
+    const files = await readdir(path.join(installed, "dist/components"), {
+      recursive: true,
+    });
+    const imports = files
+      .filter((name) => name.endsWith(".js"))
+      .sort()
+      .map(
+        (name) =>
+          `@geckolabs/elements/components/${name.replace(/\.js$/, "").replace(/\/index$/, "")}`,
+      );
     // Every compiled component module is loaded, even those not rendered by
     // the interaction fixture. No monorepo aliases or hoisted React are used.
     await writeFile(
@@ -124,19 +145,7 @@ try {
       path.join(fixture, "component-imports.json"),
       JSON.stringify(imports),
     );
-    console.log(`\nTesting React ${version.react}`);
-    run(
-      "npm",
-      ["install", "--ignore-scripts", "--no-audit", "--no-fund"],
-      fixture,
-    );
-    run(
-      "npm",
-      ["ls", "react", "react-dom", "@hugeicons/core-free-icons"],
-      fixture,
-    );
-    const installed = path.join(fixture, "node_modules/@geckolabs/elements");
-    await checkPackedElements(installed);
+
     run(path.join(fixture, "node_modules/.bin/tsc"), ["--noEmit"], fixture);
     run(path.join(fixture, "node_modules/.bin/vite"), ["build"], fixture);
     if (major === "19" && cssMode === "compiled")

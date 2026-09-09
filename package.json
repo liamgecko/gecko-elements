@@ -12,7 +12,10 @@
     "test:message-scroller": "node tests/message-scroller/anchor-shift.mjs",
     "check:react-refs": "node scripts/check-react-refs.mjs",
     "build:package": "npm run build --workspace @geckolabs/elements",
-    "test:package:tailwind": "ELEMENTS_CSS_MODE=tailwind node scripts/test-react-compat.mjs"
+    "test:package:tailwind": "ELEMENTS_CSS_MODE=tailwind node scripts/test-react-compat.mjs",
+    "release:prepare": "node scripts/prepare-elements-release.mjs",
+    "release:publish": "node scripts/publish-elements-release.mjs",
+    "release:verify": "node scripts/publish-elements-release.mjs --verify-only"
   },
   "devDependencies": {
     "prettier": "^3.8.1",
