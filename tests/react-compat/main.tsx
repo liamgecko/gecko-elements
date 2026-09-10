@@ -47,6 +47,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSwitchItem,
 } from "@geckolabs/elements/components/dropdown-menu";
 import { Toaster, toast } from "@geckolabs/elements/components/toast";
 import {
@@ -280,6 +281,13 @@ function App() {
             Actions
           </DropdownMenuTrigger>
           <DropdownMenuContent>
+            <DropdownMenuSwitchItem>Available</DropdownMenuSwitchItem>
+            <DropdownMenuItem
+              unread
+              render={<a href="#release-notes" />}
+            >
+              Release notes
+            </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() =>
                 toast.add({ title: "Action completed", type: "success" })

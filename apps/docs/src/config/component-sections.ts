@@ -908,6 +908,7 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "do-dont", label: "Do and don’t" },
+    { id: "group-navigation", label: "Group navigation" },
     {
       id: "api",
       label: "API",
@@ -1305,9 +1306,11 @@ export const componentSections: ComponentSections = {
     { id: "icons", label: "Icons" },
     { id: "avatars", label: "Avatars" },
     { id: "checkbox", label: "Checkbox" },
+    { id: "switch-items", label: "Switch items" },
     { id: "radio-group", label: "Radio group" },
     { id: "destructive", label: "Destructive" },
     { id: "search", label: "Search" },
+    { id: "unread-indicator", label: "Unread indicator" },
     { id: "do-dont", label: "Do and don’t" },
     { id: "api", label: "API" },
     { id: "related", label: "Related" },
@@ -2150,6 +2153,8 @@ export const componentSections: ComponentSections = {
   ],
   typography: [
     { id: "overview", label: "Overview" },
+    { id: "usage", label: "Usage" },
+    { id: "sentence-casing", label: "Sentence casing" },
     {
       id: "font-families",
       label: "Font families",

@@ -50,7 +50,15 @@ export function StructureAppHeaderPage() {
     <AppHeaderUserMenu
       name="Liam Young"
       avatar={{ name: "Liam Young" }}
+      unread
       items={[
+        {
+          id: "release-notes",
+          label: "Release notes",
+          href: "https://academy.geckoengage.com/en/articles/13832813-gecko-release-notes",
+          target: "_blank",
+          unread: true,
+        },
         { id: "settings", label: "User settings" },
         {
           id: "logout",
@@ -344,10 +352,50 @@ export function StructureAppHeaderPage() {
         <ChildSection
           id="api-user-menu"
           title="AppHeaderUserMenu"
-          description="Signed-in user menu."
+          description={
+            <>
+              Use <Code>href</Code> for links and <Code>onSelect</Code> for
+              actions. Set <Code>target="_blank"</Code> to open a link in a new
+              tab. Item <Code>unread</Code> uses the{" "}
+              <DocsPageLink to="/components/dropdown-menu#unread-indicator">
+                Dropdown menu unread indicator
+              </DocsPageLink>
+              ; menu-level <Code>unread</Code> adds the dot to the avatar.
+            </>
+          }
         >
           <DocsApiTable
             rows={[
+              {
+                name: "unread",
+                type: "boolean",
+                defaultValue: "false",
+                description: "Shows a notification dot on the avatar.",
+              },
+              {
+                name: "items[].href",
+                type: "string",
+                description:
+                  "Link destination. Renders a native link with normal browser navigation.",
+              },
+              {
+                name: "items[].target",
+                type: "HTMLAttributeAnchorTarget",
+                description:
+                  "Where the link opens. New-tab links include noopener noreferrer.",
+              },
+              {
+                name: "items[].onSelect",
+                type: "() => void",
+                description: "Runs an action or records a link selection.",
+              },
+              {
+                name: "items[].unread",
+                type: "boolean",
+                defaultValue: "false",
+                description:
+                  "Marks an item with new updates. Set to false once read.",
+              },
               {
                 name: "name",
                 type: "ReactNode",

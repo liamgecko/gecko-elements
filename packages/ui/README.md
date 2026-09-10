@@ -36,10 +36,11 @@ aliases. CommonJS and server rendering are not tested distribution targets.
 From the repository root, run `npm run build:package` or
 `npm pack --workspace @geckolabs/elements --pack-destination /tmp` (which builds
 first). Install the resulting tarball into a consuming app with
-`npm install /tmp/geckolabs-elements-0.1.0-next.1.tgz`, alongside matching React,
-React DOM and React Is peers. This is a local prerelease artifact: `private: true`
-remains as a publication guard until the private npm release process is ready.
-No Admin integration or npm release is included in this slice.
+`npm install /tmp/geckolabs-elements-0.1.0-next.2.tgz`, alongside matching React,
+React DOM and React Is peers. The source workspace keeps `private: true` as a publication guard. Private npm
+prereleases use the Elements repository’s `release:prepare` and
+`release:publish` commands to publish a verified artifact.
+Consumers install an exact prerelease version.
 
 Inside this monorepo, Vite and TypeScript deliberately resolve Elements to source
 for fast feedback. The isolated compatibility tests resolve the packed `dist`
@@ -110,6 +111,10 @@ Fonts are served locally from the package. Satoshi is included for Gecko's
 internal use under ITF FFL; Geist Mono uses OFL. See the packaged font notices
 under `dist/assets/fonts/README.md`. Do not distribute Satoshi publicly or to
 external organisations as part of this package without resolving those rights.
+
+## Typography and copy
+
+Always use sentence case for Gecko UI copy and documentation prose, including headings, navigation, menu items and buttons. Preserve proper names, acronyms and code identifiers. Write “Gecko academy”, “User settings” and “Save changes”. Follow the [typography rules](docs/typography.md); do not enforce casing with CSS or automatic string conversion.
 
 ## Compose within the contract
 

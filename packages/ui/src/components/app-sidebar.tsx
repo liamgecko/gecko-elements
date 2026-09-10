@@ -88,7 +88,7 @@ type AppSidebarFavouritesProps = {
   items: readonly AppSidebarFavouriteItem[];
   activePath: string;
   onSelect: (path: string) => void;
-  onRename: (path: string, label: string) => void;
+  onRename?: (path: string, label: string) => void;
   onDelete: (path: string) => void;
 };
 
@@ -123,14 +123,16 @@ function AppSidebarFavourites({
           <HugeiconsIcon icon={EllipsisIcon} />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => openRename(fav.path, fav.label)}>
-            Rename
-          </DropdownMenuItem>
+          {onRename && (
+            <DropdownMenuItem onClick={() => openRename(fav.path, fav.label)}>
+              Rename
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem
             variant="destructive"
             onClick={() => onDelete(fav.path)}
           >
-            Delete
+            Remove from favourites
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -222,7 +224,7 @@ function AppSidebarFavourites({
               type="button"
               onClick={() => {
                 if (!renamePath) return;
-                onRename(renamePath, renameValue);
+                onRename?.(renamePath, renameValue);
                 setRenameOpen(false);
               }}
             >
@@ -266,6 +268,7 @@ type AppSidebarNavProps = {
   items: readonly AppSidebarNavItem[];
   activePath: string;
   onSelect: (href: string) => void;
+  navigateOnGroupOpen?: boolean;
 };
 
 function isChildActive(activePath: string | undefined, href: string) {
@@ -273,7 +276,12 @@ function isChildActive(activePath: string | undefined, href: string) {
   return activePath === href || activePath.startsWith(`${href}/`);
 }
 
-function AppSidebarNav({ items, activePath, onSelect }: AppSidebarNavProps) {
+function AppSidebarNav({
+  items,
+  activePath,
+  onSelect,
+  navigateOnGroupOpen = true,
+}: AppSidebarNavProps) {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const [expandedGroups, setExpandedGroups] = React.useState<
@@ -306,7 +314,7 @@ function AppSidebarNav({ items, activePath, onSelect }: AppSidebarNavProps) {
                         ...prev,
                         [item.id]: open,
                       }));
-                      if (open) onSelect(firstChildHref);
+                      if (open && navigateOnGroupOpen) onSelect(firstChildHref);
                     }}
                   >
                     <CollapsibleTrigger

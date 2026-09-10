@@ -29,7 +29,8 @@ The dependency tree is checked by `npm ls react react-dom`.
 Browser assertions run in development (including StrictMode and React warnings)
 and production. They cover native/object and callback refs, forms and controlled
 inputs, loading buttons, checkbox/switch, dialog focus restoration, Select,
-Combobox, menus/toasts, and Message scroller registration, navigation, prepend
+Combobox, menus/toasts, dropdown switch pointer/keyboard interaction, native menu
+links and unread indicators, and Message scroller registration, navigation, prepend
 preservation, live-edge following, inert controls and cleanup on unmount. They also
 check local font loading, light/dark button styling and failed asset requests.
 

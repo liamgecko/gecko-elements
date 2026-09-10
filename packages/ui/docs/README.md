@@ -2,6 +2,8 @@
 
 Read the [UI usage guide](../README.md) first, then the relevant contract for approved imports, composition, behaviour and styling.
 
+- [Typography and sentence casing](typography.md)
+
 - [Accordion](accordion.md)
 - [Activity feed](activity-feed.md)
 - [Alert](alert.md)

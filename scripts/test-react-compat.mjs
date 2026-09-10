@@ -292,6 +292,14 @@ try {
         await page
           .getByRole("button", { name: "Actions", exact: true })
           .click();
+        const availability = page.getByRole("menuitemcheckbox", { name: "Available" });
+        await availability.click();
+        assert.equal(await availability.getAttribute("aria-checked"), "true");
+        await availability.press("Space");
+        assert.equal(await availability.getAttribute("aria-checked"), "false");
+        const releaseNotes = page.getByRole("menuitem", { name: "Release notes New updates" });
+        assert.equal(await releaseNotes.getAttribute("href"), "#release-notes");
+        assert.equal(await releaseNotes.locator('[data-slot="dropdown-menu-unread-indicator"]').count(), 1);
         await page.getByRole("menuitem", { name: "Notify" }).click();
         await page.getByText("Action completed", { exact: true }).waitFor();
         await page.getByRole("button", { name: "Jump to message" }).click();

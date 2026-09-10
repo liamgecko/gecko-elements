@@ -1,6 +1,11 @@
 "use client";
 import { withRef } from "@geckolabs/elements/lib/with-ref";
 
+import {
+  switchTrackClasses,
+  switchThumbClasses,
+} from "@geckolabs/elements/lib/switch-styles";
+
 import * as React from "react";
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 
@@ -195,12 +200,14 @@ const DropdownMenuItem = /* @__PURE__ */ withRef(function DropdownMenuItem({
   className,
   inset,
   variant = "default",
+  unread = false,
   children,
   searchValue,
   style,
   ...props
 }: MenuPrimitive.Item.Props & {
   inset?: boolean;
+  unread?: boolean;
   variant?: "default" | "destructive";
   searchValue?: string;
 }) {
@@ -226,6 +233,16 @@ const DropdownMenuItem = /* @__PURE__ */ withRef(function DropdownMenuItem({
       {...props}
     >
       {children}
+      {unread && (
+        <>
+          <span
+            data-slot="dropdown-menu-unread-indicator"
+            aria-hidden="true"
+            className="ms-auto size-2 shrink-0 rounded-full bg-notification"
+          />
+          <span className="sr-only">New updates</span>
+        </>
+      )}
     </MenuPrimitive.Item>
   );
 });
@@ -376,6 +393,59 @@ const DropdownMenuCheckboxItem = /* @__PURE__ */ withRef(
         </span>
         {children}
       </MenuPrimitive.CheckboxItem>
+    );
+  },
+);
+
+const DropdownMenuSwitchItem = /* @__PURE__ */ withRef(
+  function DropdownMenuSwitchItem({
+    className,
+    children,
+    searchValue,
+    style,
+    closeOnClick = false,
+    ...props
+  }: Omit<MenuPrimitive.CheckboxItem.Props, "render"> & {
+    searchValue?: string;
+  }) {
+    const search = useDropdownMenuSearch();
+    const query = search?.query.toLowerCase().trim();
+    const text = React.useMemo(
+      () => (searchValue ?? getItemText(children)).toLowerCase(),
+      [searchValue, children],
+    );
+    const isHidden = query ? !text.includes(query) : false;
+    return (
+      <MenuPrimitive.CheckboxItem
+        data-slot="dropdown-menu-switch-item"
+        data-search-visible={search && !isHidden ? "" : undefined}
+        className={cn(
+          "focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/50 relative flex cursor-pointer items-center gap-2 rounded-sm px-2 py-1.5 text-sm whitespace-nowrap outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-75",
+          className,
+        )}
+        style={isHidden ? { ...style, display: "none" } : style}
+        closeOnClick={closeOnClick}
+        {...props}
+        render={(itemProps, state) => (
+          <div {...itemProps}>
+            <span
+              aria-hidden="true"
+              data-slot="dropdown-menu-switch-indicator"
+              data-size="sm"
+              data-checked={state.checked ? "" : undefined}
+              data-unchecked={!state.checked ? "" : undefined}
+              className={cn(switchTrackClasses, "pointer-events-none")}
+            >
+              <span
+                data-checked={state.checked ? "" : undefined}
+                data-unchecked={!state.checked ? "" : undefined}
+                className={switchThumbClasses}
+              />
+            </span>
+            {children}
+          </div>
+        )}
+      />
     );
   },
 );
@@ -589,6 +659,7 @@ export {
   DropdownMenuLabel,
   DropdownMenuItem,
   DropdownMenuCheckboxItem,
+  DropdownMenuSwitchItem,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,

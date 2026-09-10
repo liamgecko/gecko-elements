@@ -55,15 +55,15 @@ Inbox keeps App Header and App Sidebar but replaces Page Header and Page Contain
 
 Every favourite and navigation leaf has a real `href`. The required `onSelect` handler connects navigation to the application router without removing the link destination.
 
-Navigation entries with children are grouped beneath their parent by default. Their disclosure panel animates when it opens and closes. Opening a closed group also selects its first child. Toggling an open group closes it without changing the active destination.
+Navigation entries with children are grouped beneath their parent by default. Their disclosure panel animates when it opens and closes. By default, opening a closed group also selects its first child. Set `navigateOnGroupOpen={false}` to expand only; navigation then waits until a child link is selected. Use this for the Admin sidebar, where destinations can leave the current app. Toggling an open group closes it without changing the active destination.
 
 ## Favourites
 
 Favourites always appear before the main navigation. The application supplies the current favourite destinations and handles rename and remove actions.
 
-Removing a favourite is an immediate quick action. Do not add a confirmation dialog or undo flow unless the product requirement changes.
+The action is labelled “Remove from favourites”. It removes the saved shortcut, not the destination itself. Removing a favourite is an immediate quick action. Do not add a confirmation dialog or undo flow unless the product requirement changes.
 
-Rename uses a labelled field in a small dialog. The product callback owns persistence and any validation result.
+Rename is optional: omit `onRename` when the saved favourites service does not support renaming. The action is then hidden. When supplied, rename uses a labelled field in a small dialog. The product callback owns persistence and any validation result.
 
 ## Interfaces
 
@@ -81,18 +81,19 @@ Rename uses a labelled field in a small dialog. The product callback owns persis
 | `items`      | `AppSidebarFavouriteItem[]`             | none    | Pinned destinations                   |
 | `activePath` | `string`                                | none    | Current route for active presentation |
 | `onSelect`   | `(path: string) => void`                | none    | Handles navigation                    |
-| `onRename`   | `(path: string, label: string) => void` | none    | Handles rename                        |
+| `onRename`   | `(path: string, label: string) => void` | none    | Optional; omitting it hides Rename    |
 | `onDelete`   | `(path: string) => void`                | none    | Handles immediate favourite removal   |
 
 Each favourite item has a `path` and `label`.
 
 ### AppSidebarNav
 
-| Property     | Type                     | Default | Meaning                                |
-| ------------ | ------------------------ | ------- | -------------------------------------- |
-| `items`      | `AppSidebarNavItem[]`    | none    | Leaf destinations and grouped children |
-| `activePath` | `string`                 | none    | Current route for active presentation  |
-| `onSelect`   | `(href: string) => void` | none    | Handles navigation                     |
+| Property              | Type                     | Default | Meaning                                                               |
+| --------------------- | ------------------------ | ------- | --------------------------------------------------------------------- |
+| `navigateOnGroupOpen` | `boolean`                | `true`  | Navigates to the first child when opening a group; false expands only |
+| `items`               | `AppSidebarNavItem[]`    | none    | Leaf destinations and grouped children                                |
+| `activePath`          | `string`                 | none    | Current route for active presentation                                 |
+| `onSelect`            | `(href: string) => void` | none    | Handles navigation                                                    |
 
 A leaf item has `id`, `label`, `icon` and `href`. A group has `id`, `label`, `icon`, a non-empty `items` tuple and may set `defaultOpen`. Every child has `label` and `href`. The `id` is the stable React key and disclosure-state key; never derive it from mutable display copy.
 
@@ -119,7 +120,7 @@ Preserve the Sidebar footer divider and default menu sizing. Do not apply featur
 4. Always render Favourites before the primary navigation.
 5. Give every navigation entry a stable `id`.
 6. Give every leaf an `href` and every group at least one child item.
-7. Group child destinations beneath their parent and keep the animated disclosure and first-child selection behaviour unchanged.
+7. Group child destinations beneath their parent and preserve animated disclosure. First-child navigation is the default; use `navigateOnGroupOpen={false}` for expand-only navigation in Admin.
 8. Treat favourite removal as an immediate quick action.
 9. Keep rename inside its labelled dialog field.
 10. Preserve App Sidebar’s Scroll area, scrollbar behaviour, footer and collapse trigger.

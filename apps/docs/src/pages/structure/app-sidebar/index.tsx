@@ -29,7 +29,7 @@ export function StructureAppSidebarPage() {
     activePath={pathname}
     onSelect={navigate}
     onRename={renameFavourite}
-    onDelete={deleteFavourite}
+    onDelete={removeFavourite}
   />
   <AppSidebarNav
     items={[
@@ -145,7 +145,7 @@ export function StructureAppSidebarPage() {
             <>
               Always render <Code>AppSidebarFavourites</Code> before the primary
               navigation. The application supplies the current favourite
-              destinations and handles rename and immediate removal.
+              destinations and handles immediate removal through “Remove from favourites”. Omit <Code>onRename</Code> when renaming is not supported; the Rename action is then hidden.
             </>
           }
         >
@@ -158,7 +158,7 @@ export function StructureAppSidebarPage() {
   activePath={pathname}
   onSelect={navigate}
   onRename={renameFavourite}
-  onDelete={deleteFavourite}
+  onDelete={removeFavourite}
 />`}
               showCopyButton
               copyLabel="Copy example"
@@ -235,6 +235,27 @@ export function StructureAppSidebarPage() {
       </MainSection>
 
       <MainSection
+        id="group-navigation"
+        title="Group navigation"
+        description="In Admin, opening a group reveals its links without leaving the page. Set navigateOnGroupOpen to false to use this behaviour. The default selects the first child when a group opens."
+      >
+        <ComponentExample>
+          <Code
+            variant="block"
+            language="tsx"
+            code={`<AppSidebarNav
+  items={navigation}
+  activePath={pathname}
+  onSelect={navigate}
+  navigateOnGroupOpen={false}
+/>`}
+            showCopyButton
+            copyLabel="Copy group navigation example"
+          />
+        </ComponentExample>
+      </MainSection>
+
+      <MainSection
         id="api"
         title="API"
         description="Behaviour props on AppSidebar and its parts."
@@ -290,7 +311,7 @@ export function StructureAppSidebarPage() {
                 {
                   name: "onRename",
                   type: "(path: string, label: string) => void",
-                  description: "Runs after a favourite is renamed.",
+                  description: "Optional. Handles rename; omit it to hide the Rename action.",
                 },
                 {
                   name: "onDelete",
@@ -308,6 +329,13 @@ export function StructureAppSidebarPage() {
         >
           <DocsApiTable
             rows={[
+              {
+                name: "navigateOnGroupOpen",
+                type: "boolean",
+                defaultValue: "true",
+                description:
+                  "Set to false in Admin to expand a group without navigating. Choose a child link to open its page.",
+              },
               {
                 name: "items",
                 type: "AppSidebarNavItem[]",

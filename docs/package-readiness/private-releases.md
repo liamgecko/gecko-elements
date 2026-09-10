@@ -141,3 +141,39 @@ version bump, changelog generation or stable-release workflow is introduced here
   removal failed with HTTP 400. Do not describe this as a next-only publication.
 - No Admin source or CI settings have been changed, and no consumer CI token has
   been created. Those remain part of the initial Admin integration.
+
+
+## 0.1.0-next.2 candidate
+
+This prerelease brings the shared components used by the Admin shell experiment
+into the package:
+
+- Account switcher: stable measured width, bounded scrolling, Accounts grouping,
+  a separate return action and a selected-account tick.
+- User menu: native links and unread indicators; unread presentation is also
+  available directly on DropdownMenuItem.
+- DropdownMenuSwitchItem: switch presentation with menu keyboard semantics,
+  stays open by default, and avoids a row hover background.
+- Sidebar: optional expand-only group navigation, optional favourite rename,
+  and “Remove from favourites” action wording.
+- Updated live examples, component contracts and sentence-case typography guidance.
+
+Existing callers retain first-child navigation unless they pass
+`navigateOnGroupOpen={false}`. Omit `onRename` to hide favourite renaming.
+The source workspace remains private. Preparation and publication results must
+be recorded separately; this candidate section does not establish publication.
+
+### Preparation result — 2026-09-10
+
+- Verified the exact `0.1.0-next.2` tarball on React 18.3.1 and React 19.2.5,
+  in compiled-CSS and Tailwind modes, with development and production browser checks.
+- Package integrity, consumer types/builds, Button tree shaking and npm publish
+  dry run passed. The Elements typecheck, React ref audit and docs build passed.
+- The existing browser harness tolerated ResizeObserver notification-loop warnings
+  during the Tailwind development runs; all interaction assertions passed.
+- Tarball SHA-256: `b5d3fa57332304ad5b702853cf9c13de73508b7c0e9660b27cac3363f99bc479`.
+- Publication initially required renewed npm authentication. After browser approval,
+  `npm run release:publish -- 0.1.0-next.2` succeeded on 2026-09-10.
+- Registry verification confirmed private access, the `next` tag and exact tarball
+  integrity matching the tested artifact.
+- No Web App files were changed during package preparation.

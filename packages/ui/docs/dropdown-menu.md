@@ -61,6 +61,24 @@ DropdownMenu
 - Use `DropdownMenuShortcut` only when the product implements the displayed shortcut. It is a visual hint, not a keyboard binding.
 - An Avatar may lead an item when the item represents a person.
 
+## Unread indicators
+
+Set `unread` on `DropdownMenuItem` to show a trailing notification dot and screen-reader text “New updates”. It defaults to `false`. Set `unread` to `false` once the updates have been read. Opening or selecting the item does not clear it automatically. This is an update indicator, not checkbox or radio selection state. Use the prop instead of composing a custom dot. Search matches the item label, not the indicator text.
+
+```tsx
+<DropdownMenuItem unread={hasUnreadUpdates} onClick={openReleaseNotes}>
+  Release notes
+</DropdownMenuItem>
+```
+
+Native links use the existing `render` composition and can also carry `unread`:
+
+```tsx
+<DropdownMenuItem unread render={<a href="/release-notes" />}>
+  Release notes
+</DropdownMenuItem>
+```
+
 ## Checkbox and radio items
 
 Use `DropdownMenuCheckboxItem` for independent selections where zero, one or several items may be checked. A checked item displays a check and changes to an X on pointer hover or keyboard focus to communicate that activating it again removes the selection. This icon change is visual only; Base UI retains checkbox role, state and activation.
@@ -68,6 +86,20 @@ Use `DropdownMenuCheckboxItem` for independent selections where zero, one or sev
 Use `checked` and `onCheckedChange` when product state is controlled. Use `defaultChecked` only for local uncontrolled state.
 
 Use `DropdownMenuRadioGroup` and `DropdownMenuRadioItem` when exactly one option must remain selected. Radio items are not clearable. If the product permits no selection, add a separate, visibly labelled clear action outside the radio group.
+
+## Switch items
+
+Use `DropdownMenuSwitchItem` for an immediate on/off setting inside a dropdown. It uses the same track, thumb and colour tokens as Switch, at the compact size appropriate to a menu row. The entire row toggles the setting and stays open by default. Switch items do not use the action-row hover background or text highlight. They retain the Switch treatment and a visible keyboard focus ring.
+
+```tsx
+<DropdownMenuSwitchItem checked={available} onCheckedChange={setAvailable}>
+  Status: {available ? "Available" : "Unavailable"}
+</DropdownMenuSwitchItem>
+```
+
+Supply `checked` and `onCheckedChange` for persisted settings. `defaultChecked` supports local uncontrolled examples. Set `disabled` while saving or when the setting is unavailable. Use `searchValue` if the visible content is not sufficient for filtering. `closeOnClick` defaults to `false`.
+
+This remains one `menuitemcheckbox` with an announced checked state, arrow-key navigation and Enter/Space activation. The switch graphic is decorative, not a nested focusable control. Do not nest a standalone Switch in a menu item. Use the standalone Switch in forms and popovers; use DropdownMenuSwitchItem when the surrounding surface is a dropdown menu.
 
 ## Search
 
@@ -144,17 +176,20 @@ Do not add competing menu roles, tab stops or keyboard handlers in product code.
 
 ### Items
 
-| Component                     | Property          | Type                         | Default           | Meaning                        |
-| ----------------------------- | ----------------- | ---------------------------- | ----------------- | ------------------------------ |
-| DropdownMenuItem              | `variant`         | `"default" \| "destructive"` | `"default"`       | Sets action emphasis           |
-| DropdownMenuItem              | `onClick`         | `(event) => void`            | —                 | Runs the product action        |
-| Item, CheckboxItem, RadioItem | `disabled`        | `boolean`                    | `false`           | Makes the item unavailable     |
-| Item, CheckboxItem, RadioItem | `searchValue`     | `string`                     | visible item text | Overrides search matching text |
-| DropdownMenuCheckboxItem      | `checked`         | `boolean`                    | uncontrolled      | Controlled independent state   |
-| DropdownMenuCheckboxItem      | `onCheckedChange` | `(checked, details) => void` | —                 | Reports checkbox state changes |
-| DropdownMenuRadioGroup        | `value`           | `unknown`                    | uncontrolled      | Controlled single-choice value |
-| DropdownMenuRadioGroup        | `onValueChange`   | `(value, details) => void`   | —                 | Reports the selected value     |
-| DropdownMenuRadioItem         | `value`           | `unknown`                    | required          | Identifies the option          |
+| Component                     | Property          | Type                         | Default           | Meaning                                |
+| ----------------------------- | ----------------- | ---------------------------- | ----------------- | -------------------------------------- |
+| DropdownMenuItem              | `unread`          | `boolean`                    | `false`           | Shows a dot and accessible update text |
+| DropdownMenuItem              | `variant`         | `"default" \| "destructive"` | `"default"`       | Sets action emphasis                   |
+| DropdownMenuItem              | `onClick`         | `(event) => void`            | —                 | Runs the product action                |
+| Item, CheckboxItem, RadioItem | `disabled`        | `boolean`                    | `false`           | Makes the item unavailable             |
+| Item, CheckboxItem, RadioItem | `searchValue`     | `string`                     | visible item text | Overrides search matching text         |
+| DropdownMenuCheckboxItem      | `checked`         | `boolean`                    | uncontrolled      | Controlled independent state           |
+| DropdownMenuCheckboxItem      | `onCheckedChange` | `(checked, details) => void` | —                 | Reports checkbox state changes         |
+| DropdownMenuRadioGroup        | `value`           | `unknown`                    | uncontrolled      | Controlled single-choice value         |
+| DropdownMenuRadioGroup        | `onValueChange`   | `(value, details) => void`   | —                 | Reports the selected value             |
+| DropdownMenuRadioItem         | `value`           | `unknown`                    | required          | Identifies the option                  |
+
+`DropdownMenuSwitchItem` accepts `checked`, `defaultChecked`, `onCheckedChange`, `disabled`, `closeOnClick` and `searchValue`. Its renderer is library-owned.
 
 All parts also accept their corresponding Base UI Menu properties.
 

@@ -5,7 +5,10 @@ import * as React from "react";
 import Circle from "@hugeicons/core-free-icons/CircleIcon";
 import Headset from "@hugeicons/core-free-icons/HeadsetIcon";
 import MessageSquareText from "@hugeicons/core-free-icons/MessageSquareTextIcon";
-import { HugeiconsIcon, type IconSvgElement } from "@geckolabs/elements/lib/icon";
+import {
+  HugeiconsIcon,
+  type IconSvgElement,
+} from "@geckolabs/elements/lib/icon";
 
 import { Avatar, AvatarImage } from "@geckolabs/elements/components/avatar";
 import { Badge } from "@geckolabs/elements/components/badge";
@@ -14,6 +17,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuEmpty,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -121,6 +128,7 @@ const AppHeaderActions = /* @__PURE__ */ withRef(function AppHeaderActions({
 });
 
 type AppHeaderAccountItem = {
+  kind?: "account" | "action";
   id?: string;
   label: React.ReactNode;
   onSelect?: () => void;
@@ -130,6 +138,8 @@ type AppHeaderAccountItem = {
 type AppHeaderAccountSwitcherProps = {
   label: React.ReactNode;
   accounts: readonly AppHeaderAccountItem[];
+  returnAction?: AppHeaderAccountItem;
+  selectedAccountId?: string;
   searchable?: boolean;
   searchPlaceholder?: string;
   emptyLabel?: React.ReactNode;
@@ -140,12 +150,29 @@ type AppHeaderAccountSwitcherProps = {
 function AppHeaderAccountSwitcher({
   label,
   accounts,
+  returnAction,
+  selectedAccountId,
   searchable = true,
   searchPlaceholder = "Search accounts...",
   emptyLabel = "No accounts found.",
   align = "end",
   className,
 }: AppHeaderAccountSwitcherProps) {
+  const [sizer, setSizer] = React.useState<HTMLDivElement | null>(null);
+  const [menuWidth, setMenuWidth] = React.useState<number>();
+
+  React.useLayoutEffect(() => {
+    if (!sizer) return;
+    const measure = () => {
+      // Include the results padding and reserve room for a native scrollbar.
+      setMenuWidth(sizer.offsetWidth + 48);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(sizer);
+    return () => observer.disconnect();
+  }, [sizer]);
+
   return (
     <DropdownMenu searchable={searchable} searchPlaceholder={searchPlaceholder}>
       <DropdownMenuTrigger
@@ -159,16 +186,74 @@ function AppHeaderAccountSwitcher({
           </Button>
         }
       />
-      <DropdownMenuContent align={align} className="min-w-56">
-        {accounts.map((account, index) => (
-          <DropdownMenuItem
-            key={account.id ?? index}
-            disabled={account.disabled}
-            onClick={account.onSelect}
+      <DropdownMenuContent
+        align={align}
+        style={{ width: menuWidth }}
+        className="min-w-56 max-w-[calc(100vw-2rem)] max-h-[min(24rem,var(--available-height))] [scrollbar-gutter:stable] [&>[data-slot=dropdown-menu-search]]:sticky [&>[data-slot=dropdown-menu-search]]:top-0 [&>[data-slot=dropdown-menu-search]]:z-10 [&>[data-slot=dropdown-menu-search]]:bg-popover"
+      >
+        {/* Measure every label, independently of the filtered menu items. */}
+        <div
+          ref={setSizer}
+          aria-hidden="true"
+          className="pointer-events-none invisible absolute h-0 w-max overflow-hidden text-sm"
+        >
+          {[
+            ...accounts.map((account) => account.label),
+            returnAction?.label,
+            emptyLabel,
+            searchPlaceholder,
+          ].map((text, index) => (
+            <div key={index} className="whitespace-nowrap px-2">
+              {text}
+            </div>
+          ))}
+        </div>
+        {returnAction && (
+          <>
+            <DropdownMenuItem
+              disabled={returnAction.disabled}
+              onClick={returnAction.onSelect}
+            >
+              {returnAction.label}
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+          </>
+        )}
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Accounts</DropdownMenuLabel>
+          <DropdownMenuRadioGroup
+            value={selectedAccountId ?? ""}
+            onValueChange={(value) => {
+              if (value === selectedAccountId) return;
+              accounts
+                .find(
+                  (account, index) => (account.id ?? String(index)) === value,
+                )
+                ?.onSelect?.();
+            }}
           >
-            {account.label}
-          </DropdownMenuItem>
-        ))}
+            {accounts.map((account, index) =>
+              account.kind === "action" ? (
+                <DropdownMenuItem
+                  key={account.id ?? index}
+                  disabled={account.disabled}
+                  onClick={account.onSelect}
+                >
+                  {account.label}
+                </DropdownMenuItem>
+              ) : (
+                <DropdownMenuRadioItem
+                  key={account.id ?? index}
+                  value={account.id ?? String(index)}
+                  className="whitespace-normal wrap-anywhere"
+                  disabled={account.disabled}
+                >
+                  {account.label}
+                </DropdownMenuRadioItem>
+              ),
+            )}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuGroup>
         <DropdownMenuEmpty>{emptyLabel}</DropdownMenuEmpty>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -315,6 +400,9 @@ type AppHeaderUserMenuItem = {
   id: string;
   label: React.ReactNode;
   onSelect?: () => void;
+  href?: string;
+  target?: React.HTMLAttributeAnchorTarget;
+  unread?: boolean;
   variant?: "default" | "destructive";
   disabled?: boolean;
   /** Renders a separator above this item. */
@@ -323,6 +411,7 @@ type AppHeaderUserMenuItem = {
 
 type AppHeaderUserMenuProps = {
   name: React.ReactNode;
+  unread?: boolean;
   avatar?: {
     name?: string;
     src?: string;
@@ -337,6 +426,7 @@ type AppHeaderUserMenuProps = {
 
 function AppHeaderUserMenu({
   name,
+  unread = false,
   avatar,
   items,
   align = "end",
@@ -352,12 +442,13 @@ function AppHeaderUserMenu({
           <Button
             variant="ghost-dark"
             className={cn("gap-2.5", className)}
-            aria-label={ariaLabel}
+            aria-label={unread ? `${ariaLabel}, new updates` : ariaLabel}
             dropdown
           >
             <Avatar
               name={avatar?.name ?? (typeof name === "string" ? name : "User")}
               size="sm"
+              notification={unread}
             >
               {avatar?.src ? <AvatarImage src={avatar.src} /> : null}
             </Avatar>
@@ -371,8 +462,22 @@ function AppHeaderUserMenu({
             {item.separatorBefore ? <DropdownMenuSeparator /> : null}
             <DropdownMenuItem
               variant={item.variant}
+              unread={item.unread}
               disabled={item.disabled}
               onClick={item.onSelect}
+              render={
+                item.href && !item.disabled ? (
+                  <a
+                    href={item.href}
+                    target={item.target}
+                    rel={
+                      item.target === "_blank"
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                  />
+                ) : undefined
+              }
             >
               {item.label}
             </DropdownMenuItem>

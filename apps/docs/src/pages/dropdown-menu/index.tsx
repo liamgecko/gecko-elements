@@ -14,6 +14,7 @@ import {
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
+  DropdownMenuSwitchItem,
   DropdownMenuContent,
   DropdownMenuEmpty,
   DropdownMenuGroup,
@@ -39,6 +40,7 @@ import UserIcon from "@hugeicons/core-free-icons/User02Icon";
 import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 export function DropdownMenuPage() {
+  const [available, setAvailable] = React.useState(true);
   const [showStatusBar, setShowStatusBar] = React.useState(true);
   const [showActivityBar, setShowActivityBar] = React.useState(true);
   const [showPanel, setShowPanel] = React.useState(true);
@@ -49,6 +51,7 @@ export function DropdownMenuPage() {
   const importSnippet = `import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
+  DropdownMenuSwitchItem,
   DropdownMenuContent,
   DropdownMenuEmpty,
   DropdownMenuGroup,
@@ -605,6 +608,51 @@ export function DropdownMenuPage() {
       </MainSection>
 
       <MainSection
+        id="switch-items"
+        title="Switch items"
+        description={
+          <>
+            Use <Code>DropdownMenuSwitchItem</Code> for an on/off setting such
+            as conversation availability. Select the switch or its label to
+            change the setting. The menu stays open. Switch rows have no hover highlight; keyboard focus remains visible.
+          </>
+        }
+      >
+        <ComponentExample>
+          <div className="space-y-6">
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                render={
+                  <Button variant="outline" dropdown>
+                    Conversation settings
+                  </Button>
+                }
+              />
+              <DropdownMenuContent>
+                <DropdownMenuSwitchItem
+                  checked={available}
+                  onCheckedChange={setAvailable}
+                >
+                  Status: {available ? "Available" : "Unavailable"}
+                </DropdownMenuSwitchItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Chat settings</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Code
+              variant="block"
+              language="tsx"
+              code={`<DropdownMenuSwitchItem checked={available} onCheckedChange={setAvailable}>
+  Status: {available ? "Available" : "Unavailable"}
+</DropdownMenuSwitchItem>`}
+              showCopyButton
+              copyLabel="Copy switch item example"
+            />
+          </div>
+        </ComponentExample>
+      </MainSection>
+
+      <MainSection
         id="radio-group"
         title="Radio group"
         description={
@@ -751,6 +799,44 @@ export function DropdownMenuPage() {
       </MainSection>
 
       <MainSection
+        id="unread-indicator"
+        title="Unread indicator"
+        description={
+          <>
+            Use <Code>unread</Code> to mark a menu item with new updates, such
+            as unread release notes. A dot appears beside the label.
+          </>
+        }
+      >
+        <ComponentExample>
+          <div className="space-y-6">
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                render={
+                  <Button variant="outline" dropdown>
+                    Open updates menu
+                  </Button>
+                }
+              />
+              <DropdownMenuContent>
+                <DropdownMenuItem unread>Release notes</DropdownMenuItem>
+                <DropdownMenuItem>Service status</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Code
+              variant="block"
+              language="tsx"
+              code={`<DropdownMenuItem unread>
+  Release notes
+</DropdownMenuItem>`}
+              showCopyButton
+              copyLabel="Copy unread example"
+            />
+          </div>
+        </ComponentExample>
+      </MainSection>
+
+      <MainSection
         id="do-dont"
         title="Do and don’t"
         description="Keep button-triggered actions concise and scannable. Do not restyle the menu chrome."
@@ -798,6 +884,13 @@ export function DropdownMenuPage() {
         <DocsApiTable
           rows={[
             {
+              name: "unread",
+              type: "boolean",
+              defaultValue: "false",
+              description:
+                "Shows a trailing notification dot and accessible New updates text on DropdownMenuItem. Set it to false once the updates have been read.",
+            },
+            {
               name: "searchable",
               type: "boolean",
               defaultValue: "false",
@@ -823,16 +916,22 @@ export function DropdownMenuPage() {
                 "Overrides the text used to match an item during search.",
             },
             {
+              name: "closeOnClick (switch item)",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Keeps the dropdown open after changing the setting unless enabled.",
+            },
+            {
               name: "checked",
               type: "boolean",
               defaultValue: "uncontrolled",
-              description: "Controls a DropdownMenuCheckboxItem.",
+              description: "Controls a DropdownMenuCheckboxItem or DropdownMenuSwitchItem.",
             },
             {
               name: "onCheckedChange",
               type: "(checked: boolean) => void",
               defaultValue: "—",
-              description: "Reports checkbox item state changes.",
+              description: "Reports checkbox or switch item state changes.",
             },
             {
               name: "value",

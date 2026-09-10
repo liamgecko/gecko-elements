@@ -149,6 +149,10 @@ Switch also accepts Base UI Switch Root properties.
 - [Shadcn Switch documentation](https://ui.shadcn.com/docs/components/base/switch)
 - [Base UI Switch API](https://base-ui.com/react/components/switch)
 
+## In dropdown menus
+
+Use [DropdownMenuSwitchItem](dropdown-menu.md#switch-items) for an on/off setting in a dropdown. It shares the Switch visual treatment while retaining menu keyboard navigation and checked-item semantics. Do not nest a standalone Switch inside a menu item.
+
 ## Related
 
 - Checkbox — independent or multiple form choices submitted later

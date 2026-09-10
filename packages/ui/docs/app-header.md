@@ -71,6 +71,10 @@ Pass children only when the product needs approved custom brand content. The com
 />
 ```
 
+The account dropdown measures the full, unfiltered list and sizes to its longest label, with a 14rem minimum and a viewport-width cap. Its width stays unchanged while searching; newly loaded labels and font changes are remeasured. Its height is capped at 24rem or the available viewport height, whichever is smaller. Long lists scroll with the search field pinned at the top; long account labels wrap. Empty and filtered results retain the same width.
+
+Accounts appear as radio items in a labelled “Accounts” group. Pass `selectedAccountId` matching the current account’s stable `id` to show its checkmark. Selecting the current account does not invoke switching again. Keep selection controlled by the confirmed session so a failed switch never marks the target as current. Use `kind: "action"` only for loading/retry entries that are not accounts. Supply optional `returnAction` (an `AppHeaderAccountItem`) for returning to the original account; it appears above the account group with a separator. Keep that action out of the `accounts` array. It follows the menu’s search filtering like other actions.
+
 Use stable account identifiers. The application must keep the visible label synchronized with the current account. Search is enabled by default and may be disabled when the product does not need it.
 
 ## Status controls
@@ -107,6 +111,8 @@ Status controls expose their state through Toggle semantics and a supplementary 
   ]}
 />
 ```
+
+User menu items may supply `href` and `target` for native links; use `onSelect` for actions or supplementary tracking. External links opened in a new tab receive `noopener noreferrer`. Set an item’s `unread` flag to show its notification dot and accessible “New updates” label. Set `unread` on AppHeaderUserMenu to show the avatar notification and announce it on the trigger. Set `unread` to `false` once the updates have been read.
 
 Every menu item requires a stable identifier. Use separators to express genuine groups and reserve the destructive treatment for destructive actions such as logout.
 
@@ -181,18 +187,19 @@ Each account item accepts `id`, `label`, `onSelect` and `disabled`. Application 
 
 ### AppHeaderUserMenu
 
-| Property       | Type                              | Default       | Meaning                                |
-| -------------- | --------------------------------- | ------------- | -------------------------------------- |
-| `name`         | `ReactNode`                       | —             | Displays the signed-in person          |
-| `avatar`       | `{ name?: string; src?: string }` | —             | Supplies avatar identity and image     |
-| `items`        | `AppHeaderUserMenuItem[]`         | —             | Supplies menu actions with stable IDs  |
-| `align`        | `"start" \| "center" \| "end"`    | `"end"`       | Aligns the menu with its trigger       |
-| `open`         | `boolean`                         | —             | Controls the menu’s open state         |
-| `onOpenChange` | `(open: boolean) => void`         | —             | Runs when the open state changes       |
-| `aria-label`   | `string`                          | `"User menu"` | Supplies the trigger’s accessible name |
-| `className`    | `string`                          | —             | Adds classes to the user-menu trigger  |
+| Property       | Type                              | Default       | Meaning                                                                |
+| -------------- | --------------------------------- | ------------- | ---------------------------------------------------------------------- |
+| `unread`       | `boolean`                         | `false`       | Shows the avatar notification and announces new updates on the trigger |
+| `name`         | `ReactNode`                       | —             | Displays the signed-in person                                          |
+| `avatar`       | `{ name?: string; src?: string }` | —             | Supplies avatar identity and image                                     |
+| `items`        | `AppHeaderUserMenuItem[]`         | —             | Supplies menu actions with stable IDs                                  |
+| `align`        | `"start" \| "center" \| "end"`    | `"end"`       | Aligns the menu with its trigger                                       |
+| `open`         | `boolean`                         | —             | Controls the menu’s open state                                         |
+| `onOpenChange` | `(open: boolean) => void`         | —             | Runs when the open state changes                                       |
+| `aria-label`   | `string`                          | `"User menu"` | Supplies the trigger’s accessible name                                 |
+| `className`    | `string`                          | —             | Adds classes to the user-menu trigger                                  |
 
-Each user menu item requires `id` and `label`, and accepts `onSelect`, `variant`, `disabled` and `separatorBefore`.
+Each user menu item requires `id` and `label`, and accepts `href`, `target`, `onSelect`, `unread`, `variant`, `disabled` and `separatorBefore`. Item `unread` delegates to [Dropdown menu](dropdown-menu.md); the header does not render its own item indicator.
 
 ## Accessibility
 

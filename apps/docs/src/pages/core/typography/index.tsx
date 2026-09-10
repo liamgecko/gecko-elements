@@ -62,6 +62,52 @@ export function TypographyPage() {
       </MainSection>
 
       <MainSection
+        id="sentence-casing"
+        title="Sentence casing"
+        description="Always use sentence case in Gecko UI copy and documentation. Capitalise the first word and proper names; keep acronyms such as API and SMS uppercase."
+      >
+        <p className="mb-4 text-sm text-muted-foreground">
+          This applies to page titles, headings, navigation, menu items,
+          buttons, field labels, placeholders, table headings, tooltips and
+          messages. Preserve code identifiers and user-entered content. Write
+          the casing in the source text; do not change it with CSS or automatic
+          conversion.
+        </p>
+        <ComponentExample>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Use</TableHead>
+                <TableHead>Avoid</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Gecko academy</TableCell>
+                <TableCell>Gecko Academy</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>User settings</TableCell>
+                <TableCell>User Settings</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Release notes</TableCell>
+                <TableCell>Release Notes</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Save changes</TableCell>
+                <TableCell>Save Changes</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>API settings</TableCell>
+                <TableCell>API Settings</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </ComponentExample>
+      </MainSection>
+
+      <MainSection
         id="font-families"
         title={<>Font families</>}
         description={

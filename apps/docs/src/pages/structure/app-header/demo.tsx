@@ -42,7 +42,15 @@ export function AppHeaderDemo() {
         <AppHeaderUserMenu
           name="Liam Young"
           avatar={{ name: "Liam Young" }}
+          unread
           items={[
+            {
+              id: "release-notes",
+              label: "Release notes",
+              href: "https://academy.geckoengage.com/en/articles/13832813-gecko-release-notes",
+              target: "_blank",
+              unread: true,
+            },
             {
               id: "theme",
               label: `Switch to ${darkMode ? "light" : "dark"} mode`,

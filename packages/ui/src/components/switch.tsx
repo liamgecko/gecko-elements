@@ -1,6 +1,11 @@
 "use client";
 import { withRef } from "@geckolabs/elements/lib/with-ref";
 
+import {
+  switchTrackClasses,
+  switchThumbClasses,
+} from "@geckolabs/elements/lib/switch-styles";
+
 import * as React from "react";
 import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
 
@@ -39,7 +44,7 @@ const Switch = /* @__PURE__ */ withRef(function Switch({
       id={inputId}
       aria-describedby={describedBy}
       className={cn(
-        "data-checked:bg-switch-checked data-unchecked:bg-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:focus-visible:ring-input-destructive/20 dark:aria-invalid:focus-visible:ring-input-destructive/40 aria-invalid:border-input-destructive aria-invalid:bg-input-destructive shrink-0 rounded-full border border-transparent shadow-xs dark:shadow-none focus-visible:ring-3 aria-invalid:focus-visible:ring-3 data-[size=default]:h-5 data-[size=default]:w-10 data-[size=sm]:h-4 data-[size=sm]:w-8 data-[size=lg]:h-6 data-[size=lg]:w-12 peer group/switch relative inline-flex items-center transition-[background-color,border-color,box-shadow] outline-none after:absolute after:-inset-x-3 after:-inset-y-2 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:opacity-75 cursor-pointer",
+        switchTrackClasses,
         !label && !description && "me-1",
         className,
       )}
@@ -47,7 +52,7 @@ const Switch = /* @__PURE__ */ withRef(function Switch({
     >
       <SwitchPrimitive.Thumb
         data-slot="switch-thumb"
-        className="bg-switch-indicator shadow-md dark:shadow-none rounded-full ms-px group-data-[size=default]/switch:h-4 group-data-[size=default]/switch:w-[22px] group-data-[size=sm]/switch:h-3 group-data-[size=sm]/switch:w-[16.5px] group-data-[size=lg]/switch:h-5 group-data-[size=lg]/switch:w-[27.5px] group-data-[size=default]/switch:data-checked:translate-x-[14px] rtl:group-data-[size=default]/switch:data-checked:-translate-x-[14px] group-data-[size=sm]/switch:data-checked:translate-x-[11.5px] rtl:group-data-[size=sm]/switch:data-checked:-translate-x-[11.5px] group-data-[size=lg]/switch:data-checked:translate-x-[16.5px] rtl:group-data-[size=lg]/switch:data-checked:-translate-x-[16.5px] group-data-[size=default]/switch:data-unchecked:translate-x-0 rtl:group-data-[size=default]/switch:data-unchecked:-translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0 rtl:group-data-[size=sm]/switch:data-unchecked:-translate-x-0 group-data-[size=lg]/switch:data-unchecked:translate-x-0 rtl:group-data-[size=lg]/switch:data-unchecked:-translate-x-0 pointer-events-none block ring-0 transition-transform"
+        className={switchThumbClasses}
       />
     </SwitchPrimitive.Root>
   );
