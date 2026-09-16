@@ -20,7 +20,7 @@
     "generate:capabilities": "node scripts/generate-capabilities.mjs",
     "check:contracts": "node scripts/generate-capabilities.mjs --check && node scripts/check-application-contracts.mjs && node --test tests/application-recipes/contracts.test.mjs",
     "test:recipes": "tsc -p tests/application-recipes/tsconfig.json && node scripts/test-application-recipes.mjs",
-    "test:rich-text-editor": "node scripts/sync-rich-text-editor-assets.mjs && node --test tests/rich-text-editor/*.test.mjs && node scripts/test-application-recipes.mjs --rte"
+    "test:rich-text-editor": "npm run build:package && node scripts/sync-rich-text-editor-assets.mjs && node --test tests/rich-text-editor/*.test.mjs && node scripts/test-application-recipes.mjs --rte"
   },
   "devDependencies": {
     "prettier": "^3.8.1",
