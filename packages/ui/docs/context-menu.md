@@ -9,13 +9,13 @@ Human documentation: `apps/docs/src/pages/context-menu/index.tsx`
 
 Context menu presents actions for the object someone right-clicks or long-presses. Base UI owns opening, positioning, focus movement, selection semantics and dismissal. Gecko owns the visual treatment and the approved product scope.
 
-Use Context menu exclusively for Data table row actions. Keep the same actions available from the row’s visible actions control so the context menu is an accelerator rather than the only route.
+Data table does not use Context menu by default. Its `rowLink` option renders real anchors: right-click keeps the native browser link menu, including opening in a new tab and copying the link. Do not intercept that menu or wrap linked cells in ContextMenuTrigger. Visible row actions use Dropdown menu.
 
 Use Dropdown menu when a visible control opens the actions. Use Popover for supporting controls or content rather than an action list.
 
-## Canonical product pattern
+## Product integration status
 
-The canonical menu is a short, flat list of actions for one Data table row. It mirrors that row’s visible actions menu and calls the same product handlers.
+Custom Context menu use remains limited to an explicitly approved Data table row integration. That is a scope constraint, not a supported DataTable feature or a requirement for table navigation. Any future integration must preserve native link menus and mirror the row’s visible actions and product handlers.
 
 The current DataTable interface owns its visible Dropdown menu but does not expose a row-level ContextMenuTrigger seam. There is therefore no approved copy-and-paste Context menu integration yet. Ask for component-library direction before changing DataTable or wrapping its generated table markup. Do not attach one Context menu to the complete table because it cannot identify the intended row safely.
 
@@ -125,7 +125,8 @@ Agents must obtain explicit user consent before adding or changing props, varian
 
 ## Agent rules
 
-- Use Context menu only for an approved Data table row integration.
+- Preserve native browser menus on anchors, including DataTable `rowLink` cells.
+- Do not add Context menu to a Data table by default; no row integration is currently exposed.
 - Mirror the visible row actions and call the same handlers.
 - Start with a short, flat item list.
 - Open Alert dialog before an irreversible action.
@@ -142,7 +143,7 @@ Gecko retains Shadcn’s Base UI composition, submenu, checkbox and radio suppor
 
 ## Related components
 
-- **Data table** — the only approved product context for Context menu.
+- **Data table** — native cell links and visible row actions; no custom row Context menu integration is currently exposed.
 - **Dropdown menu** — the visible route to the same row actions.
 - **Alert dialog** — confirms an irreversible action selected from the menu.
 - **Popover** — supporting content or controls rather than an action list.

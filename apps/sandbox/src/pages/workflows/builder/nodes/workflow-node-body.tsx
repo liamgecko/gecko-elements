@@ -1,3 +1,4 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react"
 
 import { cn } from "@geckolabs/elements/lib/utils"
@@ -72,7 +73,7 @@ export function WorkflowNodeBody({
             invalid ? "bg-destructive/10" : "bg-muted",
           )}
         >
-          <Icon
+          <HugeiconsIcon icon={Icon}
             aria-hidden
             className={cn(
               "size-4",

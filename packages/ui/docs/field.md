@@ -187,7 +187,7 @@ For a disabled field, set native `disabled` on the control and `data-disabled` o
 
 For a read-only value, set `readOnly` on controls that support it. Do not use `data-disabled`, because read-only values remain available for focus, selection and copying.
 
-Set native `required` on the control. Gecko Label displays the required marker automatically when its `htmlFor` points to that control. The product still validates on submission and provides a useful error when the value is missing.
+Every required field must show an asterisk. Set native `required` on the control. Gecko Label displays the required marker automatically when its `htmlFor` points to that control. When the control loads asynchronously, also set `required` on FieldLabel to keep the marker visible during loading. The product still validates on submission and provides a useful error when the value is missing.
 
 ## Validation
 
@@ -300,3 +300,7 @@ This module does not wrap Base UI Field. Base UI’s Root, Control, Validity, va
 - **Checkbox** — owns its integrated option label and can use FieldContent for validation.
 - **Radio group** — one choice from a related set.
 - **Alert** — page- or section-level status rather than one field error.
+
+## Application integration
+
+Use the [tested application patterns](application-patterns.md) for data ownership, loading, asynchronous operations and navigation. Preserve source behaviour with the [migration checklist](migration-checklist.md). Common action glyphs come from the [action icon map](action-icons.md).

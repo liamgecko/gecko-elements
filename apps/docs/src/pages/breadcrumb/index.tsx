@@ -57,7 +57,7 @@ import {
   <BreadcrumbList>
     <BreadcrumbItem>
       <BreadcrumbLink render={<Link to="/" />} aria-label="Home">
-        <Home aria-hidden className="size-3.5" />
+        <HugeiconsIcon icon={Home} aria-hidden className="size-3.5" />
       </BreadcrumbLink>
     </BreadcrumbItem>
     <BreadcrumbSeparator />
@@ -77,7 +77,7 @@ import {
   <BreadcrumbList>
     <BreadcrumbItem>
       <BreadcrumbLink render={<Link to="/" />} aria-label="Home">
-        <Home className="size-3.5" />
+        <HugeiconsIcon icon={Home} className="size-3.5" />
         <span className="sr-only">Home</span>
       </BreadcrumbLink>
     </BreadcrumbItem>

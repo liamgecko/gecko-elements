@@ -54,6 +54,7 @@ type SidebarContextProps = {
   openMobile: boolean;
   setOpenMobile: (open: boolean) => void;
   isMobile: boolean;
+  desktopOnly: boolean;
   toggleSidebar: () => void;
 };
 
@@ -71,6 +72,7 @@ function useSidebar() {
 
 const SidebarProvider = /* @__PURE__ */ withRef(function SidebarProvider({
   defaultOpen = true,
+  desktopOnly = false,
   open: openProp,
   onOpenChange: setOpenProp,
   persistState = true,
@@ -82,13 +84,15 @@ const SidebarProvider = /* @__PURE__ */ withRef(function SidebarProvider({
   ...props
 }: React.ComponentProps<"div"> & {
   defaultOpen?: boolean;
+  desktopOnly?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   persistState?: boolean;
   enableKeyboardShortcut?: boolean;
   storageKey?: string;
 }) {
-  const isMobile = useIsMobile();
+  const mobileViewport = useIsMobile();
+  const isMobile = !desktopOnly && mobileViewport;
   const [openMobile, setOpenMobile] = React.useState(false);
 
   // This is the internal state of the sidebar.
@@ -156,11 +160,21 @@ const SidebarProvider = /* @__PURE__ */ withRef(function SidebarProvider({
       open,
       setOpen,
       isMobile,
+      desktopOnly,
       openMobile,
       setOpenMobile,
       toggleSidebar,
     }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar],
+    [
+      state,
+      open,
+      setOpen,
+      isMobile,
+      desktopOnly,
+      openMobile,
+      setOpenMobile,
+      toggleSidebar,
+    ],
   );
 
   return (
@@ -199,7 +213,8 @@ const Sidebar = /* @__PURE__ */ withRef(function Sidebar({
   variant?: "sidebar" | "floating" | "inset";
   collapsible?: "offcanvas" | "icon" | "none";
 }) {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
+  const { isMobile, desktopOnly, state, openMobile, setOpenMobile } =
+    useSidebar();
 
   if (collapsible === "none") {
     return (
@@ -249,7 +264,10 @@ const Sidebar = /* @__PURE__ */ withRef(function Sidebar({
   return (
     <SidebarSideContext.Provider value={side}>
       <div
-        className="group peer text-sidebar-foreground hidden md:block"
+        className={cn(
+          "group peer text-sidebar-foreground",
+          desktopOnly ? "block" : "hidden md:block",
+        )}
         data-state={state}
         data-collapsible={state === "collapsed" ? collapsible : ""}
         data-variant={variant}
@@ -276,6 +294,7 @@ const Sidebar = /* @__PURE__ */ withRef(function Sidebar({
             variant === "floating" || variant === "inset"
               ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
               : "group-data-[collapsible=icon]:w-(--sidebar-width-icon)",
+            desktopOnly && "flex",
             className,
           )}
           {...props}
@@ -296,12 +315,17 @@ const Sidebar = /* @__PURE__ */ withRef(function Sidebar({
 const SidebarTrigger = /* @__PURE__ */ withRef(function SidebarTrigger({
   className,
   onClick,
+  collapseLabel = "Collapse sidebar",
+  expandLabel = "Expand sidebar",
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: React.ComponentProps<typeof Button> & {
+  collapseLabel?: string;
+  expandLabel?: string;
+}) {
   const { toggleSidebar, state, isMobile, openMobile } = useSidebar();
   const expanded = isMobile ? openMobile : state === "expanded";
   const Icon = expanded ? LayoutAlignLeft : LayoutLeft;
-  const label = expanded ? "Collapse sidebar" : "Expand sidebar";
+  const label = expanded ? collapseLabel : expandLabel;
   const isMac =
     typeof navigator !== "undefined" &&
     /Mac|iPhone|iPad|iPod/i.test(navigator.platform);

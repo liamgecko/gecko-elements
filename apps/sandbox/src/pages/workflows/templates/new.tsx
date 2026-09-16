@@ -27,6 +27,7 @@ export default function WorkflowTemplateNewPage() {
 
   const [nameDialogOpen, setNameDialogOpen] = React.useState(false);
   const [templateName, setTemplateName] = React.useState("");
+  const setIsSavingGuard = React.useRef(false);
   const [isSaving, setIsSaving] = React.useState(false);
 
   const handleMenuAction = (
@@ -45,6 +46,8 @@ export default function WorkflowTemplateNewPage() {
     const trimmedName = templateName.trim();
     if (!trimmedName || !canvasRef.current) return;
 
+    if (setIsSavingGuard.current) return;
+    setIsSavingGuard.current = true;
     setIsSaving(true);
 
     try {
@@ -64,6 +67,7 @@ export default function WorkflowTemplateNewPage() {
         type: "error",
       });
     } finally {
+      setIsSavingGuard.current = false;
       setIsSaving(false);
     }
   };
@@ -93,7 +97,6 @@ export default function WorkflowTemplateNewPage() {
         primaryAction={{
           label: "Save workflow template",
           onClick: handleSaveClick,
-          loading: isSaving,
         }}
       />
       <WorkflowCanvas ref={canvasRef} variant="template" />

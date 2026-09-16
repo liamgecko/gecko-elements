@@ -1,4 +1,5 @@
-import { Inbox } from "lucide-react"
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import Inbox from "@hugeicons/core-free-icons/InboxIcon";
 
 import {
   Empty,
@@ -12,7 +13,7 @@ export default function SettingsDataSecurityDeletedContactsPage() {
   return (
     <Empty>
       <EmptyMedia variant="icon">
-        <Inbox />
+        <HugeiconsIcon icon={Inbox} />
       </EmptyMedia>
       <EmptyHeader>
         <EmptyTitle>No deleted contacts yet</EmptyTitle>

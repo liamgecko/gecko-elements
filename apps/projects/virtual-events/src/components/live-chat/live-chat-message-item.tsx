@@ -1,3 +1,4 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { Bubble, BubbleActions, BubbleAuthor, BubbleContent, BubbleHeader, BubbleReactions, BubbleTimestamp } from "@geckolabs/elements/components/bubble"
 import { Button } from "@geckolabs/elements/components/button"
 import {
@@ -8,7 +9,8 @@ import {
 import { Message, MessageContent } from "@geckolabs/elements/components/message"
 import { MESSAGE_ANIMATIONS } from "@geckolabs/elements/lib/message-animations"
 import { cn } from "@geckolabs/elements/lib/utils"
-import { Reply, SmilePlus } from "lucide-react"
+import Reply from "@hugeicons/core-free-icons/ArrowTurnBackwardIcon";
+import SmilePlus from "@hugeicons/core-free-icons/SmileIcon";
 import { motion, useReducedMotion } from "motion/react"
 import { useRef, useState } from "react"
 
@@ -116,7 +118,7 @@ export function LiveChatMessageItem({
                     aria-label="Reply to message"
                     onClick={() => onReply(message.id)}
                   >
-                    <Reply strokeWidth={2.25} />
+                    <HugeiconsIcon icon={Reply} strokeWidth={2.25} />
                   </Button>
                 ) : null}
 
@@ -137,7 +139,7 @@ export function LiveChatMessageItem({
                           aria-label="Add reaction"
                           aria-expanded={reactionOpen}
                         >
-                          <SmilePlus strokeWidth={2.25} />
+                          <HugeiconsIcon icon={SmilePlus} strokeWidth={2.25} />
                         </Button>
                       }
                     />

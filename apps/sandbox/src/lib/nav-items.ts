@@ -1,24 +1,23 @@
-import type { LucideIcon } from "lucide-react"
-import {
-  Building,
-  CalendarDays,
-  ChartLine,
-  ClipboardList,
-  Globe,
-  Headset,
-  House,
-  Inbox,
-  Mails,
-  Megaphone,
-  MessageSquareText,
-  Route,
-  Settings,
-  SquareMousePointer,
-  UserRoundCheck,
-  Users,
-  Workflow,
-  Zap,
-} from "lucide-react"
+import type { GeckoIcon } from "@geckolabs/elements/lib/icon";
+
+import Building from "@hugeicons/core-free-icons/Building03Icon";
+import CalendarDays from "@hugeicons/core-free-icons/Calendar03Icon";
+import ChartLine from "@hugeicons/core-free-icons/ChartLineData01Icon";
+import ClipboardList from "@hugeicons/core-free-icons/Task01Icon";
+import Globe from "@hugeicons/core-free-icons/Globe02Icon";
+import Headset from "@hugeicons/core-free-icons/HeadphonesIcon";
+import House from "@hugeicons/core-free-icons/Home01Icon";
+import Inbox from "@hugeicons/core-free-icons/InboxIcon";
+import Mails from "@hugeicons/core-free-icons/Mail01Icon";
+import Megaphone from "@hugeicons/core-free-icons/Megaphone01Icon";
+import MessageSquareText from "@hugeicons/core-free-icons/Message01Icon";
+import Route from "@hugeicons/core-free-icons/Route01Icon";
+import Settings from "@hugeicons/core-free-icons/Settings01Icon";
+import SquareMousePointer from "@hugeicons/core-free-icons/CursorInWindowIcon";
+import UserRoundCheck from "@hugeicons/core-free-icons/UserCheck01Icon";
+import Users from "@hugeicons/core-free-icons/UserGroupIcon";
+import Workflow from "@hugeicons/core-free-icons/WorkflowSquare01Icon";
+import Zap from "@hugeicons/core-free-icons/FlashIcon";
 
 export type NavChildItem = {
   label: string
@@ -27,7 +26,7 @@ export type NavChildItem = {
 
 export type NavItem = {
   label: string
-  icon: LucideIcon
+  icon: GeckoIcon
   items?: readonly NavChildItem[]
   defaultOpen?: boolean
 }

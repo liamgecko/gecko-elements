@@ -1,5 +1,6 @@
 import * as React from "react"
-import { Astroid, Mic } from "lucide-react"
+import Astroid from "@hugeicons/core-free-icons/AiMagicIcon";
+import Mic from "@hugeicons/core-free-icons/Mic01Icon";
 
 import { Button } from "@geckolabs/elements/components/button"
 import {

@@ -107,10 +107,10 @@ Use `BubbleActions` for compact actions such as Reply or Add reaction. Place it 
 ```tsx
 <BubbleActions aria-label="Message actions">
   <Button variant="ghost" size="icon-xs" aria-label="Reply">
-    <ReplyIcon />
+    <HugeiconsIcon icon={ReplyIcon} />
   </Button>
   <Button variant="ghost" size="icon-xs" aria-label="Add reaction">
-    <SmilePlusIcon />
+    <HugeiconsIcon icon={SmilePlusIcon} />
   </Button>
 </BubbleActions>
 ```

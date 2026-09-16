@@ -1,8 +1,10 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import { Button } from "@geckolabs/elements/components/button";
 import { Card } from "@geckolabs/elements/components/card";
-import { ChevronLeft, ShoppingCart } from "lucide-react";
+import ChevronLeft from "@hugeicons/core-free-icons/ArrowLeft01Icon";
+import ShoppingCart from "@hugeicons/core-free-icons/ShoppingCart01Icon";
 
 import { BasketLines } from "../components/basket-content";
 import { FormShell } from "../components/form-shell";
@@ -60,11 +62,11 @@ export function SummaryPage() {
               variant="outline"
               onClick={() => navigate("/")}
             >
-              <ChevronLeft data-icon="inline-start" aria-hidden />
+              <HugeiconsIcon icon={ChevronLeft} data-icon="inline-start" aria-hidden />
               Previous
             </Button>
             <Button type="button">
-              <ShoppingCart data-icon="inline-start" aria-hidden />
+              <HugeiconsIcon icon={ShoppingCart} data-icon="inline-start" aria-hidden />
               Proceed to Payment
             </Button>
           </div>

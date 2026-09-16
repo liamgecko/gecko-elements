@@ -9,7 +9,7 @@ Human documentation: `apps/docs/src/pages/dropdown-menu/index.tsx`
 
 Dropdown menu presents a short list of actions from a visible trigger. Base UI owns opening, positioning, focus movement, selection semantics and dismissal. Gecko owns the visual treatment, searchable-menu behaviour and item variants.
 
-Use Dropdown menu for button-triggered actions such as account menus and Data table row actions. Use Select or Combobox for a form value, Context menu for actions opened by right-click or long-press, and Popover for supporting content that is not an action list.
+Use Dropdown menu for button-triggered actions such as account menus and Data table row actions. Use Select or Combobox for a form value and Popover for supporting content that is not an action list. DataTable `rowLink` cells preserve the native browser link menu on right-click; do not replace it with Context menu. The Context menu primitive is separately documented and has no current DataTable row integration.
 
 ## Canonical pattern
 
@@ -217,7 +217,7 @@ Gecko retains Shadcn’s Base UI composition and interaction model. Gecko adds d
 
 ## Related components
 
-- **Context menu** — actions opened by right-click or long-press.
+- **Context menu** — custom secondary-pointer actions; not a replacement for native link menus or a built-in DataTable feature.
 - **Select** — one value in a form.
 - **Combobox** — a searchable form value.
 - **Popover** — supporting content or controls.

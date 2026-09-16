@@ -1,4 +1,7 @@
-import { CheckCheck, Cog, Home } from "lucide-react"
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
+import Cog from "@hugeicons/core-free-icons/Settings01Icon";
+import Home from "@hugeicons/core-free-icons/Home01Icon";
 
 import { Header } from "@geckolabs/elements/components/header"
 import type { HeaderProps } from "@geckolabs/elements/components/header"
@@ -38,7 +41,7 @@ export function FormBuilderHeader({
           {
             label: (
               <BreadcrumbRouterLink to="/home">
-                <Home className="size-3.5" />
+                <HugeiconsIcon icon={Home} className="size-3.5" />
                 <span className="sr-only">Home</span>
               </BreadcrumbRouterLink>
             ),
@@ -63,7 +66,7 @@ export function FormBuilderHeader({
         {
           kind: "menu" as const,
           label: "Actions",
-          icon: <Cog aria-hidden className="size-4 shrink-0" />,
+          icon: <HugeiconsIcon icon={Cog} aria-hidden className="size-4 shrink-0" />,
           ariaLabel: "Form actions",
           items: formHeaderMenuItems.map((item) => ({
             label: item.label,
@@ -78,7 +81,7 @@ export function FormBuilderHeader({
         primaryAction
           ? {
               label: primaryAction.label,
-              icon: <CheckCheck aria-hidden />,
+              icon: <HugeiconsIcon icon={CheckCheck} aria-hidden />,
               onClick: primaryAction.onClick,
               disabled: primaryAction.loading,
             }

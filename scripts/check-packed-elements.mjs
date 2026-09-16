@@ -32,8 +32,19 @@ export async function checkPackedElements(root) {
     .filter((entry) => entry.isFile())
     .map((entry) => path.join(entry.parentPath, entry.name));
   assert(files.length > 100);
+  // The pinned TinyMCE skin requires these exact legacy icon fonts. Product
+  // typefaces remain WOFF2-only; this is not a blanket vendor-font exception.
+  const legacyIconFonts = new Set([
+    path.join(dist, "vendor/tinymce-4/skins/lightgray/fonts/tinymce.ttf"),
+    path.join(dist, "vendor/tinymce-4/skins/lightgray/fonts/tinymce-small.ttf"),
+  ]);
   assert(
-    !files.some((file) => file.endsWith(".tsx") || /\.(otf|ttf)$/.test(file)),
+    !files.some(
+      (file) =>
+        file.endsWith(".tsx") ||
+        (/\.(otf|ttf)$/.test(file) && !legacyIconFonts.has(file)),
+    ),
+    "Unexpected source or non-WOFF2 product font in packed distribution",
   );
   const hasFile = async (file) =>
     assert(
@@ -101,6 +112,12 @@ export async function checkPackedElements(root) {
       );
   }
   for (const file of [
+    "vendor/tinymce-4/README.md",
+    "vendor/tinymce-4/LICENSE.TXT",
+    "vendor/tinymce-4/skins/lightgray/fonts/tinymce.ttf",
+    "vendor/tinymce-4/skins/lightgray/fonts/tinymce-small.ttf",
+    "lib/action-icons.js",
+    "lib/action-icons.d.ts",
     "vendor/shadcn-message-scroller/index.js",
     "vendor/shadcn-message-scroller/LICENSE.md",
     "vendor/shadcn-tailwind/LICENSE.md",

@@ -53,13 +53,15 @@ SidebarProvider
 
 `SidebarSeparator` and `SidebarMenuSkeleton` may be inserted in the corresponding structural region when required.
 
+Import `Settings01Icon` from `@hugeicons/core-free-icons/Settings01Icon` and `HugeiconsIcon` from `@geckolabs/elements/lib/icon` for the icon example.
+
 ## Navigation semantics
 
 Destinations are links. Render a `SidebarMenuButton` as an anchor or router link and give every `SidebarMenuSubButton` an `href`.
 
 ```tsx
 <SidebarMenuButton render={<a href="/settings" />} isActive>
-  <Settings />
+  <HugeiconsIcon icon={Settings01Icon} />
   <span>Settings</span>
 </SidebarMenuButton>
 
@@ -76,16 +78,22 @@ When the rail is icon-collapsed, a menu item containing `SidebarMenuButton` and 
 
 `SidebarProvider` supports controlled and uncontrolled state:
 
-| Property                 | Type                      | Default         | Meaning                              |
-| ------------------------ | ------------------------- | --------------- | ------------------------------------ |
-| `defaultOpen`            | `boolean`                 | `true`          | Initial uncontrolled state           |
-| `open`                   | `boolean`                 | uncontrolled    | Controlled desktop state             |
-| `onOpenChange`           | `(open: boolean) => void` | none            | Reports controlled state changes     |
-| `persistState`           | `boolean`                 | `true`          | Restores and writes the state cookie |
-| `storageKey`             | `string`                  | `sidebar_state` | Cookie name                          |
-| `enableKeyboardShortcut` | `boolean`                 | `true`          | Enables Command+B or Control+B       |
+| Property                 | Type                      | Default         | Meaning                                                              |
+| ------------------------ | ------------------------- | --------------- | -------------------------------------------------------------------- |
+| `desktopOnly`            | `boolean`                 | `false`         | Keeps the desktop rail and collapse controls at every viewport width |
+| `defaultOpen`            | `boolean`                 | `true`          | Initial uncontrolled state                                           |
+| `open`                   | `boolean`                 | uncontrolled    | Controlled desktop state                                             |
+| `onOpenChange`           | `(open: boolean) => void` | none            | Reports controlled state changes                                     |
+| `persistState`           | `boolean`                 | `true`          | Restores and writes the state cookie                                 |
+| `storageKey`             | `string`                  | `sidebar_state` | Cookie name                                                          |
+| `enableKeyboardShortcut` | `boolean`                 | `true`          | Enables Command+B or Control+B                                       |
 
 Set `persistState={false}` for isolated previews, tests and nested documentation examples. Product shells normally retain the default persistence.
+
+For a desktop application with a minimum-width, horizontally scrolling shell, set
+`desktopOnly`. The shell owns its minimum width and horizontal scrolling; the
+sidebar retains the rail, footer toggle and keyboard shortcut below 768px instead
+of switching to a Sheet. Other consumers keep the default responsive behaviour.
 
 ## Sidebar interface
 
@@ -153,3 +161,7 @@ Use `className` only for approved shell placement. Do not restyle Sidebar in a p
 - **SidebarInset** — main content region beside the rail.
 - **Sheet** — temporary edge panel.
 - **Chat head** — conversation list item.
+
+SidebarTrigger accepts optional `collapseLabel` and `expandLabel` strings to translate
+its accessible name, hidden text and tooltip. Defaults are “Collapse sidebar” and
+“Expand sidebar”. App Sidebar forwards these props to its owned footer trigger.

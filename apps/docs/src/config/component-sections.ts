@@ -9,6 +9,21 @@ export interface ComponentSections {
 }
 
 export const componentSections: ComponentSections = {
+  "rich-text-editor": [
+    { id: "overview", label: "Overview" },
+    { id: "usage", label: "Usage" },
+    { id: "installation", label: "Installation" },
+    { id: "basic-example", label: "Basic example" },
+    { id: "states", label: "States" },
+    { id: "compatibility", label: "HTML compatibility" },
+    { id: "accessibility", label: "Accessibility and language" },
+    {
+      id: "api",
+      label: "API",
+      children: [{ id: "api-reference", label: "API reference" }],
+    },
+    { id: "related", label: "Related" },
+  ],
   "guides-styling": [
     { id: "overview", label: "Overview" },
     {
@@ -39,6 +54,24 @@ export const componentSections: ComponentSections = {
     { id: "conversation", label: "Conversation" },
     { id: "navigation", label: "Navigation" },
     { id: "layout", label: "Layout" },
+  ],
+  "guides-action-icons": [
+    { id: "overview", label: "Overview" },
+    { id: "icon-map", label: "Icon map" },
+    { id: "usage", label: "Usage" },
+    { id: "guidelines", label: "Guidelines" },
+    { id: "related", label: "Related" },
+  ],
+  "guides-application-patterns": [
+    { id: "overview", label: "Overview" },
+    { id: "persistent-editor", label: "Persistent editor" },
+    { id: "async-form", label: "Async form" },
+    { id: "uploads", label: "Independent uploads" },
+    { id: "remote-combobox", label: "Remote selection" },
+    { id: "remote-table", label: "Remote collection" },
+    { id: "shared-helpers", label: "Shared helpers" },
+    { id: "implementation-guide", label: "Implementation guide" },
+    { id: "migration-checklist", label: "Migration evidence" },
   ],
   "guides-recipes": [
     { id: "overview", label: "Overview" },
@@ -155,7 +188,7 @@ export const componentSections: ComponentSections = {
         { id: "icons-only", label: "Icon only" },
       ],
     },
-    { id: "loading", label: "Loading button" },
+    { id: "loading", label: "Loading for other actions" },
     { id: "do-dont", label: "Do and don’t" },
     { id: "api", label: "API" },
     { id: "related", label: "Related" },
@@ -348,6 +381,7 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "basic", label: "Basic example" },
+    { id: "sizes", label: "Sizes" },
     {
       id: "variants",
       label: "Variants",
@@ -1632,8 +1666,17 @@ export const componentSections: ComponentSections = {
         { id: "help-text", label: "Help text" },
       ],
     },
+    { id: "column-layout", label: "Column sizing" },
     { id: "pagination", label: "Pagination" },
-    { id: "mass-actions", label: "Mass actions" },
+    {
+      id: "mass-actions",
+      label: "Mass actions",
+      children: [
+        { id: "mass-actions-button", label: "Button trigger" },
+        { id: "mass-actions-floating", label: "Floating action bar" },
+      ],
+    },
+    { id: "row-links", label: "Row links" },
     { id: "row-actions", label: "Row actions" },
     {
       id: "table-toolbar",

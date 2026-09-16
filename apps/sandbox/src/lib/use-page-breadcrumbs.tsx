@@ -1,6 +1,7 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react"
 import { useLocation } from "react-router-dom"
-import { Home } from "lucide-react"
+import Home from "@hugeicons/core-free-icons/Home01Icon";
 
 import type {
   HeaderBreadcrumbItem,
@@ -249,7 +250,7 @@ export function usePageBreadcrumbs(): NonNullable<HeaderProps["breadcrumbs"]> {
       {
         label: (
           <BreadcrumbRouterLink to="/home">
-            <Home className="size-3.5" />
+            <HugeiconsIcon icon={Home} className="size-3.5" />
             <span className="sr-only">Home</span>
           </BreadcrumbRouterLink>
         ),

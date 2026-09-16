@@ -1,5 +1,8 @@
 "use client";
 
+import { DataTableCellLink } from "./data-table-cell-link";
+import { DataTableTextCell } from "./data-table-text-cell";
+
 import * as React from "react";
 import {
   flexRender,
@@ -15,8 +18,12 @@ import {
   type RowSelectionState,
   type SortingState,
   type VisibilityState,
+  type OnChangeFn,
+  type Updater,
 } from "@tanstack/react-table";
 import SearchX from "@hugeicons/core-free-icons/SearchXIcon";
+import RefreshIcon from "@hugeicons/core-free-icons/RefreshIcon";
+import XIcon from "@hugeicons/core-free-icons/XIcon";
 import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 import { cn } from "@geckolabs/elements/lib/utils";
@@ -29,6 +36,7 @@ import {
   TableExpandableRow,
   TableRow,
 } from "@geckolabs/elements/components/table";
+import { Skeleton } from "@geckolabs/elements/components/skeleton";
 import { Button } from "@geckolabs/elements/components/button";
 import {
   Empty,
@@ -39,6 +47,7 @@ import {
   EmptyTitle,
 } from "@geckolabs/elements/components/empty";
 
+import { prepareLayoutColumns, useDataTableLayout } from "./data-table-layout";
 import type { DataTableColumnMeta } from "./data-table-column-meta";
 
 function dataTableColumnMeta(meta: unknown): DataTableColumnMeta | undefined {
@@ -66,6 +75,10 @@ import { DataTablePagination } from "./data-table-pagination";
 import { DataTableSearch } from "./data-table-search";
 import { DataTableSelectActions } from "./data-table-select-actions";
 import {
+  DataTableSelectionBar,
+  type DataTableSelectionBarLabels,
+} from "./data-table-selection-bar";
+import {
   DataTableRoot,
   DataTableToolbar,
   DataTableToolbarGroup,
@@ -78,6 +91,8 @@ export type { DataTableExpandableConfig } from "./data-table-context";
 export type DataTableRowAction = {
   id: string;
   label: string;
+  /** Optional decorative icon shared by row, bulk and overflow actions. */
+  icon?: React.ReactNode;
   /** Renders a separator above this item (e.g. after the first group). */
   separatorBefore?: boolean;
   /** @default "default" */
@@ -93,9 +108,68 @@ export type DataTableSelectActionContext<TData> = {
   selectedRows: import("@tanstack/react-table").Row<TData>[];
 };
 
+/** Atomic server query; pages use zero-based indexes. */
+export type DataTableQueryState = {
+  globalFilter: string;
+  sorting: SortingState;
+  columnFilters: ColumnFiltersState;
+  pagination: PaginationState;
+};
+export type DataTableRemoteConfig = {
+  state: DataTableQueryState;
+  onStateChange: OnChangeFn<DataTableQueryState>;
+  /** Total matching records on the server, not the current page length. */
+  rowCount: number;
+};
+export type DataTableLabels = {
+  results?: (count: number) => string;
+  showing?: string;
+  perPage?: string;
+  page?: (page: number, pages: number) => string;
+  previousPage?: string;
+  nextPage?: string;
+  rowsPerPage?: string;
+  selectPage?: string;
+  selectAllRows?: string;
+  selectRow?: (index: number) => string;
+  rowActions?: (index: number) => string;
+  actions?: string;
+  loading?: string;
+  retry?: string;
+  noResults?: string;
+  noItems?: string;
+  emptyDescription?: string;
+  noResultsDescription?: string;
+  clearSearch?: string;
+  clearFilters?: string;
+  clearSearchAndFilters?: string;
+};
+
+export type DataTableRowLinkConfig<TData> = {
+  /** Native navigation destination. Return null/undefined for rows without a destination. */
+  getHref: (original: TData) => string | null | undefined;
+  /** Explicit opt-in: only non-interactive data cells belong here. */
+  columnIds: readonly string[];
+  /** Main keyboard link; falls back to the first visible linked cell if hidden. */
+  primaryColumnId: string;
+};
+
 type DataTableBaseProviderProps<TData> = {
+  rowLink?: DataTableRowLinkConfig<TData>;
   columns: ColumnDef<TData>[];
   data: TData[];
+  /** The app owns requests and supplies one server page. */
+  remote?: DataTableRemoteConfig;
+  selection?: {
+    state: RowSelectionState;
+    onChange: OnChangeFn<RowSelectionState>;
+  };
+  loading?: boolean;
+  /** Keep rows visible while a remote query refreshes; block stale row actions. */
+  updating?: boolean;
+  error?: string;
+  onRetry?: () => void;
+  labels?: DataTableLabels;
   /** Whether the provider should apply its pagination row model. @default true */
   paginated?: boolean;
   /** @default false */
@@ -191,6 +265,10 @@ export type DataTableProps<TData> = DistributiveOmit<
   "aria-label"?: string;
   toolbar?: false | DataTableToolbarConfig;
   pagination?: boolean | DataTablePaginationProps;
+  /** Presentation of selected-row actions. @default "button" */
+  selectActionsDisplay?: "button" | "floating";
+  /** Translated labels for the floating selection bar. */
+  selectActionsLabels?: DataTableSelectionBarLabels;
 };
 
 const EMPTY_SELECT_ACTIONS: DataTableRowAction[] = [];
@@ -224,9 +302,17 @@ function DataTableProvider<TData>({
   selectActions: enableSelectActionsProp,
   onSelectAction,
   getRowId,
+  rowLink,
   initialState,
   expandable,
   paginated = true,
+  remote,
+  selection,
+  loading = false,
+  updating = false,
+  error,
+  onRetry,
+  labels,
 }: DataTableProviderProps<TData>) {
   const selectActions = enableSelectActionsProp ?? EMPTY_SELECT_ACTIONS;
 
@@ -256,17 +342,18 @@ function DataTableProvider<TData>({
   const mergedColumns = React.useMemo(() => {
     let cols = [...columns];
     if (enableRowSelection) {
-      cols = [createSelectionColumn<TData>(paginated), ...cols];
+      cols = [createSelectionColumn<TData>(paginated, labels), ...cols];
     }
     if (expandable) {
       cols = [createExpandColumn<TData>(), ...cols];
     }
     if (showRowActionsColumn) {
-      cols = [...cols, createActionsColumn<TData>()];
+      cols = [...cols, createActionsColumn<TData>(labels)];
     }
-    return cols;
+    return prepareLayoutColumns(cols);
   }, [
     columns,
+    labels,
     enableRowSelection,
     expandable,
     paginated,
@@ -297,30 +384,59 @@ function DataTableProvider<TData>({
     setFilterUiResetKey((k) => k + 1);
   }, []);
 
+  const changeQuery = <K extends keyof DataTableQueryState>(
+    key: K,
+    updater: Updater<DataTableQueryState[K]>,
+  ) => {
+    remote?.onStateChange((current) => {
+      const value =
+        typeof updater === "function" ? updater(current[key]) : updater;
+      return {
+        ...current,
+        [key]: value,
+        ...(key !== "pagination"
+          ? { pagination: { ...current.pagination, pageIndex: 0 } }
+          : {}),
+      };
+    });
+  };
+
   // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Table useReactTable is not React Compiler–memoizable
   const table = useReactTable({
     data,
     columns: mergedColumns,
     state: {
-      sorting,
-      columnFilters,
+      sorting: remote?.state.sorting ?? sorting,
+      columnFilters: remote?.state.columnFilters ?? columnFilters,
       columnVisibility,
-      rowSelection,
-      globalFilter,
-      pagination,
+      rowSelection: selection?.state ?? rowSelection,
+      globalFilter: remote?.state.globalFilter ?? globalFilter,
+      pagination: remote?.state.pagination ?? pagination,
     },
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
+    onSortingChange: remote
+      ? (updater) => changeQuery("sorting", updater)
+      : setSorting,
+    onColumnFiltersChange: remote
+      ? (updater) => changeQuery("columnFilters", updater)
+      : setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
-    onGlobalFilterChange: setGlobalFilter,
-    onPaginationChange: setPagination,
+    onRowSelectionChange: selection?.onChange ?? setRowSelection,
+    onGlobalFilterChange: remote
+      ? (updater) => changeQuery("globalFilter", updater)
+      : setGlobalFilter,
+    onPaginationChange: remote
+      ? (updater) => changeQuery("pagination", updater)
+      : setPagination,
+    manualPagination: Boolean(remote),
+    manualSorting: Boolean(remote),
+    manualFiltering: Boolean(remote),
+    ...(remote ? { rowCount: remote.rowCount, autoResetPageIndex: false } : {}),
     getCoreRowModel: getCoreRowModel(),
     ...(enableSorting ? { getSortedRowModel: getSortedRowModel() } : {}),
     getFilteredRowModel: getFilteredRowModel(),
     ...(paginated ? { getPaginationRowModel: getPaginationRowModel() } : {}),
     enableSorting,
-    enableRowSelection,
+    enableRowSelection: enableRowSelection && !loading && !updating && !error,
     getRowId,
     filterFns: {
       dataTableMultiSelect: DataTableMultiSelectFilter,
@@ -341,6 +457,7 @@ function DataTableProvider<TData>({
     <DataTableContext.Provider
       value={{
         table: table as import("@tanstack/react-table").Table<unknown>,
+        rowLink: rowLink as DataTableRowLinkConfig<unknown> | undefined,
         expandable: expandable as
           | DataTableExpandableConfig<unknown>
           | undefined,
@@ -351,6 +468,11 @@ function DataTableProvider<TData>({
               context: DataTableSelectActionContext<unknown>,
             ) => void)
           | undefined,
+        loading,
+        updating,
+        error,
+        onRetry,
+        labels,
         filterUiResetKey,
         resetFilterUi,
       }}
@@ -371,9 +493,20 @@ function DataTableContent<TData>({
   paginated = true,
   "aria-label": ariaLabel,
 }: DataTableContentProps) {
-  const { table, expandable, resetFilterUi } = useDataTableContext<TData>();
+  const {
+    table,
+    expandable,
+    rowLink,
+    resetFilterUi,
+    loading,
+    error,
+    onRetry,
+    labels,
+  } = useDataTableContext<TData>();
 
-  const visibleLeafCount = table.getVisibleLeafColumns().length;
+  const linkId = React.useId();
+  const layout = useDataTableLayout(table);
+  const visibleLeafCount = layout.columns.length;
   const state = table.getState();
   const searchTerm = String(state.globalFilter ?? "").trim();
   const hasSearch = searchTerm.length > 0;
@@ -387,18 +520,46 @@ function DataTableContent<TData>({
       ? "There are no results that match your criteria."
       : "There are no items to display.";
 
+  // Also contain the loading status when used without DataTableRoot.
   return (
     <div
       data-slot="data-table-content"
-      className={cn("data-table rounded-md border border-border", className)}
+      className={cn(
+        "data-table relative rounded-md border border-border",
+        className,
+      )}
     >
-      <Table aria-label={ariaLabel}>
+      <Table
+        aria-label={ariaLabel}
+        aria-busy={loading}
+        className="table-fixed"
+        style={{ width: layout.total || "100%" }}
+        containerProps={{
+          ref: layout.containerRef,
+          tabIndex: layout.overflow ? 0 : undefined,
+          role: layout.overflow ? "region" : undefined,
+          "aria-label": layout.overflow ? ariaLabel : undefined,
+          className:
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
+        }}
+      >
+        <colgroup>
+          {layout.columns.map((column) => (
+            <col
+              key={column.id}
+              data-column-id={column.id}
+              style={{ width: layout.widths.get(column.id) }}
+            />
+          ))}
+        </colgroup>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <TableHead
                   key={header.id}
+                  colSpan={header.colSpan}
+                  data-column-id={header.column.id}
                   aria-sort={
                     header.column.getIsSorted() === "asc"
                       ? "ascending"
@@ -407,6 +568,7 @@ function DataTableContent<TData>({
                         : undefined
                   }
                   className={cn(
+                    "whitespace-nowrap",
                     dataTableColumnMeta(header.column.columnDef.meta)
                       ?.headerClassName,
                   )}
@@ -423,24 +585,116 @@ function DataTableContent<TData>({
           ))}
         </TableHeader>
         <TableBody>
-          {rows.length ? (
-            rows.map((row) => {
-              const cells = row.getVisibleCells().map((cell) => (
-                <TableCell
-                  key={cell.id}
-                  className={cn(
-                    dataTableColumnMeta(cell.column.columnDef.meta)
-                      ?.cellClassName,
-                  )}
+          {loading ? (
+            Array.from(
+              { length: rows.length || state.pagination.pageSize },
+              (_, index) => (
+                <TableRow key={index} aria-hidden="true">
+                  {layout.columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      data-column-id={column.id}
+                      className={
+                        dataTableColumnMeta(column.columnDef.meta)
+                          ?.cellClassName
+                      }
+                    >
+                      {dataTableColumnMeta(column.columnDef.meta)?.skeleton ?? (
+                        <Skeleton className="h-[1lh] w-full motion-reduce:animate-none" />
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ),
+            )
+          ) : error ? (
+            <TableRow>
+              <TableCell colSpan={visibleLeafCount}>
+                <div
+                  role="alert"
+                  className="grid justify-items-center gap-3 p-4"
                 >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ));
+                  <p>{error}</p>
+                  {onRetry && (
+                    <Button variant="outline" onClick={onRetry}>
+                      <HugeiconsIcon icon={RefreshIcon} aria-hidden="true" />
+                      {labels?.retry ?? "Retry"}
+                    </Button>
+                  )}
+                </div>
+              </TableCell>
+            </TableRow>
+          ) : rows.length ? (
+            rows.map((row) => {
+              const visibleCells = row.getVisibleCells();
+              const href = rowLink?.getHref(row.original);
+              const linkedCells = href
+                ? visibleCells.filter(
+                    (cell) =>
+                      rowLink?.columnIds.includes(cell.column.id) &&
+                      !["select", "expand", "actions"].includes(cell.column.id),
+                  )
+                : [];
+              const primary =
+                linkedCells.find(
+                  (cell) => cell.column.id === rowLink?.primaryColumnId,
+                ) ?? linkedCells[0];
+              const cellLinkId = (id: string) =>
+                `${linkId}-${encodeURIComponent(id)}`;
+              const cells = visibleCells.map((cell) => {
+                const content =
+                  dataTableColumnMeta(cell.column.columnDef.meta)
+                    ?.cellLayout === "content" ? (
+                    <div className="min-w-0 max-w-full">
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </div>
+                  ) : (
+                    <DataTableTextCell>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </DataTableTextCell>
+                  );
+                const linked = href && primary && linkedCells.includes(cell);
+                return (
+                  <TableCell
+                    key={cell.id}
+                    data-column-id={cell.column.id}
+                    className={cn(
+                      "whitespace-nowrap",
+                      dataTableColumnMeta(cell.column.columnDef.meta)
+                        ?.cellClassName,
+                      linked && "relative isolate",
+                    )}
+                  >
+                    {linked ? (
+                      <DataTableCellLink
+                        href={href}
+                        id={cellLinkId(cell.id)}
+                        primaryId={cellLinkId(primary.id)}
+                      >
+                        {content}
+                      </DataTableCellLink>
+                    ) : (
+                      content
+                    )}
+                  </TableCell>
+                );
+              });
 
               if (expandable) {
                 return (
                   <TableExpandableRow
                     key={row.id}
+                    className={
+                      linkedCells.length
+                        ? "hover:bg-muted/50 has-[[data-slot=data-table-cell-link]:focus-visible]:bg-muted/50"
+                        : undefined
+                    }
                     colSpan={visibleLeafCount}
                     data-state={row.getIsSelected() ? "selected" : undefined}
                     detail={expandable.renderDetail({
@@ -456,6 +710,11 @@ function DataTableContent<TData>({
               return (
                 <TableRow
                   key={row.id}
+                  className={
+                    linkedCells.length
+                      ? "hover:bg-muted/50 has-[[data-slot=data-table-cell-link]:focus-visible]:bg-muted/50"
+                      : undefined
+                  }
                   data-state={row.getIsSelected() ? "selected" : undefined}
                 >
                   {cells}
@@ -482,10 +741,14 @@ function DataTableContent<TData>({
                       <div className="grid gap-1">
                         <EmptyTitle>
                           {hasSearch || hasFilters
-                            ? "No results found"
-                            : "No items yet"}
+                            ? (labels?.noResults ?? "No results found")
+                            : (labels?.noItems ?? "No items yet")}
                         </EmptyTitle>
-                        <EmptyDescription>{description}</EmptyDescription>
+                        <EmptyDescription>
+                          {(hasSearch || hasFilters
+                            ? labels?.noResultsDescription
+                            : labels?.emptyDescription) ?? description}
+                        </EmptyDescription>
                       </div>
                       {hasSearch || hasFilters ? (
                         <div className="flex items-center justify-center">
@@ -503,11 +766,13 @@ function DataTableContent<TData>({
                               }
                             }}
                           >
+                            <HugeiconsIcon icon={XIcon} aria-hidden="true" />
                             {hasSearch && hasFilters
-                              ? "Clear search and filters"
+                              ? (labels?.clearSearchAndFilters ??
+                                "Clear search and filters")
                               : hasSearch
-                                ? "Clear search"
-                                : "Clear filters"}
+                                ? (labels?.clearSearch ?? "Clear search")
+                                : (labels?.clearFilters ?? "Clear filters")}
                           </Button>
                         </div>
                       ) : null}
@@ -519,8 +784,33 @@ function DataTableContent<TData>({
           )}
         </TableBody>
       </Table>
+      <span role="status" className="sr-only">
+        {loading ? (labels?.loading ?? "Loading rows…") : ""}
+      </span>
     </div>
   );
+}
+
+function DataTableEmptyBoundary({ children }: { children: React.ReactNode }) {
+  const { table, loading, error, labels } = useDataTableContext();
+  const state = table.getState();
+  const hasQuery =
+    Boolean(String(state.globalFilter ?? "").trim()) ||
+    state.columnFilters.length > 0;
+  const noData = table.options.data.length === 0 && table.getRowCount() === 0;
+  if (!loading && !error && !hasQuery && noData) {
+    return (
+      <Empty data-slot="data-table-no-data">
+        <EmptyHeader>
+          <EmptyTitle>{labels?.noItems ?? "No items yet"}</EmptyTitle>
+          <EmptyDescription>
+            {labels?.emptyDescription ?? "There are no items to display."}
+          </EmptyDescription>
+        </EmptyHeader>
+      </Empty>
+    );
+  }
+  return children;
 }
 
 export function DataTable<TData>({
@@ -529,11 +819,15 @@ export function DataTable<TData>({
   "aria-label": ariaLabel,
   toolbar,
   pagination,
+  selectActionsDisplay = "button",
+  selectActionsLabels,
   ...providerProps
 }: DataTableProps<TData>) {
   const hasSelectActions = (providerProps.selectActions?.length ?? 0) > 0;
+  const showSelectActionsButton =
+    hasSelectActions && selectActionsDisplay === "button";
   const showToolbar =
-    (toolbar !== false && toolbar != null) || hasSelectActions;
+    (toolbar !== false && toolbar != null) || showSelectActionsButton;
   const toolbarConfig: DataTableToolbarConfig | undefined =
     toolbar && typeof toolbar === "object" ? toolbar : undefined;
 
@@ -567,40 +861,45 @@ export function DataTable<TData>({
       rowSelection={hasSelectActions ? true : providerProps.rowSelection}
       globalFilter={resolvedGlobalFilter ?? true}
     >
-      <DataTableRoot className={className}>
-        {showToolbar ? (
-          <DataTableToolbar>
-            <DataTableToolbarSearchRow>
-              {showSearch ? (
-                <DataTableSearch {...(searchProps as DataTableSearchProps)} />
-              ) : null}
-              {showFilters ? (
-                <DataTableFilters
-                  {...(filtersProps as DataTableFiltersProps)}
-                />
-              ) : null}
-            </DataTableToolbarSearchRow>
-            <DataTableToolbarGroup>
-              {hasSelectActions ? <DataTableSelectActions /> : null}
-              {showColumnToggle ? (
-                <DataTableColumnToggle
-                  {...(columnToggleProps as DataTableColumnToggleProps)}
-                />
-              ) : null}
-            </DataTableToolbarGroup>
-          </DataTableToolbar>
-        ) : null}
-        <DataTableContent
-          className={contentClassName}
-          paginated={showPagination}
-          aria-label={ariaLabel}
-        />
-        {showPagination ? (
-          <DataTablePagination
-            {...(paginationProps as DataTablePaginationProps)}
+      <DataTableEmptyBoundary>
+        <DataTableRoot className={className}>
+          {showToolbar ? (
+            <DataTableToolbar>
+              <DataTableToolbarSearchRow>
+                {showSearch ? (
+                  <DataTableSearch {...(searchProps as DataTableSearchProps)} />
+                ) : null}
+                {showFilters ? (
+                  <DataTableFilters
+                    {...(filtersProps as DataTableFiltersProps)}
+                  />
+                ) : null}
+              </DataTableToolbarSearchRow>
+              <DataTableToolbarGroup>
+                {showSelectActionsButton ? <DataTableSelectActions /> : null}
+                {showColumnToggle ? (
+                  <DataTableColumnToggle
+                    {...(columnToggleProps as DataTableColumnToggleProps)}
+                  />
+                ) : null}
+              </DataTableToolbarGroup>
+            </DataTableToolbar>
+          ) : null}
+          <DataTableContent
+            className={contentClassName}
+            paginated={showPagination}
+            aria-label={ariaLabel}
           />
-        ) : null}
-      </DataTableRoot>
+          {showPagination ? (
+            <DataTablePagination
+              {...(paginationProps as DataTablePaginationProps)}
+            />
+          ) : null}
+          {hasSelectActions && selectActionsDisplay === "floating" ? (
+            <DataTableSelectionBar labels={selectActionsLabels} />
+          ) : null}
+        </DataTableRoot>
+      </DataTableEmptyBoundary>
     </DataTableProvider>
   );
 }

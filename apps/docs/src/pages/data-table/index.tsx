@@ -1,3 +1,5 @@
+import { RowLinksExample } from "./row-links-example";
+import { StableColumnsExample } from "./layout-examples";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
@@ -74,12 +76,15 @@ function integrationLabel(v: DemoEvent["integration"]) {
 export function DataTablePage() {
   const handleRowAction = React.useCallback(() => undefined, []);
   const handleSelectAction = React.useCallback(() => undefined, []);
+  const [buttonActionResult, setButtonActionResult] = React.useState("");
+  const [floatingActionResult, setFloatingActionResult] = React.useState("");
 
   const baseColumns = React.useMemo<ColumnDef<DemoEvent>[]>(
     () => [
       {
         accessorKey: "eventName",
         id: "eventName",
+        minSize: 240,
         meta: { label: "Event name" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Event name" />
@@ -88,6 +93,7 @@ export function DataTablePage() {
       {
         accessorKey: "startsAt",
         id: "startsAt",
+        size: 260,
         meta: { label: "Start date" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Start date" />
@@ -101,6 +107,7 @@ export function DataTablePage() {
       {
         accessorKey: "timezone",
         id: "timezone",
+        size: 220,
         meta: { label: "Timezone" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Timezone" />
@@ -109,6 +116,7 @@ export function DataTablePage() {
       {
         accessorKey: "attendees",
         id: "attendees",
+        size: 112,
         meta: { label: "Attendees" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Attendees" />
@@ -118,6 +126,7 @@ export function DataTablePage() {
       {
         accessorKey: "waitlisted",
         id: "waitlisted",
+        size: 112,
         meta: { label: "Waitlisted" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Waitlisted" />
@@ -127,6 +136,7 @@ export function DataTablePage() {
       {
         accessorKey: "integration",
         id: "integration",
+        size: 144,
         meta: { label: "Syncs with" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Syncs with" />
@@ -141,7 +151,11 @@ export function DataTablePage() {
       {
         accessorKey: "syncStatus",
         id: "syncStatus",
-        meta: { label: "Sync status" } satisfies DataTableColumnMeta,
+        size: 164,
+        meta: {
+          label: "Sync status",
+          cellLayout: "content",
+        } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Sync status" />
         ),
@@ -205,6 +219,7 @@ export function DataTablePage() {
       {
         accessorKey: "eventName",
         id: "eventName",
+        minSize: 240,
         meta: { label: "Event name" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Event name" />
@@ -213,7 +228,11 @@ export function DataTablePage() {
       {
         accessorKey: "startsAt",
         id: "startsAt",
-        meta: { label: "Start date" } satisfies DataTableColumnMeta,
+        size: 260,
+        meta: {
+          label: "Start date",
+          cellLayout: "content",
+        } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Start date" />
         ),
@@ -231,6 +250,7 @@ export function DataTablePage() {
       {
         accessorKey: "attendees",
         id: "attendees",
+        size: 112,
         meta: { label: "Attendees" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Attendees" />
@@ -240,6 +260,7 @@ export function DataTablePage() {
       {
         accessorKey: "waitlisted",
         id: "waitlisted",
+        size: 112,
         meta: { label: "Waitlisted" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Waitlisted" />
@@ -249,6 +270,7 @@ export function DataTablePage() {
       {
         accessorKey: "integration",
         id: "integration",
+        size: 144,
         meta: { label: "Syncs with" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Syncs with" />
@@ -262,7 +284,11 @@ export function DataTablePage() {
       {
         accessorKey: "syncStatus",
         id: "syncStatus",
-        meta: { label: "Sync status" } satisfies DataTableColumnMeta,
+        size: 164,
+        meta: {
+          label: "Sync status",
+          cellLayout: "content",
+        } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Sync status" />
         ),
@@ -306,6 +332,7 @@ export function DataTablePage() {
       {
         accessorKey: "eventName",
         id: "eventName",
+        minSize: 240,
         meta: { label: "Event name" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader
@@ -318,6 +345,7 @@ export function DataTablePage() {
       {
         accessorKey: "startsAt",
         id: "startsAt",
+        size: 260,
         meta: { label: "Start date" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader
@@ -335,6 +363,7 @@ export function DataTablePage() {
       {
         accessorKey: "timezone",
         id: "timezone",
+        size: 220,
         meta: { label: "Timezone" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Timezone" />
@@ -343,6 +372,7 @@ export function DataTablePage() {
       {
         accessorKey: "attendees",
         id: "attendees",
+        size: 112,
         meta: { label: "Attendees" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Attendees" />
@@ -352,6 +382,7 @@ export function DataTablePage() {
       {
         accessorKey: "waitlisted",
         id: "waitlisted",
+        size: 112,
         meta: { label: "Waitlisted" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Waitlisted" />
@@ -361,6 +392,7 @@ export function DataTablePage() {
       {
         accessorKey: "integration",
         id: "integration",
+        size: 144,
         meta: { label: "Syncs with" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Syncs with" />
@@ -374,7 +406,11 @@ export function DataTablePage() {
       {
         accessorKey: "syncStatus",
         id: "syncStatus",
-        meta: { label: "Sync status" } satisfies DataTableColumnMeta,
+        size: 164,
+        meta: {
+          label: "Sync status",
+          cellLayout: "content",
+        } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader
             column={column}
@@ -423,6 +459,7 @@ export function DataTablePage() {
       {
         accessorKey: "eventName",
         id: "eventName",
+        minSize: 240,
         meta: { label: "Event name" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Event name" />
@@ -431,6 +468,7 @@ export function DataTablePage() {
       {
         accessorKey: "startsAt",
         id: "startsAt",
+        size: 260,
         meta: { label: "Start date" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Start date" />
@@ -444,6 +482,7 @@ export function DataTablePage() {
       {
         accessorKey: "attendees",
         id: "attendees",
+        size: 112,
         meta: { label: "Attendees" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Attendees" />
@@ -453,6 +492,7 @@ export function DataTablePage() {
       {
         accessorKey: "waitlisted",
         id: "waitlisted",
+        size: 112,
         meta: { label: "Waitlisted" } satisfies DataTableColumnMeta,
         header: ({ column }) => (
           <DataTableColumnHeader column={column} title="Waitlisted" />
@@ -502,10 +542,35 @@ export function DataTablePage() {
   aria-label="Events"
   columns={columns}
   data={data}
+  getRowId={(event) => event.id}
   selectActions={selectActions}
   onSelectAction={handleSelectAction}
   toolbar={{
     columnToggle: true,
+  }}
+/>`;
+
+  const floatingActionsSnippet = `<DataTable
+  aria-label="Events"
+  columns={columns}
+  data={events}
+  getRowId={(event) => event.id}
+  pagination
+  selectActions={[
+    { id: "export", label: "Export" },
+    { id: "archive", label: "Archive" },
+    { id: "delete", label: "Delete", variant: "destructive" },
+  ]}
+  selectActionsDisplay="floating"
+  selectActionsLabels={{
+    selectedCount: (count) =>
+      count === 1 ? "1 event selected" : count + " events selected",
+    selectAll: "Select all",
+    clearSelection: "Deselect all events",
+    label: "Event selection actions",
+  }}
+  onSelectAction={(actionId, { selectedRows }) => {
+    handleEventAction(actionId, selectedRows.map((row) => row.original.id));
   }}
 />`;
 
@@ -751,12 +816,52 @@ export function DataTablePage() {
       </MainSection>
 
       <MainSection
+        id="column-layout"
+        title="Column sizing"
+        description="Column widths stay stable when results change. Compact columns have fixed widths; text columns share the remaining space. Columns retain readable minimum widths and the table scrolls when they no longer fit. Long text truncates with an ellipsis; hover or focus a truncated value to read it. Created by demonstrates two intentional lines. Preview the skeleton rows to compare their height with the loaded cells."
+      >
+        <ComponentExample>
+          <StableColumnsExample />
+        </ComponentExample>
+        <Code
+          variant="block"
+          language="tsx"
+          showCopyButton
+          copyLabel="Copy column sizing example"
+          code={`const columns = [
+  { accessorKey: "name", header: "Name", minSize: 240, meta: { grow: 2 } },
+  { accessorKey: "type", header: "Type", size: 136 },
+  { accessorKey: "subject", header: "Subject", minSize: 280, meta: { grow: 3 } },
+  {
+    id: "createdBy", header: "Created by", size: 200,
+    meta: {
+      cellLayout: "content",
+      skeleton: <DataTableMultiLineCell
+        primary={<Skeleton className="h-[1lh] w-full" />}
+        secondary={<Skeleton className="h-[1lh] w-3/4" />}
+      />,
+    },
+    cell: ({ row }) => <DataTableMultiLineCell primary={row.original.creatorName} secondary={formatCreatedDate(row.original.createdAt)} />,
+  },
+];
+<DataTable columns={columns} data={templates} aria-label="Templates" />`}
+        />
+        <p className="text-sm text-muted-foreground">
+          Widths and minimums are CSS pixels. Without a size, columns flex with
+          a default minimum of 200px. Set <Code>meta.grow</Code> to change their
+          share of the extra space, or <Code>maxSize</Code> to cap it. Long text
+          truncates with an ellipsis; hover or focus it to read the full value.
+        </p>
+      </MainSection>
+
+      <MainSection
         id="pagination"
         title="Pagination"
         description={
           <>
             Splits the list into pages using the <Code>pagination</Code> prop.
-            Use this when there are too many rows to show at once.
+            Use this when there are too many rows to show at once. The default
+            is 15 rows, with 25 and 50 also available.
           </>
         }
       >
@@ -795,30 +900,127 @@ export function DataTablePage() {
           </>
         }
       >
-        <ComponentExample className="overflow-x-auto">
+        <ChildSection
+          id="mass-actions-button"
+          title="Button trigger"
+          description="The default menu keeps mass actions in the table toolbar. Select rows to show the trigger."
+        >
+          <ComponentExample className="overflow-x-auto">
+            <div className="space-y-6">
+              <DataTable
+                aria-label="Events"
+                columns={baseColumns}
+                data={demoEvents}
+                getRowId={(event) => event.id}
+                selectActions={demoSelectedActions}
+                onSelectAction={(id, { selectedRows }) =>
+                  setButtonActionResult(
+                    `${id} requested for ${selectedRows.length} events.`,
+                  )
+                }
+                toolbar={{
+                  columnToggle: true,
+                }}
+                initialState={{
+                  columnVisibility: {
+                    chronology: false,
+                    category: false,
+                  },
+                }}
+              />
+              <p role="status" className="text-muted-foreground text-sm">
+                {buttonActionResult}
+              </p>
+              <Code
+                variant="block"
+                language="tsx"
+                code={massActionsSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
+          id="mass-actions-floating"
+          title="Floating action bar"
+          description="Select rows to reveal a floating bar with the selection count, select all and direct actions. It fades and scales subtly in and out, respecting reduced motion. Actions automatically move into a More actions menu when the container narrows. The bar stays within this table and uses the opposite appearance: dark in light mode, light in dark mode. The open menu trigger keeps its hover colour. These demo actions report the request without changing data."
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <DataTable
+                aria-label="Events with floating actions"
+                columns={baseColumns}
+                data={demoEvents}
+                getRowId={(event) => event.id}
+                pagination
+                toolbar={{ search: { placeholder: "Search events" } }}
+                selectActions={[
+                  { id: "export", label: "Export" },
+                  { id: "archive", label: "Archive" },
+                  { id: "delete", label: "Delete", variant: "destructive" },
+                ]}
+                selectActionsDisplay="floating"
+                selectActionsLabels={{
+                  selectedCount: (count) =>
+                    count === 1
+                      ? "1 event selected"
+                      : `${count} events selected`,
+                  clearSelection: "Deselect all events",
+                  label: "Event selection actions",
+                }}
+                onSelectAction={(id, { selectedRows }) =>
+                  setFloatingActionResult(
+                    `${id} requested for ${selectedRows.length} events.`,
+                  )
+                }
+                initialState={{
+                  rowSelection: {
+                    "evt-001": true,
+                    "evt-002": true,
+                    "evt-003": true,
+                    "evt-004": true,
+                  },
+                  columnVisibility: { chronology: false, category: false },
+                }}
+              />
+              <p role="status" className="text-muted-foreground text-sm">
+                {floatingActionResult}
+              </p>
+              <Code
+                variant="block"
+                language="tsx"
+                code={floatingActionsSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+      </MainSection>
+
+      <MainSection
+        id="row-links"
+        title="Row links"
+        description="Click anywhere in a linked data cell, including its padding, to open the component documentation. Right-click opens the native browser link menu. Selection and action menus stay independent. Tab reaches one primary navigation link per row; long text remains available on hover or focus."
+      >
+        <ComponentExample>
           <div className="space-y-6">
-            <DataTable
-              aria-label="Events"
-              columns={baseColumns}
-              data={demoEvents}
-              selectActions={demoSelectedActions}
-              onSelectAction={handleSelectAction}
-              toolbar={{
-                columnToggle: true,
-              }}
-              initialState={{
-                columnVisibility: {
-                  chronology: false,
-                  category: false,
-                },
-              }}
-            />
+            <RowLinksExample />
             <Code
               variant="block"
               language="tsx"
-              code={massActionsSnippet}
+              code={`<DataTable
+  columns={columns}
+  data={rows}
+  rowLink={{
+    getHref: (row) => row.href,
+    columnIds: ["name", "description"],
+    primaryColumnId: "name",
+  }}
+/>`}
               showCopyButton
-              copyLabel="Copy example"
+              copyLabel="Copy row links example"
             />
           </div>
         </ComponentExample>
@@ -1162,7 +1364,7 @@ export function DataTablePage() {
               rows do not need them.
             </>,
             <>
-              Don’t hide an empty result without an explanation. Use{" "}
+              No data renders only Empty. No search/filter matches keeps Empty inside the table with query controls. Use{" "}
               <DocsPageLink to="/components/empty">Empty</DocsPageLink>.
             </>,
             <>Don’t put essential row meaning only in colour or an icon.</>,
@@ -1223,9 +1425,28 @@ export function DataTablePage() {
                 "Defines bulk actions and automatically enables row selection.",
             },
             {
+              name: "selectActionsDisplay",
+              type: '"button" | "floating"',
+              defaultValue: '"button"',
+              description:
+                "Chooses the toolbar menu or a floating selection bar.",
+            },
+            {
+              name: "selectActionsLabels",
+              type: "DataTableSelectionBarLabels",
+              description:
+                "Translates the floating bar group, count, select-all, deselect and overflow controls.",
+            },
+            {
               name: "onSelectAction",
               type: "(actionId, context) => void",
               description: "Required when selected-row actions are supplied.",
+            },
+            {
+              name: "rowLink",
+              type: "DataTableRowLinkConfig<TData>",
+              description:
+                "Native full-cell navigation: getHref supplies the destination, columnIds opts in non-interactive cells and primaryColumnId chooses the keyboard link.",
             },
             {
               name: "getRowId",

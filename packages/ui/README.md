@@ -6,6 +6,8 @@ Gecko Elements' shared React component library. The [component contracts](docs/R
 
 The Gecko application, including the Sandbox Inbox, is a desktop application. Mobile layouts, phone breakpoints, touch-specific navigation and mobile visual checks are not requirements. Do not add them or report their absence as a defect unless the user explicitly requests mobile support for a particular product surface.
 
+The current Gecko Admin wrapper keeps a 1024px (`lg`) minimum desktop width and scrolls horizontally below it; do not collapse that application into a phone layout. This is a consumer shell policy, not a minimum width on every component.
+
 Support desktop window resizing, keyboard navigation, screen readers, browser zoom and the approved appearance modes. Component overflow inside a desktop panel remains relevant. Existing capabilities used by other consumers should not be removed merely because the desktop app does not require them.
 
 ## React support
@@ -126,6 +128,10 @@ Before adding, replacing or directly importing an external UI dependency, read [
 
 Panel disclosure buttons follow the [Button contract](docs/button.md); conversation row actions follow the [Chat Head contract](docs/chat-head.md).
 
+## Navigation with unsaved changes
+
+Use the [Alert dialog navigation contract](docs/alert-dialog.md#unsaved-change-navigation-contract) for any application-controlled navigation that would discard unsaved work. Implement it through the application's shared navigation guard, including tabs and Back/Forward handling.
+
 ## When something is missing
 
 If no documented component or composition supports the requirement, report:
@@ -141,3 +147,11 @@ Request a change to the owning library component or its contract. Continue any i
 Run the consuming project's build and applicable checks. A type check does not establish visual or behavioural correctness: open the resulting interface and exercise its main flow, keyboard interactions and relevant empty, loading, error and disabled states. Inspect the supported viewport sizes and appearance modes for styling and layout regressions.
 
 Review the changed imports and styles against the contracts. Report which checks passed, any failures, and any remaining capability gaps. Keep component defects separate from application integration errors and missing documentation.
+
+## Application implementation starting points
+
+- [Capability index](docs/capabilities.md): imports, ownership, recipes and verification.
+- [Application patterns](docs/application-patterns.md): complete, shared executable examples.
+- [Migration checklist](docs/migration-checklist.md): evidence to collect before recreating a screen.
+- [Action icons](docs/action-icons.md): consistent glyphs for common actions.
+- [Verification](docs/verification.md): automated coverage and consumer responsibilities.

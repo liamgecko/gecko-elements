@@ -3,7 +3,7 @@ import { withRef } from "@geckolabs/elements/lib/with-ref";
 
 import * as React from "react";
 import { cva } from "class-variance-authority";
-import Check from "@hugeicons/core-free-icons/CheckIcon";
+import FileValidationIcon from "@hugeicons/core-free-icons/FileValidationIcon";
 import Upload01Icon from "@hugeicons/core-free-icons/Upload01Icon";
 import FileWarning from "@hugeicons/core-free-icons/FileExclamationPointIcon";
 import RefreshCw from "@hugeicons/core-free-icons/RefreshCwIcon";
@@ -12,6 +12,15 @@ import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 import { cn } from "@geckolabs/elements/lib/utils";
 import { Button } from "@geckolabs/elements/components/button";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogWrapper,
+  DialogHeader,
+  DialogTitle,
+  DialogBody,
+} from "@geckolabs/elements/components/dialog";
 import { Spinner } from "@geckolabs/elements/components/spinner";
 
 type AttachmentState = "empty" | "uploading" | "error" | "done";
@@ -22,9 +31,35 @@ type AttachmentUpload = (
   onProgress: (percent: number) => void,
 ) => void | Promise<void>;
 
+type AttachmentPreview = {
+  url: string;
+  type: "image" | "pdf" | "video" | "audio" | "file";
+};
+
+function previewType(mime: string): AttachmentPreview["type"] {
+  if (mime.startsWith("image/")) return "image";
+  if (mime.startsWith("video/")) return "video";
+  if (mime.startsWith("audio/")) return "audio";
+  return mime === "application/pdf" ? "pdf" : "file";
+}
+
+function safePreview(preview: AttachmentPreview | undefined) {
+  if (!preview) return undefined;
+  try {
+    const url = new URL(preview.url, "https://elements.invalid");
+    return ["http:", "https:", "blob:"].includes(url.protocol)
+      ? preview
+      : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 type AttachmentBaseProps = Omit<React.ComponentProps<"div">, "onChange"> & {
   /** Secondary copy for the empty state or a status override in controlled mode. */
   description?: React.ReactNode;
+  /** Uploaded file to view. Managed uploads preview their local File by default. */
+  preview?: AttachmentPreview | false;
   /** Title for the empty file field. */
   label?: React.ReactNode;
   /** File picker hint. Validate the selected file inside `onUpload` or `onFileChange`. */
@@ -127,10 +162,99 @@ function getMedia(state: AttachmentState) {
     case "error":
       return <HugeiconsIcon icon={FileWarning} />;
     case "done":
-      return <HugeiconsIcon icon={Check} />;
+      return <HugeiconsIcon icon={FileValidationIcon} />;
     default:
       return <HugeiconsIcon icon={Upload01Icon} />;
   }
+}
+
+function AttachmentPreviewContent({
+  preview,
+  name,
+}: {
+  preview: AttachmentPreview;
+  name: string;
+}) {
+  const [status, setStatus] = React.useState<"loading" | "ready" | "error">(
+    preview.type === "file" ? "ready" : "loading",
+  );
+  const loading = status === "loading";
+  const failed = status === "error";
+  const ready = () => setStatus("ready");
+  const fail = () => setStatus("error");
+
+  return (
+    <>
+      <div
+        className={cn(
+          "relative",
+          loading && (preview.type === "audio" ? "min-h-14" : "min-h-32"),
+        )}
+      >
+        {loading && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Spinner aria-label="Loading preview" />
+          </div>
+        )}
+        <div aria-busy={loading} className={cn(loading && "invisible")}>
+          {failed ? (
+            <p role="alert">
+              This file couldn’t be previewed. Open the file to view it.
+            </p>
+          ) : preview.type === "image" ? (
+            <img
+              src={preview.url}
+              alt={name}
+              className="mx-auto max-h-[65vh] max-w-full object-contain"
+              onLoad={ready}
+              onError={fail}
+            />
+          ) : preview.type === "video" ? (
+            <video
+              src={preview.url}
+              aria-label={name}
+              controls
+              preload="metadata"
+              className="max-h-[65vh] w-full"
+              onLoadedMetadata={ready}
+              onError={fail}
+            />
+          ) : preview.type === "audio" ? (
+            <audio
+              src={preview.url}
+              aria-label={name}
+              controls
+              preload="metadata"
+              className="w-full"
+              onLoadedMetadata={ready}
+              onError={fail}
+            />
+          ) : preview.type === "pdf" ? (
+            <iframe
+              src={preview.url}
+              title={name}
+              sandbox=""
+              className="h-[65vh] w-full border-0"
+              onLoad={ready}
+              onError={fail}
+            />
+          ) : (
+            <p>A preview isn’t available for this file type.</p>
+          )}
+        </div>
+      </div>
+      {(preview.type !== "image" || failed) && (
+        <a
+          href={preview.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-4"
+        >
+          Open file
+        </a>
+      )}
+    </>
+  );
 }
 
 const Attachment = /* @__PURE__ */ withRef(function Attachment(
@@ -140,6 +264,7 @@ const Attachment = /* @__PURE__ */ withRef(function Attachment(
     state: stateProp,
     name,
     description,
+    preview,
     label = "Choose a file or drag and drop",
     progress,
     accept,
@@ -160,6 +285,29 @@ const Attachment = /* @__PURE__ */ withRef(function Attachment(
 
   const isControlled = stateProp !== undefined;
   const state = isControlled ? stateProp : managed.state;
+  const [localPreview, setLocalPreview] = React.useState<AttachmentPreview>();
+  const [previewOpen, setPreviewOpen] = React.useState(false);
+  React.useEffect(() => {
+    if (
+      isControlled ||
+      state !== "done" ||
+      !managed.file ||
+      preview !== undefined
+    ) {
+      setLocalPreview(undefined);
+      return;
+    }
+    const url = URL.createObjectURL(managed.file);
+    setLocalPreview({ url, type: previewType(managed.file.type) });
+    return () => URL.revokeObjectURL(url);
+  }, [isControlled, state, managed.file, preview]);
+  const resolvedPreview = safePreview(
+    preview === false ? undefined : (preview ?? localPreview),
+  );
+  const canPreview = state === "done" && !!resolvedPreview && !disabled;
+  React.useEffect(() => {
+    setPreviewOpen(false);
+  }, [state, resolvedPreview?.url, disabled]);
 
   const startUpload = React.useCallback(
     async (file: File) => {
@@ -195,6 +343,7 @@ const Attachment = /* @__PURE__ */ withRef(function Attachment(
   };
 
   const handleRemove = () => {
+    setPreviewOpen(false);
     onRemove?.();
     if (!isControlled) {
       setManaged(INITIAL_MANAGED);
@@ -302,74 +451,108 @@ const Attachment = /* @__PURE__ */ withRef(function Attachment(
   const showRemove = isControlled ? !!onRemove : true;
 
   return (
-    <div
-      data-slot="attachment"
-      data-state={state}
-      data-disabled={disabled ? "true" : undefined}
-      className={cn(attachmentVariants(), disabled && "opacity-75", className)}
-      {...rootProps}
-    >
-      <span className={mediaClass} aria-hidden="true">
-        {media}
-      </span>
-      <span className="min-w-0 flex-1 leading-tight">
-        <span
-          className={cn(
-            "block truncate font-medium",
-            state === "uploading" && "shimmer",
-          )}
-        >
-          {displayName}
+    <Dialog open={previewOpen && canPreview} onOpenChange={setPreviewOpen}>
+      <div
+        data-slot="attachment"
+        data-state={state}
+        data-disabled={disabled ? "true" : undefined}
+        className={cn(
+          attachmentVariants({ interactive: canPreview }),
+          disabled && "opacity-75",
+          className,
+        )}
+        {...rootProps}
+      >
+        {canPreview && (
+          <DialogTrigger
+            render={
+              <button
+                type="button"
+                className="absolute inset-0 z-10 rounded bg-transparent focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
+                aria-label={`View ${ariaName}`}
+              />
+            }
+          />
+        )}
+        <span className={mediaClass} aria-hidden="true">
+          {media}
         </span>
-        {displayDescription != null && (
+        <span className="min-w-0 flex-1 leading-tight">
           <span
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
             className={cn(
-              "mt-0.5 block truncate text-2xs text-muted-foreground",
-              state === "error" && "text-destructive/80",
+              "block truncate font-medium",
+              state === "uploading" && "shimmer",
             )}
           >
-            {displayDescription}
+            {displayName}
           </span>
+          {displayDescription != null && (
+            <span
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              className={cn(
+                "mt-0.5 block truncate text-2xs text-muted-foreground",
+                state === "error" && "text-destructive/80",
+              )}
+            >
+              {displayDescription}
+            </span>
+          )}
+        </span>
+        {(showRetry || showRemove) && (
+          <div className="relative z-20 flex shrink-0 items-center gap-1">
+            {showRetry && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-sm"
+                disabled={disabled}
+                onClick={handleRetry}
+                aria-label={`Retry ${ariaName}`}
+              >
+                <HugeiconsIcon icon={RefreshCw} aria-hidden="true" />
+              </Button>
+            )}
+            {showRemove && (
+              <Button
+                type="button"
+                variant="ghost-destructive"
+                size="icon-sm"
+                disabled={disabled}
+                onClick={handleRemove}
+                aria-label={`Remove ${ariaName}`}
+              >
+                <HugeiconsIcon icon={Trash2} aria-hidden="true" />
+              </Button>
+            )}
+          </div>
         )}
-      </span>
-      {(showRetry || showRemove) && (
-        <div className="relative z-20 flex shrink-0 items-center gap-1">
-          {showRetry && (
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-xs"
-              disabled={disabled}
-              onClick={handleRetry}
-              aria-label={`Retry ${ariaName}`}
-            >
-              <HugeiconsIcon icon={RefreshCw} aria-hidden="true" />
-            </Button>
-          )}
-          {showRemove && (
-            <Button
-              type="button"
-              variant="ghost-destructive"
-              size="icon-xs"
-              disabled={disabled}
-              onClick={handleRemove}
-              aria-label={`Remove ${ariaName}`}
-            >
-              <HugeiconsIcon icon={Trash2} aria-hidden="true" />
-            </Button>
-          )}
-        </div>
+      </div>
+      {resolvedPreview && (
+        <DialogContent size="lg">
+          <DialogWrapper>
+            <DialogHeader>
+              <DialogTitle>{displayName ?? "Attachment"}</DialogTitle>
+            </DialogHeader>
+            <DialogBody>
+              <AttachmentPreviewContent
+                key={`${resolvedPreview.type}:${resolvedPreview.url}`}
+                preview={resolvedPreview}
+                name={ariaName}
+              />
+            </DialogBody>
+          </DialogWrapper>
+        </DialogContent>
       )}
-    </div>
+    </Dialog>
   );
 });
 
 export { Attachment };
 export type {
   AttachmentProps,
+  AttachmentPreview,
   AttachmentState,
   AttachmentUpload,
   ManagedAttachmentProps,

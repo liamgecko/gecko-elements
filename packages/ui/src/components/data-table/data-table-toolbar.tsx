@@ -12,10 +12,11 @@ export const DataTableRoot = /* @__PURE__ */ withRef(function DataTableRoot({
   className,
   ...props
 }: DataTableRootProps) {
+  // Contain absolutely positioned status text within the table's scroll region.
   return (
     <div
       data-slot="data-table-root"
-      className={cn("flex flex-col gap-4", className)}
+      className={cn("relative flex flex-col gap-4", className)}
       {...props}
     />
   );

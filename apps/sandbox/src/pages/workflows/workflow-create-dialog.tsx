@@ -1,6 +1,8 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react"
 import { useNavigate } from "react-router-dom"
-import { CheckCheck, ChevronLeft } from "lucide-react"
+import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
+import ChevronLeft from "@hugeicons/core-free-icons/ArrowLeft01Icon";
 
 import { Button } from "@geckolabs/elements/components/button"
 import {
@@ -327,7 +329,7 @@ function WorkflowCreateDialog({
               variant="outline"
               onClick={() => setStep("choice")}
             >
-              <ChevronLeft data-icon="inline-start" aria-hidden />
+              <HugeiconsIcon icon={ChevronLeft} data-icon="inline-start" aria-hidden />
               Back
             </Button>
           ) : null}
@@ -336,7 +338,7 @@ function WorkflowCreateDialog({
             disabled={primaryDisabled}
             onClick={handlePrimaryAction}
           >
-            <CheckCheck data-icon="inline-start" aria-hidden />
+            <HugeiconsIcon icon={CheckCheck} data-icon="inline-start" aria-hidden />
             {primaryLabel}
           </Button>
         </DialogFooter>

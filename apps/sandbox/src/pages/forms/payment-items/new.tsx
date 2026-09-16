@@ -10,6 +10,7 @@ import { PaymentItemForm } from "./payment-item-form";
 
 export default function CreatePaymentItemPage() {
   const navigate = useNavigate();
+  const setIsSavingGuard = React.useRef(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const configured = isSupabaseConfigured();
 
@@ -27,7 +28,9 @@ export default function CreatePaymentItemPage() {
       submitLabel="Save chargeable item"
       isSaving={isSaving}
       onSubmit={async (values) => {
-        setIsSaving(true);
+        if (setIsSavingGuard.current) return;
+    setIsSavingGuard.current = true;
+    setIsSaving(true);
         try {
           await paymentItemsRepository.createPaymentItem({
             name: values.name,
@@ -53,7 +56,8 @@ export default function CreatePaymentItemPage() {
             type: "error",
           });
         } finally {
-          setIsSaving(false);
+          setIsSavingGuard.current = false;
+      setIsSaving(false);
         }
       }}
     />

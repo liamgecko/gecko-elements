@@ -125,8 +125,11 @@ export function ProgressPage() {
             <br />
             <br />
             Avoid using Progress as the primary loading pattern for page or
-            panel waits — that is a{" "}
-            <DocsPageLink to="/components/spinner">Spinner</DocsPageLink>.
+            panel waits — follow the{" "}
+            <DocsPageLink to="/guides/application-patterns">
+              application loading pattern
+            </DocsPageLink>
+            .
           </>
         }
       >
@@ -536,8 +539,11 @@ export function ProgressPage() {
           ]}
           dontItems={[
             <>
-              Don’t use Progress for page or panel loading waits. Use a{" "}
-              <DocsPageLink to="/components/spinner">Spinner</DocsPageLink>.
+              Don’t use Progress for page or panel loading waits. Use the{" "}
+              <DocsPageLink to="/guides/application-patterns">
+                application loading pattern
+              </DocsPageLink>
+              .
             </>,
             <>Don’t show a percentage that does not match the value.</>,
             <>Don’t use tiered colours unless their thresholds have meaning.</>,
@@ -635,8 +641,10 @@ export function ProgressPage() {
       >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
-            <DocsPageLink to="/components/spinner">Spinner</DocsPageLink> — for
-            page and panel loading waits.
+            <DocsPageLink to="/guides/application-patterns">
+              application loading pattern
+            </DocsPageLink>{" "}
+            — for page and panel loading waits.
           </li>
         </ul>
       </MainSection>

@@ -20,6 +20,8 @@ import type {
   DataTableRowActionContext,
 } from "./data-table";
 
+import { useDataTableContext } from "./data-table-context";
+
 const RowActionsTrigger = React.forwardRef<
   HTMLButtonElement,
   Omit<React.ComponentProps<typeof Button>, "children">
@@ -54,13 +56,16 @@ function getMeta<TData>(table: Table<TData>): DataTableMeta<TData> {
 type DataTableRowActionsMenuProps<TData> = {
   row: Row<TData>;
   table: Table<TData>;
+  triggerLabel?: string;
 };
 
 export function DataTableRowActionsMenu<TData>({
   row,
   table,
+  triggerLabel,
 }: DataTableRowActionsMenuProps<TData>) {
   const { getRowActions, onRowAction } = getMeta(table);
+  const { updating } = useDataTableContext<TData>();
   const actions = getRowActions?.(row.original) ?? [];
 
   if (actions.length === 0) {
@@ -72,7 +77,8 @@ export function DataTableRowActionsMenu<TData>({
       <DropdownMenuTrigger
         render={
           <RowActionsTrigger
-            aria-label={`Open actions for row ${row.index + 1}`}
+            disabled={updating}
+            aria-label={triggerLabel ?? `Open actions for row ${row.index + 1}`}
           />
         }
       />
@@ -85,10 +91,12 @@ export function DataTableRowActionsMenu<TData>({
               ) : null}
               <DropdownMenuItem
                 variant={action.variant ?? "default"}
+                disabled={updating}
                 onClick={() =>
                   onRowAction?.(action.id, { row, original: row.original })
                 }
               >
+                {action.icon}
                 {action.label}
               </DropdownMenuItem>
             </React.Fragment>

@@ -1,6 +1,6 @@
 # React compatibility verification
 
-Local verification on 9 September 2026, branch `codex/react-18-support`.
+Historical local verification on 9 September 2026, branch `codex/react-18-support`. These results describe that snapshot, including its then-current source packaging. For current distribution instructions use [the usage guide](../../packages/ui/README.md); for current check commands and coverage use [verification](../../packages/ui/docs/verification.md).
 
 | Check | Result |
 | --- | --- |

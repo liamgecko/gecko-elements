@@ -56,9 +56,16 @@ type AppSidebarProps = {
     React.ReactElement<AppSidebarNavProps>,
   ];
   className?: string;
+  collapseLabel?: string;
+  expandLabel?: string;
 };
 
-function AppSidebar({ className, children }: AppSidebarProps) {
+function AppSidebar({
+  className,
+  children,
+  collapseLabel,
+  expandLabel,
+}: AppSidebarProps) {
   return (
     <Sidebar
       data-slot="app-sidebar"
@@ -73,7 +80,11 @@ function AppSidebar({ className, children }: AppSidebarProps) {
         <ScrollArea className="flex-1">{children}</ScrollArea>
       </SidebarContent>
       <SidebarFooter>
-        <SidebarTrigger className="self-center" />
+        <SidebarTrigger
+          className="self-center"
+          collapseLabel={collapseLabel}
+          expandLabel={expandLabel}
+        />
       </SidebarFooter>
     </Sidebar>
   );
@@ -84,7 +95,30 @@ type AppSidebarFavouriteItem = {
   label: string;
 };
 
+type AppSidebarFavouritesLabels = {
+  heading: string;
+  actions: (name: string) => string;
+  remove: string;
+  rename: string;
+  renameTitle: string;
+  name: string;
+  namePlaceholder: string;
+  cancel: string;
+};
+
+const defaultFavouriteLabels: AppSidebarFavouritesLabels = {
+  heading: "Favourites",
+  actions: (name) => `Actions for ${name}`,
+  remove: "Remove from favourites",
+  rename: "Rename",
+  renameTitle: "Rename menu item",
+  name: "Favourite name",
+  namePlaceholder: "Enter a name",
+  cancel: "Cancel",
+};
+
 type AppSidebarFavouritesProps = {
+  labels?: Partial<AppSidebarFavouritesLabels>;
   items: readonly AppSidebarFavouriteItem[];
   activePath: string;
   onSelect: (path: string) => void;
@@ -98,7 +132,9 @@ function AppSidebarFavourites({
   onSelect,
   onRename,
   onDelete,
+  labels: suppliedLabels,
 }: AppSidebarFavouritesProps) {
+  const labels = { ...defaultFavouriteLabels, ...suppliedLabels };
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const [renameOpen, setRenameOpen] = React.useState(false);
@@ -118,21 +154,21 @@ function AppSidebarFavourites({
     return (
       <DropdownMenu>
         <DropdownMenuTrigger
-          render={<SidebarMenuAction aria-label={`Actions for ${fav.label}`} />}
+          render={<SidebarMenuAction aria-label={labels.actions(fav.label)} />}
         >
           <HugeiconsIcon icon={EllipsisIcon} />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           {onRename && (
             <DropdownMenuItem onClick={() => openRename(fav.path, fav.label)}>
-              Rename
+              {labels.rename}
             </DropdownMenuItem>
           )}
           <DropdownMenuItem
             variant="destructive"
             onClick={() => onDelete(fav.path)}
           >
-            Remove from favourites
+            {labels.remove}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -145,12 +181,15 @@ function AppSidebarFavourites({
         data-slot="app-sidebar-favourites"
         className="min-h-[50px] border-b border-sidebar-border"
       >
-        <SidebarGroupLabel>Favourites</SidebarGroupLabel>
+        <SidebarGroupLabel>{labels.heading}</SidebarGroupLabel>
         <SidebarGroupContent>
           <SidebarMenu>
             {collapsed ? (
               <SidebarMenuItem>
-                <SidebarMenuButton tooltip="Favourites">
+                <SidebarMenuButton
+                  tooltip={labels.heading}
+                  aria-label={labels.heading}
+                >
                   <HugeiconsIcon icon={Star} />
                 </SidebarMenuButton>
                 <SidebarMenuSub>
@@ -204,22 +243,22 @@ function AppSidebarFavourites({
         <DialogContent size="xs">
           <DialogWrapper>
             <DialogHeader>
-              <DialogTitle>Rename menu item</DialogTitle>
+              <DialogTitle>{labels.renameTitle}</DialogTitle>
             </DialogHeader>
             <DialogBody>
               <Field>
-                <FieldLabel htmlFor={renameInputId}>Favourite name</FieldLabel>
+                <FieldLabel htmlFor={renameInputId}>{labels.name}</FieldLabel>
                 <Input
                   id={renameInputId}
                   value={renameValue}
                   onChange={(e) => setRenameValue(e.currentTarget.value)}
-                  placeholder="Enter a name"
+                  placeholder={labels.namePlaceholder}
                   autoFocus
                 />
               </Field>
             </DialogBody>
           </DialogWrapper>
-          <DialogFooter showCloseButton closeButtonText="Cancel">
+          <DialogFooter showCloseButton closeButtonText={labels.cancel}>
             <Button
               type="button"
               onClick={() => {
@@ -233,7 +272,7 @@ function AppSidebarFavourites({
                 data-icon="inline-start"
                 aria-hidden="true"
               />
-              Rename
+              {labels.rename}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -383,6 +422,7 @@ export { AppSidebar, AppSidebarFavourites, AppSidebarNav };
 
 export type {
   AppSidebarFavouriteItem,
+  AppSidebarFavouritesLabels,
   AppSidebarFavouritesProps,
   AppSidebarNavChild,
   AppSidebarNavItem,

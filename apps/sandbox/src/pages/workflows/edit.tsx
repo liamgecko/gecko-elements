@@ -1,3 +1,4 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react";
 import {
   Navigate,
@@ -5,7 +6,8 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { Trash2, X } from "lucide-react";
+import Trash2 from "@hugeicons/core-free-icons/Delete02Icon";
+import X from "@hugeicons/core-free-icons/XIcon";
 import { toast } from "@geckolabs/elements/components/toast";
 
 import {
@@ -46,9 +48,11 @@ export default function WorkflowEditPage() {
   )?.workflowName;
   const { workflow, loading, configured } = useWorkflow(workflowId);
 
+  const setIsSavingGuard = React.useRef(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const [templateDialogOpen, setTemplateDialogOpen] = React.useState(false);
   const [templateName, setTemplateName] = React.useState("");
+  const setIsSavingTemplateGuard = React.useRef(false);
   const [isSavingTemplate, setIsSavingTemplate] = React.useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
@@ -92,6 +96,8 @@ export default function WorkflowEditPage() {
     const trimmedName = templateName.trim();
     if (!trimmedName || !canvasRef.current) return;
 
+    if (setIsSavingTemplateGuard.current) return;
+    setIsSavingTemplateGuard.current = true;
     setIsSavingTemplate(true);
 
     try {
@@ -111,6 +117,7 @@ export default function WorkflowEditPage() {
         type: "error",
       });
     } finally {
+      setIsSavingTemplateGuard.current = false;
       setIsSavingTemplate(false);
     }
   };
@@ -118,6 +125,8 @@ export default function WorkflowEditPage() {
   const handleUpdate = async () => {
     if (!workflow || !canvasRef.current) return;
 
+    if (setIsSavingGuard.current) return;
+    setIsSavingGuard.current = true;
     setIsSaving(true);
 
     try {
@@ -132,6 +141,7 @@ export default function WorkflowEditPage() {
         type: "error",
       });
     } finally {
+      setIsSavingGuard.current = false;
       setIsSaving(false);
     }
   };
@@ -162,7 +172,6 @@ export default function WorkflowEditPage() {
             ? {
                 label: "Update workflow",
                 onClick: () => void handleUpdate(),
-                loading: isSaving,
               }
             : undefined
         }
@@ -201,7 +210,7 @@ export default function WorkflowEditPage() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={isDeleting}>
-              <X aria-hidden />
+              <HugeiconsIcon icon={X} aria-hidden />
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
@@ -209,7 +218,7 @@ export default function WorkflowEditPage() {
               onClick={() => void handleDeleteWorkflow()}
               disabled={isDeleting}
             >
-              <Trash2 aria-hidden />
+              <HugeiconsIcon icon={Trash2} aria-hidden />
               Delete workflow
             </AlertDialogAction>
           </AlertDialogFooter>

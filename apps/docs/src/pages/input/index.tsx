@@ -147,7 +147,7 @@ const form = useForm<z.infer<typeof formSchema>>({
 
   const iconsLeftSnippet = `<InputGroup size="sm|md|lg">
   <InputGroupAddon align="inline-start">
-    <Search aria-hidden="true" />
+    <HugeiconsIcon icon={Search} aria-hidden="true" />
   </InputGroupAddon>
   <InputGroupInput aria-label="Search" placeholder="Search..." />
 </InputGroup>`;
@@ -155,17 +155,17 @@ const form = useForm<z.infer<typeof formSchema>>({
   const iconsRightSnippet = `<InputGroup size="sm|md|lg">
   <InputGroupInput aria-label="Search" placeholder="Search..." />
   <InputGroupAddon align="inline-end">
-    <Search aria-hidden="true" />
+    <HugeiconsIcon icon={Search} aria-hidden="true" />
   </InputGroupAddon>
 </InputGroup>`;
 
   const iconsBothSnippet = `<InputGroup size="sm|md|lg">
   <InputGroupAddon align="inline-start">
-    <Search aria-hidden="true" />
+    <HugeiconsIcon icon={Search} aria-hidden="true" />
   </InputGroupAddon>
   <InputGroupInput aria-label="Search" placeholder="Search..." />
   <InputGroupAddon align="inline-end">
-    <Search aria-hidden="true" />
+    <HugeiconsIcon icon={Search} aria-hidden="true" />
   </InputGroupAddon>
 </InputGroup>`;
 
@@ -173,7 +173,7 @@ const form = useForm<z.infer<typeof formSchema>>({
   <InputGroupInput aria-label="Value to copy" placeholder="Copy to clipboard" />
   <InputGroupAddon align="inline-end">
     <InputGroupButton aria-label="Copy value">
-      <Copy aria-hidden="true" />
+      <HugeiconsIcon icon={Copy} aria-hidden="true" />
     </InputGroupButton>
   </InputGroupAddon>
 </InputGroup>`;

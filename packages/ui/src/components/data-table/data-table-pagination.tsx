@@ -22,15 +22,15 @@ import { cn } from "@geckolabs/elements/lib/utils";
 
 import { useDataTableContext } from "./data-table-context";
 
-export const DATA_TABLE_PAGE_SIZE_OPTIONS = [10, 25, 50] as const;
+export const DATA_TABLE_PAGE_SIZE_OPTIONS = [15, 25, 50] as const;
 
 export type DataTablePaginationProps = {
   className?: string;
 };
 
 export function DataTablePagination({ className }: DataTablePaginationProps) {
-  const { table } = useDataTableContext<unknown>();
-  const filteredRows = table.getFilteredRowModel().rows.length;
+  const { table, labels, loading } = useDataTableContext<unknown>();
+  const filteredRows = table.getRowCount();
   const pageCount = Math.max(1, table.getPageCount());
   const { pageIndex, pageSize } = table.getState().pagination;
   const currentPage = pageIndex + 1;
@@ -47,16 +47,26 @@ export function DataTablePagination({ className }: DataTablePaginationProps) {
     >
       <div className="text-foreground flex items-center gap-2 text-xs">
         <p className="whitespace-nowrap">
-          Found <span className="font-medium">{filteredRows}</span>{" "}
-          {filteredRows === 1 ? "result" : "results"}.
+          {labels?.results ? (
+            labels.results(filteredRows)
+          ) : (
+            <>
+              Found <span className="font-medium">{filteredRows}</span>{" "}
+              {filteredRows === 1 ? "result" : "results"}.
+            </>
+          )}
         </p>
         <div className="flex items-center gap-2 whitespace-nowrap">
-          <span>Showing:</span>
+          <span>{labels?.showing ?? "Showing:"}</span>
           <Select
             value={String(pageSize)}
             onValueChange={(v) => table.setPageSize(Number(v))}
           >
-            <SelectTrigger size="sm" className="w-auto min-w-14">
+            <SelectTrigger
+              size="sm"
+              className="w-auto min-w-14"
+              aria-label={labels?.rowsPerPage ?? "Rows per page"}
+            >
               <SelectValue />
             </SelectTrigger>
             <SelectContent side="top">
@@ -69,7 +79,7 @@ export function DataTablePagination({ className }: DataTablePaginationProps) {
               </SelectGroup>
             </SelectContent>
           </Select>
-          <span>per page.</span>
+          <span>{labels?.perPage ?? "per page."}</span>
         </div>
       </div>
 
@@ -78,12 +88,19 @@ export function DataTablePagination({ className }: DataTablePaginationProps) {
           value={String(currentPage)}
           onValueChange={(v) => table.setPageIndex(Number(v) - 1)}
         >
-          <SelectTrigger size="sm" className="w-auto min-w-24">
+          <SelectTrigger
+            size="sm"
+            className="w-auto min-w-24"
+            aria-label={labels?.selectPage ?? "Select page"}
+          >
             <SelectValue>
               {(value) => {
                 const page =
                   value != null && value !== "" ? Number(value) : currentPage;
-                return `Page ${page} of ${pageCount}`;
+                return (
+                  labels?.page?.(page, pageCount) ??
+                  `Page ${page} of ${pageCount}`
+                );
               }}
             </SelectValue>
           </SelectTrigger>
@@ -91,7 +108,7 @@ export function DataTablePagination({ className }: DataTablePaginationProps) {
             <SelectGroup>
               {pageItems.map((p) => (
                 <SelectItem key={p} value={String(p)}>
-                  Page {p} of {pageCount}
+                  {labels?.page?.(p, pageCount) ?? `Page ${p} of ${pageCount}`}
                 </SelectItem>
               ))}
             </SelectGroup>
@@ -105,8 +122,8 @@ export function DataTablePagination({ className }: DataTablePaginationProps) {
                 type="button"
                 variant="outline"
                 size="icon-sm"
-                aria-label="Go to previous page"
-                disabled={!table.getCanPreviousPage()}
+                aria-label={labels?.previousPage ?? "Go to previous page"}
+                disabled={loading || !table.getCanPreviousPage()}
                 onClick={() => table.previousPage()}
               >
                 <HugeiconsIcon
@@ -120,8 +137,8 @@ export function DataTablePagination({ className }: DataTablePaginationProps) {
                 type="button"
                 variant="outline"
                 size="icon-sm"
-                aria-label="Go to next page"
-                disabled={!table.getCanNextPage()}
+                aria-label={labels?.nextPage ?? "Go to next page"}
+                disabled={loading || !table.getCanNextPage()}
                 onClick={() => table.nextPage()}
               >
                 <HugeiconsIcon

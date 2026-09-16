@@ -1,4 +1,6 @@
-import { Plus, Workflow } from "lucide-react"
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import Plus from "@hugeicons/core-free-icons/PlusIcon";
+import Workflow from "@hugeicons/core-free-icons/WorkflowSquare01Icon";
 
 import { Button } from "@geckolabs/elements/components/button"
 import {
@@ -18,7 +20,7 @@ export function WorkflowsEmpty() {
   return (
     <Empty>
       <EmptyMedia variant="icon">
-        <Workflow aria-hidden />
+        <HugeiconsIcon icon={Workflow} aria-hidden />
       </EmptyMedia>
       <EmptyHeader>
         <EmptyTitle>No workflows yet</EmptyTitle>
@@ -29,7 +31,7 @@ export function WorkflowsEmpty() {
       </EmptyHeader>
       <EmptyContent>
         <Button type="button" onClick={openCreateWorkflowDialog}>
-          <Plus data-icon="inline-start" aria-hidden />
+          <HugeiconsIcon icon={Plus} data-icon="inline-start" aria-hidden />
           Create a new workflow
         </Button>
       </EmptyContent>

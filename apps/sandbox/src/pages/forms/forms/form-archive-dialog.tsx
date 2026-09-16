@@ -1,5 +1,7 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react";
-import { Archive, X } from "lucide-react";
+import Archive from "@hugeicons/core-free-icons/Archive01Icon";
+import X from "@hugeicons/core-free-icons/XIcon";
 import { toast } from "@geckolabs/elements/components/toast";
 
 import {
@@ -93,7 +95,7 @@ export function FormArchiveDialog({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={isArchiving}>
-            <X aria-hidden />
+            <HugeiconsIcon icon={X} aria-hidden />
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
@@ -101,7 +103,7 @@ export function FormArchiveDialog({
             onClick={() => void confirmArchive()}
             disabled={isArchiving}
           >
-            <Archive aria-hidden />
+            <HugeiconsIcon icon={Archive} aria-hidden />
             {isSingle ? "Archive form" : "Archive forms"}
           </AlertDialogAction>
         </AlertDialogFooter>

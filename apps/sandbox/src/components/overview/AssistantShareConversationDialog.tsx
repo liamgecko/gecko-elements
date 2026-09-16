@@ -1,4 +1,5 @@
-import { Share } from "lucide-react"
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import Share from "@hugeicons/core-free-icons/Share01Icon";
 
 import { Button } from "@geckolabs/elements/components/button"
 import {
@@ -66,7 +67,7 @@ export function AssistantShareConversationDialog({
         </DialogWrapper>
         <DialogFooter showCloseButton closeButtonText="Cancel">
           <Button type="button" disabled={!canShare} onClick={onShare}>
-            <Share data-icon="inline-start" aria-hidden />
+            <HugeiconsIcon icon={Share} data-icon="inline-start" aria-hidden />
             Share
           </Button>
         </DialogFooter>

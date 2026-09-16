@@ -375,13 +375,13 @@ export function SidebarPage() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton render={<a href="/home" />} isActive>
-                <Home />
+                <HugeiconsIcon icon={Home} />
                 <span>Home</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton render={<a href="/settings" />}>
-                <Settings />
+                <HugeiconsIcon icon={Settings} />
                 <span>Settings</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
@@ -410,7 +410,7 @@ export function SidebarPage() {
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton render={<a href="#overview" />}>
-          <Layers />
+          <HugeiconsIcon icon={Layers} />
           <span>Overview</span>
         </SidebarMenuButton>
       </SidebarMenuItem>
@@ -426,7 +426,7 @@ export function SidebarPage() {
 
   const subMenuSnippet = `<SidebarMenuItem>
   <SidebarMenuButton>
-    <Package />
+    <HugeiconsIcon icon={Package} />
     <span>Products</span>
   </SidebarMenuButton>
   <SidebarMenuSub>
@@ -448,7 +448,7 @@ export function SidebarPage() {
     <CollapsibleTrigger
       render={
         <SidebarMenuButton className="group w-full">
-          <Package />
+          <HugeiconsIcon icon={Package} />
           <span>Products</span>
         </SidebarMenuButton>
       }

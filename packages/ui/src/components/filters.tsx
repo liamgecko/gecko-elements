@@ -43,6 +43,9 @@ const FILTER_TRIGGER_ICONS = {
   ListFilterPlus,
 } as const satisfies Record<string, GeckoIcon>;
 
+const filterMenuClassName =
+  "max-h-[min(20rem,var(--available-height))] overscroll-contain";
+
 export type FilterOption = {
   value: string;
   label: string;
@@ -54,6 +57,8 @@ export type FilterCategory = {
   options: readonly FilterOption[];
   /** When false, the submenu has no search field (e.g. short static lists). @default true */
   searchable?: boolean;
+  /** Disable negation for APIs that only support inclusion filters. */
+  allowNegation?: boolean;
   searchPlaceholder?: string;
 };
 
@@ -78,6 +83,14 @@ export type FilterOperator = "is" | "is not" | "is any of";
 
 export type FilterProps = Omit<React.ComponentProps<"div">, "onChange"> & {
   categories: readonly FilterCategory[];
+  labels?: {
+    selected?: (count: number) => string;
+    operators?: Partial<Record<FilterOperator, string>>;
+    changeOperator?: (category: string, operator: string) => string;
+    changeValues?: (category: string, values: string) => string;
+    removeFilter?: (category: string) => string;
+    noResults?: string;
+  };
   /** Button label. Also used as the aria-label when `trigger=\"icon\"`. */
   triggerLabel?: string;
   /** Default renders icon + label; icon renders an icon-only trigger. */
@@ -204,6 +217,7 @@ function applyClearCategory(
 export const Filter = /* @__PURE__ */ withRef(function Filter({
   className,
   categories,
+  labels,
   triggerLabel = "Filter",
   trigger = "default",
   triggerIcon,
@@ -294,9 +308,12 @@ export const Filter = /* @__PURE__ */ withRef(function Filter({
         );
         return match?.label ?? selectedValues[0];
       }
-      return `${selectedValues.length} selected`;
+      return (
+        labels?.selected?.(selectedValues.length) ??
+        `${selectedValues.length} selected`
+      );
     },
-    [],
+    [labels],
   );
 
   const triggerIconNode = React.useMemo(() => {
@@ -332,13 +349,16 @@ export const Filter = /* @__PURE__ */ withRef(function Filter({
                   size="sm"
                   variant="success"
                   className="absolute -top-1.5 -right-1.5"
-                  aria-label={`${selectedItemCount} selected`}
+                  aria-label={
+                    labels?.selected?.(selectedItemCount) ??
+                    `${selectedItemCount} selected`
+                  }
                 />
               )}
             </Button>
           }
         />
-        <DropdownMenuContent align="start">
+        <DropdownMenuContent align="start" className={filterMenuClassName}>
           {categories.map((category) => {
             const searchable = category.searchable !== false;
             const selected = values[category.id] ?? [];
@@ -351,6 +371,7 @@ export const Filter = /* @__PURE__ */ withRef(function Filter({
                   {category.label}
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent
+                  className={filterMenuClassName}
                   searchable={searchable}
                   searchPlaceholder={
                     category.searchPlaceholder ??
@@ -376,7 +397,9 @@ export const Filter = /* @__PURE__ */ withRef(function Filter({
                       {option.label}
                     </DropdownMenuCheckboxItem>
                   ))}
-                  <DropdownMenuEmpty>No results found.</DropdownMenuEmpty>
+                  <DropdownMenuEmpty>
+                    {labels?.noResults ?? "No results found."}
+                  </DropdownMenuEmpty>
                 </DropdownMenuSubContent>
               </DropdownMenuSub>
             );
@@ -419,9 +442,15 @@ export const Filter = /* @__PURE__ */ withRef(function Filter({
                           variant="ghost"
                           size="xs"
                           className="h-full rounded-none border-0 border-r border-border px-2 focus-visible:z-10"
-                          aria-label={`Change ${category.label} operator, current value ${op}`}
+                          aria-label={
+                            labels?.changeOperator?.(
+                              category.label,
+                              labels.operators?.[op] ?? op,
+                            ) ??
+                            `Change ${category.label} operator, current value ${op}`
+                          }
                         >
-                          {op}
+                          {labels?.operators?.[op] ?? op}
                         </Button>
                       }
                     />
@@ -429,7 +458,7 @@ export const Filter = /* @__PURE__ */ withRef(function Filter({
                       align="start"
                       side="bottom"
                       sideOffset={4}
-                      className="min-w-[140px]"
+                      className={cn("min-w-[140px]", filterMenuClassName)}
                     >
                       <DropdownMenuRadioGroup
                         value={op}
@@ -438,14 +467,16 @@ export const Filter = /* @__PURE__ */ withRef(function Filter({
                         }
                       >
                         <DropdownMenuRadioItem value="is">
-                          is
+                          {labels?.operators?.is ?? "is"}
                         </DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value="is not">
-                          is not
-                        </DropdownMenuRadioItem>
+                        {category.allowNegation !== false && (
+                          <DropdownMenuRadioItem value="is not">
+                            {labels?.operators?.["is not"] ?? "is not"}
+                          </DropdownMenuRadioItem>
+                        )}
                         {showAnyOf && (
                           <DropdownMenuRadioItem value="is any of">
-                            is any of
+                            {labels?.operators?.["is any of"] ?? "is any of"}
                           </DropdownMenuRadioItem>
                         )}
                       </DropdownMenuRadioGroup>
@@ -465,7 +496,10 @@ export const Filter = /* @__PURE__ */ withRef(function Filter({
                           variant="ghost"
                           size="xs"
                           className="h-full rounded-none border-0 border-r border-border px-2 focus-visible:z-10"
-                          aria-label={`Change ${category.label} values, current value ${termText}`}
+                          aria-label={
+                            labels?.changeValues?.(category.label, termText) ??
+                            `Change ${category.label} values, current value ${termText}`
+                          }
                         >
                           {termText}
                         </Button>
@@ -475,6 +509,7 @@ export const Filter = /* @__PURE__ */ withRef(function Filter({
                       align="start"
                       side="bottom"
                       sideOffset={4}
+                      className={filterMenuClassName}
                     >
                       {category.options.map((option) => (
                         <DropdownMenuCheckboxItem
@@ -495,7 +530,9 @@ export const Filter = /* @__PURE__ */ withRef(function Filter({
                           {option.label}
                         </DropdownMenuCheckboxItem>
                       ))}
-                      <DropdownMenuEmpty>No results found.</DropdownMenuEmpty>
+                      <DropdownMenuEmpty>
+                        {labels?.noResults ?? "No results found."}
+                      </DropdownMenuEmpty>
                     </DropdownMenuContent>
                   </DropdownMenu>
 
@@ -505,7 +542,10 @@ export const Filter = /* @__PURE__ */ withRef(function Filter({
                     size="icon-xs"
                     onClick={() => clearCategory(categoryId)}
                     className="h-full rounded-none rounded-e-[inherit] hover:bg-muted focus-visible:z-10"
-                    aria-label={`Remove ${category.label} filter`}
+                    aria-label={
+                      labels?.removeFilter?.(category.label) ??
+                      `Remove ${category.label} filter`
+                    }
                   >
                     <HugeiconsIcon
                       icon={X}
@@ -568,7 +608,10 @@ export const Sort = /* @__PURE__ */ withRef(function Sort({
             )
           }
         />
-        <DropdownMenuContent align="start" className="min-w-[220px]">
+        <DropdownMenuContent
+          align="start"
+          className={cn("min-w-[220px]", filterMenuClassName)}
+        >
           <DropdownMenuRadioGroup
             value={value}
             onValueChange={(next) => {

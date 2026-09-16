@@ -33,7 +33,7 @@ Place one TooltipProvider near the application root. TooltipContent owns its por
       <Button variant="outline" size="icon" aria-label="Add to library" />
     }
   >
-    <BookmarkPlusIcon />
+    <HugeiconsIcon icon={BookmarkPlusIcon} />
   </TooltipTrigger>
   <TooltipContent>Add to library</TooltipContent>
 </Tooltip>

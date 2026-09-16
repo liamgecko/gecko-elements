@@ -34,14 +34,14 @@ export function DataTableSelectActions({
   triggerLabel = "Actions on selected",
   children,
 }: DataTableSelectActionsProps) {
-  const { table, selectActions, onSelectAction } =
+  const { table, selectActions, onSelectAction, loading, updating, error } =
     useDataTableContext<unknown>();
   const selectedRows = table.getSelectedRowModel().rows;
   const selectedCount = selectedRows.length;
 
   const fromProvider = selectActions.length > 0;
 
-  if (!enabled || selectedCount === 0) {
+  if (!enabled || selectedCount === 0 || loading || updating || error) {
     return null;
   }
 
@@ -77,6 +77,7 @@ export function DataTableSelectActions({
                         onSelectAction?.(action.id, { selectedRows })
                       }
                     >
+                      {action.icon}
                       {action.label}
                     </DropdownMenuItem>
                   </React.Fragment>

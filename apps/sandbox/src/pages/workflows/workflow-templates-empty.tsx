@@ -1,4 +1,6 @@
-import { LayoutTemplate, Plus } from "lucide-react"
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import LayoutTemplate from "@hugeicons/core-free-icons/Layout01Icon";
+import Plus from "@hugeicons/core-free-icons/PlusIcon";
 import { useNavigate } from "react-router-dom"
 
 import { Button } from "@geckolabs/elements/components/button"
@@ -19,7 +21,7 @@ export function WorkflowTemplatesEmpty() {
   return (
     <Empty>
       <EmptyMedia variant="icon">
-        <LayoutTemplate aria-hidden />
+        <HugeiconsIcon icon={LayoutTemplate} aria-hidden />
       </EmptyMedia>
       <EmptyHeader>
         <EmptyTitle>No templates yet</EmptyTitle>
@@ -33,7 +35,7 @@ export function WorkflowTemplatesEmpty() {
           type="button"
           onClick={() => navigate(getWorkflowTemplateNewPath())}
         >
-          <Plus data-icon="inline-start" aria-hidden />
+          <HugeiconsIcon icon={Plus} data-icon="inline-start" aria-hidden />
           Create new template
         </Button>
       </EmptyContent>

@@ -1,4 +1,5 @@
-import { CheckCheck } from "lucide-react"
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
 
 import { Button } from "@geckolabs/elements/components/button"
 import {
@@ -61,7 +62,7 @@ export function AssistantRenameConversationDialog({
         </DialogWrapper>
         <DialogFooter showCloseButton closeButtonText="Cancel">
           <Button type="button" disabled={!canSave} onClick={onSave}>
-            <CheckCheck data-icon="inline-start" aria-hidden />
+            <HugeiconsIcon icon={CheckCheck} data-icon="inline-start" aria-hidden />
             Save
           </Button>
         </DialogFooter>

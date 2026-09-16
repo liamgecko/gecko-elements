@@ -12,19 +12,27 @@ import {
   TooltipTrigger,
 } from "@geckolabs/elements/components/tooltip";
 
+type CardSize = "sm" | "md" | "lg";
+
+const CardSizeContext = React.createContext<CardSize>("md");
+
 const Card = /* @__PURE__ */ withRef(function Card({
   className,
+  size = "md",
   ...props
-}: React.ComponentProps<"div">) {
+}: React.ComponentProps<"div"> & { size?: CardSize }) {
   return (
-    <div
-      data-slot="card"
-      className={cn(
-        "ring-foreground/10 bg-card text-card-foreground gap-0 overflow-hidden rounded-sm text-sm ring-1 has-[>img:first-child]:pt-0 *:[img:first-child]:rounded-t-sm *:[img:last-child]:rounded-b-sm group/card flex flex-col",
-        className,
-      )}
-      {...props}
-    />
+    <CardSizeContext.Provider value={size}>
+      <div
+        data-slot="card"
+        data-size={size}
+        className={cn(
+          "ring-foreground/10 bg-card text-card-foreground gap-0 overflow-hidden rounded-sm text-sm ring-1 has-[>img:first-child]:pt-0 *:[img:first-child]:rounded-t-sm *:[img:last-child]:rounded-b-sm group/card flex flex-col",
+          className,
+        )}
+        {...props}
+      />
+    </CardSizeContext.Provider>
   );
 });
 
@@ -34,11 +42,16 @@ const CardTitle = /* @__PURE__ */ withRef(function CardTitle({
   children,
   ...props
 }: useRender.ComponentProps<"h3">) {
+  const size = React.useContext(CardSizeContext);
   return useRender({
     defaultTagName: "h3",
     props: mergeProps<"h3">(
       {
-        className: cn("text-lg leading-normal font-semibold", className),
+        className: cn(
+          "leading-normal font-semibold",
+          size === "sm" ? "text-base" : size === "lg" ? "text-2xl" : "text-lg",
+          className,
+        ),
         children,
       },
       props,
@@ -54,10 +67,15 @@ const CardDescription = /* @__PURE__ */ withRef(function CardDescription({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const size = React.useContext(CardSizeContext);
   return (
     <div
       data-slot="card-description"
-      className={cn("text-muted-foreground text-sm", className)}
+      className={cn(
+        "text-muted-foreground",
+        size === "sm" ? "text-xs" : "text-sm",
+        className,
+      )}
       {...props}
     />
   );
@@ -124,6 +142,7 @@ const CardHeader = /* @__PURE__ */ withRef(function CardHeader({
   /** Show CardDescription in a help tooltip instead of under the title. */
   tooltip?: boolean;
 }) {
+  const size = React.useContext(CardSizeContext);
   const { actions, descriptions, main } = partitionCardHeaderChildren(children);
 
   const descriptionTooltipBody =
@@ -144,7 +163,8 @@ const CardHeader = /* @__PURE__ */ withRef(function CardHeader({
       <div
         data-slot="card-header"
         className={cn(
-          "gap-0.5 rounded-t-sm border-b p-4 group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]",
+          "rounded-t-sm border-b p-4 group/card-header @container/card-header grid auto-rows-min items-start has-data-[slot=card-action]:grid-cols-[1fr_auto] has-data-[slot=card-description]:grid-rows-[auto_auto]",
+          size === "sm" ? "gap-0" : "gap-0.5",
           className,
         )}
         {...props}
@@ -162,6 +182,7 @@ const CardHeader = /* @__PURE__ */ withRef(function CardHeader({
         actions.length > 0
           ? "grid grid-cols-[1fr_auto] items-start gap-x-2 gap-y-1"
           : "flex flex-col gap-1",
+        size === "sm" && "gap-y-0",
         className,
       )}
       {...props}

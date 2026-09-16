@@ -47,6 +47,7 @@ export default function EditPaymentItemPage() {
   const navigate = useNavigate();
   const { paymentItem, loading, error, configured } =
     usePaymentItem(paymentItemId);
+  const setIsSavingGuard = React.useRef(false);
   const [isSaving, setIsSaving] = React.useState(false);
 
   if (!configured) {
@@ -86,7 +87,9 @@ export default function EditPaymentItemPage() {
       initialValues={toFormValues(paymentItem)}
       isSaving={isSaving}
       onSubmit={async (values) => {
-        setIsSaving(true);
+        if (setIsSavingGuard.current) return;
+    setIsSavingGuard.current = true;
+    setIsSaving(true);
         try {
           await paymentItemsRepository.updatePaymentItem(paymentItem.id, {
             name: values.name,
@@ -112,7 +115,8 @@ export default function EditPaymentItemPage() {
             type: "error",
           });
         } finally {
-          setIsSaving(false);
+          setIsSavingGuard.current = false;
+      setIsSaving(false);
         }
       }}
     />

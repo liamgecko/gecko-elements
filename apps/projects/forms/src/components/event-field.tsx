@@ -1,3 +1,4 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react";
 
 import { Button } from "@geckolabs/elements/components/button";
@@ -11,16 +12,14 @@ import {
 } from "@geckolabs/elements/components/pagination";
 import { Search } from "@geckolabs/elements/components/search";
 import { cn } from "@geckolabs/elements/lib/utils";
-import {
-  ArrowDownAZ,
-  ArrowUpAZ,
-  CalendarDays,
-  CircleHelp,
-  MapPin,
-  Plus,
-  Ticket,
-  Trash2,
-} from "lucide-react";
+import ArrowDownAZ from "@hugeicons/core-free-icons/SortingAZ01Icon";
+import ArrowUpAZ from "@hugeicons/core-free-icons/SortingZA01Icon";
+import CalendarDays from "@hugeicons/core-free-icons/Calendar03Icon";
+import CircleHelp from "@hugeicons/core-free-icons/HelpCircleIcon";
+import MapPin from "@hugeicons/core-free-icons/Location01Icon";
+import Plus from "@hugeicons/core-free-icons/PlusIcon";
+import Ticket from "@hugeicons/core-free-icons/Ticket01Icon";
+import Trash2 from "@hugeicons/core-free-icons/Delete02Icon";
 
 import { currencyFormatter, formatCost } from "../lib/booking";
 
@@ -129,7 +128,7 @@ export function EventField({
           {event.dateTime}
         </p>
         <p className="mt-2 flex items-center gap-1.5 text-2xs font-medium">
-          <Ticket className="size-3.5 text-muted-foreground" />
+          <HugeiconsIcon icon={Ticket} className="size-3.5 text-muted-foreground" />
           {formatCost(event.cost)}
         </p>
       </div>
@@ -158,9 +157,9 @@ export function EventField({
             onClick={() => setSortAscending((current) => !current)}
           >
             {sortAscending ? (
-              <ArrowDownAZ aria-hidden />
+              <HugeiconsIcon icon={ArrowDownAZ} aria-hidden />
             ) : (
-              <ArrowUpAZ aria-hidden />
+              <HugeiconsIcon icon={ArrowUpAZ} aria-hidden />
             )}
           </Button>
         </div>
@@ -182,17 +181,17 @@ export function EventField({
                     <h3 className="text-sm font-semibold">{session.title}</h3>
                     <div className="mt-1 flex flex-col gap-1">
                       <p className="flex items-center gap-1.5 text-2xs text-muted-foreground">
-                        <CalendarDays className="size-3.5 shrink-0" />
+                        <HugeiconsIcon icon={CalendarDays} className="size-3.5 shrink-0" />
                         <span>
                           {session.date}, {session.time}
                         </span>
                       </p>
                       <p className="flex items-center gap-1.5 text-2xs text-muted-foreground">
-                        <MapPin className="size-3.5 shrink-0" />
+                        <HugeiconsIcon icon={MapPin} className="size-3.5 shrink-0" />
                         <span className="truncate">{session.venue}</span>
                       </p>
                       <p className="flex items-center gap-1.5 text-2xs font-medium text-muted-foreground">
-                        <Ticket className="size-3.5 shrink-0" />
+                        <HugeiconsIcon icon={Ticket} className="size-3.5 shrink-0" />
                         {formatCost(session.cost)}
                       </p>
                     </div>
@@ -202,7 +201,7 @@ export function EventField({
                       size="sm"
                       className="-ml-2.5 mt-1 text-muted-foreground"
                     >
-                      <CircleHelp />
+                      <HugeiconsIcon icon={CircleHelp} />
                       View session information
                     </Button>
                   </div>
@@ -214,7 +213,7 @@ export function EventField({
                     aria-pressed={selected}
                     onClick={() => toggleSession(session.id)}
                   >
-                    {selected ? <Trash2 aria-hidden /> : <Plus aria-hidden />}
+                    {selected ? <HugeiconsIcon icon={Trash2} aria-hidden /> : <HugeiconsIcon icon={Plus} aria-hidden />}
                     {selected ? "Remove session" : "Book session"}
                   </Button>
                 </article>
@@ -300,7 +299,7 @@ export function EventField({
                   size="sm"
                   onClick={() => toggleSession(session.id)}
                 >
-                  <Trash2 />
+                  <HugeiconsIcon icon={Trash2} />
                   Remove session
                 </Button>
               </div>

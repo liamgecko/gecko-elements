@@ -6,6 +6,8 @@ import * as React from "react";
 import { cn } from "@geckolabs/elements/lib/utils";
 
 type LabelProps = React.ComponentProps<"label"> & {
+  /** Show the marker before an asynchronously loaded required control mounts. */
+  required?: boolean;
   /** Internal: group controls render requiredness on their legend instead. */
   hideRequiredMarker?: boolean;
 };
@@ -14,35 +16,54 @@ const Label = /* @__PURE__ */ withRef(function Label({
   className,
   htmlFor,
   children,
+  required = false,
   hideRequiredMarker = false,
   ...props
 }: LabelProps) {
   const [showRequired, setShowRequired] = React.useState(false);
 
   React.useLayoutEffect(() => {
-    if (!htmlFor || hideRequiredMarker) {
+    if (!htmlFor || hideRequiredMarker || required) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- sync required marker from associated control
       setShowRequired(false);
       return;
     }
 
-    const control = document.getElementById(htmlFor);
+    let control = document.getElementById(htmlFor);
     const syncRequired = () => {
-      setShowRequired(control?.hasAttribute("required") ?? false);
+      setShowRequired(
+        control?.hasAttribute("required") === true ||
+          control?.getAttribute("aria-required") === "true",
+      );
     };
 
     syncRequired();
 
-    if (!control) return;
-
     const observer = new MutationObserver(syncRequired);
-    observer.observe(control, {
-      attributes: true,
-      attributeFilter: ["required"],
+    const observeControl = () => {
+      if (!control) return;
+      observer.observe(control, {
+        attributes: true,
+        attributeFilter: ["required", "aria-required"],
+      });
+    };
+    // A persistent label may mount before its control replaces a skeleton.
+    const pendingControl = new MutationObserver(() => {
+      control = document.getElementById(htmlFor);
+      if (!control) return;
+      pendingControl.disconnect();
+      syncRequired();
+      observeControl();
     });
+    if (control) observeControl();
+    else
+      pendingControl.observe(document.body, { childList: true, subtree: true });
 
-    return () => observer.disconnect();
-  }, [hideRequiredMarker, htmlFor]);
+    return () => {
+      observer.disconnect();
+      pendingControl.disconnect();
+    };
+  }, [hideRequiredMarker, htmlFor, required]);
 
   return (
     <label
@@ -55,7 +76,7 @@ const Label = /* @__PURE__ */ withRef(function Label({
       {...props}
     >
       {children}
-      {showRequired && (
+      {!hideRequiredMarker && (required || showRequired) && (
         <span className="text-destructive" aria-hidden>
           *
         </span>

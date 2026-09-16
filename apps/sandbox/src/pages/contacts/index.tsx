@@ -1,5 +1,7 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { useLocation } from "react-router-dom"
-import { Cog, Inbox } from "lucide-react"
+import Cog from "@hugeicons/core-free-icons/Settings01Icon";
+import Inbox from "@hugeicons/core-free-icons/InboxIcon";
 
 import { Container } from "@geckolabs/elements/components/container"
 
@@ -34,7 +36,7 @@ export default function ContactsPage() {
         secondaryActions={[
           {
             kind: "menu",
-            icon: <Cog aria-hidden />,
+            icon: <HugeiconsIcon icon={Cog} aria-hidden />,
             ariaLabel: "Contact options",
             items: [
               { label: "Import contacts" },
@@ -47,7 +49,7 @@ export default function ContactsPage() {
       <Container>
         <Empty>
           <EmptyMedia variant="icon">
-            <Inbox />
+            <HugeiconsIcon icon={Inbox} />
           </EmptyMedia>
           <EmptyHeader>
             <EmptyTitle>No contacts yet</EmptyTitle>

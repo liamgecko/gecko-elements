@@ -56,6 +56,7 @@ export default function FormLayout() {
     name: "",
     status: "draft",
   });
+  const setIsSavingGuard = React.useRef(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const [formsToArchive, setFormsToArchive] = React.useState<Form[] | null>(
     null,
@@ -98,6 +99,8 @@ export default function FormLayout() {
       return;
     }
 
+    if (setIsSavingGuard.current) return;
+    setIsSavingGuard.current = true;
     setIsSaving(true);
 
     try {
@@ -113,6 +116,7 @@ export default function FormLayout() {
         type: "error",
       });
     } finally {
+      setIsSavingGuard.current = false;
       setIsSaving(false);
     }
   };
@@ -170,7 +174,6 @@ export default function FormLayout() {
             ? {
                 label: "Update form",
                 onClick: () => void handleUpdate(),
-                loading: isSaving,
               }
             : undefined
         }

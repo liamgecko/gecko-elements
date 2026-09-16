@@ -1,3 +1,5 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import { actionIcons } from "@geckolabs/elements/lib/action-icons";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,7 +25,9 @@ import {
 } from "@/components/layout/docs-section";
 
 export function AlertDialogPage() {
-  const importSnippet = `import {
+  const importSnippet = `import { actionIcons } from "@geckolabs/elements/lib/action-icons";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -58,8 +62,9 @@ export function AlertDialogPage() {
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
-      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogCancel><HugeiconsIcon icon={actionIcons.cancel} aria-hidden="true" data-icon="inline-start" />Cancel</AlertDialogCancel>
       <AlertDialogAction onClick={saveChanges}>
+        <HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />
         Save changes
       </AlertDialogAction>
     </AlertDialogFooter>
@@ -79,8 +84,9 @@ export function AlertDialogPage() {
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
-      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogCancel><HugeiconsIcon icon={actionIcons.cancel} aria-hidden="true" data-icon="inline-start" />Cancel</AlertDialogCancel>
       <AlertDialogAction onClick={deleteAccount}>
+        <HugeiconsIcon icon={actionIcons.delete} aria-hidden="true" data-icon="inline-start" />
         Delete account
       </AlertDialogAction>
     </AlertDialogFooter>
@@ -99,8 +105,9 @@ export function AlertDialogPage() {
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
-      <AlertDialogCancel>Keep editing</AlertDialogCancel>
+      <AlertDialogCancel><HugeiconsIcon icon={actionIcons.keepEditing} aria-hidden="true" data-icon="inline-start" />Keep editing</AlertDialogCancel>
       <AlertDialogAction onClick={discardChanges}>
+        <HugeiconsIcon icon={actionIcons.discard} aria-hidden="true" data-icon="inline-start" />
         Discard changes
       </AlertDialogAction>
     </AlertDialogFooter>
@@ -197,8 +204,22 @@ export function AlertDialogPage() {
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>Delete account</AlertDialogAction>
+                    <AlertDialogCancel>
+                      <HugeiconsIcon
+                        icon={actionIcons.cancel}
+                        aria-hidden="true"
+                        data-icon="inline-start"
+                      />
+                      Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction>
+                      <HugeiconsIcon
+                        icon={actionIcons.delete}
+                        aria-hidden="true"
+                        data-icon="inline-start"
+                      />
+                      Delete account
+                    </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
@@ -217,6 +238,35 @@ export function AlertDialogPage() {
           title="Discard changes"
           description="Use the default treatment when navigation would discard unsaved work. The cancel action keeps the user editing; the confirm action performs the discard and navigation."
         >
+          <div className="mb-6 space-y-3 text-sm text-muted-foreground">
+            <p>
+              Always use Alert dialog for application-controlled navigation that
+              would lose unsaved edits: tabs, same-tab links, breadcrumbs,
+              programmatic navigation and in-document Back/Forward. Do not use
+              <Code>window.confirm</Code> or <Code>window.alert</Code>.
+            </p>
+            <p>
+              Mount one shared navigation guard above the child routes. Keep the
+              form and URL unchanged until a decision. Keep editing preserves
+              values and returns focus; Discard changes restores the saved
+              baseline and continues the pending navigation exactly once.
+            </p>
+            <p>
+              Browser refresh, closing a tab or window, and cross-document unload
+              can only use native <Code>beforeunload</Code> protection. Browsers
+              cannot show a custom Alert dialog during unload. Avoid a second
+              prompt for a navigation already confirmed in the application.
+            </p>
+            <p>
+              The example below demonstrates dialog presentation. See the{' '}
+              <DocsPageLink to="/guides/application-patterns#persistent-editor">
+                persistent editor recipe
+              </DocsPageLink>{' '}
+              for the shared guard and connect it to your router's blocker.
+              Verify both choices, retained field values, focus return and
+              Back/Forward in the consuming app.
+            </p>
+          </div>
           <ComponentExample>
             <div className="space-y-6">
               <AlertDialog>
@@ -233,8 +283,22 @@ export function AlertDialogPage() {
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel>Keep editing</AlertDialogCancel>
-                    <AlertDialogAction>Discard changes</AlertDialogAction>
+                    <AlertDialogCancel>
+                      <HugeiconsIcon
+                        icon={actionIcons.keepEditing}
+                        aria-hidden="true"
+                        data-icon="inline-start"
+                      />
+                      Keep editing
+                    </AlertDialogCancel>
+                    <AlertDialogAction>
+                      <HugeiconsIcon
+                        icon={actionIcons.discard}
+                        aria-hidden="true"
+                        data-icon="inline-start"
+                      />
+                      Discard changes
+                    </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
@@ -268,8 +332,22 @@ export function AlertDialogPage() {
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>Save changes</AlertDialogAction>
+                    <AlertDialogCancel>
+                      <HugeiconsIcon
+                        icon={actionIcons.cancel}
+                        aria-hidden="true"
+                        data-icon="inline-start"
+                      />
+                      Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction>
+                      <HugeiconsIcon
+                        icon={actionIcons.save}
+                        aria-hidden="true"
+                        data-icon="inline-start"
+                      />
+                      Save changes
+                    </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>

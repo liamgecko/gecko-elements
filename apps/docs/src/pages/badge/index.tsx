@@ -63,17 +63,17 @@ export function BadgePage() {
 
   const sizesSnippet = `<Badge size="xs|sm|md|lg|xl">Badge</Badge>`;
 
-  const leftIconSnippet = `<Badge leftIcon={<Bell />}>
+  const leftIconSnippet = `<Badge leftIcon={<HugeiconsIcon icon={Bell} />}>
   Icon left
 </Badge>`;
 
-  const rightIconSnippet = `<Badge rightIcon={<ChevronRight />}>
+  const rightIconSnippet = `<Badge rightIcon={<HugeiconsIcon icon={ChevronRight} />}>
   Icon right
 </Badge>`;
 
   const bothIconsSnippet = `<Badge
-  leftIcon={<Bell />}
-  rightIcon={<ChevronRight />}
+  leftIcon={<HugeiconsIcon icon={Bell} />}
+  rightIcon={<HugeiconsIcon icon={ChevronRight} />}
 >
   Both icons
 </Badge>`;

@@ -59,10 +59,10 @@ export function ButtonGroupPage() {
 
   const orientationSnippet = `<ButtonGroup orientation="horizontal|vertical" aria-label="Zoom controls">
   <Button variant="outline" size="icon" aria-label="Zoom out">
-    <Minus aria-hidden="true" />
+    <HugeiconsIcon icon={Minus} aria-hidden="true" />
   </Button>
   <Button variant="outline" size="icon" aria-label="Zoom in">
-    <Plus aria-hidden="true" />
+    <HugeiconsIcon icon={Plus} aria-hidden="true" />
   </Button>
 </ButtonGroup>`;
 
@@ -90,7 +90,7 @@ export function ButtonGroupPage() {
   const inputSnippet = `<ButtonGroup aria-label="Search conversations">
   <Input type="search" aria-label="Search conversations" placeholder="Search..." />
   <Button variant="outline" size="icon" aria-label="Search">
-    <Search aria-hidden="true" />
+    <HugeiconsIcon icon={Search} aria-hidden="true" />
   </Button>
 </ButtonGroup>`;
 

@@ -108,8 +108,8 @@ export const DataTableFilters = /* @__PURE__ */ withRef(
         key={filterUiResetKey}
         categories={categories}
         className={cn(className)}
-        defaultValues={defaultValues}
-        defaultOperators={defaultOperators}
+        values={defaultValues}
+        operators={defaultOperators}
         onChange={handleChange}
         {...props}
       />

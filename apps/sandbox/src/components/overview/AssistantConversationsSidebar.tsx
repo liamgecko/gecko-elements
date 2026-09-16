@@ -1,5 +1,7 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react"
-import { ClockFading, MoreHorizontal } from "lucide-react"
+import ClockFading from "@hugeicons/core-free-icons/Clock04Icon";
+import MoreHorizontal from "@hugeicons/core-free-icons/MoreHorizontalIcon";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -87,7 +89,7 @@ function ConversationRow({
             />
           }
         >
-          <MoreHorizontal />
+          <HugeiconsIcon icon={MoreHorizontal} />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48">
           <DropdownMenuItem onClick={() => onShareConversation?.(conversation.id)}>
@@ -191,7 +193,7 @@ export function AssistantConversationsSidebar({
       className="absolute inset-y-0 end-0 z-20 h-full max-h-full border-l border-border bg-background text-foreground [&_[data-slot=sidebar-container]]:absolute! [&_[data-slot=sidebar-container]]:inset-y-0 [&_[data-slot=sidebar-container]]:end-0 [&_[data-slot=sidebar-container]]:h-full! [&_[data-slot=sidebar-container]]:max-h-full [&_[data-slot=sidebar-container]]:border-l [&_[data-slot=sidebar-container]]:border-border [&_[data-slot=sidebar-container]]:bg-background [&_[data-slot=sidebar-inner]]:bg-background [&_[data-slot=sidebar-inner]]:text-foreground"
     >
       <SidebarHeader className="h-[49px] shrink-0 flex-row items-center gap-2 border-b border-border px-3 py-0 md:px-4">
-        <ClockFading className="size-4 shrink-0" aria-hidden />
+        <HugeiconsIcon icon={ClockFading} className="size-4 shrink-0" aria-hidden />
         <span className="text-sm font-medium">Chat history</span>
       </SidebarHeader>
       <SidebarContent className="min-h-0 flex-1 bg-background">

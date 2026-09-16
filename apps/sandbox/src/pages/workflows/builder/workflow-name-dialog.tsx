@@ -1,4 +1,5 @@
-import { CheckCheck } from "lucide-react"
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
 
 import { Button } from "@geckolabs/elements/components/button"
 import {
@@ -51,7 +52,7 @@ export function WorkflowNameDialog({
   variant = "workflow",
 }: WorkflowNameDialogProps) {
   const trimmedName = name.trim()
-  const canSave = trimmedName.length > 0 && !saving
+  const canSave = trimmedName.length > 0
   const copy = workflowNameDialogCopy[variant]
 
   return (
@@ -70,7 +71,7 @@ export function WorkflowNameDialog({
               onChange={(event) => onNameChange(event.currentTarget.value)}
               autoFocus
               onKeyDown={(event) => {
-                if (event.key === "Enter" && canSave) {
+                if (event.key === "Enter" && canSave && !saving) {
                   event.preventDefault()
                   onSave()
                 }
@@ -83,9 +84,9 @@ export function WorkflowNameDialog({
             type="button"
             disabled={!canSave}
             aria-busy={saving}
-            onClick={onSave}
+            onClick={() => { if (!saving) onSave(); }}
           >
-            <CheckCheck data-icon="inline-start" aria-hidden />
+            <HugeiconsIcon icon={CheckCheck} data-icon="inline-start" aria-hidden />
             {copy.saveLabel}
           </Button>
         </DialogFooter>

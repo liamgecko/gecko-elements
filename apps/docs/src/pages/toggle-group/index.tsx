@@ -72,24 +72,24 @@ export function ToggleGroupPage() {
 └── ToggleGroupItem`;
   const basicSnippet = `<ToggleGroup defaultValue={["left"]} aria-label="Text alignment">
   <ToggleGroupItem value="left" aria-label="Align left">
-    <TextAlignStart aria-hidden="true" />
+    <HugeiconsIcon icon={TextAlignStart} aria-hidden="true" />
   </ToggleGroupItem>
   <ToggleGroupItem value="center" aria-label="Align centre">
-    <AlignCenter aria-hidden="true" />
+    <HugeiconsIcon icon={AlignCenter} aria-hidden="true" />
   </ToggleGroupItem>
   <ToggleGroupItem value="right" aria-label="Align right">
-    <TextAlignEnd aria-hidden="true" />
+    <HugeiconsIcon icon={TextAlignEnd} aria-hidden="true" />
   </ToggleGroupItem>
 </ToggleGroup>`;
   const multipleSnippet = `<ToggleGroup multiple defaultValue={["bold"]} aria-label="Text formatting">
   <ToggleGroupItem value="bold" aria-label="Bold">
-    <Bold aria-hidden="true" />
+    <HugeiconsIcon icon={Bold} aria-hidden="true" />
   </ToggleGroupItem>
   <ToggleGroupItem value="italic" aria-label="Italic">
-    <Italic aria-hidden="true" />
+    <HugeiconsIcon icon={Italic} aria-hidden="true" />
   </ToggleGroupItem>
   <ToggleGroupItem value="underline" aria-label="Underline">
-    <Underline aria-hidden="true" />
+    <HugeiconsIcon icon={Underline} aria-hidden="true" />
   </ToggleGroupItem>
 </ToggleGroup>`;
   const sizesSnippet = `<ToggleGroup size="sm|default|lg" aria-label="Text alignment">

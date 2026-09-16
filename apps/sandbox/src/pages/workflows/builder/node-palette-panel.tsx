@@ -1,5 +1,7 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react"
-import { PanelLeftClose, PanelLeftOpen } from "lucide-react"
+import PanelLeftClose from "@hugeicons/core-free-icons/LayoutAlignLeftIcon";
+import PanelLeftOpen from "@hugeicons/core-free-icons/LayoutLeftIcon";
 
 import { Button } from "@geckolabs/elements/components/button"
 import { asButtonCheckboxVariants } from "@geckolabs/elements/components/checkbox"
@@ -98,7 +100,7 @@ function PaletteItemRow({
     >
       <div className="flex w-full items-start gap-3">
         <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-muted">
-          <Icon
+          <HugeiconsIcon icon={Icon}
             aria-hidden
             className={cn("size-4 text-foreground", item.iconClassName)}
           />
@@ -167,9 +169,9 @@ export function NodePalettePanel({
             onClick={() => setPaletteOpen((open) => !open)}
           >
             {paletteOpen ? (
-              <PanelLeftClose aria-hidden className="size-4" />
+              <HugeiconsIcon icon={PanelLeftClose} aria-hidden className="size-4" />
             ) : (
-              <PanelLeftOpen aria-hidden className="size-4" />
+              <HugeiconsIcon icon={PanelLeftOpen} aria-hidden className="size-4" />
             )}
           </Button>
         </div>

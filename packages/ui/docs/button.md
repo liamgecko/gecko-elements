@@ -5,6 +5,8 @@ Status: Stable
 Source: `src/components/button.tsx`  
 Human documentation: `apps/docs/src/pages/button/index.tsx`
 
+Use [actionIcons](action-icons.md) with `HugeiconsIcon` from `@geckolabs/elements/lib/icon` for the labelled action examples below.
+
 ## Purpose
 
 Button starts an action. Its visible label states the outcome, such as “Save changes”, “Add person”, or “Remove filter”.
@@ -18,14 +20,14 @@ Default is the primary treatment. Omit `variant` and `size` for the main action.
 ```tsx
 import { Button } from "@geckolabs/elements/components/button";
 
-<Button onClick={saveChanges}>Save changes</Button>;
+<Button onClick={saveChanges}><HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />Save changes</Button>;
 ```
 
 Normally use one default Button per Header, dialog footer, form action row, or other local decision area. Use Outline for the normal secondary action.
 
 ```tsx
-<Button variant="outline" onClick={cancelChanges}>Cancel</Button>
-<Button onClick={saveChanges}>Save changes</Button>
+<Button variant="outline" onClick={cancelChanges}><HugeiconsIcon icon={actionIcons.cancel} aria-hidden="true" data-icon="inline-start" />Cancel</Button>
+<Button onClick={saveChanges}><HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />Save changes</Button>
 ```
 
 ## Variants
@@ -77,7 +79,7 @@ Place a supporting icon beside visible text and mark its logical position with `
 
 ```tsx
 <Button>
-  <PlusIcon data-icon="inline-start" />
+  <HugeiconsIcon icon={PlusIcon} data-icon="inline-start" />
   Add person
 </Button>
 
@@ -93,61 +95,47 @@ Icon-only Buttons use an icon size and a contextual accessible name:
 
 ```tsx
 <Button size="icon" aria-label="Open settings">
-  <SettingsIcon />
+  <HugeiconsIcon icon={Settings01Icon} />
 </Button>
 ```
 
-## Loading
+## Saving
 
-Set `loading` while the action is running.
+Save buttons never show a loading/saving state. Keep the label, icon and appearance unchanged; do not set `loading` or disable the button merely because a save is pending. Guard duplicate submission synchronously in the handler (a ref or the shared async-action recipe), release the guard in `finally`, and show success or failure through Toast. Validation remains beside the field.
 
 ```tsx
-import { useState } from "react";
-
-import { Button } from "@geckolabs/elements/components/button";
-
-export function SaveChangesButton({
-  saveChanges,
-}: {
-  saveChanges: () => Promise<void>;
-}) {
-  const [isSaving, setIsSaving] = useState(false);
-
-  async function handleSave() {
-    setIsSaving(true);
-
-    try {
-      await saveChanges();
-    } finally {
-      setIsSaving(false);
-    }
+const pending = useRef(false);
+async function handleSave() {
+  if (pending.current) return;
+  pending.current = true;
+  try {
+    await saveChanges();
+    // Show the application's success toast.
+  } catch (error) {
+    // Show the application's error toast.
+  } finally {
+    pending.current = false;
   }
-
-  return (
-    <Button loading={isSaving} onClick={handleSave}>
-      {isSaving ? "Saving changes" : "Save changes"}
-    </Button>
-  );
 }
-```
-
-Button places the approved Loader beside the visible action wording, sets `aria-busy`, prevents repeated activation, and remains focusable. The Loader stops under reduced-motion preferences.
-
-Keep meaningful action wording as children. It may change from the action to its present-progress form, such as “Save changes” to “Saving changes”. For an icon-only loading Button, retain the action’s accessible name:
-
-```tsx
-<Button size="icon" loading={isRefreshing} aria-label="Refresh results">
-  <RefreshIcon />
+<Button onClick={handleSave}>
+  <HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />
+  Save changes
 </Button>
 ```
 
-Callers do not add a Spinner, `disabled`, or `focusableWhenDisabled` for this state.
+## Other asynchronous actions
+
+The `loading` prop remains available for non-save actions such as generating a report. Button owns the indicator, busy semantics, repeated-activation protection and focus retention. Keep the action label stable. Never use this state for Save or Update actions that persist edits.
+
+```tsx
+<Button loading={isGenerating} onClick={generateReport}>Generate report</Button>
+```
 
 ## Disabled
 
 Set `disabled` only when an action is genuinely unavailable because of permission or context. A disabled Button is excluded from normal interaction unless the advanced Base UI `focusableWhenDisabled` property is explicitly required.
 
-Keep form submission enabled before validation. On submit, show field errors and focus the first invalid field. Use `loading` after submission starts.
+Keep form submission enabled before validation. On submit, show field errors and focus the first invalid field. For saves, keep the button unchanged after submission and guard duplicates in the handler. Non-save actions may use `loading` when their workflow calls for it.
 
 ## Dropdown trigger
 
@@ -187,7 +175,8 @@ Base UI safely renders Button with `type="button"` by default. Set `type="submit
 ```tsx
 <form onSubmit={submitForm}>
   {/* fields */}
-  <Button type="submit" loading={isSubmitting}>
+  <Button type="submit">
+    <HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />
     Save changes
   </Button>
 </form>
@@ -230,3 +219,7 @@ Use `className` only for documented layout integration such as width or parent a
 ## Relationship to Shadcn
 
 Gecko retains Shadcn’s Base UI Button foundation, CVA variant interface, native semantics, render composition, focus treatment, disabled behaviour, and icon-position attributes. Gecko applies its compact radius, spacing and colours; adds contextual ghost treatments, outlined and quiet destructive treatments, `icon-2xs`, the approved dropdown chevron, and an owned loading state. Gecko deliberately uses focused colour transitions rather than `transition-all`.
+
+## Application integration
+
+Use the [tested application patterns](application-patterns.md) for data ownership, loading, asynchronous operations and navigation. Preserve source behaviour with the [migration checklist](migration-checklist.md). Common action glyphs come from the [action icon map](action-icons.md).

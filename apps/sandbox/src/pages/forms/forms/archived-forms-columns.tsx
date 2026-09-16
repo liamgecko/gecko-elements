@@ -1,5 +1,7 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Lock, LockOpen } from "lucide-react";
+import Lock from "@hugeicons/core-free-icons/SquareLock01Icon";
+import LockOpen from "@hugeicons/core-free-icons/SquareUnlock01Icon";
 
 import { Avatar } from "@geckolabs/elements/components/avatar";
 import {
@@ -36,7 +38,7 @@ function FormLockStatusCell({ form }: { form: Form }) {
         <TooltipTrigger
           render={
             <span className="inline-flex text-muted-foreground">
-              <Lock className="size-4" aria-label="Form locked" />
+              <HugeiconsIcon icon={Lock} className="size-4" aria-label="Form locked" />
             </span>
           }
         />
@@ -53,7 +55,7 @@ function FormLockStatusCell({ form }: { form: Form }) {
       <TooltipTrigger
         render={
           <span className="inline-flex text-muted-foreground">
-            <LockOpen
+            <HugeiconsIcon icon={LockOpen}
               className="size-4"
               aria-label="Form locked with edit access"
             />

@@ -1,5 +1,7 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react"
-import { Lightbulb, X } from "lucide-react"
+import Lightbulb from "@hugeicons/core-free-icons/BulbIcon";
+import X from "@hugeicons/core-free-icons/XIcon";
 
 import { Button } from "@geckolabs/elements/components/button"
 import {
@@ -55,7 +57,7 @@ export function SuggestedPrompts({
     >
       <div className="mb-3 flex items-center justify-between gap-2">
         <h2 className="text-sm font-medium text-foreground flex items-center gap-1">
-          <Lightbulb className="size-4" />
+          <HugeiconsIcon icon={Lightbulb} className="size-4" />
           Suggested prompts
         </h2>
         <Button
@@ -65,7 +67,7 @@ export function SuggestedPrompts({
           aria-label="Dismiss suggested prompts"
           onClick={onDismiss}
         >
-          <X />
+          <HugeiconsIcon icon={X} />
         </Button>
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">

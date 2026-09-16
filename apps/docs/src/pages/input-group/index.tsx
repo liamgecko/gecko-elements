@@ -64,7 +64,7 @@ export function InputGroupPage() {
   const basicSnippet = `<InputGroup>
   <InputGroupInput aria-label="Search" placeholder="Search..." />
   <InputGroupAddon align="inline-start">
-    <Search aria-hidden="true" />
+    <HugeiconsIcon icon={Search} aria-hidden="true" />
   </InputGroupAddon>
 </InputGroup>`;
 
@@ -93,10 +93,10 @@ export function InputGroupPage() {
   const iconSnippet = `<InputGroup>
   <InputGroupInput aria-label="Email" placeholder="Enter your email" />
   <InputGroupAddon align="inline-start">
-    <Mail aria-hidden="true" />
+    <HugeiconsIcon icon={Mail} aria-hidden="true" />
   </InputGroupAddon>
   <InputGroupAddon align="inline-end">
-    <Check aria-hidden="true" />
+    <HugeiconsIcon icon={Check} aria-hidden="true" />
   </InputGroupAddon>
 </InputGroup>`;
 
@@ -113,7 +113,7 @@ export function InputGroupPage() {
   const kbdSnippet = `<InputGroup>
   <InputGroupInput aria-label="Search" placeholder="Search..." />
   <InputGroupAddon align="inline-start">
-    <Search aria-hidden="true" />
+    <HugeiconsIcon icon={Search} aria-hidden="true" />
   </InputGroupAddon>
   <InputGroupAddon align="inline-end">
     <Kbd>⌘K</Kbd>
@@ -127,7 +127,7 @@ export function InputGroupPage() {
       <DropdownMenuTrigger
         render={
           <InputGroupButton aria-label="File actions">
-            <EllipsisIcon aria-hidden="true" />
+            <HugeiconsIcon icon={EllipsisIcon} aria-hidden="true" />
           </InputGroupButton>
         }
       />
@@ -151,7 +151,7 @@ export function InputGroupPage() {
   <InputGroupInput aria-label="Invite link" value="gecko.example/invite" readOnly />
   <InputGroupAddon align="inline-end">
     <InputGroupButton aria-label="Copy invite link">
-      <Copy aria-hidden="true" />
+      <HugeiconsIcon icon={Copy} aria-hidden="true" />
     </InputGroupButton>
   </InputGroupAddon>
 </InputGroup>`;
@@ -159,7 +159,7 @@ export function InputGroupPage() {
   const sizesSnippet = `<InputGroup size="sm|md|lg">
   <InputGroupInput aria-label="Search" placeholder="Search..." />
   <InputGroupAddon align="inline-end">
-    <Search aria-hidden="true" />
+    <HugeiconsIcon icon={Search} aria-hidden="true" />
   </InputGroupAddon>
 </InputGroup>`;
 

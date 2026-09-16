@@ -1,12 +1,11 @@
-import {
-  CirclePlay,
-  Split,
-  Timer,
-  Waypoints,
-  Workflow,
-  Zap,
-} from "lucide-react"
-import type { LucideIcon } from "lucide-react"
+import type { IconSvgElement } from "@geckolabs/elements/lib/icon";
+import CirclePlay from "@hugeicons/core-free-icons/PlayCircleIcon";
+import Split from "@hugeicons/core-free-icons/SplitIcon";
+import Timer from "@hugeicons/core-free-icons/Timer01Icon";
+import Waypoints from "@hugeicons/core-free-icons/WorkflowCircle01Icon";
+import Workflow from "@hugeicons/core-free-icons/WorkflowSquare01Icon";
+import Zap from "@hugeicons/core-free-icons/FlashIcon";
+
 
 import type { WorkflowNodeKind } from "../workflows-data"
 
@@ -14,7 +13,7 @@ export type WorkflowNodeCatalogEntry = {
   kind: WorkflowNodeKind
   title: string
   description: string
-  icon: LucideIcon
+  icon: IconSvgElement
   iconClassName?: string
 }
 

@@ -22,6 +22,8 @@ const TableExpandableRowContext =
 
 type TableProps = React.ComponentProps<"table"> & {
   hoverable?: boolean;
+  /** Accessibility and scroll integration for the non-nested table scrollport. */
+  containerProps?: React.ComponentProps<"div">;
   /**
    * Renders only the `<table>` (no outer scroll wrapper). Use for tables nested
    * inside a cell, e.g. expandable row details.
@@ -41,6 +43,7 @@ type TableProps = React.ComponentProps<"table"> & {
 const Table = /* @__PURE__ */ withRef(function Table({
   className,
   hoverable = false,
+  containerProps,
   nested = false,
   title,
   description,
@@ -113,7 +116,11 @@ const Table = /* @__PURE__ */ withRef(function Table({
     <TableHoverContext.Provider value={hoverable}>
       <div
         data-slot="table-container"
-        className="relative min-w-0 w-full overflow-x-auto rounded-md"
+        {...containerProps}
+        className={cn(
+          "relative min-w-0 w-full overflow-x-auto rounded-md",
+          containerProps?.className,
+        )}
       >
         {table}
       </div>

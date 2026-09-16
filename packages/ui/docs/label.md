@@ -50,7 +50,30 @@ Set native `required` on the associated control. When Label’s `htmlFor` resolv
 </Field>
 ```
 
-Do not type an asterisk into the label. The marker is decorative because the control already exposes native required semantics.
+Required composite controls such as Combobox expose `aria-required="true"` on
+their labelled input. Label recognises this as well as native `required`, and
+updates the marker when either attribute changes. Keep `required` on the
+Combobox root; do not require its search text independently of its selection.
+
+Every required field must display the required marker. Automatic detection also
+handles controls that mount after their label, such as a control replacing a
+skeleton. If requiredness is already known while the control is loading, set
+`required` on Label or FieldLabel as well so the marker is visible immediately:
+
+```tsx
+<Field>
+  <FieldLabel htmlFor="body" required>Body</FieldLabel>
+  {loading ? <Skeleton aria-hidden className="h-32" /> : (
+    <Textarea id="body" name="body" required />
+  )}
+</Field>
+```
+
+The label's `required` property controls its visual marker; retain `required`
+(or the owning component's required interface) on the control for semantics and
+validation.
+
+Do not type an asterisk into the label. The marker is decorative because the control already exposes required semantics.
 
 ## Disabled state
 
@@ -71,7 +94,7 @@ Do not use `aria-disabled` on Label. The control owns disabled semantics.
 | --------- | -------- | ----------------------------------------------------------------------- |
 | `htmlFor` | `string` | Connects Label to a control and enables Gecko’s automatic required mark |
 
-Label also accepts native label properties.
+Label also accepts `required?: boolean` (default `false`) to show the marker before its control mounts, and native label properties.
 
 `ControlLabel` is exported for Gecko’s control compositions, including Switch and Radio group. Application code uses each control’s documented label interface rather than importing ControlLabel directly.
 

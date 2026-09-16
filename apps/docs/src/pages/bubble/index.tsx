@@ -171,10 +171,10 @@ export function BubblePage() {
   <BubbleContent>Can we ship the bubbles tomorrow?</BubbleContent>
   <BubbleActions>
     <Button variant="ghost" size="icon-xs" aria-label="Reply">
-      <ReplyIcon />
+      <HugeiconsIcon icon={ReplyIcon} />
     </Button>
     <Button variant="ghost" size="icon-xs" aria-label="Add reaction">
-      <SmilePlusIcon />
+      <HugeiconsIcon icon={SmilePlusIcon} />
     </Button>
   </BubbleActions>
   <BubbleReactions role="img" aria-label="Reactions: thumbs up">
@@ -186,10 +186,10 @@ export function BubblePage() {
   <BubbleContent>hi</BubbleContent>
   <BubbleActions>
     <Button variant="ghost" size="icon-xs" aria-label="Reply">
-      <ReplyIcon />
+      <HugeiconsIcon icon={ReplyIcon} />
     </Button>
     <Button variant="ghost" size="icon-xs" aria-label="Add reaction">
-      <SmilePlusIcon />
+      <HugeiconsIcon icon={SmilePlusIcon} />
     </Button>
   </BubbleActions>
 </Bubble>`;
@@ -202,7 +202,7 @@ export function BubblePage() {
         render={<Button variant="link" size="sm" />}
       >
         {open ? "Show less" : "Show more"}
-        <ChevronDownIcon className="transition-transform duration-200 ease-out group-aria-expanded/button:rotate-180 motion-reduce:transition-none" />
+        <HugeiconsIcon icon={ChevronDownIcon} className="transition-transform duration-200 ease-out group-aria-expanded/button:rotate-180 motion-reduce:transition-none" />
       </CollapsibleTrigger>
     </Collapsible>
   </BubbleContent>

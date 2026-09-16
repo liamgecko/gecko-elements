@@ -214,7 +214,7 @@ const DropdownMenuItem = /* @__PURE__ */ withRef(function DropdownMenuItem({
   const search = useDropdownMenuSearch();
   const query = search?.query.toLowerCase().trim();
   const text = React.useMemo(
-    () => (searchValue ?? getItemText(children)).toLowerCase(),
+    () => String(searchValue ?? getItemText(children)).toLowerCase(),
     [searchValue, children],
   );
   const isHidden = query ? !text.includes(query) : false;
@@ -356,7 +356,7 @@ const DropdownMenuCheckboxItem = /* @__PURE__ */ withRef(
     const search = useDropdownMenuSearch();
     const query = search?.query.toLowerCase().trim();
     const text = React.useMemo(
-      () => (searchValue ?? getItemText(children)).toLowerCase(),
+      () => String(searchValue ?? getItemText(children)).toLowerCase(),
       [searchValue, children],
     );
     const isHidden = query ? !text.includes(query) : false;
@@ -411,7 +411,7 @@ const DropdownMenuSwitchItem = /* @__PURE__ */ withRef(
     const search = useDropdownMenuSearch();
     const query = search?.query.toLowerCase().trim();
     const text = React.useMemo(
-      () => (searchValue ?? getItemText(children)).toLowerCase(),
+      () => String(searchValue ?? getItemText(children)).toLowerCase(),
       [searchValue, children],
     );
     const isHidden = query ? !text.includes(query) : false;
@@ -478,7 +478,7 @@ const DropdownMenuRadioItem = /* @__PURE__ */ withRef(
     const search = useDropdownMenuSearch();
     const query = search?.query.toLowerCase().trim();
     const text = React.useMemo(
-      () => (searchValue ?? getItemText(children)).toLowerCase(),
+      () => String(searchValue ?? getItemText(children)).toLowerCase(),
       [searchValue, children],
     );
     const isHidden = query ? !text.includes(query) : false;

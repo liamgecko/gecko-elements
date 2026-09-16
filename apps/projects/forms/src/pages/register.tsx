@@ -1,10 +1,12 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Button } from "@geckolabs/elements/components/button";
 import { Card } from "@geckolabs/elements/components/card";
 import { FieldGroup } from "@geckolabs/elements/components/field";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import ChevronLeft from "@hugeicons/core-free-icons/ArrowLeft01Icon";
+import ChevronRight from "@hugeicons/core-free-icons/ArrowRight01Icon";
 
 import { FormShell } from "../components/form-shell";
 import { PinnedBasket } from "../components/pinned-basket";
@@ -148,13 +150,13 @@ export function RegisterPage() {
                     scrollToPageTop();
                   }}
                 >
-                  <ChevronLeft data-icon="inline-start" aria-hidden />
+                  <HugeiconsIcon icon={ChevronLeft} data-icon="inline-start" aria-hidden />
                   Previous
                 </Button>
               ) : null}
               <Button type="submit">
                 {isLastStep ? "Proceed to Summary" : "Next"}
-                <ChevronRight data-icon="inline-end" aria-hidden />
+                <HugeiconsIcon icon={ChevronRight} data-icon="inline-end" aria-hidden />
               </Button>
             </div>
           </FieldGroup>

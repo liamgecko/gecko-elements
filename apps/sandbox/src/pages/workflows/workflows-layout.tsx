@@ -1,5 +1,6 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { Outlet, useLocation, useNavigate } from "react-router-dom"
-import { Plus } from "lucide-react"
+import Plus from "@hugeicons/core-free-icons/PlusIcon";
 
 import { Container } from "@geckolabs/elements/components/container"
 import { Header } from "@geckolabs/elements/components/header"
@@ -44,7 +45,7 @@ function WorkflowsLayoutContent() {
             activeTab === "templates"
               ? "Create new template"
               : "Create new workflow",
-          icon: <Plus aria-hidden className="size-4 shrink-0" />,
+          icon: <HugeiconsIcon icon={Plus} aria-hidden className="size-4 shrink-0" />,
           onClick:
             activeTab === "templates"
               ? () => navigate(getWorkflowTemplateNewPath())

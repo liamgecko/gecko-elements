@@ -1,3 +1,4 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import {
   NodeToolbar,
   Position,
@@ -6,7 +7,7 @@ import {
   useStore,
   type Align,
 } from "@xyflow/react"
-import { Plus } from "lucide-react"
+import Plus from "@hugeicons/core-free-icons/PlusIcon";
 import type { MouseEvent, PointerEvent } from "react"
 
 import { Button } from "@geckolabs/elements/components/button"
@@ -75,7 +76,7 @@ function NodeLibraryMenuItem({
       searchValue={`${item.title} ${item.description}`}
       onClick={() => onSelect(item.kind)}
     >
-      <Icon
+      <HugeiconsIcon icon={Icon}
         aria-hidden
         className={cn("size-4 shrink-0", item.iconClassName)}
       />
@@ -154,7 +155,7 @@ export function WorkflowNodeAddNext({
                 onPointerDown={stopFlowPointerEvent}
                 onMouseDown={stopFlowPointerEvent}
               >
-                <Plus aria-hidden className="size-3.5" />
+                <HugeiconsIcon icon={Plus} aria-hidden className="size-3.5" />
               </Button>
             }
           />

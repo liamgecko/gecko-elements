@@ -47,6 +47,7 @@ import { SpinnerPage } from "@/pages/spinner";
 import { SwitchPage } from "@/pages/switch";
 import { TablePage } from "@/pages/table";
 import { TabsPage } from "@/pages/tabs";
+import { RichTextEditorPage } from "@/pages/rich-text-editor";
 import { TextareaPage } from "@/pages/textarea";
 import { TooltipPage } from "@/pages/tooltip";
 import { ChatHeadPage } from "@/pages/chat-head";
@@ -88,6 +89,8 @@ import { StructureHeaderPage } from "@/pages/structure/header";
 import { GuidesIndexPage } from "@/pages/guides/index";
 import { GuidesStylingPage } from "@/pages/guides/styling";
 import { GuidesChoosingComponentsPage } from "@/pages/guides/choosing-components";
+import { GuidesApplicationPatternsPage } from "@/pages/guides/application-patterns";
+import { GuidesActionIconsPage } from "@/pages/guides/action-icons";
 import { GuidesRecipesPage } from "@/pages/guides/recipes";
 
 export function App() {
@@ -102,6 +105,11 @@ export function App() {
           path="/guides/choosing-components"
           element={<GuidesChoosingComponentsPage />}
         />
+        <Route
+          path="/guides/application-patterns"
+          element={<GuidesApplicationPatternsPage />}
+        />
+        <Route path="/guides/action-icons" element={<GuidesActionIconsPage />} />
         <Route path="/guides/recipes" element={<GuidesRecipesPage />} />
         <Route path="/core" element={<CoreIndexPage />} />
         <Route path="/components" element={<ComponentsIndexPage />} />
@@ -188,6 +196,10 @@ export function App() {
         <Route path="/components/switch" element={<SwitchPage />} />
         <Route path="/components/table" element={<TablePage />} />
         <Route path="/components/tabs" element={<TabsPage />} />
+        <Route
+          path="/components/rich-text-editor"
+          element={<RichTextEditorPage />}
+        />
         <Route path="/components/textarea" element={<TextareaPage />} />
         <Route path="/components/tooltip" element={<TooltipPage />} />
         <Route path="/components/chat-head" element={<ChatHeadPage />} />

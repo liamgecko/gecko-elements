@@ -11,6 +11,7 @@ import { getFormPath } from "./forms-data";
 
 export default function CreateFormPage() {
   const navigate = useNavigate();
+  const setIsSavingGuard = React.useRef(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const configured = isSupabaseConfigured();
 
@@ -28,7 +29,9 @@ export default function CreateFormPage() {
       submitLabel="Save form"
       isSaving={isSaving}
       onSubmit={async (values) => {
-        setIsSaving(true);
+        if (setIsSavingGuard.current) return;
+    setIsSavingGuard.current = true;
+    setIsSaving(true);
         try {
           const form = await formsRepository.createForm({
             name: values.name,
@@ -41,7 +44,8 @@ export default function CreateFormPage() {
             type: "error",
           });
         } finally {
-          setIsSaving(false);
+          setIsSavingGuard.current = false;
+      setIsSaving(false);
         }
       }}
     />

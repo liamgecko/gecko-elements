@@ -5,13 +5,15 @@ Status: Stable
 Source: `src/components/attachment.tsx`  
 Human documentation: `apps/docs/src/pages/attachment/index.tsx`
 
+Use [actionIcons](action-icons.md) with `HugeiconsIcon` from `@geckolabs/elements/lib/icon` for the labelled action examples below.
+
 ## Purpose
 
 Attachment is Gecko’s extended single-file upload field. It lets someone choose or drop one file, then presents upload progress, failure, retry, completion, and removal in the same compact row.
 
 Use Attachment for a file upload inside a form or fieldset. Use Drop zone for a large dedicated upload surface. Use File field when a basic picker is sufficient and upload status is not required.
 
-Attachment is intentionally not the compound Shadcn attachment-display interface. Do not compose media, content, actions, groups, orientations, previews, or triggers around it.
+Attachment is intentionally not the compound Shadcn attachment-display interface. Do not compose media, content, actions, groups, orientations, external preview dialogs, or triggers around it. Attachment owns its uploaded-file preview.
 
 ## Import
 
@@ -72,7 +74,7 @@ async function handleUpload(file, onProgress) {
       Upload the document required for this application.
     </FieldDescription>
   </Field>
-  <Button type="submit">Save application</Button>
+  <Button type="submit"><HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />Save application</Button>
 </form>;
 ```
 
@@ -138,6 +140,47 @@ The parent starts the upload when `onFileChange` receives the selected file and 
 
 Agents must not add states or reinterpret their meaning without explicit user consent.
 
+## Uploaded-file preview
+
+Clicking the uploaded row opens its file in an Elements Dialog. The row uses a
+native button: Enter and Space open it, Escape closes it, and focus returns to
+the row. Retry and remove remain separate sibling buttons and never open the
+preview. Disabled, empty, uploading and error rows do not open a preview.
+
+Managed uploads preview their selected File after a successful upload, using an
+object URL that is released when the file changes or the component unmounts.
+Use `preview={false}` to suppress this while additional checks are pending.
+
+For an existing or externally uploaded file, provide its URL and media type:
+
+```tsx
+<Attachment
+  state="done"
+  name="account-logo.png"
+  preview={{ url: accountLogoUrl, type: "image" }}
+  onRemove={removeLogo}
+/>
+```
+
+`preview.type` is `image`, `pdf`, `video`, `audio` or `file`. Images fit within the
+dialog; audio and video use native controls without autoplay. PDFs use the
+browser viewer in a sandboxed frame, with an Open file link as a fallback.
+Other types show an unavailable-preview message and an Open file link inside
+the dialog. A centered Spinner appears in the preview area while an image loads,
+audio or video metadata loads, or the PDF frame fires its load event. The dialog
+header and close control remain available. PDF load events indicate the browser
+viewer has loaded, not that every page has rendered; Open file remains available.
+Media loading errors replace the spinner with a fallback instead of a broken
+preview. The preview stays mounted throughout the dialog’s exit animation;
+Dialog owns its unmount timing. Reopening after it closes starts a fresh preview
+attempt.
+
+Use HTTP(S), relative or blob URLs. Unsafe URL schemes do not create a preview
+trigger. Only supply a URL after the App has completed the checks required for
+that upload; Attachment does not perform permission or malware checks.
+Controlled done rows without a preview URL remain non-interactive because the
+component has no file to display. Supply `preview` for every viewable uploaded file.
+
 ## Single-file contract
 
 Attachment accepts exactly one file. The file picker does not expose multiple selection, and a drop uses the first file.
@@ -172,7 +215,7 @@ Attachment owns this approved icon mapping:
 | Empty         | `Upload01Icon`          |
 | Uploading     | Spinner                 |
 | Error         | `FileWarning`           |
-| Done          | `Check`                 |
+| Done          | `FileValidationIcon`    |
 | Retry action  | `RefreshCw`             |
 | Remove action | `Trash2`                |
 
@@ -205,6 +248,8 @@ Attachment owns the managed status wording:
 
 ## Actions
 
+Retry and remove use Button’s `icon-sm` size (28 × 28 px), owned by Attachment.
+
 - Managed error state owns retry and remove behaviour.
 - Managed done state owns remove behaviour.
 - In controlled mode, `onRetry` and `onRemove` determine whether the corresponding actions render.
@@ -229,6 +274,7 @@ Do not add application-specific actions to Attachment without explicit consent.
 
 | Property       | Type                           | Default                            | Meaning                                                              |
 | -------------- | ------------------------------ | ---------------------------------- | -------------------------------------------------------------------- |
+| `preview`      | `AttachmentPreview \| false`   | local File in managed mode         | Uploaded URL and media type, or false to suppress preview            |
 | `accept`       | `string`                       | none                               | File-picker hint; not validation                                     |
 | `inputId`      | `string`                       | none                               | Connects the native file input to an external `FieldLabel`           |
 | `label`        | `React.ReactNode`              | `"Choose a file or drag and drop"` | Empty-state instruction                                              |
@@ -262,9 +308,13 @@ Do not add application-specific actions to Attachment without explicit consent.
 
 Attachment has one supported size and horizontal row layout. During drag, the icon tile uses a stronger accent surface than the surrounding drop target so it remains distinct in both themes. Do not override its border, colour, spacing, radius, typography, state icons, progress treatment, or action placement with `className`.
 
-Agents must not add sizes, orientations, groups, image previews, triggers, states, actions, or behaviour props without explicit user consent. Stop and ask when the current interface cannot satisfy a requirement.
+The built-in preview dialog and its full-row trigger are library-owned. Do not add alternative preview renderers, sizes, orientations, groups, triggers, states, actions, or behaviour props without explicit user consent. Stop and ask when the current interface cannot satisfy a requirement.
 
 ## Related components
 
 - **Drop zone** — a large dedicated upload surface.
 - **File field** — a basic picker without upload lifecycle.
+
+## Application integration
+
+Use the [tested application patterns](application-patterns.md) for data ownership, loading, asynchronous operations and navigation. Preserve source behaviour with the [migration checklist](migration-checklist.md). Common action glyphs come from the [action icon map](action-icons.md).

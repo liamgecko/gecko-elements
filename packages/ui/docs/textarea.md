@@ -7,7 +7,7 @@ Human documentation: `apps/docs/src/pages/textarea/index.tsx`
 
 ## Purpose
 
-Textarea collects multiline free text such as comments, notes, descriptions, and feedback. Use Input for a short, single-line value. Use Reply box for a conversation composer with product actions.
+Textarea collects multiline free text such as comments, notes, descriptions, and feedback. Use Input for a short, single-line value. Use Reply box for a conversation composer with product actions. Use [Rich text editor](rich-text-editor.md) when the value is HTML with formatting.
 
 Textarea is Gecko’s styled Shadcn component built on the native HTML `textarea` element. It mirrors Gecko Input’s sizes and visual states. There is no Base UI primitive or Base UI API involved.
 

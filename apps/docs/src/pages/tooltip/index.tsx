@@ -43,7 +43,7 @@ export function TooltipPage() {
       <Button variant="outline" size="icon" aria-label="Add to library" />
     }
   >
-    <BookmarkPlusIcon />
+    <HugeiconsIcon icon={BookmarkPlusIcon} />
   </TooltipTrigger>
   <TooltipContent>Add to library</TooltipContent>
 </Tooltip>`;

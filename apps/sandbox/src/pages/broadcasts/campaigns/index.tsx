@@ -1,6 +1,8 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-import { Trash2, X } from "lucide-react"
+import Trash2 from "@hugeicons/core-free-icons/Delete02Icon";
+import X from "@hugeicons/core-free-icons/XIcon";
 import { toast } from "@geckolabs/elements/components/toast"
 
 import {
@@ -230,7 +232,7 @@ export default function BroadcastsCampaignsPage() {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel disabled={isDeleting}>
-                <X aria-hidden />
+                <HugeiconsIcon icon={X} aria-hidden />
                 Cancel
               </AlertDialogCancel>
               <AlertDialogAction
@@ -238,7 +240,7 @@ export default function BroadcastsCampaignsPage() {
                 onClick={() => void confirmDelete()}
                 disabled={isDeleting}
               >
-                <Trash2 aria-hidden />
+                <HugeiconsIcon icon={Trash2} aria-hidden />
                 Delete broadcast
                 {campaignsToDelete && campaignsToDelete.length > 1 ? "s" : ""}
               </AlertDialogAction>

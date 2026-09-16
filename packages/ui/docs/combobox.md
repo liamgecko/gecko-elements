@@ -219,7 +219,7 @@ Agents must obtain explicit user consent before adding or changing props, varian
 - Use conversion props for custom object shapes.
 - Keep `autoHighlight` off unless explicitly requested.
 - Use specific empty messages and actionable validation copy.
-- Do not invent async loading, creation, virtualization or remote-search behaviour. Ask for direction before expanding the interface.
+- For remote data, use the approved [remote selector recipe](recipes/remote-combobox.tsx), with application-owned requests, selection and error handling. This does not add creation, virtualization or remote pagination to the component; verify and document those capabilities before extending it.
 - Do not copy application-specific implementations from prototype projects.
 
 ## Relationship to Shadcn
@@ -232,3 +232,7 @@ Gecko retains Shadcn’s Base UI composition, filtering, selection, popup positi
 - **Native select** — a platform-native selection control.
 - **Command** — a searchable palette of commands or actions.
 - **Field** — the visible label, validation relationship and form layout around Combobox.
+
+## Application integration
+
+Use the [tested application patterns](application-patterns.md) for data ownership, loading, asynchronous operations and navigation. Preserve source behaviour with the [migration checklist](migration-checklist.md). Common action glyphs come from the [action icon map](action-icons.md).

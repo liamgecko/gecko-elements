@@ -62,32 +62,32 @@ export function CommandPage() {
     <CommandEmpty>No results found.</CommandEmpty>
     <CommandGroup heading="Suggestions">
       <CommandItem>
-        <Calendar />
+        <HugeiconsIcon icon={Calendar} />
         <span>Calendar</span>
       </CommandItem>
       <CommandItem>
-        <Smile />
+        <HugeiconsIcon icon={Smile} />
         <span>Search Emoji</span>
       </CommandItem>
       <CommandItem>
-        <Calculator />
+        <HugeiconsIcon icon={Calculator} />
         <span>Calculator</span>
       </CommandItem>
     </CommandGroup>
     <CommandSeparator />
     <CommandGroup heading="Settings">
       <CommandItem>
-        <User />
+        <HugeiconsIcon icon={User} />
         <span>Profile</span>
         <CommandShortcut>⌘P</CommandShortcut>
       </CommandItem>
       <CommandItem>
-        <CreditCard />
+        <HugeiconsIcon icon={CreditCard} />
         <span>Billing</span>
         <CommandShortcut>⌘B</CommandShortcut>
       </CommandItem>
       <CommandItem>
-        <Settings />
+        <HugeiconsIcon icon={Settings} />
         <span>Settings</span>
         <CommandShortcut>⌘S</CommandShortcut>
       </CommandItem>
@@ -105,32 +105,32 @@ export function CommandPage() {
       <CommandEmpty>No results found.</CommandEmpty>
       <CommandGroup heading="Suggestions">
         <CommandItem>
-          <Calendar />
+          <HugeiconsIcon icon={Calendar} />
           <span>Calendar</span>
         </CommandItem>
         <CommandItem>
-          <Smile />
+          <HugeiconsIcon icon={Smile} />
           <span>Search Emoji</span>
         </CommandItem>
         <CommandItem>
-          <Calculator />
+          <HugeiconsIcon icon={Calculator} />
           <span>Calculator</span>
         </CommandItem>
       </CommandGroup>
       <CommandSeparator />
       <CommandGroup heading="Settings">
         <CommandItem>
-          <User />
+          <HugeiconsIcon icon={User} />
           <span>Profile</span>
           <CommandShortcut>⌘P</CommandShortcut>
         </CommandItem>
         <CommandItem>
-          <CreditCard />
+          <HugeiconsIcon icon={CreditCard} />
           <span>Billing</span>
           <CommandShortcut>⌘B</CommandShortcut>
         </CommandItem>
         <CommandItem>
-          <Settings />
+          <HugeiconsIcon icon={Settings} />
           <span>Settings</span>
           <CommandShortcut>⌘S</CommandShortcut>
         </CommandItem>

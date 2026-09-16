@@ -1,7 +1,9 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { Button } from "@geckolabs/elements/components/button"
 import { useReplyBox } from "@geckolabs/elements/components/reply-box"
 import { cn } from "@geckolabs/elements/lib/utils"
-import { CirclePlus, SendHorizontal } from "lucide-react"
+import CirclePlus from "@hugeicons/core-free-icons/AddCircleIcon";
+import SendHorizontal from "@hugeicons/core-free-icons/SentIcon";
 import type { ComponentProps } from "react"
 
 import { LiveChatMentionInput } from "./live-chat-mention-input"
@@ -40,9 +42,9 @@ export function LiveChatReplyField({
         }}
       >
         {noteMode ? (
-          <CirclePlus className="size-4" aria-hidden />
+          <HugeiconsIcon icon={CirclePlus} className="size-4" aria-hidden />
         ) : (
-          <SendHorizontal className="size-4" aria-hidden />
+          <HugeiconsIcon icon={SendHorizontal} className="size-4" aria-hidden />
         )}
       </Button>
     </div>

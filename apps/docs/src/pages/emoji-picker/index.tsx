@@ -59,7 +59,7 @@ export function EmojiPickerPage() {
       <Button variant="ghost" size="icon" aria-label="Open emoji picker" />
     }
   >
-    <Smile />
+    <HugeiconsIcon icon={Smile} />
   </EmojiPickerTrigger>
   <EmojiPickerContent />
 </EmojiPicker>`;
@@ -68,7 +68,7 @@ export function EmojiPickerPage() {
   <EmojiPickerTrigger
     render={
       <Button variant="ghost">
-        <SmilePlus />
+        <HugeiconsIcon icon={SmilePlus} />
         Add emoji
       </Button>
     }
@@ -82,7 +82,7 @@ export function EmojiPickerPage() {
       <Button variant="ghost" size="icon-sm" aria-label="Add reaction" />
     }
   >
-    <SmilePlus />
+    <HugeiconsIcon icon={SmilePlus} />
   </EmojiPickerTrigger>
   <EmojiPickerContent />
 </EmojiPicker>`;
@@ -97,7 +97,7 @@ export function EmojiPickerPage() {
       <Button variant="ghost" size="icon-sm" aria-label="Add reaction" />
     }
   >
-    <SmilePlus />
+    <HugeiconsIcon icon={SmilePlus} />
   </EmojiPickerTrigger>
   <EmojiPickerContent />
 </EmojiPicker>`;

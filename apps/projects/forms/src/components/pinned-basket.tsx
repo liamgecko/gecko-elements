@@ -1,10 +1,11 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@geckolabs/elements/components/accordion";
-import { ShoppingCart } from "lucide-react";
+import ShoppingCart from "@hugeicons/core-free-icons/ShoppingCart01Icon";
 
 import {
   currencyFormatter,
@@ -30,7 +31,7 @@ export function PinnedBasket({ lines, onRemove }: PinnedBasketProps) {
         >
           <AccordionTrigger className="gap-3 p-4 hover:text-foreground">
             <span className="flex">
-              <ShoppingCart aria-hidden className="size-4" />
+              <HugeiconsIcon icon={ShoppingCart} aria-hidden className="size-4" />
             </span>
             <span className="min-w-0 flex-1 text-left font-medium">
               Your basket

@@ -1,3 +1,4 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react";
 
 import { Button } from "@geckolabs/elements/components/button";
@@ -6,7 +7,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@geckolabs/elements/components/collapsible";
-import { ChevronDown, ShoppingCart } from "lucide-react";
+import ChevronDown from "@hugeicons/core-free-icons/ArrowDown01Icon";
+import ShoppingCart from "@hugeicons/core-free-icons/ShoppingCart01Icon";
 
 import {
   currencyFormatter,
@@ -42,7 +44,7 @@ export function FloatingBasket({ lines, onRemove }: FloatingBasketProps) {
 
       <div className="flex min-h-16 items-center gap-3 p-3">
         <div className="flex">
-          <ShoppingCart aria-hidden className="size-5" />
+          <HugeiconsIcon icon={ShoppingCart} aria-hidden className="size-5" />
         </div>
         <h2 className="min-w-0 flex-1 text-balance text-sm font-medium">
           Your basket
@@ -60,7 +62,7 @@ export function FloatingBasket({ lines, onRemove }: FloatingBasketProps) {
             />
           }
         >
-          <ChevronDown
+          <HugeiconsIcon icon={ChevronDown}
             aria-hidden
             className={open ? "rotate-180" : undefined}
           />

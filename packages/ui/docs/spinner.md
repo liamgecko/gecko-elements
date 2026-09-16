@@ -7,9 +7,9 @@ Human documentation: `apps/docs/src/pages/spinner/index.tsx`
 
 ## Purpose
 
-Spinner communicates an indeterminate wait, such as a page or panel loading when the amount completed cannot be measured.
+Spinner communicates compact indeterminate activity, such as a component-owned action or runtime startup. For initial page and panel data, follow [Application patterns](application-patterns.md): retain known content and use bounded Skeleton regions for unknown content.
 
-Use Progress when completion can be measured. Use Empty only after loading has finished and no content is available.
+Use Progress when completion can be measured. Do not replace a page skeleton with Spinner merely because the request duration is unknown. Use Empty only after loading has finished and no content is available.
 
 Spinner follows Shadcn’s native SVG composition. It does not wrap a Base UI primitive, so Base UI properties are not part of its public contract.
 
@@ -24,7 +24,7 @@ Spinner has a default status role and accessible name:
 Change `aria-label` when “Loading” does not adequately identify the task:
 
 ```tsx
-<Spinner aria-label="Loading conversations" />
+<Spinner aria-label="Preparing export" />
 ```
 
 Keep the spinner visible only while work is in progress. Replace it with the loaded content, an actionable error, or Empty when the request completes.
@@ -45,7 +45,7 @@ The owning control or region must expose its busy state where applicable. Do not
 Button owns its loading indicator and behavior. Do not manually compose Spinner inside Button:
 
 ```tsx
-<Button loading>Saving</Button>
+<Button loading>Generate report</Button>
 ```
 
 ## Size

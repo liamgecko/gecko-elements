@@ -349,9 +349,12 @@ export function ActivityFeedPage() {
           </li>
           <li>
             <DocsPageLink to="/components/empty">Empty</DocsPageLink>,{" "}
-            <DocsPageLink to="/components/spinner">Spinner</DocsPageLink>, and{" "}
-            <DocsPageLink to="/components/alert">Alert</DocsPageLink> — compose
-            these at the parent surface for empty, loading, and error states.
+            <DocsPageLink to="/guides/application-patterns">
+              application loading patterns
+            </DocsPageLink>
+            , and <DocsPageLink to="/components/alert">Alert</DocsPageLink> —
+            compose these at the parent surface for empty, loading, and error
+            states.
           </li>
         </ul>
       </MainSection>

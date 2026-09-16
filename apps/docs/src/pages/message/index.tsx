@@ -348,13 +348,13 @@ import {
       </BubbleContent>
       <BubbleActions>
         <Button variant="ghost" size="icon-sm" aria-label="Reply">
-          <Reply />
+          <HugeiconsIcon icon={Reply} />
         </Button>
         <EmojiPicker defaultView="tray">
           <EmojiPickerTrigger
             render={<Button variant="ghost" size="icon-sm" aria-label="Add reaction" />}
           >
-            <SmilePlus />
+            <HugeiconsIcon icon={SmilePlus} />
           </EmojiPickerTrigger>
           <EmojiPickerContent />
         </EmojiPicker>

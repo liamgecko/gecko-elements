@@ -1,16 +1,18 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@geckolabs/elements/lib/utils"
+import { DataTableTextCell } from "./data-table-text-cell";
+
+import { cn } from "@geckolabs/elements/lib/utils";
 
 export type DataTableMultiLineCellProps = {
-  primary: React.ReactNode
-  secondary?: React.ReactNode
-  className?: string
-  primaryClassName?: string
-  secondaryClassName?: string
-}
+  primary: React.ReactNode;
+  secondary?: React.ReactNode;
+  className?: string;
+  primaryClassName?: string;
+  secondaryClassName?: string;
+};
 
 export function DataTableMultiLineCell({
   primary,
@@ -20,15 +22,23 @@ export function DataTableMultiLineCell({
   secondaryClassName,
 }: DataTableMultiLineCellProps) {
   return (
-    <div className={cn("grid min-w-0 gap-0.5 whitespace-normal", className)}>
-      <div className={cn("leading-snug", primaryClassName)}>{primary}</div>
+    <div
+      data-slot="data-table-multi-line-cell"
+      className={cn("grid min-w-0 max-w-full gap-0.5", className)}
+    >
+      <DataTableTextCell className={cn("leading-snug", primaryClassName)}>
+        {primary}
+      </DataTableTextCell>
       {secondary != null && secondary !== "" ? (
-        <div
-          className={cn("min-w-0 text-2xs leading-snug text-muted-foreground", secondaryClassName)}
+        <DataTableTextCell
+          className={cn(
+            "min-w-0 text-2xs leading-snug text-muted-foreground",
+            secondaryClassName,
+          )}
         >
           {secondary}
-        </div>
+        </DataTableTextCell>
       ) : null}
     </div>
-  )
+  );
 }

@@ -1,4 +1,5 @@
-import { MessageCircleCheck } from "lucide-react"
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import MessageCircleCheck from "@hugeicons/core-free-icons/MessageDone01Icon";
 
 import { Button } from "@geckolabs/elements/components/button"
 import {
@@ -56,7 +57,7 @@ export function AssistantNegativeFeedbackDialog({
         </DialogWrapper>
         <DialogFooter showCloseButton closeButtonText="Cancel">
           <Button type="button" disabled={!canSubmit} onClick={onSubmit}>
-            <MessageCircleCheck data-icon="inline-start" aria-hidden />
+            <HugeiconsIcon icon={MessageCircleCheck} data-icon="inline-start" aria-hidden />
             Submit feedback
           </Button>
         </DialogFooter>

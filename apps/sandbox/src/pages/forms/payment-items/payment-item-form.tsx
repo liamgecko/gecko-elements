@@ -1,5 +1,7 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react"
-import { CheckCheck, X } from "lucide-react"
+import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
+import X from "@hugeicons/core-free-icons/XIcon";
 import { useNavigate } from "react-router-dom"
 
 import { Button } from "@geckolabs/elements/components/button"
@@ -139,6 +141,7 @@ export function PaymentItemForm({
     )
   }
 
+  const submitGuard = React.useRef(false);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -152,7 +155,10 @@ export function PaymentItemForm({
     if (Object.keys(nextErrors).length > 0) return
     if (!provider || !currency || itemAmount == null) return
 
-    await onSubmit({
+    if (submitGuard.current || isSaving) return;
+    submitGuard.current = true;
+    try {
+      await onSubmit({
       provider,
       currency,
       name: itemName.trim(),
@@ -163,6 +169,9 @@ export function PaymentItemForm({
       availableQuantity: inventoryEnabled ? availableQuantity : null,
       inventoryEnabled,
     })
+    } finally {
+      submitGuard.current = false;
+    }
   }
 
   return (
@@ -420,11 +429,11 @@ export function PaymentItemForm({
             variant="outline"
             onClick={() => navigate("/forms/chargeable-items")}
           >
-            <X aria-hidden />
+            <HugeiconsIcon icon={X} aria-hidden />
             Cancel
           </Button>
-          <Button type="submit" disabled={isSaving}>
-            <CheckCheck aria-hidden />
+          <Button type="submit">
+            <HugeiconsIcon icon={CheckCheck} aria-hidden />
             {submitLabel}
           </Button>
         </div>

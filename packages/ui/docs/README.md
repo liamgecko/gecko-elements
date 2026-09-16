@@ -61,6 +61,7 @@ Read the [UI usage guide](../README.md) first, then the relevant contract for ap
 - [Progress](progress.md)
 - [Radio group](radio-group.md)
 - [Reply box](reply-box.md)
+- [Rich text editor](rich-text-editor.md)
 - [Scroll area](scroll-area.md)
 - [Search](search.md)
 - [Select](select.md)
@@ -68,6 +69,7 @@ Read the [UI usage guide](../README.md) first, then the relevant contract for ap
 - [Separator](separator.md)
 - [Sheet](sheet.md)
 - [Sidebar](sidebar.md)
+- [Skeleton](skeleton.md)
 - [Sortable list](sortable-list.md)
 - [Spinner](spinner.md)
 - [Switch](switch.md)
@@ -80,3 +82,11 @@ Read the [UI usage guide](../README.md) first, then the relevant contract for ap
 - [Toggle Group](toggle-group.md)
 - [Tooltip](tooltip.md)
 - [Typing indicator](typing-indicator.md)
+
+## Application implementation starting points
+
+- [Capability index](capabilities.md): imports, ownership, recipes and verification.
+- [Application patterns](application-patterns.md): complete, shared executable examples.
+- [Migration checklist](migration-checklist.md): evidence to collect before recreating a screen.
+- [Action icons](action-icons.md): consistent glyphs for common actions.
+- [Verification](verification.md): automated coverage and consumer responsibilities.

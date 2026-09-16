@@ -1,5 +1,7 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react";
-import { ArchiveRestore, X } from "lucide-react";
+import ArchiveRestore from "@hugeicons/core-free-icons/Archive02Icon";
+import X from "@hugeicons/core-free-icons/XIcon";
 import { toast } from "@geckolabs/elements/components/toast";
 
 import {
@@ -135,14 +137,14 @@ export default function ArchivedFormsPage() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={isRestoring}>
-              <X aria-hidden />
+              <HugeiconsIcon icon={X} aria-hidden />
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={() => void confirmRestore()}
               disabled={isRestoring}
             >
-              <ArchiveRestore aria-hidden />
+              <HugeiconsIcon icon={ArchiveRestore} aria-hidden />
               Restore form
             </AlertDialogAction>
           </AlertDialogFooter>

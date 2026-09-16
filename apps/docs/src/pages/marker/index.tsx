@@ -63,32 +63,32 @@ export function MarkerPage() {
 
   const withIconSnippet = `<Marker>
   <MarkerIcon>
-    <GitBranch />
+    <HugeiconsIcon icon={GitBranch} />
   </MarkerIcon>
   <MarkerContent>Switched to a new branch</MarkerContent>
 </Marker>
 <Marker>
   <MarkerIcon>
-    <Search />
+    <HugeiconsIcon icon={Search} />
   </MarkerIcon>
   <MarkerContent>Explored 4 files</MarkerContent>
 </Marker>
 <Marker>
   <MarkerIcon>
-    <BookOpenCheck />
+    <HugeiconsIcon icon={BookOpenCheck} />
   </MarkerIcon>
   <MarkerContent>Syncing completed</MarkerContent>
 </Marker>`;
 
   const linksSnippet = `<Marker render={<a href="#" />}>
   <MarkerIcon>
-    <GitBranch />
+    <HugeiconsIcon icon={GitBranch} />
   </MarkerIcon>
   <MarkerContent>View the pull request</MarkerContent>
 </Marker>
 <Marker render={<button type="button" />}>
   <MarkerIcon>
-    <RotateCcw />
+    <HugeiconsIcon icon={RotateCcw} />
   </MarkerIcon>
   <MarkerContent>Revert this change</MarkerContent>
 </Marker>`;

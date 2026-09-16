@@ -1,5 +1,9 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react"
-import { CheckCheck, SquarePen, Trash2, X } from "lucide-react"
+import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
+import SquarePen from "@hugeicons/core-free-icons/Edit02Icon";
+import Trash2 from "@hugeicons/core-free-icons/Delete02Icon";
+import X from "@hugeicons/core-free-icons/XIcon";
 import { useParams } from "react-router-dom"
 import { toast } from "@geckolabs/elements/components/toast"
 
@@ -134,6 +138,7 @@ export default function FormPaymentSettingsPage() {
   >(null)
   const [inventoryEnabled, setInventoryEnabled] = React.useState(false)
   const [errors, setErrors] = React.useState<PaymentItemErrors>({})
+  const setIsSavingItemGuard = React.useRef(false);
   const [isSavingItem, setIsSavingItem] = React.useState(false)
   const [providerChangeAlertOpen, setProviderChangeAlertOpen] =
     React.useState(false)
@@ -293,6 +298,8 @@ export default function FormPaymentSettingsPage() {
       availableQuantity: inventoryEnabled ? availableQuantity : null,
     }
 
+    if (setIsSavingItemGuard.current) return;
+    setIsSavingItemGuard.current = true;
     setIsSavingItem(true)
 
     try {
@@ -324,6 +331,7 @@ export default function FormPaymentSettingsPage() {
         type: "error",
       })
     } finally {
+      setIsSavingItemGuard.current = false;
       setIsSavingItem(false)
     }
   }
@@ -675,9 +683,8 @@ export default function FormPaymentSettingsPage() {
                 <Button
                   variant="default"
                   onClick={() => void handleSave()}
-                  disabled={isSavingItem}
                 >
-                  <CheckCheck aria-hidden />
+                  <HugeiconsIcon icon={CheckCheck} aria-hidden />
                   Save chargeable item
                 </Button>
               </DialogFooter>
@@ -700,11 +707,11 @@ export default function FormPaymentSettingsPage() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>
-              <X aria-hidden />
+              <HugeiconsIcon icon={X} aria-hidden />
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction onClick={confirmProviderChange}>
-              <CheckCheck aria-hidden />
+              <HugeiconsIcon icon={CheckCheck} aria-hidden />
               Switch provider
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -760,7 +767,7 @@ export default function FormPaymentSettingsPage() {
                             aria-label={`Edit ${item.name}`}
                             onClick={() => openEditDialog(item)}
                           >
-                            <SquarePen aria-hidden />
+                            <HugeiconsIcon icon={SquarePen} aria-hidden />
                           </Button>
                         }
                       />
@@ -778,7 +785,7 @@ export default function FormPaymentSettingsPage() {
                             aria-label={`Remove ${item.name}`}
                             onClick={() => removeItem(item.id)}
                           >
-                            <Trash2 aria-hidden />
+                            <HugeiconsIcon icon={Trash2} aria-hidden />
                           </Button>
                         }
                       />

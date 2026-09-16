@@ -375,7 +375,7 @@ const ComboboxChipsInput = /* @__PURE__ */ withRef(function ComboboxChipsInput({
   );
 });
 
-function useComboboxAnchor() {
+function useComboboxAnchor(): { current: HTMLDivElement | null } {
   return React.useRef<HTMLDivElement | null>(null);
 }
 

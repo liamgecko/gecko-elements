@@ -19,3 +19,9 @@ yarn-error.log*
 
 # Verified local prerelease artifacts
 .releases/
+
+# Generated docs runtime; source and licence live in packages/ui/src/vendor.
+/apps/docs/public/elements/tinymce-4/
+
+# Local browser verification screenshots
+.artifacts/

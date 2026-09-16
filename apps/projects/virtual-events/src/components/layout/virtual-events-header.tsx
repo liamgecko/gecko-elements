@@ -1,3 +1,4 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { Badge } from "@geckolabs/elements/components/badge"
 import { Button } from "@geckolabs/elements/components/button"
 import {
@@ -16,7 +17,9 @@ import {
   TooltipTrigger,
 } from "@geckolabs/elements/components/tooltip"
 import { cn } from "@geckolabs/elements/lib/utils"
-import { Bell, Power, Radio } from "lucide-react"
+import Bell from "@hugeicons/core-free-icons/Notification01Icon";
+import Power from "@hugeicons/core-free-icons/PowerServiceIcon";
+import Radio from "@hugeicons/core-free-icons/Radio01Icon";
 import * as React from "react"
 
 import { useVirtualEvents } from "@/context/virtual-events-context"
@@ -79,7 +82,7 @@ export function VirtualEventsHeader({ className }: VirtualEventsHeaderProps) {
           size="sm"
           rounded
           bordered
-          leftIcon={<Radio className="size-3.5" />}
+          leftIcon={<HugeiconsIcon icon={Radio} className="size-3.5" />}
           className="border-rose-200 bg-rose-50 text-rose-700 tabular-nums dark:border-rose-800 dark:bg-rose-950 dark:text-rose-200"
         >
           {timeRemaining}
@@ -100,7 +103,7 @@ export function VirtualEventsHeader({ className }: VirtualEventsHeaderProps) {
                 }
                 className="relative"
               >
-                <Bell />
+                <HugeiconsIcon icon={Bell} />
                 {unreadCount > 0 ? (
                   <span
                     aria-hidden
@@ -180,7 +183,7 @@ export function VirtualEventsHeader({ className }: VirtualEventsHeaderProps) {
                   size="icon-sm"
                   aria-label="Leave event"
                 >
-                  <Power />
+                  <HugeiconsIcon icon={Power} />
                 </Button>
               }
             />

@@ -36,9 +36,10 @@ export function GuidesChoosingComponentsPage() {
             <DocsPageLink to="/components/context-menu">
               Context menu
             </DocsPageLink>{" "}
-            — exclusively on{" "}
+            — custom secondary-pointer actions. There is no current{" "}
             <DocsPageLink to="/components/data-table">Data table</DocsPageLink>{" "}
-            rows (right-click / secondary pointer).
+            row integration. Use its <Code>rowLink</Code> option for navigation;
+            linked cells keep the native browser right-click menu.
           </li>
           <li>
             <DocsPageLink to="/components/alert-dialog">
@@ -73,6 +74,9 @@ export function GuidesChoosingComponentsPage() {
               Textarea field
             </DocsPageLink>{" "}
             — multiline text inside Field.
+          </li>
+          <li>
+            <DocsPageLink to="/components/rich-text-editor">Rich text editor</DocsPageLink> — formatted HTML content such as descriptions, instructions and documents.
           </li>
           <li>
             <DocsPageLink to="/components/search">Search</DocsPageLink> — a

@@ -5,6 +5,8 @@ Status: Stable
 Source: `src/components/alert-dialog.tsx`  
 Human documentation: `apps/docs/src/pages/alert-dialog/index.tsx`
 
+Use [actionIcons](action-icons.md) with `HugeiconsIcon` from `@geckolabs/elements/lib/icon` for the labelled action examples below.
+
 ## Purpose
 
 Alert dialog is a blocking confirmation for an important decision that must be answered before the user can continue. Use it immediately before a consequential action.
@@ -79,8 +81,9 @@ Deletion always uses the destructive variant. Name the object in the title and a
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
-      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogCancel><HugeiconsIcon icon={actionIcons.cancel} aria-hidden="true" data-icon="inline-start" />Cancel</AlertDialogCancel>
       <AlertDialogAction onClick={deleteAccount}>
+        <HugeiconsIcon icon={actionIcons.delete} aria-hidden="true" data-icon="inline-start" />
         Delete account
       </AlertDialogAction>
     </AlertDialogFooter>
@@ -105,8 +108,9 @@ This is the canonical setup when navigation would lose work. The cancel control 
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
-      <AlertDialogCancel>Keep editing</AlertDialogCancel>
+      <AlertDialogCancel><HugeiconsIcon icon={actionIcons.keepEditing} aria-hidden="true" data-icon="inline-start" />Keep editing</AlertDialogCancel>
       <AlertDialogAction onClick={discardChanges}>
+        <HugeiconsIcon icon={actionIcons.discard} aria-hidden="true" data-icon="inline-start" />
         Discard changes
       </AlertDialogAction>
     </AlertDialogFooter>
@@ -134,12 +138,22 @@ Use the default treatment when changes must be confirmed before saving.
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
-      <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction onClick={saveChanges}>Save changes</AlertDialogAction>
+      <AlertDialogCancel><HugeiconsIcon icon={actionIcons.cancel} aria-hidden="true" data-icon="inline-start" />Cancel</AlertDialogCancel>
+      <AlertDialogAction onClick={saveChanges}><HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />Save changes</AlertDialogAction>
     </AlertDialogFooter>
   </AlertDialogContent>
 </AlertDialog>
 ```
+
+## Unsaved-change navigation contract
+
+Use Alert dialog whenever application-controlled navigation would discard unsaved work: switching tabs, following same-tab links or breadcrumbs, navigating programmatically, and handling in-document Back/Forward. Keep the current form and URL until the user decides. “Keep editing” closes the dialog and preserves edits; “Discard changes” completes the requested navigation once.
+
+Use the application's shared navigation guard and mount its Alert dialog once in the persistent shell. Do not use `window.confirm`, `window.alert`, or another browser-default dialog for these navigation decisions. After confirming a document navigation, avoid presenting a second unload confirmation for the same decision.
+
+Browser-controlled refresh, tab/window closure and leaving the document through browser controls can only use native `beforeunload` protection. Retain that safeguard while work is unsaved; browsers cannot display a custom Alert dialog during unload. This exception does not apply to navigation that the application can intercept.
+
+Verify both cancel and discard paths, unchanged field values after cancellation, keyboard focus restoration, Back/Forward behaviour and the absence of a browser confirmation during application-controlled navigation.
 
 ## Action behaviour
 
@@ -179,3 +193,7 @@ Agents must not add variants, sizes, behaviour props, media, or custom styling w
 - **Dialog** — forms or general modal content that are not a confirmation.
 - **Alert** — persistent page information that does not require a decision.
 - **Toast** — brief feedback and reversible actions that can offer undo.
+
+## Application integration
+
+Use the [tested application patterns](application-patterns.md) for data ownership, loading, asynchronous operations and navigation. Preserve source behaviour with the [migration checklist](migration-checklist.md). Common action glyphs come from the [action icon map](action-icons.md).

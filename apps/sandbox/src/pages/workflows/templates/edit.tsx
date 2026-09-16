@@ -1,3 +1,4 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react";
 import {
   Navigate,
@@ -5,7 +6,8 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
-import { Trash2, X } from "lucide-react";
+import Trash2 from "@hugeicons/core-free-icons/Delete02Icon";
+import X from "@hugeicons/core-free-icons/XIcon";
 import { toast } from "@geckolabs/elements/components/toast";
 
 import {
@@ -50,6 +52,7 @@ export default function WorkflowTemplateEditPage() {
     location.state as WorkflowTemplateEditLocationState | null
   )?.templateName;
 
+  const setIsSavingGuard = React.useRef(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
@@ -87,6 +90,8 @@ export default function WorkflowTemplateEditPage() {
   const handleUpdate = async () => {
     if (!template || !canvasRef.current) return;
 
+    if (setIsSavingGuard.current) return;
+    setIsSavingGuard.current = true;
     setIsSaving(true);
 
     try {
@@ -102,6 +107,7 @@ export default function WorkflowTemplateEditPage() {
         type: "error",
       });
     } finally {
+      setIsSavingGuard.current = false;
       setIsSaving(false);
     }
   };
@@ -138,7 +144,6 @@ export default function WorkflowTemplateEditPage() {
             ? {
                 label: "Update workflow template",
                 onClick: () => void handleUpdate(),
-                loading: isSaving,
               }
             : undefined
         }
@@ -168,7 +173,7 @@ export default function WorkflowTemplateEditPage() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={isDeleting}>
-              <X aria-hidden />
+              <HugeiconsIcon icon={X} aria-hidden />
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
@@ -176,7 +181,7 @@ export default function WorkflowTemplateEditPage() {
               onClick={() => void handleDeleteTemplate()}
               disabled={isDeleting}
             >
-              <Trash2 aria-hidden />
+              <HugeiconsIcon icon={Trash2} aria-hidden />
               Delete template
             </AlertDialogAction>
           </AlertDialogFooter>

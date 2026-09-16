@@ -1,5 +1,7 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react"
-import { CheckCheck, X } from "lucide-react"
+import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
+import X from "@hugeicons/core-free-icons/XIcon";
 import { useNavigate } from "react-router-dom"
 
 import { Button } from "@geckolabs/elements/components/button"
@@ -51,6 +53,7 @@ export function FormForm({
   const [name, setName] = React.useState(initialValues?.name ?? "")
   const [errors, setErrors] = React.useState<FormFormErrors>({})
 
+  const submitGuard = React.useRef(false);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
@@ -58,9 +61,15 @@ export function FormForm({
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length > 0) return
 
-    await onSubmit({
+    if (submitGuard.current || isSaving) return;
+    submitGuard.current = true;
+    try {
+      await onSubmit({
       name: name.trim(),
     })
+    } finally {
+      submitGuard.current = false;
+    }
   }
 
   return (
@@ -94,17 +103,17 @@ export function FormForm({
         </FieldGroup>
 
         <div className="mt-6 flex items-center gap-2">
-          <Button type="submit" disabled={isSaving}>
-            <CheckCheck aria-hidden />
+          <Button type="submit">
+            <HugeiconsIcon icon={CheckCheck} aria-hidden />
             {submitLabel}
           </Button>
           <Button
             type="button"
             variant="outline"
             onClick={() => navigate("/forms/forms")}
-            disabled={isSaving}
+
           >
-            <X aria-hidden />
+            <HugeiconsIcon icon={X} aria-hidden />
             Cancel
           </Button>
         </div>

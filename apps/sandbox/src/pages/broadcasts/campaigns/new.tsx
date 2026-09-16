@@ -15,6 +15,7 @@ import { getBroadcastCampaignPath } from "./broadcast-campaigns-data";
 export default function CreateBroadcastCampaignPage() {
   const navigate = useNavigate();
   const breadcrumbs = usePageBreadcrumbs();
+  const setIsSavingGuard = React.useRef(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const configured = isSupabaseConfigured();
 
@@ -30,7 +31,9 @@ export default function CreateBroadcastCampaignPage() {
             submitLabel="Save broadcast"
             isSaving={isSaving}
             onSubmit={async (values) => {
-              setIsSaving(true);
+              if (setIsSavingGuard.current) return;
+    setIsSavingGuard.current = true;
+    setIsSaving(true);
               try {
                 const campaign =
                   await broadcastCampaignsRepository.createBroadcastCampaign({
@@ -50,7 +53,8 @@ export default function CreateBroadcastCampaignPage() {
                   type: "error",
                 });
               } finally {
-                setIsSaving(false);
+                setIsSavingGuard.current = false;
+      setIsSaving(false);
               }
             }}
           />

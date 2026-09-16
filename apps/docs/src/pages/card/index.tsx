@@ -214,6 +214,54 @@ export function CardPage() {
       </MainSection>
 
       <MainSection
+        id="sizes"
+        title="Sizes"
+        description="Use small cards for content blocks within the app, medium for the standard treatment, and large for a more prominent heading. Set the size on Card to style its header automatically."
+      >
+        <ComponentExample>
+          <div className="space-y-6">
+            {(["sm", "md", "lg"] as const).map((size) => (
+              <Card key={size} size={size}>
+                <CardHeader>
+                  <CardTitle>
+                    {size === "sm"
+                      ? "Small"
+                      : size === "lg"
+                        ? "Large"
+                        : "Medium (default)"}{" "}
+                    card
+                  </CardTitle>
+                  <CardDescription>
+                    Supporting context for this content block.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>Related content goes here.</CardContent>
+              </Card>
+            ))}
+            <Code
+              variant="block"
+              language="tsx"
+              code={`<Card size="sm">
+  <CardHeader>
+    <CardTitle>Account details</CardTitle>
+    <CardDescription>Manage your account information.</CardDescription>
+  </CardHeader>
+  <CardContent>{/* fields */}</CardContent>
+</Card>`}
+              showCopyButton
+              copyLabel="Copy size example"
+            />
+          </div>
+        </ComponentExample>
+        <p className="text-muted-foreground text-sm">
+          Small uses a text-base title, a text-xs description and no gap between
+          them. Medium uses text-lg and text-sm. Large uses text-2xl and
+          text-sm. Medium and large retain the header gap. Section padding and
+          actions remain consistent across sizes.
+        </p>
+      </MainSection>
+
+      <MainSection
         id="variants"
         title="Variants"
         description="Compose the card with a header, a footer, or both. Use the pieces the content actually needs."
@@ -459,6 +507,12 @@ export function CardPage() {
       <MainSection id="api" title="API" description="Behaviour props on Card.">
         <DocsApiTable
           rows={[
+            {
+              name: "size",
+              type: '"sm" | "md" | "lg"',
+              description:
+                'On Card. Sets title, description and header spacing. Defaults to "md"; use "sm" for application content blocks.',
+            },
             {
               name: "tooltip",
               type: "boolean",

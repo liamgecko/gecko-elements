@@ -142,15 +142,15 @@ export function DropdownMenuPage() {
   <DropdownMenuTrigger render={<Button variant="outline" dropdown>Open dropdown</Button>} />
   <DropdownMenuContent>
     <DropdownMenuItem>
-      <UserIcon />
+      <HugeiconsIcon icon={UserIcon} />
       Profile
     </DropdownMenuItem>
     <DropdownMenuItem>
-      <CreditCardIcon />
+      <HugeiconsIcon icon={CreditCardIcon} />
       Billing
     </DropdownMenuItem>
     <DropdownMenuItem>
-      <SettingsIcon />
+      <HugeiconsIcon icon={SettingsIcon} />
       Settings
     </DropdownMenuItem>
   </DropdownMenuContent>
@@ -215,18 +215,18 @@ export function DropdownMenuPage() {
   <DropdownMenuContent>
     <DropdownMenuGroup>
       <DropdownMenuItem>
-        <PencilIcon />
+        <HugeiconsIcon icon={PencilIcon} />
         Edit
       </DropdownMenuItem>
       <DropdownMenuItem>
-        <ShareIcon />
+        <HugeiconsIcon icon={ShareIcon} />
         Share
       </DropdownMenuItem>
     </DropdownMenuGroup>
     <DropdownMenuSeparator />
     <DropdownMenuGroup>
       <DropdownMenuItem variant="destructive">
-        <TrashIcon />
+        <HugeiconsIcon icon={TrashIcon} />
         Delete
       </DropdownMenuItem>
     </DropdownMenuGroup>
@@ -263,12 +263,13 @@ export function DropdownMenuPage() {
             <br />
             <br />
             Avoid using it for a choice in a form — that is a{" "}
-            <DocsPageLink to="/components/select">Select</DocsPageLink>. On Data
-            table rows, right-click or long-press actions use the{" "}
+            <DocsPageLink to="/components/select">Select</DocsPageLink>. Data
+            table linked cells keep the native browser right-click menu. The{" "}
             <DocsPageLink to="/components/context-menu">
               Context menu
             </DocsPageLink>{" "}
-            instead.
+            component does not replace native link menus and has no current
+            DataTable row integration.
           </>
         }
       >

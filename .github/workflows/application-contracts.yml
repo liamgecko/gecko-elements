@@ -1,0 +1,29 @@
+name: Application contracts
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  recipes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check:contracts
+      - run: npm run typecheck
+      - run: npm run build --workspace docs
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:recipes
+      - run: npm run test:rich-text-editor
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: application-recipe-screenshots
+          path: .artifacts/recipes
+          if-no-files-found: ignore

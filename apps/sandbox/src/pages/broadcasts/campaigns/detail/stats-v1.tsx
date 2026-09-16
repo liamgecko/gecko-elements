@@ -1,7 +1,9 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react"
 import type { DateRange } from "react-day-picker"
 import { useParams } from "react-router-dom"
-import { CheckCheck, ListFilterPlus } from "lucide-react"
+import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
+import ListFilterPlus from "@hugeicons/core-free-icons/FilterAddIcon";
 
 import { Button } from "@geckolabs/elements/components/button"
 import { DatePicker } from "@geckolabs/elements/components/date-picker"
@@ -132,7 +134,7 @@ export default function BroadcastCampaignStatsV1Page() {
               nativeButton={false}
               render={
                 <Button variant="outline" size="sm">
-                  <ListFilterPlus aria-hidden />
+                  <HugeiconsIcon icon={ListFilterPlus} aria-hidden />
                   {filterTriggerLabel}
                 </Button>
               }
@@ -189,7 +191,7 @@ export default function BroadcastCampaignStatsV1Page() {
           ) : null}
 
           <Button size="sm" onClick={applyFilter} disabled={!canApplyFilter}>
-            <CheckCheck aria-hidden />
+            <HugeiconsIcon icon={CheckCheck} aria-hidden />
             Apply filter
           </Button>
         </div>

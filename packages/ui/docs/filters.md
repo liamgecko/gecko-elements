@@ -32,7 +32,10 @@ Every category and option has a stable value. Category ids are the keys returned
 ```tsx
 import { useState } from "react";
 
-import { Filter, type FilterOperator } from "@geckolabs/elements/components/filters";
+import {
+  Filter,
+  type FilterOperator,
+} from "@geckolabs/elements/components/filters";
 
 const categories = [
   {
@@ -88,7 +91,7 @@ Each active category renders one segmented filter chip. The library owns its cat
 
 Category menus are searchable by default. Set `searchable: false` for a short option list where every choice is immediately visible. Use `searchPlaceholder` when the generated `Search {category}` prompt is not natural or specific enough.
 
-The value menu sizes to the widest option or search placeholder and keeps the placeholder width reserved while filtering.
+The value menu sizes to the widest option or search placeholder and keeps the placeholder width reserved while filtering. Filter category, value, operator and Sort menus are capped at 20rem (320px at the default root size), or the available viewport height when smaller. Longer menus scroll internally and contain overscroll.
 
 A category without options is disabled. A Filter without categories has a disabled trigger.
 
@@ -258,3 +261,9 @@ Filters is Gecko-owned. It composes Gecko Dropdown menu, Button, Counter, Separa
 - **Combobox** — searchable single-choice form fields.
 - **Date picker** — a date form field with a calendar.
 - **Search** — free-text collection filtering.
+
+## Inclusion-only servers and translated labels
+
+Set `allowNegation: false` on a category when its server API cannot implement `is not`. The control then offers only the existing inclusion operators (`is` and `is any of`). Do not silently interpret negation as inclusion in an application adapter.
+
+`Filter.labels` accepts `selected(count)`, `operators` (a partial map keyed by the three operator values), `changeOperator(category, operator)`, `changeValues(category, values)`, `removeFilter(category)` and `noResults`. These change display/accessibility text only; operator values sent to `onChange` remain stable. Supply `triggerLabel` and each category's `searchPlaceholder` alongside translated category and option labels. Controlled `values` and `operators` reflect URL/history changes in active chips.

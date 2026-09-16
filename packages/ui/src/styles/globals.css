@@ -26,6 +26,10 @@
   --color-dark-surface-foreground: var(--dark-surface-foreground);
   --color-dark-surface-hover: var(--dark-surface-hover);
   --color-light-surface-hover: var(--light-surface-hover);
+  --color-selection-bar: var(--selection-bar);
+  --color-selection-bar-foreground: var(--selection-bar-foreground);
+  --color-selection-bar-hover: var(--selection-bar-hover);
+  --color-selection-bar-border: var(--selection-bar-border);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
@@ -158,6 +162,10 @@
   --dark-surface-foreground: oklch(1 0 0); /* white */
   --dark-surface-hover: oklch(1 0 0 / 0.1); /* white / 10% */
   --light-surface-hover: oklch(0 0 0 / 0.05); /* black / 5% */
+  --selection-bar: var(--chrome);
+  --selection-bar-foreground: var(--dark-surface-foreground);
+  --selection-bar-hover: var(--dark-surface-hover);
+  --selection-bar-border: var(--separator-inverse);
 
   /* Elevation */
   --elevation-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -312,6 +320,10 @@
   --accent-foreground: var(--foreground);
   --backdrop: oklch(4% 0 0 / 0.72);
   --chrome: var(--sidebar);
+  --selection-bar: oklch(96% 0.002 85);
+  --selection-bar-foreground: oklch(16% 0.002 85);
+  --selection-bar-hover: var(--light-surface-hover);
+  --selection-bar-border: oklch(0 0 0 / 0.12);
 
   /* Elevation */
   --elevation-xs: 0 0 0 1px rgb(255 255 255 / 0.05), 0 1px 2px rgb(0 0 0 / 0.4);

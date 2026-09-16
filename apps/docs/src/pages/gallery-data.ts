@@ -6,6 +6,17 @@ export type GalleryItem = {
 
 export const guidesPages: readonly GalleryItem[] = [
   {
+    name: "Action icons",
+    description: "The standard icon for each common application action.",
+    path: "/guides/action-icons",
+  },
+  {
+    name: "Application patterns",
+    description:
+      "Tested loading, navigation, forms, uploads and remote data recipes.",
+    path: "/guides/application-patterns",
+  },
+  {
     name: "Styling",
     description:
       "How to style components — what className is for and what to leave alone.",
@@ -337,6 +348,12 @@ export const componentPages: readonly GalleryItem[] = [
     name: "Reply box",
     description: "Reply composer for chat and comment threads.",
     path: "/components/reply-box",
+  },
+  {
+    name: "Rich text editor",
+    description:
+      "Formatted content with links, images, tables and source editing.",
+    path: "/components/rich-text-editor",
   },
   {
     name: "Scroll area",

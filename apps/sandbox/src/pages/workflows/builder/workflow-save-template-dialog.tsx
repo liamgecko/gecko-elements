@@ -1,4 +1,5 @@
-import { CheckCheck } from "lucide-react"
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
 
 import { Button } from "@geckolabs/elements/components/button"
 import {
@@ -32,7 +33,7 @@ export function WorkflowSaveTemplateDialog({
   saving = false,
 }: WorkflowSaveTemplateDialogProps) {
   const trimmedName = name.trim()
-  const canSave = trimmedName.length > 0 && !saving
+  const canSave = trimmedName.length > 0
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -53,7 +54,7 @@ export function WorkflowSaveTemplateDialog({
               onChange={(event) => onNameChange(event.currentTarget.value)}
               autoFocus
               onKeyDown={(event) => {
-                if (event.key === "Enter" && canSave) {
+                if (event.key === "Enter" && canSave && !saving) {
                   event.preventDefault()
                   onSave()
                 }
@@ -62,9 +63,9 @@ export function WorkflowSaveTemplateDialog({
           </DialogBody>
         </DialogWrapper>
         <DialogFooter showCloseButton closeButtonText="Cancel">
-          <Button type="button" disabled={!canSave} onClick={onSave}>
-            <CheckCheck data-icon="inline-start" aria-hidden />
-            {saving ? "Saving…" : "Save template"}
+          <Button type="button" disabled={!canSave} onClick={() => { if (!saving) onSave(); }}>
+            <HugeiconsIcon icon={CheckCheck} data-icon="inline-start" aria-hidden />
+            Save template
           </Button>
         </DialogFooter>
       </DialogContent>

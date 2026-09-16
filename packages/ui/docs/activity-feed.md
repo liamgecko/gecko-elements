@@ -132,7 +132,7 @@ Do not import and assemble the standalone Pagination module around Activity feed
 
 The parent surface owns these states:
 
-- Use Spinner while the initial history is loading.
+- Use a bounded Skeleton for unknown initial history; retain existing history during refresh. Follow [Application patterns](application-patterns.md).
 - Use Empty when the contact has no activity.
 - Use Alert when the history cannot be loaded.
 
@@ -156,6 +156,6 @@ Agents must not add activity types, icons, variants, or behaviour props without 
 
 - **Message / Message scroller** — conversation transcripts.
 - **Pagination** — pagination for content other than Activity feed. Do not compose it around Activity feed.
-- **Spinner** — parent-owned loading state.
+- **Skeleton** — parent-owned loading state; match known content geometry.
 - **Empty** — parent-owned empty state.
 - **Alert** — parent-owned error state.

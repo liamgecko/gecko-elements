@@ -9,7 +9,11 @@ Human documentation: `apps/docs/src/pages/empty/index.tsx`
 
 Empty explains why a page, section, list or table has no content and, when possible, gives someone a clear next step.
 
-Use Empty after loading has completed and the resulting collection contains nothing. Use Spinner while content is still loading. Use Alert when existing content is accompanied by an important status, warning or error.
+Use Empty after loading has completed and the resulting collection contains nothing. Before the result is known, use the bounded loading pattern in [Application patterns](application-patterns.md); do not render an empty table or guess an empty state. Retain a known empty state during background refresh. Use Alert when existing content is accompanied by an important status, warning or error.
+
+## Collection and query emptiness
+
+No data means Empty alone, without table headers, toolbar or pagination. A search or filter with no matches means Empty inside the Data table; retain query controls and the clear action. Do not treat a zero filtered result count as evidence that the underlying collection is empty. Unknown data and request failures are not empty successes.
 
 ## Canonical composition
 
@@ -155,6 +159,6 @@ Gecko retains Shadcn’s compound Empty composition and `EmptyMedia` variants wh
 ## Related components
 
 - **Data table** — owns its integrated empty and no-results states.
-- **Spinner** — content is still loading.
+- **Skeleton / application patterns** — reserve unknown content without predicting the result.
 - **Alert** — important status, warning or error content.
 - **Button** — product-owned next action.

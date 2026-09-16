@@ -144,7 +144,7 @@ type HeaderTabsProps = {
   listProps?: Omit<React.ComponentProps<typeof TabsList>, "children">;
 };
 
-type HeaderProps = React.ComponentProps<"div"> & {
+type HeaderProps = Omit<React.ComponentProps<"div">, "title"> & {
   breadcrumbs?: HeaderBreadcrumbsProps;
   title?: React.ReactNode;
   subheading?: React.ReactNode;

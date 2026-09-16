@@ -1,3 +1,4 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import {
   Tabs,
   TabsContent,
@@ -6,7 +7,8 @@ import {
 } from "@geckolabs/elements/components/tabs"
 import { Counter } from "@geckolabs/elements/components/counter"
 import { cn } from "@geckolabs/elements/lib/utils"
-import { MessageSquareText, Users } from "lucide-react"
+import MessageSquareText from "@hugeicons/core-free-icons/Message01Icon";
+import Users from "@hugeicons/core-free-icons/UserGroupIcon";
 
 import { AttendeesPanel } from "@/components/attendees/attendees-panel"
 import { LiveChatPanel } from "@/components/live-chat"
@@ -48,7 +50,7 @@ export function VirtualEventsSidebar({ className }: VirtualEventsSidebarProps) {
               value="chat"
               className={cn(sidebarTabTriggerClassName, "text-xs")}
             >
-              <MessageSquareText />
+              <HugeiconsIcon icon={MessageSquareText} />
               Live chat
             </TabsTrigger>
             <TabsTrigger
@@ -56,7 +58,7 @@ export function VirtualEventsSidebar({ className }: VirtualEventsSidebarProps) {
               aria-label={`People, ${attendeeCount} attendees`}
               className={cn(sidebarTabTriggerClassName, "text-xs")}
             >
-              <Users />
+              <HugeiconsIcon icon={Users} />
               People
               <Counter
                 value={attendeeCount}

@@ -9,7 +9,7 @@ Human documentation: `apps/docs/src/pages/progress/index.tsx`
 
 Progress communicates the completion of a measurable task. Use a bar when horizontal space is available and a ring when the indicator needs a compact square footprint.
 
-Use Spinner when the amount of work completed cannot be measured. Do not use Progress as decoration or as a general score without a clear minimum and maximum.
+Use Spinner for compact tasks when the amount of work completed cannot be measured. For page and panel content, use the [application loading patterns](application-patterns.md). Do not use Progress as decoration or as a general score without a clear minimum and maximum.
 
 Progress wraps Base UI through Shadcn’s composition. Application code must import the Gecko parts rather than importing either dependency directly.
 
@@ -100,7 +100,7 @@ Progress accepts Base UI Progress Root properties. ProgressTrack, ProgressIndica
 4. Keep values within the configured minimum and maximum.
 5. Show a formatted value when exact completion matters.
 6. Use tiered colours only when their thresholds have domain meaning and include a textual cue.
-7. Use Spinner for indeterminate page or panel waits.
+7. Use the application loading patterns for initial page and panel data; Spinner is for compact indeterminate activity.
 8. Preserve Gecko’s approved sizes, ring geometry and colour thresholds.
 9. Do not import Shadcn or Base UI Progress directly.
 
@@ -111,5 +111,5 @@ Progress accepts Base UI Progress Root properties. ProgressTrack, ProgressIndica
 
 ## Related
 
-- **Spinner** — indeterminate page or panel loading.
+- **Spinner** — compact indeterminate task progress.
 - **Metric card** — a labelled metric that may include measurable progress.

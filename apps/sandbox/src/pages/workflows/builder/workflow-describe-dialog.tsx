@@ -1,5 +1,6 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react"
-import { WandSparkles } from "lucide-react"
+import WandSparkles from "@hugeicons/core-free-icons/MagicWand01Icon";
 
 import { Button } from "@geckolabs/elements/components/button"
 import {
@@ -65,7 +66,7 @@ export function WorkflowDescribeDialog({
             disabled={building || !prompt.trim()}
             onClick={() => onBuild(prompt.trim())}
           >
-            <WandSparkles data-icon="inline-start" aria-hidden />
+            <HugeiconsIcon icon={WandSparkles} data-icon="inline-start" aria-hidden />
             {building ? "Building…" : "Build workflow"}
           </Button>
         </DialogFooter>

@@ -138,7 +138,7 @@ The list refreshes relative values every minute. Each value is rendered as a sem
 
 The parent Inbox surface owns these states:
 
-- Use Spinner while conversations are loading.
+- Follow [Application patterns](application-patterns.md) while conversations load: retain known rows and use a bounded Skeleton for unknown content.
 - Use Empty when no conversations match the current view.
 - Use Alert when conversations cannot be loaded.
 
@@ -183,6 +183,6 @@ Agents must obtain explicit user consent before adding or changing fields, state
 
 - **Message / Message scroller** — content of the selected conversation.
 - **Avatar** — identity outside the conversation list.
-- **Spinner** — parent-owned loading state.
+- **Skeleton** — parent-owned loading state; match known content geometry.
 - **Empty** — parent-owned empty state.
 - **Alert** — parent-owned error state.

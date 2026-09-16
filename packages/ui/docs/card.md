@@ -22,7 +22,7 @@ import {
   CardTitle,
 } from "@geckolabs/elements/components/card";
 
-<Card>
+<Card size="sm">
   <CardHeader>
     <CardTitle>Application activity</CardTitle>
     <CardDescription>Applications received this week.</CardDescription>
@@ -60,6 +60,34 @@ Use CardHeader when the block needs a name. CardTitle owns the visual treatment 
 Only use `render` to override the element when the surrounding page hierarchy genuinely requires another heading level. Do not add `render` routinely.
 
 Use CardDescription for short supporting context. Keep the description visible by default.
+
+## Size
+
+Set `size` on Card; its header, title and description use that size automatically.
+Use `size="sm"` for content blocks within the application. Omit `size` (or use
+`size="md"`) to retain the standard treatment. Use `size="lg"` for a more prominent
+block.
+
+| Size           | Title       | Description | Title/description gap |
+| -------------- | ----------- | ----------- | --------------------- |
+| `sm`           | `text-base` | `text-xs`   | None                  |
+| `md` (default) | `text-lg`   | `text-sm`   | `gap-0.5`             |
+| `lg`           | `text-2xl`  | `text-sm`   | `gap-0.5`             |
+
+All sizes retain the same section padding, dividers, surface and footer actions.
+Size changes visual hierarchy; CardTitle remains an `h3`. A nested Card owns its
+own size and defaults to `md`, independently of its parent. Tooltip descriptions
+retain the Tooltip component's typography.
+
+```tsx
+<Card size="sm">
+  <CardHeader>
+    <CardTitle>Account details</CardTitle>
+    <CardDescription>Manage your account information.</CardDescription>
+  </CardHeader>
+  <CardContent>{/* fields */}</CardContent>
+</Card>
+```
 
 ## Header action
 
@@ -147,7 +175,7 @@ Card supports a direct image as its first or last child and applies the matching
 
 All parts except CardTitle accept the native properties of their default `div`. CardTitle accepts native `h3` properties and an optional `render` escape hatch for a different heading level. CardHeader accepts `tooltip?: boolean`.
 
-Card has one standard density. Do not pass or recreate a small size.
+Card accepts `size?: "sm" | "md" | "lg"` (default `"md"`). Set the size on Card rather than restyling its individual parts.
 
 ## Styling contract
 
@@ -159,4 +187,4 @@ Agents must obtain explicit user consent before adding or changing parts, props,
 
 ## Relationship to Shadcn
 
-Gecko retains Shadcn’s compound Card parts and direct-image handling. Gecko deliberately uses a compact radius, fixed section spacing, structural header and footer dividers, a larger default title and end-aligned footer actions. Gecko adds the approved supplementary-description tooltip and makes CardTitle a semantic `h3` by default, with render composition retained only as an escape hatch. Gecko has one standard density rather than Shadcn’s optional small size.
+Gecko retains Shadcn’s compound Card parts and direct-image handling. Gecko deliberately uses a compact radius, fixed section spacing, structural header and footer dividers, a larger default title and end-aligned footer actions. Gecko adds the approved supplementary-description tooltip and makes CardTitle a semantic `h3` by default, with render composition retained only as an escape hatch. Gecko adds small, medium and large heading treatments through Card’s size property.

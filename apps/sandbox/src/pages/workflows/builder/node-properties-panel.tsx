@@ -1,11 +1,10 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react";
-import {
-  CheckCheck,
-  PanelRightClose,
-  PanelRightOpen,
-  Trash2,
-  X,
-} from "lucide-react";
+import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
+import PanelRightClose from "@hugeicons/core-free-icons/LayoutAlignRightIcon";
+import PanelRightOpen from "@hugeicons/core-free-icons/LayoutRightIcon";
+import Trash2 from "@hugeicons/core-free-icons/Delete02Icon";
+import X from "@hugeicons/core-free-icons/XIcon";
 import { toast } from "@geckolabs/elements/components/toast";
 
 import {
@@ -202,9 +201,9 @@ export function NodePropertiesPanel({
               onClick={() => onOpenChange(!open)}
             >
               {open ? (
-                <PanelRightClose aria-hidden className="size-4" />
+                <HugeiconsIcon icon={PanelRightClose} aria-hidden className="size-4" />
               ) : (
-                <PanelRightOpen aria-hidden className="size-4" />
+                <HugeiconsIcon icon={PanelRightOpen} aria-hidden className="size-4" />
               )}
             </Button>
           </div>
@@ -271,11 +270,11 @@ export function NodePropertiesPanel({
                       size="sm"
                       onClick={() => setDeleteDialogOpen(true)}
                     >
-                      <Trash2 data-icon="inline-start" aria-hidden />
+                      <HugeiconsIcon icon={Trash2} data-icon="inline-start" aria-hidden />
                       Delete node
                     </Button>
                     <Button type="button" size="sm" onClick={handleSaveNode}>
-                      <CheckCheck data-icon="inline-start" aria-hidden />
+                      <HugeiconsIcon icon={CheckCheck} data-icon="inline-start" aria-hidden />
                       Save node
                     </Button>
                   </div>
@@ -296,14 +295,14 @@ export function NodePropertiesPanel({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>
-              <X aria-hidden />
+              <HugeiconsIcon icon={X} aria-hidden />
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               variant="destructive"
               onClick={handleConfirmDelete}
             >
-              <Trash2 aria-hidden />
+              <HugeiconsIcon icon={Trash2} aria-hidden />
               Delete node
             </AlertDialogAction>
           </AlertDialogFooter>

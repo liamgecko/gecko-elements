@@ -1,3 +1,4 @@
+import { actionIcons } from "@geckolabs/elements/lib/action-icons";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
@@ -30,12 +31,14 @@ import { useState } from "react";
 
 export function ButtonPage() {
   const [panelExpanded, setPanelExpanded] = useState(true);
-  const [isSaving, setIsSaving] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const importSnippet = `import { Button } from "@geckolabs/elements/components/button"`;
+  const importSnippet = `import { actionIcons } from "@geckolabs/elements/lib/action-icons";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import { Button } from "@geckolabs/elements/components/button"`;
 
-  const defaultSnippet = `<Button>Save changes</Button>`;
+  const defaultSnippet = `<Button><HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />Save changes</Button>`;
 
   const primarySnippet = `<Button>Primary</Button>`;
 
@@ -91,47 +94,47 @@ export function ButtonPage() {
   const sizesSnippet = `<Button size="xs|sm|default|lg">Button</Button>
 
 <Button size="icon-xs|icon-sm|icon|icon-lg" aria-label="Settings">
-  <Settings />
+  <HugeiconsIcon icon={Settings} />
 </Button>`;
 
   const iconLeftSnippet = `<Button>
-  <Settings data-icon="inline-start" />
+  <HugeiconsIcon icon={Settings} data-icon="inline-start" />
   Icon left
 </Button>`;
 
   const iconRightSnippet = `<Button>
   Icon right
-  <Settings data-icon="inline-end" />
+  <HugeiconsIcon icon={Settings} data-icon="inline-end" />
 </Button>`;
 
   const iconOnlySnippet = `<Button size="icon" aria-label="Open settings">
-  <Settings />
+  <HugeiconsIcon icon={Settings} />
 </Button>`;
 
   const loadingSnippet = `import { useState } from "react"
 
 import { Button } from "@geckolabs/elements/components/button"
 
-export function SaveChangesButton({
-  saveChanges,
+export function GenerateReportButton({
+  generateReport,
 }: {
-  saveChanges: () => Promise<void>
+  generateReport: () => Promise<void>
 }) {
-  const [isSaving, setIsSaving] = useState(false)
+  const [isGenerating, setIsGenerating] = useState(false)
 
-  async function handleSave() {
-    setIsSaving(true)
+  async function handleGenerate() {
+    setIsGenerating(true)
 
     try {
-      await saveChanges()
+      await generateReport()
     } finally {
-      setIsSaving(false)
+      setIsGenerating(false)
     }
   }
 
   return (
-    <Button loading={isSaving} onClick={handleSave}>
-      {isSaving ? "Saving changes" : "Save changes"}
+    <Button loading={isGenerating} onClick={handleGenerate}>
+      Generate report
     </Button>
   )
 }`;
@@ -160,7 +163,11 @@ export function SaveChangesButton({
             actions, and the soft-filled treatment only in documented component
             compositions. Use quiet treatments for toolbar and icon chrome, and
             destructive treatments for delete or remove controls. Confirm
-            irreversible deletes with Alert dialog.
+            irreversible deletes with Alert dialog. Use the shared{" "}
+            <DocsPageLink to="/guides/action-icons">
+              action icon map
+            </DocsPageLink>{" "}
+            for consistent icons.
             <br />
             <br />
             Avoid using a button for something that is not an action, or for
@@ -199,7 +206,14 @@ export function SaveChangesButton({
       >
         <ComponentExample>
           <div className="space-y-6">
-            <Button>Save changes</Button>
+            <Button>
+              <HugeiconsIcon
+                icon={actionIcons.save}
+                aria-hidden="true"
+                data-icon="inline-start"
+              />
+              Save changes
+            </Button>
             <Code
               variant="block"
               language="tsx"
@@ -697,12 +711,15 @@ export function SaveChangesButton({
 
       <MainSection
         id="loading"
-        title="Loading button"
+        title="Loading for other actions"
         description={
           <>
-            Click either example to see the full flow. The Button supplies the
-            Loader, prevents repeated activation, retains focus, and keeps
-            action wording visible while work is in progress.
+            Save buttons never use loading, saving text or a pending-disabled
+            state. Keep their icon and label unchanged, guard duplicate saves in
+            the handler and use Toast for the result. These non-save examples
+            demonstrate the loading capability. The Button supplies the Loader,
+            prevents repeated activation, retains focus, and keeps action
+            wording visible while work is in progress.
           </>
         }
       >
@@ -710,10 +727,10 @@ export function SaveChangesButton({
           <div className="space-y-6">
             <div className="flex flex-wrap items-center gap-3">
               <Button
-                loading={isSaving}
-                onClick={() => void showLoadingState(setIsSaving)}
+                loading={isGenerating}
+                onClick={() => void showLoadingState(setIsGenerating)}
               >
-                {isSaving ? "Saving changes" : "Save changes"}
+                Generate report
               </Button>
               <Button
                 size="icon"
@@ -751,7 +768,7 @@ export function SaveChangesButton({
               <Code>secondary</Code>.
             </>,
             <>
-              Use <Code>loading</Code> while an action is running. Keep the
+              Use <Code>loading</Code> only for non-save actions. Keep the
               action wording visible beside the Loader.
             </>,
             <>
@@ -846,7 +863,7 @@ export function SaveChangesButton({
               type: "boolean",
               defaultValue: "false",
               description:
-                "Shows the approved Loader beside the action label, prevents activation, keeps focus, and exposes aria-busy.",
+                "For non-save actions only: shows the approved Loader, prevents activation, keeps focus and exposes aria-busy. Never use for saving edits.",
             },
             {
               name: "disabled",

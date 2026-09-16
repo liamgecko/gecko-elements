@@ -1,5 +1,8 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react"
-import { LayoutTemplate, WandSparkles, Workflow } from "lucide-react"
+import LayoutTemplate from "@hugeicons/core-free-icons/Layout01Icon";
+import WandSparkles from "@hugeicons/core-free-icons/MagicWand01Icon";
+import Workflow from "@hugeicons/core-free-icons/WorkflowSquare01Icon";
 
 import { Button } from "@geckolabs/elements/components/button"
 import {
@@ -38,7 +41,7 @@ export function WorkflowCanvasEmpty({
       <div className="pointer-events-none absolute inset-0 z-[1] flex items-center justify-center p-6">
         <Empty className="max-w-md border-none p-0">
           <EmptyMedia variant="icon">
-            <Workflow aria-hidden />
+            <HugeiconsIcon icon={Workflow} aria-hidden />
           </EmptyMedia>
           <EmptyHeader>
             <EmptyTitle>
@@ -59,7 +62,7 @@ export function WorkflowCanvasEmpty({
                   onClick={onInsertTrigger}
                   disabled={agentBuilding}
                 >
-                  <TriggerIcon data-icon="inline-start" aria-hidden />
+                  <HugeiconsIcon icon={TriggerIcon} data-icon="inline-start" aria-hidden />
                   Add a trigger
                 </Button>
               ) : null}
@@ -70,7 +73,7 @@ export function WorkflowCanvasEmpty({
                   onClick={() => setTemplateSelectorOpen(true)}
                   disabled={agentBuilding}
                 >
-                  <LayoutTemplate data-icon="inline-start" aria-hidden />
+                  <HugeiconsIcon icon={LayoutTemplate} data-icon="inline-start" aria-hidden />
                   Select a template
                 </Button>
               ) : null}
@@ -79,7 +82,7 @@ export function WorkflowCanvasEmpty({
                 disabled={agentBuilding}
                 onClick={() => setDescribeDialogOpen(true)}
               >
-                <WandSparkles data-icon="inline-start" aria-hidden />
+                <HugeiconsIcon icon={WandSparkles} data-icon="inline-start" aria-hidden />
                 Describe your workflow
               </Button>
             </div>

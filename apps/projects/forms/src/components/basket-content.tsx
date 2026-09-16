@@ -1,5 +1,6 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { Button } from "@geckolabs/elements/components/button";
-import { Trash2 } from "lucide-react";
+import Trash2 from "@hugeicons/core-free-icons/Delete02Icon";
 
 import { formatCost, type BasketLine } from "../lib/booking";
 
@@ -33,7 +34,7 @@ function BasketLineRow({
             onClick={() => onRemove(line.id)}
             className="hover:bg-white"
           >
-            <Trash2 />
+            <HugeiconsIcon icon={Trash2} />
           </Button>
         ) : null}
       </div>

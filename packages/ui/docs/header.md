@@ -258,3 +258,7 @@ Use `className` only for reviewed layout integration. Do not remove the backgrou
 - **Toggle** — favourite state rendered by Header.
 - **Dropdown menu** — secondary action lists rendered by Header.
 - **Tabs** — sub-navigation rendered by Header.
+
+## Application integration
+
+Use the [tested application patterns](application-patterns.md) for data ownership, loading, asynchronous operations and navigation. Preserve source behaviour with the [migration checklist](migration-checklist.md). Common action glyphs come from the [action icon map](action-icons.md).

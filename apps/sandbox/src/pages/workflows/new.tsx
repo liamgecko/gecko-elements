@@ -33,9 +33,11 @@ export default function WorkflowNewPage() {
   const [workflowName, setWorkflowName] = React.useState(
     () => locationState?.workflowName ?? "",
   );
+  const setIsSavingGuard = React.useRef(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const [templateDialogOpen, setTemplateDialogOpen] = React.useState(false);
   const [templateName, setTemplateName] = React.useState("");
+  const setIsSavingTemplateGuard = React.useRef(false);
   const [isSavingTemplate, setIsSavingTemplate] = React.useState(false);
 
   const handleMenuAction = (action: WorkflowHeaderMenuActionId) => {
@@ -50,6 +52,8 @@ export default function WorkflowNewPage() {
     const trimmedName = templateName.trim();
     if (!trimmedName || !canvasRef.current) return;
 
+    if (setIsSavingTemplateGuard.current) return;
+    setIsSavingTemplateGuard.current = true;
     setIsSavingTemplate(true);
 
     try {
@@ -68,6 +72,7 @@ export default function WorkflowNewPage() {
         type: "error",
       });
     } finally {
+      setIsSavingTemplateGuard.current = false;
       setIsSavingTemplate(false);
     }
   };
@@ -80,6 +85,8 @@ export default function WorkflowNewPage() {
     const trimmedName = workflowName.trim();
     if (!trimmedName || !canvasRef.current) return;
 
+    if (setIsSavingGuard.current) return;
+    setIsSavingGuard.current = true;
     setIsSaving(true);
 
     try {
@@ -99,6 +106,7 @@ export default function WorkflowNewPage() {
         type: "error",
       });
     } finally {
+      setIsSavingGuard.current = false;
       setIsSaving(false);
     }
   };
@@ -122,7 +130,6 @@ export default function WorkflowNewPage() {
         primaryAction={{
           label: "Save workflow",
           onClick: handleSaveClick,
-          loading: isSaving,
         }}
       />
       <WorkflowCanvas ref={canvasRef} initialDefinition={initialDefinition} />

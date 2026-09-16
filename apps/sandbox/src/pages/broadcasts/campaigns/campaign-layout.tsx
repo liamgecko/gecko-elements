@@ -1,4 +1,6 @@
-import { Cog, Home } from "lucide-react"
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import Cog from "@hugeicons/core-free-icons/Settings01Icon";
+import Home from "@hugeicons/core-free-icons/Home01Icon";
 import { Navigate, Outlet, useLocation, useNavigate, useParams } from "react-router-dom"
 
 import { Container } from "@geckolabs/elements/components/container"
@@ -81,7 +83,7 @@ export default function BroadcastCampaignLayout() {
             {
               label: (
                 <BreadcrumbRouterLink to="/home">
-                  <Home className="size-3.5" />
+                  <HugeiconsIcon icon={Home} className="size-3.5" />
                   <span className="sr-only">Home</span>
                 </BreadcrumbRouterLink>
               ),
@@ -113,7 +115,7 @@ export default function BroadcastCampaignLayout() {
           {
             kind: "menu",
             label: "Actions",
-            icon: <Cog aria-hidden />,
+            icon: <HugeiconsIcon icon={Cog} aria-hidden />,
             ariaLabel: "Campaign actions",
             items: [...broadcastCampaignHeaderMenuItems],
           },

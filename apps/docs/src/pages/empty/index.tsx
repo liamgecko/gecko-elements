@@ -50,7 +50,7 @@ export function EmptyPage() {
   const withIconSnippet = `<Empty>
   <EmptyHeader>
     <EmptyMedia variant="icon">
-      <InboxIcon aria-hidden="true" />
+      <HugeiconsIcon icon={InboxIcon} aria-hidden="true" />
     </EmptyMedia>
     <EmptyTitle>No messages</EmptyTitle>
     <EmptyDescription>
@@ -108,8 +108,10 @@ export function EmptyPage() {
             Avoid using it when there is already content, or for a warning that
             needs attention — that is an{" "}
             <DocsPageLink to="/components/alert">Alert</DocsPageLink>. If
-            something is still loading, use a{" "}
-            <DocsPageLink to="/components/spinner">Spinner</DocsPageLink>{" "}
+            something is still loading, use the{" "}
+            <DocsPageLink to="/guides/application-patterns">
+              application loading pattern
+            </DocsPageLink>{" "}
             instead.
           </>
         }
@@ -311,8 +313,11 @@ export function EmptyPage() {
             <>Don’t use an icon as the only explanation of the empty state.</>,
             <>Don’t add actions when there is no available next step.</>,
             <>
-              Don’t present loading as empty. Use a{" "}
-              <DocsPageLink to="/components/spinner">Spinner</DocsPageLink>.
+              Don’t present loading as empty. Use the{" "}
+              <DocsPageLink to="/guides/application-patterns">
+                application loading pattern
+              </DocsPageLink>
+              .
             </>,
             <>
               Don’t override the media frame, spacing, or text chrome with{" "}
@@ -356,12 +361,15 @@ export function EmptyPage() {
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/data-table">Data table</DocsPageLink>{" "}
-            — empty list and table pages (events, forms, broadcasts) should show
-            Empty.
+            — no data shows only Empty, without table chrome. No search or
+            filter matches shows Empty inside the table, keeping query controls
+            available.
           </li>
           <li>
-            <DocsPageLink to="/components/spinner">Spinner</DocsPageLink> — when
-            content is still loading.
+            <DocsPageLink to="/guides/application-patterns">
+              application loading pattern
+            </DocsPageLink>{" "}
+            — when content is still loading.
           </li>
           <li>
             <DocsPageLink to="/components/alert">Alert</DocsPageLink> — when the

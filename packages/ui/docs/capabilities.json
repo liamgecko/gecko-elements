@@ -1,0 +1,1336 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/generate-capabilities.mjs",
+  "scope": "Declared component contracts. Dependency names are observed implementation imports, not approval for direct app imports. Checks identify relevant suites, not exhaustive per-prop coverage.",
+  "capabilities": [
+    {
+      "id": "accordion",
+      "title": "Accordion",
+      "import": "@geckolabs/elements/components/accordion",
+      "contract": "docs/accordion.md",
+      "source": "src/components/accordion.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "action-icons",
+      "title": "Action icons",
+      "import": "@geckolabs/elements/lib/action-icons",
+      "contract": "docs/action-icons.md",
+      "source": "src/lib/action-icons.ts",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [
+        "docs/recipes/async-form.tsx"
+      ],
+      "limits": "Glyph mapping only; no action behaviour or permissions.",
+      "checks": [
+        "npm run typecheck",
+        "npm run check:contracts",
+        "npm run test:recipes"
+      ]
+    },
+    {
+      "id": "activity-feed",
+      "title": "Activity feed",
+      "import": "@geckolabs/elements/components/activity-feed",
+      "contract": "docs/activity-feed.md",
+      "source": "src/components/activity-feed.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "alert-dialog",
+      "title": "Alert dialog",
+      "import": "@geckolabs/elements/components/alert-dialog",
+      "contract": "docs/alert-dialog.md",
+      "source": "src/components/alert-dialog.tsx",
+      "implementationDependencies": [
+        "@base-ui/react"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [
+        "docs/recipes/persistent-editor.tsx"
+      ],
+      "limits": "The application must connect router blockers; browser refresh/close cannot use custom dialogs.",
+      "checks": [
+        "npm run typecheck",
+        "npm run check:contracts",
+        "npm run test:recipes"
+      ]
+    },
+    {
+      "id": "alert",
+      "title": "Alert",
+      "import": "@geckolabs/elements/components/alert",
+      "contract": "docs/alert.md",
+      "source": "src/components/alert.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "app-header",
+      "title": "App header",
+      "import": "@geckolabs/elements/components/app-header",
+      "contract": "docs/app-header.md",
+      "source": "src/components/app-header.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "app-sidebar",
+      "title": "App sidebar",
+      "import": "@geckolabs/elements/components/app-sidebar",
+      "contract": "docs/app-sidebar.md",
+      "source": "src/components/app-sidebar.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "attachment",
+      "title": "Attachment",
+      "import": "@geckolabs/elements/components/attachment",
+      "contract": "docs/attachment.md",
+      "source": "src/components/attachment.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [
+        "docs/recipes/upload-field.tsx"
+      ],
+      "limits": "Application owns upload/scan service, durable references and abandoned upload cleanup.",
+      "checks": [
+        "npm run typecheck",
+        "npm run check:contracts",
+        "npm run test:recipes"
+      ]
+    },
+    {
+      "id": "avatar-group",
+      "title": "Avatar group",
+      "import": "@geckolabs/elements/components/avatar-group",
+      "contract": "docs/avatar-group.md",
+      "source": "src/components/avatar-group.tsx",
+      "implementationDependencies": [],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "avatar",
+      "title": "Avatar",
+      "import": "@geckolabs/elements/components/avatar",
+      "contract": "docs/avatar.md",
+      "source": "src/components/avatar.tsx",
+      "implementationDependencies": [
+        "@base-ui/react"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "badge",
+      "title": "Badge",
+      "import": "@geckolabs/elements/components/badge",
+      "contract": "docs/badge.md",
+      "source": "src/components/badge.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "breadcrumb",
+      "title": "Breadcrumb",
+      "import": "@geckolabs/elements/components/breadcrumb",
+      "contract": "docs/breadcrumb.md",
+      "source": "src/components/breadcrumb.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "bubble",
+      "title": "Bubble",
+      "import": "@geckolabs/elements/components/bubble",
+      "contract": "docs/bubble.md",
+      "source": "src/components/bubble.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "button-group",
+      "title": "Button Group",
+      "import": "@geckolabs/elements/components/button-group",
+      "contract": "docs/button-group.md",
+      "source": "src/components/button-group.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "button",
+      "title": "Button",
+      "import": "@geckolabs/elements/components/button",
+      "contract": "docs/button.md",
+      "source": "src/components/button.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "calendar",
+      "title": "Calendar",
+      "import": "@geckolabs/elements/components/calendar",
+      "contract": "docs/calendar.md",
+      "source": "src/components/calendar.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "react-day-picker"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "card",
+      "title": "Card",
+      "import": "@geckolabs/elements/components/card",
+      "contract": "docs/card.md",
+      "source": "src/components/card.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [
+        "docs/recipes/async-form.tsx"
+      ],
+      "limits": "Use size sm for application content blocks; default size remains available for other contexts.",
+      "checks": [
+        "npm run typecheck",
+        "npm run check:contracts",
+        "npm run test:recipes"
+      ]
+    },
+    {
+      "id": "chart",
+      "title": "Chart",
+      "import": "@geckolabs/elements/components/chart",
+      "contract": "docs/chart.md",
+      "source": "src/components/chart.tsx",
+      "implementationDependencies": [
+        "recharts"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "chat-head",
+      "title": "Chat head",
+      "import": "@geckolabs/elements/components/chat-head",
+      "contract": "docs/chat-head.md",
+      "source": "src/components/chat-head.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "checkbox",
+      "title": "Checkbox",
+      "import": "@geckolabs/elements/components/checkbox",
+      "contract": "docs/checkbox.md",
+      "source": "src/components/checkbox.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "code-snippet",
+      "title": "Code snippet",
+      "import": "@geckolabs/elements/components/code",
+      "contract": "docs/code-snippet.md",
+      "source": "src/components/code.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "motion"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "color-picker",
+      "title": "Colour field",
+      "import": "@geckolabs/elements/components/color-picker",
+      "contract": "docs/color-picker.md",
+      "source": "src/components/color-picker.tsx",
+      "implementationDependencies": [
+        "react-colorful"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "combobox",
+      "title": "Combobox",
+      "import": "@geckolabs/elements/components/combobox",
+      "contract": "docs/combobox.md",
+      "source": "src/components/combobox.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [
+        "docs/recipes/remote-combobox.tsx"
+      ],
+      "limits": "Remote recipe covers search, selection and races; no built-in remote pagination or virtualization.",
+      "checks": [
+        "npm run typecheck",
+        "npm run check:contracts",
+        "npm run test:recipes"
+      ]
+    },
+    {
+      "id": "command",
+      "title": "Command",
+      "import": "@geckolabs/elements/components/command",
+      "contract": "docs/command.md",
+      "source": "src/components/command.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "cmdk"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "container",
+      "title": "Page container",
+      "import": "@geckolabs/elements/components/container",
+      "contract": "docs/container.md",
+      "source": "src/components/container.tsx",
+      "implementationDependencies": [],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "context-menu",
+      "title": "Context menu",
+      "import": "@geckolabs/elements/components/context-menu",
+      "contract": "docs/context-menu.md",
+      "source": "src/components/context-menu.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "No current DataTable row integration. Preserve native browser menus on rowLink anchors; visible row actions use Dropdown menu.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "counter",
+      "title": "Counter",
+      "import": "@geckolabs/elements/components/counter",
+      "contract": "docs/counter.md",
+      "source": "src/components/counter.tsx",
+      "implementationDependencies": [
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "data-table",
+      "title": "Data table",
+      "import": "@geckolabs/elements/components/data-table",
+      "contract": "docs/data-table.md",
+      "source": "src/components/data-table/",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "@tanstack/react-table",
+        "motion"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [
+        "docs/recipes/remote-table.tsx"
+      ],
+      "limits": "Backend must support requested query keys. rowLink uses native anchors and browser context menus; visible row actions use Dropdown menu.",
+      "checks": [
+        "npm run typecheck",
+        "npm run check:contracts",
+        "npm run test:recipes"
+      ]
+    },
+    {
+      "id": "date-field",
+      "title": "Date field",
+      "import": "@geckolabs/elements/components/date-input",
+      "contract": "docs/date-field.md",
+      "source": "src/components/date-input.tsx",
+      "implementationDependencies": [],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "date-picker",
+      "title": "Date picker",
+      "import": "@geckolabs/elements/components/date-picker",
+      "contract": "docs/date-picker.md",
+      "source": "src/components/date-picker.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "class-variance-authority",
+        "date-fns",
+        "react-day-picker"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "dialog",
+      "title": "Dialog",
+      "import": "@geckolabs/elements/components/dialog",
+      "contract": "docs/dialog.md",
+      "source": "src/components/dialog.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "drop-zone",
+      "title": "Drop zone",
+      "import": "@geckolabs/elements/components/drop-zone",
+      "contract": "docs/drop-zone.md",
+      "source": "src/components/drop-zone.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "dropdown-menu",
+      "title": "Dropdown menu",
+      "import": "@geckolabs/elements/components/dropdown-menu",
+      "contract": "docs/dropdown-menu.md",
+      "source": "src/components/dropdown-menu.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "emoji-picker",
+      "title": "Emoji picker",
+      "import": "@geckolabs/elements/components/emoji-picker",
+      "contract": "docs/emoji-picker.md",
+      "source": "src/components/emoji-picker.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "frimousse"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "empty",
+      "title": "Empty",
+      "import": "@geckolabs/elements/components/empty",
+      "contract": "docs/empty.md",
+      "source": "src/components/empty.tsx",
+      "implementationDependencies": [
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [
+        "docs/recipes/remote-table.tsx"
+      ],
+      "limits": "Render only for confirmed empty data; preserve cached empty during refresh.",
+      "checks": [
+        "npm run typecheck",
+        "npm run check:contracts",
+        "npm run test:recipes"
+      ]
+    },
+    {
+      "id": "field",
+      "title": "Field",
+      "import": "@geckolabs/elements/components/field",
+      "contract": "docs/field.md",
+      "source": "src/components/field.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [
+        "docs/recipes/async-form.tsx"
+      ],
+      "limits": "Application owns schema and shared mutation validation.",
+      "checks": [
+        "npm run typecheck",
+        "npm run check:contracts",
+        "npm run test:recipes"
+      ]
+    },
+    {
+      "id": "file-field",
+      "title": "File field",
+      "import": "@geckolabs/elements/components/file-input",
+      "contract": "docs/file-field.md",
+      "source": "src/components/file-input.tsx",
+      "implementationDependencies": [],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "file-tree",
+      "title": "File tree",
+      "import": "@geckolabs/elements/components/file-tree",
+      "contract": "docs/file-tree.md",
+      "source": "src/components/file-tree.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "filters",
+      "title": "Filters",
+      "import": "@geckolabs/elements/components/filters",
+      "contract": "docs/filters.md",
+      "source": "src/components/filters.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "react-day-picker"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "header",
+      "title": "Page header",
+      "import": "@geckolabs/elements/components/header",
+      "contract": "docs/header.md",
+      "source": "src/components/header.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [
+        "docs/recipes/persistent-editor.tsx"
+      ],
+      "limits": "Presentation metadata is not permission authority; mount above child routes.",
+      "checks": [
+        "npm run typecheck",
+        "npm run check:contracts",
+        "npm run test:recipes"
+      ]
+    },
+    {
+      "id": "inline-edit",
+      "title": "Inline edit",
+      "import": "@geckolabs/elements/components/inline-edit",
+      "contract": "docs/inline-edit.md",
+      "source": "src/components/inline-edit.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "input-group",
+      "title": "Input Group",
+      "import": "@geckolabs/elements/components/input-group",
+      "contract": "docs/input-group.md",
+      "source": "src/components/input-group.tsx",
+      "implementationDependencies": [
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "input",
+      "title": "Input",
+      "import": "@geckolabs/elements/components/input",
+      "contract": "docs/input.md",
+      "source": "src/components/input.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "kbd",
+      "title": "Kbd",
+      "import": "@geckolabs/elements/components/kbd",
+      "contract": "docs/kbd.md",
+      "source": "src/components/kbd.tsx",
+      "implementationDependencies": [],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "label",
+      "title": "Label",
+      "import": "@geckolabs/elements/components/label",
+      "contract": "docs/label.md",
+      "source": "src/components/label.tsx",
+      "implementationDependencies": [],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "marker",
+      "title": "Marker",
+      "import": "@geckolabs/elements/components/marker",
+      "contract": "docs/marker.md",
+      "source": "src/components/marker.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "message-scroller",
+      "title": "Message scroller",
+      "import": "@geckolabs/elements/components/message-scroller",
+      "contract": "docs/message-scroller.md",
+      "source": "src/components/message-scroller.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "message",
+      "title": "Message",
+      "import": "@geckolabs/elements/components/message",
+      "contract": "docs/message.md",
+      "source": "src/components/message.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "metric-card",
+      "title": "Metric card",
+      "import": "@geckolabs/elements/components/metric-card",
+      "contract": "docs/metric-card.md",
+      "source": "src/components/metric-card.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "recharts"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "native-select",
+      "title": "Native select",
+      "import": "@geckolabs/elements/components/native-select",
+      "contract": "docs/native-select.md",
+      "source": "src/components/native-select.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "number-field",
+      "title": "Number field",
+      "import": "@geckolabs/elements/components/number-field",
+      "contract": "docs/number-field.md",
+      "source": "src/components/number-field.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "otp-field",
+      "title": "OTP field",
+      "import": "@geckolabs/elements/components/input-otp",
+      "contract": "docs/otp-field.md",
+      "source": "src/components/input-otp.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "input-otp"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "pagination",
+      "title": "Pagination",
+      "import": "@geckolabs/elements/components/pagination",
+      "contract": "docs/pagination.md",
+      "source": "src/components/pagination.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "popover",
+      "title": "Popover",
+      "import": "@geckolabs/elements/components/popover",
+      "contract": "docs/popover.md",
+      "source": "src/components/popover.tsx",
+      "implementationDependencies": [
+        "@base-ui/react"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "progress",
+      "title": "Progress",
+      "import": "@geckolabs/elements/components/progress",
+      "contract": "docs/progress.md",
+      "source": "src/components/progress.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "radio-group",
+      "title": "Radio group",
+      "import": "@geckolabs/elements/components/radio-group",
+      "contract": "docs/radio-group.md",
+      "source": "src/components/radio-group.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "reply-box",
+      "title": "Reply box",
+      "import": "@geckolabs/elements/components/reply-box",
+      "contract": "docs/reply-box.md",
+      "source": "src/components/reply-box/",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "rich-text-editor",
+      "title": "Rich text editor",
+      "import": "@geckolabs/elements/components/rich-text-editor",
+      "contract": "docs/rich-text-editor.md",
+      "source": "src/components/rich-text-editor.tsx",
+      "implementationDependencies": [
+        "vendored TinyMCE 4.7.1"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Vendored TinyMCE 4.7.1 compatibility runtime; same-origin frame is not an HTML security boundary. Serve its assets.",
+      "checks": [
+        "npm run typecheck",
+        "npm run test:rich-text-editor"
+      ]
+    },
+    {
+      "id": "scroll-area",
+      "title": "Scroll area",
+      "import": "@geckolabs/elements/components/scroll-area",
+      "contract": "docs/scroll-area.md",
+      "source": "src/components/scroll-area.tsx",
+      "implementationDependencies": [
+        "@base-ui/react"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "search",
+      "title": "Search",
+      "import": "@geckolabs/elements/components/search",
+      "contract": "docs/search.md",
+      "source": "src/components/search.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "select",
+      "title": "Select",
+      "import": "@geckolabs/elements/components/select",
+      "contract": "docs/select.md",
+      "source": "src/components/select.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "sensitive-field",
+      "title": "Sensitive field",
+      "import": "@geckolabs/elements/components/sensitive-field",
+      "contract": "docs/sensitive-field.md",
+      "source": "src/components/sensitive-field.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "separator",
+      "title": "Separator",
+      "import": "@geckolabs/elements/components/separator",
+      "contract": "docs/separator.md",
+      "source": "src/components/separator.tsx",
+      "implementationDependencies": [
+        "@base-ui/react"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "sheet",
+      "title": "Sheet",
+      "import": "@geckolabs/elements/components/sheet",
+      "contract": "docs/sheet.md",
+      "source": "src/components/sheet.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "sidebar",
+      "title": "Sidebar",
+      "import": "@geckolabs/elements/components/sidebar",
+      "contract": "docs/sidebar.md",
+      "source": "src/components/sidebar.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "skeleton",
+      "title": "Skeleton",
+      "import": "@geckolabs/elements/components/skeleton",
+      "contract": "docs/skeleton.md",
+      "source": "src/components/skeleton.tsx",
+      "implementationDependencies": [],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [
+        "docs/recipes/persistent-editor.tsx"
+      ],
+      "limits": "Match known control geometry; do not guess an unknown collection shape.",
+      "checks": [
+        "npm run typecheck",
+        "npm run check:contracts",
+        "npm run test:recipes"
+      ]
+    },
+    {
+      "id": "sortable-list",
+      "title": "Sortable list",
+      "import": "@geckolabs/elements/components/sortable-list",
+      "contract": "docs/sortable-list.md",
+      "source": "src/components/sortable-list.tsx",
+      "implementationDependencies": [
+        "@dnd-kit/abstract",
+        "@dnd-kit/dom",
+        "@dnd-kit/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "spinner",
+      "title": "Spinner",
+      "import": "@geckolabs/elements/components/spinner",
+      "contract": "docs/spinner.md",
+      "source": "src/components/spinner.tsx",
+      "implementationDependencies": [],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "switch",
+      "title": "Switch",
+      "import": "@geckolabs/elements/components/switch",
+      "contract": "docs/switch.md",
+      "source": "src/components/switch.tsx",
+      "implementationDependencies": [
+        "@base-ui/react"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "table",
+      "title": "Table",
+      "import": "@geckolabs/elements/components/table",
+      "contract": "docs/table.md",
+      "source": "src/components/table.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "tabs",
+      "title": "Tabs",
+      "import": "@geckolabs/elements/components/tabs",
+      "contract": "docs/tabs.md",
+      "source": "src/components/tabs.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "telephone-field",
+      "title": "Telephone field",
+      "import": "@geckolabs/elements/components/telephone-field",
+      "contract": "docs/telephone-field.md",
+      "source": "src/components/telephone-field.tsx",
+      "implementationDependencies": [
+        "@hugeicons/core-free-icons",
+        "class-variance-authority",
+        "react-phone-number-input"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "textarea",
+      "title": "Textarea",
+      "import": "@geckolabs/elements/components/textarea",
+      "contract": "docs/textarea.md",
+      "source": "src/components/textarea.tsx",
+      "implementationDependencies": [
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "toast",
+      "title": "Toast",
+      "import": "@geckolabs/elements/components/toast",
+      "contract": "docs/toast.md",
+      "source": "src/components/toast.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [
+        "docs/recipes/async-form.tsx"
+      ],
+      "limits": "Field validation belongs beside fields; operation feedback must not shift page layout.",
+      "checks": [
+        "npm run typecheck",
+        "npm run check:contracts",
+        "npm run test:recipes"
+      ]
+    },
+    {
+      "id": "toggle-group",
+      "title": "Toggle Group",
+      "import": "@geckolabs/elements/components/toggle-group",
+      "contract": "docs/toggle-group.md",
+      "source": "src/components/toggle-group.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "toggle",
+      "title": "Toggle",
+      "import": "@geckolabs/elements/components/toggle",
+      "contract": "docs/toggle.md",
+      "source": "src/components/toggle.tsx",
+      "implementationDependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "tooltip",
+      "title": "Tooltip",
+      "import": "@geckolabs/elements/components/tooltip",
+      "contract": "docs/tooltip.md",
+      "source": "src/components/tooltip.tsx",
+      "implementationDependencies": [
+        "@base-ui/react"
+      ],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    },
+    {
+      "id": "typing-indicator",
+      "title": "Typing indicator",
+      "import": "@geckolabs/elements/components/typing-indicator",
+      "contract": "docs/typing-indicator.md",
+      "source": "src/components/typing-indicator.tsx",
+      "implementationDependencies": [],
+      "dependencyPolicy": "docs/dependencies.md",
+      "recipes": [],
+      "limits": "Use the documented composition and variants; application owns domain data and effects.",
+      "checks": [
+        "npm run typecheck"
+      ]
+    }
+  ]
+}

@@ -20,15 +20,15 @@ export function TogglePage() {
 
   const importSnippet = `import { Toggle } from "@geckolabs/elements/components/toggle"`;
   const basicSnippet = `<Toggle aria-label="Bookmark">
-  <Bookmark aria-hidden="true" />
+  <HugeiconsIcon icon={Bookmark} aria-hidden="true" />
 </Toggle>`;
   const sizesSnippet = `<Toggle size="xs|sm|default|lg">Bold</Toggle>
 
 <Toggle size="icon-xs|icon-sm|icon|icon-lg" aria-label="Bold">
-  <Bold aria-hidden="true" />
+  <HugeiconsIcon icon={Bold} aria-hidden="true" />
 </Toggle>`;
   const textSnippet = `<Toggle>
-  <Bold data-icon="inline-start" aria-hidden="true" />
+  <HugeiconsIcon icon={Bold} data-icon="inline-start" aria-hidden="true" />
   Bold
 </Toggle>`;
   const controlledSnippet = `const [bookmarked, setBookmarked] = useState(false)
@@ -38,10 +38,10 @@ export function TogglePage() {
   onPressedChange={setBookmarked}
   aria-label="Bookmark"
 >
-  <Bookmark aria-hidden="true" />
+  <HugeiconsIcon icon={Bookmark} aria-hidden="true" />
 </Toggle>`;
   const disabledSnippet = `<Toggle disabled aria-label="Bookmark">
-  <Bookmark aria-hidden="true" />
+  <HugeiconsIcon icon={Bookmark} aria-hidden="true" />
 </Toggle>`;
 
   return (

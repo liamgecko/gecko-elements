@@ -1,0 +1,14 @@
+{
+  "extends": "../../apps/docs/tsconfig.app.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "../../node_modules/.tmp/recipes.tsbuildinfo",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "paths": { "@geckolabs/elements/*": ["../../packages/ui/src/*"] }
+  },
+  "include": [
+    "main.tsx",
+    "../../packages/ui/docs/recipes/*.ts",
+    "../../packages/ui/docs/recipes/*.tsx"
+  ]
+}

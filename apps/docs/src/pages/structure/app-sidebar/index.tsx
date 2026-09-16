@@ -145,7 +145,9 @@ export function StructureAppSidebarPage() {
             <>
               Always render <Code>AppSidebarFavourites</Code> before the primary
               navigation. The application supplies the current favourite
-              destinations and handles immediate removal through “Remove from favourites”. Omit <Code>onRename</Code> when renaming is not supported; the Rename action is then hidden.
+              destinations and handles immediate removal through “Remove from
+              favourites”. Omit <Code>onRename</Code> when renaming is not
+              supported; the Rename action is then hidden.
             </>
           }
         >
@@ -311,7 +313,8 @@ export function StructureAppSidebarPage() {
                 {
                   name: "onRename",
                   type: "(path: string, label: string) => void",
-                  description: "Optional. Handles rename; omit it to hide the Rename action.",
+                  description:
+                    "Optional. Handles rename; omit it to hide the Rename action.",
                 },
                 {
                   name: "onDelete",
@@ -321,6 +324,33 @@ export function StructureAppSidebarPage() {
               ]}
             />
           </div>
+        </ChildSection>
+        <ChildSection
+          id="translations"
+          title="Translations"
+          description="Pass translated labels from the application; Elements keeps English defaults."
+        >
+          <p>
+            Supply collapseLabel and expandLabel to AppSidebar. Supply labels to
+            AppSidebarFavourites for its heading, remove action, action-menu
+            names and optional rename form. Translate navigation item labels
+            without changing their IDs or destinations.
+          </p>
+          <Code
+            variant="block"
+            language="tsx"
+            code={`<AppSidebarFavourites
+  items={favourites}
+  activePath={pathname}
+  onSelect={navigate}
+  onDelete={removeFavourite}
+  labels={{
+    heading: "Favoritos",
+    remove: "Eliminar de favoritos",
+    actions: (name) => \`Acciones para \${name}\`,
+  }}
+/>`}
+          />
         </ChildSection>
         <ChildSection
           id="api-nav"

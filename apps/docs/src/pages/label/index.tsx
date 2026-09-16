@@ -275,6 +275,12 @@ const form = useForm<z.infer<typeof formSchema>>({
               description:
                 "Connects the label to a control. Gecko adds a required marker when that control has required.",
             },
+            {
+              name: "required",
+              type: "boolean",
+              description:
+                "Shows the required marker immediately, including while a control is loading. Also set required on the control for validation and accessibility. Supported by FieldLabel too.",
+            },
           ]}
         />
         <ChildSection

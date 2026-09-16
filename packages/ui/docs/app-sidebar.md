@@ -65,6 +65,36 @@ The action is labelled “Remove from favourites”. It removes the saved shortc
 
 Rename is optional: omit `onRename` when the saved favourites service does not support renaming. The action is then hidden. When supplied, rename uses a labelled field in a small dialog. The product callback owns persistence and any validation result.
 
+## Translations
+
+Applications translate navigation item labels before passing `items`. Keep item IDs
+and hrefs stable across languages. Saved favourite names are user content.
+
+Pass `collapseLabel` and `expandLabel` to AppSidebar for the footer button's
+accessible name and tooltip. Pass `labels` to AppSidebarFavourites for its own text:
+
+```tsx
+<AppSidebarFavourites
+  items={favourites}
+  activePath={pathname}
+  onSelect={navigate}
+  onDelete={removeFavourite}
+  labels={{
+    heading: t("favourites.heading"),
+    remove: t("favourites.remove"),
+    actions: (name) => t("favourites.actions", { name }),
+  }}
+/>
+```
+
+The optional `labels` object supports `heading`, `remove`, `rename`, `renameTitle`,
+`name`, `namePlaceholder`, `cancel` (strings), and `actions` (`(name: string) => string`).
+Defaults preserve the English copy. `heading` also labels the collapsed favourites
+button and tooltip; `actions` names each favourite's menu. Translate the rename
+labels when providing `onRename`. The application owns locale state; no translation
+runtime is required by Elements. Pass Page Header's existing `tooltipAddLabel` and
+`tooltipRemoveLabel` in `favouriteAction` for its translated star action.
+
 ## Interfaces
 
 ### AppSidebar
@@ -72,12 +102,15 @@ Rename is optional: omit `onRename` when the saved favourites service does not s
 | Property    | Type                                    | Default | Meaning                                         |
 | ----------- | --------------------------------------- | ------- | ----------------------------------------------- |
 | `children`  | `[AppSidebarFavourites, AppSidebarNav]` | none    | Favourites followed by primary navigation       |
+| `collapseLabel` | `string` | `"Collapse sidebar"` | Footer action name and tooltip while expanded |
+| `expandLabel` | `string` | `"Expand sidebar"` | Footer action name and tooltip while collapsed |
 | `className` | `string`                                | none    | Positions the rail within the application shell |
 
 ### AppSidebarFavourites
 
 | Property     | Type                                    | Default | Meaning                               |
 | ------------ | --------------------------------------- | ------- | ------------------------------------- |
+| `labels` | `Partial<AppSidebarFavouritesLabels>` | English defaults | Translates headings, actions and rename copy |
 | `items`      | `AppSidebarFavouriteItem[]`             | none    | Pinned destinations                   |
 | `activePath` | `string`                                | none    | Current route for active presentation |
 | `onSelect`   | `(path: string) => void`                | none    | Handles navigation                    |

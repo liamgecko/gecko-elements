@@ -13,6 +13,8 @@ Use Command when someone must search a sizeable set of actions. Use Combobox whe
 
 Command has not been adopted in Gecko product UI. Obtain product approval before introducing it, especially as an application-wide palette.
 
+Use `HugeiconsIcon` from `@geckolabs/elements/lib/icon` with per-icon `Calendar03Icon` and `Settings01Icon` imports from `@hugeicons/core-free-icons` for these examples.
+
 ## Canonical configuration
 
 After product adoption is approved, start with CommandDialog. The product owns the trigger, open state and action handlers.
@@ -31,11 +33,11 @@ const [open, setOpen] = useState(false)
       <CommandEmpty>No results found.</CommandEmpty>
       <CommandGroup heading="Suggestions">
         <CommandItem value="calendar" onSelect={openCalendar}>
-          <Calendar aria-hidden="true" />
+          <HugeiconsIcon icon={Calendar03Icon} aria-hidden="true" />
           <span>Calendar</span>
         </CommandItem>
         <CommandItem value="settings" onSelect={openSettings}>
-          <Settings aria-hidden="true" />
+          <HugeiconsIcon icon={Settings01Icon} aria-hidden="true" />
           <span>Settings</span>
           <CommandShortcut>⌘S</CommandShortcut>
         </CommandItem>

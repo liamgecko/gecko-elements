@@ -8,8 +8,10 @@
     "build": "tsc -b && vite build",
     "lint": "eslint",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
-    "typecheck": "tsc --noEmit",
-    "preview": "vite preview"
+    "typecheck": "tsc -b",
+    "preview": "vite preview",
+    "predev": "node ../../scripts/sync-rich-text-editor-assets.mjs",
+    "prebuild": "node ../../scripts/sync-rich-text-editor-assets.mjs"
   },
   "dependencies": {
     "@ai-sdk/react": "^4.0.16",

@@ -221,3 +221,7 @@ TableExpandableRowTrigger accepts Gecko Button properties except `type`, which i
 
 - **Data table** — product data with sorting, filtering, pagination, actions, selection or expandable rows.
 - **Metric card** — reporting surface that can contain a simple Table.
+
+## Scrollport integration
+
+Non-nested Table accepts `containerProps` for the outer scrollport's ref, accessible name, role, tab index and scrolling integration. Data table uses it to measure available width and make overflowing tables keyboard reachable. Table itself retains automatic content sizing; stable sizing belongs to Data table. `containerProps` does not permit product-specific changes to table chrome, colours or spacing, and it is unused for `nested` tables.

@@ -203,19 +203,19 @@ export function ContextMenuPage() {
   <ContextMenuTrigger>Right click here</ContextMenuTrigger>
   <ContextMenuContent>
     <ContextMenuItem>
-      <UserIcon />
+      <HugeiconsIcon icon={UserIcon} />
       Profile
     </ContextMenuItem>
     <ContextMenuItem>
-      <InboxIcon />
+      <HugeiconsIcon icon={InboxIcon} />
       Inbox
     </ContextMenuItem>
     <ContextMenuItem>
-      <FolderIcon />
+      <HugeiconsIcon icon={FolderIcon} />
       Files
     </ContextMenuItem>
     <ContextMenuItem>
-      <LifeBuoyIcon />
+      <HugeiconsIcon icon={LifeBuoyIcon} />
       Support
     </ContextMenuItem>
   </ContextMenuContent>
@@ -263,18 +263,18 @@ export function ContextMenuPage() {
   <ContextMenuContent>
     <ContextMenuGroup>
       <ContextMenuItem>
-        <PencilIcon />
+        <HugeiconsIcon icon={PencilIcon} />
         Edit
       </ContextMenuItem>
       <ContextMenuItem>
-        <ShareIcon />
+        <HugeiconsIcon icon={ShareIcon} />
         Share
       </ContextMenuItem>
     </ContextMenuGroup>
     <ContextMenuSeparator />
     <ContextMenuGroup>
       <ContextMenuItem variant="destructive">
-        <TrashIcon />
+        <HugeiconsIcon icon={TrashIcon} />
         Delete
       </ContextMenuItem>
     </ContextMenuGroup>
@@ -294,13 +294,16 @@ export function ContextMenuPage() {
         title="Usage"
         description={
           <>
-            Use Context menu exclusively on{" "}
             <DocsPageLink to="/components/data-table">Data table</DocsPageLink>{" "}
-            rows — right-click or long-press reveals row actions for that item.
+            does not use Context menu by default. Its <Code>rowLink</Code> option
+            renders native anchors, so right-click keeps the browser link menu.
+            Do not replace that menu with Context menu.
             <br />
             <br />
-            Avoid using it elsewhere in the product, or as the only way to reach
-            important actions. For actions on a visible button, use a{" "}
+            Custom product use remains limited to an explicitly approved Data
+            table row integration, but DataTable currently exposes no row trigger
+            for this. Do not wrap the table or its linked cells. For visible row
+            actions, use a{" "}
             <DocsPageLink to="/components/dropdown-menu">
               Dropdown menu
             </DocsPageLink>
@@ -348,8 +351,8 @@ export function ContextMenuPage() {
         description={
           <>
             A simple menu using <Code>ContextMenuTrigger</Code> and{" "}
-            <Code>ContextMenuItem</Code>. A short, flat list is the canonical
-            menu structure for an approved Data table row integration.
+            <Code>ContextMenuItem</Code>. This demonstrates the primitive, not
+            a supported DataTable row integration.
           </>
         }
       >
@@ -789,7 +792,8 @@ export function ContextMenuPage() {
             </>,
           ]}
           dontItems={[
-            <>Don’t use Context menu outside Data table rows in Gecko.</>,
+            <>Don’t intercept native browser menus on links.</>,
+            <>Don’t add Context menu to DataTable without an approved row integration.</>,
             <>Don’t rely on icons alone; keep a text label on every item.</>,
             <>
               Don’t make an unavailable action look active; use{" "}

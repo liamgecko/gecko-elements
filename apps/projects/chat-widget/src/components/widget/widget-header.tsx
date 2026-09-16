@@ -1,4 +1,6 @@
-import { Minus, X } from "lucide-react";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import Minus from "@hugeicons/core-free-icons/MinusSignIcon";
+import X from "@hugeicons/core-free-icons/XIcon";
 
 import { Avatar, AvatarImage } from "@geckolabs/elements/components/avatar";
 import { Button } from "@geckolabs/elements/components/button";
@@ -46,10 +48,10 @@ export function WidgetHeader({
           <TooltipProvider>
             <div className="flex shrink-0">
               <HeaderIconButton label="Minimize chat" onClick={onMinimize}>
-                <Minus className="size-5" />
+                <HugeiconsIcon icon={Minus} className="size-5" />
               </HeaderIconButton>
               <HeaderIconButton label="Close chat" onClick={onClose}>
-                <X className="size-5" />
+                <HugeiconsIcon icon={X} className="size-5" />
               </HeaderIconButton>
             </div>
           </TooltipProvider>
@@ -70,7 +72,7 @@ export function WidgetHeader({
         />
         <TooltipProvider>
           <HeaderIconButton label="Minimize chat" onClick={onMinimize}>
-            <Minus className="size-5" />
+            <HugeiconsIcon icon={Minus} className="size-5" />
           </HeaderIconButton>
         </TooltipProvider>
       </div>

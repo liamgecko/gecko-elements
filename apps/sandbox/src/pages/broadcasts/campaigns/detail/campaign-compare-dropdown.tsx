@@ -1,5 +1,6 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react";
-import { ChartLine } from "lucide-react";
+import ChartLine from "@hugeicons/core-free-icons/ChartLineData01Icon";
 import { useParams } from "react-router-dom";
 
 import { Button } from "@geckolabs/elements/components/button";
@@ -39,7 +40,7 @@ export function CampaignCompareDropdown({
         nativeButton={false}
         render={
           <Button variant="outline" size="sm">
-            <ChartLine aria-hidden />
+            <HugeiconsIcon icon={ChartLine} aria-hidden />
             Compare with
           </Button>
         }

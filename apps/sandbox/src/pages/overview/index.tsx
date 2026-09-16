@@ -1,3 +1,4 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react"
 
 import { Button } from "@geckolabs/elements/components/button"
@@ -8,7 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@geckolabs/elements/components/tooltip"
-import { BotMessageSquare } from "lucide-react"
+import BotMessageSquare from "@hugeicons/core-free-icons/AiChat02Icon";
 import { Bubble, BubbleContent } from "@geckolabs/elements/components/bubble"
 import {
   Message,
@@ -17,7 +18,8 @@ import {
   MessageMeta,
 } from "@geckolabs/elements/components/message"
 import { ReplyBox, ReplyBoxContent, ReplyBoxFooter } from "@geckolabs/elements/components/reply-box"
-import { Forward, Loader } from "lucide-react"
+import Forward from "@hugeicons/core-free-icons/Forward01Icon";
+import Loader from "@hugeicons/core-free-icons/Loading03Icon";
 import { cn } from "@geckolabs/elements/lib/utils"
 
 import { AssistantOverviewShell } from "../../components/overview/AssistantOverviewShell"
@@ -489,7 +491,7 @@ export default function OverviewPage() {
                 aria-label="New chat"
                 onClick={startNewChat}
               >
-                <BotMessageSquare aria-hidden />
+                <HugeiconsIcon icon={BotMessageSquare} aria-hidden />
               </Button>
             }
           />
@@ -613,7 +615,7 @@ export default function OverviewPage() {
             aria-live="polite"
           >
             <div className="mb-2 flex items-center gap-2">
-              <Loader
+              <HugeiconsIcon icon={Loader}
                 aria-hidden
                 className="size-3.5 shrink-0 animate-[spin_1.25s_linear_infinite] text-muted-foreground motion-reduce:animate-none"
               />

@@ -1,4 +1,5 @@
-import { PanelRightClose, PanelRightOpen } from "lucide-react"
+import PanelRightClose from "@hugeicons/core-free-icons/LayoutAlignRightIcon";
+import PanelRightOpen from "@hugeicons/core-free-icons/LayoutRightIcon";
 
 import { Button } from "@geckolabs/elements/components/button"
 import { useSidebar } from "@geckolabs/elements/components/sidebar"

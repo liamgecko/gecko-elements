@@ -1,4 +1,5 @@
-import { CheckCheck } from "lucide-react"
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import CheckCheck from "@hugeicons/core-free-icons/CheckCheckIcon";
 import * as React from "react"
 
 import { Button } from "@geckolabs/elements/components/button"
@@ -114,7 +115,7 @@ export function WorkflowTemplateSelectorDialog({
         </DialogWrapper>
         <DialogFooter showCloseButton closeButtonText="Cancel">
           <Button type="button" disabled={!canUse} onClick={handleUseTemplate}>
-            <CheckCheck data-icon="inline-start" aria-hidden />
+            <HugeiconsIcon icon={CheckCheck} data-icon="inline-start" aria-hidden />
             Use template
           </Button>
         </DialogFooter>

@@ -110,7 +110,7 @@ export function AlertPage() {
   <AlertDescription>Alert description.</AlertDescription>
 </Alert>`;
 
-  const iconCustomSnippet = `<Alert variant="info" icon={<Sparkles />}>
+  const iconCustomSnippet = `<Alert variant="info" icon={<HugeiconsIcon icon={Sparkles} />}>
   <AlertTitle>New feature available</AlertTitle>
   <AlertDescription>
     You can now export this report as a CSV file.

@@ -1,6 +1,8 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import * as React from "react";
 import type { ColumnDef, FilterFn } from "@tanstack/react-table";
-import { Lock, LockOpen } from "lucide-react";
+import Lock from "@hugeicons/core-free-icons/SquareLock01Icon";
+import LockOpen from "@hugeicons/core-free-icons/SquareUnlock01Icon";
 
 import { Avatar } from "@geckolabs/elements/components/avatar";
 import { Switch } from "@geckolabs/elements/components/switch";
@@ -65,7 +67,7 @@ function WorkflowLockStatusCell({ workflow }: { workflow: Workflow }) {
         <TooltipTrigger
           render={
             <span className="inline-flex text-muted-foreground">
-              <Lock className="size-4" aria-label="Workflow locked" />
+              <HugeiconsIcon icon={Lock} className="size-4" aria-label="Workflow locked" />
             </span>
           }
         />
@@ -82,7 +84,7 @@ function WorkflowLockStatusCell({ workflow }: { workflow: Workflow }) {
       <TooltipTrigger
         render={
           <span className="inline-flex text-muted-foreground">
-            <LockOpen
+            <HugeiconsIcon icon={LockOpen}
               className="size-4"
               aria-label="Workflow locked with edit access"
             />

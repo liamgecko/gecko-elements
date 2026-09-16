@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 /**
  * Optional `meta` on `ColumnDef` for DataTable UI (column toggle, etc.).
  * @example
@@ -5,27 +7,31 @@
  */
 export type DataTableColumnMeta = {
   /** Label in the column visibility menu; falls back to a formatted column id. */
-  label?: string
+  label?: string;
+  /** Share of remaining space for flexible columns. Defaults to 1 without size, 0 with size. */
+  grow?: number;
+  /** Text truncates by default. Use content for controls, badges or multiline cells. */
+  cellLayout?: "text" | "content";
+  /** Decorative loading content matching the dimensions of a custom cell. */
+  skeleton?: ReactNode;
   /** Merged onto `TableHead` for this column (e.g. `w-10` for the expand control column). */
-  headerClassName?: string
+  headerClassName?: string;
   /** Merged onto `TableCell` for this column. */
-  cellClassName?: string
-}
+  cellClassName?: string;
+};
 
 function formatColumnIdFallback(id: string): string {
-  const spaced = id
-    .replace(/([a-z])([A-Z])/g, "$1 $2")
-    .replace(/[_-]+/g, " ")
-  return spaced.replace(/\b\w/g, (c) => c.toUpperCase())
+  const spaced = id.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[_-]+/g, " ");
+  return spaced.replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 export function getDataTableColumnToggleLabel(
   columnId: string,
-  meta: unknown
+  meta: unknown,
 ): string {
-  const m = meta as DataTableColumnMeta | undefined
+  const m = meta as DataTableColumnMeta | undefined;
   if (typeof m?.label === "string" && m.label.trim()) {
-    return m.label.trim()
+    return m.label.trim();
   }
-  return formatColumnIdFallback(columnId)
+  return formatColumnIdFallback(columnId);
 }

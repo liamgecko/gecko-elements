@@ -1,7 +1,8 @@
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { useLocation } from "react-router-dom"
 
 import { Container } from "@geckolabs/elements/components/container"
-import { Inbox } from "lucide-react"
+import Inbox from "@hugeicons/core-free-icons/InboxIcon";
 
 import {
   Empty,
@@ -38,7 +39,7 @@ export default function OrganisationsOrganisationFieldsPage() {
       <Container>
         <Empty>
           <EmptyMedia variant="icon">
-            <Inbox />
+            <HugeiconsIcon icon={Inbox} />
           </EmptyMedia>
           <EmptyHeader>
             <EmptyTitle>No organisation fields yet</EmptyTitle>

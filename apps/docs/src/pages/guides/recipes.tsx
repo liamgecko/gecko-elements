@@ -231,11 +231,9 @@ export function GuidesRecipesPage() {
               <DocsPageLink to="/components/dropdown-menu">
                 Dropdown menu
               </DocsPageLink>
-              ; right-click via{" "}
-              <DocsPageLink to="/components/context-menu">
-                Context menu
-              </DocsPageLink>{" "}
-              on Data table only.
+              ; navigation via <Code>rowLink</Code> anchors. Right-click on linked
+              cells keeps the browser menu for opening in a new tab or copying
+              the link. Do not add a custom Context menu to the table.
             </li>
             <li>
               Status and tags with{" "}
@@ -357,7 +355,7 @@ export function GuidesRecipesPage() {
             </li>
             <li>
               <DocsPageLink to="/components/spinner">Spinner</DocsPageLink> —
-              indeterminate page or panel load.
+              component-owned indeterminate progress where its contract specifies it.
             </li>
             <li>
               <DocsPageLink to="/components/progress">Progress</DocsPageLink> —
@@ -371,8 +369,8 @@ export function GuidesRecipesPage() {
           title="Loading states"
           description={
             <>
-              Use <DocsPageLink to="/components/spinner">Spinner</DocsPageLink>{" "}
-              for indeterminate waits. Use{" "}
+              Use the <DocsPageLink to="/guides/application-patterns">application loading patterns</DocsPageLink>{" "}
+              for stable page skeletons, cached content and confirmed empty results. Use{" "}
               <DocsPageLink to="/components/progress">Progress</DocsPageLink>{" "}
               when reporting how complete something is. Inside a{" "}
               <DocsPageLink to="/components/button">Button</DocsPageLink>, set{" "}

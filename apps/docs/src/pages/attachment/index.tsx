@@ -1,3 +1,4 @@
+import { actionIcons } from "@geckolabs/elements/lib/action-icons";
 import ImageUp from "@hugeicons/core-free-icons/ImageUpIcon";
 import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
@@ -60,7 +61,9 @@ function simulateFailingUpload(
 }
 
 export function AttachmentPage() {
-  const importSnippet = `import { Attachment } from "@geckolabs/elements/components/attachment"`;
+  const importSnippet = `import { actionIcons } from "@geckolabs/elements/lib/action-icons";
+import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+import { Attachment } from "@geckolabs/elements/components/attachment"`;
 
   const basicExampleSnippet = `<Attachment
   accept="image/*"
@@ -108,7 +111,7 @@ export function AttachmentPage() {
 
   const customIconSnippet = `<Attachment
   accept="image/*"
-  icon={<ImageUp />}
+  icon={<HugeiconsIcon icon={ImageUp} />}
   label="Upload brand assets"
   description="PNG, JPG or SVG"
   onUpload={uploadBrandAsset}
@@ -139,7 +142,7 @@ const form = useForm<z.infer<typeof formSchema>>({
       {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
     </Field>
   )} />
-  <Button type="submit">Save application</Button>
+  <Button type="submit"><HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />Save application</Button>
 </form>`;
 
   return (
@@ -315,7 +318,7 @@ const form = useForm<z.infer<typeof formSchema>>({
         <ChildSection
           id="states-error"
           title="Error"
-          description="Provide retry and remove handlers when the external upload fails."
+          description="Provide retry and remove handlers when the external upload fails. Both actions use small icon buttons (28 × 28 px)."
         >
           <ComponentExample>
             <div className="space-y-6">
@@ -331,6 +334,39 @@ const form = useForm<z.infer<typeof formSchema>>({
                 variant="block"
                 language="tsx"
                 code={stateErrorSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
+          id="uploaded-preview"
+          title="Uploaded-file preview"
+          description="Click the uploaded row to view the image in a dialog. A spinner appears while the preview loads; the header and close control stay available. Retry and remove remain separate actions."
+        >
+          <ComponentExample>
+            <div>
+              <div className="w-full max-w-md">
+                <Attachment
+                  state="done"
+                  name="account-logo.svg"
+                  preview={{
+                    url: `${import.meta.env.BASE_URL}attachment-preview.svg`,
+                    type: "image",
+                  }}
+                  onRemove={() => {}}
+                />
+              </div>
+              <Code
+                variant="block"
+                language="tsx"
+                code={`<Attachment
+  state="done"
+  name="account-logo.png"
+  preview={{ url: accountLogoUrl, type: "image" }}
+  onRemove={removeLogo}
+/>`}
                 showCopyButton
                 copyLabel="Copy example"
               />
@@ -439,7 +475,14 @@ const form = useForm<z.infer<typeof formSchema>>({
                       </Field>
                     )}
                   />
-                  <Button type="submit">Save application</Button>
+                  <Button type="submit">
+                    <HugeiconsIcon
+                      icon={actionIcons.save}
+                      aria-hidden="true"
+                      data-icon="inline-start"
+                    />
+                    Save application
+                  </Button>
                 </>
               )}
             </RequiredForm>
@@ -483,7 +526,7 @@ const form = useForm<z.infer<typeof formSchema>>({
               Don’t treat <Code>accept</Code> as file validation.
             </>,
             <>
-              Don’t add states, sizes, orientations, groups, previews, or
+              Don’t add states, sizes, orientations, groups, custom previews, or
               actions without consent.
             </>,
             <>
@@ -540,6 +583,13 @@ const form = useForm<z.infer<typeof formSchema>>({
               type: "string",
               description:
                 "Identifies the native file input so FieldLabel can provide the field label and required marker.",
+            },
+            {
+              name: "preview",
+              type: '{ url: string; type: "image" | "pdf" | "video" | "audio" | "file" } | false',
+              defaultValue: "Local File in managed mode",
+              description:
+                "Opens the uploaded file in a dialog. Supply a URL for existing files, or false to suppress preview.",
             },
             {
               name: "accept",

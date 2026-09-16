@@ -25,7 +25,7 @@ export function SpinnerPage() {
 
   const sizingSnippet = `<Spinner size="xs|sm|md|lg|xl" />`;
 
-  const buttonSnippet = `<Button loading>Saving</Button>
+  const buttonSnippet = `<Button loading>Generate report</Button>
 <Button variant="outline" loading>Loading</Button>`;
 
   const badgeSnippet = `<Badge size="sm" variant="info">
@@ -65,9 +65,9 @@ export function SpinnerPage() {
         title="Usage"
         description={
           <>
-            Use Spinner for indeterminate waits such as page or panel load. It
-            works on its own or inside buttons, badges, and inputs to show
-            activity in context.
+            Use Spinner for compact indeterminate tasks. For page data, use the
+            application loading patterns. It works on its own or inside buttons,
+            badges, and inputs to show activity in context.
             <br />
             <br />
             Avoid using Spinner for data or reporting completion — that is{" "}
@@ -97,7 +97,7 @@ export function SpinnerPage() {
       <MainSection
         id="basic-example"
         title="Basic example"
-        description="A standalone spinner. Use this when the whole area is waiting for content to load."
+        description="A standalone spinner for component-owned activity with an accessible task label."
       >
         <ComponentExample>
           <div className="space-y-6">
@@ -168,7 +168,7 @@ export function SpinnerPage() {
           <ComponentExample>
             <div className="space-y-6">
               <div className="flex flex-wrap items-center gap-4">
-                <Button loading>Saving</Button>
+                <Button loading>Generate report</Button>
                 <Button variant="outline" loading>
                   Loading
                 </Button>
@@ -262,7 +262,10 @@ export function SpinnerPage() {
       >
         <DocsDoDont
           doItems={[
-            <>Use a standalone Spinner when an entire area is loading.</>,
+            <>
+              Use the application loading patterns for initial page or panel
+              data.
+            </>,
             <>
               Match <Code>size</Code> to the button, badge, or input around it.
             </>,
