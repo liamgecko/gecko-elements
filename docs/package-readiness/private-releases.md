@@ -177,3 +177,38 @@ be recorded separately; this candidate section does not establish publication.
 - Registry verification confirmed private access, the `next` tag and exact tarball
   integrity matching the tested artifact.
 - No Web App files were changed during package preparation.
+
+## 0.1.0-next.3 release — 2026-09-24
+
+This release packages the component and contract updates made since next.2,
+including Card sizes, Data table application patterns, and Rich text editor.
+The source workspace remains protected by `private: true`.
+
+- `release:prepare` passed for the exact next.3 tarball: React 18.3.1 and React
+  19.2.5 consumers in compiled-CSS and Tailwind modes, including browser checks,
+  package integrity, types, builds, tree shaking and npm publish dry run.
+- Tarball SHA-256: `1d592f2988138a8f7b9ec7c1a0609518cf6329feb18d153d208ab9094e24e059`.
+- The verified tarball was installed locally into the Admin React trial; its
+  development build passed with `Card size="sm"`.
+- Published privately as `@geckolabs/elements@0.1.0-next.3` after renewing npm
+  browser authentication and completing npm's publish challenge.
+- Registry verification confirmed private access, the `next` tag and integrity
+  matching the exact tested tarball. Admin initially pinned this version; see next.4 below for its current installation.
+
+## 0.1.0-next.4 release — 2026-09-24
+
+- Adds accessible names to collapsed App Sidebar links and a disabled option for App Header status controls.
+- Published the already-verified artifact privately after explicit user approval and npm browser authentication. No new test run was performed for publication/install.
+- Registry verification confirmed restricted/private access, the `next` tag and exact artifact integrity.
+- Tarball SHA-256: `c5359d71bc589dd2d68474b01d42dd3dac44ddf260a5b0e1e7bccf04461f5f22`.
+- Admin now installs exact version `0.1.0-next.4` from npm. Its vendored artifact folder and file dependency were removed.
+- The installation failure was caused by an invalid project-level npm token overriding the working user login. That override was removed without changing Font Awesome configuration. Do not substitute a vendored package for an unexplained private-registry 404; verify authentication from the consuming project first.
+
+## 0.1.0-next.5 release — 2026-09-28
+
+- Caps the Data table page-number Select popup at 18rem or the available viewport height, with internal scrolling.
+- The release candidate was assembled from the published next.4 baseline in an isolated temporary checkout. Its distribution differs from next.4 only in the pagination module and the generated CSS rule; its Data table contract adds the matching note. Unrelated in-progress source changes were excluded.
+- `release:prepare` passed with installed Google Chrome: React 18 and 19 consumers in compiled-CSS and Tailwind modes, package integrity, browser interactions, builds, tree shaking and npm publish dry run.
+- Verified tarball SHA-256: `b04f3bfa902e2a41b7bf335436bd555d6f975e36806edbd31d34f18673a50d49`.
+- Published privately after explicit user approval and npm browser authentication. Registry verification confirmed restricted access, the `next` tag and exact artifact integrity.
+- Admin installs the exact `0.1.0-next.5` version from npm. Its development build passed, and the installed JavaScript and compiled CSS contain the dropdown cap.

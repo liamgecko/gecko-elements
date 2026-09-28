@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
@@ -9,6 +10,33 @@ import {
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
 import { Header } from "@geckolabs/elements/components/header";
+
+function HeaderSearchExample() {
+  const [query, setQuery] = useState("");
+  const results = ["Account settings", "Templates", "User settings"].filter(
+    (item) => item.toLowerCase().includes(query.trim().toLowerCase()),
+  );
+
+  return (
+    <div>
+      <Header
+        breadcrumbs={demoBreadcrumbs}
+        title="Settings"
+        search={{
+          value: query,
+          onValueChange: setQuery,
+          showClear: true,
+          placeholder: "Search settings…",
+          "aria-label": "Search settings",
+          "aria-controls": "header-search-example-results",
+        }}
+      />
+      <div id="header-search-example-results" className="p-6" role="status">
+        {results.length ? results.join(" · ") : "No settings found"}
+      </div>
+    </div>
+  );
+}
 
 const demoBreadcrumbs = {
   items: [
@@ -40,7 +68,8 @@ export function StructureHeaderPage() {
   const compositionSnippet = `Header
 ├── Breadcrumb
 ├── heading and subheading
-├── actions
+├── search and actions
+│   ├── Search (optional)
 │   ├── Toggle (favourite)
 │   ├── Button or DropdownMenu (secondary)
 │   └── Button (primary)
@@ -170,12 +199,36 @@ export function StructureHeaderPage() {
   }}
 />`;
 
+  const examplesSearchSnippet = `const [query, setQuery] = useState("")
+const results = settings.filter((setting) =>
+  setting.label.toLowerCase().includes(query.trim().toLowerCase()),
+)
+
+<>
+  <Header
+    title="Settings"
+    search={{
+      value: query,
+      onValueChange: setQuery,
+      showClear: true,
+      placeholder: "Search settings…",
+      "aria-label": "Search settings",
+      "aria-controls": "settings-results",
+    }}
+  />
+  <div id="settings-results">
+    {results.map((setting) => (
+      <a key={setting.id} href={setting.href}>{setting.label}</a>
+    ))}
+  </div>
+</>`;
+
   return (
     <div>
       <HeaderSection
         id="overview"
         title="Page header"
-        description="The Header component is the top of a page. It can hold location, a title, a favourite control, actions, and in-page tabs in a single layout."
+        description="The Header component is the top of a page. It can hold location, a title, search, a favourite control, actions, and in-page tabs in a single layout."
       />
 
       <MainSection
@@ -187,9 +240,9 @@ export function StructureHeaderPage() {
             <DocsPageLink to="/structure/app-header">App Header</DocsPageLink> /{" "}
             <DocsPageLink to="/structure/app-sidebar">App Sidebar</DocsPageLink>
             ). It shows where you are, the page title, actions, and optional
-            sub-navigation tabs. Every Header includes the favourite control;
-            use <Code>favouriteAction</Code> to configure its state, label, or
-            icon. Pair Header with{" "}
+            sub-navigation tabs and optional search. Every Header includes the
+            favourite control; use <Code>favouriteAction</Code> to configure its
+            state, label, or icon. Pair Header with{" "}
             <DocsPageLink to="/structure/container">
               Page Container
             </DocsPageLink>{" "}
@@ -198,7 +251,7 @@ export function StructureHeaderPage() {
             <br />
             Avoid using it on Inbox — that screen uses a custom layout. Avoid
             using it for a card title or section heading. Breadcrumbs belong
-            only in Header. For sectioning content inside the page body, use
+            only in Header. For local controls nested inside the page body, use
             standalone <DocsPageLink to="/components/tabs">
               Tabs
             </DocsPageLink>{" "}
@@ -444,12 +497,38 @@ export function StructureHeaderPage() {
           </ComponentExample>
         </ChildSection>
         <ChildSection
+          id="examples-search"
+          title="Search"
+          description={
+            <>
+              Pass <Code>search</Code> for a page-level searchable collection.
+              Header owns its size and position; the page owns the query and
+              results. Give it a specific accessible name and connect it to the
+              results region when possible.
+            </>
+          }
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <HeaderSearchExample />
+              <Code
+                variant="block"
+                language="tsx"
+                code={examplesSearchSnippet}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="examples-tabs"
           title="Tabs"
           description={
             <>
-              Pass <Code>tabs</Code>. Use this when in-page sections sit under
-              the header.
+              Pass <Code>tabs</Code> for page-level section navigation. Keep
+              selection and the displayed content in sync; use standalone Tabs
+              for a local control inside the page body.
             </>
           }
         >
@@ -489,7 +568,10 @@ export function StructureHeaderPage() {
               in <Code>secondaryActions</Code>.
             </>,
             <>
-              Use <Code>tabs</Code> for sub-pages within the current section.
+              Use <Code>tabs</Code> for page-level section navigation.
+            </>,
+            <>
+              Use <Code>search</Code> for a page-level searchable collection.
             </>,
           ]}
           dontItems={[
@@ -501,7 +583,7 @@ export function StructureHeaderPage() {
             </>,
             <>Don’t give several actions equal primary emphasis.</>,
             <>
-              Don’t use Header tabs for sectioning content inside the page body
+              Don’t use Header tabs for a local control nested in the page body
               — use standalone{" "}
               <DocsPageLink to="/components/tabs">Tabs</DocsPageLink>.
             </>,
@@ -512,6 +594,7 @@ export function StructureHeaderPage() {
               </DocsPageLink>
               .
             </>,
+            <>Don’t place a second search control beside Header.</>,
           ]}
         />
       </MainSection>
@@ -562,6 +645,12 @@ export function StructureHeaderPage() {
                 description: "Adds the main page action.",
               },
               {
+                name: "search",
+                type: "HeaderSearchProps",
+                description:
+                  "Adds a medium Search before the favourite and actions.",
+              },
+              {
                 name: "tabs",
                 type: "HeaderTabsProps",
                 description:
@@ -571,6 +660,49 @@ export function StructureHeaderPage() {
                 name: "className",
                 type: "string",
                 description: "Adds layout classes to the Header root.",
+              },
+            ]}
+          />
+        </ChildSection>
+        <ChildSection
+          id="api-header-search-props"
+          title="HeaderSearchProps"
+          description="Passes Search props except size and className, which Header owns. The page controls the query and results."
+        >
+          <DocsApiTable
+            aria-label="HeaderSearchProps API properties"
+            rows={[
+              {
+                name: "value",
+                type: "string",
+                description: "Controls the current query.",
+              },
+              {
+                name: "onValueChange",
+                type: "(value: string) => void",
+                description: "Receives query changes, including clearing.",
+              },
+              {
+                name: "showClear",
+                type: "boolean",
+                defaultValue: "false",
+                description:
+                  "Shows a clear action while the query has a value.",
+              },
+              {
+                name: "placeholder",
+                type: "string",
+                description: "Offers an example of what to search.",
+              },
+              {
+                name: "aria-label",
+                type: "string",
+                description: "Names the searchable collection.",
+              },
+              {
+                name: "aria-controls",
+                type: "string",
+                description: "Points to the page's results region.",
               },
             ]}
           />
@@ -874,6 +1006,12 @@ export function StructureHeaderPage() {
                 type: "React.ReactNode",
                 description: "Supplies the visible tab label.",
               },
+              {
+                name: "id",
+                type: "string",
+                description:
+                  "Optionally gives a same-page content panel a stable aria-labelledby target.",
+              },
             ]}
           />
         </ChildSection>
@@ -906,6 +1044,10 @@ export function StructureHeaderPage() {
           <li>
             <DocsPageLink to="/components/tabs">Tabs</DocsPageLink> — for
             standalone tabbed content.
+          </li>
+          <li>
+            <DocsPageLink to="/components/search">Search</DocsPageLink> — for
+            query behaviour and clearing within Header.
           </li>
           <li>
             <DocsPageLink to="/components/button">Button</DocsPageLink> — for

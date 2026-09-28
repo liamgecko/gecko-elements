@@ -11,7 +11,7 @@ Tabs switches between related panels on the same page while showing one panel at
 
 For buttons that filter one shared list instead of selecting corresponding panels, use [Toggle Group's filter variant](toggle-group.md#filter-variant). It supports counts and unread indicators without tab panels.
 
-Use standalone Tabs to section content within a page. Use the tab configuration on Header when the tabs navigate between sub-pages in a product section. Use Accordion when sections should remain stacked or people may need to compare their content.
+Use standalone Tabs to section content within the page body. Use the tab configuration on Header for page-level section navigation, whether it changes a route or selects a major section on one page. Use Accordion when sections should remain stacked or people may need to compare their content.
 
 Tabs follows the Shadcn composition and wraps Base UI Tabs. Application code imports the Gecko component rather than Shadcn or Base UI directly.
 
@@ -224,7 +224,7 @@ overrides in application code.
 
 1. Import Tabs parts from `@geckolabs/elements/components/tabs`.
 2. Use Tabs only for related panels on the same page.
-3. Use Header tabs for navigation between sub-pages.
+3. Use Header tabs for page-level section navigation and standalone Tabs for nested content controls.
 4. Give every TabsTrigger a matching TabsContent value.
 5. Set the visual variant once on Tabs; do not add it to TabsList.
 6. Use `fullWidth` only when triggers should divide the available width evenly.

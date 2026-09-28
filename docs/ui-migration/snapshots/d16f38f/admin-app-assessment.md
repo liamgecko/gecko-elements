@@ -1,8 +1,10 @@
+> Historical evidence only. Superseded by the [current migration plan](../../README.md). Recommendations and capability claims below describe the inspected commit; they are not instructions for current implementation. Source links may point to files that have since changed or disappeared.
+
 # Gecko Admin migration to Elements: assessment and evidence
 
 9 September 2026. This is an assessment for migration planning, not an implementation or approval of a particular migration design.
 
-Follow-up: [Rollout options comparison](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/rollout-options.md>) evaluates the gradual-adoption baseline below against a complete cutover and a whole-app pilot. It also identifies an additional global public stylesheet and release/rollback considerations. No rollout strategy has been selected.
+Follow-up: [Rollout options comparison](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/snapshots/d16f38f/rollout-options.md>) evaluates the gradual-adoption baseline below against a complete cutover and a whole-app pilot. It also identifies an additional global public stylesheet and release/rollback considerations. No rollout strategy has been selected.
 
 ## Assessment
 
@@ -20,7 +22,7 @@ My recommendation is to prepare Elements as an externally consumable library, pr
 - Compiled Elements' real stylesheet with the installed Tailwind 4.3.1 compiler. Compared exact simple class selectors with the stylesheet actually copied into Admin. Ran isolated Chrome computed-style probes with both stylesheets in both orders, blocking network requests. These are CSS measurements on synthetic markup, not live React interaction tests.
 - Did **not** run the full Admin test/build suite, authenticate into the product, exercise mixed React overlays, verify every route, or measure production bundle sizes. Functional, visual and browser support claims beyond these probes remain validation work.
 
-Reproducible inputs and results: [CSS audit script](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/css-coexistence-audit.mjs>), [CSS measurements](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/css-coexistence-audit.json>), [legacy import inventory](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/legacy-inventory.json>), [inventory script](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/legacy-inventory.py>).
+Reproducible inputs and results: [CSS audit script](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/css-coexistence-audit.mjs>), [CSS measurements](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/snapshots/d16f38f/css-coexistence-audit.json>), [legacy import inventory](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/snapshots/d16f38f/legacy-inventory.json>), [inventory script](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/legacy-inventory.py>).
 
 ## 1. How the three parts actually work
 

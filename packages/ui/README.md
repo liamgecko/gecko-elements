@@ -38,7 +38,7 @@ aliases. CommonJS and server rendering are not tested distribution targets.
 From the repository root, run `npm run build:package` or
 `npm pack --workspace @geckolabs/elements --pack-destination /tmp` (which builds
 first). Install the resulting tarball into a consuming app with
-`npm install /tmp/geckolabs-elements-0.1.0-next.2.tgz`, alongside matching React,
+`npm install /tmp/geckolabs-elements-0.1.0-next.3.tgz`, alongside matching React,
 React DOM and React Is peers. The source workspace keeps `private: true` as a publication guard. Private npm
 prereleases use the Elements repository’s `release:prepare` and
 `release:publish` commands to publish a verified artifact.

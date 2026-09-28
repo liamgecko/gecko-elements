@@ -1,3 +1,5 @@
+> Historical evidence only. Superseded by the [current migration plan](../../README.md). Recommendations and capability claims below describe the inspected commit; they are not instructions for current implementation. Source links may point to files that have since changed or disappeared.
+
 # Gecko Admin migration to Elements: refreshed investigation
 
 Reviewed 9 September 2026. This replaces the earlier assessment of Admin `d16f38f`. Current evidence is from **branch `production`, commit `68f9dc325126226a0bacd41b827ad2f44717fe0d`**, which was clean during inspection. Although the preceding discussion referred to master, the inspected checkout is production. This is local repository evidence, not confirmation of what is deployed. Elements remains at `7fc705f49d5bac5a998665963f09c6484a60c867`.
@@ -62,7 +64,7 @@ The static inventory was rerun against the current App source tree:
 | Production files importing Modal wrapper | 66 | 26 |
 | Production files importing Ui barrel | 294 | 255 |
 
-Counts overlap and cannot be summed. The scanner counts static `import ... from` declarations, not dynamic imports, re-exports, rendered instances or complete screens. Test-file count is not tested coverage. [Current inventory and methodology](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/legacy-inventory.json>)
+Counts overlap and cannot be summed. The scanner counts static `import ... from` declarations, not dynamic imports, re-exports, rendered instances or complete screens. Test-file count is not tested coverage. [Current inventory and methodology](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/snapshots/68f9dc3/legacy-inventory.json>)
 
 There is significant reusable reach through shared wrappers, but the Ui barrel also directly exports Bootstrap Button and other primitives. Updating the shared Buttons wrapper affects its consumers; it does not automatically replace the separately exported Button or direct imports. Screen-by-screen acceptance remains necessary even when component replacement has broad reach. [App/src/Components/Ui/index.jsx:1](</Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/index.jsx:1>), [App/src/Components/Ui/Buttons/index.jsx:161](</Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/Buttons/index.jsx:161>)
 
@@ -93,7 +95,7 @@ Synthetic Chromium probes using the real stylesheets reproduced the earlier resu
 | `h-8 text-sm` height / font size | 32px / 14px | 28px / 12.25px |
 | Heading styled with `text-sm` | 14px | About 18px |
 
-Setting a wrapper font size to 16px did not repair root-relative sizing. Removing utility collisions alone would still leave global element rules and the document root. Bootstrap's unlayered and important declarations also mean import order alone is insufficient. A naive Tailwind prefix change failed on existing unprefixed `@apply bg-primary` usage. Prefixing would require a deliberate library/source/consumer strategy, not only a build toggle. [Refreshed raw measurements](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/css-coexistence-audit.json>), [Reproduction script](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/css-coexistence-audit.mjs>)
+Setting a wrapper font size to 16px did not repair root-relative sizing. Removing utility collisions alone would still leave global element rules and the document root. Bootstrap's unlayered and important declarations also mean import order alone is insufficient. A naive Tailwind prefix change failed on existing unprefixed `@apply bg-primary` usage. Prefixing would require a deliberate library/source/consumer strategy, not only a build toggle. [Refreshed raw measurements](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/snapshots/68f9dc3/css-coexistence-audit.json>), [Reproduction script](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/css-coexistence-audit.mjs>)
 
 Therefore, do not remove Bootstrap utilities globally as the opening move: existing screens use them, and it would introduce a separate legacy regression surface without resolving all style conflicts. If same-document coexistence is selected, prepare and verify an explicit compatibility strategy. If a clean React App cutover is selected, defer migration-only prefix work until there is another demonstrated need.
 
@@ -111,6 +113,6 @@ Stage and production workflows run tests/builds, then sync assets with `--delete
 
 The broad conclusion is unchanged: make Elements production-consumable, preserve application behavior, and choose rollout boundaries deliberately. The current evidence strengthens the case for React 18 readiness first and changes the scope of a full cutover to the current React App, with Angular handoffs retained.
 
-The refreshed [rollout comparison](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/rollout-options.md>) separates that decision from initial package integration. No migration strategy is approved by this report, and no application or library code was changed.
+The refreshed [rollout comparison](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/snapshots/68f9dc3/rollout-options.md>) separates that decision from initial package integration. No migration strategy is approved by this report, and no application or library code was changed.
 
 Verification performed: current manifest/lockfile and source inspection, import inventory rerun, stylesheet compilation and isolated Chromium computed-style probes. The earlier Elements typecheck is historical evidence only; it was not rerun here. No fresh App dependency installation, App build/test run, authenticated workflow test, production bundle measurement, cloud inspection or rollout rehearsal was performed. Existing node_modules in Admin may reflect another checkout and were not treated as current dependency evidence.

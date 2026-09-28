@@ -400,6 +400,7 @@ function AppSidebarNav({
                 <SidebarMenuButton
                   render={<a href={href} />}
                   tooltip={item.label}
+                  aria-label={item.label}
                   isActive={active}
                   onClick={(event) => {
                     event.preventDefault();

@@ -93,6 +93,8 @@ Include only controls that exist in the product. Passing `true` enables an uncon
 
 Status controls expose their state through Toggle semantics and a supplementary tooltip. AppHeaderControls applies its delay directly to those tooltip triggers and relies on the application’s shared TooltipProvider.
 
+Pass `disabled` for read-only status or while an availability request is pending. Keep `pressed` tied to application state and preserve the confirmed state on request failure.
+
 ## User menu
 
 ```tsx
@@ -175,15 +177,16 @@ Each account item accepts `id`, `label`, `onSelect` and `disabled`. Application 
 
 ### AppHeaderStatusControlProps
 
-| Property          | Type                         | Default     | Meaning                                |
-| ----------------- | ---------------------------- | ----------- | -------------------------------------- |
-| `pressed`         | `boolean`                    | —           | Controls availability                  |
-| `defaultPressed`  | `boolean`                    | `true`      | Sets initial uncontrolled availability |
-| `onPressedChange` | `(pressed: boolean) => void` | —           | Runs when availability changes         |
-| `onlineLabel`     | `string`                     | `"Online"`  | Labels the available state             |
-| `offlineLabel`    | `string`                     | `"Offline"` | Labels the unavailable state           |
-| `tooltipLabel`    | `string`                     | —           | Names the status in its tooltip        |
-| `aria-label`      | `string`                     | —           | Overrides the toggle’s accessible name |
+| Property          | Type                         | Default     | Meaning                                          |
+| ----------------- | ---------------------------- | ----------- | ------------------------------------------------ |
+| `pressed`         | `boolean`                    | —           | Controls availability                            |
+| `disabled`        | `boolean`                    | `false`     | Prevents changes for read-only or pending status |
+| `defaultPressed`  | `boolean`                    | `true`      | Sets initial uncontrolled availability           |
+| `onPressedChange` | `(pressed: boolean) => void` | —           | Runs when availability changes                   |
+| `onlineLabel`     | `string`                     | `"Online"`  | Labels the available state                       |
+| `offlineLabel`    | `string`                     | `"Offline"` | Labels the unavailable state                     |
+| `tooltipLabel`    | `string`                     | —           | Names the status in its tooltip                  |
+| `aria-label`      | `string`                     | —           | Overrides the toggle’s accessible name           |
 
 ### AppHeaderUserMenu
 

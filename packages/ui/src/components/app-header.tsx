@@ -261,6 +261,7 @@ function AppHeaderAccountSwitcher({
 }
 
 type AppHeaderStatusControlProps = {
+  disabled?: boolean;
   pressed?: boolean;
   defaultPressed?: boolean;
   onPressedChange?: (pressed: boolean) => void;
@@ -280,6 +281,7 @@ function resolveStatusControl(
 
 function AppHeaderStatusToggle({
   icon: Icon,
+  disabled,
   pressed,
   defaultPressed = true,
   onPressedChange,
@@ -309,6 +311,7 @@ function AppHeaderStatusToggle({
         delay={delay}
         render={
           <Toggle
+            disabled={disabled}
             aria-label={ariaLabel ?? tooltipLabel}
             size="icon-sm"
             variant="ghost-dark"

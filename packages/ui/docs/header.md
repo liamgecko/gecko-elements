@@ -7,7 +7,7 @@ Human documentation: `apps/docs/src/pages/structure/header/index.tsx`
 
 ## Purpose
 
-Header is the page-level structure below the persistent application chrome. It combines the page location, heading, favourite control, page actions and optional sub-navigation in one consistent layout.
+Header is the page-level structure below the persistent application chrome. It combines the page location, heading, optional search, favourite control, page actions and optional sub-navigation in one consistent layout.
 
 Use one Header above Page Container on every standard page. Inbox uses a purpose-built layout and does not use Header. Do not use Header for card titles or sections inside the page body.
 
@@ -17,7 +17,8 @@ Use one Header above Page Container on every standard page. Inbox uses a purpose
 Header
 ├── Breadcrumb
 ├── heading and subheading
-├── actions
+├── search and actions
+│   ├── Search (optional)
 │   ├── Toggle (favourite)
 │   ├── Button or DropdownMenu (secondary)
 │   └── Button (primary)
@@ -26,7 +27,7 @@ Header
 
 Application code imports only Header. Header selects and composes the approved Gecko primitives from its configuration props.
 
-The favourite control is always present. Breadcrumbs, heading text, additional actions and tabs render only when configured. When a heading is present, actions align with the heading row. Without a heading, actions align with the breadcrumb row.
+The favourite control is always present. Breadcrumbs, heading text, search, additional actions and tabs render only when configured. Search precedes the favourite and actions in the heading row, or in the breadcrumb row when there is no heading.
 
 ## Canonical header
 
@@ -122,9 +123,29 @@ Use `primaryAction` for the page’s main action and `secondaryActions` for supp
 
 Supply icons explicitly. Header does not infer icons from action wording. An icon-only secondary action requires `ariaLabel`. Use the menu action shape for a list of related actions rather than assembling Dropdown Menu beside Header. Do not override action sizes; Header owns a consistent default-sized action row.
 
+## Search
+
+Use `search` when the page has a primary collection to find or filter. Header renders the shared Gecko Search at its medium size before the favourite control. Supply a specific accessible name and, when the query drives page results, controlled `value` and `onValueChange`. The consuming page owns filtering, loading, empty results and announcements; Header never changes the collection itself.
+
+```tsx
+<Header
+  title="Settings"
+  search={{
+    value: query,
+    onValueChange: setQuery,
+    showClear: true,
+    placeholder: "Search settings…",
+    "aria-label": "Search settings",
+    "aria-controls": "settings-results",
+  }}
+/>
+```
+
+Search is optional. Omit it on pages without a searchable collection. The Header owns its width and size; do not place a second Search beside Header or pass Search as an action label. Keep the result region identifiable if using `aria-controls`.
+
 ## Tabs
 
-Header tabs are line Tabs used for sub-pages within the current product section. Header supplies their single bottom rule, and the active indicator is centred on that boundary. Use standalone Tabs for switching content within the page body.
+Header tabs are line Tabs used for page-level navigation within the current product section. They can select related sub-pages or major sections of one page, such as categories on a Settings landing page. Header supplies their single bottom rule, and the active indicator is centred on that boundary. Use standalone Tabs for a local control nested within the page body.
 
 Header enables tab overflow by default. When the available width is exhausted, trailing tabs move into the standard ellipsis menu and return to the tab list as space becomes available.
 
@@ -140,7 +161,7 @@ Header enables tab overflow by default. When the available width is exhausted, t
 />
 ```
 
-Keep tab labels concise. The application owns synchronization between the selected value, route and displayed page content.
+Keep tab labels concise. The application owns synchronization between the selected value, route and displayed page content. Header renders the triggers, not the content panels. When selection changes content without changing route, give the visible content `role="tabpanel"` and an accessible association to its active trigger. Set a stable `id` on each Header tab item and use that id as the panel's `aria-labelledby`.
 
 ## Interface
 
@@ -154,10 +175,15 @@ Keep tab labels concise. The application owns synchronization between the select
 | `favouriteAction`  | `HeaderFavouriteActionProps`       | —       | Configures the standard favourite control       |
 | `secondaryActions` | `readonly HeaderSecondaryAction[]` | —       | Supplies supporting buttons or menus            |
 | `primaryAction`    | `HeaderActionProps`                | —       | Supplies the main page action                   |
+| `search`           | `HeaderSearchProps`                | —       | Renders a medium Search before page actions     |
 | `tabs`             | `HeaderTabsProps`                  | —       | Configures line tabs along the bottom of Header |
 | `className`        | `string`                           | —       | Adds layout classes to the complete Header      |
 
 Header accepts native `div` properties.
+
+### HeaderSearchProps
+
+Passes Search properties except `size` and `className`, which Header owns. Use `value`, `onValueChange`, `showClear`, `placeholder`, a specific `aria-label` and optionally `aria-controls` as in the Search contract. Search is a query control, not a form field; use Field and Input for submitted values.
 
 ### HeaderBreadcrumbsProps
 
@@ -222,11 +248,12 @@ Each HeaderTabsItem requires a string `value` and a visible `label`, and accepts
 - Give icon-only secondary actions a contextual accessible name.
 - Keep the favourite control’s accessible name synchronized with its action.
 - Preserve Button, Toggle, Dropdown Menu, Breadcrumb and Tabs keyboard behaviour.
+- Give Search a specific accessible name, and keep search result feedback with the page content.
 - Keep one primary action and use destructive wording that states its consequence.
 
 ## Styling contract
 
-Header owns its sticky position, stacking layer, background, single bottom border, outer spacing, heading typography, action alignment and line-tab placement. Its TabsList does not add a second border; the active indicator sits over the Header boundary. Header also owns the standard favourite treatment and consistent default action sizes.
+Header owns its sticky position, stacking layer, background, single bottom border, outer spacing, heading typography, search size and width, action alignment and line-tab placement. Its TabsList does not add a second border; the active indicator sits over the Header boundary. Header also owns the standard favourite treatment and consistent default action sizes.
 
 Use `className` only for reviewed layout integration. Do not remove the background, border, sticky behaviour or padding; recolour the surface; restyle action hierarchy; or replace internal primitives in application code.
 
@@ -244,9 +271,10 @@ Use `className` only for reviewed layout integration. Do not remove the backgrou
 10. Give every icon-only secondary action an ariaLabel.
 11. Use the menu action shape for a secondary list of actions.
 12. Keep every Header action at the component-owned default size.
-13. Use Header tabs only for sub-pages within the current section.
-14. Preserve Header’s background, stacking, spacing, action hierarchy and line-tab treatment.
-15. Do not directly assemble its internal Breadcrumb, Toggle, Button, Dropdown Menu or Tabs layout in application code.
+13. Use `search` for a page-level searchable collection; provide an accessible name and let the page own its results.
+14. Use Header tabs for page-level section navigation; use standalone Tabs for controls nested in the page body.
+15. Preserve Header’s background, stacking, spacing, action hierarchy and line-tab treatment.
+16. Do not directly assemble its internal Breadcrumb, Search, Toggle, Button, Dropdown Menu or Tabs layout in application code.
 
 ## Related
 
@@ -258,6 +286,7 @@ Use `className` only for reviewed layout integration. Do not remove the backgrou
 - **Toggle** — favourite state rendered by Header.
 - **Dropdown menu** — secondary action lists rendered by Header.
 - **Tabs** — sub-navigation rendered by Header.
+- **Search** — the shared query input rendered in Header when configured.
 
 ## Application integration
 

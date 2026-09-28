@@ -11,6 +11,7 @@ import {
   BreadcrumbSeparator,
 } from "@geckolabs/elements/components/breadcrumb";
 import { Button } from "@geckolabs/elements/components/button";
+import { Search } from "@geckolabs/elements/components/search";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,7 +19,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@geckolabs/elements/components/dropdown-menu";
-import { Tabs, TabsList, TabsTrigger } from "@geckolabs/elements/components/tabs";
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+} from "@geckolabs/elements/components/tabs";
 import { Toggle } from "@geckolabs/elements/components/toggle";
 import {
   Tooltip,
@@ -144,6 +149,11 @@ type HeaderTabsProps = {
   listProps?: Omit<React.ComponentProps<typeof TabsList>, "children">;
 };
 
+type HeaderSearchProps = Omit<
+  React.ComponentProps<typeof Search>,
+  "size" | "className"
+>;
+
 type HeaderProps = Omit<React.ComponentProps<"div">, "title"> & {
   breadcrumbs?: HeaderBreadcrumbsProps;
   title?: React.ReactNode;
@@ -151,6 +161,7 @@ type HeaderProps = Omit<React.ComponentProps<"div">, "title"> & {
   favouriteAction?: HeaderFavouriteActionProps;
   secondaryActions?: readonly HeaderSecondaryAction[];
   primaryAction?: HeaderActionProps;
+  search?: HeaderSearchProps;
   tabs?: HeaderTabsProps;
 };
 
@@ -422,17 +433,23 @@ const Header = /* @__PURE__ */ withRef(function Header({
   favouriteAction,
   secondaryActions,
   primaryAction,
+  search,
   tabs,
   className,
   ...props
 }: HeaderProps) {
   const hasHeading = Boolean(title || subheading);
-  const actionSlot = (
-    <Actions
-      favouriteAction={favouriteAction}
-      secondaryActions={secondaryActions}
-      primaryAction={primaryAction}
-    />
+  const controls = (
+    <div className="flex min-w-0 items-center gap-3">
+      {search ? (
+        <Search {...search} size="md" className="w-64 shrink-0" />
+      ) : null}
+      <Actions
+        favouriteAction={favouriteAction}
+        secondaryActions={secondaryActions}
+        primaryAction={primaryAction}
+      />
+    </div>
   );
   const resolvedBreadcrumbs = breadcrumbs
     ? renderBreadcrumbs(breadcrumbs)
@@ -449,14 +466,14 @@ const Header = /* @__PURE__ */ withRef(function Header({
       )}
       {...props}
     >
-      {(resolvedBreadcrumbs || (!hasHeading && actionSlot)) && (
+      {(resolvedBreadcrumbs || !hasHeading) && (
         <div className="flex items-center justify-between gap-4">
           <div className="min-w-0">{resolvedBreadcrumbs}</div>
-          {!hasHeading && actionSlot ? actionSlot : null}
+          {!hasHeading ? controls : null}
         </div>
       )}
 
-      {(hasHeading || (hasHeading && actionSlot)) && (
+      {hasHeading && (
         <div className="flex items-center justify-between gap-4">
           {hasHeading ? (
             <div className="min-w-0">
@@ -473,7 +490,7 @@ const Header = /* @__PURE__ */ withRef(function Header({
             </div>
           ) : null}
 
-          {hasHeading && actionSlot ? actionSlot : null}
+          {controls}
         </div>
       )}
 
@@ -490,6 +507,7 @@ export type {
   HeaderFavouriteActionProps,
   HeaderMenuItem,
   HeaderProps,
+  HeaderSearchProps,
   HeaderSecondaryAction,
   HeaderSecondaryButtonAction,
   HeaderSecondaryMenuAction,

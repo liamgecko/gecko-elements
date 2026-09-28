@@ -376,6 +376,8 @@ Pagination is opt-in. Without the `pagination` prop, Data table renders every fi
 
 Pagination controls remain inline within their leading and trailing groups. Its Select triggers use compact content-appropriate widths rather than the full-width form-field treatment.
 
+The page-number Select menu is capped at 18rem or the available viewport height, whichever is smaller. Longer page lists scroll inside the menu.
+
 The results summary uses compact supporting text and gives the result count stronger emphasis.
 
 The default is client-side: provide the complete dataset in `data`. For a server-backed list, provide `remote={{ state, onStateChange, rowCount }}` and just the current page in `data`. Search, filters, sorting and pagination then emit query changes without reprocessing that page locally. `rowCount` is the total number of matching server records. Page indexes are zero-based; the default page size is 15.

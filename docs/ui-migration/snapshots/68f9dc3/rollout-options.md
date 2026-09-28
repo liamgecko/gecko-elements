@@ -1,6 +1,8 @@
+> Historical evidence only. Superseded by the [current migration plan](../../README.md). Recommendations and capability claims below describe the inspected commit; they are not instructions for current implementation. Source links may point to files that have since changed or disappeared.
+
 # Elements rollout options: refreshed comparison
 
-9 September 2026. Based on current Admin `production` at `68f9dc325126226a0bacd41b827ad2f44717fe0d` and Elements `7fc705f49d5bac5a998665963f09c6484a60c867`. Supersedes the earlier comparison of `d16f38f`. See the [refreshed investigation](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/admin-app-assessment.md>) for version, component and CSS evidence. This is a comparison, not an implementation plan or selected rollout strategy.
+9 September 2026. Based on current Admin `production` at `68f9dc325126226a0bacd41b827ad2f44717fe0d` and Elements `7fc705f49d5bac5a998665963f09c6484a60c867`. Supersedes the earlier comparison of `d16f38f`. See the [refreshed investigation](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/snapshots/68f9dc3/admin-app-assessment.md>) for version, component and CSS evidence. This is a comparison, not an implementation plan or selected rollout strategy.
 
 ## Shared starting point
 
@@ -24,7 +26,7 @@ C is a controlled exposure variant of B, not a shortcut around completion. All o
 
 ## What a clean cutover avoids—and what it does not
 
-The renewed CSS probes still show 111 overlapping class names, a legacy 14px root changing Elements dimensions, and heading rules winning regardless of stylesheet order. A clean document can avoid a migration-only utility prefix, competing global baselines and mixed Bootstrap/Base UI overlay behavior. Removing Bootstrap utilities by themselves would not solve the full problem. [docs/ui-migration/css-coexistence-audit.json](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/css-coexistence-audit.json>)
+The renewed CSS probes still show 111 overlapping class names, a legacy 14px root changing Elements dimensions, and heading rules winning regardless of stylesheet order. A clean document can avoid a migration-only utility prefix, competing global baselines and mixed Bootstrap/Base UI overlay behavior. Removing Bootstrap utilities by themselves would not solve the full problem. [docs/ui-migration/css-coexistence-audit.json](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/snapshots/68f9dc3/css-coexistence-audit.json>)
 
 A clean cutover still needs the shell, global dialogs/toasts/loading, third-party styles and reachable module imports audited. App imports Bootstrap globally, and its route registry statically imports module states. A clean preview must establish an appropriate entry graph; hiding legacy menu items does not isolate styles or imports. [App/src/main.jsx:1](</Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/main.jsx:1>), [App/src/Components/AppLayout/index.jsx:16](</Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/AppLayout/index.jsx:16>), [App/src/Router/states.jsx:3](</Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Router/states.jsx:3>)
 
@@ -42,7 +44,7 @@ The existing document separation can keep Angular's styles outside the Elements 
 
 A screen provides a useful unit for acceptance because it exercises components alongside data, permissions, errors, saving and navigation. Shared component replacement provides reuse across later screens, but also expands the regression surface immediately.
 
-For example, changing the existing Buttons wrapper reaches 96 production importing files in this checkout. It does not change the Bootstrap Button exported separately by the Ui barrel, nor every direct import. Every affected workflow still needs appropriate validation. Use component implementation to create reusable capability and screen/workflow validation to demonstrate completion. [docs/ui-migration/legacy-inventory.json](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/legacy-inventory.json>), [App/src/Components/Ui/index.jsx:1](</Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/index.jsx:1>)
+For example, changing the existing Buttons wrapper reaches 96 production importing files in this checkout. It does not change the Bootstrap Button exported separately by the Ui barrel, nor every direct import. Every affected workflow still needs appropriate validation. Use component implementation to create reusable capability and screen/workflow validation to demonstrate completion. [docs/ui-migration/legacy-inventory.json](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/snapshots/68f9dc3/legacy-inventory.json>), [App/src/Components/Ui/index.jsx:1](</Users/liamyoung/Repos/Gecko-Admin-Web-App/App/src/Components/Ui/index.jsx:1>)
 
 B/C allow that incremental engineering without requiring an incomplete or mixed UI to ship to ordinary users. Their cost is incorporating ongoing production fixes until cutover; an extended divergent branch can become more expensive than a bounded coexistence layer. There is not yet evidence to assign a percentage saving or a reliable completion date.
 

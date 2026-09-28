@@ -159,8 +159,8 @@ export const componentSections: ComponentSections = {
     },
     { id: "default", label: "Default button" },
     {
-      id: "variants",
-      label: "Variants",
+      id: "examples",
+      label: "Examples",
       children: [
         { id: "variants-primary", label: "Primary" },
         { id: "variants-secondary", label: "Secondary" },
@@ -856,8 +856,10 @@ export const componentSections: ComponentSections = {
         { id: "examples-breadcrumbs-only", label: "Breadcrumbs only" },
         { id: "examples-actions", label: "Actions" },
         { id: "examples-actions-multiple", label: "Multiple actions" },
+        { id: "examples-actions-dropdown", label: "Actions dropdown" },
         { id: "examples-heading", label: "Heading" },
         { id: "examples-sub-heading", label: "Sub-heading" },
+        { id: "examples-search", label: "Search" },
         { id: "examples-tabs", label: "Tabs" },
       ],
     },
@@ -867,6 +869,7 @@ export const componentSections: ComponentSections = {
       label: "API",
       children: [
         { id: "api-header", label: "Header" },
+        { id: "api-header-search-props", label: "HeaderSearchProps" },
         { id: "api-header-breadcrumbs-props", label: "HeaderBreadcrumbsProps" },
         { id: "api-header-breadcrumb-item", label: "HeaderBreadcrumbItem" },
         {

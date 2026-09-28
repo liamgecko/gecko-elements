@@ -104,7 +104,7 @@ export function DataTablePagination({ className }: DataTablePaginationProps) {
               }}
             </SelectValue>
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="max-h-[min(18rem,var(--available-height))]">
             <SelectGroup>
               {pageItems.map((p) => (
                 <SelectItem key={p} value={String(p)}>

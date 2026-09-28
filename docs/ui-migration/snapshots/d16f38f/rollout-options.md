@@ -1,3 +1,5 @@
+> Historical evidence only. Superseded by the [current migration plan](../../README.md). Recommendations and capability claims below describe the inspected commit; they are not instructions for current implementation. Source links may point to files that have since changed or disappeared.
+
 # Elements migration: gradual adoption versus a complete cutover
 
 9 September 2026. Investigation of alternatives; no rollout strategy has been approved or implemented.
@@ -10,7 +12,7 @@ For release, my preferred candidate is a complete replacement with an internal p
 
 This preference is conditional. The repos establish that coexistence is difficult; they do not establish that finishing the entire migration quickly is easy. A lengthy backlog, continuous high-volume changes to the same screens, or a need to ship partial improvements early could make gradual adoption the better overall choice.
 
-The [original technical assessment](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/admin-app-assessment.md>) remains the source for the component inventory, React/package gaps and measured CSS conflicts. This document compares delivery strategies and adds evidence about app boundaries and deployment.
+The [original technical assessment](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/snapshots/d16f38f/admin-app-assessment.md>) remains the source for the component inventory, React/package gaps and measured CSS conflicts. This document compares delivery strategies and adds evidence about app boundaries and deployment.
 
 ## 1. Separate three decisions
 
@@ -43,7 +45,7 @@ These are relative engineering judgments, not measured costs or delivery estimat
 
 ## 3. What a complete cutover genuinely saves
 
-The original CSS probe measured 111 overlapping simple selectors, and an Elements `h-8 text-sm` element changed from 32px/14px to 28px/12.25px with the legacy stylesheet present. Changing stylesheet order did not repair it. With one document stylesheet owner, we can remove those competing rules rather than maintain a compatibility layer. [Measurements](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/css-coexistence-audit.json>).
+The original CSS probe measured 111 overlapping simple selectors, and an Elements `h-8 text-sm` element changed from 32px/14px to 28px/12.25px with the legacy stylesheet present. Changing stylesheet order did not repair it. With one document stylesheet owner, we can remove those competing rules rather than maintain a compatibility layer. [Measurements](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/snapshots/d16f38f/css-coexistence-audit.json>).
 
 Likely avoidable work includes:
 
@@ -147,7 +149,7 @@ Measure completed workflows, not just replaced components. A useful coverage rec
 | Public surfaces | Explicitly migrated or preserved behind a verified separate boundary; no accidental shared-wrapper regression |
 | Release | Build/test pass, correct CSS/import graph, bundle/loading comparison, retained assets, old sessions and successful rollback rehearsal |
 
-The existing 509 test files are useful infrastructure, not proof of coverage. The inspected App runner uses jsdom; no browser end-to-end harness was found in the app test setup. Browser verification remains necessary under all options. [Existing inventory](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/legacy-inventory.json>), [test configuration](</Users/liamyoung/Repos/Gecko-Admin-Web-App/App/vitest.config.ts:1>).
+The existing 509 test files are useful infrastructure, not proof of coverage. The inspected App runner uses jsdom; no browser end-to-end harness was found in the app test setup. Browser verification remains necessary under all options. [Existing inventory](</Users/liamyoung/Documents/Gecko Projects/elements-monorepo/docs/ui-migration/snapshots/d16f38f/legacy-inventory.json>), [test configuration](</Users/liamyoung/Repos/Gecko-Admin-Web-App/App/vitest.config.ts:1>).
 
 Do not put a percentage saving or completion date on B yet. A practical comparison is:
 

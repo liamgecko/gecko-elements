@@ -565,7 +565,9 @@ try {
         await shown(first.getByText("Replacement content"));
         assert.ok((await second.textContent()).includes("Nested content"));
         await page.evaluate(() => window.recipeTest.unmount());
-        await page.locator("iframe").waitFor({ state: "detached" });
+        await page.waitForFunction(
+          () => document.querySelectorAll("iframe").length === 0,
+        );
       },
     );
     await scenario(
