@@ -29,6 +29,12 @@ import {
 } from "@geckolabs/elements/components/dropdown-menu";
 import { Field, FieldLabel } from "@geckolabs/elements/components/field";
 import { Input } from "@geckolabs/elements/components/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@geckolabs/elements/components/popover";
 import { ScrollArea } from "@geckolabs/elements/components/scroll-area";
 import {
   Sidebar,
@@ -186,32 +192,45 @@ function AppSidebarFavourites({
           <SidebarMenu>
             {collapsed ? (
               <SidebarMenuItem>
-                <SidebarMenuButton
-                  tooltip={labels.heading}
-                  aria-label={labels.heading}
-                >
-                  <HugeiconsIcon icon={Star} />
-                </SidebarMenuButton>
-                <SidebarMenuSub>
-                  {items.map((fav) => {
-                    const active = activePath === fav.path;
-                    return (
-                      <SidebarMenuSubItem key={fav.path}>
-                        <SidebarMenuSubButton
-                          href={fav.path}
-                          isActive={active}
-                          onClick={(event) => {
-                            event.preventDefault();
-                            onSelect(fav.path);
-                          }}
-                        >
-                          <span>{fav.label}</span>
-                        </SidebarMenuSubButton>
-                        {renderActions(fav)}
-                      </SidebarMenuSubItem>
-                    );
-                  })}
-                </SidebarMenuSub>
+                <Popover>
+                  <PopoverTrigger
+                    openOnHover
+                    render={
+                      <SidebarMenuButton aria-label={labels.heading}>
+                        <HugeiconsIcon icon={Star} />
+                      </SidebarMenuButton>
+                    }
+                  />
+                  <PopoverContent
+                    side="inline-end"
+                    align="start"
+                    className="w-56 gap-1 p-2"
+                  >
+                    <PopoverTitle className="px-2 text-xs">
+                      {labels.heading}
+                    </PopoverTitle>
+                    <SidebarMenuSub className="mx-0 border-0 p-0">
+                      {items.map((fav) => {
+                        const active = activePath === fav.path;
+                        return (
+                          <SidebarMenuSubItem key={fav.path}>
+                            <SidebarMenuSubButton
+                              href={fav.path}
+                              isActive={active}
+                              onClick={(event) => {
+                                event.preventDefault();
+                                onSelect(fav.path);
+                              }}
+                            >
+                              <span>{fav.label}</span>
+                            </SidebarMenuSubButton>
+                            {renderActions(fav)}
+                          </SidebarMenuSubItem>
+                        );
+                      })}
+                    </SidebarMenuSub>
+                  </PopoverContent>
+                </Popover>
               </SidebarMenuItem>
             ) : (
               items.map((fav) => {
@@ -299,6 +318,8 @@ type AppSidebarNavLeaf = AppSidebarNavItemBase & {
 type AppSidebarNavGroup = AppSidebarNavItemBase & {
   items: readonly [AppSidebarNavChild, ...AppSidebarNavChild[]];
   defaultOpen?: boolean;
+  unread?: boolean;
+  unreadLabel?: string;
 };
 
 type AppSidebarNavItem = AppSidebarNavLeaf | AppSidebarNavGroup;
@@ -343,7 +364,71 @@ function AppSidebarNav({
                 item.id in expandedGroups
                   ? expandedGroups[item.id]
                   : isGroupActive || (item.defaultOpen ?? false);
-
+              const trigger = (
+                <SidebarMenuButton
+                  isActive={isGroupActive}
+                  tooltip={collapsed ? undefined : item.label}
+                  className="relative"
+                  onClick={
+                    collapsed
+                      ? () =>
+                          setExpandedGroups((prev) => ({
+                            ...prev,
+                            [item.id]: !isOpen,
+                          }))
+                      : undefined
+                  }
+                >
+                  {renderGeckoIcon(Icon)}
+                  <span className="min-w-0 truncate">{item.label}</span>
+                  {item.unread ? (
+                    <>
+                      <span
+                        aria-hidden="true"
+                        className="bg-notification absolute start-1 top-1 size-2 rounded-full"
+                      />
+                      <span className="sr-only">
+                        {item.unreadLabel ?? "Unread activity"}
+                      </span>
+                    </>
+                  ) : null}
+                </SidebarMenuButton>
+              );
+              const children = item.items.map((child) => (
+                <SidebarMenuSubItem key={child.href}>
+                  <SidebarMenuSubButton
+                    href={child.href}
+                    isActive={isChildActive(activePath, child.href)}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      onSelect(child.href);
+                    }}
+                  >
+                    <span>{child.label}</span>
+                  </SidebarMenuSubButton>
+                </SidebarMenuSubItem>
+              ));
+              if (collapsed) {
+                return (
+                  <SidebarMenuItem key={item.id}>
+                    <Popover>
+                      <PopoverTrigger openOnHover render={trigger} />
+                      <PopoverContent
+                        side="inline-end"
+                        align="start"
+                        className="w-56 gap-1 p-2"
+                      >
+                        <PopoverTitle className="px-2 text-xs">
+                          {item.label}
+                        </PopoverTitle>
+                        <SidebarMenuSub className="mx-0 border-0 p-0">
+                          {children}
+                        </SidebarMenuSub>
+                      </PopoverContent>
+                    </Popover>
+                  </SidebarMenuItem>
+                );
+              }
               return (
                 <SidebarMenuItem key={item.id}>
                   <Collapsible
@@ -356,37 +441,9 @@ function AppSidebarNav({
                       if (open && navigateOnGroupOpen) onSelect(firstChildHref);
                     }}
                   >
-                    <CollapsibleTrigger
-                      render={
-                        <SidebarMenuButton
-                          isActive={isGroupActive}
-                          tooltip={item.label}
-                        >
-                          {renderGeckoIcon(Icon)}
-                          <span>{item.label}</span>
-                        </SidebarMenuButton>
-                      }
-                    />
+                    <CollapsibleTrigger render={trigger} />
                     <CollapsibleContent className="h-(--collapsible-panel-height) overflow-hidden opacity-100 transition-[height,opacity] duration-200 ease-out data-ending-style:h-0 data-ending-style:opacity-0 data-starting-style:h-0 data-starting-style:opacity-0 motion-reduce:transition-none">
-                      <SidebarMenuSub>
-                        {item.items.map((child) => {
-                          const active = isChildActive(activePath, child.href);
-                          return (
-                            <SidebarMenuSubItem key={child.href}>
-                              <SidebarMenuSubButton
-                                href={child.href}
-                                isActive={active}
-                                onClick={(event) => {
-                                  event.preventDefault();
-                                  onSelect(child.href);
-                                }}
-                              >
-                                <span>{child.label}</span>
-                              </SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                          );
-                        })}
-                      </SidebarMenuSub>
+                      <SidebarMenuSub>{children}</SidebarMenuSub>
                     </CollapsibleContent>
                   </Collapsible>
                 </SidebarMenuItem>

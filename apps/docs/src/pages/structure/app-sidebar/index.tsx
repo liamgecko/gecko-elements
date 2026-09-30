@@ -117,7 +117,7 @@ export function StructureAppSidebarPage() {
       <MainSection
         id="example"
         title="Example"
-        description="Favourites above the main nav, with nested Conversations destinations and a collapse trigger."
+        description="Favourites above the main nav, with nested Conversations destinations, collapsed flyouts, and a collapse trigger."
       >
         <ComponentExample className="h-[480px] overflow-hidden p-0">
           <AppSidebarDemo />
@@ -136,7 +136,7 @@ export function StructureAppSidebarPage() {
       <MainSection
         id="navigation-structure"
         title="Navigation structure"
-        description="App Sidebar has one fixed structure: favourites first, followed by primary destinations with child destinations grouped beneath their parent."
+        description="App Sidebar keeps favourites before primary navigation. In the collapsed rail, favourites and grouped destinations remain available in side flyouts on hover or trigger activation."
       >
         <ChildSection
           id="navigation-structure-favourites"

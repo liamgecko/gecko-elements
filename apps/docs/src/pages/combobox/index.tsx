@@ -17,7 +17,11 @@ import {
 } from "@geckolabs/elements/components/combobox";
 
 import { Code } from "@/components/layout/docs-code";
-import { Field, FieldError, FieldLabel } from "@geckolabs/elements/components/field";
+import {
+  Field,
+  FieldError,
+  FieldLabel,
+} from "@geckolabs/elements/components/field";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
@@ -307,7 +311,8 @@ export function ComboboxPage() {
         description={
           <>
             Set <Code>showClear</Code> when an optional selection should be easy
-            to remove. The component names the control.
+            to remove. Tab reaches the clear control; Enter or Space clears the
+            selection and returns focus to the input.
           </>
         }
       >

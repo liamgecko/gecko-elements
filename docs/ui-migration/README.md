@@ -1,6 +1,6 @@
 # Admin migration to Elements
 
-This is the authoritative migration plan and handover for humans and agents. Start here after a model change, new task or context reset. Last updated: 28 September 2026.
+This is the authoritative migration plan and handover for humans and agents. Start here after a model change, new task or context reset. Last updated: 30 September 2026.
 
 ## Objective and scope
 
@@ -51,6 +51,8 @@ If documents conflict, this README owns migration intent and status, current Ele
 The isolated entry, initial header/sidebar, Settings directory, Account settings page and Categories list are implemented in the Admin working tree. The signed-in browser baseline is partial. The complete foundation parity gate remains open; see [entry and shell evidence](entry-shell-evidence.md) for checks and exact gaps.
 
 **Current authorised scope (28 September 2026):** the user selected the Categories list to prove the Elements Data table after the Settings directory and Account settings slices. The current Admin Categories page and ListView are the behaviour source. The Elements page keeps server-backed search, Type filtering, row destinations and removal, and pagination; it adds the requested column toggles. Category create/edit remain existing-app handoffs. The earlier `elements-experiment` branch is not a behaviour source. Templates remains an unselected candidate.
+
+**Sidebar follow-up (30 September 2026):** preserve the current React sidebar's functionality while addressing the reported review findings. The user explicitly changed favourite activation to the current tab. Saved destinations must pass the Elements HTTP(S) URL allowlist before rendering or navigation; malformed and executable URLs are excluded. See [entry and shell evidence](entry-shell-evidence.md) for the bounded verification and pending component release.
 
 | Stage                    | Status                                                                    | Completion gate                                                                                         |
 | ------------------------ | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |

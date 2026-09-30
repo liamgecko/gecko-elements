@@ -82,6 +82,7 @@ const ComboboxClear = /* @__PURE__ */ withRef(function ComboboxClear({
     <ComboboxPrimitive.Clear
       data-slot="combobox-clear"
       aria-label={ariaLabel}
+      tabIndex={0}
       className={cn(className)}
       {...props}
       render={

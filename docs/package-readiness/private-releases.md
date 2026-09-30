@@ -211,4 +211,33 @@ The source workspace remains protected by `private: true`.
 - `release:prepare` passed with installed Google Chrome: React 18 and 19 consumers in compiled-CSS and Tailwind modes, package integrity, browser interactions, builds, tree shaking and npm publish dry run.
 - Verified tarball SHA-256: `b04f3bfa902e2a41b7bf335436bd555d6f975e36806edbd31d34f18673a50d49`.
 - Published privately after explicit user approval and npm browser authentication. Registry verification confirmed restricted access, the `next` tag and exact artifact integrity.
-- Admin installs the exact `0.1.0-next.5` version from npm. Its development build passed, and the installed JavaScript and compiled CSS contain the dropdown cap.
+- Admin initially installed the exact `0.1.0-next.5` version from npm. Its development build passed, and the installed JavaScript and compiled CSS contain the dropdown cap. Later versions retain this fix.
+
+## 0.1.0-next.6 release — 2026-09-28
+
+- Adds the documented App Sidebar unread-group indicator, including a notification dot in expanded and collapsed modes and accessible unread text.
+- `release:prepare` passed with Google Chrome for React 18 and 19 consumers in compiled-CSS and Tailwind modes, package integrity, browser interactions, builds, tree shaking and npm publish dry run.
+- Verified tarball SHA-256: `756d3b1e13984858a7b2826c9baac6e4727506c81b689f96f392fe93defcbecd`.
+- Published privately after user approval. Registry verification confirmed restricted access, the `next` tag and exact artifact integrity.
+- Admin initially installed the exact `0.1.0-next.6` version from npm. Its development build passed, and the installed JavaScript and generated stylesheet contain the unread indicator. See next.7 for its current installation. Live unread-conversation behavior remains to be verified in a signed-in session.
+
+## 0.1.0-next.7 release — 2026-09-28
+
+- Keeps App Sidebar group labels on one line during collapse and expansion by truncating the label span directly. The exact release artifact differs from next.6 only in App Sidebar JavaScript, its contract, and the package version.
+- `release:prepare` passed with Google Chrome for React 18 and 19 consumers in compiled-CSS and Tailwind modes, package integrity, browser interactions, builds, tree shaking and npm publish dry run.
+- Verified tarball SHA-256: `0ec28ec1f389d3afe42932e6369cf46e747dd7c60d5027f57e8858748279fc8a`.
+- Published privately after user approval and npm browser authorization. Registry verification confirmed restricted access, the `next` tag and exact artifact integrity.
+- Admin installs the exact `0.1.0-next.7` version from npm. Its development build passed; the installed sidebar JavaScript and generated Admin CSS contain the label truncation treatment.
+
+## 0.1.0-next.8 pending source — 2026-09-30
+
+The 29 September artifact was prepared for collapsed sidebar flyouts, but remains
+unpublished. The source now also makes the enabled Combobox clear control part of
+the normal tab order. Browser checks confirmed Tab/Shift+Tab reach it and
+Enter/Space clear the selection and return focus to the input; Elements
+typechecking passed.
+
+This Combobox correction postdates the prepared artifact. Its old verification
+receipt has been removed so it cannot be published accidentally. Run
+`release:prepare` again against the final source before requesting publication;
+the previous tarball does not contain the Combobox fix.

@@ -57,6 +57,8 @@ Every favourite and navigation leaf has a real `href`. The required `onSelect` h
 
 Navigation entries with children are grouped beneath their parent by default. Their disclosure panel animates when it opens and closes. By default, opening a closed group also selects its first child. Set `navigateOnGroupOpen={false}` to expand only; navigation then waits until a child link is selected. Use this for the Admin sidebar, where destinations can leave the current app. Toggling an open group closes it without changing the active destination.
 
+When the rail is collapsed, favourites and navigation groups open side flyouts on hover or trigger activation. Their links and favourite actions remain available; Escape closes the flyout. Expanding the rail restores each navigation group's disclosure state.
+
 ## Favourites
 
 Favourites always appear before the main navigation. The application supplies the current favourite destinations and handles rename and remove actions.
@@ -130,11 +132,15 @@ Each favourite item has a `path` and `label`.
 
 A leaf item has `id`, `label`, `icon` and `href`. A group has `id`, `label`, `icon`, a non-empty `items` tuple and may set `defaultOpen`. Every child has `label` and `href`. The `id` is the stable React key and disclosure-state key; never derive it from mutable display copy.
 
+Set `unread` on a navigation group when it contains unread activity. The group shows a notification dot beside its icon in both expanded and collapsed modes, and adds screen-reader text to the trigger. Supply `unreadLabel` for the product's translated description, such as “Unread messages”. Opening the group does not clear the indicator; the application owns the unread state.
+
 ## Accessibility
 
 - Destinations retain native link semantics and keyboard focus.
 - Nested group controls expose their expanded state and identify the panel they control.
+- Collapsed flyouts open by pointer or keyboard, retain native destination links, and dismiss with Escape.
 - Active destinations use the Sidebar active treatment.
+- Unread group activity is conveyed by screen-reader text as well as the notification dot.
 - The rename field has a persistent visible label.
 - Favourite action buttons retain accessible names in expanded and collapsed layouts.
 - The footer trigger remains available alongside the keyboard shortcut.
@@ -142,6 +148,8 @@ A leaf item has `id`, `label`, `icon` and `href`. A group has `id`, `label`, `ic
 ## Styling contract
 
 App Sidebar owns its width, height below App Header, border, icon-collapsed state, Scroll area and footer. Scrollbars remain hidden until hover or focus within.
+
+Navigation labels remain on one line and truncate as the sidebar narrows; the complete group label remains available through its tooltip.
 
 Preserve the Sidebar footer divider and default menu sizing. Do not apply feature-specific visual overrides to App Sidebar.
 
