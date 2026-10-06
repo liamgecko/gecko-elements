@@ -151,10 +151,11 @@ const AlertDialogDescription = /* @__PURE__ */ withRef(
 const AlertDialogAction = /* @__PURE__ */ withRef(function AlertDialogAction({
   className,
   variant,
+  preset,
   size = "default",
   ...props
 }: AlertDialogPrimitive.Close.Props &
-  Pick<React.ComponentProps<typeof Button>, "variant" | "size">) {
+  Pick<React.ComponentProps<typeof Button>, "variant" | "size" | "preset">) {
   const ctx = useAlertDialogContext();
   const defaultVariant =
     ctx?.variant === "destructive" ? "destructive" : "default";
@@ -163,7 +164,7 @@ const AlertDialogAction = /* @__PURE__ */ withRef(function AlertDialogAction({
     <AlertDialogPrimitive.Close
       data-slot="alert-dialog-action"
       className={cn(className)}
-      render={<Button variant={resolvedVariant} size={size} />}
+      render={<Button preset={preset} variant={resolvedVariant} size={size} />}
       {...props}
     />
   );
@@ -172,15 +173,16 @@ const AlertDialogAction = /* @__PURE__ */ withRef(function AlertDialogAction({
 const AlertDialogCancel = /* @__PURE__ */ withRef(function AlertDialogCancel({
   className,
   variant = "outline",
+  preset,
   size = "default",
   ...props
 }: AlertDialogPrimitive.Close.Props &
-  Pick<React.ComponentProps<typeof Button>, "variant" | "size">) {
+  Pick<React.ComponentProps<typeof Button>, "variant" | "size" | "preset">) {
   return (
     <AlertDialogPrimitive.Close
       data-slot="alert-dialog-cancel"
       className={cn(className)}
-      render={<Button variant={variant} size={size} />}
+      render={<Button preset={preset} variant={variant} size={size} />}
       {...props}
     />
   );

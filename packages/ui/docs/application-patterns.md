@@ -4,36 +4,36 @@ Read [the usage guide](../README.md), then use the [capability index](capabiliti
 
 ## Choose a starting point
 
-| Task | Executable source | Contract / limits |
-| --- | --- | --- |
-| Persistent record header, tabs, unsaved edits | [persistent-editor.tsx](recipes/persistent-editor.tsx), [use-unsaved-navigation.ts](recipes/use-unsaved-navigation.ts) | [Header](header.md), [Alert dialog](alert-dialog.md); router integration remains app-owned |
-| Async validation and save | [async-form.tsx](recipes/async-form.tsx), [use-async-action.ts](recipes/use-async-action.ts) | [Field](field.md), [Toast](toast.md); schema and API errors remain app-owned |
-| Upload, scan, retry and removal | [upload-field.tsx](recipes/upload-field.tsx) | [Attachment](attachment.md); adapter resolves only after scanning succeeds |
-| Remote/dependent selector | [remote-combobox.tsx](recipes/remote-combobox.tsx) | [Combobox](combobox.md); server search, not client filtering or pagination |
-| Remote collection and empty state | [remote-table.tsx](recipes/remote-table.tsx) | [Data table](data-table.md), [Empty](empty.md); API must implement the requested sort/filter |
+| Task                                          | Executable source                                                                                                      | Contract / limits                                                                            |
+| --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| Persistent record header, tabs, unsaved edits | [persistent-editor.tsx](recipes/persistent-editor.tsx), [use-unsaved-navigation.ts](recipes/use-unsaved-navigation.ts) | [Header](header.md), [Alert dialog](alert-dialog.md); router integration remains app-owned   |
+| Async validation and save                     | [async-form.tsx](recipes/async-form.tsx), [use-async-action.ts](recipes/use-async-action.ts)                           | [Field](field.md), [Toast](toast.md); schema and API errors remain app-owned                 |
+| Upload, scan, retry and removal               | [upload-field.tsx](recipes/upload-field.tsx)                                                                           | [Attachment](attachment.md); adapter resolves only after scanning succeeds                   |
+| Remote/dependent selector                     | [remote-combobox.tsx](recipes/remote-combobox.tsx)                                                                     | [Combobox](combobox.md); server search, not client filtering or pagination                   |
+| Remote collection and empty state             | [remote-table.tsx](recipes/remote-table.tsx)                                                                           | [Data table](data-table.md), [Empty](empty.md); API must implement the requested sort/filter |
 
 ## Ownership
 
-| Library | Application | Backend |
-| --- | --- | --- |
+| Library                                                                                  | Application                                                                                                | Backend                                                                                                             |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | Tokens, sizing, icons, control semantics, focus management, overlays, table presentation | Data/cache, stable route metadata, permissions, validation, navigation guards, transactions, notifications | Authoritative permissions, supported sort/filter keys, validation, persistence, uploads/scanning, provider approval |
 
 Do not infer backend support from a sortable header or a filter widget. Verify request/response behaviour before exposing it. Cached metadata can supply a title, editor kind, status and known layout; it cannot grant permission. Unknown capability is an explicit gap to resolve, not a guessed default.
 
 ## First paint and refresh
 
-| Known state | Render |
-| --- | --- |
-| Record name / tab / editor kind known from navigation or scoped cache | Correct Header and breadcrumbs immediately. Keep the record layout mounted across child routes. |
-| Title unknown on a cold URL | Resolve route metadata before publishing that page, or reserve only its unknown text region. Never show “Create new…” for an existing record. |
-| Body unknown, shape known | Stable field labels/cards and a Skeleton matching the final control dimensions. Mount tag-building sections immediately, even while their options load. |
-| Collection shape unknown | Neutral, bounded region with a modest Skeleton and an accessible loading label. Do not predict a table or an empty result. |
-| Confirmed empty collection, no active query | Empty only, without table headers, toolbar or pagination. Retain a cached empty view while refreshing it. |
-| Search/filter returns no matches | Keep query controls and table; show Empty inside the table body with a clear action. |
-| Rows known, refreshing | Retain rows and dimensions with DataTable updating. Match multiline skeletons to multiline cells when loading a known table. |
-| Request fails | Clear pending; show retry for that region. Preserve useful previous data; never present failure as an empty success. |
+| Known state                                                           | Render                                                                                                                                                  |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Record name / tab / editor kind known from navigation or scoped cache | Correct Header and breadcrumbs immediately. Keep the record layout mounted across child routes.                                                         |
+| Title unknown on a cold URL                                           | Resolve route metadata before publishing that page, or reserve only its unknown text region. Never show “Create new…” for an existing record.           |
+| Body unknown, shape known                                             | Stable field labels/cards and a Skeleton matching the final control dimensions. Mount tag-building sections immediately, even while their options load. |
+| Collection shape unknown                                              | Neutral, bounded region with a modest Skeleton and an accessible loading label. Do not predict a table or an empty result.                              |
+| Confirmed empty collection, no active query                           | Empty only, without table headers, toolbar or pagination. Retain a cached empty view while refreshing it.                                               |
+| Search/filter returns no matches                                      | Keep query controls and table; show Empty inside the table body with a clear action.                                                                    |
+| Rows known, refreshing                                                | Retain rows and dimensions with DataTable updating. Match multiline skeletons to multiline cells when loading a known table.                            |
+| Request fails                                                         | Clear pending; show retry for that region. Preserve useful previous data; never present failure as an empty success.                                    |
 
-Keep the full applicable action row stable. If permissions must be resolved before exposing an action, resolve the header as one unit or reserve the complete action region; do not append actions later. Tab navigation alone must not disable Save. An unresolved body cannot be saved: guard the handler until ready. Save buttons never show loading, saving text, a spinner or a disabled appearance just because a save is pending. Keep duplicate-submit protection in the handler; report success or failure through Toast. Other actions may use progress only where their component contract allows it. Keep persistent status alerts in the initial known page structure. Do not substitute spinners for page skeletons; component-owned runtime/action indicators remain valid where their contracts specify them.
+Keep the full applicable action row stable. If permissions must be resolved before exposing an action, resolve the header as one unit or reserve the complete action region; do not append actions later. Tab navigation alone must not disable Save. An unresolved body cannot be saved: guard the handler until ready. Save buttons may use the Button `loading` state while saving; their label must remain unchanged. Keep duplicate-submit protection in the handler; report success or failure through Toast. Other actions follow the same stable-label loading convention. Keep persistent status alerts in the initial known page structure. Do not substitute spinners for page skeletons; component-owned runtime/action indicators remain valid where their contracts specify them.
 
 Use one owner for vertical scrolling. A viewport editor fills remaining flex space (`min-h-0`, `flex-1`) inside a bounded shell; do not add an arbitrary viewport subtraction and a second page scrollbar. Desktop application layouts retain a 1024px minimum width and horizontal overflow below it, as defined in the usage guide.
 

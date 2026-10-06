@@ -175,7 +175,6 @@ export const componentSections: ComponentSections = {
       ],
     },
     { id: "disabled", label: "Disabled" },
-    { id: "panel-disclosure", label: "Panel disclosure" },
     { id: "dropdown", label: "Dropdown" },
     { id: "link-button", label: "Link button" },
     { id: "sizes", label: "Sizes" },
@@ -188,7 +187,8 @@ export const componentSections: ComponentSections = {
         { id: "icons-only", label: "Icon only" },
       ],
     },
-    { id: "loading", label: "Loading for other actions" },
+    { id: "loading", label: "Loading" },
+    { id: "presets", label: "Action presets" },
     { id: "do-dont", label: "Do and don’t" },
     { id: "api", label: "API" },
     { id: "related", label: "Related" },
@@ -1203,6 +1203,14 @@ export const componentSections: ComponentSections = {
     },
     { id: "basic", label: "Basic" },
     { id: "multiple", label: "Multiple" },
+    {
+      id: "creatable",
+      label: "Creatable",
+      children: [
+        { id: "creatable-single", label: "Single select" },
+        { id: "creatable-multiple", label: "Multi select" },
+      ],
+    },
     { id: "with-clear", label: "With clear" },
     { id: "groups", label: "Groups" },
     {
@@ -1687,6 +1695,7 @@ export const componentSections: ComponentSections = {
       children: [
         { id: "search", label: "Search" },
         { id: "filters", label: "Filters" },
+        { id: "toolbar-actions", label: "Table actions" },
         { id: "column-toggle", label: "Column toggle" },
       ],
     },

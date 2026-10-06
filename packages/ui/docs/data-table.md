@@ -92,12 +92,27 @@ This diagram describes library internals, not application composition. Applicati
 | Search visible data             | `toolbar.search`                      | Supply a domain-specific placeholder            |
 | Narrow categorical data         | `toolbar.filters`                     | Match category and column ids                   |
 | Change visible columns          | `toolbar.columnToggle`                | Keep essential columns non-hideable             |
+| Run a table-level action        | `toolbar.actions`                     | Pass application-owned Button or menu controls  |
 | Act on one row                  | `rowActions` and `onRowAction`        | Keep destructive actions last                   |
 | Act on several rows             | `selectActions` and `onSelectAction`  | Selection and its toolbar control are automatic |
 | Reveal subordinate detail       | `expandable.renderDetail`             | Use for related detail, not primary row content |
 | Split a longer client-side list | `pagination`                          | Uses the approved 15, 25 and 50 row sizes       |
 
 Add only the behaviour the task requires. Do not enable the full toolbar by default.
+
+Use `toolbar.actions` for actions on the collection, such as changing the order of fields. Pass an Elements Button or Dropdown menu with its own translated label, permissions and handler. The action appears after the column toggle in the trailing toolbar group; it is independent of row and selected-row actions. Do not use this slot for primary page creation or unrelated page actions.
+
+```tsx
+<DataTable
+  aria-label="Contact fields"
+  columns={columns}
+  data={fields}
+  toolbar={{
+    search: { placeholder: "Search contact fields" },
+    actions: <Button variant="outline" onClick={openReorder}>Change field order</Button>,
+  }}
+/>
+```
 
 ## Columns
 
@@ -280,6 +295,8 @@ const rowActions = [
 
 Use `getRowActions` when availability differs by row. `rowActions={true}` with `actionsKey` remains supported for compatibility but is not the canonical interface for new implementations.
 
+Always place delete actions last and set `variant: "destructive"` and `separatorBefore: true`, for both row and bulk dropdown actions. The menu omits a leading divider if delete is the only visible action. Use object-specific labels such as “Delete template” and “Delete templates”; ordinary actions must not follow deletion.
+
 The approved action variants are `default` and `destructive`. Agents must obtain consent before adding another action variant, icon treatment or menu behaviour.
 
 ## Mass actions
@@ -419,7 +436,7 @@ Import `DataTableQueryState` from the Data table entry point and `RowSelectionSt
 
 Remote selection contains only supplied rows. Both the header and floating bar Select all act on the loaded page; they never select unseen server records. Use “Select all” for the button label and clear controlled selection when changing queries/pages or after mutations. Client-side selection keeps its existing across-page behaviour.
 
-`loading` replaces body rows with cell skeletons, retaining headers, toolbar, column visibility and pagination. `error` replaces the body with an alert and optional Retry action. Selection is disabled and the floating bar is hidden during loading/errors; no stale row actions are rendered. For silent search/filter updates, retain the previous rows and set `updating` until the current response arrives. This keeps rows visible without skeletons or loading announcements while disabling selection and row actions and hiding both mass-action presentations. Reserve `loading` for initial loads or explicit skeleton transitions.
+`loading` replaces body rows with cell skeletons, retaining headers, toolbar, column visibility and pagination. `error` replaces the body with an alert and optional Retry action. Selection is disabled and the floating bar is hidden during loading/errors; no stale row actions are rendered. For search, filter, sorting and pagination updates, retain the previous rows and set `updating` until the current response arrives. DataTable marks the table busy and immediately makes its body inert, blocking stale row links, actions and keyboard interaction. After 150ms it overlays the body with a dimmed background and a centred Spinner, retaining row heights. Fast updates do not flash an overlay. Headers, toolbar and pagination remain usable; ignore obsolete responses in the application. The existing loading status announces activity once; the visual Spinner is decorative. Selection is disabled and both mass-action presentations are hidden. Do not build a separate application overlay. Reserve `loading` for initial loads or explicit skeleton transitions.
 
 Loading cells reuse `meta.cellClassName`. Text skeletons reserve one line of text; built-in action and expand skeletons reserve their 28px controls. The action cell retains that minimum height even when a row has no permitted actions. When rows already exist, loading preserves the displayed row count; before the first response it reserves the configured page size.
 
@@ -526,7 +543,7 @@ Use them only when a reviewed product layout cannot be represented by `DataTable
 | `selectActionsLabels`  | `DataTableSelectionBarLabels`           | English defaults | Floating bar labels and translated count formatter                                                |
 | `onSelectAction`       | `(id, context) => void`                 | —                | Required with `selectActions`                                                                     |
 | `expandable`           | `DataTableExpandableConfig<TData>`      | —                | Renders subordinate row detail                                                                    |
-| `toolbar`              | `false \| DataTableToolbarConfig`       | —                | Search, filters and column toggle only                                                            |
+| `toolbar`              | `false \| DataTableToolbarConfig`       | —                | Search, filters, column toggle and application actions                                            |
 | `pagination`           | `boolean \| DataTablePaginationProps`   | `false`          | Client-side pagination                                                                            |
 | `globalFilter`         | `boolean`                               | `true`           | Advanced override; toolbar search normally owns this                                              |
 | `className`            | `string`                                | —                | Parent layout integration only                                                                    |
@@ -543,7 +560,7 @@ both. Standard application usage should use `selectActionsDisplay` on DataTable.
 | ----------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | `remote`    | `DataTableRemoteConfig`                                                 | Controlled query, updater and matching server row count                        |
 | `selection` | `{ state: RowSelectionState; onChange: OnChangeFn<RowSelectionState> }` | Product-owned selection                                                        |
-| `updating`  | `boolean`                                                               | Keep existing rows visible without a loader; disable selection and row actions |
+| `updating`  | `boolean`                                                               | Retain rows; block stale body interaction immediately; show a body Spinner overlay after 150ms |
 | `loading`   | `boolean`                                                               | Skeleton body, no actionable stale rows                                        |
 | `error`     | `string`                                                                | Failed request message in the body                                             |
 | `onRetry`   | `() => void`                                                            | Retry the failed request                                                       |

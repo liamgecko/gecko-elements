@@ -51,13 +51,15 @@ import { Input } from "@geckolabs/elements/components/input";
       </DialogBody>
     </DialogWrapper>
     <DialogFooter showCloseButton closeButtonText="Cancel">
-      <Button type="submit" form="edit-project-form">
+      <Button preset="save" type="submit" form="edit-project-form">
         Save changes
       </Button>
     </DialogFooter>
   </DialogContent>
 </Dialog>;
 ```
+
+The generated footer dismissal button uses the Close preset, including when its label is Cancel. Use Button presets for form actions.
 
 The product owns form state, validation, submission and the result of the primary action. Dialog owns modal behaviour, structure, dismissal and presentation.
 
@@ -122,6 +124,38 @@ The Dialog always remains within the viewport. `DialogWrapper` scrolls long cont
 Use the Base UI `open` and `onOpenChange` props when application state must control the Dialog, including asynchronous submissions that keep it open until the operation succeeds.
 
 Keep submission behaviour in the product. Do not add workflow-specific loading, saving or request props to Dialog.
+
+### Closing without flicker
+
+Keep the root mounted and separate `open` from the selected record/task payload. On dismissal or successful submission, set only `open` to `false`. Clear the payload in `onOpenChangeComplete(false)`, after Base UI finishes its exit animation and focus restoration.
+
+```tsx
+const [open, setOpen] = useState(false);
+const [record, setRecord] = useState<RecordData | null>(null);
+
+function editRecord(next: RecordData) {
+  setRecord(next);
+  setOpen(true);
+}
+
+<Dialog
+  open={open}
+  onOpenChange={setOpen}
+  onOpenChangeComplete={(isOpen) => {
+    if (!isOpen) setRecord(null);
+  }}
+>
+  {/* Keep the same title, form, actions and content while closing. */}
+</Dialog>;
+```
+
+Agent rules:
+
+- Do not derive `open` solely from a nullable payload and clear that payload on dismissal. It can blank or replace the closing panel and change its height.
+- Do not conditionally unmount the root/content, change the root's React key, switch to another form, or reset form values while closing. Reset for the next task only after closing completes.
+- Use the root's `onOpenChangeComplete` lifecycle; do not guess animation durations with timers or copy animations into the application.
+- Keep a stable, mounted final-focus destination, usually the originating table/menu trigger rather than a dismissed menu item. Avoid refreshing/removing that destination during the exit animation.
+- Verify Cancel, corner close, Escape and successful submission; check the visible exit animation, not only the final closed state. A post-close accessibility snapshot alone does not prove that no flicker occurred.
 
 ## Accessibility
 

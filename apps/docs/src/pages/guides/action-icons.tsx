@@ -17,56 +17,21 @@ import {
 import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
 const commonActions = [
-  {
-    key: "close",
-    label: "Close / Cancel",
-    glyph: "XIcon",
-    aliases: ["cancel"],
-  },
-  {
-    key: "save",
-    label: "Save / Update",
-    glyph: "CheckCheckIcon",
-    aliases: ["update"],
-  },
-  {
-    key: "edit",
-    label: "Edit / Keep editing",
-    glyph: "Edit02Icon",
-    aliases: ["keepEditing"],
-  },
-  {
-    key: "delete",
-    label: "Delete / Remove / Discard",
-    glyph: "Delete02Icon",
-    aliases: ["remove", "discard"],
-  },
-  { key: "create", label: "Create / Add", glyph: "PlusIcon", aliases: ["add"] },
-  {
-    key: "copy",
-    label: "Copy / Clone",
-    glyph: "Copy01Icon",
-    aliases: ["clone"],
-  },
-  { key: "actions", label: "Actions", glyph: "Settings01Icon", aliases: [] },
-  { key: "confirm", label: "Confirm", glyph: "Tick02Icon", aliases: [] },
-] satisfies Array<{
-  key: ActionIconName;
-  label: string;
-  glyph: string;
-  aliases: ActionIconName[];
-}>;
+  { key: "add", label: "Add", glyph: "PlusIcon" },
+  { key: "save", label: "Save", glyph: "CheckCheckIcon" },
+  { key: "cancel", label: "Cancel", glyph: "XIcon" },
+  { key: "edit", label: "Edit", glyph: "Edit02Icon" },
+  { key: "delete", label: "Delete", glyph: "Delete02Icon" },
+  { key: "copy", label: "Copy", glyph: "Copy01Icon" },
+  { key: "actions", label: "Actions", glyph: "Settings01Icon" },
+  { key: "retry", label: "Retry", glyph: "ReloadIcon" },
+  { key: "next", label: "Next", glyph: "ChevronRightIcon" },
+  { key: "previous", label: "Previous", glyph: "ChevronLeftIcon" },
+] satisfies Array<{ key: ActionIconName; label: string; glyph: string }>;
 
 const snippet = `import { Button } from "@geckolabs/elements/components/button";
-import { actionIcons } from "@geckolabs/elements/lib/action-icons";
-import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-<Button onClick={saveChanges}>
-  <HugeiconsIcon
-    icon={actionIcons.save}
-    aria-hidden="true"
-    data-icon="inline-start"
-  />
+<Button preset="save" onClick={saveChanges}>
   Save changes
 </Button>`;
 
@@ -76,12 +41,12 @@ export function GuidesActionIconsPage() {
       <HeaderSection
         id="overview"
         title="Action icons"
-        description="Use the same icon for common actions throughout the application. These previews use the shared actionIcons mapping; feature-specific actions belong with their feature."
+        description="Use the same icon for common actions throughout the application. Button presets use the shared actionIcons mapping; feature-specific actions belong with their feature."
       />
       <MainSection
         id="icon-map"
         title="Icon map"
-        description="Common actions shared across the React app. Equivalent labels share one glyph. Use Save / Update when committing changes and Edit when entering editing mode; Confirm acknowledges a decision."
+        description="Common actions shared across the React app. Equivalent labels share one glyph. Use Save when committing changes and Edit when entering editing mode."
       >
         <Table aria-label="Standard action icon mapping">
           <TableHeader>
@@ -93,7 +58,7 @@ export function GuidesActionIconsPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {commonActions.map(({ key, label, glyph, aliases }) => (
+            {commonActions.map(({ key, label, glyph }) => (
               <TableRow key={key}>
                 <TableCell>
                   <HugeiconsIcon
@@ -105,9 +70,7 @@ export function GuidesActionIconsPage() {
                 <TableHead scope="row">{label}</TableHead>
                 <TableCell>
                   <div className="flex flex-col items-start gap-1">
-                    {[key, ...aliases].map((name) => (
-                      <Code key={name}>{`actionIcons.${name}`}</Code>
-                    ))}
+                    <Code>{`preset="${key}"`}</Code>
                   </div>
                 </TableCell>
                 <TableCell>
@@ -121,17 +84,10 @@ export function GuidesActionIconsPage() {
       <MainSection
         id="usage"
         title="Usage"
-        description="Render the icon inside a labelled Button. Button owns icon spacing and sizing; the application owns the handler. The preview below demonstrates appearance only."
+        description="Choose an explicit action preset on a labelled Button. Button owns the icon, spacing and default variant; the application owns the handler. The preview below demonstrates appearance only."
       >
         <div className="mb-6">
-          <Button>
-            <HugeiconsIcon
-              icon={actionIcons.save}
-              aria-hidden="true"
-              data-icon="inline-start"
-            />
-            Save changes
-          </Button>
+          <Button preset="save">Save changes</Button>
         </div>
         <Code
           variant="block"
@@ -153,18 +109,19 @@ export function GuidesActionIconsPage() {
             treatment.
           </li>
           <li>
-            Save buttons never show a loading/saving state or become disabled
-            just because a save is pending. Guard duplicate saves in the handler
-            and use Toast for the result. The mapping selects a glyph; it does
-            not define permissions, validation or behaviour.
+            Save and Update buttons may use loading while the action is in
+            progress. Keep the button label unchanged. Guard duplicate saves in
+            the handler and use Toast for the result. The mapping selects a
+            glyph; it does not define permissions, validation or behaviour.
           </li>
           <li>
-            For Header actions, pass the icon node through the <Code>icon</Code>{" "}
-            property.
+            For Header actions, use the same <Code>preset</Code> property.
+            Explicit variants override preset defaults; labels and handlers
+            remain application-owned.
           </li>
           <li>
-            The Confirm row names an icon category. Dialog buttons must name the
-            consequence, such as Delete account or Discard changes.
+            Dialog buttons must name the consequence, such as Delete account or
+            Discard changes; both use the Delete preset.
           </li>
           <li>
             For a feature-specific action, choose its icon deliberately and

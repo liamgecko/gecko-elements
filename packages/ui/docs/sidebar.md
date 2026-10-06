@@ -124,16 +124,20 @@ Expanded state does not give the Button a selected background; normal hover and 
 
 - Use links for destinations and buttons for actions or disclosures.
 - Mark the current destination with `isActive`.
-- Give icon-only menu items a concise tooltip and accessible name.
+- Give icon-only menu items a concise tooltip and accessible name. Collapsed flyouts use the trigger tooltip/text as their heading, falling back to its `aria-label` when there is no text (for example, Favourites).
 - Keep the visible `SidebarTrigger`; the pointer rail and keyboard shortcut supplement it.
 - Preserve focus rings, keyboard menu behaviour and reduced-motion treatment.
 - Keep labels recognisable when expanded and use distinct icons when collapsed.
 
 ## Styling contract
 
-The library owns rail widths, collapse motion, positioning, semantic colours, focus treatment, menu spacing, tooltip placement, collapsed submenu placement and the footer divider. The outline menu variant consumes the Sidebar border and accent tokens directly in both themes.
+The library owns rail widths, collapse motion, positioning, semantic colours, focus treatment, menu spacing, tooltip placement, collapsed submenu placement and the borderless footer. The outline menu variant consumes the Sidebar border and accent tokens directly in both themes.
 
 App Sidebar owns its Scroll area and hidden-until-hover scrollbar behaviour. Do not replace it with a native scrolling region. Preserve the existing Sidebar footer styling.
+
+SidebarProvider supplies `bg-sidebar` behind the rail and main surface.
+
+SidebarInset owns the main surface’s rounded left corners, clipped content, left-offset `shadow-shell` elevation token in light mode and a subtle `border-border` border without shadow in dark mode beside the rail. Preserve this treatment in product shells.
 
 Use `className` only for approved shell placement. Do not restyle Sidebar in a product feature.
 
@@ -147,7 +151,7 @@ Use `className` only for approved shell placement. Do not restyle Sidebar in a p
 6. Preserve hover, click and keyboard access to collapsed submenus.
 7. Set `persistState={false}` only for isolated examples or tests.
 8. Preserve reduced-motion support, semantic colour tokens and direction-aware overlay placement.
-9. Preserve the footer divider and App Sidebar scrollbar treatment.
+9. Preserve the borderless footer and App Sidebar scrollbar treatment.
 10. Do not import or install another Sidebar implementation.
 
 ## API reference

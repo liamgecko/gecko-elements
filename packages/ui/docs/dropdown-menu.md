@@ -56,6 +56,8 @@ DropdownMenu
 
 - Use `DropdownMenuItem` for an action and pass the product handler to `onClick`.
 - Use `variant="destructive"` for a high-risk action. Open an Alert dialog before an irreversible operation.
+- Always put delete actions last, in a final destructive group separated from preceding actions by `DropdownMenuSeparator`. Do not put ordinary actions after a delete action. If delete is the only visible action, omit the leading separator.
+- Label deletion with “Delete” and the object: for example, “Delete template” for one record and “Delete templates” for a selection. Reserve “Remove” for detaching an item without deleting it.
 - Use `disabled` when an action is unavailable.
 - Add an icon only when it reinforces the visible item label.
 - Use `DropdownMenuShortcut` only when the product implements the displayed shortcut. It is a visual hint, not a keyboard binding.
@@ -202,6 +204,7 @@ Use `className` only for integration constraints such as an approved menu width 
 ## Agent rules
 
 - Start with the canonical flat action list.
+- Delete actions must be last and separated from preceding actions by `DropdownMenuSeparator`; reevaluate the divider after permission filtering so there is no leading or empty group. With DataTable actions, put delete last and set `variant: "destructive"` and `separatorBefore: true` in the action definition. DataTable renders the divider when preceding actions exist.
 - Retain Avatar items where a menu selects or acts on people.
 - Add search only for a list that benefits from filtering; include `DropdownMenuEmpty`.
 - Use checkbox items for zero-or-more selection and radio items for exactly-one selection.

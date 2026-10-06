@@ -7,9 +7,9 @@ Human documentation: `apps/docs/src/pages/combobox/index.tsx`
 
 ## Purpose
 
-Combobox lets someone filter a predefined list and select one or more values. Use it when the list is long enough that typing materially helps someone find an option.
+Combobox lets someone filter suggestions and select one or more values. The default configuration restricts selection to supplied options; `variant="creatable"` also allows explicit creation of string values. Use it when the list is long enough that typing materially helps someone find an option.
 
-Use Select for a short predefined list that does not need filtering. Use a text field when values outside the list are valid. Use Command for a searchable palette of actions rather than a form value.
+Use Select for a short predefined list that does not need filtering. Use the creatable variant to select existing options or create new ones inline, such as tags, labels or categories. Use a text field when suggestions are unnecessary. Use Command for a searchable palette of actions rather than a form value.
 
 ## Canonical single selection
 
@@ -131,7 +131,85 @@ Use ComboboxGroup with ComboboxLabel when real categories make a long list easie
 
 Typing filters the supplied items. `autoHighlight` defaults to `false`; keep that default unless automatically highlighting the first result is explicitly intended. When enabled, Enter may select the highlighted result, so the product decision must be deliberate.
 
-Combobox is not free-form entry. A typed query is only a filter and does not become a valid value unless it matches a supplied item.
+The default Combobox restricts selection to supplied items. In the creatable variant, a typed query remains uncommitted until the user selects the Create option. Blur, Tab and Escape do not create values.
+
+## Creatable
+
+Use `variant="creatable"` when the product allows options to be created inline, such as tags, labels or categories. Use single selection when only one option may be chosen, and `multiple` when several options may be chosen. It supports single selection and `multiple` using the same labelled input, list and chips composition. It accepts a **flat string array**, not grouped options or object records. Keep the list render function: it renders both supplied options and the library-provided creation option. ComboboxItem owns the creation label; do not add an application-owned Create button or keyboard handler.
+
+### Single select
+
+Choose one category from the list, or create a new category inline. Only one category can be selected at a time.
+
+```tsx
+<Field>
+  <FieldLabel htmlFor="category">Category</FieldLabel>
+  <Combobox
+    variant="creatable"
+    items={["Open days", "Campus tours", "Applicant events"]}
+    name="category"
+  >
+    <ComboboxInput
+      id="category"
+      placeholder="Select or add a category"
+      showClear
+    />
+    <ComboboxContent>
+      <ComboboxEmpty>No categories found.</ComboboxEmpty>
+      <ComboboxList>
+        {(item: string) => (
+          <ComboboxItem key={item} value={item}>
+            {item}
+          </ComboboxItem>
+        )}
+      </ComboboxList>
+    </ComboboxContent>
+  </Combobox>
+</Field>
+```
+
+### Multi select
+
+Choose multiple labels from the list, or create new labels inline. Each selected label appears as a removable chip.
+
+Use the canonical multiple-selection composition above, adding `variant="creatable"` and a flat `string[]` for `items`. `value`/`defaultValue` are `string[]`; single selection uses `string | null`. Retain the full chips anchor and labelled ComboboxChipsInput. Both configurations support controlled and uncontrolled selection. Root `disabled`, `readOnly`, `required`, input error relationships and form `name` retain their normal behaviour.
+
+```tsx
+const anchor = useComboboxAnchor()
+
+<Field>
+  <FieldLabel htmlFor="labels">Labels</FieldLabel>
+  <Combobox variant="creatable" items={["Prospective student", "Offer holder", "Follow up required"]} name="labels" multiple>
+    <ComboboxChips ref={anchor}>
+      <ComboboxValue>
+        {(values: string[]) => (
+          <>
+            {values.map((value) => <ComboboxChip key={value}>{value}</ComboboxChip>)}
+            <ComboboxChipsInput id="labels" placeholder="Select or add labels" />
+          </>
+        )}
+      </ComboboxValue>
+    </ComboboxChips>
+    <ComboboxContent anchor={anchor}>
+      <ComboboxEmpty>No labels found.</ComboboxEmpty>
+      <ComboboxList>
+        {(item: string) => <ComboboxItem key={item} value={item}>{item}</ComboboxItem>}
+      </ComboboxList>
+    </ComboboxContent>
+  </Combobox>
+</Field>
+```
+
+### Creation and ownership
+
+- Typing a nonblank query offers `Create “value”` as a normal option. Arrow keys highlight it and Enter selects it; pointer selection does the same. With default `autoHighlight={false}`, Enter does not implicitly create unhighlighted text.
+- Values are trimmed. Blank queries and duplicates (trimmed, case-insensitive comparison against supplied, created and selected values) do not offer creation. Selected spelling remains unchanged.
+- New values remain in the mounted field’s suggestions after clearing/removing them. Unmounting resets these local suggestions; the application must supply saved values/options when reopening. Changing record identity should remount the field.
+- `onValueChange` receives the selected value(s), including a newly created value. Persist through the normal application save flow. `onCreate` is an optional notification after an accepted creation, not an async factory, validation hook or automatic API call. Do not save twice using both callbacks.
+- `isValidNewValue(value)` synchronously decides whether a trimmed query may be offered. Use it for product rules (for example label length or allowed characters); the application owns validation messages through FieldDescription/FieldError and submit validation. Do not trigger API calls in this predicate.
+- `getCreateLabel(value)` customises/translates the option label. Include the proposed value in an actionable label. Default: `Create “value”`.
+- Controlled `inputValue`/`onInputValueChange` remain supported; update the query synchronously. The variant owns filtering and does not accept custom `filter` or `filteredItems`.
+- For server-created IDs or object records, use the default Combobox with an explicit application-owned creation flow. Remote pagination and virtualisation remain unsupported.
 
 ## Disabled, required and invalid
 
@@ -190,7 +268,9 @@ The product decides when validation runs. Callers provide relationships and usef
 | `itemToStringLabel` | `(item: Item) => string` | inferred     | Display and filter text for object items           |
 | `itemToStringValue` | `(item: Item) => string` | inferred     | Native submitted value for object items            |
 
-Combobox also accepts Base UI Combobox Root properties.
+Creatable-only props: `variant="creatable"`, `items: readonly string[]`, `isValidNewValue?: (value: string) => boolean`, `onCreate?: (value: string) => void`, `getCreateLabel?: (value: string) => string`. Single and multiple selection types follow the mode. Its filtering, string conversion and equality are library-owned.
+
+The default Combobox also accepts Base UI Combobox Root properties.
 
 ### Gecko subcomponents
 
@@ -213,13 +293,13 @@ Agents must obtain explicit user consent before adding or changing props, varian
 ## Agent rules
 
 - Start from the canonical labelled pattern.
-- Keep the options as the source of valid values; never turn Combobox into free-form input.
+- Use default Combobox when values must come from supplied options. Use `variant="creatable"` only when user-created strings are a product requirement; typing alone must not commit a value.
 - Put form, controlled-state, required and disabled props on Combobox.
 - Use `useComboboxAnchor` for the multiple configuration.
 - Use conversion props for custom object shapes.
 - Keep `autoHighlight` off unless explicitly requested.
 - Use specific empty messages and actionable validation copy.
-- For remote data, use the approved [remote selector recipe](recipes/remote-combobox.tsx), with application-owned requests, selection and error handling. This does not add creation, virtualization or remote pagination to the component; verify and document those capabilities before extending it.
+- For remote data, use the approved [remote selector recipe](recipes/remote-combobox.tsx), with application-owned requests, selection and error handling. The remote recipe does not add server-backed creation, virtualization or remote pagination; verify and document those capabilities before extending it.
 - Do not copy application-specific implementations from prototype projects.
 
 ## Relationship to Shadcn

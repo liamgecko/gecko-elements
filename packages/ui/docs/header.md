@@ -78,6 +78,8 @@ The first item is the Home ancestor. Header displays it with the same icon-only 
 
 Do not supply callback-only ancestors or placeholder destinations. Preserve native link behaviour such as opening in a new tab.
 
+Button actions accept the [Button action presets](button.md#action-presets), for example `primaryAction={{ preset: "save", label: "Save settings", onClick: save }}`. Use a preset for common actions rather than supplying an `icon` node; do not supply both. Secondary button actions retain their outline treatment by default.
+
 ## Favourite
 
 Header always renders the favourite Toggle before the other actions. Omit `favouriteAction` to use its default uncontrolled, unpressed state. Pass controlled state when favourite status belongs to application data.

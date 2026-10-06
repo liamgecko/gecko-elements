@@ -172,7 +172,7 @@ const DialogFooter = /* @__PURE__ */ withRef(function DialogFooter({
       {showCloseButton && (
         <DialogPrimitive.Close
           render={
-            <Button variant="outline" type="button">
+            <Button preset="cancel" type="button">
               {closeButtonText}
             </Button>
           }

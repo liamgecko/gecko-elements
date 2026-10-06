@@ -81,9 +81,8 @@ Deletion always uses the destructive variant. Name the object in the title and a
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
-      <AlertDialogCancel><HugeiconsIcon icon={actionIcons.cancel} aria-hidden="true" data-icon="inline-start" />Cancel</AlertDialogCancel>
-      <AlertDialogAction onClick={deleteAccount}>
-        <HugeiconsIcon icon={actionIcons.delete} aria-hidden="true" data-icon="inline-start" />
+      <AlertDialogCancel preset="cancel">Cancel</AlertDialogCancel>
+      <AlertDialogAction preset="delete" onClick={deleteAccount}>
         Delete account
       </AlertDialogAction>
     </AlertDialogFooter>
@@ -108,9 +107,8 @@ This is the canonical setup when navigation would lose work. The cancel control 
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
-      <AlertDialogCancel><HugeiconsIcon icon={actionIcons.keepEditing} aria-hidden="true" data-icon="inline-start" />Keep editing</AlertDialogCancel>
-      <AlertDialogAction onClick={discardChanges}>
-        <HugeiconsIcon icon={actionIcons.discard} aria-hidden="true" data-icon="inline-start" />
+      <AlertDialogCancel preset="edit">Keep editing</AlertDialogCancel>
+      <AlertDialogAction preset="delete" onClick={discardChanges}>
         Discard changes
       </AlertDialogAction>
     </AlertDialogFooter>
@@ -138,8 +136,15 @@ Use the default treatment when changes must be confirmed before saving.
       </AlertDialogDescription>
     </AlertDialogHeader>
     <AlertDialogFooter>
-      <AlertDialogCancel><HugeiconsIcon icon={actionIcons.cancel} aria-hidden="true" data-icon="inline-start" />Cancel</AlertDialogCancel>
-      <AlertDialogAction onClick={saveChanges}><HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />Save changes</AlertDialogAction>
+      <AlertDialogCancel preset="cancel">Cancel</AlertDialogCancel>
+      <AlertDialogAction onClick={saveChanges}>
+        <HugeiconsIcon
+          icon={actionIcons.save}
+          aria-hidden="true"
+          data-icon="inline-start"
+        />
+        Save changes
+      </AlertDialogAction>
     </AlertDialogFooter>
   </AlertDialogContent>
 </AlertDialog>
@@ -197,3 +202,15 @@ Agents must not add variants, sizes, behaviour props, media, or custom styling w
 ## Application integration
 
 Use the [tested application patterns](application-patterns.md) for data ownership, loading, asynchronous operations and navigation. Preserve source behaviour with the [migration checklist](migration-checklist.md). Common action glyphs come from the [action icon map](action-icons.md).
+
+## Action presets
+
+Use `preset="cancel"` on AlertDialogCancel. For unsaved edits, use `preset="edit"`; use `preset="delete"` on AlertDialogAction. For deletion, use `preset="delete"` on AlertDialogAction. The action retains the dialog context’s default or destructive variant, and explicit variants still override it. Labels and callbacks remain application-owned.
+
+## Controlled closing lifecycle
+
+Follow [Dialog's closing lifecycle](dialog.md#closing-without-flicker). Keep `open` separate from the confirmation payload. Preserve its title, description, Cancel/action controls, icon and destructive variant until `onOpenChangeComplete(false)`. Clearing the payload in `onOpenChange` or the action's click handler can blank/shrink the panel and change button styling during its exit animation.
+
+`AlertDialogAction` and `AlertDialogCancel` are Base UI close primitives. Let them request closure through `onOpenChange`; do not add a second close path that also destroys the payload. When the confirmed action refreshes/removes the underlying row or opens another modal, capture the action on click and invoke it once after closing completes. Clear the captured action before invocation; Cancel must never execute it. Keep a stable final-focus destination outside a transient dropdown.
+
+Verify both cancellation and confirmation visually, including destructive button treatment during closing and any subsequent table refresh. Do not claim smooth transitions from final-state snapshots alone.

@@ -229,15 +229,95 @@ The source workspace remains protected by `private: true`.
 - Published privately after user approval and npm browser authorization. Registry verification confirmed restricted access, the `next` tag and exact artifact integrity.
 - Admin installs the exact `0.1.0-next.7` version from npm. Its development build passed; the installed sidebar JavaScript and generated Admin CSS contain the label truncation treatment.
 
-## 0.1.0-next.8 pending source — 2026-09-30
+## 0.1.0-next.8 release — 2026-09-30
 
-The 29 September artifact was prepared for collapsed sidebar flyouts, but remains
-unpublished. The source now also makes the enabled Combobox clear control part of
+The 29 September artifact was prepared for collapsed sidebar flyouts. The final
+30 September release also makes the enabled Combobox clear control part of
 the normal tab order. Browser checks confirmed Tab/Shift+Tab reach it and
 Enter/Space clear the selection and return focus to the input; Elements
 typechecking passed.
 
-This Combobox correction postdates the prepared artifact. Its old verification
-receipt has been removed so it cannot be published accidentally. Run
-`release:prepare` again against the final source before requesting publication;
-the previous tarball does not contain the Combobox fix.
+The original artifact was superseded: its receipt was removed, and release
+preparation was rerun against the final source including the Combobox correction
+and Button presets.
+
+### Button presets — 2026-09-30
+
+The final next.8 release also supplies typed, optional Button action presets
+(icon and default variant), inherited by Header button actions and supported by
+AlertDialogAction/Cancel. Existing manual-icon Alert dialog compositions remain
+compatible when no preset is supplied. DialogFooter’s built-in dismissal action
+uses the Close preset. Common actions, variant overrides and consumer ownership
+are documented in the Button contract, action-icon guide and executable recipes.
+Admin’s migrated Elements actions use those presets; legacy presentation and
+Commands remain unchanged.
+
+- Published privately on 30 September 2026 with the `next` tag. Registry verification confirmed restricted access and exact tarball integrity.
+- Final artifact passed React 18.3.1 and React 19 in compiled-CSS and Tailwind modes, including consumer types/builds, browser interactions and tree shaking. Publication dry run passed.
+- SHA-256: `bcb721c091e1301d0f8feaeb5d8af3b01a6fa2af2ca35f1170b9bfb762db8af9`.
+- Library and docs typechecks, executable recipe typecheck, capability index and static application contract checks passed. The live action guide and form/Header recipes each render one decorative Save icon.
+- Admin installed the exact registry version `0.1.0-next.8`; manifest and lockfile changed together. Its development build passed (existing chunk-size warnings only), and the installed public Button declaration exposes `preset`. No vendored package files were added.
+
+## 0.1.0-next.9 release — 2026-09-30
+
+Button presets are now exactly `add`, `save`, `cancel`, `edit`, `delete`, `copy`,
+`actions` and `retry`. The `actionIcons` map retains its existing glyph aliases for
+manual icon compositions; these are no longer additional Button presets.
+DialogFooter uses Cancel, and Admin uses the reduced names without changing its
+labels, requests, permissions or destinations. The human Button page lists all
+presets immediately before API; its contract and guide agree. Loading guidance
+now permits Save/Update while keeping the button label unchanged.
+
+Preparation passed React 18.3.1 and React 19 in both CSS modes, including consumer
+types/builds and browser checks. Library/docs/recipe typechecks passed. Publication succeeded privately with the `next` tag; registry integrity and
+restricted access were verified. Admin installs the exact next.9 version.
+
+The Admin dev server was still serving `node_modules/.vite/deps/button-D-m_xKaI.js`
+with the older Button implementation (`variant = "default"` and no `preset`
+handling), although the installed package was next.8. Categories' served module
+already supplied `preset: "add"`. This stale dependency optimisation explains the
+missing icons; after installing next.9, restart Vite with `--force` and check the
+served dependency, not merely the installed files.
+
+Vite was restarted with `npm start -- --force` after installation. Its rebuilt
+`button-BrXEFWJ1.js` now contains `buttonPresets`, consumes `preset`, selects the
+preset variant and renders its icon. Admin's development build and diff checks
+passed. Signed-in browser verification was interrupted by user browser activity;
+no full live-action check is claimed.
+
+Artifact SHA-256: `fcd68a7d39cff97e6f7bb951dd181db5ef32519fc1c04149bdf4156acf8c147c`.
+
+## 0.1.0-next.10 release — 5 October 2026
+
+DataTable's existing `updating` state now owns a body-only dimming/Spinner overlay after 150ms. The body becomes inert immediately using the existing React 18/19 helper; headers, query controls and pagination remain available. Initial `loading` still uses skeleton cells. One live status announces loading and the visual Spinner is decorative. The component contract and human preview document this behaviour; applications must supply `updating` during requests rather than building overlays themselves.
+
+Library/docs typechecks and release preparation passed React 18/19 consumers in both compiled-CSS and Tailwind modes. In the docs preview, all 15 body rows remained mounted, the overlay top matched the body top exactly, the body had inert and the table aria-busy; completion removed the overlay, inert and busy state. The artifact SHA-256 is `a050c9069ce7a140f9a10680e16f3fe1aeb4fdd15f87983596ba660cdb4376a2`. Publication initially required renewed npm login and separate browser publishing approval. Publication then succeeded privately with the next tag; registry checks confirmed restricted access and exact artifact integrity. No API changes or commits are part of this update.
+
+Admin now installs the exact registry version `0.1.0-next.10` in its manifest and lockfile. Its development build and whitespace check passed. Vite was restarted with `--force` to remove the previous optimized dependency; the installed DataTable contains the overlay implementation. No API commit was created.
+
+
+## 0.1.0-next.11 release — 5 October 2026
+
+Published privately with the next tag and installed exactly in Admin. Registry verification confirmed restricted access and the tested tarball integrity. Relative to next.10 the distribution changes are confined to AppSidebar/SidebarInset, styles, their contracts and the manifest. AppSidebar removes its right border and favourites separator; the footer removes its top separator. SidebarProvider uses bg-sidebar. SidebarInset has rounded left corners, correct surface stacking and the left-offset shadow-shell token in light mode; dark mode uses a subtle border without a shadow. The token uses an 8px left offset, 32px blur, -8px spread and 8% opacity.
+
+React 18.3.1/19 compatibility passed in compiled-CSS and Tailwind modes, including development/production browser checks. The first preparation attempt stopped because the required Chromium headless-shell build 1243 was missing; installing that browser runtime and rerunning the unchanged release checks succeeded. It is a verification runtime, not an added application dependency. Admin's development build and whitespace checks passed. Vite restarted with --force. No commits or pushes were made.
+
+Artifact SHA-256: `42212bdc5cc0fba2fab55156b29c3794e353d94e5498b1b3cc44e5f0f4c0a38b`. Signed-in Admin visual acceptance remains for Liam's session; the verification browser's workspace startup failure was not resolved by this styling release.
+
+
+Admin framing correction after installation: applying bg-sidebar to the outer provider hid the existing margins/radius against the same background. Admin now retains bg-chrome on the outer provider and applies bg-sidebar to its inner rounded sidebar/body wrapper. The 8px side/bottom margins and rounded-xl outer frame remain intact. This is an Elements-partition integration correction; no additional package release is needed.
+
+
+## 0.1.0-next.12 release — 5 October 2026
+
+Published privately with the next tag; registry verification confirmed restricted access and exact tarball integrity. Installed exactly in Admin with manifest/lockfile updated together. Relative to next.11 the distribution changes are only Sidebar's collapsed flyout heading fallback, its contract and the package manifest. Icon-only triggers now use their aria-label when tooltip and visible text provide no heading, restoring the translated Favourites label.
+
+Release preparation passed React 18.3.1/19 compiled-CSS and Tailwind development/production checks. Admin's development build passed, and Vite restarted with --force. Signed-in visual acceptance remains pending. No API edits, commits or pushes were made.
+
+Artifact SHA-256: `b822f2b8d69a15624d477a221173f63e9e09d1cf4599ecfbfaa90aa5d7e0603d`.
+
+## 0.1.0-next.13 release — 6 October 2026
+
+DataTable adds a documented `toolbar.actions` slot for application-owned collection actions. Admin's Contact fields list uses it for “Change field order”. The package also contains the current library changes documented in its component contracts. Release preparation passed React 18.3.1 and React 19 in compiled-CSS and Tailwind modes, including consumer builds, browser checks, tree shaking and a publish dry run. The exact artifact was published privately with the `next` tag; registry integrity and restricted access were verified. Admin installs the exact `0.1.0-next.13` version in its manifest and lockfile, and its development build passed. The local Vite server was restarted with forced dependency optimisation; its served DataTable contains the actions slot. Signed-in Contact fields acceptance remains open because the available browser cannot load the workspace.
+
+Artifact SHA-256: `6506f71f57948f69469f9af6db4919bd006357e7d843a22d1cb4db0ccba87d1d`.

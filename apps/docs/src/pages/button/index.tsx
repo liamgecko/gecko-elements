@@ -1,4 +1,3 @@
-import { actionIcons } from "@geckolabs/elements/lib/action-icons";
 import { ComponentExample } from "@/components/layout/component-example";
 import { DocsApiTable } from "@/components/layout/docs-api-table";
 import { DocsDoDont } from "@/components/layout/docs-do-dont";
@@ -9,7 +8,18 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { Button } from "@geckolabs/elements/components/button";
+import {
+  Button,
+  type ButtonPreset,
+} from "@geckolabs/elements/components/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@geckolabs/elements/components/table";
 import { Code } from "@/components/layout/docs-code";
 import {
   DropdownMenu,
@@ -17,28 +27,32 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@geckolabs/elements/components/dropdown-menu";
-import LayoutAlignRightIcon from "@hugeicons/core-free-icons/LayoutAlignRightIcon";
-import LayoutRightIcon from "@hugeicons/core-free-icons/LayoutRightIcon";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@geckolabs/elements/components/tooltip";
 import RefreshCw from "@hugeicons/core-free-icons/RefreshCwIcon";
 import Settings from "@hugeicons/core-free-icons/Settings01Icon";
 import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { useState } from "react";
 
+const presetExamples = [
+  { preset: "add", label: "Add item", variant: "default" },
+  { preset: "save", label: "Save changes", variant: "default" },
+  { preset: "cancel", label: "Cancel", variant: "outline" },
+  { preset: "edit", label: "Edit item", variant: "outline" },
+  { preset: "delete", label: "Delete item", variant: "destructive" },
+  { preset: "copy", label: "Copy item", variant: "outline" },
+  { preset: "actions", label: "Actions", variant: "outline" },
+  { preset: "retry", label: "Retry", variant: "outline" },
+  { preset: "next", label: "Next", variant: "default" },
+  { preset: "previous", label: "Previous", variant: "outline" },
+] satisfies Array<{ preset: ButtonPreset; label: string; variant: string }>;
+
 export function ButtonPage() {
-  const [panelExpanded, setPanelExpanded] = useState(true);
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const importSnippet = `import { actionIcons } from "@geckolabs/elements/lib/action-icons";
-import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
+  const importSnippet = `import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { Button } from "@geckolabs/elements/components/button"`;
 
-  const defaultSnippet = `<Button><HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />Save changes</Button>`;
+  const defaultSnippet = `<Button preset="save">Save changes</Button>`;
 
   const primarySnippet = `<Button>Primary</Button>`;
 
@@ -115,26 +129,26 @@ import { Button } from "@geckolabs/elements/components/button"`;
 
 import { Button } from "@geckolabs/elements/components/button"
 
-export function GenerateReportButton({
-  generateReport,
+export function SaveButton({
+  saveChanges,
 }: {
-  generateReport: () => Promise<void>
+  saveChanges: () => Promise<void>
 }) {
-  const [isGenerating, setIsGenerating] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
 
-  async function handleGenerate() {
-    setIsGenerating(true)
+  async function handleSave() {
+    setIsSaving(true)
 
     try {
-      await generateReport()
+      await saveChanges()
     } finally {
-      setIsGenerating(false)
+      setIsSaving(false)
     }
   }
 
   return (
-    <Button loading={isGenerating} onClick={handleGenerate}>
-      Generate report
+    <Button preset="save" loading={isSaving} onClick={handleSave}>
+      Save changes
     </Button>
   )
 }`;
@@ -150,7 +164,7 @@ export function GenerateReportButton({
       <HeaderSection
         id="overview"
         title="Button"
-        description="The Button component starts an action. The label should say what will happen so people know what they are about to do."
+        description="The Button component starts an action. Use descriptive labels that name the outcome, such as “Add to category”, “Send test”, or “Update permissions”, instead of vague labels such as “OK”, “Add”, or “Send”."
       />
 
       <MainSection
@@ -206,14 +220,7 @@ export function GenerateReportButton({
       >
         <ComponentExample>
           <div className="space-y-6">
-            <Button>
-              <HugeiconsIcon
-                icon={actionIcons.save}
-                aria-hidden="true"
-                data-icon="inline-start"
-              />
-              Save changes
-            </Button>
+            <Button preset="save">Save changes</Button>
             <Code
               variant="block"
               language="tsx"
@@ -457,52 +464,6 @@ export function GenerateReportButton({
       </MainSection>
 
       <MainSection
-        id="panel-disclosure"
-        title="Panel disclosure"
-        description="Panel buttons change their icon and accessible action label. Expanded state keeps the same resting appearance; hover and keyboard focus still work."
-      >
-        <ComponentExample>
-          <div className="grid gap-4">
-            <div>
-              <Tooltip>
-                <TooltipTrigger
-                  render={
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
-                      aria-label={
-                        panelExpanded
-                          ? "Hide contact details"
-                          : "Show contact details"
-                      }
-                      aria-expanded={panelExpanded}
-                      aria-controls="button-contact-panel"
-                      onClick={() => setPanelExpanded((value) => !value)}
-                    >
-                      <HugeiconsIcon
-                        icon={
-                          panelExpanded ? LayoutAlignRightIcon : LayoutRightIcon
-                        }
-                        aria-hidden
-                      />
-                    </Button>
-                  }
-                />
-                <TooltipContent>
-                  {panelExpanded
-                    ? "Hide contact details"
-                    : "Show contact details"}
-                </TooltipContent>
-              </Tooltip>
-            </div>
-            <div id="button-contact-panel" hidden={!panelExpanded}>
-              Contact details
-            </div>
-          </div>
-        </ComponentExample>
-      </MainSection>
-
-      <MainSection
         id="dropdown"
         title="Dropdown"
         description={
@@ -711,15 +672,13 @@ export function GenerateReportButton({
 
       <MainSection
         id="loading"
-        title="Loading for other actions"
+        title="Loading"
         description={
           <>
-            Save buttons never use loading, saving text or a pending-disabled
-            state. Keep their icon and label unchanged, guard duplicate saves in
-            the handler and use Toast for the result. These non-save examples
-            demonstrate the loading capability. The Button supplies the Loader,
-            prevents repeated activation, retains focus, and keeps action
-            wording visible while work is in progress.
+            Use loading when a button is waiting for an action to complete,
+            including Save or Update. Button supplies the Loader, communicates
+            its busy state, prevents repeated activation and retains focus. Keep
+            the button label unchanged while it is loading.
           </>
         }
       >
@@ -727,15 +686,16 @@ export function GenerateReportButton({
           <div className="space-y-6">
             <div className="flex flex-wrap items-center gap-3">
               <Button
-                loading={isGenerating}
-                onClick={() => void showLoadingState(setIsGenerating)}
+                preset="save"
+                loading={isSaving}
+                onClick={() => void showLoadingState(setIsSaving)}
               >
-                Generate report
+                Save changes
               </Button>
               <Button
                 size="icon"
                 loading={isRefreshing}
-                aria-label={isRefreshing ? "Refreshing" : "Refresh"}
+                aria-label="Refresh"
                 onClick={() => void showLoadingState(setIsRefreshing)}
               >
                 <HugeiconsIcon icon={RefreshCw} />
@@ -747,6 +707,61 @@ export function GenerateReportButton({
               code={loadingSnippet}
               showCopyButton
               copyLabel="Copy example"
+            />
+          </div>
+        </ComponentExample>
+      </MainSection>
+
+      <MainSection
+        id="presets"
+        title="Action presets"
+        description="Use preset for common actions. It supplies the icon and default variant; you supply the label, permissions and handler. Presets are optional, and not every button needs one. Nothing is inferred from the button text."
+      >
+        <ComponentExample>
+          <div className="space-y-6">
+            <Table aria-label="Button action presets">
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Preset keys</TableHead>
+                  <TableHead>Default variant</TableHead>
+                  <TableHead>Preview</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {presetExamples.map(({ preset, label, variant }) => (
+                  <TableRow key={preset}>
+                    <TableCell>
+                      <Code>{preset}</Code>
+                    </TableCell>
+                    <TableCell>
+                      <Code>{variant}</Code>
+                    </TableCell>
+                    <TableCell>
+                      <Button preset={preset}>{label}</Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <p className="text-sm text-muted-foreground">
+              Override the default variant when the context needs it. Do not add
+              a manual icon alongside a preset. Icon-only buttons still need an
+              accessible name. Header actions and Alert dialog buttons also
+              accept presets; the surrounding action hierarchy or dialog variant
+              applies. Presets do not manage requests, validation or
+              translations.
+            </p>
+            <Code
+              variant="block"
+              language="tsx"
+              code={`import { Button } from "@geckolabs/elements/components/button";
+
+<Button preset="save" type="submit" loading={isSaving}>Save settings</Button>
+<Button preset="cancel" onClick={cancel}>Cancel</Button>
+<Button preset="delete" onClick={requestDeletion}>Delete item</Button>
+<Button preset="edit" variant="ghost" onClick={edit}>Edit item</Button>`}
+              showCopyButton
+              copyLabel="Copy preset examples"
             />
           </div>
         </ComponentExample>
@@ -768,8 +783,8 @@ export function GenerateReportButton({
               <Code>secondary</Code>.
             </>,
             <>
-              Use <Code>loading</Code> only for non-save actions. Keep the
-              action wording visible beside the Loader.
+              Use <Code>loading</Code> while an action is in progress, including
+              saving. Keep the button label unchanged beside the Loader.
             </>,
             <>
               Set <Code>type=&quot;submit&quot;</Code> explicitly when Button
@@ -831,6 +846,13 @@ export function GenerateReportButton({
         <DocsApiTable
           rows={[
             {
+              name: "preset",
+              type: "ButtonPreset",
+              defaultValue: "—",
+              description:
+                "Common action icon and default variant. Supply the label and handler; an explicit variant overrides the preset default.",
+            },
+            {
               name: "variant",
               type: '"default" | "secondary" | "outline" | "outline-destructive" | "ghost" | "ghost-light" | "ghost-dark" | "ghost-destructive" | "destructive" | "link"',
               defaultValue: '"default"',
@@ -863,7 +885,7 @@ export function GenerateReportButton({
               type: "boolean",
               defaultValue: "false",
               description:
-                "For non-save actions only: shows the approved Loader, prevents activation, keeps focus and exposes aria-busy. Never use for saving edits.",
+                "Shows the approved Loader while an action is in progress, including Save or Update. Prevents repeated activation, retains focus and exposes aria-busy. Keep the label unchanged.",
             },
             {
               name: "disabled",

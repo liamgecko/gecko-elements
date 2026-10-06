@@ -78,7 +78,7 @@ function AppSidebar({
       variant="sidebar"
       collapsible="icon"
       className={cn(
-        "top-(--header-height) bottom-0 h-[calc(100dvh-var(--header-height))] border-r border-sidebar-border",
+        "top-(--header-height) bottom-0 h-[calc(100dvh-var(--header-height))]",
         className,
       )}
     >
@@ -185,7 +185,7 @@ function AppSidebarFavourites({
     <>
       <SidebarGroup
         data-slot="app-sidebar-favourites"
-        className="min-h-[50px] border-b border-sidebar-border"
+        className="min-h-[50px]"
       >
         <SidebarGroupLabel>{labels.heading}</SidebarGroupLabel>
         <SidebarGroupContent>

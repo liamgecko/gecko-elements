@@ -189,7 +189,7 @@ const SidebarProvider = /* @__PURE__ */ withRef(function SidebarProvider({
           } as React.CSSProperties
         }
         className={cn(
-          "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full",
+          "group/sidebar-wrapper bg-sidebar flex min-h-svh w-full",
           className,
         )}
         {...props}
@@ -399,7 +399,7 @@ const SidebarInset = /* @__PURE__ */ withRef(function SidebarInset({
     <main
       data-slot="sidebar-inset"
       className={cn(
-        "flex-1 flex flex-col bg-background overflow-hidden",
+        "relative z-20 flex-1 flex flex-col bg-background overflow-hidden rounded-l-3xl shadow-shell dark:shadow-none dark:border dark:border-border",
         className,
       )}
       {...props}
@@ -444,7 +444,7 @@ const SidebarFooter = /* @__PURE__ */ withRef(function SidebarFooter({
       data-slot="sidebar-footer"
       data-sidebar="footer"
       className={cn(
-        "gap-2 p-2 flex flex-col border-t border-sidebar-border",
+        "gap-2 p-2 flex flex-col",
         className,
       )}
       {...props}
@@ -817,7 +817,11 @@ const SidebarCollapsedSubMenuItem = /* @__PURE__ */ withRef(
           (tooltip as { children?: React.ReactNode }).children,
         );
       }
-      return getNodeText(menuButton.props.children);
+      return (
+        getNodeText(menuButton.props.children) ||
+        menuButton.props["aria-label"] ||
+        ""
+      );
     })();
     const headingIconRaw = getSidebarMenuButtonIcon(menuButton.props.children);
     const headingIcon = React.useMemo(() => {

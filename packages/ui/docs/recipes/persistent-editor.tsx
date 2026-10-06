@@ -25,11 +25,9 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@geckolabs/elements/components/alert-dialog";
-import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 import { useAsyncAction } from "./use-async-action";
 import { useUnsavedNavigation } from "./use-unsaved-navigation";
 import { toast } from "@geckolabs/elements/components/toast";
-import { actionIcons } from "@geckolabs/elements/lib/action-icons";
 
 /** Mount once per record ID. Route metadata contains presentation, never permission grants. */
 export function PersistentEditorRecipe({
@@ -106,7 +104,7 @@ export function PersistentEditorRecipe({
         title={name}
         primaryAction={{
           label: "Save changes",
-          icon: <HugeiconsIcon icon={actionIcons.save} aria-hidden="true" />,
+          preset: "save",
           onClick: submit,
         }}
         secondaryActions={[
@@ -207,20 +205,11 @@ export function PersistentEditorRecipe({
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>
-              <HugeiconsIcon
-                icon={actionIcons.keepEditing}
-                aria-hidden="true"
-                data-icon="inline-start"
-              />
-              Keep editing
-            </AlertDialogCancel>
-            <AlertDialogAction onClick={() => navigation.resolve(true)}>
-              <HugeiconsIcon
-                icon={actionIcons.discard}
-                aria-hidden="true"
-                data-icon="inline-start"
-              />
+            <AlertDialogCancel preset="edit">Keep editing</AlertDialogCancel>
+            <AlertDialogAction
+              preset="delete"
+              onClick={() => navigation.resolve(true)}
+            >
               Discard changes
             </AlertDialogAction>
           </AlertDialogFooter>

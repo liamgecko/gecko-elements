@@ -22,6 +22,7 @@ import {
   type DataTableColumnMeta,
 } from "@geckolabs/elements/components/data-table";
 import { Badge } from "@geckolabs/elements/components/badge";
+import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 import {
   Table,
@@ -77,6 +78,7 @@ export function DataTablePage() {
   const handleRowAction = React.useCallback(() => undefined, []);
   const handleSelectAction = React.useCallback(() => undefined, []);
   const [buttonActionResult, setButtonActionResult] = React.useState("");
+  const [toolbarActionResult, setToolbarActionResult] = React.useState("");
   const [floatingActionResult, setFloatingActionResult] = React.useState("");
 
   const baseColumns = React.useMemo<ColumnDef<DemoEvent>[]>(
@@ -818,7 +820,7 @@ export function DataTablePage() {
       <MainSection
         id="column-layout"
         title="Column sizing"
-        description="Column widths stay stable when results change. Compact columns have fixed widths; text columns share the remaining space. Columns retain readable minimum widths and the table scrolls when they no longer fit. Long text truncates with an ellipsis; hover or focus a truncated value to read it. Created by demonstrates two intentional lines. Preview the skeleton rows to compare their height with the loaded cells."
+        description="Column widths stay stable when results change. Compact columns have fixed widths; text columns share the remaining space. Columns retain readable minimum widths and the table scrolls when they no longer fit. Long text truncates with an ellipsis; hover or focus a truncated value to read it. Created by demonstrates two intentional lines. Preview skeleton rows to compare their height with loaded cells. Preview updating rows to see the built-in body overlay: rows stay in place, stale row interactions are blocked immediately, and a centred spinner appears after 150ms. Headers and query controls remain available."
       >
         <ComponentExample>
           <StableColumnsExample />
@@ -1147,6 +1149,41 @@ export function DataTablePage() {
           </ComponentExample>
         </ChildSection>
         <ChildSection
+          id="toolbar-actions"
+          title="Table actions"
+          description="Place actions that affect the collection in the table toolbar. Keep page creation in the page header."
+        >
+          <ComponentExample className="overflow-x-auto">
+            <div className="space-y-4">
+              <DataTable
+                aria-label="Events"
+                columns={baseColumns}
+                data={demoEvents}
+                toolbar={{
+                  search: { placeholder: "Search events" },
+                  columnToggle: true,
+                  actions: (
+                    <Button
+                      variant="outline"
+                      onClick={() => setToolbarActionResult("Event order opened")}
+                    >
+                      Change event order
+                    </Button>
+                  ),
+                }}
+              />
+              <p role="status">{toolbarActionResult}</p>
+              <Code
+                variant="block"
+                language="tsx"
+                code={'<DataTable toolbar={{ actions: <Button variant="outline" onClick={openOrder}>Change event order</Button> }} />'}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
           id="column-toggle"
           title="Column toggle"
           description={
@@ -1364,7 +1401,8 @@ export function DataTablePage() {
               rows do not need them.
             </>,
             <>
-              No data renders only Empty. No search/filter matches keeps Empty inside the table with query controls. Use{" "}
+              No data renders only Empty. No search/filter matches keeps Empty
+              inside the table with query controls. Use{" "}
               <DocsPageLink to="/components/empty">Empty</DocsPageLink>.
             </>,
             <>Don’t put essential row meaning only in colour or an icon.</>,
@@ -1463,7 +1501,21 @@ export function DataTablePage() {
               name: "toolbar",
               type: "false | DataTableToolbarConfig",
               description:
-                "Configures search, filters, column visibility, and selected-row actions.",
+                "Configures search, filters, column visibility, and application-owned table actions. Selected-row actions use selectActions.",
+            },
+            {
+              name: "loading",
+              type: "boolean",
+              defaultValue: "false",
+              description:
+                "Shows skeleton rows for initial loading while retaining the table structure.",
+            },
+            {
+              name: "updating",
+              type: "boolean",
+              defaultValue: "false",
+              description:
+                "Retains rows and blocks stale row interaction immediately. Shows a body spinner overlay after 150ms; headers and query controls remain available.",
             },
             {
               name: "pagination",

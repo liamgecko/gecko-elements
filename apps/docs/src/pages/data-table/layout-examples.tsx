@@ -78,11 +78,25 @@ const stableColumns: ColumnDef<RecordRow>[] = [
 ];
 export function StableColumnsExample() {
   const [loading, setLoading] = useState(false);
+  const [updating, setUpdating] = useState(false);
   return (
     <div className="space-y-4">
-      <Button variant="outline" onClick={() => setLoading((value) => !value)}>
-        {loading ? "Show loaded rows" : "Preview skeleton rows"}
-      </Button>
+      <div className="flex gap-2">
+        <Button
+          variant="outline"
+          disabled={updating}
+          onClick={() => setLoading((value) => !value)}
+        >
+          {loading ? "Show loaded rows" : "Preview skeleton rows"}
+        </Button>
+        <Button
+          variant="outline"
+          disabled={loading}
+          onClick={() => setUpdating((value) => !value)}
+        >
+          {updating ? "Finish updating" : "Preview updating rows"}
+        </Button>
+      </div>
       <DataTable
         aria-label="Templates with stable column widths"
         columns={stableColumns}
@@ -91,6 +105,7 @@ export function StableColumnsExample() {
         pagination
         sorting
         loading={loading}
+        updating={updating}
         initialState={{ sorting: [{ id: "name", desc: false }] }}
         toolbar={{
           search: { placeholder: "Search templates" },

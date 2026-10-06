@@ -713,7 +713,9 @@ export function DropdownMenuPage() {
             A high-risk action using{" "}
             <Code>variant=&quot;destructive&quot;</Code> on{" "}
             <Code>DropdownMenuItem</Code>. Use this when the risk should be
-            visible before someone clicks.
+            visible before someone clicks. Always place delete actions last,
+            separated from preceding actions by a dropdown separator. Omit the
+            separator when delete is the only visible action.
           </>
         }
       >
@@ -849,6 +851,10 @@ export function DropdownMenuPage() {
             </>,
             <>
               Use groups, labels, and separators to organise related actions.
+            </>,
+            <>
+              Put delete actions last with a separator before them. Use labels
+              such as “Delete template” or “Delete templates”.
             </>,
             <>
               Use checkbox items for independent toggles and radio items for one

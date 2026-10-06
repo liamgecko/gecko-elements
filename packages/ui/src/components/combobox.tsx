@@ -18,7 +18,117 @@ import XIcon from "@hugeicons/core-free-icons/XIcon";
 import CheckIcon from "@hugeicons/core-free-icons/CheckIcon";
 import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
-const Combobox = ComboboxPrimitive.Root;
+type CreatableComboboxProps<Multiple extends boolean | undefined = false> =
+  Omit<
+    ComboboxPrimitive.Root.Props<string, Multiple>,
+    | "items"
+    | "filteredItems"
+    | "filter"
+    | "itemToStringLabel"
+    | "itemToStringValue"
+    | "isItemEqualToValue"
+  > & {
+    variant: "creatable";
+    items: readonly string[];
+    /** Synchronous product validation; invalid queries have no creation option. */
+    isValidNewValue?: (value: string) => boolean;
+    /** Notification only. Persist through application-owned selection/save logic. */
+    onCreate?: (value: string) => void;
+    getCreateLabel?: (value: string) => string;
+  };
+
+const ComboboxCreationContext = React.createContext<{
+  candidate: string | null;
+  getCreateLabel: (value: string) => string;
+} | null>(null);
+
+function Combobox<Multiple extends boolean | undefined = false>(
+  props: CreatableComboboxProps<Multiple>,
+): React.JSX.Element;
+function Combobox<Value, Multiple extends boolean | undefined = false>(
+  props: ComboboxPrimitive.Root.Props<Value, Multiple>,
+): React.JSX.Element;
+function Combobox(
+  props:
+    | ComboboxPrimitive.Root.Props<unknown, boolean>
+    | CreatableComboboxProps<boolean>,
+) {
+  if ("variant" in props) return <CreatableCombobox {...props} />;
+  return <ComboboxPrimitive.Root {...props} />;
+}
+
+function CreatableCombobox<Multiple extends boolean | undefined = false>({
+  variant: _variant,
+  items,
+  inputValue,
+  defaultInputValue = "",
+  onInputValueChange,
+  onValueChange,
+  isValidNewValue,
+  onCreate,
+  getCreateLabel = (value) => `Create “${value}”`,
+  ...props
+}: CreatableComboboxProps<Multiple>) {
+  void _variant;
+  const [query, setQuery] = React.useState(defaultInputValue);
+  const [created, setCreated] = React.useState<string[]>([]);
+  const { contains } = ComboboxPrimitive.useFilter();
+  const selected = (props.value ?? props.defaultValue) as
+    | string
+    | string[]
+    | null
+    | undefined;
+  const options = Array.from(
+    new Set([
+      ...items,
+      ...created,
+      ...(Array.isArray(selected)
+        ? selected
+        : selected == null
+          ? []
+          : [selected]),
+    ]),
+  );
+  const trimmed = String(inputValue ?? query).trim();
+  const candidate =
+    trimmed &&
+    !props.disabled &&
+    !props.readOnly &&
+    !options.some(
+      (item) => item.trim().toLocaleLowerCase() === trimmed.toLocaleLowerCase(),
+    ) &&
+    (isValidNewValue?.(trimmed) ?? true)
+      ? trimmed
+      : null;
+
+  return (
+    <ComboboxCreationContext.Provider value={{ candidate, getCreateLabel }}>
+      <ComboboxPrimitive.Root
+        {...props}
+        items={candidate ? [...options, candidate] : options}
+        filter={(item, query) => contains(item, query.trim())}
+        inputValue={inputValue ?? query}
+        onInputValueChange={(value, details) => {
+          onInputValueChange?.(value, details);
+          if (!details.isCanceled) setQuery(value);
+        }}
+        onValueChange={(value, details) => {
+          onValueChange?.(value, details);
+          if (details.isCanceled) return;
+          if (
+            candidate &&
+            (Array.isArray(value)
+              ? value.includes(candidate)
+              : value === candidate)
+          ) {
+            setCreated((values) => [...values, candidate]);
+            onCreate?.(candidate);
+          }
+        }}
+      />
+    </ComboboxCreationContext.Provider>
+  );
+}
 
 const ComboboxChipsPlaceholderContext = React.createContext<{
   selectedCount: number;
@@ -194,6 +304,7 @@ const ComboboxItem = /* @__PURE__ */ withRef(function ComboboxItem({
   children,
   ...props
 }: ComboboxPrimitive.Item.Props) {
+  const creation = React.useContext(ComboboxCreationContext);
   return (
     <ComboboxPrimitive.Item
       data-slot="combobox-item"
@@ -203,7 +314,9 @@ const ComboboxItem = /* @__PURE__ */ withRef(function ComboboxItem({
       )}
       {...props}
     >
-      {children}
+      {creation?.candidate != null && creation.candidate === props.value
+        ? creation.getCreateLabel(creation.candidate)
+        : children}
       <ComboboxPrimitive.ItemIndicator
         render={
           <span className="pointer-events-none absolute right-2 flex size-4 items-center justify-center">

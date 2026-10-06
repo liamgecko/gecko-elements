@@ -108,12 +108,7 @@ export function AsyncFormRecipe({
             Submit for approval
           </Button>
         )}
-        <Button form="recipe-record-form" type="submit">
-          <HugeiconsIcon
-            icon={actionIcons.save}
-            aria-hidden="true"
-            data-icon="inline-start"
-          />
+        <Button preset="save" form="recipe-record-form" type="submit">
           Save changes
         </Button>
       </CardFooter>

@@ -147,11 +147,11 @@ Set `unread` on a navigation group when it contains unread activity. The group s
 
 ## Styling contract
 
-App Sidebar owns its width, height below App Header, border, icon-collapsed state, Scroll area and footer. Scrollbars remain hidden until hover or focus within.
+App Sidebar owns its width, height below App Header, icon-collapsed state, Scroll area and footer. It has no right border: SidebarInset provides the adjacent main surface with rounded top-left/bottom-left corners, left-offset `shadow-shell` elevation token in light mode and a subtle `border-border` border without shadow in dark mode. Scrollbars remain hidden until hover or focus within.
 
 Navigation labels remain on one line and truncate as the sidebar narrows; the complete group label remains available through its tooltip.
 
-Preserve the Sidebar footer divider and default menu sizing. Do not apply feature-specific visual overrides to App Sidebar.
+Favourites and the collapse footer have no border separators. Preserve the default menu sizing. Do not apply feature-specific visual overrides to App Sidebar.
 
 ## Agent rules
 

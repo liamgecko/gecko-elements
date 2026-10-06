@@ -5,6 +5,8 @@ import ChevronDownIcon from "@hugeicons/core-free-icons/ChevronDownIcon";
 import LoaderIcon from "@hugeicons/core-free-icons/LoaderIcon";
 import { HugeiconsIcon } from "@geckolabs/elements/lib/icon";
 
+import { actionIcons } from "@geckolabs/elements/lib/action-icons";
+
 import { cn } from "@geckolabs/elements/lib/utils";
 
 const buttonVariants = cva(
@@ -53,15 +55,32 @@ const buttonVariants = cva(
   },
 );
 
+const buttonPresets = {
+  add: { icon: actionIcons.add, variant: "default" },
+  save: { icon: actionIcons.save, variant: "default" },
+  cancel: { icon: actionIcons.cancel, variant: "outline" },
+  edit: { icon: actionIcons.edit, variant: "outline" },
+  delete: { icon: actionIcons.delete, variant: "destructive" },
+  copy: { icon: actionIcons.copy, variant: "outline" },
+  actions: { icon: actionIcons.actions, variant: "outline" },
+  retry: { icon: actionIcons.retry, variant: "outline" },
+  next: { icon: actionIcons.next, variant: "default" },
+  previous: { icon: actionIcons.previous, variant: "outline" },
+} as const;
+
+type ButtonPreset = keyof typeof buttonPresets;
+
 type ButtonProps = ButtonPrimitive.Props &
   VariantProps<typeof buttonVariants> & {
+    preset?: ButtonPreset;
     dropdown?: boolean;
     loading?: boolean;
   };
 
 const Button = /* @__PURE__ */ withRef(function Button({
   className,
-  variant = "default",
+  variant,
+  preset,
   size = "default",
   dropdown = false,
   loading = false,
@@ -84,7 +103,16 @@ const Button = /* @__PURE__ */ withRef(function Button({
     <ButtonPrimitive
       data-slot="button"
       data-loading={loading || undefined}
-      className={cn(buttonVariants({ variant, size }), className)}
+      className={cn(
+        buttonVariants({
+          variant:
+            variant ??
+            (preset ? buttonPresets[preset].variant : undefined) ??
+            "default",
+          size,
+        }),
+        className,
+      )}
       {...props}
       disabled={disabled || loading}
       focusableWhenDisabled={loading || focusableWhenDisabled}
@@ -105,6 +133,13 @@ const Button = /* @__PURE__ */ withRef(function Button({
         </>
       ) : (
         <>
+          {preset && (
+            <HugeiconsIcon
+              icon={buttonPresets[preset].icon}
+              aria-hidden="true"
+              data-icon={isIconOnly ? undefined : "inline-start"}
+            />
+          )}
           {children}
           {dropdownIcon}
         </>
@@ -114,4 +149,4 @@ const Button = /* @__PURE__ */ withRef(function Button({
 });
 
 // eslint-disable-next-line react-refresh/only-export-components -- cva styles are intentionally exported from this module.
-export { Button, buttonVariants };
+export { Button, buttonVariants, type ButtonPreset };

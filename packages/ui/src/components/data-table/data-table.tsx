@@ -4,6 +4,8 @@ import { DataTableCellLink } from "./data-table-cell-link";
 import { DataTableTextCell } from "./data-table-text-cell";
 
 import * as React from "react";
+import { inertProps } from "@geckolabs/elements/lib/inert";
+import { Spinner } from "@geckolabs/elements/components/spinner";
 import {
   flexRender,
   getCoreRowModel,
@@ -253,6 +255,8 @@ export type DataTableToolbarConfig = {
   search?: false | DataTableSearchProps;
   filters?: false | DataTableFiltersProps;
   columnToggle?: boolean | DataTableColumnToggleProps;
+  /** Application-owned table actions, rendered after column visibility. */
+  actions?: React.ReactNode;
 };
 
 export type DataTableProps<TData> = DistributiveOmit<
@@ -499,10 +503,36 @@ function DataTableContent<TData>({
     rowLink,
     resetFilterUi,
     loading,
+    updating,
     error,
     onRetry,
     labels,
   } = useDataTableContext<TData>();
+
+  const refreshing = Boolean(updating && !loading && !error);
+  const [showUpdating, setShowUpdating] = React.useState(false);
+  const headerRef = React.useRef<HTMLTableSectionElement>(null);
+  const [headerHeight, setHeaderHeight] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!refreshing) {
+      setShowUpdating(false);
+      return;
+    }
+    const timeout = window.setTimeout(() => setShowUpdating(true), 150);
+    return () => window.clearTimeout(timeout);
+  }, [refreshing]);
+
+  React.useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    const measure = () =>
+      setHeaderHeight(header.getBoundingClientRect().height);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, []);
 
   const linkId = React.useId();
   const layout = useDataTableLayout(table);
@@ -531,7 +561,7 @@ function DataTableContent<TData>({
     >
       <Table
         aria-label={ariaLabel}
-        aria-busy={loading}
+        aria-busy={loading || refreshing}
         className="table-fixed"
         style={{ width: layout.total || "100%" }}
         containerProps={{
@@ -552,7 +582,7 @@ function DataTableContent<TData>({
             />
           ))}
         </colgroup>
-        <TableHeader>
+        <TableHeader ref={headerRef}>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -584,7 +614,7 @@ function DataTableContent<TData>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
+        <TableBody {...inertProps(refreshing)}>
           {loading ? (
             Array.from(
               { length: rows.length || state.pagination.pageSize },
@@ -784,8 +814,18 @@ function DataTableContent<TData>({
           )}
         </TableBody>
       </Table>
+      {refreshing && showUpdating ? (
+        <div
+          data-slot="data-table-updating"
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-center rounded-b-md bg-background/70"
+          style={{ top: headerHeight }}
+        >
+          <Spinner aria-hidden="true" className="motion-reduce:animate-none" />
+        </div>
+      ) : null}
       <span role="status" className="sr-only">
-        {loading ? (labels?.loading ?? "Loading rows…") : ""}
+        {loading || refreshing ? (labels?.loading ?? "Loading rows…") : ""}
       </span>
     </div>
   );
@@ -882,6 +922,7 @@ export function DataTable<TData>({
                     {...(columnToggleProps as DataTableColumnToggleProps)}
                   />
                 ) : null}
+                {toolbarConfig?.actions}
               </DataTableToolbarGroup>
             </DataTableToolbar>
           ) : null}

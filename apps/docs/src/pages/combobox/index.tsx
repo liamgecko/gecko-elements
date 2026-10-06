@@ -76,6 +76,7 @@ function FrameworkOptions() {
 
 export function ComboboxPage() {
   const multipleAnchor = useComboboxAnchor();
+  const creatableAnchor = useComboboxAnchor();
 
   const importSnippet = `import {
   Combobox,
@@ -197,8 +198,8 @@ export function ComboboxPage() {
             Use a Combobox when a predefined list is long enough to benefit from
             filtering. Use a{" "}
             <DocsPageLink to="/components/select">Select</DocsPageLink> for a
-            short list, and a text field when people may enter a value outside
-            the list.
+            short list. Use the creatable variant when people may add values to
+            the suggestions, and a text field when suggestions are unnecessary.
           </>
         }
       >
@@ -303,6 +304,155 @@ export function ComboboxPage() {
             />
           </div>
         </ComponentExample>
+      </MainSection>
+
+      <MainSection
+        id="creatable"
+        title="Creatable"
+        description="Select existing options or create new ones inline. Use this for tags, labels or categories when you can add options without leaving the field."
+      >
+        <ChildSection
+          id="creatable-single"
+          title="Single select"
+          description="Choose one category from the list, or create a new category inline. Only one category can be selected at a time."
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field>
+                <FieldLabel htmlFor="creatable-single-input">
+                  Category
+                </FieldLabel>
+                <Combobox
+                  variant="creatable"
+                  items={["Open days", "Campus tours", "Applicant events"]}
+                  name="category"
+                >
+                  <ComboboxInput
+                    id="creatable-single-input"
+                    placeholder="Select or add a category"
+                    showClear
+                  />
+                  <ComboboxContent>
+                    <ComboboxEmpty>No categories found.</ComboboxEmpty>
+                    <ComboboxList>
+                      {(item: string) => (
+                        <ComboboxItem key={item} value={item}>
+                          {item}
+                        </ComboboxItem>
+                      )}
+                    </ComboboxList>
+                  </ComboboxContent>
+                </Combobox>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={`<Field>
+  <FieldLabel htmlFor="creatable-single-input">Category</FieldLabel>
+  <Combobox variant="creatable" items={["Open days", "Campus tours", "Applicant events"]} name="category">
+    <ComboboxInput id="creatable-single-input" placeholder="Select or add a category" showClear />
+    <ComboboxContent>
+      <ComboboxEmpty>No categories found.</ComboboxEmpty>
+      <ComboboxList>
+        {(item: string) => <ComboboxItem key={item} value={item}>{item}</ComboboxItem>}
+      </ComboboxList>
+    </ComboboxContent>
+  </Combobox>
+</Field>`}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <ChildSection
+          id="creatable-multiple"
+          title="Multi select"
+          description="Choose multiple labels from the list, or create new labels inline. Each selected label appears as a removable chip."
+        >
+          <ComponentExample>
+            <div className="space-y-6">
+              <Field>
+                <FieldLabel htmlFor="creatable-multiple-input">
+                  Labels
+                </FieldLabel>
+                <Combobox
+                  variant="creatable"
+                  items={[
+                    "Prospective student",
+                    "Offer holder",
+                    "Follow up required",
+                  ]}
+                  name="labels"
+                  multiple
+                >
+                  <ComboboxChips ref={creatableAnchor}>
+                    <ComboboxValue>
+                      {(values: string[]) => (
+                        <>
+                          {values.map((value) => (
+                            <ComboboxChip key={value}>{value}</ComboboxChip>
+                          ))}
+                          <ComboboxChipsInput
+                            id="creatable-multiple-input"
+                            placeholder="Select or add labels"
+                          />
+                        </>
+                      )}
+                    </ComboboxValue>
+                  </ComboboxChips>
+                  <ComboboxContent anchor={creatableAnchor}>
+                    <ComboboxEmpty>No labels found.</ComboboxEmpty>
+                    <ComboboxList>
+                      {(item: string) => (
+                        <ComboboxItem key={item} value={item}>
+                          {item}
+                        </ComboboxItem>
+                      )}
+                    </ComboboxList>
+                  </ComboboxContent>
+                </Combobox>
+              </Field>
+              <Code
+                variant="block"
+                language="tsx"
+                code={`const creatableAnchor = useComboboxAnchor()
+
+<Field>
+  <FieldLabel htmlFor="creatable-multiple-input">Labels</FieldLabel>
+  <Combobox variant="creatable" items={["Prospective student", "Offer holder", "Follow up required"]} name="labels" multiple>
+    <ComboboxChips ref={creatableAnchor}>
+  <ComboboxValue>
+    {(values: string[]) => (
+      <>
+        {values.map((value) => <ComboboxChip key={value}>{value}</ComboboxChip>)}
+        <ComboboxChipsInput id="creatable-multiple-input" placeholder="Select or add labels" />
+      </>
+    )}
+  </ComboboxValue>
+</ComboboxChips>
+    <ComboboxContent anchor={creatableAnchor}>
+      <ComboboxEmpty>No labels found.</ComboboxEmpty>
+      <ComboboxList>
+        {(item: string) => <ComboboxItem key={item} value={item}>{item}</ComboboxItem>}
+      </ComboboxList>
+    </ComboboxContent>
+  </Combobox>
+</Field>`}
+                showCopyButton
+                copyLabel="Copy example"
+              />
+            </div>
+          </ComponentExample>
+        </ChildSection>
+        <p className="text-muted-foreground text-sm">
+          Use isValidNewValue for synchronous product validation and FieldError
+          for explanatory errors. onValueChange receives the selected string or
+          strings; onCreate is an optional notification, not an API save.
+          getCreateLabel customises the creation option text for translation.
+          For object records or server-created IDs, keep the normal Combobox and
+          an explicit application creation flow.
+        </p>
       </MainSection>
 
       <MainSection
@@ -498,8 +648,8 @@ export function ComboboxPage() {
           ]}
           dontItems={[
             <>
-              Don’t use Combobox for unrestricted text entry or a palette of
-              actions.
+              Don’t use the default Combobox to create values. Choose the
+              creatable variant only when new values are valid.
             </>,
             <>
               Don’t replace or restyle its input, trigger, clear control, or
@@ -524,6 +674,28 @@ export function ComboboxPage() {
       >
         <DocsApiTable
           rows={[
+            {
+              name: "variant",
+              type: '"creatable"',
+              description:
+                "Allows explicit creation of string values; omit for predefined selection.",
+            },
+            {
+              name: "isValidNewValue",
+              type: "(value: string) => boolean",
+              description: "Controls whether a trimmed query may be created.",
+            },
+            {
+              name: "onCreate",
+              type: "(value: string) => void",
+              description:
+                "Notifies when a new value is selected. Does not persist it.",
+            },
+            {
+              name: "getCreateLabel",
+              type: "(value: string) => string",
+              description: "Translates or customises the Create option label.",
+            },
             {
               name: "items",
               type: "Item[]",

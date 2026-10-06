@@ -5,11 +5,13 @@ Status: Stable
 Source: `src/components/button.tsx`  
 Human documentation: `apps/docs/src/pages/button/index.tsx`
 
-Use [actionIcons](action-icons.md) with `HugeiconsIcon` from `@geckolabs/elements/lib/icon` for the labelled action examples below.
+Use an explicit `preset` for common action icons and default variants. Labels, translations and handlers remain application-owned.
 
 ## Purpose
 
 Button starts an action. Its visible label states the outcome, such as “Save changes”, “Add person”, or “Remove filter”.
+
+Use descriptive, verb-first task labels that name the object or outcome: “Add to category”, “Send test”, “Update permissions”, or “Unlock template”. Do not use vague primary labels such as “OK”, “Add”, “Send”, or “Save” when the task can be named. Override preset labels with the product action; presets supply icons and variants, not sufficient task context. Standard dismissals such as “Cancel” and navigation such as “Next” remain concise.
 
 Use a native link for navigation. Use Toggle for a persistent on/off choice, Dropdown menu for a list of actions, and Alert dialog when an irreversible action needs confirmation.
 
@@ -20,14 +22,16 @@ Default is the primary treatment. Omit `variant` and `size` for the main action.
 ```tsx
 import { Button } from "@geckolabs/elements/components/button";
 
-<Button onClick={saveChanges}><HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />Save changes</Button>;
+<Button preset="save" onClick={saveChanges}>
+  Save changes
+</Button>;
 ```
 
 Normally use one default Button per Header, dialog footer, form action row, or other local decision area. Use Outline for the normal secondary action.
 
 ```tsx
-<Button variant="outline" onClick={cancelChanges}><HugeiconsIcon icon={actionIcons.cancel} aria-hidden="true" data-icon="inline-start" />Cancel</Button>
-<Button onClick={saveChanges}><HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />Save changes</Button>
+<Button preset="cancel" onClick={cancelChanges}>Cancel</Button>
+<Button preset="save" onClick={saveChanges}>Save changes</Button>
 ```
 
 ## Variants
@@ -73,6 +77,47 @@ Button uses its intrinsic content width in every layout, including forms, FieldG
 
 Use the icon size corresponding to the surrounding labelled Button size. `icon-2xs` relies on the approved composition’s spacing to meet the interaction-target requirement and is not a general-purpose size.
 
+## Action presets
+
+For common actions, choose an explicit `preset`. It supplies the approved decorative
+icon and default variant; labels, translations, permissions and handlers remain
+application-owned. Nothing is inferred from the label.
+
+```tsx
+import { Button } from "@geckolabs/elements/components/button";
+
+<Button preset="save" type="submit">Save settings</Button>
+<Button preset="cancel" onClick={cancel}>Cancel</Button>
+<Button preset="delete" onClick={requestDeletion}>Delete device</Button>
+<Button preset="edit" variant="ghost" onClick={edit}>Edit device</Button>
+```
+
+| Preset     | Default variant | Use                                 |
+| ---------- | --------------- | ----------------------------------- |
+| `add`      | `default`       | Add or create an item               |
+| `save`     | `default`       | Save or update settings or a record |
+| `cancel`   | `outline`       | Cancel, close, or clear a search    |
+| `edit`     | `outline`       | Edit or keep editing                |
+| `delete`   | `destructive`   | Delete, remove, or discard          |
+| `copy`     | `outline`       | Copy or clone                       |
+| `actions`  | `outline`       | Open an action menu                 |
+| `retry`    | `outline`       | Retry a failed action               |
+| `next`     | `default`       | Move to the next step               |
+| `previous` | `outline`       | Move to the previous step           |
+
+These are the complete supported `ButtonPreset` keys. Presets are optional; not every button needs one. Labels, translations,
+permissions and handlers remain application-owned. Do not derive a preset from
+button text or add a manual icon alongside a preset. Explicit `variant` overrides
+the preset default; for example, discarding edits uses `preset="delete"` in a
+normal Alert dialog, whose context retains the primary action treatment.
+Icon-only preset buttons require an accessible name. Save may use `loading` while
+its label remains unchanged.
+
+Header primary and secondary button actions accept `preset`. Secondary actions
+retain outline hierarchy unless an explicit variant is supplied. DialogFooter's
+built-in Close/Cancel action uses `cancel`. AlertDialogCancel accepts `cancel` or
+`edit`; AlertDialogAction accepts `delete` and retains the dialog's variant.
+
 ## Icons
 
 Place a supporting icon beside visible text and mark its logical position with `data-icon`. Button owns icon sizing and adjusts logical padding.
@@ -101,7 +146,7 @@ Icon-only Buttons use an icon size and a contextual accessible name:
 
 ## Saving
 
-Save buttons never show a loading/saving state. Keep the label, icon and appearance unchanged; do not set `loading` or disable the button merely because a save is pending. Guard duplicate submission synchronously in the handler (a ref or the shared async-action recipe), release the guard in `finally`, and show success or failure through Toast. Validation remains beside the field.
+Save buttons may use `loading` while saving. Keep the label unchanged: “Save changes” remains “Save changes”, never “Saving…”. Guard duplicate submission synchronously in the handler (a ref or the shared async-action recipe), release the guard in `finally`, and show success or failure through Toast. Validation remains beside the field.
 
 ```tsx
 const pending = useRef(false);
@@ -117,25 +162,29 @@ async function handleSave() {
     pending.current = false;
   }
 }
-<Button onClick={handleSave}>
-  <HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />
+<Button preset="save" onClick={handleSave}>
   Save changes
-</Button>
+</Button>;
 ```
 
-## Other asynchronous actions
+## Loading
 
-The `loading` prop remains available for non-save actions such as generating a report. Button owns the indicator, busy semantics, repeated-activation protection and focus retention. Keep the action label stable. Never use this state for Save or Update actions that persist edits.
+Use `loading` when a button is waiting for its action to complete, including Save
+and Update. Button owns the Loader, busy semantics, repeated-activation protection
+and focus retention. Keep the visible label and accessible name unchanged. Set
+loading back to false when the action finishes, including on failure.
 
 ```tsx
-<Button loading={isGenerating} onClick={generateReport}>Generate report</Button>
+<Button preset="save" loading={isSaving} onClick={saveChanges}>
+  Save changes
+</Button>
 ```
 
 ## Disabled
 
 Set `disabled` only when an action is genuinely unavailable because of permission or context. A disabled Button is excluded from normal interaction unless the advanced Base UI `focusableWhenDisabled` property is explicitly required.
 
-Keep form submission enabled before validation. On submit, show field errors and focus the first invalid field. For saves, keep the button unchanged after submission and guard duplicates in the handler. Non-save actions may use `loading` when their workflow calls for it.
+Keep form submission enabled before validation. On submit, show field errors and focus the first invalid field. Use `loading` while submission is pending and keep the label unchanged. Guard duplicate requests in the handler as well.
 
 ## Dropdown trigger
 
@@ -160,14 +209,6 @@ The chevron rotates when the trigger opens and returns when it closes. Reduced-m
 
 The `dropdown` property is not a standalone disclosure implementation.
 
-## Panel disclosure
-
-Use a ghost icon Button for showing or hiding a persistent panel. Supply an action-specific `aria-label`, `aria-expanded` and `aria-controls` naming the panel. Change the icon and label with the expanded state. Do not use Toggle or `aria-pressed` for this action.
-
-`aria-expanded` alone does not change Button colours, borders or background. Normal hover and keyboard-focus treatments still apply. Only popup triggers that also have `aria-haspopup` receive the existing expanded popup treatment. Keep popup semantics on menus and popovers; do not add `aria-haspopup` to a panel button for styling.
-
-For a right contact panel, use `LayoutAlignRightIcon` while expanded (collapse action) and `LayoutRightIcon` while collapsed (expand action), rendered through `@geckolabs/elements/lib/icon`. The application owns panel state and visibility. The navigation rail uses SidebarTrigger, which owns its corresponding left-panel icons and labels.
-
 ## Forms
 
 Base UI safely renders Button with `type="button"` by default. Set `type="submit"` explicitly for form submission.
@@ -175,8 +216,7 @@ Base UI safely renders Button with `type="button"` by default. Set `type="submit
 ```tsx
 <form onSubmit={submitForm}>
   {/* fields */}
-  <Button type="submit">
-    <HugeiconsIcon icon={actionIcons.save} aria-hidden="true" data-icon="inline-start" />
+  <Button preset="save" type="submit">
     Save changes
   </Button>
 </form>
@@ -196,6 +236,7 @@ Base UI safely renders Button with `type="button"` by default. Set `type="submit
 
 | Property                  | Type                                                                                                                                                           | Default     | Meaning                                                                                       |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------- |
+| `preset`                  | `ButtonPreset`                                                                                                                                                 | —           | Explicit action icon and default variant; see Action presets                                  |
 | `variant`                 | `"default" \| "outline" \| "outline-destructive" \| "secondary" \| "ghost" \| "ghost-light" \| "ghost-dark" \| "ghost-destructive" \| "destructive" \| "link"` | `"default"` | Approved action hierarchy and surface treatment                                               |
 | `size`                    | `"xs" \| "sm" \| "default" \| "lg" \| "icon-2xs" \| "icon-xs" \| "icon-sm" \| "icon" \| "icon-lg"`                                                             | `"default"` | Approved labelled or square scale                                                             |
 | `loading`                 | `boolean`                                                                                                                                                      | `false`     | Owned busy state with Loader, visible action label, activation protection and focus retention |

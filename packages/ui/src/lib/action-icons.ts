@@ -1,3 +1,6 @@
+import ChevronRightIcon from "@hugeicons/core-free-icons/ChevronRightIcon";
+import ChevronLeftIcon from "@hugeicons/core-free-icons/ChevronLeftIcon";
+import ReloadIcon from "@hugeicons/core-free-icons/ReloadIcon";
 import PlusIcon from "@hugeicons/core-free-icons/PlusIcon";
 import XIcon from "@hugeicons/core-free-icons/XIcon";
 import CheckCheckIcon from "@hugeicons/core-free-icons/CheckCheckIcon";
@@ -13,6 +16,10 @@ import Tick02Icon from "@hugeicons/core-free-icons/Tick02Icon";
 
 /** Shared action meaning. Labels, permissions and handlers belong to the app. */
 export const actionIcons = {
+  next: ChevronRightIcon,
+  previous: ChevronLeftIcon,
+  retry: ReloadIcon,
+  clear: XIcon,
   create: PlusIcon,
   add: PlusIcon,
   close: XIcon,
