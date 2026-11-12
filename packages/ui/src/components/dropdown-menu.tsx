@@ -10,6 +10,7 @@ import * as React from "react";
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 
 import { cn } from "@geckolabs/elements/lib/utils";
+import { menuSelectionItemClassName } from "@geckolabs/elements/lib/menu-item-styles";
 import CheckIcon from "@hugeicons/core-free-icons/CheckIcon";
 import ChevronRightIcon from "@hugeicons/core-free-icons/ChevronRightIcon";
 import SearchIcon from "@hugeicons/core-free-icons/Search01Icon";
@@ -367,7 +368,8 @@ const DropdownMenuCheckboxItem = /* @__PURE__ */ withRef(
         data-search-visible={search && !isHidden ? "" : undefined}
         data-inset={inset}
         className={cn(
-          "group/dropdown-menu-checkbox-item focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-2 rounded-sm py-1.5 pe-8 ps-2 text-sm data-inset:ps-8 [&_svg:not([class*='size-'])]:size-4 relative flex cursor-pointer items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-75 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+          "group/dropdown-menu-checkbox-item",
+          menuSelectionItemClassName,
           className,
         )}
         checked={checked}
@@ -489,7 +491,8 @@ const DropdownMenuRadioItem = /* @__PURE__ */ withRef(
         data-search-visible={search && !isHidden ? "" : undefined}
         data-inset={inset}
         className={cn(
-          "group/radio-item focus:bg-accent focus:text-accent-foreground focus:**:text-accent-foreground gap-2 rounded-sm py-1.5 pe-8 ps-2 text-sm data-inset:ps-8 [&_svg:not([class*='size-'])]:size-4 relative flex cursor-pointer items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-75 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+          "group/radio-item",
+          menuSelectionItemClassName,
           className,
         )}
         style={isHidden ? { ...style, display: "none" } : style}

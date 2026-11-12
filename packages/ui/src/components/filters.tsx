@@ -31,6 +31,7 @@ import {
 } from "@geckolabs/elements/components/popover";
 import { Separator } from "@geckolabs/elements/components/separator";
 import { cn } from "@geckolabs/elements/lib/utils";
+import { menuSelectionItemClassName } from "@geckolabs/elements/lib/menu-item-styles";
 import { renderGeckoIcon, type GeckoIcon } from "@geckolabs/elements/lib/icon";
 import type { DateRange } from "react-day-picker";
 
@@ -820,6 +821,7 @@ export const DateRangeFilter = /* @__PURE__ */ withRef(
 
     const [open, setOpen] = React.useState(false);
     const [showCustom, setShowCustom] = React.useState(false);
+    const customPanelId = React.useId();
 
     const clearRange = React.useCallback(() => {
       setSelectedPreset(null);
@@ -856,67 +858,92 @@ export const DateRangeFilter = /* @__PURE__ */ withRef(
               </Button>
             }
           />
-          <PopoverContent align="start" className="w-auto gap-0 p-0">
+          <PopoverContent
+            align="start"
+            className="w-auto gap-0 overflow-hidden p-0"
+          >
             <div className="flex flex-col md:flex-row">
-              <div className="flex min-w-52 flex-col gap-1 p-1">
+              <div
+                data-slot="date-range-filter-options"
+                className="flex min-w-52 flex-col p-1"
+              >
                 {resolvedPresets.map((preset) => {
                   const isSelected =
                     selectedPresetMatchesValue &&
                     selectedPreset?.id === preset.id;
 
                   return (
-                    <Button
+                    <button
                       key={preset.id}
-                      variant="ghost"
-                      size="sm"
-                      className="w-full justify-start"
+                      type="button"
+                      data-slot="date-range-filter-option"
+                      className={cn(
+                        menuSelectionItemClassName,
+                        "w-full text-start hover:bg-accent hover:text-accent-foreground",
+                      )}
                       aria-pressed={isSelected}
                       onClick={() => {
                         handlePresetSelect(preset.id);
                         if (closeOnSelect) setOpen(false);
                       }}
                     >
-                      <HugeiconsIcon
-                        icon={Check}
-                        className={cn("size-3.5", !isSelected && "invisible")}
-                        aria-hidden="true"
-                      />
                       {preset.label}
-                    </Button>
+                      {isSelected && (
+                        <span className="pointer-events-none absolute end-2 flex items-center justify-center">
+                          <HugeiconsIcon
+                            icon={Check}
+                            className="size-4"
+                            aria-hidden="true"
+                          />
+                        </span>
+                      )}
+                    </button>
                   );
                 })}
-                <Separator />
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="justify-start"
+                {resolvedPresets.length > 0 && <Separator className="my-1" />}
+                <button
+                  type="button"
+                  data-slot="date-range-filter-option"
+                  className={cn(
+                    menuSelectionItemClassName,
+                    "w-full text-start hover:bg-accent hover:text-accent-foreground",
+                  )}
                   aria-expanded={showCustom}
+                  aria-controls={customPanelId}
                   onClick={() => {
                     setSelectedPreset(null);
                     setShowCustom((current) => !current);
                   }}
                 >
-                  <span className="size-3.5" aria-hidden="true" />
                   {customLabel}
-                </Button>
+                </button>
                 {value?.from && (
-                  <Button
-                    variant="ghost-destructive"
-                    size="sm"
-                    className="justify-start"
-                    onClick={clearRange}
-                  >
-                    <HugeiconsIcon
-                      icon={X}
-                      className="size-3.5"
-                      aria-hidden="true"
-                    />
-                    Clear date filter
-                  </Button>
+                  <>
+                    <Separator className="my-1" />
+                    <button
+                      type="button"
+                      data-slot="date-range-filter-clear"
+                      className={cn(
+                        menuSelectionItemClassName,
+                        "w-full text-start text-destructive hover:bg-destructive/10 hover:text-destructive focus:bg-destructive/10 focus:text-destructive focus:**:text-destructive dark:hover:bg-destructive-muted dark:focus:bg-destructive-muted",
+                      )}
+                      onClick={clearRange}
+                    >
+                      <HugeiconsIcon
+                        icon={X}
+                        className="size-4"
+                        aria-hidden="true"
+                      />
+                      Clear date filter
+                    </button>
+                  </>
                 )}
               </div>
               {showCustom && (
-                <div className="border-t border-border md:border-t-0 md:border-s">
+                <div
+                  id={customPanelId}
+                  className="border-t border-border md:border-t-0 md:border-s"
+                >
                   <Calendar
                     mode="range"
                     numberOfMonths={2}

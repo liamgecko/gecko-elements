@@ -233,6 +233,8 @@ Filter, Sort, and DateRangeFilter accept native `div` properties for outer layou
 
 The library owns trigger sizes, icons, menus, search, active chips, operators, selected-value summaries, counters, removal controls, focus states, date presets, calendar placement and responsive layout.
 
+DateRangeFilter retains Popover semantics for its interactive calendar. Its preset and Custom buttons share the Dropdown menu selection-item styles: normal menu typography and row spacing, full-row hover/focus feedback, and a trailing check on the selected preset. The popup has no outer content padding; only the standard menu-list inset surrounds options. Clear is the final destructive action, separated by a divider. Do not use compact ghost-button styles for these options.
+
 Use `className` only to position the complete control in its parent. Application code supplies category data and state without styling the filtering chrome. Request a library change when a legitimate filtering treatment is missing.
 
 ## Agent rules
