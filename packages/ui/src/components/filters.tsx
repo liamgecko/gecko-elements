@@ -19,6 +19,7 @@ import {
   DropdownMenuEmpty,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
+  DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -900,7 +901,7 @@ export const DateRangeFilter = /* @__PURE__ */ withRef(
                   </button>
                 );
               })}
-              {resolvedPresets.length > 0 && <Separator className="my-1" />}
+              {resolvedPresets.length > 0 && <DropdownMenuSeparator />}
               <Popover
                 open={showCustom}
                 onOpenChange={(nextOpen) => {
@@ -958,7 +959,7 @@ export const DateRangeFilter = /* @__PURE__ */ withRef(
               </Popover>
               {value?.from && (
                 <>
-                  <Separator className="my-1" />
+                  <DropdownMenuSeparator />
                   <button
                     type="button"
                     data-slot="date-range-filter-clear"
