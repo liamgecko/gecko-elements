@@ -284,6 +284,11 @@ export const componentPages: readonly GalleryItem[] = [
     path: "/components/input-group",
   },
   {
+    name: "Kbd",
+    description: "Display keyboard keys and shortcut hints.",
+    path: "/components/kbd",
+  },
+  {
     name: "Label",
     description: "Accessible labels for form controls.",
     path: "/components/label",

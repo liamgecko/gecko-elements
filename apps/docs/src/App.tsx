@@ -28,6 +28,7 @@ import { EmptyPage } from "@/pages/empty";
 import { FieldPage } from "@/pages/field";
 import { InputPage } from "@/pages/input";
 import { InputGroupPage } from "@/pages/input-group";
+import { KbdPage } from "@/pages/kbd";
 import { InputOtpPage } from "@/pages/input-otp";
 import { LabelPage } from "@/pages/label";
 import { NativeSelectPage } from "@/pages/native-select";
@@ -170,6 +171,7 @@ export function App() {
         <Route path="/components/field" element={<FieldPage />} />
         <Route path="/components/input" element={<InputPage />} />
         <Route path="/components/input-group" element={<InputGroupPage />} />
+        <Route path="/components/kbd" element={<KbdPage />} />
         <Route
           path="/components/input-otp"
           element={<Navigate to="/components/otp-field" replace />}

@@ -1476,7 +1476,29 @@ export const componentSections: ComponentSections = {
     },
     { id: "related", label: "Related" },
   ],
-  kbd: [{ id: "overview", label: "Overview" }],
+  kbd: [
+    { id: "overview", label: "Overview" },
+    {
+      id: "usage",
+      label: "Usage",
+      children: [{ id: "usage-import", label: "Import" }],
+    },
+    { id: "basic-example", label: "Basic example" },
+    { id: "group", label: "Group" },
+    { id: "input-group", label: "Input group" },
+    { id: "button-tooltip", label: "Button and tooltip" },
+    { id: "do-dont", label: "Do and don’t" },
+    {
+      id: "api",
+      label: "API",
+      children: [
+        { id: "api-kbd", label: "Kbd" },
+        { id: "api-kbd-group", label: "KbdGroup" },
+        { id: "api-reference", label: "API reference" },
+      ],
+    },
+    { id: "related", label: "Related" },
+  ],
   label: [
     { id: "overview", label: "Overview" },
     {
