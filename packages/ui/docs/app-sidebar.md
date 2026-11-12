@@ -49,7 +49,7 @@ Always render `AppSidebarFavourites` before `AppSidebarNav`. When the current fa
 
 Standard product pages keep [App Header](app-header.md) above App Sidebar and place [Page Header](header.md) followed by [Page Container](container.md) in SidebarInset.
 
-Inbox keeps App Header and App Sidebar but replaces Page Header and Page Container with its own conversation workspace. Its header contains conversation views, search and filters; below it, three columns contain [Chat head](chat-head.md) on the left, conversation controls with [Message scroller](message-scroller.md) and [Reply box](reply-box.md) in the centre, and contact details in [Accordion](accordion.md) with [Activity feed](activity-feed.md) on the right. The product owns the view names, conversation actions and contact data.
+Inbox keeps App Header and App Sidebar but replaces Page Header and Page Container with its own conversation workspace. Its header contains conversation views, search and filters; below it, three columns contain a parent-owned list of [Chat head](chat-head.md) items on the left, conversation controls with [Message scroller](message-scroller.md) and [Reply box](reply-box.md) in the centre, and contact details in [Accordion](accordion.md) with [Activity feed](activity-feed.md) on the right. The product owns the view names, conversation actions and contact data.
 
 ## Destinations
 
@@ -165,7 +165,7 @@ Favourites and the collapse footer have no border separators. Preserve the defau
 8. Treat favourite removal as an immediate quick action.
 9. Keep rename inside its labelled dialog field.
 10. Preserve App Sidebar’s Scroll area, scrollbar behaviour, footer and collapse trigger.
-11. Put conversation lists in Chat head and page actions in Page Header.
+11. Compose conversation lists from individual Chat heads; put page actions in Page Header.
 12. Request a shared component change instead of restyling App Sidebar locally.
 
 ## Related
@@ -173,4 +173,4 @@ Favourites and the collapse footer have no border separators. Preserve the defau
 - **Sidebar** — low-level foundation and state provider.
 - **App Header** — application chrome above the rail.
 - **Page Header** — page title and actions inside SidebarInset.
-- **Chat head** — complete Inbox conversation list.
+- **Chat head** — one Inbox conversation item; compose multiple items in a parent-owned list.

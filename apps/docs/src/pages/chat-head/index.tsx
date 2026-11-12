@@ -9,13 +9,15 @@ import {
   HeaderSection,
   MainSection,
 } from "@/components/layout/docs-section";
-import { ChatHead, type ChatHeadItem } from "@geckolabs/elements/components/chat-head";
+import {
+  ChatHead,
+  type ChatHeadItem,
+} from "@geckolabs/elements/components/chat-head";
 import { Button } from "@geckolabs/elements/components/button";
 import { Code } from "@/components/layout/docs-code";
 
 const now = Date.now();
-
-const defaultConversations: ChatHeadItem[] = [
+const conversations: ChatHeadItem[] = [
   {
     id: "matt-lanham",
     name: "Matt Lanham",
@@ -36,105 +38,50 @@ const defaultConversations: ChatHeadItem[] = [
     id: "marcus-thompson",
     name: "Marcus Thompson",
     messageSnippet: "Thank you for your support yesterday.",
-    timestamp: new Date(now - 24 * 60 * 60 * 1000),
-    presence: "offline",
-  },
-];
-
-const closedConversations: ChatHeadItem[] = [
-  {
-    id: "closed-marcus-thompson",
-    name: "Marcus Thompson",
-    messageSnippet: "Thank you for your support yesterday.",
     timestamp: new Date(now - 2 * 24 * 60 * 60 * 1000),
     presence: "offline",
     state: "closed",
   },
 ];
 
-const unreadConversations: ChatHeadItem[] = [
-  {
-    id: "unread-aisha-patel",
-    name: "Aisha Patel",
-    messageSnippet: "I'm really excited about the scholarship opportunities.",
-    timestamp: new Date(now - 5 * 60 * 1000),
-    unread: true,
-  },
-];
+const defaultSnippet = `<ul aria-label="Conversations" className="space-y-px">
+  <ChatHead
+    item={conversation}
+    selected={selectedConversationId === conversation.id}
+    onSelect={(item) => setSelectedConversationId(item.id)}
+    onCloseConversation={closeConversation}
+    onReopenConversation={reopenConversation}
+    onDeleteConversation={requestConversationDeletion}
+  />
+</ul>`;
 
-const activeConversations: ChatHeadItem[] = [
-  {
-    id: "active-matt-lanham",
-    name: "Matt Lanham",
-    messageSnippet: "I'm considering applying to Gecko University.",
-    timestamp: new Date(now - 18 * 60 * 1000),
-    presence: "online",
-  },
-];
+const listSnippet = `<ul aria-label="Conversations" className="space-y-px">
+  {conversations.map((conversation) => (
+    <ChatHead
+      key={conversation.id}
+      item={conversation}
+      selected={selectedConversationId === conversation.id}
+      onSelect={(item) => setSelectedConversationId(item.id)}
+      onCloseConversation={closeConversation}
+      onReopenConversation={reopenConversation}
+      onDeleteConversation={requestConversationDeletion}
+    />
+  ))}
+</ul>`;
 
-const importSnippet = `import { ChatHead } from "@geckolabs/elements/components/chat-head"`;
-
-const defaultSnippet = `<ChatHead
-  items={conversations}
-  selectedId={selectedConversationId}
-  onSelect={(conversation) => {
-    setSelectedConversationId(conversation.id)
-  }}
-/>`;
-
-const closedSnippet = `const conversations = [
-  {
-    id: "marcus-thompson",
-    name: "Marcus Thompson",
-    messageSnippet: "Thank you for your support yesterday.",
-    timestamp,
-    presence: "offline",
-    state: "closed",
-  },
-]
-
-<ChatHead
-  items={conversations}
-  selectedId={selectedConversationId}
-  onSelect={(conversation) => {
-    setSelectedConversationId(conversation.id)
-  }}
-/>`;
-
-const unreadSnippet = `const conversations = [
-  {
-    id: "aisha-patel",
-    name: "Aisha Patel",
-    messageSnippet: "I'm really excited about the scholarship opportunities.",
-    timestamp,
-    unread: true,
-  },
-]
-
-<ChatHead
-  items={conversations}
-  selectedId={selectedConversationId}
-  onSelect={(conversation) => {
-    setSelectedConversationId(conversation.id)
-  }}
-/>`;
-
-const activeSnippet = `<ChatHead
-  items={conversations}
-  selectedId="matt-lanham"
-  onSelect={(conversation) => {
-    setSelectedConversationId(conversation.id)
-  }}
-/>`;
-
-function ConversationActionsExample() {
-  const [items, setItems] = useState([
-    ...defaultConversations,
-    ...closedConversations,
-  ]);
-  const [selectedId, setSelectedId] = useState<string>();
+function ChatHeadDemo({
+  initialItems,
+  initialSelectedId,
+  label,
+}: {
+  initialItems: ChatHeadItem[];
+  initialSelectedId?: string;
+  label: string;
+}) {
+  const [items, setItems] = useState(initialItems);
+  const [selectedId, setSelectedId] = useState(initialSelectedId);
   const [feedback, setFeedback] = useState(
-    "Hover or focus a row to use its conversation actions.",
+    "Select a conversation, or hover or focus it to use its actions.",
   );
   const resetRef = useRef<HTMLButtonElement>(null);
   const changeState = (item: ChatHeadItem, state: "open" | "closed") => {
@@ -148,31 +95,43 @@ function ConversationActionsExample() {
   };
   return (
     <div className="grid gap-4">
-      <ChatHead
-        items={items}
-        selectedId={selectedId}
-        onSelect={(item) => setSelectedId(item.id)}
-        onCloseConversation={(item) => changeState(item, "closed")}
-        onReopenConversation={(item) => changeState(item, "open")}
-        onDeleteConversation={(item) => {
-          setItems((previous) => previous.filter((row) => row.id !== item.id));
-          if (selectedId === item.id) setSelectedId(undefined);
-          setFeedback(`${item.name}: example conversation removed.`);
-          resetRef.current?.focus();
-        }}
-      />
-      <p role="status">{feedback}</p>
+      <ul aria-label={label} className="space-y-px">
+        {items.map((item) => (
+          <ChatHead
+            key={item.id}
+            item={item}
+            selected={selectedId === item.id}
+            onSelect={(selectedItem) => {
+              setSelectedId(selectedItem.id);
+              setFeedback(`Selected ${selectedItem.name}.`);
+            }}
+            onCloseConversation={(current) => changeState(current, "closed")}
+            onReopenConversation={(current) => changeState(current, "open")}
+            onDeleteConversation={(current) => {
+              setItems((previous) =>
+                previous.filter((row) => row.id !== current.id),
+              );
+              if (selectedId === current.id) setSelectedId(undefined);
+              setFeedback(`${current.name}: example conversation removed.`);
+              resetRef.current?.focus();
+            }}
+          />
+        ))}
+      </ul>
+      <p role="status" className="text-sm text-muted-foreground">
+        {feedback}
+      </p>
       <div>
         <Button
           ref={resetRef}
           variant="outline"
           onClick={() => {
-            setItems([...defaultConversations, ...closedConversations]);
-            setSelectedId(undefined);
-            setFeedback("Example conversations reset.");
+            setItems(initialItems);
+            setSelectedId(initialSelectedId);
+            setFeedback("Example reset.");
           }}
         >
-          Reset conversations
+          Reset example
         </Button>
       </div>
     </div>
@@ -180,70 +139,57 @@ function ConversationActionsExample() {
 }
 
 export function ChatHeadPage() {
-  const [selectedConversationId, setSelectedConversationId] =
-    useState("active-matt-lanham");
-
-  const handleSelect = (conversation: ChatHeadItem) => {
-    setSelectedConversationId(conversation.id);
-  };
-
   return (
     <div>
       <HeaderSection
         id="overview"
         title="Chat head"
-        description="Chat head presents the selectable conversation list in Inbox. It shows who each thread is with, its latest message, presence, unread state, and relative time."
+        description="One Chat head is one selectable conversation item. It shows identity, latest-message preview, presence, unread state, relative time and conversation actions."
       />
-
       <MainSection
         id="usage"
         title="Usage"
         description={
           <>
-            Use Chat head for the conversation list in the Inbox left column.
-            Pass conversation data to the component and let the product respond
-            when a conversation is selected.
-            <br />
-            <br />
-            Avoid using it as app navigation, a profile card, or a conversation
-            transcript. Use{" "}
-            <DocsPageLink to="/components/message">Message</DocsPageLink> inside
-            a{" "}
+            Use one ChatHead for one conversation. Compose multiple instances
+            inside a native list. The parent owns the collection, selected ID,
+            requests, ordering, scrolling and pagination. Use{" "}
+            <DocsPageLink to="/components/message">Message</DocsPageLink> and{" "}
             <DocsPageLink to="/components/message-scroller">
               Message scroller
             </DocsPageLink>{" "}
-            for the conversation itself.
+            for the selected conversation's contents.
           </>
         }
       >
         <ChildSection
           id="usage-import"
           title="Import"
-          description="Import ChatHead and pass it the current conversations."
+          description="Import the row component and its item type."
         >
           <ComponentExample>
             <Code
               variant="block"
               language="tsx"
-              code={importSnippet}
+              code={
+                'import { ChatHead, type ChatHeadItem } from "@geckolabs/elements/components/chat-head"'
+              }
               showCopyButton
               copyLabel="Copy import"
             />
           </ComponentExample>
         </ChildSection>
       </MainSection>
-
       <MainSection
         id="default"
         title="Default"
-        description="The canonical conversation list. Chat head owns row composition, avatar fallback, relative time, and the visual treatment of conversation states."
+        description="A single ChatHead renders one list item. Elements owns its row composition and visual states. The callbacks in these examples update local data only."
       >
         <ComponentExample>
           <div className="space-y-6">
-            <ChatHead
-              items={defaultConversations}
-              selectedId={selectedConversationId}
-              onSelect={handleSelect}
+            <ChatHeadDemo
+              initialItems={[conversations[0]]}
+              label="Default conversation"
             />
             <Code
               variant="block"
@@ -255,196 +201,185 @@ export function ChatHeadPage() {
           </div>
         </ComponentExample>
       </MainSection>
-
+      <MainSection
+        id="list-composition"
+        title="List composition"
+        description="Multiple ChatHeads make a conversation list. The native ul belongs to the parent, with a stable key and controlled selected flag for each row. No list component or collection state is hidden inside ChatHead."
+      >
+        <ComponentExample>
+          <div className="space-y-6">
+            <ChatHeadDemo
+              initialItems={conversations}
+              initialSelectedId={conversations[0].id}
+              label="Example conversations"
+            />
+            <Code
+              variant="block"
+              language="tsx"
+              code={listSnippet}
+              showCopyButton
+              copyLabel="Copy list composition"
+            />
+          </div>
+        </ComponentExample>
+      </MainSection>
       <MainSection
         id="closed"
         title="Closed"
         description={
           <>
-            Set an item’s <Code>state</Code> to <Code>"closed"</Code> for a
-            finished conversation. Re-open and delete appear on hover or
-            keyboard focus; callbacks connect their application behaviour.
+            Set <Code>item.state="closed"</Code> for a finished conversation.
+            Re-open and Delete appear on hover or focus. The application owns
+            requests and any deletion confirmation.
           </>
         }
       >
         <ComponentExample>
-          <div className="space-y-6">
-            <ChatHead
-              items={closedConversations}
-              selectedId={selectedConversationId}
-              onSelect={handleSelect}
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={closedSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
+          <ChatHeadDemo
+            initialItems={[conversations[2]]}
+            label="Closed conversation"
+          />
         </ComponentExample>
       </MainSection>
-
       <MainSection
         id="unread-notification"
         title="Unread notification"
         description={
           <>
-            Set <Code>unread</Code> while a conversation contains activity the
-            Inbox user has not read. Chat head places the approved notification
-            marker on the avatar.
+            Set <Code>item.unread</Code> while this conversation contains unread
+            activity. The parent owns that state; selection does not clear it
+            automatically.
           </>
         }
       >
         <ComponentExample>
-          <div className="space-y-6">
-            <ChatHead
-              items={unreadConversations}
-              selectedId={selectedConversationId}
-              onSelect={handleSelect}
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={unreadSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
+          <ChatHeadDemo
+            initialItems={[conversations[1]]}
+            label="Unread conversation"
+          />
         </ComponentExample>
       </MainSection>
-
       <MainSection
         id="active-state"
         title="Active state"
         description={
           <>
-            Pass the selected conversation’s ID to <Code>selectedId</Code>. Chat
-            head applies the active treatment and exposes the current selection
-            to assistive technology.
+            Pass <Code>selected</Code> to the current row. Elements applies its
+            active treatment and <Code>aria-current</Code>. The selected
+            conversation ID belongs to the parent.
           </>
         }
       >
         <ComponentExample>
-          <div className="space-y-6">
-            <ChatHead
-              items={activeConversations}
-              selectedId={selectedConversationId}
-              onSelect={handleSelect}
-            />
-            <Code
-              variant="block"
-              language="tsx"
-              code={activeSnippet}
-              showCopyButton
-              copyLabel="Copy example"
-            />
-          </div>
+          <ChatHeadDemo
+            initialItems={[conversations[0]]}
+            initialSelectedId={conversations[0].id}
+            label="Selected conversation"
+          />
         </ComponentExample>
       </MainSection>
-
       <MainSection
         id="message-preview"
         title="Message preview"
         description={
           <>
-            Contact messages display without a prefix. Set{" "}
-            <Code>lastMessageSender="agent"</Code> when the latest message was
-            sent by the Inbox user; Chat head adds “You:” automatically.
+            Pass plain text in <Code>item.messageSnippet</Code>. Contact
+            messages have no prefix; <Code>item.lastMessageSender="agent"</Code>{" "}
+            adds “You:” for the Inbox user's message. Named-sender and typing
+            presentation are separate library extensions.
           </>
         }
-      ></MainSection>
-
+      />
       <MainSection
         id="controls"
         title="Controls"
-        description="Hover or focus a conversation to reveal its state-based actions. Callbacks connect close, reopen and delete to application behaviour; they do not control visibility. The application updates items and handles persistence, permissions and confirmation. This example changes local data only."
+        description="Open conversations show Close; closed conversations show Re-open and Delete. Controls and selection are sibling buttons. All callbacks receive this row's item; the product owns permissions, pending/error feedback, confirmation and persistence. Omitting a callback does not disable its action."
       >
         <ComponentExample>
-          <ConversationActionsExample />
+          <ChatHeadDemo
+            initialItems={[conversations[0], conversations[2]]}
+            label="Conversation action examples"
+          />
         </ComponentExample>
       </MainSection>
-
       <MainSection
         id="keyboard"
         title="Keyboard"
-        description="Tab moves through each conversation and its visible controls in order. Use Up and Down to move directly between conversations, Home and End to jump to the first or last conversation, and Enter or Space to select. After a row’s final control, Tab continues to the next conversation."
-      ></MainSection>
-
+        description="Tab moves through each row's selection button and controls. Enter and Space activate the focused button. Native Tab order continues into the next row. Collection-wide arrow navigation, Home/End shortcuts and focus recovery after removal belong to the parent list; ChatHead does not intercept those keys."
+      />
       <MainSection
         id="do-dont"
         title="Do and don’t"
-        description="Provide conversation data and state; let Chat head render each row consistently."
+        description="Let ChatHead own one row's presentation and keep collection behaviour in the parent."
       >
         <DocsDoDont
           doItems={[
             <>
-              Give every item a stable application or database <Code>id</Code>.
+              Pass one <Code>item</Code> to each ChatHead.
             </>,
             <>
-              Pass a real <Code>Date</Code> to <Code>timestamp</Code>.
+              Map conversations inside a native <Code>ul</Code> or{" "}
+              <Code>ol</Code>, using stable keys.
             </>,
             <>
-              Use <Code>lastMessageSender="agent"</Code> only for messages sent
-              by the Inbox user.
+              Pass a valid <Code>Date</Code> and omit unknown presence.
             </>,
             <>
-              Omit <Code>presence</Code> when the person’s status is unknown.
+              Connect selection and conversation action callbacks to application
+              behaviour.
             </>,
           ]}
           dontItems={[
-            <>Don’t assemble conversation rows manually.</>,
             <>
-              Don’t add avatar fallback text; Avatar derives it from the name.
+              Don’t pass a collection or selected conversation ID to a single
+              ChatHead.
             </>,
+            <>Don’t add another list inside each row.</>,
+            <>Don’t put requests, filters or pagination into ChatHead.</>,
             <>
-              Don’t use <Code>unread</Code> for activity already read by the
-              Inbox user.
+              Don’t override row styling or assemble its internal controls
+              yourself.
             </>,
-            <>Don’t use Chat head for messages inside a conversation.</>,
           ]}
         />
       </MainSection>
-
       <MainSection
         id="api"
         title="API"
-        description="Behaviour props on Chat head."
+        description="ChatHead renders one li and forwards native list-item properties and its ref. Children and the native DOM onSelect event are excluded."
       >
         <DocsApiTable
           rows={[
             {
-              name: "items",
-              type: "readonly ChatHeadItem[]",
-              description: "Conversations rendered in the supplied order.",
+              name: "item",
+              type: "ChatHeadItem",
+              description: "One conversation to render; required.",
             },
             {
-              name: "selectedId",
-              type: "string",
-              description: "ID of the conversation currently displayed.",
+              name: "selected",
+              type: "boolean",
+              defaultValue: "false",
+              description: "Whether this row is the current conversation.",
             },
             {
               name: "onSelect",
               type: "(item: ChatHeadItem) => void",
-              description:
-                "Notifies the product when a conversation is selected.",
+              description: "Reports selection of this conversation; required.",
             },
             {
               name: "onCloseConversation",
               type: "(item: ChatHeadItem) => void",
-              description: "Handles the close action for open conversations.",
+              description: "Handles Close for this open conversation.",
             },
             {
               name: "onReopenConversation",
               type: "(item: ChatHeadItem) => void",
-              description:
-                "Handles the reopen action for closed conversations.",
+              description: "Handles Re-open for this closed conversation.",
             },
             {
               name: "onDeleteConversation",
               type: "(item: ChatHeadItem) => void",
-              description:
-                "Handles the delete action for closed conversations.",
+              description: "Handles Delete for this closed conversation.",
             },
             {
               name: "item.id",
@@ -459,49 +394,53 @@ export function ChatHeadPage() {
             {
               name: "item.messageSnippet",
               type: "string",
-              description: "Latest message preview.",
+              description: "Latest message's plain-text preview.",
             },
             {
               name: "item.timestamp",
               type: "Date",
-              description: "Timestamp rendered as live relative time.",
+              description: "Valid timestamp rendered as live relative time.",
             },
             {
               name: "item.avatarSrc",
               type: "string",
-              description: "Optional avatar image source.",
+              description: "Optional avatar image.",
             },
             {
               name: "item.presence",
               type: '"online" | "unavailable" | "offline"',
-              description: "Optional approved presence state.",
+              description: "Optional presence state; omit when unknown.",
             },
             {
               name: "item.lastMessageSender",
               type: '"contact" | "agent"',
               defaultValue: '"contact"',
-              description: "Controls whether Chat head adds the “You:” prefix.",
+              description: "Adds You: for the Inbox user's own message.",
             },
             {
               name: "item.state",
               type: '"open" | "closed"',
               defaultValue: '"open"',
-              description: "Controls the conversation treatment and controls.",
+              description: "Controls the conversation actions.",
             },
             {
               name: "item.unread",
               type: "boolean",
               defaultValue: "false",
-              description: "Shows the unread marker on the avatar.",
+              description: "Shows the unread marker.",
             },
           ]}
         />
+        <p className="mt-4 text-sm text-muted-foreground">
+          The former <Code>items</Code> and <Code>selectedId</Code> props are
+          removed. Map items in the parent and pass <Code>item</Code> and{" "}
+          <Code>selected</Code> to each ChatHead.
+        </p>
       </MainSection>
-
       <MainSection
         id="related"
         title="Related"
-        description="Use these components for the selected conversation and identity outside the list."
+        description="Compose the Inbox from components with separate responsibilities."
       >
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
@@ -512,11 +451,11 @@ export function ChatHeadPage() {
             <DocsPageLink to="/components/message-scroller">
               Message scroller
             </DocsPageLink>{" "}
-            — the complete conversation transcript.
+            — the conversation transcript.
           </li>
           <li>
-            <DocsPageLink to="/components/avatar">Avatar</DocsPageLink> — a
-            person’s identity outside a conversation row.
+            <DocsPageLink to="/components/avatar">Avatar</DocsPageLink> —
+            identity outside a conversation row.
           </li>
         </ul>
       </MainSection>

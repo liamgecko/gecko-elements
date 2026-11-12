@@ -78,7 +78,7 @@ export function GuidesRecipesPage() {
             <li>
               Left —{" "}
               <DocsPageLink to="/components/chat-head">Chat head</DocsPageLink>{" "}
-              conversation list (never App Sidebar).
+              items composed into a parent-owned conversation list (never App Sidebar).
             </li>
             <li>
               Centre — conversation controls,{" "}

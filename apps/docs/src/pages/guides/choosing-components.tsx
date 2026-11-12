@@ -369,7 +369,7 @@ export function GuidesChoosingComponentsPage() {
         <ul className="space-y-2 text-sm text-muted-foreground">
           <li>
             <DocsPageLink to="/components/chat-head">Chat head</DocsPageLink> —
-            conversation list only (Inbox). Never app navigation.
+            one conversation item (Inbox). Compose multiple items in a native list; never use it as app navigation.
           </li>
           <li>
             <DocsPageLink to="/components/message-scroller">

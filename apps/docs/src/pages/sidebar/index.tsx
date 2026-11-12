@@ -488,8 +488,8 @@ export function SidebarPage() {
             navigation component.
             <br />
             <br />
-            Avoid using Sidebar as a conversation list — that is{" "}
-            <DocsPageLink to="/components/chat-head">Chat head</DocsPageLink>.
+            Avoid using Sidebar as a conversation list — compose individual{" "}
+            <DocsPageLink to="/components/chat-head">Chat heads</DocsPageLink> in a native list.
             Avoid using it for a page header — use{" "}
             <DocsPageLink to="/structure/header">Page Header</DocsPageLink>{" "}
             instead. Each reference example uses its own{" "}

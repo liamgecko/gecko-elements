@@ -7,28 +7,50 @@ Human documentation: `apps/docs/src/pages/chat-head/index.tsx`
 
 ## Purpose
 
-Chat head is Gecko’s selectable conversation list for the Inbox left column. Despite its name, it is the complete list rather than an individual floating chat launcher. It renders each supplied conversation with identity, latest-message preview, relative time, presence, unread state, selection treatment, and the approved conversation controls.
+One Chat head is one selectable conversation item in the Inbox. It displays that conversation's identity, latest-message preview, relative time, presence, unread state, selection treatment and conversation controls.
 
-Use Chat head to choose the conversation displayed in the Inbox. Use Message and Message scroller for the selected conversation’s contents. Do not use Chat head as app navigation, a profile card, a message, or a floating chat launcher.
+Compose multiple Chat heads inside a native `ul` or `ol` to form a conversation list. The parent owns the collection, order, selected conversation ID, fetching, filtering, sorting, scrolling and pagination. Chat head does not render or control a list.
+
+Use Message and Message scroller for the selected conversation's contents. Do not use Chat head as app navigation, a profile card, a message or a floating chat launcher.
 
 ## Canonical application usage
 
-Pass the current conversations, the selected conversation ID, and the product’s selection handler:
-
 ```tsx
-<ChatHead
-  items={conversations}
-  selectedId={selectedConversationId}
-  onSelect={(conversation) => {
-    setSelectedConversationId(conversation.id);
-  }}
-  onCloseConversation={closeConversation}
-  onReopenConversation={reopenConversation}
-  onDeleteConversation={requestConversationDeletion}
-/>
+<ul aria-label="Conversations" className="space-y-px">
+  <ChatHead
+    item={conversation}
+    selected={selectedConversationId === conversation.id}
+    onSelect={(item) => setSelectedConversationId(item.id)}
+    onCloseConversation={closeConversation}
+    onReopenConversation={reopenConversation}
+    onDeleteConversation={requestConversationDeletion}
+  />
+</ul>
 ```
 
-Chat head renders items in the supplied order. The product owns fetching, filtering, sorting, search, and the selected conversation’s content.
+Chat head renders one `li`. Its selection target and conversation controls are sibling native buttons; interactive controls are never nested. Its forwarded ref points to that `li`.
+
+## List composition
+
+```tsx
+<ul aria-label="Conversations" className="space-y-px">
+  {conversations.map((conversation) => (
+    <ChatHead
+      key={conversation.id}
+      item={conversation}
+      selected={selectedConversationId === conversation.id}
+      onSelect={(item) => setSelectedConversationId(item.id)}
+      onCloseConversation={closeConversation}
+      onReopenConversation={reopenConversation}
+      onDeleteConversation={requestConversationDeletion}
+    />
+  ))}
+</ul>
+```
+
+Use a stable application or database ID as the React key. Render the parent's items in their supplied order. Keep scrolling, infinite-loading sentinels and empty/error presentation outside the individual Chat head. Do not create a list inside every row or add another list component just to render these items.
+
+For application adapters, an existing conversation-item component may retain its participant, typing and action hooks, then render one Chat head. Keep domain subscriptions, routing and requests out of Elements.
 
 ## Item data
 
@@ -46,143 +68,88 @@ type ChatHeadItem = {
 };
 ```
 
-Rules:
+Supply a valid `Date` for `timestamp` and a plain-text preview for `messageSnippet`. Omit `avatarSrc` when no image is available; Avatar derives the fallback from `name`. Omit `presence` when the person's presence is unknown.
 
-- Use a stable application or database identifier for `id`.
-- Supply items in the order they should appear. Chat head does not sort them.
-- Pass a valid `Date` for `timestamp`.
-- Pass only the latest message’s plain-text preview through `messageSnippet`.
-- Omit `avatarSrc` when no image is available. Avatar derives the fallback from `name`.
-- Omit `presence` when the person’s presence is unknown.
+## Selection and keyboard behaviour
 
-## Selection
+The parent supplies `selected` for this row. `onSelect` receives this row's complete item; the parent updates its selected ID or navigates to the conversation. Chat head does not update selection internally.
 
-`onSelect` receives the complete selected item. Use its `id` to update product state or navigate to the conversation. `selectedId` controls the active row.
+- `Tab` moves through the selection button and its conversation controls in native order.
+- `Enter` and `Space` activate the focused native button.
+- `aria-current` identifies the selected conversation.
+- Hover and keyboard focus expose the same actions.
+- After the final control, native Tab order continues into the next item or leaves the list.
 
-Chat head renders the selection target as a native Button. The close, re-open, and delete controls are sibling Buttons rather than descendants, so the structure never nests interactive controls.
-
-Only one item should normally match `selectedId`. Omit `selectedId` when no conversation is selected.
-
-### Keyboard navigation
-
-Chat head uses native Tab order with additional arrow-key navigation:
-
-- `Tab` moves through each conversation and its visible controls in supplied order.
-- `ArrowUp` and `ArrowDown` move focus between conversations without selecting them.
-- `Home` and `End` move focus to the first or last conversation.
-- `Enter` and `Space` select the focused conversation through the native Button.
-- After a row’s final control, `Tab` moves to the next conversation. After the final row’s controls, it leaves the list.
-
-Arrow movement is manual activation: moving focus does not call `onSelect`.
+Collection-wide arrow-key navigation, Home/End shortcuts and focus recovery after removal belong to the parent list. An individual Chat head does not inspect siblings, register other rows or intercept those keys. Native `li` keyboard handlers remain available for parent composition.
 
 ## Message preview
 
-`lastMessageSender` is an approved closed set:
+| `lastMessageSender` | Meaning                                | Display                  |
+| ------------------- | -------------------------------------- | ------------------------ |
+| `"contact"`         | The contact sent the latest message    | Preview without a prefix |
+| `"agent"`           | The Inbox user sent the latest message | Adds `You:`              |
 
-| Value       | Meaning                                | Display                  |
-| ----------- | -------------------------------------- | ------------------------ |
-| `"contact"` | The contact sent the latest message    | Message without a prefix |
-| `"agent"`   | The Inbox user sent the latest message | Chat head adds `You:`    |
+`"contact"` is the default. Supply the preview without a `You:` prefix. Named senders, typing presentation and translated prefix overrides are not introduced by the single-row boundary change; they need an approved library extension before product integration that requires them.
 
-`"contact"` is the default. Set `"agent"` only when the latest message was sent by the Inbox user. Callers supply the message without a `You:` prefix because Chat head owns that wording.
+## Presence and unread state
 
-## Presence
+Approved presence values are `"online"`, `"unavailable"` and `"offline"`. An omitted value means unknown and renders no indicator; do not convert unknown to offline.
 
-The approved presence values are `"online"`, `"unavailable"`, and `"offline"`. Chat head passes the value to Avatar and owns its approved indicator.
-
-Presence is optional. An omitted value means unknown and renders no indicator; it must not be converted to `"offline"`.
-
-This is a closed set. Agents must obtain explicit user consent before adding another presence value or indicator.
-
-## Unread
-
-Set `unread: true` while the conversation contains activity the Inbox user has not read. Chat head places the approved notification marker on the Avatar.
-
-The product owns the unread state. Chat head does not infer unread status from timestamps or selection.
+Set `unread: true` while this conversation contains unread activity. The product owns unread and presence state; Chat head does not infer either from timestamps or selection. Avatar owns the approved indicators and neutral fallback styling.
 
 ## Conversation state and controls
 
-`state` is an approved closed set:
+| `item.state` | Meaning               | Controls shown on hover or focus |
+| ------------ | --------------------- | -------------------------------- |
+| `"open"`     | Active conversation   | Close                            |
+| `"closed"`   | Finished conversation | Re-open and Delete               |
 
-| Value      | Meaning                 | Controls shown on hover or focus |
-| ---------- | ----------------------- | -------------------------------- |
-| `"open"`   | An active conversation  | Close                            |
-| `"closed"` | A finished conversation | Re-open and delete               |
+`"open"` is the default. Elements owns the controls' appearance, placement, tooltips, accessible names and state mapping. The timestamp yields to the controls. Delete uses Button's `outline-destructive` treatment.
 
-`"open"` is the default.
+Connect the three action callbacks to application behaviour. Each receives this row's item. Controls remain visible according to state even without a callback; production applications must connect them. Omitting a callback does not disable or hide an action.
 
-The library owns the controls’ appearance, placement, tooltips, accessible names and mapping to conversation state. Open conversations show Close on hover or keyboard focus; closed conversations show Re-open and Delete. The timestamp yields to these controls. Visibility follows the conversation state and does not depend on callback registration.
+Callbacks report intent. The application owns confirmation, persistence, permissions, pending/error feedback and changes to the controlled item or list. Per-action disabled/pending configuration and translated labels remain integration requirements where the product needs them; do not claim that callback omission supplies those capabilities. Do not bypass application restrictions by directly wiring an unavailable action.
 
-Connect `onCloseConversation`, `onReopenConversation` and `onDeleteConversation` to implement the actions. Each callback receives the complete item. Without a callback, the corresponding control retains its presentation but performs no application action. Component previews may demonstrate that presentation; production applications must connect the actions.
-
-Callbacks report intent; Chat Head does not change `items`, select the row, close a conversation or delete data itself. The application owns state updates, persistence, permissions, pending/error feedback and any deletion confirmation. Update the controlled items only according to the product's success or optimistic-update rules. When removal invalidates the current selection, the application chooses a remaining conversation or clears the selection and manages focus.
-
-Delete uses Button’s `outline-destructive` treatment. It matches the neutral outline controls at rest, then communicates destructive intent through its interaction states.
-
-Use these action callbacks instead of recreating row controls. Keep confirmation flows and permissions in the application. Obtain explicit user consent before adding other action types or changing the approved control treatment.
+When removing a conversation invalidates the current selection, the parent selects another conversation or clears selection and restores focus to an appropriate remaining control.
 
 ## Relative time
 
-Chat head converts each `timestamp` into the approved abbreviated relative form:
+Each Chat head converts `timestamp` into the approved abbreviated form: `now`, `12m`, `3h`, `2d`, `4w` or `1y`. Relative time refreshes every minute. The semantic `time` element retains the original timestamp and a full-date title.
 
-- Less than one minute: `now`
-- Minutes: `12m`
-- Hours: `3h`
-- Days: `2d`
-- Weeks: `4w`
-- Years: `1y`
+## Loading, empty and error states
 
-The list refreshes relative values every minute. Each value is rendered as a semantic `time` element containing the original timestamp.
+The parent conversation surface owns collection loading, empty and error states. Retain known rows during refresh and use bounded Skeleton for unknown content. Use Empty for confirmed empty results and Alert for load failures.
 
-## Loading, empty, and error states
-
-The parent Inbox surface owns these states:
-
-- Follow [Application patterns](application-patterns.md) while conversations load: retain known rows and use a bounded Skeleton for unknown content.
-- Use Empty when no conversations match the current view.
-- Use Alert when conversations cannot be loaded.
-
-Do not add loading, empty, error, filtering, sorting, or pagination properties to Chat head without explicit consent.
-
-## Accessibility
-
-- Chat head renders a semantic list.
-- Each conversation selection target is a native Button.
-- `aria-current` identifies the selected conversation.
-- Native Tab order moves through every conversation and its controls; arrow keys provide a shortcut between conversation Buttons.
-- Selection and conversation controls are sibling Buttons; interactive controls are never nested.
-- Every icon-only control has a visible Tooltip and an accessible name.
-- Chat head gives each selection Button one clear identity and announces its presence and unread state. The nested Avatar is decorative in this context to avoid repeating the person’s name.
-- Relative timestamps use semantic `time` elements.
-- Keyboard focus exposes the same controls as pointer hover.
+Do not add loading, empty, error, filtering, sorting or pagination properties to Chat head without explicit consent. This row-boundary change does not add participant-identity loading presentation.
 
 ## Interface
 
-### ChatHead
+| Property               | Type                           | Default  | Meaning                                 |
+| ---------------------- | ------------------------------ | -------- | --------------------------------------- |
+| `item`                 | `ChatHeadItem`                 | required | One conversation to render              |
+| `selected`             | `boolean`                      | `false`  | Whether this conversation is current    |
+| `onSelect`             | `(item: ChatHeadItem) => void` | required | Reports selection of this conversation  |
+| `onCloseConversation`  | `(item: ChatHeadItem) => void` | none     | Close intent for an open conversation   |
+| `onReopenConversation` | `(item: ChatHeadItem) => void` | none     | Reopen intent for a closed conversation |
+| `onDeleteConversation` | `(item: ChatHeadItem) => void` | none     | Delete intent for a closed conversation |
 
-| Property               | Type                           | Default  | Meaning                                            |
-| ---------------------- | ------------------------------ | -------- | -------------------------------------------------- |
-| `items`                | `readonly ChatHeadItem[]`      | required | Conversations rendered in supplied order           |
-| `selectedId`           | `string`                       | none     | Currently selected conversation ID                 |
-| `onSelect`             | `(item: ChatHeadItem) => void` | required | Reports conversation selection to the product      |
-| `onCloseConversation`  | `(item: ChatHeadItem) => void` | none     | Handles the close action for open conversations    |
-| `onReopenConversation` | `(item: ChatHeadItem) => void` | none     | Handles the reopen action for closed conversations |
-| `onDeleteConversation` | `(item: ChatHeadItem) => void` | none     | Handles the delete action for closed conversations |
+Chat head accepts native `li` properties except `children` and the native DOM `onSelect` event. Its domain `onSelect` exclusively reports conversation selection. Internal content is library-owned.
 
-Chat head also accepts native `ul` properties except `children` and the native DOM `onSelect` event. Its `onSelect` property exclusively reports conversation selection. Callers provide data through `items`; they do not compose rows manually.
+### Change from the former list interface
 
-## Styling contract
+`items` and `selectedId` are removed. Map the collection in the parent and pass `item` and `selected` to each Chat head. Root native attributes and refs now target one `li`, not a `ul`. List labels/refs/keyboard collection handlers belong on the parent list. Existing item fields and action callback payloads are unchanged.
 
-The library owns row composition, spacing, typography, truncation, active and hover surfaces, Avatar size, presence and unread indicators, relative-time presentation, controls, tooltips, and focus treatment.
+## Styling and accessibility
 
-Use `className` only to position or size the complete list within its parent layout. Do not override row surfaces, internal spacing, typography, Avatar treatment, timestamps, controls, or interaction states. Request a library change when a legitimate treatment is missing.
+Elements owns row spacing, typography, truncation, active/hover surfaces, Avatar size, timestamps, controls and focus treatment. Use `className` only for surrounding layout. Keep list spacing on the parent; the documented composition uses `space-y-px`.
 
-Agents must obtain explicit user consent before adding or changing fields, states, presence values, controls, behaviours, visual variants, or styling.
+The selection button announces the visible identity, preview, time, unread state and presence. Its Avatar is decorative to avoid repeating identity. Icon-only actions have accessible names and tooltips. Row/action transitions respect reduced motion.
+
+Agents must obtain explicit user consent before changing item fields, states, presence values, controls, behaviours, visual variants or styling.
 
 ## Related components
 
 - **Message / Message scroller** — content of the selected conversation.
-- **Avatar** — identity outside the conversation list.
-- **Skeleton** — parent-owned loading state; match known content geometry.
-- **Empty** — parent-owned empty state.
-- **Alert** — parent-owned error state.
+- **Avatar** — identity outside the conversation row.
+- **Marker** — conversation status presentation; typing composition requires its agreed extension.
+- **Skeleton / Empty / Alert** — parent-owned loading, empty and error states.

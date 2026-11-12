@@ -170,7 +170,7 @@ export const componentPages: readonly GalleryItem[] = [
   },
   {
     name: "Chat head",
-    description: "Floating chat head entry points for messaging.",
+    description: "One selectable Inbox conversation item with preview and actions.",
     path: "/components/chat-head",
   },
   {

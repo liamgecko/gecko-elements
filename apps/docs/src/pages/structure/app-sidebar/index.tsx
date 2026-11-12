@@ -73,9 +73,9 @@ export function StructureAppSidebarPage() {
             see the Sidebar page for that chrome.
             <br />
             <br />
-            Avoid using AppSidebar as a conversation list — that is{" "}
-            <DocsPageLink to="/components/chat-head">Chat head</DocsPageLink> in
-            Inbox. Avoid putting page actions or titles here — use{" "}
+            Avoid using AppSidebar as a conversation list — compose individual{" "}
+            <DocsPageLink to="/components/chat-head">Chat heads</DocsPageLink> in
+            a parent-owned Inbox list. Avoid putting page actions or titles here — use{" "}
             <DocsPageLink to="/structure/header">Page Header</DocsPageLink> in
             the inset. Pass destinations with <Code>href</Code> and wire{" "}
             <Code>onSelect</Code> to your router.
@@ -221,8 +221,8 @@ export function StructureAppSidebarPage() {
           ]}
           dontItems={[
             <>
-              Don’t use AppSidebar for conversation lists — use{" "}
-              <DocsPageLink to="/components/chat-head">Chat head</DocsPageLink>.
+              Don’t use AppSidebar for conversation lists — compose{" "}
+              <DocsPageLink to="/components/chat-head">Chat heads</DocsPageLink> in a parent-owned list.
             </>,
             <>
               Don’t put page titles or actions in the rail — use{" "}
@@ -413,7 +413,7 @@ export function StructureAppSidebarPage() {
           </li>
           <li>
             <DocsPageLink to="/components/chat-head">Chat head</DocsPageLink> —
-            conversation list in Inbox, not app nav.
+            one conversation item in Inbox, not app nav.
           </li>
         </ul>
       </MainSection>

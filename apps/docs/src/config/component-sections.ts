@@ -1640,6 +1640,7 @@ export const componentSections: ComponentSections = {
       children: [{ id: "usage-import", label: "Import" }],
     },
     { id: "default", label: "Default" },
+    { id: "list-composition", label: "List composition" },
     { id: "closed", label: "Closed" },
     { id: "unread-notification", label: "Unread notification" },
     { id: "active-state", label: "Active state" },

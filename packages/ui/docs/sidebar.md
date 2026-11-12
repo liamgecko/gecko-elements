@@ -164,7 +164,7 @@ Use `className` only for approved shell placement. Do not restyle Sidebar in a p
 - **App Header** — application chrome above App Sidebar.
 - **SidebarInset** — main content region beside the rail.
 - **Sheet** — temporary edge panel.
-- **Chat head** — conversation list item.
+- **Chat head** — one conversation list item; the parent owns the list.
 
 SidebarTrigger accepts optional `collapseLabel` and `expandLabel` strings to translate
 its accessible name, hidden text and tooltip. Defaults are “Collapse sidebar” and

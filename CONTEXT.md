@@ -31,8 +31,11 @@ The desktop workspace where administrators find, assign and respond to conversat
 **Live chat widget**:
 The customer-facing chat interface embedded on an organisation's website.
 
+**Chat head**:
+One conversation item in the Inbox, showing its identity, latest activity and conversation controls.
+
 **Chat head list**:
-The Inbox conversation list from which an administrator selects the active conversation.
+The collection of chat heads from which an administrator selects the active conversation.
 
 **Channel**:
 The communication route for a conversation, such as email or live chat. Channel switching is an administrator Inbox workflow; channel availability and delivery rules belong to the product.
