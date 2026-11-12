@@ -4,6 +4,7 @@ import { withRef } from "@geckolabs/elements/lib/with-ref";
 import * as React from "react";
 import ArrowDownWideNarrow from "@hugeicons/core-free-icons/ArrowDownWideNarrowIcon";
 import Check from "@hugeicons/core-free-icons/CheckIcon";
+import ChevronRightIcon from "@hugeicons/core-free-icons/ChevronRightIcon";
 import Funnel from "@hugeicons/core-free-icons/FunnelIcon";
 import ListFilterPlus from "@hugeicons/core-free-icons/ListFilterPlusIcon";
 import X from "@hugeicons/core-free-icons/XIcon";
@@ -27,6 +28,9 @@ import { Calendar } from "@geckolabs/elements/components/calendar";
 import {
   Popover,
   PopoverContent,
+  PopoverClose,
+  PopoverFooter,
+  PopoverTitle,
   PopoverTrigger,
 } from "@geckolabs/elements/components/popover";
 import { Separator } from "@geckolabs/elements/components/separator";
@@ -681,6 +685,8 @@ export type DateRangeFilterProps = Omit<
    * @default "Custom"
    */
   customLabel?: string;
+  /** Label for committing the draft custom range. */
+  applyLabel?: string;
   /**
    * Preset list shown above the separator.
    * @default: Past 24 hours / Past 7 days / Past 4 weeks / Past 3 months
@@ -692,11 +698,11 @@ export type DateRangeFilterProps = Omit<
    */
   value?: DateRange | undefined;
   /**
-   * Called when a preset, complete custom range, or clear action is selected.
+   * Called when a preset, Apply date range, or clear action is selected.
    */
   onChange?: (range: DateRange | undefined) => void;
   /**
-   * Closes the popover after a preset or complete custom range is selected.
+   * Closes the popover after a preset is selected. Apply always closes it.
    */
   closeOnSelect?: boolean;
 };
@@ -706,6 +712,7 @@ export const DateRangeFilter = /* @__PURE__ */ withRef(
     className,
     triggerLabel = "Filter by date",
     customLabel = "Custom",
+    applyLabel = "Apply date range",
     presets,
     value,
     onChange,
@@ -804,24 +811,17 @@ export const DateRangeFilter = /* @__PURE__ */ withRef(
       [onChange, resolvedPresets],
     );
 
-    const handleCustomChange = React.useCallback(
-      (next: DateRange | undefined) => {
-        if (!next?.from || !next?.to) {
-          setCustomRange(next);
-          // Don’t call onChange until we have a complete range.
-          return;
-        }
-
-        setSelectedPreset(null);
-        setCustomRange(next);
-        onChange?.(next);
-      },
-      [onChange],
-    );
-
     const [open, setOpen] = React.useState(false);
     const [showCustom, setShowCustom] = React.useState(false);
-    const customPanelId = React.useId();
+    const canApplyCustomRange = Boolean(customRange?.from && customRange?.to);
+
+    const applyCustomRange = () => {
+      if (!canApplyCustomRange) return;
+      setSelectedPreset(null);
+      onChange?.(customRange);
+      setOpen(false);
+      setShowCustom(false);
+    };
 
     const clearRange = React.useCallback(() => {
       setSelectedPreset(null);
@@ -843,6 +843,7 @@ export const DateRangeFilter = /* @__PURE__ */ withRef(
               setCustomRange(value);
               setCalendarMonth(value?.from ?? new Date());
             }
+            setShowCustom(false);
             setOpen(nextOpen);
           }}
         >
@@ -862,104 +863,119 @@ export const DateRangeFilter = /* @__PURE__ */ withRef(
             align="start"
             className="w-auto gap-0 overflow-hidden p-0"
           >
-            <div className="flex flex-col md:flex-row">
-              <div
-                data-slot="date-range-filter-options"
-                className="flex min-w-52 flex-col p-1"
-              >
-                {resolvedPresets.map((preset) => {
-                  const isSelected =
-                    selectedPresetMatchesValue &&
-                    selectedPreset?.id === preset.id;
+            <div
+              data-slot="date-range-filter-options"
+              className="flex min-w-52 flex-col p-1"
+            >
+              {resolvedPresets.map((preset) => {
+                const isSelected =
+                  selectedPresetMatchesValue &&
+                  selectedPreset?.id === preset.id;
 
-                  return (
+                return (
+                  <button
+                    key={preset.id}
+                    type="button"
+                    data-slot="date-range-filter-option"
+                    className={cn(
+                      menuSelectionItemClassName,
+                      "w-full text-start hover:bg-accent hover:text-accent-foreground",
+                    )}
+                    aria-pressed={isSelected}
+                    onClick={() => {
+                      handlePresetSelect(preset.id);
+                      if (closeOnSelect) setOpen(false);
+                    }}
+                  >
+                    {preset.label}
+                    {isSelected && (
+                      <span className="pointer-events-none absolute end-2 flex items-center justify-center">
+                        <HugeiconsIcon
+                          icon={Check}
+                          className="size-4"
+                          aria-hidden="true"
+                        />
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+              {resolvedPresets.length > 0 && <Separator className="my-1" />}
+              <Popover
+                open={showCustom}
+                onOpenChange={(nextOpen) => {
+                  if (nextOpen) {
+                    setCustomRange(value);
+                    setCalendarMonth(value?.from ?? new Date());
+                  }
+                  setShowCustom(nextOpen);
+                }}
+              >
+                <PopoverTrigger
+                  render={
                     <button
-                      key={preset.id}
                       type="button"
                       data-slot="date-range-filter-option"
                       className={cn(
                         menuSelectionItemClassName,
                         "w-full text-start hover:bg-accent hover:text-accent-foreground",
                       )}
-                      aria-pressed={isSelected}
-                      onClick={() => {
-                        handlePresetSelect(preset.id);
-                        if (closeOnSelect) setOpen(false);
-                      }}
                     >
-                      {preset.label}
-                      {isSelected && (
-                        <span className="pointer-events-none absolute end-2 flex items-center justify-center">
-                          <HugeiconsIcon
-                            icon={Check}
-                            className="size-4"
-                            aria-hidden="true"
-                          />
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-                {resolvedPresets.length > 0 && <Separator className="my-1" />}
-                <button
-                  type="button"
-                  data-slot="date-range-filter-option"
-                  className={cn(
-                    menuSelectionItemClassName,
-                    "w-full text-start hover:bg-accent hover:text-accent-foreground",
-                  )}
-                  aria-expanded={showCustom}
-                  aria-controls={customPanelId}
-                  onClick={() => {
-                    setSelectedPreset(null);
-                    setShowCustom((current) => !current);
-                  }}
-                >
-                  {customLabel}
-                </button>
-                {value?.from && (
-                  <>
-                    <Separator className="my-1" />
-                    <button
-                      type="button"
-                      data-slot="date-range-filter-clear"
-                      className={cn(
-                        menuSelectionItemClassName,
-                        "w-full text-start text-destructive hover:bg-destructive/10 hover:text-destructive focus:bg-destructive/10 focus:text-destructive focus:**:text-destructive dark:hover:bg-destructive-muted dark:focus:bg-destructive-muted",
-                      )}
-                      onClick={clearRange}
-                    >
+                      {customLabel}
                       <HugeiconsIcon
-                        icon={X}
-                        className="size-4"
+                        icon={ChevronRightIcon}
+                        className="absolute end-2 size-4 rtl:rotate-180"
                         aria-hidden="true"
                       />
-                      Clear date filter
                     </button>
-                  </>
-                )}
-              </div>
-              {showCustom && (
-                <div
-                  id={customPanelId}
-                  className="border-t border-border md:border-t-0 md:border-s"
+                  }
+                />
+                <PopoverContent
+                  side="inline-end"
+                  align="start"
+                  className="w-auto gap-0 p-0"
                 >
+                  <PopoverTitle className="sr-only">{customLabel}</PopoverTitle>
                   <Calendar
                     mode="range"
                     numberOfMonths={2}
                     selected={customRange}
                     month={calendarMonth}
                     onMonthChange={setCalendarMonth}
-                    onSelect={(next) => {
-                      setCustomRange(next);
-                      if (next?.from) setCalendarMonth(next.from);
-                      handleCustomChange(next);
-                      if (closeOnSelect && next?.from && next?.to) {
-                        setOpen(false);
-                      }
-                    }}
+                    onSelect={setCustomRange}
                   />
-                </div>
+                  <PopoverFooter className="border-t border-border p-3">
+                    <PopoverClose
+                      render={
+                        <Button size="sm" disabled={!canApplyCustomRange} />
+                      }
+                      onClick={applyCustomRange}
+                    >
+                      {applyLabel}
+                    </PopoverClose>
+                  </PopoverFooter>
+                </PopoverContent>
+              </Popover>
+              {value?.from && (
+                <>
+                  <Separator className="my-1" />
+                  <button
+                    type="button"
+                    data-slot="date-range-filter-clear"
+                    className={cn(
+                      menuSelectionItemClassName,
+                      "w-full text-start text-destructive hover:bg-destructive/10 hover:text-destructive focus:bg-destructive/10 focus:text-destructive focus:**:text-destructive dark:hover:bg-destructive-muted dark:focus:bg-destructive-muted",
+                    )}
+                    onClick={clearRange}
+                  >
+                    <HugeiconsIcon
+                      icon={X}
+                      className="size-4"
+                      aria-hidden="true"
+                    />
+                    Clear date filter
+                  </button>
+                </>
               )}
             </div>
           </PopoverContent>

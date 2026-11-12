@@ -138,7 +138,7 @@ DateRangeFilter is controlled. It provides the approved relative presets and a c
 <DateRangeFilter value={dateRange} onChange={setDateRange} />
 ```
 
-The default choices are Past 24 hours, Past 7 days, Past 4 weeks, Past 3 months, and Custom. Custom reports only a complete range. Clear date filter reports `undefined`. Each relative preset receives a fresh `now` when selected.
+The default choices are Past 24 hours, Past 7 days, Past 4 weeks, Past 3 months, and Custom. Custom opens a side flyout containing the two-month calendar. Selecting dates changes only a draft and keeps the calendar open, including after a complete range is selected. **Apply date range** reports the complete draft and closes both panels. Dismissing without applying discards the draft; reopening starts from the applied value. Clear date filter reports `undefined`. Each relative preset receives a fresh `now` when selected.
 
 Supply `presets` only when product requirements define a different approved set:
 
@@ -173,7 +173,7 @@ Custom trigger icons are exceptional. Pass a Hugeicons glyph, a compatible SVG i
 - Icon-only triggers use `triggerLabel` as their accessible name.
 - Operator and value controls announce their category and current state.
 - The selected-value counter is included in the condensed trigger’s accessible name.
-- DateRangeFilter uses a Popover because its calendar is an interactive grid, not a menu.
+- DateRangeFilter uses nested Popovers because its calendar is an interactive grid, not a menu. Custom has a trailing submenu chevron and opens a named flyout. Enter/Space opens it, Tab reaches its controls and Escape dismisses the current panel without applying.
 - The product announces changes to the resulting dataset. Use a stable polite status region for changing result counts when the surrounding collection does not already provide one.
 
 ## Interface
@@ -218,14 +218,15 @@ Custom trigger icons are exceptional. Pass a Hugeicons glyph, a compatible SVG i
 
 ### DateRangeFilter
 
-| Property        | Type                                      | Default            | Meaning                                           |
-| --------------- | ----------------------------------------- | ------------------ | ------------------------------------------------- |
-| `value`         | `DateRange \| undefined`                  | `undefined`        | Current controlled range                          |
-| `onChange`      | `(range: DateRange \| undefined) => void` | none               | Reports presets, complete custom ranges and clear |
-| `presets`       | `readonly DateRangeFilterPreset[]`        | approved presets   | Replaces the relative choices                     |
-| `triggerLabel`  | `string`                                  | `"Filter by date"` | Label shown without a range                       |
-| `customLabel`   | `string`                                  | `"Custom"`         | Label that reveals the custom calendar            |
-| `closeOnSelect` | `boolean`                                 | `true`             | Closes after a complete selection                 |
+| Property        | Type                                      | Default              | Meaning                                            |
+| --------------- | ----------------------------------------- | -------------------- | -------------------------------------------------- |
+| `value`         | `DateRange \| undefined`                  | `undefined`          | Current controlled range                           |
+| `onChange`      | `(range: DateRange \| undefined) => void` | none                 | Reports presets, applied custom ranges and clear   |
+| `presets`       | `readonly DateRangeFilterPreset[]`        | approved presets     | Replaces the relative choices                      |
+| `triggerLabel`  | `string`                                  | `"Filter by date"`   | Label shown without a range                        |
+| `customLabel`   | `string`                                  | `"Custom"`           | Label that opens the custom calendar flyout        |
+| `applyLabel`    | `string`                                  | `"Apply date range"` | Accessible and visible custom confirmation label   |
+| `closeOnSelect` | `boolean`                                 | `true`               | Closes after preset selection; Apply always closes |
 
 Filter, Sort, and DateRangeFilter accept native `div` properties for outer layout integration.
 

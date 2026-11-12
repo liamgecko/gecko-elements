@@ -12,7 +12,11 @@ import {
   MainSection,
 } from "@/components/layout/docs-section";
 import { Code } from "@/components/layout/docs-code";
-import { DateRangeFilter, Filter, Sort } from "@geckolabs/elements/components/filters";
+import {
+  DateRangeFilter,
+  Filter,
+  Sort,
+} from "@geckolabs/elements/components/filters";
 import type { FilterCategory } from "@geckolabs/elements/components/filters";
 import type { DateRange } from "react-day-picker";
 
@@ -287,7 +291,7 @@ export function FiltersPage() {
       <MainSection
         id="date-range"
         title="Date range"
-        description="DateRangeFilter offers approved relative periods and a custom calendar range. The product owns the selected range and applies it to its dataset or query."
+        description="DateRangeFilter offers immediate relative presets and a Custom flyout. Choose or adjust both dates, then use Apply date range to apply the selection and close the panels. Dismissing without applying keeps the previous range."
       >
         <ComponentExample>
           <div className="space-y-6">
@@ -603,7 +607,7 @@ export function FiltersPage() {
                 name: "onChange",
                 type: "(range: DateRange | undefined) => void",
                 description:
-                  "Runs after a preset, complete custom range, or clear action.",
+                  "Runs after a preset, Apply date range, or clear action.",
               },
               {
                 name: "presets",
@@ -611,11 +615,17 @@ export function FiltersPage() {
                 description: "Overrides the approved relative date choices.",
               },
               {
+                name: "applyLabel",
+                type: "string",
+                defaultValue: '"Apply date range"',
+                description: "Label for the custom-range confirmation button.",
+              },
+              {
                 name: "closeOnSelect",
                 type: "boolean",
                 defaultValue: "true",
                 description:
-                  "Closes after a preset or complete custom range is selected.",
+                  "Closes after a preset selection. Apply date range always closes both panels.",
               },
             ]}
           />
